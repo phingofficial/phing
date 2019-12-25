@@ -29,12 +29,12 @@ class StringFormatter
         return $this->toSpaces($spacesBeforeValue) . $value;
     }
 
-    public function left($value, $fixedLength)
+    public function left(string $value, $fixedLength)
     {
         return $value . $this->toSpaces($fixedLength - strlen($value) + 4);
     }
 
-    private function calculateSpaceBeforeValue($value, $fixedLength)
+    private function calculateSpaceBeforeValue(string $value, $fixedLength)
     {
         return $fixedLength / 2 - strlen($value) / 2;
     }

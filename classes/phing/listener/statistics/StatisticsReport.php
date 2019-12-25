@@ -96,7 +96,7 @@ class StatisticsReport
 
         for ($i = 0; $i < $table->rows(); $i++) {
             for ($j = 0; $j < $table->columns(); $j++) {
-                $sb .= self::$FORMATTER->left($table->get($i, $j), $maxLengths[$j]);
+                $sb .= self::$FORMATTER->left((string) $table->get($i, $j), $maxLengths[$j]);
             }
             $sb .= PHP_EOL;
             $sb .= $this->createTitleBarIfFirstRow($titleBarLength, $i);

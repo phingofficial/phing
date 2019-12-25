@@ -89,7 +89,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
                     } elseif (StringHelper::endsWith($this->queuedData, "\n")) {
                         $lf = "\n";
                     }
-                    $this->queuedData = substr($this->queuedData, 0, strlen($this->queuedData) - strlen($lf)) . $this->suffix . $lf;
+                    $this->queuedData = substr($this->queuedData, 0, strlen((string) $this->queuedData) - strlen($lf)) . $this->suffix . $lf;
                 }
                 return $this->read();
             }

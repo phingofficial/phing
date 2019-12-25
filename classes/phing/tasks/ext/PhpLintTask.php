@@ -232,7 +232,7 @@ class PhpLintTask extends Task
 
         for ($i = 0, $messagesCount = count($messages); $i < $messagesCount; $i++) {
             $message = $messages[$i];
-            if (trim($message) == '') {
+            if (trim((string) $message) == '') {
                 continue;
             }
 

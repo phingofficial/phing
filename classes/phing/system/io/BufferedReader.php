@@ -68,12 +68,12 @@ class BufferedReader extends Reader
             // not all files end with a newline character, so we also need to check EOF
             if (!$this->in->eof()) {
                 $notValidPart     = strrchr($data, "\n");
-                $notValidPartSize = strlen($notValidPart);
+                $notValidPartSize = strlen((string) $notValidPart);
 
                 if ($notValidPartSize > 1) {
                     // Block doesn't finish on a EOL
                     // Find the last EOL and forget all following stuff
-                    $dataSize  = strlen($data);
+                    $dataSize  = strlen((string) $data);
                     $validSize = $dataSize - $notValidPartSize + 1;
 
                     $data = substr($data, 0, $validSize);
@@ -151,7 +151,7 @@ class BufferedReader extends Reader
             // so we just return empty string (char) at this point.  (Probably could also return -1 ...?)
             $ch = $this->buffer !== '' ? $this->buffer[$this->bufferPos] : '';
             $this->bufferPos++;
-            if ($this->bufferPos >= strlen($this->buffer)) {
+            if ($this->bufferPos >= strlen((string) $this->buffer)) {
                 $this->buffer    = null;
                 $this->bufferPos = 0;
             }

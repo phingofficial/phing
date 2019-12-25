@@ -606,7 +606,7 @@ class SmartyTask extends Task
                 // for properties ending in file.contents:
                 // in that case we dump the contents of the file
                 // as the "value" for the Property.
-                if (StringHelper::endsWith('file.contents', $property)) {
+                if (StringHelper::endsWith('file.contents', (string) $property)) {
                     // pull in contents of file specified
 
                     $property = substr($property, 0, strpos($property, 'file.contents') - 1);

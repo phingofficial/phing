@@ -114,7 +114,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
         $first = true;
         foreach ($row as $columnValue) {
             if ($columnValue != null) {
-                $columnValue = trim($columnValue);
+                $columnValue = trim((string) $columnValue);
             }
 
             if ($first) {

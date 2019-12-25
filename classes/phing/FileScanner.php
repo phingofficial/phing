@@ -133,7 +133,7 @@ interface FileScanner
      *                           list is given, all elements must be
      * non-<code>null</code>.
      */
-    public function setIncludes($includes);
+    public function setIncludes(?array $includes);
 
     /**
      * Sets whether or not the file system should be regarded as case sensitive.

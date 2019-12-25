@@ -164,7 +164,7 @@ class ForeachTask extends Task
 
             foreach ($arr as $index => $value) {
                 if ($this->trim) {
-                    $value = trim($value);
+                    $value = trim((string) $value);
                 }
                 $premapped = '';
                 if ($mapper !== null) {

@@ -302,7 +302,7 @@ class ProjectConfigurator
      * @param object  $target  the element to configure
      * @param string  $text    the element's #CDATA
      */
-    public static function addText($project, $target, $text = null)
+    public static function addText($project, $target, ?string $text = null)
     {
         if ($text === null || strlen(trim($text)) === 0) {
             return;

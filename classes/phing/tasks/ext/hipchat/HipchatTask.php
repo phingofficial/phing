@@ -184,7 +184,7 @@ class HipchatTask extends Task
     /**
      * @param string $message
      */
-    public function addText($message)
+    public function addText(string $message)
     {
         $this->message = trim($message);
     }

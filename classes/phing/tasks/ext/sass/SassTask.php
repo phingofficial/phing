@@ -272,7 +272,7 @@ class SassTask extends Task
      *
      * @access public
      */
-    public function setExtfilter($extfilter)
+    public function setExtfilter(string $extfilter)
     {
         $this->extfilter = trim($extfilter, ' .');
     }
@@ -344,7 +344,7 @@ class SassTask extends Task
      *
      * @return void
      */
-    public function setEncoding($encoding)
+    public function setEncoding(string $encoding)
     {
         $encoding = trim($encoding);
         if ($encoding !== '') {
@@ -381,7 +381,7 @@ class SassTask extends Task
      *
      * @access public
      */
-    public function setNewext($newext)
+    public function setNewext(string $newext)
     {
         $this->newext = trim($newext, ' .');
     }
@@ -408,7 +408,7 @@ class SassTask extends Task
      *
      * @access public
      */
-    public function setOutputpath($outputpath)
+    public function setOutputpath(string $outputpath)
     {
         $this->outputpath = rtrim(trim($outputpath), DIRECTORY_SEPARATOR);
     }
@@ -1034,7 +1034,7 @@ class SassTask extends Task
     {
         $outputFile = $this->outputpath . DIRECTORY_SEPARATOR;
 
-        $subpath = trim($this->pathInfo['dirname'], ' .');
+        $subpath = trim((string) $this->pathInfo['dirname'], ' .');
 
         if ($this->keepsubdirectories === true && strlen($subpath) > 0) {
             $outputFile .= $subpath . DIRECTORY_SEPARATOR;

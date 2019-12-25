@@ -99,7 +99,7 @@ class PathTokenizer
 
             $this->lookahead = null;
         } else {
-            $token = trim(array_shift($this->tokens));
+            $token = trim((string) array_shift($this->tokens));
         }
 
         if (
@@ -112,7 +112,7 @@ class PathTokenizer
 
             // spec. We look at the next token
 
-            $nextToken = trim(array_shift($this->tokens));
+            $nextToken = trim((string) array_shift($this->tokens));
 
             if (StringHelper::startsWith('\\', $nextToken) || StringHelper::startsWith('/', $nextToken)) {
                 // we know we are on a DOS style platform and the next path

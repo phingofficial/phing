@@ -77,7 +77,7 @@ class OutputStream
     public function flush()
     {
         error_clear_last();
-        if (false === @fflush($this->stream)) {
+        if (is_resource($this->stream) && false === @fflush($this->stream)) {
             $lastError = error_get_last();
             $errormsg  = $lastError['message'];
             throw new IOException('Could not flush stream: ' . $errormsg);

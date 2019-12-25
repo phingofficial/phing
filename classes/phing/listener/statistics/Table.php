@@ -59,7 +59,7 @@ class Table
         $max   = $length;
         $total = count($this->output);
         for ($i = 0; $i < $total; $i++) {
-            $valueLength = $this->output[$i][$column] !== null ? strlen($this->output[$i][$column]) : 0;
+            $valueLength = $this->output[$i][$column] !== null ? strlen((string) $this->output[$i][$column]) : 0;
             $max         = max([$max, $valueLength]);
         }
         return $max;

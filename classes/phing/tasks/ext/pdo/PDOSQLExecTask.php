@@ -480,7 +480,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @return bool Whether specified SQL looks like a SELECT query.
      */
-    protected function isSelectSql($sql)
+    protected function isSelectSql(string $sql)
     {
         $sql = trim($sql);
 
@@ -495,7 +495,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * @throws BuildException
      * @throws Exception
      */
-    protected function execSQL($sql)
+    protected function execSQL(string $sql)
     {
         // Check and ignore empty statements
         if (trim($sql) == '') {

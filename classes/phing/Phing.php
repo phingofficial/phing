@@ -1204,7 +1204,7 @@ class Phing
         try { // try to read file
             $file         = new PhingFile($versionPath);
             $reader       = new FileReader($file);
-            $phingVersion = trim($reader->read());
+            $phingVersion = trim((string) $reader->read());
         } catch (IOException $iox) {
             throw new ConfigurationException("Can't read version information file");
         }
@@ -1270,7 +1270,7 @@ class Phing
                 // topNames and topDescriptions are handled later
                 // here we store in hash map (for sorting purposes)
                 $topNameDescMap[$targetName] = $targetDescription;
-                if (strlen($targetName) > $maxLength) {
+                if (strlen((string) $targetName) > $maxLength) {
                     $maxLength = strlen($targetName);
                 }
             }
@@ -1741,7 +1741,7 @@ class Phing
      *
      * @return int
      */
-    public static function convertShorthand($val): int
+    public static function convertShorthand(string $val): int
     {
         $val  = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
@@ -1762,7 +1762,7 @@ class Phing
             }
         }
 
-        return $val;
+        return (int) $val;
     }
 
     /**
@@ -1781,7 +1781,7 @@ class Phing
 
         self::$origIniSettings['short_open_tag']  = ini_set('short_open_tag', 'off');
         self::$origIniSettings['default_charset'] = ini_set('default_charset', 'iso-8859-1');
-        self::$origIniSettings['track_errors']    = ini_set('track_errors', 1);
+        self::$origIniSettings['track_errors']    = ini_set('track_errors', '1');
 
         $mem_limit = (int) self::convertShorthand(ini_get('memory_limit'));
         if ($mem_limit < (32 * 1024 * 1024) && $mem_limit > -1) {
@@ -1806,7 +1806,7 @@ class Phing
                     error_reporting($settingValue);
                     break;
                 default:
-                    ini_set($settingName, $settingValue);
+                    ini_set($settingName, (string) $settingValue);
             }
         }
     }

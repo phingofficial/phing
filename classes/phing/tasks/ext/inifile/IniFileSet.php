@@ -83,7 +83,7 @@ class IniFileSet
      *
      * @return void
      */
-    public function setSection($section)
+    public function setSection(string $section)
     {
         $this->section = trim($section);
     }

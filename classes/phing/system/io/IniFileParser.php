@@ -33,7 +33,7 @@ class IniFileParser implements FileParserInterface
      */
     public function parseFile(PhingFile $file)
     {
-        if (($lines = @file($file, FILE_IGNORE_NEW_LINES)) === false) {
+        if (($lines = @file((string) $file, FILE_IGNORE_NEW_LINES)) === false) {
             throw new IOException('Unable to parse contents of ' . $file);
         }
 
@@ -49,15 +49,15 @@ class IniFileParser implements FileParserInterface
         $properties = [];
         foreach ($lines as $line) {
             // strip comments and leading/trailing spaces
-            $line = trim(preg_replace('/\s+[;#]\s.+$/', '', $line));
+            $line = trim((string) preg_replace('/\s+[;#]\s.+$/', '', $line));
 
             if (empty($line) || $line[0] == ';' || $line[0] == '#') {
                 continue;
             }
 
             $pos                   = strpos($line, '=');
-            $property              = trim(substr($line, 0, $pos));
-            $value                 = trim(substr($line, $pos + 1));
+            $property              = trim((string) substr($line, 0, $pos));
+            $value                 = trim((string) substr($line, $pos + 1));
             $properties[$property] = $this->inVal($value);
         } // for each line
 

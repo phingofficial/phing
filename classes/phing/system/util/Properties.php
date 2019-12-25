@@ -182,7 +182,7 @@ class Properties
         $rows = explode("\n", $comments);
         $bw->write('#' . PHP_EOL);
         foreach ($rows as $row) {
-            $bw->write(sprintf('#%s%s', trim($row), PHP_EOL));
+            $bw->write(sprintf('#%s%s', trim((string) $row), PHP_EOL));
         }
         $bw->write('#');
         $bw->newLine();

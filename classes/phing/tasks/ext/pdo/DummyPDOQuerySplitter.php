@@ -40,7 +40,7 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
             $project   = $this->parent->getOwningTarget()->getProject();
-            $line      = $project->replaceProperties(trim($line));
+            $line      = $project->replaceProperties(trim((string) $line));
 
             if (
                 ($line != $delimiter)

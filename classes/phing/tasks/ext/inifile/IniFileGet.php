@@ -60,7 +60,7 @@ class IniFileGet
      *
      * @return void
      */
-    public function setDefault($default)
+    public function setDefault(string $default)
     {
         $this->default = trim($default);
     }
@@ -82,7 +82,7 @@ class IniFileGet
      *
      * @return void
      */
-    public function setSection($section)
+    public function setSection(string $section)
     {
         $this->section = trim($section);
     }

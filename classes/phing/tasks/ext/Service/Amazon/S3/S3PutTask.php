@@ -417,7 +417,7 @@ class S3PutTask extends S3
             if ($this->fileNameOnly) {
                 foreach ($objects as $object) {
                     $this->source = $object;
-                    $this->saveObject(basename($object), $fromDir . DIRECTORY_SEPARATOR . $object);
+                    $this->saveObject(basename((string) $object), $fromDir . DIRECTORY_SEPARATOR . $object);
                 }
             } else {
                 foreach ($objects as $object) {

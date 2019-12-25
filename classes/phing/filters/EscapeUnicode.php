@@ -70,7 +70,7 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
 
         $lines = [];
         foreach ($textArray as $offset => $line) {
-            $lines[] = trim(json_encode($line), '"');
+            $lines[] = trim((string) json_encode($line), '"');
             if (strlen($line) !== strlen($lines[$offset])) {
                 $this->log(
                     'Escape unicode chars on line ' . ($offset + 1)

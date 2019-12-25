@@ -103,7 +103,7 @@ class ProjectHandler extends AbstractHandler
         }
         // these things get done no matter what
         if (null == $name) {
-            $name = basename($this->configurator->getBuildFile());
+            $name = basename((string) $this->configurator->getBuildFile());
         }
 
         $canonicalName = self::canonicalName($name);

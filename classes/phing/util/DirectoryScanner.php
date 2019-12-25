@@ -412,7 +412,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * @param array $includes list of include patterns
      */
-    public function setIncludes($includes = [])
+    public function setIncludes(?array $includes = [])
     {
         if (empty($includes) || null === $includes) {
             $this->includes = null;

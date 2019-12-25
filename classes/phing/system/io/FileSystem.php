@@ -100,7 +100,7 @@ abstract class FileSystem
      *
      * @param string $strPath
      */
-    abstract public function normalize($strPath);
+    abstract public function normalize(string $strPath);
 
     /**
      * Compute the length of this pathname string's prefix.  The pathname
@@ -143,7 +143,7 @@ abstract class FileSystem
      *
      * @param string $path
      */
-    abstract public function fromURIPath($path);
+    abstract public function fromURIPath(string $path);
 
     /* -- Path operations -- */
 
@@ -375,7 +375,7 @@ abstract class FileSystem
      *
      * @return bool
      */
-    public function createDirectory(&$f, $mode = 0755)
+    public function createDirectory(&$f, int $mode = 0755)
     {
         $old_umask = umask(0);
         $return    = @mkdir($f->getAbsolutePath(), $mode);
@@ -732,7 +732,7 @@ abstract class FileSystem
      *
      * @throws Exception
      */
-    public function rmdir($dir, $children = false)
+    public function rmdir(string $dir, $children = false)
     {
         error_clear_last();
 

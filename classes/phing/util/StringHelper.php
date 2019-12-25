@@ -122,7 +122,7 @@ class StringHelper
      *
      * @return bool
      */
-    public static function endsWith($check, $string)
+    public static function endsWith(string $check, string $string)
     {
         if ($check === '' || $check === $string) {
             return true;
@@ -167,7 +167,7 @@ class StringHelper
      *
      * @return bool|int
      */
-    public static function isSlotVar($value)
+    public static function isSlotVar(string $value)
     {
         $value = trim($value);
         if ($value === '') {
@@ -184,7 +184,7 @@ class StringHelper
      *
      * @return string Extracted name part.
      */
-    public static function slotVar($var)
+    public static function slotVar(string $var)
     {
         return trim($var, '%{} ');
     }

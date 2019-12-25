@@ -100,7 +100,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
 
         if ($this->line !== null) {
             $ch = $this->line[0] ?? -1;
-            if (strlen($this->line) === 1) {
+            if (strlen((string) $this->line) === 1) {
                 $this->line = null;
             } else {
                 $part = substr($this->line, 1);

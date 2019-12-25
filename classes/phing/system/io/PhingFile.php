@@ -168,7 +168,7 @@ class PhingFile
         // that's a lastIndexOf
         $index = ($res = strrpos($this->path, FileUtils::$separator)) === false ? -1 : $res;
         if ($index < $this->prefixLength) {
-            if (($this->prefixLength > 0) && (strlen($this->path) > $this->prefixLength)) {
+            if (($this->prefixLength > 0) && (strlen((string) $this->path) > $this->prefixLength)) {
                 return substr($this->path, 0, $this->prefixLength);
             }
 
@@ -222,7 +222,7 @@ class PhingFile
      *
      * @return string Path without basedir
      */
-    public function getPathWithoutBase($basedir)
+    public function getPathWithoutBase(string $basedir)
     {
         if (!StringHelper::endsWith(FileUtils::$separator, $basedir)) {
             $basedir .= FileUtils::$separator;
@@ -656,7 +656,7 @@ class PhingFile
      *
      * @throws IOException
      */
-    public function mkdirs($mode = 0755)
+    public function mkdirs(int $mode = 0755)
     {
         if ($this->exists()) {
             return false;
@@ -682,7 +682,7 @@ class PhingFile
      *
      * @throws IOException
      */
-    public function mkdir($mode = 0755)
+    public function mkdir(int $mode = 0755)
     {
         $fs = FileSystem::getFileSystem();
 

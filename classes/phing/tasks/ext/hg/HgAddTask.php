@@ -127,7 +127,7 @@ class HgAddTask extends HgBaseTask
         $ignores = [];
         $lines   = file('.hgignore');
         foreach ($lines as $line) {
-            $nline     =  trim($line);
+            $nline     =  trim((string) $line);
             $nline     = preg_replace('/\/\*$/', '/', $nline);
             $ignores[] = $nline;
         }

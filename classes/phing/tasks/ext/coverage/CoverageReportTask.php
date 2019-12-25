@@ -288,7 +288,7 @@ class CoverageReportTask extends Task
      *
      * @return DOMElement
      */
-    protected function transformSourceFile($filename, $coverageInformation, $classStartLine = 1)
+    protected function transformSourceFile(string $filename, $coverageInformation, $classStartLine = 1)
     {
         $sourceElement = $this->doc->createElement('sourcefile');
         $sourceElement->setAttribute('name', basename($filename));

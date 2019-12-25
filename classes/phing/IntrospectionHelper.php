@@ -179,7 +179,13 @@ class IntrospectionHelper
                     if ($method->hasReturnType()) {
                         $this->nestedTypes[$name] = $method->getReturnType();
                     } else {
-                        preg_match('/@return[\s]+([\w]+)/', $method->getDocComment(), $matches);
+                        $docComment = $method->getDocComment();
+                        $matches    = [];
+
+                        if (false !== $docComment) {
+                            preg_match('/@return[\s]+([\w]+)/', $docComment, $matches);
+                        }
+
                         if (!empty($matches[1]) && class_exists($matches[1], false)) {
                             $this->nestedTypes[$name] = $matches[1];
                         } else {

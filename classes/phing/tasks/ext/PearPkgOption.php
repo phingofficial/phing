@@ -56,7 +56,7 @@ class PearPkgOption
     /**
      * @param string $txt
      */
-    public function addText($txt)
+    public function addText(string $txt)
     {
         $this->value = trim($txt);
     }

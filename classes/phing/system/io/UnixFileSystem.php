@@ -73,7 +73,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function normalize($strPathname)
+    public function normalize(string $strPathname)
     {
         if (!strlen($strPathname)) {
             return '';
@@ -292,7 +292,7 @@ class UnixFileSystem extends FileSystem
      *
      * @return string
      */
-    public function fromURIPath($p)
+    public function fromURIPath(string $p)
     {
         if (StringHelper::endsWith('/', $p) && (strlen($p) > 1)) {
             // "/foo/" --> "/foo", but "/" --> "/"

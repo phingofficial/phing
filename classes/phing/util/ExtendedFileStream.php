@@ -140,6 +140,10 @@ class ExtendedFileStream
      */
     public function stream_flush()
     {
+        if (!is_resource($this->fp)) {
+            return false;
+        }
+
         return fflush($this->fp);
     }
 

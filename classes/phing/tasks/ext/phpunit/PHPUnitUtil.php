@@ -88,7 +88,7 @@ class PHPUnitUtil
      *
      * @return string the name fo the class
      */
-    public static function getClassFromFileName($filename)
+    public static function getClassFromFileName(string $filename)
     {
         $filename = basename($filename);
 

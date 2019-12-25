@@ -274,7 +274,7 @@ class PHPUnitReportTask extends Task
                 // do nothing
             }
 
-            $child->setAttribute('package', trim($package));
+            $child->setAttribute('package', trim((string) $package));
         }
     }
 

@@ -333,10 +333,10 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
                     if ($type === 'tokenchar') {
                         $name = $params[$i]->getName();
                         if ($name === 'begintoken') {
-                            $this->beginToken = substr($params[$i]->getValue(), 0, strlen($params[$i]->getValue()));
+                            $this->beginToken = substr($params[$i]->getValue(), 0, strlen((string) $params[$i]->getValue()));
                         } else {
                             if ($name === 'endtoken') {
-                                $this->endToken = substr($params[$i]->getValue(), 0, strlen($params[$i]->getValue()));
+                                $this->endToken = substr($params[$i]->getValue(), 0, strlen((string) $params[$i]->getValue()));
                             }
                         }
                     } else {

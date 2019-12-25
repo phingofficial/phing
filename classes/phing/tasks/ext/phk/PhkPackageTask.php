@@ -231,7 +231,7 @@ class PhkPackageTask extends Task
         /*
          * Print with Phing log...
          */
-        $output = trim(ob_get_clean());
+        $output = trim((string) ob_get_clean());
         $output = explode("\n", $output);
         foreach ($output as $line) {
             /*

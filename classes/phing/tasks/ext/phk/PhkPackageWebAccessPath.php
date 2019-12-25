@@ -31,7 +31,7 @@ class PhkPackageWebAccessPath
     /**
      * @param string $path
      */
-    public function addText($path)
+    public function addText(string $path)
     {
         $this->path = trim($path);
     }

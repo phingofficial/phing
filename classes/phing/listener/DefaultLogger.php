@@ -183,8 +183,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
             if ($cause === null) {
                 break;
             }
-            $msg1 = trim($error);
-            $msg2 = trim($cause);
+            $msg1 = trim((string) $error);
+            $msg2 = trim((string) $cause);
             if (StringHelper::endsWith($msg2, $msg1)) {
                 $msg  .= StringHelper::substring($msg1, 0, strlen($msg1) - strlen($msg2) - 1);
                 $error = $cause;

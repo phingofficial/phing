@@ -86,7 +86,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
             // Remove the last "\n" from buffer for
             // prevent explode to add an empty cell at
             // the end of array
-            $buffer = trim($buffer, "\n");
+            $buffer = trim((string) $buffer, "\n");
 
             $lines = explode("\n", $buffer);
             $skip  = $this->skip > 0 ? $this->skip : 0;

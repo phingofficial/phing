@@ -361,9 +361,9 @@ class Project
      *
      * @param string $targetName
      */
-    public function setDefaultTarget($targetName)
+    public function setDefaultTarget(string $targetName)
     {
-        $this->defaultTarget = (string) trim($targetName);
+        $this->defaultTarget = trim($targetName);
     }
 
     /**
@@ -385,9 +385,9 @@ class Project
      *
      * @author Andreas Aderhold, andi@binarycloud.com
      */
-    public function setName($name)
+    public function setName(string $name)
     {
-        $this->name = (string) trim($name);
+        $this->name = trim($name);
         $this->setUserProperty('phing.project.name', $this->name);
     }
 
@@ -431,10 +431,10 @@ class Project
      *
      * @param string $version
      */
-    public function setPhingVersion($version)
+    public function setPhingVersion(string $version)
     {
         $version            = str_replace('phing', '', strtolower($version));
-        $this->phingVersion = (string) trim($version);
+        $this->phingVersion = trim($version);
     }
 
     /**
@@ -839,7 +839,7 @@ class Project
             || strcasecmp($s, 'true') === 0
             || strcasecmp($s, 'yes') === 0
             // FIXME next condition should be removed if the boolean behavior for properties will be solved
-            || strcasecmp($s, 1) === 0;
+            || strcasecmp($s, '1') === 0;
     }
 
     /**

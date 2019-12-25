@@ -232,7 +232,7 @@ class WindowsFileSystem extends FileSystem
      *
      * @return string
      */
-    public function normalize($strPath)
+    public function normalize(string $strPath)
     {
         $strPath = $this->fixEncoding($strPath);
 
@@ -356,7 +356,7 @@ class WindowsFileSystem extends FileSystem
      *
      * @return string
      */
-    public function fromURIPath($strPath)
+    public function fromURIPath(string $strPath)
     {
         $p = (string) $strPath;
         if ((strlen($p) > 2) && ($p[2] === ':')) {
@@ -364,10 +364,10 @@ class WindowsFileSystem extends FileSystem
             $p = substr($p, 1);
 
             // "c:/foo/" --> "c:/foo", but "c:/" --> "c:/"
-            if ((strlen($p) > 3) && StringHelper::endsWith('/', $p)) {
+            if ((strlen($p) > 3) && StringHelper::endsWith('/', (string) $p)) {
                 $p = substr($p, 0, strlen($p) - 1);
             }
-        } elseif ((strlen($p) > 1) && StringHelper::endsWith('/', $p)) {
+        } elseif ((strlen($p) > 1) && StringHelper::endsWith('/', (string) $p)) {
             // "/foo/" --> "/foo"
             $p = substr($p, 0, strlen($p) - 1);
         }
@@ -560,7 +560,7 @@ class WindowsFileSystem extends FileSystem
      */
     private function fixEncoding($strPath)
     {
-        $codepage = 'CP' . trim(strstr(setlocale(LC_CTYPE, ''), '.'), '.');
+        $codepage = 'CP' . trim((string) strstr(setlocale(LC_CTYPE, ''), '.'), '.');
         if (function_exists('iconv')) {
             $strPath = iconv('UTF-8', $codepage . '//IGNORE', $strPath);
         } elseif (function_exists('mb_convert_encoding')) {

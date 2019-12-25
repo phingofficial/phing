@@ -64,7 +64,7 @@ class XmlPropertyTask extends PropertyTask
      *
      * @since  2.0
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix)
     {
         $this->prefix = $prefix;
         if (!StringHelper::endsWith('.', $prefix)) {
@@ -174,7 +174,7 @@ class XmlPropertyTask extends PropertyTask
      *
      * @param PhingFile $file
      *
-     * @return Properties
+     * @return Properties|null
      *
      * @throws BuildException
      */
@@ -204,5 +204,7 @@ class XmlPropertyTask extends PropertyTask
         } catch (IOException $ioe) {
             throw new BuildException('Could not load properties from file.', $ioe);
         }
+
+        return null;
     }
 }

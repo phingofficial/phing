@@ -139,7 +139,7 @@ class HtmlColorLogger extends DefaultLogger
             $message = str_replace($search, $replace, $message);
 
             if (preg_match('@^( +)([^ ].+)@', $message, $matches)) {
-                $len   = strlen($matches[1]);
+                $len   = strlen((string) $matches[1]);
                 $space = '&nbsp;';
                 for ($i = 1; $i < $len; $i++) {
                     $space .= '&nbsp;';

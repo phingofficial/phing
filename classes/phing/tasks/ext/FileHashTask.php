@@ -135,7 +135,7 @@ class FileHashTask extends Task
         // publish hash value
         $this->project->setProperty($this->propertyName, $hashValue);
         $fos = new FileOutputStream($this->file . '.' . $this->algorithm);
-        $fos->write(sprintf('%s  %s', $hashValue, basename($this->file)));
+        $fos->write(sprintf('%s  %s', $hashValue, basename((string) $this->file)));
     }
 
     /**

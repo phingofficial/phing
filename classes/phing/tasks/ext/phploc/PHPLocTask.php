@@ -98,7 +98,7 @@ class PHPLocTask extends Task
      */
     public function setFile(PhingFile $file)
     {
-        $this->fileToCheck = trim($file);
+        $this->fileToCheck = trim((string) $file);
     }
 
     /**
@@ -112,7 +112,7 @@ class PHPLocTask extends Task
     /**
      * @param string $type
      */
-    public function setReportType($type)
+    public function setReportType(string $type)
     {
         $this->reportType = trim($type);
     }
@@ -120,7 +120,7 @@ class PHPLocTask extends Task
     /**
      * @param string $name
      */
-    public function setReportName($name)
+    public function setReportName(string $name)
     {
         $this->reportFileName = trim($name);
     }
@@ -128,7 +128,7 @@ class PHPLocTask extends Task
     /**
      * @param string $directory
      */
-    public function setReportDirectory($directory)
+    public function setReportDirectory(string $directory)
     {
         $this->reportDirectory = trim($directory);
     }

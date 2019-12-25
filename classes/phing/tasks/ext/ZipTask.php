@@ -285,7 +285,7 @@ class ZipTask extends MatchingTask
                 $f = new PhingFile($fsBasedir, $file);
 
                 $pathInZip = $this->prefix
-                    . $f->getPathWithoutBase($fsBasedir);
+                    . $f->getPathWithoutBase((string) $fsBasedir);
 
                 $pathInZip = str_replace('\\', '/', $pathInZip);
 

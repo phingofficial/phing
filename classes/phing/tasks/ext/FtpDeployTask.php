@@ -402,7 +402,7 @@ class FtpDeployTask extends Task
             $rawInfo  = explode(' ', $rawInfo);
             $rawInfo2 = [];
             foreach ($rawInfo as $part) {
-                $part = trim($part);
+                $part = trim((string) $part);
                 if (!empty($part)) {
                     $rawInfo2[] = $part;
                 }

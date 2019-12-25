@@ -97,7 +97,7 @@ abstract class AbstractHandler
      * @throws ExpatParseException if there is no CDATA but method
      *            was called
      */
-    public function characters($data)
+    public function characters(string $data)
     {
         $s = trim($data);
         if (strlen($s) > 0) {

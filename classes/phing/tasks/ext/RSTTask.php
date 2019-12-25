@@ -252,7 +252,7 @@ class RSTTask extends Task
         $targetDir = str_replace('/./', '/', dirname($targetFile));
         if (!is_dir($targetDir)) {
             $this->log(sprintf("Creating directory '%s'", $targetDir), Project::MSG_VERBOSE);
-            mkdir($targetDir, $this->mode, true);
+            mkdir($targetDir, (int) $this->mode, true);
         }
 
         $cmd = $tool

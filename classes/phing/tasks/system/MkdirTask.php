@@ -98,12 +98,12 @@ class MkdirTask extends Task
     /**
      * Sets mode to create directory with
      *
-     * @param mixed $mode
+     * @param int $mode
      *
      * @return void
      */
-    public function setMode($mode)
+    public function setMode(int $mode)
     {
-        $this->mode = base_convert((int) $mode, 8, 10);
+        $this->mode = (int) base_convert($mode, 8, 10);
     }
 }

@@ -51,7 +51,7 @@ class PDODelimitersTest extends BuildFileTest
         $this->mockTask->setOwningTarget($targets['test']);
     }
 
-    public function storeQuery($query)
+    public function storeQuery(string $query)
     {
         $query = trim($query);
         if (strlen($query)) {

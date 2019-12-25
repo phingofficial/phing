@@ -94,7 +94,7 @@ class GitBranchTaskTest extends BuildFileTest
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
-        if (version_compare(substr(trim(exec('git --version')), strlen('git version ')), '2.15.0', '<')) {
+        if (version_compare(substr(trim((string) exec('git --version')), strlen('git version ')), '2.15.0', '<')) {
             $this->executeTarget('setUpstreamParamSet');
         } else {
             $this->executeTarget('setUpstreamToParamSet');
