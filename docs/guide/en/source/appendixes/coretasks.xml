@@ -3346,6 +3346,13 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>required</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to halt with an error if the property file does not exist.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
