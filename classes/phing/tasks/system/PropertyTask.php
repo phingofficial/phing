@@ -91,7 +91,7 @@ class PropertyTask extends Task
     /**
      * Whether the task should fail when the property file is not found.
      */
-    private $failOnError = false;
+    private $required = false;
 
     /**
      * @param FileParserFactoryInterface $fileParserFactory
@@ -103,11 +103,21 @@ class PropertyTask extends Task
     }
 
     /**
-     * @param bool $flag
+     * File required or not.
+     *
+     * @param string $d
      */
-    public function setFailOnError($flag): void
+    public function setRequired($d)
     {
-        $this->failOnError = $flag;
+        $this->required = $d;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequired()
+    {
+        return $this->required;
     }
 
     /**
@@ -492,7 +502,7 @@ class PropertyTask extends Task
                 $props->load($file);
                 $this->addProperties($props);
             } else {
-                if ($this->failOnError) {
+                if ($this->required) {
                     throw new BuildException("Unable to find property file: " . $file->getAbsolutePath());
                 }
 
