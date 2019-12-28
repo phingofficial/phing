@@ -58,4 +58,8 @@
     <fileset id="sourcefiles" dir="././ext/" includes="**/*.bin"/>
     <echo> sourcefiles = ${toString:sourcefiles} </echo>
   </target>
+
+  <target name="testRequired">
+    <property file="foo.bar" required="true" />
+  </target>
 </project>
