@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a135fb8d57147f95c516492bd0fc8afe",
+    "content-hash": "1583474b36771e54c2c4445bf753e76e",
     "packages": [],
     "packages-dev": [
         {
@@ -728,16 +728,16 @@
             "time": "2012-08-16T17:13:03+00:00"
         },
         {
-            "name": "mikey179/vfsStream",
+            "name": "mikey179/vfsstream",
             "version": "v1.6.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mikey179/vfsStream.git",
+                "url": "https://github.com/bovigo/vfsStream.git",
                 "reference": "fefd182fa739d4e23d9dc7c80d3344f528d600ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/fefd182fa739d4e23d9dc7c80d3344f528d600ab",
+                "url": "https://api.github.com/repos/bovigo/vfsStream/zipball/fefd182fa739d4e23d9dc7c80d3344f528d600ab",
                 "reference": "fefd182fa739d4e23d9dc7c80d3344f528d600ab",
                 "shasum": ""
             },
@@ -1546,12 +1546,12 @@
             "version": "v2.8.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phpDocumentor/phpDocumentor2.git",
+                "url": "https://github.com/phpDocumentor/phpDocumentor.git",
                 "reference": "adfb4affa80e8cc0134616f2d2d264dd25c243eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/phpDocumentor2/zipball/adfb4affa80e8cc0134616f2d2d264dd25c243eb",
+                "url": "https://api.github.com/repos/phpDocumentor/phpDocumentor/zipball/adfb4affa80e8cc0134616f2d2d264dd25c243eb",
                 "reference": "adfb4affa80e8cc0134616f2d2d264dd25c243eb",
                 "shasum": ""
             },
@@ -2324,6 +2324,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2015-10-02T06:51:40+00:00"
         },
         {
