@@ -17,5 +17,3 @@ ansible/playbook.retry
 test/etc/tasks/system/defaultexcludestestinput/
 test/etc/types/selectors/tmp/
 test/tmp/
-custom.type.properties
-custom.task.properties
