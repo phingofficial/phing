@@ -2055,7 +2055,7 @@
                     </optional>
                 </choice>
                 <optional>
-                    <attribute name="override">
+                    <attribute name="override" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -2066,7 +2066,19 @@
                     <attribute name="refid"/>
                 </optional>
                 <optional>
-                    <attribute name="fallback"/>
+                    <attribute name="logoutput" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="quiet" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="required" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
                 </optional>
             </interleave>
         </element>

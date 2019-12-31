@@ -116,4 +116,9 @@ class PropertyTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
     }
+
+    public function testRequired()
+    {
+        $this->expectBuildException(__FUNCTION__, 'Unable to find property file.');
+    }
 }
