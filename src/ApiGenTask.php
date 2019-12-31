@@ -55,9 +55,9 @@ class ApiGenTask extends \Task
      *
      * @param string $executable
      */
-    public function setExecutable($executable): void
+    public function setExecutable(string $executable): void
     {
-        $this->executable = (string) $executable;
+        $this->executable = $executable;
     }
 
     /**
@@ -65,9 +65,9 @@ class ApiGenTask extends \Task
      *
      * @param string $action
      */
-    public function setAction($action): void
+    public function setAction(string $action): void
     {
-        $this->action = (string) $action;
+        $this->action = $action;
     }
 
     /**
@@ -75,9 +75,9 @@ class ApiGenTask extends \Task
      *
      * @param string $config
      */
-    public function setConfig($config): void
+    public function setConfig(string $config): void
     {
-        $this->options['config'] = (string) $config;
+        $this->options['config'] = $config;
     }
 
     /**
@@ -85,7 +85,7 @@ class ApiGenTask extends \Task
      *
      * @param string $source
      */
-    public function setSource($source): void
+    public function setSource(string $source): void
     {
         $this->options['source'] = explode(',', $source);
     }
@@ -95,9 +95,9 @@ class ApiGenTask extends \Task
      *
      * @param string $destination
      */
-    public function setDestination($destination): void
+    public function setDestination(string $destination): void
     {
-        $this->options['destination'] = (string) $destination;
+        $this->options['destination'] = $destination;
     }
 
     /**
@@ -105,7 +105,7 @@ class ApiGenTask extends \Task
      *
      * @param string $extensions
      */
-    public function setExtensions($extensions): void
+    public function setExtensions(string $extensions): void
     {
         $this->options['extensions'] = explode(',', $extensions);
     }
@@ -115,7 +115,7 @@ class ApiGenTask extends \Task
      *
      * @param string $exclude
      */
-    public function setExclude($exclude): void
+    public function setExclude(string $exclude): void
     {
         $this->options['exclude'] = explode(',', $exclude);
     }
@@ -125,7 +125,7 @@ class ApiGenTask extends \Task
      *
      * @param string $skipDocPath
      */
-    public function setSkipDocPath($skipDocPath): void
+    public function setSkipDocPath(string $skipDocPath): void
     {
         $this->options['skip-doc-path'] = explode(',', $skipDocPath);
     }
@@ -135,7 +135,7 @@ class ApiGenTask extends \Task
      *
      * @param string $charset
      */
-    public function setCharset($charset): void
+    public function setCharset(string $charset): void
     {
         $this->options['charset'] = explode(',', $charset);
     }
@@ -145,9 +145,9 @@ class ApiGenTask extends \Task
      *
      * @param string $main
      */
-    public function setMain($main): void
+    public function setMain(string $main): void
     {
-        $this->options['main'] = (string) $main;
+        $this->options['main'] = $main;
     }
 
     /**
@@ -155,9 +155,9 @@ class ApiGenTask extends \Task
      *
      * @param string $title
      */
-    public function setTitle($title): void
+    public function setTitle(string $title): void
     {
-        $this->options['title'] = (string) $title;
+        $this->options['title'] = $title;
     }
 
     /**
@@ -165,9 +165,9 @@ class ApiGenTask extends \Task
      *
      * @param string $baseUrl
      */
-    public function setBaseUrl($baseUrl): void
+    public function setBaseUrl(string $baseUrl): void
     {
-        $this->options['base-url'] = (string) $baseUrl;
+        $this->options['base-url'] = $baseUrl;
     }
 
     /**
@@ -175,9 +175,9 @@ class ApiGenTask extends \Task
      *
      * @param string $googleCseId
      */
-    public function setGoogleCseId($googleCseId): void
+    public function setGoogleCseId(string $googleCseId): void
     {
-        $this->options['google-cse-id'] = (string) $googleCseId;
+        $this->options['google-cse-id'] = $googleCseId;
     }
 
     /**
@@ -185,9 +185,9 @@ class ApiGenTask extends \Task
      *
      * @param string $googleCseLabel
      */
-    public function setGoogleCseLabel($googleCseLabel): void
+    public function setGoogleCseLabel(string $googleCseLabel): void
     {
-        $this->options['google-cse-label'] = (string) $googleCseLabel;
+        $this->options['google-cse-label'] = $googleCseLabel;
     }
 
     /**
@@ -195,9 +195,9 @@ class ApiGenTask extends \Task
      *
      * @param string $googleAnalytics
      */
-    public function setGoogleAnalytics($googleAnalytics): void
+    public function setGoogleAnalytics(string $googleAnalytics): void
     {
-        $this->options['google-analytics'] = (string) $googleAnalytics;
+        $this->options['google-analytics'] = $googleAnalytics;
     }
 
     /**
@@ -205,9 +205,9 @@ class ApiGenTask extends \Task
      *
      * @param string $templateConfig
      */
-    public function setTemplateConfig($templateConfig): void
+    public function setTemplateConfig(string $templateConfig): void
     {
-        $this->options['template-config'] = (string) $templateConfig;
+        $this->options['template-config'] = $templateConfig;
     }
 
     /**
@@ -215,9 +215,9 @@ class ApiGenTask extends \Task
      *
      * @param string $templateTheme
      */
-    public function setTemplateTheme($templateTheme): void
+    public function setTemplateTheme(string $templateTheme): void
     {
-        $this->options['template-theme'] = (string) $templateTheme;
+        $this->options['template-theme'] = $templateTheme;
     }
 
     /**
@@ -225,9 +225,9 @@ class ApiGenTask extends \Task
      *
      * @param string $groups
      */
-    public function setGroups($groups): void
+    public function setGroups(string $groups): void
     {
-        $this->options['groups'] = (string) $groups;
+        $this->options['groups'] = $groups;
     }
 
     /**
@@ -237,9 +237,9 @@ class ApiGenTask extends \Task
      *
      * @param string $accessLevels
      */
-    public function setAccessLevels($accessLevels): void
+    public function setAccessLevels(string $accessLevels): void
     {
-        $this->options['access-levels'] = (string) $accessLevels;
+        $this->options['access-levels'] = $accessLevels;
     }
 
     /**
@@ -249,9 +249,9 @@ class ApiGenTask extends \Task
      *
      * @param string $annotationGroups
      */
-    public function setAnnotationGroups($annotationGroups): void
+    public function setAnnotationGroups(string $annotationGroups): void
     {
-        $this->options['annotation-groups'] = (string) $annotationGroups;
+        $this->options['annotation-groups'] = $annotationGroups;
     }
 
     /**
