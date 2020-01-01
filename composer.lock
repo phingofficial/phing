@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ba4a4a6bcbe9617cebb4e49d6b57e4f",
+    "content-hash": "68a715db9fbc72f51947a871f597c356",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -111,12 +111,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-apigen.git",
-                "reference": "76041155d38d1036e950ec1f11435ba5b27a8aa4"
+                "reference": "91cbdd1a179fc8335db0dc81fc21b75821fbf90c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-apigen/zipball/76041155d38d1036e950ec1f11435ba5b27a8aa4",
-                "reference": "76041155d38d1036e950ec1f11435ba5b27a8aa4",
+                "url": "https://api.github.com/repos/phingofficial/task-apigen/zipball/91cbdd1a179fc8335db0dc81fc21b75821fbf90c",
+                "reference": "91cbdd1a179fc8335db0dc81fc21b75821fbf90c",
                 "shasum": ""
             },
             "require": {
@@ -147,7 +147,57 @@
                 }
             ],
             "description": "Task for ApiGen, a tool for creating professional API documentation from PHP source code.",
-            "time": "2019-12-31T01:30:36+00:00"
+            "time": "2020-01-01T14:03:10+00:00"
+        },
+        {
+            "name": "phing/task-liquibase",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-liquibase.git",
+                "reference": "e9060a0ae1ac5d011c3e0d6ddeea8abc8fdb5bda"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-liquibase/zipball/e9060a0ae1ac5d011c3e0d6ddeea8abc8fdb5bda",
+                "reference": "e9060a0ae1ac5d011c3e0d6ddeea8abc8fdb5bda",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev"
+            },
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "liquibase-changelog": "Phing\\Tasks\\Ext\\LiquibaseChangeLogTask",
+                    "liquibase-dbdoc": "Phing\\Tasks\\Ext\\LiquibaseDbDocTask",
+                    "liquibase-diff": "Phing\\Tasks\\Ext\\LiquibaseDiffTask",
+                    "liquibase-rollback": "Phing\\Tasks\\Ext\\LiquibaseRollbackTask",
+                    "liquibase-tag": "Phing\\Tasks\\Ext\\LiquibaseTagTask",
+                    "liquibase-update": "Phing\\Tasks\\Ext\\LiquibaseUpdateTask",
+                    "liquibase": "Phing\\Tasks\\Ext\\LiquibaseTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "The LiquibaseTask is a generic task for liquibase commands that don't require extra command parameters.",
+            "time": "2020-01-01T14:29:40+00:00"
         },
         {
             "name": "psr/log",
@@ -1741,23 +1791,25 @@
         },
         {
             "name": "mtdowling/jmespath.php",
-            "version": "2.4.0",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jmespath/jmespath.php.git",
-                "reference": "adcc9531682cf87dfda21e1fd5d0e7a41d292fac"
+                "reference": "52168cb9472de06979613d365c7f1ab8798be895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/adcc9531682cf87dfda21e1fd5d0e7a41d292fac",
-                "reference": "adcc9531682cf87dfda21e1fd5d0e7a41d292fac",
+                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/52168cb9472de06979613d365c7f1ab8798be895",
+                "reference": "52168cb9472de06979613d365c7f1ab8798be895",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.4.0",
+                "symfony/polyfill-mbstring": "^1.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "composer/xdebug-handler": "^1.2",
+                "phpunit/phpunit": "^4.8.36|^7.5.15"
             },
             "bin": [
                 "bin/jp.php"
@@ -1765,7 +1817,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -1792,7 +1844,7 @@
                 "json",
                 "jsonpath"
             ],
-            "time": "2016-12-03T22:08:25+00:00"
+            "time": "2019-12-30T18:03:34+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -6002,6 +6054,7 @@
     "stability-flags": {
         "phing/phing-composer-configurator": 20,
         "phing/task-apigen": 20,
+        "phing/task-liquibase": 20,
         "pear/net_growl": 20,
         "pear/versioncontrol_git": 20
     },
