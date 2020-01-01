@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Svn tasks - Test Suite" default="test" basedir="tests/unit/">
+    <fileset id="test.files" dir="." includes="*Test.php" excludes="Abstract*"/>
+    <target name="test">
+        <phpunit configuration="../../phpunit.xml">
+            <batchtest>
+                <fileset refid="test.files"/>
+            </batchtest>
+        </phpunit>
+    </target>
+</project>

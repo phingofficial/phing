@@ -16,16 +16,35 @@
   },
   "require-dev": {
     "phing/phing": "3.0.x-dev",
-    "pear/versioncontrol_svn": "dev-master"
+    "pear/versioncontrol_svn": "^0.5",
+    "phpunit/phpunit": "^8.5"
   },
   "autoload": {
     "psr-4": {
       "Phing\\Tasks\\Ext\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Phing\\Test\\Tasks\\Ext\\": "tests/unit/"
+    }
+  },
   "extra": {
     "phing-custom-taskdefs": {
-      "svncheckout": "Phing\\Tasks\\Ext\\SvnCheckoutTask"
+      "svnlastrevision": "Phing\\Tasks\\Ext\\SvnLastRevisionTask",
+      "svncheckout": "Phing\\Tasks\\Ext\\SvnCheckoutTask",
+      "svnexport": "Phing\\Tasks\\Ext\\SvnExportTask",
+      "svnupdate": "Phing\\Tasks\\Ext\\SvnUpdateTask",
+      "svnswitch": "Phing\\Tasks\\Ext\\SvnSwitchTask",
+      "svncopy": "Phing\\Tasks\\Ext\\SvnCopyTask",
+      "svncommit": "Phing\\Tasks\\Ext\\SvnCommitTask",
+      "svnlist": "Phing\\Tasks\\Ext\\SvnListTask",
+      "svnlog": "Phing\\Tasks\\Ext\\SvnLogTask",
+      "svninfo": "Phing\\Tasks\\Ext\\SvnInfoTask",
+      "svnproplist": "Phing\\Tasks\\Ext\\SvnProplistTask",
+      "svnpropget": "Phing\\Tasks\\Ext\\SvnPropgetTask",
+      "svnpropset": "Phing\\Tasks\\Ext\\SvnPropsetTask",
+      "svnrevert": "Phing\\Tasks\\Ext\\SvnRevertTask"
     }
   }
 }
