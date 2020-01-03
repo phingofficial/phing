@@ -2,6 +2,14 @@ P     H     I     N     G
 =========================
 
 
+Jan. 3, 2019 - Phing 2.16.2
+---------------------------
+
+This patch release fixes the following issue:
+
+ * PHP-7.4: PHP Deprecated: Array and string offset access syntax with curly braces [\#1210](https://github.com/phingofficial/phing/issues/1210)
+ * Add symfony/yaml ^2.8 to restore PHP 5.4 compatibility [\#919](https://github.com/phingofficial/phing/issues/919)
+
 Jan. 25, 2018 - Phing 2.16.1
 ----------------------------
 
