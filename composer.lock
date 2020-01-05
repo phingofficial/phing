@@ -525,16 +525,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.130.2",
+            "version": "3.130.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "35289d9dd5184dd1106e49f99ef5074a84635b5c"
+                "reference": "916356edb5c30fa564d02de94bde51a9c0bb4469"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/35289d9dd5184dd1106e49f99ef5074a84635b5c",
-                "reference": "35289d9dd5184dd1106e49f99ef5074a84635b5c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/916356edb5c30fa564d02de94bde51a9c0bb4469",
+                "reference": "916356edb5c30fa564d02de94bde51a9c0bb4469",
                 "shasum": ""
             },
             "require": {
@@ -605,7 +605,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-12-23T19:12:28+00:00"
+            "time": "2020-01-02T19:13:50+00:00"
         },
         {
             "name": "cilex/cilex",
@@ -5412,6 +5412,7 @@
                 "psr-6",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-cache",
             "time": "2019-08-28T21:34:32+00:00"
         },
         {
@@ -5468,6 +5469,7 @@
                 "config",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-config",
             "time": "2016-02-04T23:01:10+00:00"
         },
         {
@@ -5522,6 +5524,7 @@
                 "events",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-eventmanager",
             "time": "2018-04-25T15:33:34+00:00"
         },
         {
@@ -5587,6 +5590,7 @@
                 "filter",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-filter",
             "time": "2019-08-19T07:08:04+00:00"
         },
         {
@@ -5645,6 +5649,7 @@
                 "hydrator",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-hydrator",
             "time": "2016-02-18T22:38:26+00:00"
         },
         {
@@ -5713,6 +5718,7 @@
                 "i18n",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-i18n",
             "time": "2019-09-30T12:04:37+00:00"
         },
         {
@@ -5763,6 +5769,7 @@
                 "json",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-json",
             "time": "2019-10-09T13:56:13+00:00"
         },
         {
@@ -5820,6 +5827,7 @@
                 "serializer",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-serializer",
             "time": "2019-10-19T08:06:30+00:00"
         },
         {
@@ -5872,6 +5880,7 @@
                 "servicemanager",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-servicemanager",
             "time": "2018-06-22T14:49:54+00:00"
         },
         {
@@ -5931,6 +5940,7 @@
                 "stdlib",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-stdlib",
             "time": "2016-04-12T21:17:31+00:00"
         },
         {

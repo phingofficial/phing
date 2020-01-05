@@ -105,7 +105,6 @@
                 <ref name="coverage-setup"/>
                 <ref name="coverage-threshold"/>
                 <ref name="dbdeploy"/>
-                <ref name="exportproperties"/>
                 <ref name="filehash"/>
                 <ref name="filesize"/>
                 <ref name="filesync"/>
@@ -2936,23 +2935,6 @@
 
                 <optional>
                     <attribute name="checkall"/>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
-    <!--
-        =========================================
-        ExportPropertiesTask
-        =========================================
-    -->
-
-    <define name="exportproperties">
-        <element name="exportproperties">
-            <interleave>
-                <attribute name="targetfile"/>
-                <optional>
-                    <attribute name="disallowedpropertyprefixes"/>
                 </optional>
             </interleave>
         </element>
