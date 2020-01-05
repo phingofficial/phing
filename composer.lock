@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "68a715db9fbc72f51947a871f597c356",
+    "content-hash": "f5ba64e76d7239a7c78b3d6631d403e3",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -148,6 +148,53 @@
             ],
             "description": "Task for ApiGen, a tool for creating professional API documentation from PHP source code.",
             "time": "2020-01-01T14:03:10+00:00"
+        },
+        {
+            "name": "phing/task-coverage",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-coverage.git",
+                "reference": "ef0c259cdb0312953dcdfb655efcf4584b8e065c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/ef0c259cdb0312953dcdfb655efcf4584b8e065c",
+                "reference": "ef0c259cdb0312953dcdfb655efcf4584b8e065c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev"
+            },
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "coverage-setup": "Phing\\Tasks\\Ext\\Coverage\\CoverageSetupTask",
+                    "coverage-merger": "Phing\\Tasks\\Ext\\Coverage\\CoverageMergerTask",
+                    "coverage-report": "Phing\\Tasks\\Ext\\Coverage\\CoverageReportTask",
+                    "coverage-threshold": "Phing\\Tasks\\Ext\\Coverage\\CoverageThresholdTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\Coverage\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "coverage database tasks which can be used to gather code coverage information for unit tests.",
+            "time": "2020-01-05T16:35:58+00:00"
         },
         {
             "name": "phing/task-liquibase",
@@ -6065,6 +6112,7 @@
         "phing/phing-composer-configurator": 20,
         "phing/task-apigen": 20,
         "phing/task-liquibase": 20,
+        "phing/task-coverage": 20,
         "pear/net_growl": 20,
         "pear/versioncontrol_git": 20
     },
