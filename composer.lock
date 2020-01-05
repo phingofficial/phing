@@ -155,12 +155,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-coverage.git",
-                "reference": "6ac90392395ee25d44fda9f7c4bc18a16cc9e163"
+                "reference": "ef0c259cdb0312953dcdfb655efcf4584b8e065c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/6ac90392395ee25d44fda9f7c4bc18a16cc9e163",
-                "reference": "6ac90392395ee25d44fda9f7c4bc18a16cc9e163",
+                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/ef0c259cdb0312953dcdfb655efcf4584b8e065c",
+                "reference": "ef0c259cdb0312953dcdfb655efcf4584b8e065c",
                 "shasum": ""
             },
             "require": {
@@ -194,7 +194,7 @@
                 }
             ],
             "description": "coverage database tasks which can be used to gather code coverage information for unit tests.",
-            "time": "2020-01-05T15:53:00+00:00"
+            "time": "2020-01-05T16:35:58+00:00"
         },
         {
             "name": "phing/task-liquibase",
