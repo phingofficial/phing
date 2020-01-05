@@ -100,7 +100,7 @@ class CoverageReportTask extends \Task
      * @param string $packageName
      * @return \DOMElement|null
      */
-    protected function getPackageElement($packageName): ?DOMNode
+    protected function getPackageElement($packageName): ?\DOMNode
     {
         $packages = $this->doc->documentElement->getElementsByTagName('package');
 
