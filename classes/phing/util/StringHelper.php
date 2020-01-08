@@ -79,7 +79,7 @@ class StringHelper
     /**
      * Converts a string to an indexed array of chars
      * There's really no reason for this to be used in PHP, since strings
-     * are all accessible using the $string{0} notation.
+     * are all accessible using the $string[0] notation.
      *
      * @param string $str
      *
