@@ -391,7 +391,7 @@ class CvsPassTask extends Task
     {
         $buf = "";
         for ($i = 0, $plen = strlen($password); $i < $plen; $i++) {
-            $buf .= chr(self::$shifts[ord($password{$i})]);
+            $buf .= chr(self::$shifts[ord($password[$i])]);
         }
 
         return $buf;

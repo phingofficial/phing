@@ -200,9 +200,9 @@ class Capsule
      */
     protected function resolvePath($file, $basepath)
     {
-        if (!($file{0} == DIRECTORY_SEPARATOR || $file{0} == '/')
+        if (!($file[0] == DIRECTORY_SEPARATOR || $file[0] == '/')
             // also account for C:\ style path
-            && !($file{1} == ':' && ($file{2} == DIRECTORY_SEPARATOR || $file{2} == '/'))
+            && !($file[1] == ':' && ($file[2] == DIRECTORY_SEPARATOR || $file[2] == '/'))
         ) {
             if ($basepath != null) {
                 $file = $basepath . DIRECTORY_SEPARATOR . $file;

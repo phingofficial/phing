@@ -182,7 +182,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
         $cleanedBuffer = "";
         $cr = false;
         for ($i = 0, $bufflen = strlen($buffer); $i < $bufflen; $i++) {
-            $ch = $buffer{$i};
+            $ch = $buffer[$i];
             if ($ch == "\r") {
                 $cr = true;
                 continue;

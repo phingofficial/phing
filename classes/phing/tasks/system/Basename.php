@@ -93,7 +93,7 @@ class Basename extends Task
             // char preceding the suffix is a '.', we assume the user
             // wants to remove the '.' as well
             $pos = strlen($value) - strlen($this->suffix) - 1;
-            if ($pos > 0 && $this->suffix{0} !== '.' && $value{$pos} === '.') {
+            if ($pos > 0 && $this->suffix[0] !== '.' && $value[$pos] === '.') {
                 $pos--;
             }
             $value = StringHelper::substring($value, 0, $pos);
