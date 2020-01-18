@@ -239,6 +239,7 @@
                 <ref name="dirname"/>
                 <ref name="echo"/>
                 <ref name="echoproperties"/>
+                <ref name="echoxml"/>
                 <ref name="exec"/>
                 <ref name="exit"/>
                 <ref name="fail"/>
@@ -1529,6 +1530,51 @@
                     <attribute name="format"/>
                 </optional>
             </interleave>
+        </element>
+    </define>
+
+    <define name="any_content">
+        <interleave>
+            <zeroOrMore>
+                <ref name="any_element"/>
+            </zeroOrMore>
+            <text/>
+        </interleave>
+    </define>
+
+    <define name="any_element">
+        <element>
+            <anyName/>
+            <zeroOrMore>
+                <ref name="any_attribute"/>
+            </zeroOrMore>
+            <zeroOrMore>
+                <ref name="any_content"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="any_attribute">
+        <attribute>
+            <anyName/>
+        </attribute>
+    </define>
+    
+    <define name="echoxml">
+        <element name="echoxml">
+            <choice>
+                <interleave>
+                    <optional>
+                        <attribute name="file"/>
+                        <attribute name="append" >
+                            <data type="boolean" a:defaultValue="false"/>
+                        </attribute>
+                    </optional>
+                </interleave>
+                <zeroOrMore>
+                    <ref name="any_element" />
+                </zeroOrMore>
+            </choice>
         </element>
     </define>
 
