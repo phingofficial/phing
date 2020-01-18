@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dynamic-test" default="simple">
+
+    <path id="testclasses">
+        <pathelement path="${php.classpath}"/>
+    </path>
+
+    <target name="simple">
+        <taskdef name="dyna"
+                 classname="phing.tasks.system.DynamicTask">
+            <classpath refid="testclasses"/>
+        </taskdef>
+        <dyna prop1="1" prop2="2">
+            <sub prop3="3"/>
+            <anything prop4="4"/>
+        </dyna>
+    </target>
+
+</project>
