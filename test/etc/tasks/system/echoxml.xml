@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="EchoXMLTest" default="nothing">
+    <resolvepath propertyName="file" file="echoed.xml" />
+    <target name="init">
+        <echoxml file="${file}">
+            <project>
+                <property name="foo" value="bar" />
+                <fail message="$$$${foo}=$${foo}">
+                    <condition>
+                        <istrue value="${mustfail}" />
+                    </condition>
+                </fail>
+            </project>
+        </echoxml>
+    </target>
+    <target name="tearDown">
+        <delete file="${file}" />
+    </target>
+    <target name="testPass" depends="init">
+        <phing phingfile="${file}" />
+    </target>
+    <target name="testFail" depends="init">
+        <phing phingfile="${file}">
+            <property name="mustfail" value="true" />
+        </phing>
+    </target>
+    <target name="testEmpty">
+        <echoxml />
+    </target>
+</project>
