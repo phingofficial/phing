@@ -25,23 +25,11 @@ set_include_path(
 
 require_once 'phing/Phing.php';
 
-/**
-* Code from Symfony/Component/Console/Output/StreamOutput.php
-*/
-function hasColorSupport()
-{
-    if (DIRECTORY_SEPARATOR == '\\') {
-        return 0 >= version_compare('10.0.10586', PHP_WINDOWS_VERSION_MAJOR.'.'.PHP_WINDOWS_VERSION_MINOR.'.'.PHP_WINDOWS_VERSION_BUILD)
-        || false !== getenv('ANSICON')
-        || 'ON' === getenv('ConEmuANSI')
-        || 'xterm' === getenv('TERM');
-    }
-    return function_exists('posix_isatty') && @posix_isatty(STDOUT);
-}
-
 // default logger
-if (!in_array('-logger', $argv) && hasColorSupport()) {
-    array_splice($argv, 1, 0, ['-logger', 'phing.listener.AnsiColorLogger']);
+if (!in_array('-logger', $argv)) {
+    if (Console::hasColorSupport()) {
+        array_splice($argv, 1, 0, ['-logger', 'phing.listener.AnsiColorLogger']);
+    }
 }
 
 try {
@@ -64,7 +52,7 @@ try {
     exit(-1); // This was convention previously for configuration errors.
 } catch (Exception $x) {
     Phing::shutdown();
-    
+
     // Assume the message was already printed as part of the build and
     // exit with non-0 error code.
 
