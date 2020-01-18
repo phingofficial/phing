@@ -18,15 +18,16 @@
  */
 
 /**
- * Interface for elements that want to be able to create custom child elements
- * at runtime.
+ * Enables a task to control unknown attributes.
  *
- * @author  keith.rogers@unit4.com
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.parser
  */
 interface DynamicAttribute
 {
     /**
+     * Set a named attribute to the given value.
+     *
      * @param string $name the name of the attribute
      * @param string $value the new value of the attribute
      * @throws BuildException when any error occurs
