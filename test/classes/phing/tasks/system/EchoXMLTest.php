@@ -44,7 +44,7 @@ class EchoXMLTest extends BuildFileTest
             $this->getProject()->getProperty('file'),
             <<< XML
 <project name="failure" default="" basedir=".">
-    <fail message="foo=bar"/>
+  <fail message="foo=bar"/>
 </project>
 XML
         );
