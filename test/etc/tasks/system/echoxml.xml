@@ -3,7 +3,7 @@
     <resolvepath propertyName="file" file="echoed.xml" />
     <target name="init">
         <echoxml file="${file}">
-            <project>
+            <project name="failure" default="" basedir=".">
                 <fail message="foo=bar">
                     <condition>
                         <istrue value="${mustfail}" />
