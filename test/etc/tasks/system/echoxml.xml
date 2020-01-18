@@ -4,11 +4,7 @@
     <target name="init">
         <echoxml file="${file}">
             <project name="failure" default="" basedir=".">
-                <fail message="foo=bar">
-                    <condition>
-                        <istrue value="${mustfail}" />
-                    </condition>
-                </fail>
+                <fail message="foo=bar"/>
             </project>
         </echoxml>
     </target>
