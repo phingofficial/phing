@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="EchoXMLTest" default="nothing">
     <resolvepath propertyName="file" file="echoed.xml" />
-    <target name="init">
+    <target name="tearDown">
+        <delete file="${file}" />
+    </target>
+    <target name="testPass" depends="init">
         <echoxml file="${file}">
             <project name="failure" default="" basedir=".">
                 <fail message="foo=bar"/>
             </project>
         </echoxml>
-    </target>
-    <target name="tearDown">
-        <delete file="${file}" />
-    </target>
-    <target name="testPass" depends="init">
-        <phing phingfile="${file}" />
-    </target>
-    <target name="testFail" depends="init">
-        <phing phingfile="${file}">
-            <property name="mustfail" value="true" />
-        </phing>
     </target>
     <target name="testEmpty">
         <echoxml />

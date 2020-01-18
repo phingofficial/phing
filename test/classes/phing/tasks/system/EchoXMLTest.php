@@ -40,11 +40,14 @@ class EchoXMLTest extends BuildFileTest
     public function testPass(): void
     {
         $this->getProject()->executeTarget('testPass');
-    }
-
-    public function testFail(): void
-    {
-        $this->expectSpecificBuildException('testFail', 'foo=bar', 'Error in EchoXML');
+        $this->assertStringEqualsFile(
+            $this->getProject()->getProperty('file'),
+            <<< XML
+<project name="failure" default="" basedir=".">
+    <fail message="foo=bar"/>
+</project>
+XML
+        );
     }
 
     public function testEmpty(): void
