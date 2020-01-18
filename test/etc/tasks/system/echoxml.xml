@@ -4,8 +4,7 @@
     <target name="init">
         <echoxml file="${file}">
             <project>
-                <property name="foo" value="bar" />
-                <fail message="$$$${foo}=$${foo}">
+                <fail message="foo=bar">
                     <condition>
                         <istrue value="${mustfail}" />
                     </condition>

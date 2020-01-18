@@ -44,7 +44,7 @@ class EchoXMLTest extends BuildFileTest
 
     public function testFail(): void
     {
-        $this->expectSpecificBuildException('testFail', '${foo}=bar', 'Error in EchoXML');
+        $this->expectBuildException('testFail', 'foo=bar');
     }
 
     public function testEmpty(): void
