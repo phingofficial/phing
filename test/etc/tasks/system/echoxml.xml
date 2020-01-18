@@ -4,7 +4,7 @@
     <target name="tearDown">
         <delete file="${file}" />
     </target>
-    <target name="testPass" depends="init">
+    <target name="testPass">
         <echoxml file="${file}">
             <project name="failure" default="" basedir=".">
                 <fail message="foo=bar"/>
