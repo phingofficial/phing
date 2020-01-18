@@ -6,55 +6,82 @@
  * line entry point of phing located in phing.Phing
  */
 
-// Use composers autoload.php if available
-if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
-    require_once __DIR__ . '/../vendor/autoload.php';
-} elseif (file_exists(__DIR__ . '/../../../autoload.php')) {
-    require_once __DIR__ . '/../../../autoload.php';
+// check required PHP version
+if (version_compare('7.1.0', PHP_VERSION, '>')) {
+    fwrite(
+        STDERR,
+        sprintf(
+            'This version of Phing is supported on PHP 7.1, PHP 7.2, PHP 7.3 and PHP 7.4.' . PHP_EOL .
+            'You are using PHP %s (%s).' . PHP_EOL,
+            PHP_VERSION,
+            PHP_BINARY
+        )
+    );
+
+    die(1);
 }
 
-// Set any INI options for PHP
-// ---------------------------
+// set timezone
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
+}
 
-/* set include paths */
-set_include_path(
-            __DIR__ . '/../classes' .
-            PATH_SEPARATOR .
-            get_include_path()
-        );
+// search autoload file
+foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+    if (file_exists($file)) {
+        define('PHING_COMPOSER_INSTALL', $file);
 
-require_once 'phing/Phing.php';
+        break;
+    }
+}
+
+unset($file);
+
+// check that autoload file was found
+if (!defined('PHING_COMPOSER_INSTALL')) {
+    fwrite(
+        STDERR,
+        'You need to set up the project dependencies using Composer:' . PHP_EOL . PHP_EOL .
+        '    composer install' . PHP_EOL . PHP_EOL .
+        'You can learn all about Composer on https://getcomposer.org/.' . PHP_EOL
+    );
+
+    die(1);
+}
+
+require PHING_COMPOSER_INSTALL;
 
 /**
-* Code from Symfony/Component/Console/Output/StreamOutput.php
-*/
+ * Code from Symfony/Component/Console/Output/StreamOutput.php
+ */
 function hasColorSupport()
 {
     if (DIRECTORY_SEPARATOR == '\\') {
         return 0 >= version_compare('10.0.10586', PHP_WINDOWS_VERSION_MAJOR.'.'.PHP_WINDOWS_VERSION_MINOR.'.'.PHP_WINDOWS_VERSION_BUILD)
-        || false !== getenv('ANSICON')
-        || 'ON' === getenv('ConEmuANSI')
-        || 'xterm' === getenv('TERM');
+            || false !== getenv('ANSICON')
+            || 'ON' === getenv('ConEmuANSI')
+            || 'xterm' === getenv('TERM');
     }
+
     return function_exists('posix_isatty') && @posix_isatty(STDOUT);
 }
 
+// Grab and clean up the CLI arguments
+$args = isset($argv) ? $argv : $_SERVER['argv']; // $_SERVER['argv'] seems to not work (sometimes?) when argv is registered
+array_shift($args); // 1st arg is script name, so drop it
+
 // default logger
-if (!in_array('-logger', $argv) && hasColorSupport()) {
-    array_splice($argv, 1, 0, ['-logger', 'phing.listener.AnsiColorLogger']);
+if (!in_array('-logger', $args) && hasColorSupport()) {
+    array_splice($argv, 0, 0, ['-logger', 'phing.listener.AnsiColorLogger']);
 }
 
 try {
-
     /* Setup Phing environment */
     Phing::startup();
 
     // Set phing.home property to the value from environment
     // (this may be NULL, but that's not a big problem.)
     Phing::setProperty('phing.home', getenv('PHING_HOME'));
-    // Grab and clean up the CLI arguments
-    $args = isset($argv) ? $argv : $_SERVER['argv']; // $_SERVER['argv'] seems to not work (sometimes?) when argv is registered
-    array_shift($args); // 1st arg is script name, so drop it
 
     // Invoke the commandline entry point
     Phing::fire($args);
@@ -64,7 +91,7 @@ try {
     exit(-1); // This was convention previously for configuration errors.
 } catch (Exception $x) {
     Phing::shutdown();
-    
+
     // Assume the message was already printed as part of the build and
     // exit with non-0 error code.
 
