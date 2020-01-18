@@ -20,7 +20,7 @@
 /**
  * Echos a message to the logging system or to a file
  *
- * @author  
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
  */
 class EchoXML extends XMLFragment
