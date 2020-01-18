@@ -40,4 +40,20 @@
             <matches string="package.ABC.name" pattern="package\.([^.]*)\.name" casesensitive="false" />
         </condition>
     </target>
+
+    <target name="testIsTrue">
+        <property name="prop1" value="1" />
+        <condition property="istrueEqOne">
+            <istrue value="${prop1}"/>
+        </condition>
+        <property name="prop2" value="11" />
+        <condition property="istrueEqEleven">
+            <istrue value="${prop2}"/>
+        </condition>
+    </target>
+    
+    <target name="testZero">
+        <property name="zero" value="0" />
+        <property name="one" value="1" />
+    </target>
 </project>
