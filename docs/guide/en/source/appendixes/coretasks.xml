@@ -1783,6 +1783,61 @@ verbose="true" failonerror="false" /></programlisting>
             <para>Lists all properties that contain "phing" in their names.</para>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="EchoXMLTask">
+        <title>EchoXML </title>
+        <para>Echo nested XML to the console or a file.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The file to receive the XML.</entry>
+                        <entry>by default nested XML is echoed to the log</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>append</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to append <literal>file</literal>, if specified.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2 role="nestedtags">
+            <title>Parameters specified as nested elements</title>
+            <para>Nested XML content is required.</para>
+        </sect2>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;echoxml file="subbuild.xml">
+    &lt;project default="foo">
+        &lt;target name="foo">
+        &lt;echo>foo&lt;/echo>
+        &lt;/target>
+    &lt;/project>
+&lt;/echoxml></programlisting>
+            <para>Create a Phing buildfile, subbuild.xml.</para>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="ExecTask">
         <title>ExecTask </title>
         <para>Executes a shell command. You can use this to quickly add a new command to Phing.
