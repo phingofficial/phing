@@ -55,7 +55,7 @@ class EchoXML extends XMLFragment
         if ($n === null) {
             throw new BuildException('No nested XML specified');
         }
-        $doc = new DOMDocument('1.0', 'UTF-8');
+        $doc = $this->getDoc();
         $doc->formatOutput = true;
         $xml = $doc->saveXML($n);
         if ($xml === false) {

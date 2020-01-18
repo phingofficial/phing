@@ -78,4 +78,12 @@ class XMLFragment extends ProjectComponent implements CustomChildCreator
     {
         return $this->fragment;
     }
+
+    /**
+     * @return DOMDocument
+     */
+    public function getDoc(): DOMDocument
+    {
+        return $this->doc;
+    }
 }
