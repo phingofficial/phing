@@ -158,6 +158,35 @@ class Project
         $componentHelper->initDefaultDefinitions();
     }
 
+    // ---------------------------------------------------------
+    // Property methods
+    // ---------------------------------------------------------
+
+    /**
+     * Create and initialize a subproject. By default the subproject will be of
+     * the same type as its parent. If a no-arg constructor is unavailable, the
+     * <code>Project</code> class will be used.
+     * @return Project instance configured as a subproject of this Project.
+     */
+    public function createSubProject(): \Project
+    {
+        $subProject = new Project();
+        $this->initSubProject($subProject);
+        return $subProject;
+    }
+
+    /**
+     * Initialize a subproject.
+     * @param Project $subProject the subproject to initialize.
+     */
+    public function initSubProject(Project $subProject): void
+    {
+        ComponentHelper::getComponentHelper($subProject)
+            ->initSubProject(ComponentHelper::getComponentHelper($this));
+        $subProject->setKeepGoingMode($this->isKeepGoingMode());
+        $subProject->setStrictMode($this->strictMode);
+    }
+
     /**
      * returns the global filterset (future use)
      */
@@ -249,7 +278,7 @@ class Project
     /**
      * Returns the value of a property, if it is set.
      *
-     * @param  string $name The name of the property.
+     * @param string $name The name of the property.
      *                      May be <code>null</code>, in which case
      *                      the return value is also <code>null</code>.
      * @return string The property value, or <code>null</code> for no match
@@ -282,7 +311,7 @@ class Project
     /**
      * Returns the value of a user property, if it is set.
      *
-     * @param  string $name The name of the property.
+     * @param string $name The name of the property.
      *                      May be <code>null</code>, in which case
      *                      the return value is also <code>null</code>.
      * @return string The property value, or <code>null</code> for no match
@@ -322,7 +351,7 @@ class Project
      * <p>To copy all "user" properties, you will also have to call
      * {@link #copyInheritedProperties copyInheritedProperties}.</p>
      *
-     * @param  Project $other the project to copy the properties to.  Must not be null.
+     * @param Project $other the project to copy the properties to.  Must not be null.
      * @return void
      * @since  phing 2.0
      */
@@ -375,7 +404,7 @@ class Project
     /**
      * Sets the name of the current project
      *
-     * @param  string $name name of project
+     * @param string $name name of project
      * @return void
      * @author Andreas Aderhold, andi@binarycloud.com
      */
@@ -473,7 +502,7 @@ class Project
     /**
      * Set basedir object from xm
      *
-     * @param  PhingFile|string $dir
+     * @param PhingFile|string $dir
      * @throws BuildException
      */
     public function setBasedir($dir)
@@ -513,7 +542,7 @@ class Project
     {
         if ($this->basedir === null) {
             try { // try to set it
-                $this->setBasedir(".");
+                $this->setBasedir('.');
             } catch (BuildException $exc) {
                 throw new BuildException("Can not set default basedir. " . $exc->getMessage());
             }
@@ -557,7 +586,7 @@ class Project
     {
 
         // first get system properties
-        $systemP = array_merge(self::getProperties(), Phing::getProperties());
+        $systemP = array_merge($this->getProperties(), Phing::getProperties());
         foreach ($systemP as $name => $value) {
             $this->setPropertyInternal($name, $value);
         }
@@ -619,8 +648,8 @@ class Project
     /**
      * Add a new target to the project
      *
-     * @param  string $targetName
-     * @param  Target $target
+     * @param string $targetName
+     * @param Target $target
      * @throws BuildException
      */
     public function addTarget($targetName, $target)
@@ -669,7 +698,7 @@ class Project
     /**
      * Create a new task instance and return reference to it.
      *
-     * @param  string $taskType Task name
+     * @param string $taskType Task name
      * @return Task           A task object
      * @throws BuildException
      */
@@ -681,7 +710,7 @@ class Project
     /**
      * Creates a new condition and returns the reference to it
      *
-     * @param  string $conditionType
+     * @param string $conditionType
      * @return Condition
      * @throws BuildException
      */
@@ -694,7 +723,7 @@ class Project
      * Create a datatype instance and return reference to it
      * See createTask() for explanation how this works
      *
-     * @param  string $typeName Type name
+     * @param string $typeName Type name
      * @return object         A datatype object
      * @throws BuildException
      *                                 Exception
@@ -707,7 +736,7 @@ class Project
     /**
      * Executes a list of targets
      *
-     * @param  array $targetNames List of target names to execute
+     * @param array $targetNames List of target names to execute
      * @return void
      * @throws BuildException
      */
@@ -723,7 +752,7 @@ class Project
     /**
      * Executes a target
      *
-     * @param  string $targetName Name of Target to execute
+     * @param string $targetName Name of Target to execute
      * @return void
      * @throws BuildException
      */
@@ -788,10 +817,10 @@ class Project
     /**
      * Helper function
      *
-     * @param  string $fileName
-     * @param  PhingFile $rootDir
-     * @throws IOException
+     * @param string $fileName
+     * @param PhingFile $rootDir
      * @return \PhingFile
+     * @throws IOException
      */
     public function resolveFile(string $fileName, PhingFile $rootDir = null): PhingFile
     {
@@ -826,12 +855,12 @@ class Project
     /**
      * Topologically sort a set of Targets.
      *
-     * @param  string $rootTarget is the (String) name of the root Target. The sort is
+     * @param string $rootTarget is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
      *                         target is the minimum possible such sequence.
-     * @throws BuildException
-     * @throws Exception
      * @return Target[] targets in sorted order
+     * @throws Exception
+     * @throws BuildException
      */
     public function topoSort($rootTarget)
     {
@@ -1006,7 +1035,7 @@ class Project
     /**
      * Returns a specific reference.
      *
-     * @param  string $key The reference id/key.
+     * @param string $key The reference id/key.
      * @return object Reference or null if not defined
      */
     public function getReference($key)

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  ~ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  ~ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  ~ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  ~ OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  ~ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  ~ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  ~ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  ~ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  ~ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  ~
+  ~ This software consists of voluntary contributions made by many individuals
+  ~ and is licensed under the LGPL. For more information please see
+  ~ <http://phing.info>.
+  -->
+<project name="PhingTaskTest" basedir="." default="test1">
+    <path id="inheritable">
+        <pathelement path="${php.classpath}" />
+    </path>
+
+    <target name="cleanup">
+        <delete file="test1.log" />
+        <delete file="test2.log" />
+        <delete file="phing/test3.log" />
+        <delete file="phing/test4.log" />
+    </target>
+
+    <target name="all" depends="test1,test2,test3,test4"/>
+
+    <target name="test1">
+        <phing phingfile="phing.xml" dir="." target="test1" haltonfailure="true"/>
+    </target>
+
+    <target name="test2">
+        <phingcall/>
+    </target>
+
+    <target name="test3">
+        <phingcall target="test3"/>
+    </target>
+
+    <target name="test4">
+        <phingcall target=""/>
+    </target>
+
+    <target name="test4b">
+        <phingcall target="does-not-exist"/>
+    </target>
+
+    <target name="test5">
+        <phingcall target="dummy"/>
+    </target>
+
+    <target name="test6">
+        <phing phingfile="phing.xml" dir="." target="dummy"/>
+    </target>
+
+    <target name="dummy">
+    </target>
+
+    <target name="inheritBasedir">
+        <phing phingfile="phing/phing.xml" target="dummy" inheritAll="true" />
+    </target>
+
+    <target name="doNotInheritBasedir">
+        <phing phingfile="phing/phing.xml" target="dummy" inheritAll="false" />
+    </target>
+
+    <target name="explicitBasedir1">
+        <phing phingfile="system/phing/phing.xml" target="dummy" inheritAll="true" dir=".." />
+    </target>
+
+    <target name="explicitBasedir2">
+        <phing phingfile="system/phing/phing.xml" target="dummy" inheritAll="false" dir=".." />
+    </target>
+
+    <target name="tripleCall">
+        <phing phingfile="phing/phing.xml" target="callback" inheritAll="false" />
+    </target>
+
+    <target name="testInherit">
+        <phing phingfile="phing/references.xml" inheritRefs="true" target="dummy" />
+    </target>
+
+    <target name="testNoInherit">
+        <phing phingfile="phing/references.xml" inheritRefs="false" target="dummy" />
+    </target>
+
+    <target name="testRename">
+        <phing phingfile="phing/references.xml" inheritRefs="false" target="dummy">
+            <reference refId="path" torefid="newpath" />
+        </phing>
+    </target>
+
+    <target name="testInheritPath" description="try to pass a reference to a path, which refers itself to a second path">
+        <resolvepath propertyName="rootdir" path="."/>
+        <path id="project.classpath">
+            <pathelement dir="../classes"/>
+        </path>
+        <path id="test.classpath">
+            <pathelement dir="${rootdir}/test/testframework.jar"/>
+            <path refid="project.classpath"/>
+        </path>
+        <phing phingfile="phing/references.xml"  target="testInheritPath">
+            <reference refId="test.classpath"/>
+        </phing>
+    </target>
+
+    <target name="testLogfilePlacement">
+        <phing phingfile="phing.xml" target="dummy" output="test1.log"
+             inheritAll="false" />
+        <phing phingfile="phing.xml" target="dummy" output="test2.log" />
+        <phing phingfile="phing.xml" target="dummy" output="test3.log"
+             inheritAll="false" dir="phing" />
+        <phing phingfile="phing.xml" target="dummy" output="test4.log"
+             dir="phing" />
+    </target>
+
+    <target name="test-property-override-inheritall-start">
+        <property name="test" value="1" />
+        <phing phingfile="phing.xml"
+             target="test-property-override-inheritall-level-2"
+             inheritAll="true">
+            <property name="test" value="2" />
+        </phing>
+    </target>
+
+    <target name="test-property-override-inheritall-level-2">
+        <property name="test" value="3" />
+        <phing phingfile="phing.xml"
+             target="test-property-override-inheritall-level-3"
+             inheritAll="true">
+            <property name="test" value="4" />
+        </phing>
+    </target>
+
+    <target name="test-property-override-inheritall-level-3">
+        <property name="test" value="5" />
+        <echo message="The value of test is ${test}" />
+    </target>
+
+    <target name="test-property-override-no-inheritall-start">
+        <property name="test" value="1" />
+        <phing phingfile="phing.xml" target="test-property-override-no-inheritall-level-2" inheritAll="false">
+            <property name="test" value="2" />
+        </phing>
+    </target>
+
+    <target name="test-property-override-no-inheritall-level-2">
+        <property name="test" value="3" />
+        <phing phingfile="phing.xml" target="test-property-override-no-inheritall-level-3" inheritAll="false">
+            <property name="test" value="4" />
+        </phing>
+    </target>
+
+    <target name="test-property-override-no-inheritall-level-3">
+        <property name="test" value="5" />
+        <echo message="The value of test is ${test}" />
+    </target>
+
+    <target name="infinite-loop-via-depends">
+        <phingcall target="dependent" />
+    </target>
+
+    <target name="middleman" depends="infinite-loop-via-depends"/>
+    <target name="dependent" depends="middleman"/>
+
+    <target name="multi-same-property">
+        <phing phingfile="phing.xml" target="echo-for-multi-same">
+            <property name="prop" value="one"/>
+            <property name="prop" value="two"/>
+        </phing>
+    </target>
+
+    <target name="echo-for-multi-same">
+        <echo>prop is ${prop}</echo>
+    </target>
+
+    <target name="topleveltarget">
+        <phing phingfile="phing.topleveltest.xml"/>
+    </target>
+
+    <target name="ta"><echo>ta</echo></target>
+    <target name="tb" depends="da,dc"><echo>tb</echo></target>
+    <target name="tc" depends="db,dc"><echo>tc</echo></target>
+
+    <target name="da"><echo>da</echo></target>
+    <target name="db"><echo>db</echo></target>
+    <target name="dc"><echo>dc</echo></target>
+</project>
