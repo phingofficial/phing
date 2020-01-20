@@ -304,7 +304,7 @@ class PhingTask extends Task
                     $this->locals[] = $defaultTarget;
                 }
             }
-            
+
             $thisPhingFile = $this->getProject()->getProperty('phing.file');
             // Are we trying to call the target in which we are defined (or
             // the build file if this is a top level task)?
