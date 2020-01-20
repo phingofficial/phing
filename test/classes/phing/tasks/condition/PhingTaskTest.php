@@ -170,7 +170,7 @@ class PhingTaskTest extends BuildFileTest
         $dir2 = $this->getProject()->resolveFile("phing");
         $this->baseDirs('tripleCall', [$dir1->getAbsolutePath(), $dir2->getAbsolutePath(), $dir1->getAbsolutePath()]);
     }
-/*
+
     public function testReferenceInheritance(): void
     {
         $p = new Path($this->getProject(), 'test-path');
@@ -180,7 +180,7 @@ class PhingTaskTest extends BuildFileTest
         $this->reference('testInherit', ['no-override', 'no-override'], [true, false], $p);
         $this->reference('testInherit', ['no-override', 'no-override'], [false, false], null);
     }
-*/
+
     protected function reference(string $target, array $keys, array $expect, $value): void
     {
         $rc = new class ($keys, $expect, $value) implements BuildListener {
