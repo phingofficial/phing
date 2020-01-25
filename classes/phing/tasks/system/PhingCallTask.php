@@ -121,11 +121,15 @@ class PhingCallTask extends Task
     /**
      * Target to execute, required.
      *
-     * @param $target
+     * @param string $target
      */
-    public function setTarget($target)
+    public function setTarget(string $target): void
     {
-        $this->subTarget = (string) $target;
+        if ($this->callee === null) {
+            $this->init();
+        }
+        $this->callee->setTarget($target);
+        $this->subTarget = $target;
     }
 
     /**
