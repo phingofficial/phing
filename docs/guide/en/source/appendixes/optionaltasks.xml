@@ -12081,7 +12081,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12204,7 +12204,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12326,7 +12326,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12444,7 +12444,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12459,7 +12459,8 @@ host="webserver" command="ls" /></programlisting>
    force="true"
    nocache="true"
    repositoryurl="svn://localhost/project/trunk/"
-   todir="/home/user/svnwc"/></programlisting>
+   todir="/home/user/svnwc"
+   configoption="config:miscellany:use-commit-times=yes" /></programlisting>
 
             <programlisting language="xml">&lt;svnexport
    svnpath="C:/Subversion/bin/svn.exe"
@@ -12551,7 +12552,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12648,7 +12649,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12752,7 +12753,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12821,7 +12822,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12903,7 +12904,7 @@ host="webserver" command="ls" /></programlisting>
                     <entry><literal>configOption</literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Override subversion's config option</entry>
-                    <entry><literal>false</literal></entry>
+                    <entry><literal>n/a</literal></entry>
                     <entry>No</entry>
                 </row>
             </tbody>
@@ -13004,7 +13005,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -13117,7 +13118,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -13214,7 +13215,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -13314,7 +13315,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -13400,7 +13401,7 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>configOption</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Override subversion's config option</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
