@@ -42,10 +42,10 @@ namespace Phing\Tasks\Ext;
  * @since       2.3.1
  * @package     phing.tasks.ext
  */
-class FtpDeployTask extends Task
+class FtpDeployTask extends \Task
 {
-    use FileSetAware;
-    use LogLevelAware;
+    use \FileSetAware;
+    use \LogLevelAware;
 
     private $host = null;
     private $port = 21;
@@ -190,7 +190,7 @@ class FtpDeployTask extends Task
      */
     public function setSkipOnSameSize($skipOnSameSize)
     {
-        $this->skipOnSameSize = StringHelper::booleanValue($skipOnSameSize);
+        $this->skipOnSameSize = \StringHelper::booleanValue($skipOnSameSize);
     }
 
     /**
@@ -198,13 +198,13 @@ class FtpDeployTask extends Task
      */
     public function init()
     {
-        $paths = Phing::explodeIncludePath();
+        $paths = \Phing::explodeIncludePath();
         foreach ($paths as $path) {
             if (file_exists($path . DIRECTORY_SEPARATOR . 'Net' . DIRECTORY_SEPARATOR . 'FTP.php')) {
                 return true;
             }
         }
-        throw new BuildException('The FTP Deploy task requires the Net_FTP PEAR package.');
+        throw new \BuildException('The FTP Deploy task requires the Net_FTP PEAR package.');
     }
 
     /**
@@ -220,7 +220,7 @@ class FtpDeployTask extends Task
         if ($this->ssl) {
             $ret = $ftp->setSsl();
             if (@PEAR::isError($ret)) {
-                throw new BuildException(
+                throw new \BuildException(
                     'SSL connection not supported by php: ' . $ret->getMessage()
                 );
             }
@@ -229,7 +229,7 @@ class FtpDeployTask extends Task
         }
         $ret = $ftp->connect();
         if (@PEAR::isError($ret)) {
-            throw new BuildException(
+            throw new \BuildException(
                 'Could not connect to FTP server ' . $this->host . ' on port ' . $this->port . ': ' . $ret->getMessage()
             );
         }
@@ -238,7 +238,7 @@ class FtpDeployTask extends Task
 
         $ret = $ftp->login($this->username, $this->password);
         if (@PEAR::isError($ret)) {
-            throw new BuildException(
+            throw new \BuildException(
                 'Could not login to FTP server ' . $this->host . ' on port ' . $this->port . ' with username ' . $this->username . ': ' . $ret->getMessage()
             );
         }
@@ -250,12 +250,12 @@ class FtpDeployTask extends Task
             $ret = $ftp->setPassive();
             if (@PEAR::isError($ret)) {
                 $ftp->disconnect();
-                throw new BuildException('Could not set PASSIVE mode: ' . $ret->getMessage());
+                throw new \BuildException('Could not set PASSIVE mode: ' . $ret->getMessage());
             }
         }
 
         // append '/' to the end if necessary
-        $dir = substr($this->dir, -1) == '/' ? $this->dir : $this->dir . '/';
+        $dir = substr($this->dir, -1) === '/' ? $this->dir : $this->dir . '/';
 
         if ($this->clearFirst) {
             // TODO change to a loop through all files and directories within current directory
@@ -267,18 +267,18 @@ class FtpDeployTask extends Task
         $ret = $ftp->mkdir($dir, true);
         if (@PEAR::isError($ret)) {
             $ftp->disconnect();
-            throw new BuildException('Could not create directory ' . $dir . ': ' . $ret->getMessage());
+            throw new \BuildException('Could not create directory ' . $dir . ': ' . $ret->getMessage());
         }
 
         $ret = $ftp->cd($dir);
         if (@PEAR::isError($ret)) {
             $ftp->disconnect();
-            throw new BuildException('Could not change to directory ' . $dir . ': ' . $ret->getMessage());
+            throw new \BuildException('Could not change to directory ' . $dir . ': ' . $ret->getMessage());
         }
 
         $this->log('Changed directory ' . $dir, $this->logLevel);
 
-        $fs = FileSystem::getFileSystem();
+        $fs = \FileSystem::getFileSystem();
         $convert = $fs->getSeparator() == '\\';
 
         foreach ($this->filesets as $fs) {
@@ -301,11 +301,11 @@ class FtpDeployTask extends Task
                     $ret = $ftp->mkdir($dirname, true);
                     if (@PEAR::isError($ret)) {
                         $ftp->disconnect();
-                        throw new BuildException('Could not create directory ' . $dirname . ': ' . $ret->getMessage());
+                        throw new \BuildException('Could not create directory ' . $dirname . ': ' . $ret->getMessage());
                     }
                 }
                 if ($this->dirmode) {
-                    if ($this->dirmode == 'inherit') {
+                    if ($this->dirmode === 'inherit') {
                         $mode = fileperms($dirname);
                     } else {
                         $mode = $this->dirmode;
@@ -316,7 +316,7 @@ class FtpDeployTask extends Task
             }
 
             foreach ($srcFiles as $filename) {
-                $file = new PhingFile($fromDir->getAbsolutePath(), $filename);
+                $file = new \PhingFile($fromDir->getAbsolutePath(), $filename);
                 if ($convert) {
                     $filename = str_replace('\\', '/', $filename);
                 }
@@ -334,11 +334,11 @@ class FtpDeployTask extends Task
                     $ret = $ftp->put($file->getCanonicalPath(), $filename, true, $this->mode);
                     if (@PEAR::isError($ret)) {
                         $ftp->disconnect();
-                        throw new BuildException('Could not deploy file ' . $filename . ': ' . $ret->getMessage());
+                        throw new \BuildException('Could not deploy file ' . $filename . ': ' . $ret->getMessage());
                     }
                 }
                 if ($this->filemode) {
-                    if ($this->filemode == 'inherit') {
+                    if ($this->filemode === 'inherit') {
                         $mode = fileperms($filename);
                     } else {
                         $mode = $this->filemode;
