@@ -166,7 +166,12 @@ class Project
      */
     public function createSubProject(): \Project
     {
-        $subProject = new Project();
+        try {
+            $ref = new ReflectionObject($this);
+            $subProject = $ref->newInstance();
+        } catch (ReflectionException $e) {
+            $subProject = new Project();
+        }
         $this->initSubProject($subProject);
         return $subProject;
     }
@@ -337,6 +342,11 @@ class Project
     public function getUserProperties()
     {
         return PropertyHelper::getPropertyHelper($this)->getUserProperties();
+    }
+
+    public function getInheritedProperties()
+    {
+        return PropertyHelper::getPropertyHelper($this)->getInheritedProperties();
     }
 
     /**
@@ -518,7 +528,7 @@ class Project
             throw new BuildException("Basedir " . $dir->getAbsolutePath() . " is not a directory");
         }
         $this->basedir = $dir;
-        $this->setPropertyInternal("project.basedir", $this->basedir->getAbsolutePath());
+        $this->setPropertyInternal("project.basedir", $this->basedir->getPath());
         $this->log("Project base dir set to: " . $this->basedir->getPath(), Project::MSG_VERBOSE);
 
         // [HL] added this so that ./ files resolve correctly.  This may be a mistake ... or may be in wrong place.
