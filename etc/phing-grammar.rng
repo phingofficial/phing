@@ -6171,6 +6171,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
             <empty/>
         </element>
@@ -6217,6 +6220,9 @@
                     <attribute name="trustservercert">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
+                    <attribute name="configoption" />
                 </optional>
             </interleave>
         </element>
@@ -6270,6 +6276,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6316,6 +6325,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6345,6 +6357,9 @@
                 <optional>
                     <attribute name="subelement"/>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6370,6 +6385,9 @@
                 </optional>
                 <optional>
                     <attribute name="recursive"/>
+                </optional>
+                <optional>
+                    <attribute name="configoption" />
                 </optional>
             </interleave>
         </element>
@@ -6400,6 +6418,9 @@
                 <optional>
                     <attribute name="fromdir"/>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6426,6 +6447,9 @@
                 <optional>
                     <attribute name="svnpropertyvalue"/>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6449,6 +6473,9 @@
                     <attribute name="lastChanged">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
+                    <attribute name="configoption" />
                 </optional>
             </interleave>
         </element>
@@ -6483,6 +6510,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6509,6 +6539,9 @@
                     <attribute name="limit">
                         <data type="int"/>
                     </attribute>
+                </optional>
+                <optional>
+                    <attribute name="configoption" />
                 </optional>
             </interleave>
         </element>
@@ -6558,6 +6591,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6602,6 +6638,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6616,6 +6655,9 @@
                 <attribute name="recursive">
                     <data type="boolean"/>
                 </attribute>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
