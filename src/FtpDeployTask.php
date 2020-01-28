@@ -386,7 +386,7 @@ class FtpDeployTask extends \Task
      * @param null $directory
      * @return array
      */
-    private function parseRawFtpContent($content, $directory = null)
+    private function parseRawFtpContent($content, $directory = null): array
     {
         if (!is_array($content)) {
             return [];
