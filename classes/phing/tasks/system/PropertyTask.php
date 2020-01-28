@@ -34,7 +34,7 @@ class PropertyTask extends Task
     protected $name;
 
     /**
-     * @var mixed value of the property
+     * @var string $value of the property
      */
     protected $value;
 
@@ -89,22 +89,45 @@ class PropertyTask extends Task
     private $quiet = false;
 
     /**
+     * Whether the task should fail when the property file is not found.
+     */
+    private $required = false;
+
+    /**
      * @param FileParserFactoryInterface $fileParserFactory
      */
     public function __construct(FileParserFactoryInterface $fileParserFactory = null)
     {
         parent::__construct();
-        $this->fileParserFactory = $fileParserFactory != null ? $fileParserFactory : new FileParserFactory();
+        $this->fileParserFactory = $fileParserFactory ?? new FileParserFactory();
+    }
+
+    /**
+     * File required or not.
+     *
+     * @param string $d
+     */
+    public function setRequired($d)
+    {
+        $this->required = $d;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequired()
+    {
+        return $this->required;
     }
 
     /**
      * Sets a the name of current property component
      *
-     * @param $name
+     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
-        $this->name = (string) $name;
+        $this->name = $name;
     }
 
     /**
@@ -118,9 +141,9 @@ class PropertyTask extends Task
     /**
      * Sets a the value of current property component.
      *
-     * @param mixed $value Value of name, all scalars allowed
+     * @param string $value Value of name, all scalars allowed
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
@@ -128,11 +151,10 @@ class PropertyTask extends Task
     /**
      * Sets value of property to CDATA tag contents.
      *
-     * @param    $value
-     * @internal param string $values
+     * @param string $value
      * @since    2.2.0
      */
-    public function addText($value)
+    public function addText(string $value): void
     {
         $this->setValue($value);
     }
@@ -149,6 +171,9 @@ class PropertyTask extends Task
      * Set a file to use as the source for properties.
      *
      * @param $file
+     *
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function setFile($file)
     {
@@ -169,7 +194,7 @@ class PropertyTask extends Task
     /**
      * @param Reference $ref
      */
-    public function setRefid(Reference $ref)
+    public function setRefid(Reference $ref): void
     {
         $this->reference = $ref;
     }
@@ -184,10 +209,10 @@ class PropertyTask extends Task
      * A "." is appended to the prefix if not specified.
      *
      * @param  string $prefix prefix string
-     * @return void
+     *
      * @since  2.0
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix;
         if (!StringHelper::endsWith(".", $prefix)) {
@@ -223,9 +248,9 @@ class PropertyTask extends Task
      *
      * @param string $env
      */
-    public function setEnvironment($env)
+    public function setEnvironment(string $env): void
     {
-        $this->env = (string) $env;
+        $this->env = $env;
     }
 
     public function getEnvironment()
@@ -241,9 +266,9 @@ class PropertyTask extends Task
      *
      * @param boolean $v
      */
-    public function setUserProperty($v)
+    public function setUserProperty(bool $v): void
     {
-        $this->userProperty = (bool) $v;
+        $this->userProperty = $v;
     }
 
     /**
@@ -257,9 +282,9 @@ class PropertyTask extends Task
     /**
      * @param $v
      */
-    public function setOverride($v)
+    public function setOverride(bool $v): void
     {
-        $this->override = (bool) $v;
+        $this->override = $v;
     }
 
     /**
@@ -275,13 +300,13 @@ class PropertyTask extends Task
      */
     public function __toString()
     {
-        return (string) $this->value;
+        return $this->value;
     }
 
     /**
      * @param Project $p
      */
-    public function setFallback($p)
+    public function setFallback($p): void
     {
         $this->fallback = $p;
     }
@@ -294,7 +319,7 @@ class PropertyTask extends Task
     /**
      * @param $logOutput
      */
-    public function setLogoutput(bool $logOutput)
+    public function setLogoutput(bool $logOutput): void
     {
         $this->logOutput = $logOutput;
     }
@@ -313,7 +338,7 @@ class PropertyTask extends Task
      * @see   setFailonerror()
      * @param $bool
      */
-    public function setQuiet($bool)
+    public function setQuiet(bool $bool): void
     {
         $this->quiet = $bool;
     }
@@ -353,7 +378,7 @@ class PropertyTask extends Task
             throw new BuildException("Prefix is only valid when loading from a file.", $this->getLocation());
         }
 
-        if (($this->name !== null) && ($this->value !== null)) {
+        if ($this->name !== null && $this->value !== null) {
             $this->addProperty($this->name, $this->value);
         }
 
@@ -365,7 +390,7 @@ class PropertyTask extends Task
             $this->loadEnvironment($this->env);
         }
 
-        if (($this->name !== null) && ($this->reference !== null)) {
+        if ($this->name !== null && $this->reference !== null) {
             // get the refereced property
             try {
                 $referencedObject = $this->reference->getReferencedObject($this->project);
@@ -399,10 +424,10 @@ class PropertyTask extends Task
      *
      * @param string $prefix prefix to place before them
      */
-    protected function loadEnvironment($prefix)
+    protected function loadEnvironment(string $prefix)
     {
         $props = new Properties();
-        if (substr($prefix, strlen($prefix) - 1) == '.') {
+        if (substr($prefix, strlen($prefix) - 1) === '.') {
             $prefix .= ".";
         }
         $this->log("Loading Environment $prefix", Project::MSG_VERBOSE);
@@ -477,6 +502,10 @@ class PropertyTask extends Task
                 $props->load($file);
                 $this->addProperties($props);
             } else {
+                if ($this->required) {
+                    throw new BuildException("Unable to find property file: " . $file->getAbsolutePath());
+                }
+
                 $this->log(
                     "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
                     $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN

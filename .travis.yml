@@ -33,16 +33,13 @@ before_install:
   - phpenv config-rm xdebug.ini || echo "xdebug not available"
   - phpenv config-add .travis.php.ini
   - phpenv rehash
-  - echo 'opcache.enable=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - echo 'zend.assertions=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  - echo 'assert.exception=On' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - set -e
   - pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
   - echo "=== SETTING GIT IDENTITY ==="
   - git config --global user.email "travis-ci-build@phing.info"
   - git config --global user.name "Phing Travis Builder"
   - composer self-update
+  - composer global require hirak/prestissimo
 
 install:
   - |
@@ -75,10 +72,6 @@ jobs:
       before_install:
         - phpenv config-add .travis.php.ini
         - phpenv rehash
-        - echo 'opcache.enable=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-        - echo 'opcache.enable_cli=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-        - echo 'zend.assertions=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-        - echo 'assert.exception=On' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
         - set -e
         - pear config-set php_dir $(php -r 'echo substr(get_include_path(),2);')
         - echo "=== SETTING GIT IDENTITY ==="

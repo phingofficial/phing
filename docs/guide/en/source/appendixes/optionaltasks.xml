@@ -840,49 +840,10 @@
     </sect1>
     <sect1 role="taskdef" xml:id="ExportPropertiesTask">
         <title>ExportPropertiesTask</title>
-        <para>Exports all defined properties to a specified file.</para>
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>targetfile</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Target file for saved properties.</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>disallowedPropertyPrefixes</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Exclude properties starting with these prefixes (separated by
-                                <literal>,</literal></entry>
-                        <entry><literal>'host.'</literal>, <literal>'phing.'</literal>,
-                                <literal>'os.'</literal>, <literal>'php.'</literal>,
-                                <literal>'line.'</literal>, <literal>'env.'</literal>,
-                                <literal>'user.'</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
+        <para>This task was removed.</para>
         <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;exportproperties targetfile="output.props" /></programlisting>
+            <title>Use &lt;echoproperties> instead:</title>
+            <programlisting language="xml">&lt;echoproperties destfile="output.props" regex="/^((?!host\.)(?!os\.)(?!env\.)(?!phing\.)(?!php\.)(?!line\.)(?!user\.)[\s\S])*$/"/></programlisting>
         </sect2>
 
     </sect1>
@@ -12116,6 +12077,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -12230,6 +12198,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Name of property to set to the last committed revision number</entry>
                         <entry>svn.committedrevision</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12347,6 +12322,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -12458,6 +12440,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -12470,7 +12459,8 @@ host="webserver" command="ls" /></programlisting>
    force="true"
    nocache="true"
    repositoryurl="svn://localhost/project/trunk/"
-   todir="/home/user/svnwc"/></programlisting>
+   todir="/home/user/svnwc"
+   configoption="config:miscellany:use-commit-times=yes" /></programlisting>
 
             <programlisting language="xml">&lt;svnexport
    svnpath="C:/Subversion/bin/svn.exe"
@@ -12556,6 +12546,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Sets whether to force compatibility with older SVN versions (&lt;
                             1.2)</entry>
                         <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12646,6 +12643,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Sets whether to store actual last changed revision of the
                             directory/file mentioned</entry>
                         <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -12745,6 +12749,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -12806,6 +12817,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Flag for recursive revert.</entry>
                         <entry>none</entry>
                         <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>No</entry>
                     </row>
                 </tbody>
             </tgroup>
@@ -12880,6 +12898,13 @@ host="webserver" command="ls" /></programlisting>
                     <entry><literal role="type">Integer</literal></entry>
                     <entry>Limits the number of items to get back from the command</entry>
                     <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>configOption</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Override subversion's config option</entry>
+                    <entry><literal>n/a</literal></entry>
                     <entry>No</entry>
                 </row>
             </tbody>
@@ -12974,6 +12999,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Trust self-signed certificates</entry>
                         <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -13082,6 +13114,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -13170,6 +13209,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Recursive proplist usage?</entry>
                         <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -13265,6 +13311,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>none</entry>
                         <entry>Yes</entry>
                     </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -13343,6 +13396,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>The svn property to set</entry>
                         <entry>none</entry>
                         <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>configOption</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Override subversion's config option</entry>
+                        <entry><literal>n/a</literal></entry>
+                        <entry>No</entry>
                     </row>
                 </tbody>
             </tgroup>

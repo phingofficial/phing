@@ -18,44 +18,11 @@
  */
 
 /**
- * Rollbacks the database changes.
+ * Enables a task to control unknown attributes and elements.
  *
- * @author  Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @since   2.4.10
- * @package phing.tasks.ext.liquibase
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.parser
  */
-class LiquibaseRollbackTask extends AbstractLiquibaseTask
+interface DynamicConfigurator extends DynamicAttribute, CustomChildCreator
 {
-    protected $rollbackTag;
-
-    /**
-     * Sets the name of the tag to roll back to.
-     *
-     * @param string the name to roll back to
-     */
-    public function setRollbackTag($rollbackTag)
-    {
-        $this->rollbackTag = $rollbackTag;
-    }
-
-    /**
-     * @see AbstractTask::checkParams()
-     */
-    protected function checkParams()
-    {
-        parent::checkParams();
-
-        if (null === $this->rollbackTag) {
-            throw new BuildException('Please specify the tag to rollback to!');
-        }
-    }
-
-    /**
-     * @see Task::main()
-     */
-    public function main()
-    {
-        $this->checkParams();
-        $this->execute('rollback', escapeshellarg($this->rollbackTag));
-    }
 }

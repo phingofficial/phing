@@ -22,6 +22,8 @@
  *
  * @author Daniel Holmes
  * @package phing.system.io
+ *
+ * @requires OS WIN32|WINNT
  */
 class WindowsFileSystemTest extends AbstractWinFileSystemTestCase
 {

@@ -42,6 +42,9 @@ class DefaultExcludesTest extends BuildFileTest
         $this->executeTarget("cleanup-excludes");
     }
 
+    /**
+     * @requires PHPUnit < 8
+     */
     public function test1()
     {
         $expected = [
@@ -80,6 +83,9 @@ class DefaultExcludesTest extends BuildFileTest
         $this->assertArraySubset($expected, DirectoryScanner::getDefaultExcludes());
     }
 
+    /**
+     * @requires PHPUnit < 8
+     */
     public function test2()
     {
         $expected = [
@@ -119,6 +125,9 @@ class DefaultExcludesTest extends BuildFileTest
         $this->assertArraySubset($expected, DirectoryScanner::getDefaultExcludes());
     }
 
+    /**
+     * @requires PHPUnit < 8
+     */
     public function test3()
     {
         $expected = [

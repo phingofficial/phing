@@ -17,44 +17,16 @@
  * <http://phing.info>.
  */
 
-/**
- * Task for running liquibase commands that doesn't have their own
- * commands yet.
- *
- * Parameters can be provided by nested <parameter name='foo' value='bar' /> tags.
- * That will result in --foo='bar' on the command line.
- *
- * @author  Joakim Israelsson <joakim.israelsson.86@gmail.com>
- * @package phing.tasks.ext.liquibase
- */
-class LiquibaseTask extends AbstractLiquibaseTask
+use PHPUnit\Framework\TestCase;
+
+class MonologListenerTest extends TestCase
 {
-
     /**
-     * What liquibase command you wish to run.
+     * @test
      */
-    private $command;
-
-    /**
-     * @param $command
-     */
-    public function setCommand($command)
+    public function buildStarted()
     {
-        $this->command = (string) $command;
-    }
-
-    protected function checkParams()
-    {
-        parent::checkParams();
-
-        if (null === $this->command) {
-            throw new BuildException('Please provide a liquibase command.');
-        }
-    }
-
-    public function main()
-    {
-        $this->checkParams();
-        $this->execute($this->command, '');
+        $listener = new MonologListener();
+        $this->assertNull($listener->buildStarted(new BuildEvent(new Project())));
     }
 }

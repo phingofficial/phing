@@ -403,7 +403,7 @@ class Project
      */
     public function setDescription($description)
     {
-        $this->description = (string) trim($description);
+        $this->description = $description;
     }
 
     /**
@@ -413,6 +413,9 @@ class Project
      */
     public function getDescription()
     {
+        if ($this->description === null) {
+            $this->description = Description::getAll($this);
+        }
         return $this->description;
     }
 
@@ -554,7 +557,7 @@ class Project
     {
 
         // first get system properties
-        $systemP = array_merge(self::getProperties(), Phing::getProperties());
+        $systemP = array_merge($this->getProperties(), Phing::getProperties());
         foreach ($systemP as $name => $value) {
             $this->setPropertyInternal($name, $value);
         }

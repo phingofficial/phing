@@ -18,20 +18,19 @@
  */
 
 /**
- * Task to update the database to latest version of the changelog file.
+ * Enables a task to control unknown attributes.
  *
- * @author  Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @since   2.4.10
- * @package phing.tasks.ext.liquibase
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.parser
  */
-class LiquibaseUpdateTask extends AbstractLiquibaseTask
+interface DynamicAttribute
 {
     /**
-     * @see Task::main()
+     * Set a named attribute to the given value.
+     *
+     * @param string $name the name of the attribute
+     * @param string $value the new value of the attribute
+     * @throws BuildException when any error occurs
      */
-    public function main()
-    {
-        $this->checkParams();
-        $this->execute('update');
-    }
+    public function setDynamicAttribute(string $name, string $value): void;
 }

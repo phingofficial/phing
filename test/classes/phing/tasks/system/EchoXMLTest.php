@@ -18,53 +18,40 @@
  */
 
 /**
- * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @since 2.4.10
- * @package phing.tasks.ext.liquibase
+ * Tests the EchoXML Task
+ *
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
-class LiquibaseProperty extends DataType
+class EchoXMLTest extends BuildFileTest
 {
-    private $name;
-    private $value;
-
-    /**
-     * @param $name
-     */
-    public function setName($name)
+    public function setUp(): void
     {
-        $this->name = $name;
+        $this->configureProject(
+            PHING_TEST_BASE . '/etc/tasks/system/echoxml.xml'
+        );
     }
 
-    /**
-     * @param $value
-     */
-    public function setValue($value)
+    public function tearDown(): void
     {
-        $this->value = $value;
+        $this->getProject()->executeTarget('tearDown');
     }
 
-    /**
-     * @param Project $p
-     * @return string
-     * @throws BuildException
-     */
-    public function getCommandline(Project $p)
+    public function testPass(): void
     {
-        if ($this->isReference()) {
-            return $this->getRef($p)->getCommandline($p);
-        }
-
-        return sprintf("-D%s=%s", $this->name, escapeshellarg($this->value));
+        $this->getProject()->executeTarget('testPass');
+        $this->assertStringEqualsFile(
+            $this->getProject()->getProperty('file'),
+            <<< XML
+<project name="failure" default="" basedir=".">
+  <fail message="foo=bar"/>
+</project>
+XML
+        );
     }
 
-    /**
-     * @param Project $p
-     * @return mixed
-     * @throws BuildException
-     */
-    public function getRef(Project $p)
+    public function testEmpty(): void
     {
-        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
-        return $this->getCheckedRef(__CLASS__, $dataTypeName);
+        $this->expectBuildException('testEmpty', 'No nested XML specified');
     }
 }

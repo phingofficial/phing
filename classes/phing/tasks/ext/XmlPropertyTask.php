@@ -30,53 +30,6 @@ class XmlPropertyTask extends PropertyTask
     private $keepRoot = true;
     private $collapseAttr = false;
     private $delimiter = ',';
-    private $required = false;
-
-    /**
-     * Set a file to use as the source for properties.
-     *
-     * @param $file
-     */
-    public function setFile($file)
-    {
-        if (is_string($file)) {
-            $file = new PhingFile($file);
-        }
-        $this->file = $file;
-    }
-
-    /**
-     * Get the PhingFile that is being used as property source.
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * Prefix to apply to properties loaded using <code>file</code>.
-     * A "." is appended to the prefix if not specified.
-     *
-     * @param  string $prefix prefix string
-     * @return void
-     * @since  2.0
-     */
-    public function setPrefix($prefix)
-    {
-        $this->prefix = $prefix;
-        if (!StringHelper::endsWith(".", $prefix)) {
-            $this->prefix .= ".";
-        }
-    }
-
-    /**
-     * @return string
-     * @since 2.0
-     */
-    public function getPrefix()
-    {
-        return $this->prefix;
-    }
 
     /**
      * Keep the xml root tag as the first value in the property name
@@ -130,24 +83,6 @@ class XmlPropertyTask extends PropertyTask
     public function getDelimiter()
     {
         return $this->delimiter;
-    }
-
-    /**
-     * File required or not.
-     *
-     * @param string $d
-     */
-    public function setRequired($d)
-    {
-        $this->required = $d;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRequired()
-    {
-        return $this->required;
     }
 
     /**

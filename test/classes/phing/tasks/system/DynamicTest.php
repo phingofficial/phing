@@ -18,20 +18,31 @@
  */
 
 /**
- * Task to create a changelog file.
+ * Tests dynamics
  *
- * @author  Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
- * @since   2.4.10
- * @package phing.tasks.ext.liquibase
+ * @author  Siad Ardroumli
+ * @package phing.tasks.system
  */
-class LiquibaseChangeLogTask extends AbstractLiquibaseTask
+class DynamicTest extends BuildFileTest
 {
-    /**
-     * @see Task::main()
-     */
-    public function main()
+    public function setUp(): void
     {
-        $this->checkParams();
-        $this->execute('generateChangeLog');
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/DynamicTest.xml"
+        );
+    }
+
+    public function testSimple()
+    {
+        $this->executeTarget('simple');
+
+        /** @var Project $project */
+        $project = $this->getProject();
+
+        $this->assertSame('1', $project->getProperty('prop1'));
+        $this->assertSame('2', $project->getProperty('prop2'));
+        $this->assertSame('3', $project->getProperty('prop3'));
+        $this->assertSame('4', $project->getProperty('prop4'));
     }
 }

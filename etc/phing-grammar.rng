@@ -82,6 +82,7 @@
         <zeroOrMore>
             <choice>
                 <ref name="classpath"/>
+                <ref name="description"/>
                 <ref name="dirset"/>
                 <ref name="excludes"/>
                 <ref name="filelist"/>
@@ -104,7 +105,6 @@
                 <ref name="coverage-setup"/>
                 <ref name="coverage-threshold"/>
                 <ref name="dbdeploy"/>
-                <ref name="exportproperties"/>
                 <ref name="filehash"/>
                 <ref name="filesize"/>
                 <ref name="filesync"/>
@@ -239,6 +239,7 @@
                 <ref name="dirname"/>
                 <ref name="echo"/>
                 <ref name="echoproperties"/>
+                <ref name="echoxml"/>
                 <ref name="exec"/>
                 <ref name="exit"/>
                 <ref name="fail"/>
@@ -359,6 +360,7 @@
                 <ref name="none_selector"/>
                 <ref name="not_selector"/>
                 <ref name="or_selector"/>
+                <ref name="posixpermissions_selector"/>
             </choice>
         </zeroOrMore>
     </define>
@@ -631,6 +633,14 @@
         </element>
     </define>
 
+    <define name="posixpermissions_selector">
+        <element name="posixpermissions">
+            <oneOrMore>
+                <ref name="selectors"/>
+            </oneOrMore>
+        </element>
+    </define>
+
     <!--
         ===========================================================================================================
         Core types
@@ -844,6 +854,12 @@
             <attribute name="refid">
                 <data type="IDREF"/>
             </attribute>
+        </element>
+    </define>
+
+    <define name="description">
+        <element name="description">
+            <text/>
         </element>
     </define>
 
@@ -1517,6 +1533,51 @@
         </element>
     </define>
 
+    <define name="any_content">
+        <interleave>
+            <zeroOrMore>
+                <ref name="any_element"/>
+            </zeroOrMore>
+            <text/>
+        </interleave>
+    </define>
+
+    <define name="any_element">
+        <element>
+            <anyName/>
+            <zeroOrMore>
+                <ref name="any_attribute"/>
+            </zeroOrMore>
+            <zeroOrMore>
+                <ref name="any_content"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="any_attribute">
+        <attribute>
+            <anyName/>
+        </attribute>
+    </define>
+    
+    <define name="echoxml">
+        <element name="echoxml">
+            <choice>
+                <interleave>
+                    <optional>
+                        <attribute name="file"/>
+                        <attribute name="append" >
+                            <data type="boolean" a:defaultValue="false"/>
+                        </attribute>
+                    </optional>
+                </interleave>
+                <zeroOrMore>
+                    <ref name="any_element" />
+                </zeroOrMore>
+            </choice>
+        </element>
+    </define>
+
     <define name="exec">
         <element name="exec">
             <interleave>
@@ -2039,7 +2100,7 @@
                     </optional>
                 </choice>
                 <optional>
-                    <attribute name="override">
+                    <attribute name="override" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -2050,7 +2111,19 @@
                     <attribute name="refid"/>
                 </optional>
                 <optional>
-                    <attribute name="fallback"/>
+                    <attribute name="logoutput" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="quiet" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="required" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
                 </optional>
             </interleave>
         </element>
@@ -2908,23 +2981,6 @@
 
                 <optional>
                     <attribute name="checkall"/>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
-    <!--
-        =========================================
-        ExportPropertiesTask
-        =========================================
-    -->
-
-    <define name="exportproperties">
-        <element name="exportproperties">
-            <interleave>
-                <attribute name="targetfile"/>
-                <optional>
-                    <attribute name="disallowedpropertyprefixes"/>
                 </optional>
             </interleave>
         </element>
@@ -6115,6 +6171,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
             <empty/>
         </element>
@@ -6161,6 +6220,9 @@
                     <attribute name="trustservercert">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
+                    <attribute name="configoption" />
                 </optional>
             </interleave>
         </element>
@@ -6214,6 +6276,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6260,6 +6325,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6289,6 +6357,9 @@
                 <optional>
                     <attribute name="subelement"/>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6314,6 +6385,9 @@
                 </optional>
                 <optional>
                     <attribute name="recursive"/>
+                </optional>
+                <optional>
+                    <attribute name="configoption" />
                 </optional>
             </interleave>
         </element>
@@ -6344,6 +6418,9 @@
                 <optional>
                     <attribute name="fromdir"/>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6370,6 +6447,9 @@
                 <optional>
                     <attribute name="svnpropertyvalue"/>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6393,6 +6473,9 @@
                     <attribute name="lastChanged">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
+                    <attribute name="configoption" />
                 </optional>
             </interleave>
         </element>
@@ -6427,6 +6510,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6453,6 +6539,9 @@
                     <attribute name="limit">
                         <data type="int"/>
                     </attribute>
+                </optional>
+                <optional>
+                    <attribute name="configoption" />
                 </optional>
             </interleave>
         </element>
@@ -6502,6 +6591,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6546,6 +6638,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>
@@ -6560,6 +6655,9 @@
                 <attribute name="recursive">
                     <data type="boolean"/>
                 </attribute>
+                <optional>
+                    <attribute name="configoption" />
+                </optional>
             </interleave>
         </element>
     </define>

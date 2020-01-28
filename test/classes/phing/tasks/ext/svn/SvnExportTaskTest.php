@@ -46,4 +46,9 @@ class SvnExportTaskTest extends AbstractSvnTaskTest
             'is not a working copy'
         );
     }
+
+    public function testExportConfigOption()
+    {
+        $this->expectBuildExceptionContaining('exportConfigOption', 'provided --config-option with unreachable http-proxy not used', "Could not resolve proxy server 'non-existed.phing.org'");
+    }
 }
