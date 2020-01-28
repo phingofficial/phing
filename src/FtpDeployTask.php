@@ -50,10 +50,9 @@ class FtpDeployTask extends \Task
     private $host = null;
     private $port = 21;
     private $ssl = false;
-    private $username = null;
-    private $password = null;
-    private $dir = null;
-    private $completeDirMap;
+    private $username;
+    private $password;
+    private $dir;
     private $mode = FTP_BINARY;
     private $clearFirst = false;
     private $passive = false;
@@ -63,52 +62,48 @@ class FtpDeployTask extends \Task
     private $rawDataFallback = false;
     private $skipOnSameSize = false;
 
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct();
         $this->filesets = [];
-        $this->completeDirMap = [];
     }
 
     /**
-     * @param $host
+     * @param string $host
      */
-    public function setHost($host)
+    public function setHost(string $host): void
     {
         $this->host = $host;
     }
 
     /**
-     * @param $port
+     * @param int $port
      */
-    public function setPort($port)
+    public function setPort(int $port): void
     {
-        $this->port = (int) $port;
+        $this->port = $port;
     }
 
     /**
-     * @param $ssl
+     * @param bool $ssl
      */
-    public function setSsl(bool $ssl)
+    public function setSsl(bool $ssl): void
     {
         $this->ssl = $ssl;
     }
 
     /**
-     * @param $username
+     * @param string $username
      */
-    public function setUsername($username)
+    public function setUsername($username): void
     {
         $this->username = $username;
     }
 
     /**
-     * @param $password
+     * @param string $password
      */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->password = $password;
     }
@@ -138,33 +133,33 @@ class FtpDeployTask extends \Task
     }
 
     /**
-     * @param $passive
+     * @param bool $passive
      */
-    public function setPassive(bool $passive)
+    public function setPassive(bool $passive): void
     {
         $this->passive = $passive;
     }
 
     /**
-     * @param $clearFirst
+     * @param bool $clearFirst
      */
-    public function setClearFirst(bool $clearFirst)
+    public function setClearFirst(bool $clearFirst): void
     {
         $this->clearFirst = $clearFirst;
     }
 
     /**
-     * @param $depends
+     * @param bool $depends
      */
-    public function setDepends(bool $depends)
+    public function setDepends(bool $depends): void
     {
         $this->depends = $depends;
     }
 
     /**
-     * @param $filemode
+     * @param string $filemode
      */
-    public function setFilemode($filemode)
+    public function setFilemode($filemode): void
     {
         $this->filemode = octdec(str_pad($filemode, 4, '0', STR_PAD_LEFT));
     }
@@ -172,7 +167,7 @@ class FtpDeployTask extends \Task
     /**
      * @param $dirmode
      */
-    public function setDirmode($dirmode)
+    public function setDirmode($dirmode): void
     {
         $this->dirmode = octdec(str_pad($dirmode, 4, '0', STR_PAD_LEFT));
     }
@@ -180,7 +175,7 @@ class FtpDeployTask extends \Task
     /**
      * @param $fallback
      */
-    public function setRawdatafallback(bool $fallback)
+    public function setRawdatafallback(bool $fallback): void
     {
         $this->rawDataFallback = $fallback;
     }
@@ -188,7 +183,7 @@ class FtpDeployTask extends \Task
     /**
      * @param bool|string|int $skipOnSameSize
      */
-    public function setSkipOnSameSize($skipOnSameSize)
+    public function setSkipOnSameSize($skipOnSameSize): void
     {
         $this->skipOnSameSize = \StringHelper::booleanValue($skipOnSameSize);
     }
