@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-phkpackage.git",
-                "reference": "2b1b6379fee27a83711ec56deae6247cd49c6059"
+                "reference": "d873f2c337e863353e93723f88c64fe611787d21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-phkpackage/zipball/2b1b6379fee27a83711ec56deae6247cd49c6059",
-                "reference": "2b1b6379fee27a83711ec56deae6247cd49c6059",
+                "url": "https://api.github.com/repos/phingofficial/task-phkpackage/zipball/d873f2c337e863353e93723f88c64fe611787d21",
+                "reference": "d873f2c337e863353e93723f88c64fe611787d21",
                 "shasum": ""
             },
             "require": {
@@ -344,7 +344,7 @@
                 }
             ],
             "description": "This task runs PHK_Creator.phk to build PHK-package.",
-            "time": "2020-01-31T21:42:41+00:00"
+            "time": "2020-01-31T22:14:03+00:00"
         },
         {
             "name": "psr/log",
