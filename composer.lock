@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02c352d57d4ef8d7137afb6611d6f774",
+    "content-hash": "f4f40873dcd0ebf8add3bff88c881a5b",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -212,12 +212,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-ftpdeploy.git",
-                "reference": "4999c6e2934b0502d9756b2502a6e7aae2343951"
+                "reference": "9de872c7f183adfb6f275b86723ae7fa99833925"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-ftpdeploy/zipball/4999c6e2934b0502d9756b2502a6e7aae2343951",
-                "reference": "4999c6e2934b0502d9756b2502a6e7aae2343951",
+                "url": "https://api.github.com/repos/phingofficial/task-ftpdeploy/zipball/9de872c7f183adfb6f275b86723ae7fa99833925",
+                "reference": "9de872c7f183adfb6f275b86723ae7fa99833925",
                 "shasum": ""
             },
             "require": {
@@ -250,7 +250,7 @@
                 }
             ],
             "description": "Deploys a set of files to a remote FTP server.",
-            "time": "2020-01-27T21:05:58+00:00"
+            "time": "2020-01-28T18:30:34+00:00"
         },
         {
             "name": "phing/task-liquibase",
@@ -301,6 +301,50 @@
             ],
             "description": "The LiquibaseTask is a generic task for liquibase commands that don't require extra command parameters.",
             "time": "2020-01-01T14:29:40+00:00"
+        },
+        {
+            "name": "phing/task-phkpackage",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-phkpackage.git",
+                "reference": "d873f2c337e863353e93723f88c64fe611787d21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-phkpackage/zipball/d873f2c337e863353e93723f88c64fe611787d21",
+                "reference": "d873f2c337e863353e93723f88c64fe611787d21",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev"
+            },
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "phkpackage": "Phing\\Tasks\\Ext\\PhkPackageTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "This task runs PHK_Creator.phk to build PHK-package.",
+            "time": "2020-01-31T22:14:03+00:00"
         },
         {
             "name": "psr/log",
@@ -3795,16 +3839,16 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "5b3c9d704950d8f9637f5110c36c281ec47dc13c"
+                "reference": "e2dadd21ef6188f038aaf72cd2d55d0e1b522741"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/5b3c9d704950d8f9637f5110c36c281ec47dc13c",
-                "reference": "5b3c9d704950d8f9637f5110c36c281ec47dc13c",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/e2dadd21ef6188f038aaf72cd2d55d0e1b522741",
+                "reference": "e2dadd21ef6188f038aaf72cd2d55d0e1b522741",
                 "shasum": ""
             },
             "require": {
@@ -3852,7 +3896,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2019-12-12T05:00:52+00:00"
+            "time": "2020-01-31T16:45:58+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -4521,16 +4565,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.3",
+            "version": "3.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "557a1fc7ac702c66b0bbfe16ab3d55839ef724cb"
+                "reference": "dceec07328401de6211037abbb18bda423677e26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/557a1fc7ac702c66b0bbfe16ab3d55839ef724cb",
-                "reference": "557a1fc7ac702c66b0bbfe16ab3d55839ef724cb",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/dceec07328401de6211037abbb18bda423677e26",
+                "reference": "dceec07328401de6211037abbb18bda423677e26",
                 "shasum": ""
             },
             "require": {
@@ -4568,7 +4612,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-12-04T04:46:47+00:00"
+            "time": "2020-01-30T22:20:29+00:00"
         },
         {
             "name": "symfony/config",
@@ -6118,6 +6162,7 @@
         "phing/task-liquibase": 20,
         "phing/task-coverage": 20,
         "phing/task-ftpdeploy": 20,
+        "phing/task-phkpackage": 20,
         "pear/net_growl": 20,
         "pear/versioncontrol_git": 20
     },
