@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="VisualizerTaskTest" default="testWithDefaultValues">
+<project name="VisualizerTaskTest" default="clean">
 
     <import file="build.xml"/>
 
-    <target name="testDefaultValues">
-        <visualizer/>
-    </target>
-
     <target name="testFormat">
-        <visualizer format="png"/>
         <visualizer format="puml"/>
-        <visualizer format="svg"/>
-        <visualizer format="eps"/>
     </target>
 
     <target name="testInvalidFormat">
@@ -20,61 +13,15 @@
     </target>
 
     <target name="testDestinationFile">
-        <visualizer destination="../../../../tmp/my-diagram.png"/>
+        <visualizer format="puml" destination="../../../../tmp/my-diagram.puml"/>
     </target>
 
     <target name="testDestinationDirectory">
-        <visualizer destination="../../../../tmp/"/>
+        <visualizer format="puml" destination="../../../../tmp/"/>
     </target>
 
     <target name="testInvalidDestination">
         <visualizer destination="foo/bar/baz/"/>
-    </target>
-
-    <target name="testCustomServer">
-
-        <!--Retrieving a valid PlantUML server-->
-        <if>
-            <http url="https://plantuml-server.kkeisuke.app/" errorsBeginAt="300"/>
-            <then>
-                <property name="plantuml-server" value="https://plantuml-server.kkeisuke.app/"/>
-            </then>
-
-            <elseif>
-                <http url="http://wiki-plantuml.mercari.in/" errorsBeginAt="300"/>
-                <then>
-                    <property name="plantuml-server" value="http://wiki-plantuml.mercari.in/"/>
-                </then>
-            </elseif>
-
-            <elseif>
-                <http url="https://plantuml.itemis.de/" errorsBeginAt="300"/>
-                <then>
-                    <property name="plantuml-server" value="https://plantuml.itemis.de/"/>
-                </then>
-            </elseif>
-
-            <elseif>
-                <http url="http://gregoryt.fr:8000/plantuml/" errorsBeginAt="300"/>
-                <then>
-                    <property name="plantuml-server" value="http://gregoryt.fr:8000/plantuml/"/>
-                </then>
-            </elseif>
-
-            <elseif>
-                <http url="https://swap.sirap.fr/plantuml/" errorsBeginAt="300"/>
-                <then>
-                    <property name="plantuml-server" value="https://swap.sirap.fr/plantuml/"/>
-                </then>
-            </elseif>
-
-            <else>
-                <fail message="Cannot find valid PlantUML server"/>
-            </else>
-        </if>
-
-        <!--Testing custom server-->
-        <visualizer server="${plantuml-server}"/>
     </target>
 
     <target name="testInvalidServer">
@@ -82,12 +29,9 @@
     </target>
 
     <target name="clean">
-        <delete file="VisualizerTaskTest.png"/>
         <delete file="VisualizerTaskTest.puml"/>
-        <delete file="VisualizerTaskTest.svg"/>
-        <delete file="VisualizerTaskTest.eps"/>
-        <delete file="../../../../tmp/my-diagram.png"/>
-        <delete file="../../../../tmp/VisualizerTaskTest.png"/>
+        <delete file="../../../../tmp/my-diagram.puml"/>
+        <delete file="../../../../tmp/VisualizerTaskTest.puml"/>
     </target>
 
 </project>

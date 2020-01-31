@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4cf7d60594df07195497762d1d146a23",
+    "content-hash": "f4f40873dcd0ebf8add3bff88c881a5b",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -205,6 +205,52 @@
             ],
             "description": "coverage database tasks which can be used to gather code coverage information for unit tests.",
             "time": "2020-01-05T16:35:58+00:00"
+        },
+        {
+            "name": "phing/task-ftpdeploy",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-ftpdeploy.git",
+                "reference": "9de872c7f183adfb6f275b86723ae7fa99833925"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-ftpdeploy/zipball/9de872c7f183adfb6f275b86723ae7fa99833925",
+                "reference": "9de872c7f183adfb6f275b86723ae7fa99833925",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "pear/net_ftp": "dev-master",
+                "pear/pear-core-minimal": "~1.10.9",
+                "phing/phing": "3.0.x-dev"
+            },
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "ftpdeploy": "Phing\\Tasks\\Ext\\FtpDeployTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "Deploys a set of files to a remote FTP server.",
+            "time": "2020-01-28T18:30:34+00:00"
         },
         {
             "name": "phing/task-liquibase",
@@ -6115,6 +6161,7 @@
         "phing/task-apigen": 20,
         "phing/task-liquibase": 20,
         "phing/task-coverage": 20,
+        "phing/task-ftpdeploy": 20,
         "phing/task-phkpackage": 20,
         "pear/net_growl": 20,
         "pear/versioncontrol_git": 20

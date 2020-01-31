@@ -33,34 +33,14 @@ class VisualizerTaskTest extends BuildFileTest
     }
 
     /**
-     * Test VisualizerTask with all the default values
-     */
-    public function testDefaultValues()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
-        $this->assertInLogs('VisualizerTaskTest.png');
-        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png', 80000);
-    }
-
-    /**
      * Testing different diagram formats: png, puml, svg and eps
      */
     public function testFormat()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.puml');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.svg');
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.eps');
-        $this->assertInLogs('VisualizerTaskTest.png');
         $this->assertInLogs('VisualizerTaskTest.puml');
-        $this->assertInLogs('VisualizerTaskTest.svg');
-        $this->assertInLogs('VisualizerTaskTest.eps');
-        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png', 80000);
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.puml', 1200);
-        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.svg', 23000);
-        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.eps', 100000);
     }
 
     /**
@@ -78,9 +58,9 @@ class VisualizerTaskTest extends BuildFileTest
     public function testDestinationFile()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/tmp/my-diagram.png');
-        $this->assertInLogs('my-diagram.png');
-        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/tmp/my-diagram.png', 80000);
+        $this->assertFileExists(PHING_TEST_BASE . '/tmp/my-diagram.puml');
+        $this->assertInLogs('my-diagram.puml');
+        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/tmp/my-diagram.puml', 1200);
     }
 
     /**
@@ -89,9 +69,9 @@ class VisualizerTaskTest extends BuildFileTest
     public function testDestinationDirectory()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.png');
-        $this->assertInLogs('VisualizerTaskTest.png');
-        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.png', 80000);
+        $this->assertFileExists(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.puml');
+        $this->assertInLogs('VisualizerTaskTest.puml');
+        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.puml', 1200);
     }
 
     /**
@@ -101,17 +81,6 @@ class VisualizerTaskTest extends BuildFileTest
     {
         $this->expectBuildException(__FUNCTION__, "Directory 'foo/bar/baz/' is invalid");
         $this->assertInLogs("Directory 'foo/bar/baz/' is invalid");
-    }
-
-    /**
-     * Testing that a custom PlantUML server can be used
-     */
-    public function testCustomServer()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png');
-        $this->assertInLogs('VisualizerTaskTest.png');
-        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.png', 80000);
     }
 
     /**
