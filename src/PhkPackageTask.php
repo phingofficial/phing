@@ -31,6 +31,7 @@ class PhkPackageTask extends \Task
      * @var string
      */
     private $outputFile;
+    
     /**
      * @var string
      */
