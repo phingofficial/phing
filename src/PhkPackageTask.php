@@ -25,7 +25,7 @@ namespace Phing\Tasks\Ext;
  * @author  Alexey Shockov <alexey@shockov.com>
  * @package phing.tasks.ext.phk
  */
-class PhkPackageTask extends Task
+class PhkPackageTask extends \Task
 {
     /**
      * @var string
@@ -194,19 +194,19 @@ class PhkPackageTask extends Task
          * Check for empty first - speed ;)
          */
         if (!is_file($this->phkCreatorPath)) {
-            throw new BuildException('You must specify the "phkcreatorpath" attribute for PHK task.');
+            throw new \BuildException('You must specify the "phkcreatorpath" attribute for PHK task.');
         }
         if (empty($this->inputDirectory)) {
-            throw new BuildException('You must specify the "inputdirectory" attribute for PHK task.');
+            throw new \BuildException('You must specify the "inputdirectory" attribute for PHK task.');
         }
         if (empty($this->outputFile)) {
-            throw new BuildException('You must specify the "outputfile" attribute for PHK task.');
+            throw new \BuildException('You must specify the "outputfile" attribute for PHK task.');
         }
 
         include_once $this->phkCreatorPath;
 
-        $mountPoint = PHK_Mgr::mount($this->outputFile, PHK::F_CREATOR);
-        $phkManager = PHK_Mgr::instance($mountPoint);
+        $mountPoint = \PHK_Mgr::mount($this->outputFile, \PHK::F_CREATOR);
+        $phkManager = \PHK_Mgr::instance($mountPoint);
 
         /*
          * Add files.
