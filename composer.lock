@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4f40873dcd0ebf8add3bff88c881a5b",
+    "content-hash": "b02d8795cbacf6d1f736c5516e4a57ff",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -251,6 +251,51 @@
             ],
             "description": "Deploys a set of files to a remote FTP server.",
             "time": "2020-01-28T18:30:34+00:00"
+        },
+        {
+            "name": "phing/task-ioncube",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-ioncube.git",
+                "reference": "dcd7f3b1f7a41b431510e6856b6c10d323fb5e65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-ioncube/zipball/dcd7f3b1f7a41b431510e6856b6c10d323fb5e65",
+                "reference": "dcd7f3b1f7a41b431510e6856b6c10d323fb5e65",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev"
+            },
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "ioncubeencoder": "Phing\\Tasks\\Ext\\IoncubeEncoderTask",
+                    "ioncubelicense": "Phing\\Tasks\\Ext\\IoncubeLicenseTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "The Ioncube tasks executes ionCube commands.",
+            "time": "2020-02-01T10:21:04+00:00"
         },
         {
             "name": "phing/task-liquibase",
@@ -6163,6 +6208,7 @@
         "phing/task-coverage": 20,
         "phing/task-ftpdeploy": 20,
         "phing/task-phkpackage": 20,
+        "phing/task-ioncube": 20,
         "pear/net_growl": 20,
         "pear/versioncontrol_git": 20
     },
