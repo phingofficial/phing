@@ -5,8 +5,17 @@
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.about">
     <title>About this book</title>
     <sect1>
-        <title>Authors</title>
+        <title>Contributors (present and past)</title>
         <itemizedlist>
+            <listitem>
+                <para>Michiel Rook, mrook@php.net</para>
+            </listitem>
+            <listitem>
+                <para>Ken Guest, kguest@php.net</para>
+            </listitem>
+            <listitem>
+                <para>Siad Ardroumli, siad.ardroumli@gmail.com</para>
+            </listitem>
             <listitem>
                 <para>Andreas Aderhold, andi@binarycloud.com</para>
             </listitem>
@@ -20,16 +29,7 @@
                 <para>Hans Lellelid, hans@xmpl.org</para>
             </listitem>
             <listitem>
-                <para>Michiel Rook, mrook@php.net</para>
-            </listitem>
-            <listitem>
                 <para>Johan Persson, johan162@gmail.com</para>
-            </listitem>
-            <listitem>
-                <para>Ken Guest, kguest@php.net</para>
-            </listitem>
-            <listitem>
-                <para>Siad Ardroumli, siad.ardroumli@gmail.com</para>
             </listitem>
         </itemizedlist>
     </sect1>
@@ -41,7 +41,7 @@
         <title>License</title>
         <para>This documentation is made available under the GNU Free Document License (see <xref
                 xlink:href="#sec.gfdl" xlink:title="[gnu-fdl]"/>)</para>
-        <programlisting language="xml">Copyright (c) 2002 - 2018, The Phing Group
+        <programlisting language="xml">Copyright (c) 2002 - 2020, The Phing Project
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.1 or
@@ -180,7 +180,7 @@ any later version published by the Free Software Foundation;</programlisting>
  html         Builds the HTML version
  htmlfancy    Builds the HTML version with an alternative styling for screen output
  pdf          Builds the PDF version
- webhelp      Builds the webhelp version (Note: This requires Java and Ant 
+ webhelp      Builds the webhelp version (Note: This requires Java and Ant
               to be installed!)
  validate     Validates all sources against the DocBook5 grammar
 </programlisting>
@@ -473,11 +473,11 @@ any later version published by the Free Software Foundation;</programlisting>
    destFile="${process.outputfile}">
   &lt;filterchain>
     &lt;xsltfilter style="${process.stylesheet}">
-         &lt;param name="mode" 
+         &lt;param name="mode"
          expression="${process.xslt.mode}"/>
     &lt;/xsltfilter>
   &lt;/filterchain>
-  &lt;filelist dir="book/" 
+  &lt;filelist dir="book/"
   listfile="book/PhingGuide.book"/>
 &lt;/append>&lt;/programlisting></programlisting>
                         </listitem>

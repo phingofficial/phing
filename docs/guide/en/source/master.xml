@@ -8,45 +8,10 @@
         <authorgroup>
             <author>
                 <personname>
-                    <firstname>Andreas</firstname>
-                    <surname>Aderhold</surname>
-                </personname>
-                <email>andi@binarycloud.com</email>
-            </author>
-            <author>
-                <personname>
-                    <firstname>Alex</firstname>
-                    <surname>Black</surname>
-                </personname>
-                <email>enigma@turingstudio.com</email>
-            </author>
-            <author>
-                <personname>
-                    <firstname>Manuel</firstname>
-                    <surname>Holtgrewe</surname>
-                </personname>
-                <email>grin@gmx.net</email>
-            </author>
-            <author>
-                <personname>
-                    <firstname>Hans</firstname>
-                    <surname>Lellelid</surname>
-                </personname>
-                <email>hans@xmpl.org</email>
-            </author>
-            <author>
-                <personname>
                     <firstname>Michiel</firstname>
                     <surname>Rook</surname>
                 </personname>
                 <email>mrook@php.net</email>
-            </author>
-            <author>
-                <personname>
-                    <firstname>Johan</firstname>
-                    <surname>Persson</surname>
-                </personname>
-                <email>johan162@gmail.com</email>
             </author>
             <author>
                 <personname>
@@ -63,7 +28,7 @@
                 <email>siad.ardroumli@gmail.com</email>
             </author>
         </authorgroup>
-        <pubdate><?dbtimestamp format="Y-m-d"?></pubdate>
+        <pubdate><?dbtimestamp format="Y-m-d H:M:S"?></pubdate>
         <copyright>
             <year>2002-2020</year>
             <holder>The Phing Project</holder>
