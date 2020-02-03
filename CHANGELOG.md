@@ -2,7 +2,12 @@ P     H     I     N     G
 =========================
 
 
-Jan. 3, 2019 - Phing 2.16.2
+Feb. 3, 2020 - Phing 2.16.3
+---------------------------
+
+This patch release fixes additional PHP 7.4 deprecation issues.
+
+Jan. 3, 2020 - Phing 2.16.2
 ---------------------------
 
 This patch release fixes the following issue:
