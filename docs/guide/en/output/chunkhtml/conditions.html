@@ -2,8 +2,8 @@
         
 
         <p> Conditions are nested elements of the <a class="link" href="ConditionTask.html" title="B.10 ConditionTask">condition</a>,
-                <a class="link" href="IfTask.html" title="B.22 IfTask">if</a> and
-                <a class="link" href="WaitForTask.html" title="B.52 WaitForTask">waitfor</a> tasks.</p>
+                <a class="link" href="IfTask.html" title="B.23 IfTask">if</a> and
+                <a class="link" href="WaitForTask.html" title="B.53 WaitForTask">waitfor</a> tasks.</p>
 
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.not"></a>5.8.1 <code class="literal">not</code></h3></div></div></div>
             
@@ -49,7 +49,7 @@
             
             <p>Test whether the current operating system is of a given type.</p>
 
-            <div class="table"><a name="idp1511"></a><p class="formal-object-title"><span class="label">Table 5.1: </span><span class="title">OS Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1514"></a><p class="formal-object-title"><span class="label">Table 5.1: </span><span class="title">OS Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="OS Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">family</code></td><td>The name of the operating system family to expect.</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -76,7 +76,7 @@
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.equals"></a>5.8.6 <code class="literal">equals</code></h3></div></div></div>
             
             <p>Tests whether the two given Strings are identical</p>
-            <div class="table"><a name="idp1544"></a><p class="formal-object-title"><span class="label">Table 5.2: </span><span class="title">equals Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1547"></a><p class="formal-object-title"><span class="label">Table 5.2: </span><span class="title">equals Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="equals Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">arg1</code></td><td>First string to test.</td><td>Yes</td></tr><tr><td><code class="literal">arg2</code></td><td>Second string to test.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive comparison. Default is true.</td><td>No</td></tr><tr><td><code class="literal">trim</code></td><td>Trim whitespace from arguments before comparing them. Default is
                                 false.</td><td>No</td></tr></tbody></table>
@@ -87,7 +87,7 @@
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.versioncompare"></a>5.8.7 <code class="literal">versioncompare</code></h3></div></div></div>
             
             <p>Compares two given versions</p>
-            <div class="table"><a name="idp1580"></a><p class="formal-object-title"><span class="label">Table 5.3: </span><span class="title">versioncompare Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1583"></a><p class="formal-object-title"><span class="label">Table 5.3: </span><span class="title">versioncompare Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="versioncompare Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">version</code></td><td>The version you want to compare</td><td>Yes</td></tr><tr><td><code class="literal">desiredVersion</code></td><td>The version you want to compare against</td><td>Yes</td></tr><tr><td><code class="literal">operator</code></td><td>The operator to use for version comparison. Default
                                 is <code class="literal">&gt;=</code>.</td><td>No</td></tr><tr><td>debug</td><td>Turns on debug mode, that echoes the comparion message. Default is false.</td><td>No</td></tr></tbody></table>
@@ -100,7 +100,7 @@
             <p>Condition to wait for a HTTP request to succeed.</p>
             <p>Attributes are:</p>
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">url - the URL of the request.</li><li class="listitem">errorsBeginAt - number at which errors begin at.</li><li class="listitem">quiet - Set quiet mode, which suppresses warnings and errors.</li></ul></div>
-            <div class="table"><a name="idp1623"></a><p class="formal-object-title"><span class="label">Table 5.4: </span><span class="title">http Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1626"></a><p class="formal-object-title"><span class="label">Table 5.4: </span><span class="title">http Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="http Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">url</code></td><td>The URL of the request.</td><td>Yes</td></tr><tr><td><code class="literal">errorsBeginAt</code></td><td>Number at which errors begin at. - Default: 400</td><td>No</td></tr><tr><td><code class="literal">requestMethod</code></td><td>Sets the method to be used when issuing the HTTP request. - Default: GET</td><td>No</td></tr><tr><td><code class="literal">followRedirects</code></td><td>Whether redirects sent by the server should be followed. - Default: true</td><td>No</td></tr><tr><td><code class="literal">quiet</code></td><td>Set quiet mode, which suppresses warnings and errors. Default is false</td><td>No</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -118,7 +118,7 @@
                 <a class="ulink" href="https://www.php.net/manual/en/book.pdo.php" target="_top">PDO extension</a>
                 to work properly.
             </p>
-            <div class="table"><a name="idp1669"></a><p class="formal-object-title"><span class="label">Table 5.5: </span><span class="title">PDOSQLExec condition attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1672"></a><p class="formal-object-title"><span class="label">Table 5.5: </span><span class="title">PDOSQLExec condition attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="PDOSQLExec condition attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td>
                                 <code class="literal">url</code>
@@ -164,7 +164,7 @@
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.socket"></a>5.8.10 <code class="literal">socket</code></h3></div></div></div>
             
             <p>Condition to test for a (tcp) listener on a specified host and port.</p>
-            <div class="table"><a name="idp1715"></a><p class="formal-object-title"><span class="label">Table 5.6: </span><span class="title">socket Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1718"></a><p class="formal-object-title"><span class="label">Table 5.6: </span><span class="title">socket Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="socket Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">server</code></td><td>The hostname or ip address of the server.</td><td>Yes</td></tr><tr><td><code class="literal">port</code></td><td>The port number of the server.</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -176,7 +176,7 @@
             <p>Condition returns true if selected partition has the requested space, false otherwise.</p>
             <p>Needed attribute can be specified using standard computing terms:</p>
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">K: Kilobytes (1024 bytes)</li><li class="listitem">M: Megabytes (1024K)</li><li class="listitem">G: Gigabytes (1024M)</li><li class="listitem">T: Terabytes (1024G)</li><li class="listitem">P: Petabytes (1024T)</li></ul></div>
-            <div class="table"><a name="idp1749"></a><p class="formal-object-title"><span class="label">Table 5.7: </span><span class="title">hasfreespace Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1752"></a><p class="formal-object-title"><span class="label">Table 5.7: </span><span class="title">hasfreespace Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="hasfreespace Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">partition</code></td><td>Absolute path to the partition/device to check.</td><td>Yes</td></tr><tr><td><code class="literal">needed</code></td><td>The amount of free space required. Examples: <code class="literal">250M</code>,
                                 <code class="literal">10G</code>, <code class="literal">1T</code>.</td><td>Yes</td></tr></tbody></table>
@@ -190,7 +190,7 @@
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.isset"></a>5.8.12 <code class="literal">isset</code></h3></div></div></div>
             
             <p>Test whether a given property has been set in this project.</p>
-            <div class="table"><a name="idp1783"></a><p class="formal-object-title"><span class="label">Table 5.8: </span><span class="title">isset Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1786"></a><p class="formal-object-title"><span class="label">Table 5.8: </span><span class="title">isset Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="isset Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td>The name of the property to test.</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -199,7 +199,7 @@
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.contains"></a>5.8.13 <code class="literal">contains</code></h3></div></div></div>
             
             <p>Tests whether a string contains another one.</p>
-            <div class="table"><a name="idp1804"></a><p class="formal-object-title"><span class="label">Table 5.9: </span><span class="title">contains Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1807"></a><p class="formal-object-title"><span class="label">Table 5.9: </span><span class="title">contains Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="contains Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">string</code></td><td>The string to search in.</td><td>Yes</td></tr><tr><td><code class="literal">substring</code></td><td>The string to search for.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive comparison. Default is true.</td><td>No</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -209,7 +209,7 @@
             
             <p>Tests whether a string evaluates to true.</p>
 
-            <div class="table"><a name="idp1835"></a><p class="formal-object-title"><span class="label">Table 5.10: </span><span class="title">istrue Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1838"></a><p class="formal-object-title"><span class="label">Table 5.10: </span><span class="title">istrue Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="istrue Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td>value to test</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -221,7 +221,7 @@
             
             <p>Tests whether a string evaluates to not true, the negation of
                     <code class="literal">&lt;istrue&gt;</code></p>
-            <div class="table"><a name="idp1858"></a><p class="formal-object-title"><span class="label">Table 5.11: </span><span class="title">isfalse Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1861"></a><p class="formal-object-title"><span class="label">Table 5.11: </span><span class="title">isfalse Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="isfalse Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td>value to test</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -233,7 +233,7 @@
             
             <p>Tests whether a property evaluates to true.</p>
 
-            <div class="table"><a name="idp1880"></a><p class="formal-object-title"><span class="label">Table 5.12: </span><span class="title">ispropertytrue Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1883"></a><p class="formal-object-title"><span class="label">Table 5.12: </span><span class="title">ispropertytrue Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="ispropertytrue Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td>property to test</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -244,7 +244,7 @@
             
             <p>Tests whether a property evaluates to not true, the negation of
                 <code class="literal">&lt;ispropertytrue&gt;</code></p>
-            <div class="table"><a name="idp1903"></a><p class="formal-object-title"><span class="label">Table 5.13: </span><span class="title">ispropertyfalse Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1906"></a><p class="formal-object-title"><span class="label">Table 5.13: </span><span class="title">ispropertyfalse Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="ispropertyfalse Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td>property name to test</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -254,7 +254,7 @@
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.referenceexists"></a>5.8.18 <code class="literal">referenceexists</code></h3></div></div></div>
             
             <p>Tests whether a specified reference exists.</p>
-            <div class="table"><a name="idp1925"></a><p class="formal-object-title"><span class="label">Table 5.14: </span><span class="title">referenceexists Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1928"></a><p class="formal-object-title"><span class="label">Table 5.14: </span><span class="title">referenceexists Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="referenceexists Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">ref</code></td><td>reference to test for</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -280,7 +280,7 @@
                 This test does a byte for byte comparison, so test time scales with byte size.
                 NB: if the files are different sizes, one of them is missing or the filenames match
                 the answer is so obvious the detailed test is omitted. </p>
-            <div class="table"><a name="idp1953"></a><p class="formal-object-title"><span class="label">Table 5.15: </span><span class="title">filesmatch Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1956"></a><p class="formal-object-title"><span class="label">Table 5.15: </span><span class="title">filesmatch Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="filesmatch Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file1</code></td><td>First file to test.</td><td>Yes</td></tr><tr><td><code class="literal">file2</code></td><td>Second file to test.</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -290,7 +290,7 @@
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.isfileselected"></a>5.8.21 <code class="literal">isfileselected</code></h3></div></div></div>
             
             <p>Test whether a file passes an embedded selector. </p>
-            <div class="table"><a name="idp1980"></a><p class="formal-object-title"><span class="label">Table 5.16: </span><span class="title">isfileselected Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp1983"></a><p class="formal-object-title"><span class="label">Table 5.16: </span><span class="title">isfileselected Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="isfileselected Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td>The file to check if is passes the embedded selector.</td><td>Yes</td></tr><tr><td><code class="literal">basedir</code></td><td>The base directory to use for name based selectors.
                                 It this is not set, the project's basedirectory will be used.</td><td>No</td></tr></tbody></table>
@@ -303,7 +303,7 @@
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.isfailure"></a>5.8.22 <code class="literal">isfailure</code></h3></div></div></div>
             
             <p>Test the return code of an executable for failure. </p>
-            <div class="table"><a name="idp2007"></a><p class="formal-object-title"><span class="label">Table 5.17: </span><span class="title">isfailure Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp2010"></a><p class="formal-object-title"><span class="label">Table 5.17: </span><span class="title">isfailure Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="isfailure Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">code</code></td><td>The return code to test.</td><td>Yes</td></tr></tbody></table>
             </div></div><br class="table-break">
@@ -316,7 +316,7 @@
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.matches"></a>5.8.23 <code class="literal">matches</code></h3></div></div></div>
             
             <p>Test if the specified string matches the specified regular expression pattern. </p>
-            <div class="table"><a name="idp2029"></a><p class="formal-object-title"><span class="label">Table 5.18: </span><span class="title">matches Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp2032"></a><p class="formal-object-title"><span class="label">Table 5.18: </span><span class="title">matches Attributes</span></p><div class="table-contents">
                 
                 <table class="table" summary="matches Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">string</code></td><td>The string to test.</td><td>Yes</td></tr><tr><td><code class="literal">pattern</code></td><td>The regular expression pattern used to test.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive match. Default is true.</td><td>No</td></tr><tr><td><code class="literal">multiline</code></td><td>Perform a multi line match. Default is false.</td><td>No</td></tr><tr><td><code class="literal">modifiers</code></td><td>The regular expression modifiers used to test.</td><td>No</td></tr></tbody></table>
             </div></div><br class="table-break">

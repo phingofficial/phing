@@ -2,7 +2,7 @@
         
         <p> Download objects and refs from another repository. See official <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html" target="_top">documentation</a>.</p>
 
-        <div class="table"><a name="idp8442"></a><p class="formal-object-title"><span class="label">Table C.20: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp8462"></a><p class="formal-object-title"><span class="label">Table C.19: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary.</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>Path to Git repository.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">source</code></td><td><code class="literal">String</code></td><td>The "remote" repository that is the source of a fetch or pull
                             operation. See &lt;repository&gt; in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html" target="_top">git-fetch</a>.</td><td>origin</td><td>No</td></tr><tr><td><code class="literal">refspec</code></td><td><code class="literal">String</code></td><td>See &lt;refspec&gt; in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html" target="_top">git-fetch</a>.</td><td> </td><td>No</td></tr><tr><td><code class="literal">group</code></td><td><code class="literal">String</code></td><td>A name referring to a list of repositories as the value of
@@ -13,7 +13,7 @@
                             &lt;rbranch&gt; it fetches is a descendant of &lt;lbranch&gt;. This option
                             overrides that check. See --force in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html" target="_top">git-fetch</a>.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8571"></a>C.19.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8591"></a>C.19.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;

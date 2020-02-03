@@ -7,7 +7,7 @@
                 <code class="literal">rst2xml</code>.</p>
         <p> Homepage: <a class="ulink" href="https://gitorious.org/phing/rsttask" target="_top">https://gitorious.org/phing/rsttask</a>
         </p>
-        <div class="table"><a name="idp16091"></a><p class="formal-object-title"><span class="label">Table C.114: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp16111"></a><p class="formal-object-title"><span class="label">Table C.113: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>rST input file to render</td><td>n/a</td><td>Yes (or fileset)</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>
                             <p>Output format:</p>
@@ -27,7 +27,7 @@
                         </td><td>html</td><td>No</td></tr><tr><td><code class="literal">destination</code></td><td><code class="literal">String</code></td><td>Path to store the rendered file to. Used as directory if it ends with
                             a <code class="literal">/</code>.</td><td>magically determined from input file</td><td>No</td></tr><tr><td><code class="literal">uptodate</code></td><td><code class="literal">Boolean</code></td><td>Only render if the input file is newer than the target file</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">toolpath</code></td><td><code class="literal">String</code></td><td>Path to the rst2* tool</td><td>determined from <code class="literal">format</code></td><td>No</td></tr><tr><td><code class="literal">toolparam</code></td><td><code class="literal">String</code></td><td>Additional commandline parameters to the rst2* tool</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">mode</code></td><td><code class="literal">Integer</code></td><td>The mode to create directories with.</td><td>From umask</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16180"></a>C.83.1 Features</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16200"></a>C.83.1 Features</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p>renders single files</p>
@@ -51,7 +51,7 @@
                     <p>automatically creates target directories</p>
                 </li></ul></div>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16203"></a>C.83.2 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16223"></a>C.83.2 Examples</h3></div></div></div>
             
             <p>Render a single rST file to HTML </p>
             <p>By default, HTML is generated. If no target file is specified, the input file name
@@ -165,7 +165,7 @@
   &lt;/target&gt;
 &lt;/project&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16235"></a>C.83.3 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp16255"></a>C.83.3 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>

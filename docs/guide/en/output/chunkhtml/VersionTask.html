@@ -5,11 +5,11 @@
             published under supplied property.</p>
         <p>The version number in the text file is expected in the format of Major.Minor.Bugfix
             (e.g. 1.3.2). Alternatively you can use 'v' as prefix (e.g. v1.3.2).</p>
-        <div class="table"><a name="idp19096"></a><p class="formal-object-title"><span class="label">Table C.149: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp19242"></a><p class="formal-object-title"><span class="label">Table C.148: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">releasetype</code></td><td><code class="literal">String</code></td><td>Specifies desired version release (Major, Minor or Bugfix)</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>File containing three-part version number to increment</td><td><code class="literal">build.version</code></td><td>No</td></tr><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>Property which contains the resulting version number</td><td><code class="literal">build.version</code></td><td>No</td></tr><tr><td><code class="literal">propFile</code></td><td><code class="literal">Boolean</code></td><td>If <code class="literal">true</code>, version will be saved using <span class="emphasis"><em>property file</em></span> format (i.e. key=value).</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">startingVersion</code></td><td><code class="literal">String</code></td><td>Starting version string, if version file does not exist.</td><td><code class="literal">0.0.0</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp19158"></a>C.114.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp19304"></a>C.114.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;version releasetype="Major" file="version.txt" property="version.number"/&gt;</pre>
             <pre class="programlisting">&lt;version releasetype="Minor" startingVersion="v5.7" propFile="true"/&gt;</pre>

@@ -5,9 +5,9 @@
         to the <code class="literal">filenames</code>. All mappers have the same API, i.e. the way you use
         them is the same:</p>
     <pre class="programlisting">&lt;mapper type="<code class="literal">mappername</code>" from="<code class="literal">frompattern</code>" to="<code class="literal">topattern</code>" /&gt;</pre>
-    <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp21980"></a>F.1 Common Attributes</h2></div></div></div>
+    <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp22126"></a>F.1 Common Attributes</h2></div></div></div>
         
-        <div class="table"><a name="idp21982"></a><p class="formal-object-title"><span class="label">Table F.1: </span><span class="title"> Attributes for the <code class="literal">&lt;mapper&gt;</code> tag </span></p><div class="table-contents">
+        <div class="table"><a name="idp22128"></a><p class="formal-object-title"><span class="label">Table F.1: </span><span class="title"> Attributes for the <code class="literal">&lt;mapper&gt;</code> tag </span></p><div class="table-contents">
             
             <table class="table" summary=" Attributes for the &lt;mapper&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Type of the mapper.</td><td>n/a</td><td rowspan="2">One of these is required.</td></tr><tr><td><code class="literal">classname</code></td><td><code class="literal">String</code></td><td>Dot-path to a custom mapper class to use.</td><td>n/a</td></tr><tr><td><code class="literal">from</code></td><td><code class="literal">String</code></td><td>The pattern the filename is to be matched to. The exact meaning is
                             dependent on the implementation of the mapper.</td><td>n/a</td><td>depends on the implementation of the mapper</td></tr><tr><td><code class="literal">to</code></td><td><code class="literal">String</code></td><td>The pattern according to which the filename is to be changed to.

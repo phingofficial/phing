@@ -7,13 +7,13 @@
             to use this task.
         </p>
 
-        <div class="table"><a name="idp10481"></a><p class="formal-object-title"><span class="label">Table C.45: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp10501"></a><p class="formal-object-title"><span class="label">Table C.44: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">url</code></td><td><code class="literal">String</code></td><td>The request URL</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">responseRegex</code></td><td><code class="literal">String</code></td><td>The regular expression for matching the response</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">responseCodeRegex</code></td><td><code class="literal">String</code></td><td>The regular expression for matching the response code</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">authUser</code></td><td><code class="literal">String</code></td><td>The authentication user name</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">authPassword</code></td><td><code class="literal">String</code></td><td>The authentication password</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">authScheme</code></td><td><code class="literal">String</code></td><td>The authentication scheme</td><td>basic</td><td>No</td></tr><tr><td><code class="literal">verbose</code></td><td><code class="literal">Boolean</code></td><td>Whether to enable detailed logging</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">observerEvents</code></td><td><code class="literal">String</code></td><td>Comma-separated list of events to log when <code class="literal">verbose</code>
                             is set to <code class="literal">true</code></td><td>connect, sentHeaders, sentBodyPart, receivedHeaders, receivedBody,
                             disconnect</td><td>No</td></tr><tr><td><code class="literal">method</code></td><td><code class="literal">String</code></td><td>The HTTP method of the request, currently only GET or POST supported</td><td><code class="literal">GET</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10573"></a>C.42.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10593"></a>C.42.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;http-request url="http://my-production.example.com/check-deployment.php"/&gt;</pre>
 
@@ -42,7 +42,7 @@
           </pre>
           <p>Perform an HTTP POST request to the given URL. Setting POST request parameters to emulate form submission.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10583"></a>C.42.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10603"></a>C.42.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">config</code></p>
@@ -51,7 +51,7 @@
                         for supported values.
                     </p>
 
-                    <div class="table"><a name="idp10591"></a><p class="formal-object-title"><span class="label">Table C.46: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp10611"></a><p class="formal-object-title"><span class="label">Table C.45: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Config parameter name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td>Mixed</td><td>Config value</td><td>n/a</td><td>Yes</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -59,7 +59,7 @@
                     <p><code class="literal">header</code></p>
                     <p> Holds additional header <code class="literal">name</code> and
                             <code class="literal">value</code>.</p>
-                    <div class="table"><a name="idp10628"></a><p class="formal-object-title"><span class="label">Table C.47: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp10648"></a><p class="formal-object-title"><span class="label">Table C.46: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Header name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>Header value</td><td>n/a</td><td>Yes</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -67,13 +67,13 @@
                     <p><code class="literal">postparameter</code></p>
                     <p>Used when performing a POST request. Contains <code class="literal">name</code> and
                             <code class="literal">value</code> of a form field.</p>
-                    <div class="table"><a name="idp10666"></a><p class="formal-object-title"><span class="label">Table C.48: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp10686"></a><p class="formal-object-title"><span class="label">Table C.47: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Field name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>Field value</td><td>n/a</td><td>Yes</td></tr></tbody></table>
                     </div></div><br class="table-break">
                 </li></ul></div>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10698"></a>C.42.3 Global configuration</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp10718"></a>C.42.3 Global configuration</h3></div></div></div>
             
             <p>
                 In addition to configuring a particular instance of <code class="literal">HTTP_Request2</code> via

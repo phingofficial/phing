@@ -7,7 +7,7 @@
             <code class="literal">${process.outputfile}</code>. This is a real example from the build file
             used to generate this book!</p>
 
-        <div class="table"><a name="idp2719"></a><p class="formal-object-title"><span class="label">Table B.3: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp2722"></a><p class="formal-object-title"><span class="label">Table B.3: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">destFile</code></td><td><code class="literal">File</code></td><td>Path of file to which text should be appended.
                             If not specified the console will be used instead.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">append</code></td><td><code class="literal">String</code></td><td>Specifies whether or not the file specified by 'destfile'
@@ -35,7 +35,7 @@
                             For DOS based systems (including Windows), the default is "crlf".
                             For Mac OS, the default is "cr".</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">File</code></td><td>Path to file that should be appended to destFile.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">text</code></td><td><code class="literal">String</code></td><td>Some literal text to append to file.</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2810"></a>B.3.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2813"></a>B.3.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;append destFile="${process.outputfile}"&gt;
                 &lt;filterchain&gt;
@@ -47,7 +47,7 @@
                 &lt;/append&gt;</pre>
         </div>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2813"></a>B.3.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp2816"></a>B.3.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileList.html" title="D.3 FileList">filelist</a></code></p>
@@ -61,7 +61,7 @@
                     <p><code class="literal">header, footer</code>
                         Used to prepend or postpend text into the concatenated stream.
                         The text may be in-line or be in a file.
-                        </p><div class="table"><a name="idp2834"></a><p class="formal-object-title"><span class="label">Table B.4: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        </p><div class="table"><a name="idp2837"></a><p class="formal-object-title"><span class="label">Table B.4: </span><span class="title">Attributes</span></p><div class="table-contents">
                             
                             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">filtering</code></td><td><code class="literal">Boolean</code></td><td>Whether to filter the text provided by this sub element.</td><td>yes</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>A file to place at the head or tail of the concatenated text.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">trim</code></td><td><code class="literal">Boolean</code></td><td>Whether to trim the value.</td><td>no</td><td>No</td></tr><tr><td><code class="literal">trimleading</code></td><td><code class="literal">Boolean</code></td><td>Whether to trim leading white space on each line.</td><td>no</td><td>No</td></tr></tbody></table>
                         </div></div><p><br class="table-break">

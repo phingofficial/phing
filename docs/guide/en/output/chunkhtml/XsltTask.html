@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.53 XsltTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="WaitForTask.html" title="B.52 WaitForTask"><link rel="next" href="app.optionaltasks.html" title="Appendix C. Optional tasks"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.53 XsltTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="WaitForTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="app.optionaltasks.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="XsltTask"></a>B.53 XsltTask </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.54 XsltTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="WaitForTask.html" title="B.53 WaitForTask"><link rel="next" href="app.optionaltasks.html" title="Appendix C. Optional tasks"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.54 XsltTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="WaitForTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="app.optionaltasks.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="XsltTask"></a>B.54 XsltTask </h2></div></div></div>
         
         <p>With <code class="literal">XsltTask</code>, you can run a XSLT transformation on an XML file.
             Actually, <code class="literal">XsltTask</code> extends <code class="literal">CopyTask</code>, so you can
@@ -9,12 +9,12 @@
                 <code class="literal">XsltTask</code> is equivalent to running command line
                 <code class="literal">xsltproc</code> since that is a frontend for libxslt.</p>
 
-        <div class="table"><a name="idp6728"></a><p class="formal-object-title"><span class="label">Table B.56: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp6782"></a><p class="formal-object-title"><span class="label">Table B.57: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">style</code></td><td><code class="literal">String</code></td><td>The path where the Xslt file is located</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">resolvedocumentexternals</code></td><td><code class="literal">Boolean</code></td><td>Whether to resolve entities in the XML document. (see <a class="ulink" href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals" target="_top">this link</a> for details)</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">resolvestylesheetexternals</code></td><td><code class="literal">Boolean</code></td><td>Whether to resolve entities in the stylesheet.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">html</code></td><td><code class="literal">Boolean</code></td><td>Whether to work on HTML or XML.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
         <p><code class="literal">Note:</code> You can also use all the attributes available for <a class="xref" href="CopyTask.html" title="B.11 CopyTask">Section B.11, “CopyTask ”</a>.</p>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6783"></a>B.53.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6837"></a>B.54.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;!-- Transform docbook with an imaginary XSLT file --&gt;
 &lt;xslt todir="/srv/docs/phing" style="dbk2html.xslt" &gt;
@@ -23,7 +23,7 @@
   &lt;/fileset&gt;
 &lt;/xslt&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6786"></a>B.53.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp6840"></a>B.54.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="app.coremappers.html" title="Appendix F. Core mappers">mapper</a></code></p>
@@ -38,4 +38,4 @@
                     <code class="literal">value</code> alias) attribute. These parameters are then available
                 from within the xsl style sheet.</p>
         </div>
-    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="WaitForTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="app.optionaltasks.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.52 WaitForTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix C. Optional tasks</td></tr></table></div></body></html>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="WaitForTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="app.optionaltasks.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.53 WaitForTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix C. Optional tasks</td></tr></table></div></body></html>

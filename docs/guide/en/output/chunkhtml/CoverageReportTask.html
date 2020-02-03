@@ -5,23 +5,23 @@
                 <span class="bold"><strong>S</strong></span>yntax <span class="bold"><strong>Hi</strong></span>ghlighting library, <code class="literal">GeSHi</code> (See <a class="ulink" href="http://qbnz.com/highlighter/" target="_top">GeSHi Homepage</a>) library to mark up
             source code. The path to the library (if not in the default path) can be specified as an
             attribute.</p>
-        <div class="table"><a name="idp7178"></a><p class="formal-object-title"><span class="label">Table C.5: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp7238"></a><p class="formal-object-title"><span class="label">Table C.5: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">outfile</code></td><td><code class="literal">String</code></td><td>The location for the intermediate XML file.</td><td>coverage.db</td><td>Yes</td></tr><tr><td><code class="literal"><a class="link" href="path.html" title="D.7 Path / Classpath">classpath</a></code></td><td><code class="literal">String</code></td><td>Additional classpath to locate source referenced in the
                             report.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">geshipath</code></td><td><code class="literal">String</code></td><td>Path to GeSHi highlighting library.</td><td>n/a</td><td>No/Yes* If syntax highlighting is to be enabled</td></tr><tr><td><code class="literal">geshilanguagespath</code></td><td><code class="literal">String</code></td><td>Language to use with GeSHi.</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp7227"></a>C.5.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp7287"></a>C.5.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;coverage-report outfile="reports/coverage.xml"&gt;
   &lt;report todir="reports/coverage" styledir="/home/phing/etc"/&gt;
 &lt;/coverage-report&gt;</pre>
         </div>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp7230"></a>C.5.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp7290"></a>C.5.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p>report</p>
-                    <div class="table"><a name="idp7235"></a><p class="formal-object-title"><span class="label">Table C.6: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp7295"></a><p class="formal-object-title"><span class="label">Table C.6: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">styledir</code></td><td><code class="literal">String</code></td><td>The directory where the stylesheets are located.</td><td>The <code class="literal">etc</code> directory in the Phing installation.</td><td>No</td></tr><tr><td><code class="literal">todir</code></td><td><code class="literal">String</code></td><td>The directory where the files resulting from the
                                         transformation should be written to.</td><td> </td><td>Yes</td></tr><tr><td><code class="literal">title</code></td><td><code class="literal">String</code></td><td>Title of the project (used in the generated

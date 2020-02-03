@@ -5,7 +5,7 @@
             explicitly overwrite existing files.</p>
         <p><code class="literal">CopyTask</code> does not allow self copying, i.e. copying a file to the
             same name for security reasons.</p>
-        <div class="table"><a name="idp3652"></a><p class="formal-object-title"><span class="label">Table B.13: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp3655"></a><p class="formal-object-title"><span class="label">Table B.13: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The source file.</td><td>Yes</td><td class="auto-generated"> </td></tr><tr><td><code class="literal">tofile</code></td><td><code class="literal">String</code></td><td>
                             <p>The destination the file is to be written to.
@@ -31,7 +31,7 @@
                     <code class="literal">expandsymboliclinks</code> to <code class="literal">true</code> in the
                     <code class="literal">&lt;fileset&gt;</code> tag.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3781"></a>B.11.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3784"></a>B.11.1 Examples</h3></div></div></div>
             
             <p>On the one hand, CopyTask can be used to copy file by file:</p>
             <pre class="programlisting">&lt;copy file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/&gt;</pre>
@@ -54,7 +54,7 @@
   &lt;/fileset&gt;
 &lt;/copy&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3794"></a>B.11.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3797"></a>B.11.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>

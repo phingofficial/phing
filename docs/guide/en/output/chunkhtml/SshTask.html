@@ -4,21 +4,21 @@
             task requires the <a class="ulink" href="http://pecl.php.net/package/ssh2" target="_top">PHP
                 SSH2 extension</a> to function.</p>
 
-        <div class="table"><a name="idp17146"></a><p class="formal-object-title"><span class="label">Table C.124: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp17166"></a><p class="formal-object-title"><span class="label">Table C.123: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">host</code></td><td><code class="literal">String</code></td><td>Remote host</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">port</code></td><td><code class="literal">Integer</code></td><td>Remote port</td><td>22</td><td>No</td></tr><tr><td><code class="literal">username</code></td><td><code class="literal">String</code></td><td>Username to use for the connection</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>Password to use for the connection</td><td>none</td><td>No</td></tr><tr><td><code class="literal">pubkeyfile</code></td><td><code class="literal">String</code></td><td>Public key file (OpenSSH format) to use for the connection</td><td>none</td><td>No</td></tr><tr><td><code class="literal">privkeyfile</code></td><td><code class="literal">String</code></td><td>Private key file (OpenSSH format) to use for the connection</td><td>none</td><td>No</td></tr><tr><td><code class="literal">privkeyfilepassphrase</code></td><td><code class="literal">String</code></td><td>Private key file passphrase to use for the connection</td><td>none</td><td>No</td></tr><tr><td><code class="literal">command</code></td><td><code class="literal">String</code></td><td>Command to execute on the remote server</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>The name of the property to capture (any) output of the
                             command</td><td>none</td><td>No</td></tr><tr><td><code class="literal">display</code></td><td><code class="literal">Boolean</code></td><td>Whether to display the output of the command</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">pty</code></td><td><code class="literal">String</code></td><td>The terminal type to open</td><td><code class="literal">none</code></td><td>No</td></tr><tr><td><code class="literal">failonerror</code></td><td><code class="literal">Boolean</code></td><td>Decides if a command chain will fail if one of the executed commands
                             failed. Added for backward compatibility. Set to true if you execute
                             more than one command and want the task to fail on any error.</td><td><code class="literal">False</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17261"></a>C.91.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17281"></a>C.91.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;ssh username="john" password="smith"
 host="webserver" command="ls" /&gt;</pre>
 
             <p>Executes a single command on the remote server.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17265"></a>C.91.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp17285"></a>C.91.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">sshconfig</code>
@@ -31,7 +31,7 @@ host="webserver" command="ls" /&gt;</pre>
                     <p>sshconfig can also be used as project level parameter with a refid so the same parameters can be re-used
                         across a project easily.</p>
 
-                    <div class="table"><a name="idp17274"></a><p class="formal-object-title"><span class="label">Table C.125: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp17294"></a><p class="formal-object-title"><span class="label">Table C.124: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">kex</code></td><td><code class="literal">String</code></td><td>List of key exchange methods to advertise, comma separated in order of preference.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">hostkey</code></td><td><code class="literal">String</code></td><td>List of hostkey methods to advertise, come separated in order of preference.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">client</code></td><td><code class="literal">Nested Tag</code></td><td>Element containing attributes crypt, comp, and mac method preferences for messages sent from client to server.  All attributes are optional.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">server</code></td><td><code class="literal">Nested Tag</code></td><td>Element containing attributes crypt, comp, and mac method preferences for messages sent from server to client.  All attributes are optional.</td><td>n/a</td><td>No</td></tr></tbody></table>
                     </div></div><br class="table-break">

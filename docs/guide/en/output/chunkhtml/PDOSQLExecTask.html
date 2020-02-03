@@ -6,7 +6,7 @@
             <code class="literal">delimitertype</code> set to <code class="literal">normal</code>
             can trigger segmentation faults with large files.</p>
         </div>
-        <div class="table"><a name="idp12982"></a><p class="formal-object-title"><span class="label">Table C.75: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp13002"></a><p class="formal-object-title"><span class="label">Table C.74: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">url</code></td><td><code class="literal">String</code></td><td>PDO connection URL (DSN)</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">userid</code></td><td><code class="literal">String</code></td><td>Username for connection (if it cannot be specified in URL) </td><td>none</td><td>No</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>The password to use for the connection (if it cannot be specified in
                             URL)</td><td>none</td><td>No</td></tr><tr><td><code class="literal">src</code></td><td>File</td><td>A single source file of SQL statements to execute.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">onerror</code></td><td><code class="literal">String</code></td><td>The action to perform on error (continue, stop, or abort)</td><td>abort</td><td>No</td></tr><tr><td><code class="literal">delimiter</code></td><td><code class="literal">String</code></td><td>The delimiter to separate SQL statements (e.g. "GO" in MSSQL)</td><td>;</td><td>No</td></tr><tr><td><code class="literal">delimitertype</code></td><td><code class="literal">String</code></td><td>The delimiter type ("normal", "row" or "none"). Normal means that any
@@ -17,7 +17,7 @@
         </div></div><br class="table-break">
         <p>You can also <a class="link" href="conditions.html#conditions.pdosqlexec" title="5.8.9 PDOSQLExec">use
             PDOSQLExecTask as condition</a></p>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp13072"></a>C.64.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp13092"></a>C.64.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;pdosqlexec url="pgsql:host=localhost dbname=test"&gt;
   &lt;fileset dir="sqlfiles"&gt;
@@ -60,7 +60,7 @@
 &lt;/pdo&gt;</pre>
         </div>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp13081"></a>C.64.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp13101"></a>C.64.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">transaction</code>
@@ -69,7 +69,7 @@
                         blocks of statements to be executed using the same PDO connection and commit
                         operation in between.</p>
 
-                    <div class="table"><a name="idp13088"></a><p class="formal-object-title"><span class="label">Table C.76: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp13108"></a><p class="formal-object-title"><span class="label">Table C.75: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">src</code></td><td><code class="literal">String</code></td><td>File with statements to be run as one transaction</td><td>n/a</td><td>No</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -94,7 +94,7 @@
                         XML format, the other emits plain text. Custom formatters that extend
                         phing.tasks.pdo.PDOResultFormatter can be specified.</p>
 
-                    <div class="table"><a name="idp13130"></a><p class="formal-object-title"><span class="label">Table C.77: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp13150"></a><p class="formal-object-title"><span class="label">Table C.76: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Use a predefined formatter (either <code class="literal">xml</code>
                                         or <code class="literal">plain</code>). </td><td>n/a</td><td rowspan="2">One of these attributes is required.</td></tr><tr><td><code class="literal">classname</code></td><td><code class="literal">String</code></td><td>Name of a custom formatter class (must extend

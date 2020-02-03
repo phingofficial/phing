@@ -9,17 +9,17 @@
 &lt;/copy&gt;</pre>
         <p>This will change the extension of all files matching the pattern
                 <code class="literal">*.php</code> to <code class="literal">.php.bak</code>.</p>
-        <div class="table"><a name="idp22175"></a><p class="formal-object-title"><span class="label">Table F.7: </span><span class="title"> The globmapper mapper can take the following extra attributes.</span></p><div class="table-contents">
+        <div class="table"><a name="idp22321"></a><p class="formal-object-title"><span class="label">Table F.7: </span><span class="title"> The globmapper mapper can take the following extra attributes.</span></p><div class="table-contents">
             
             <table class="table" summary=" The globmapper mapper can take the following extra attributes." border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">handledirsep</code></td><td><code class="literal">String</code></td><td>If this is specified, the mapper will ignore the difference between the normal directory
                             separator characters - \ and /. This attribute is useful for cross-platform build files.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">casesensitive</code></td><td><code class="literal">Boolean</code></td><td>If this is false, the mapper will ignore case when matching the glob pattern.</td><td>true</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp22207"></a>F.7.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp22353"></a>F.7.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;mapper type="glob" from="*txt" to="*txt.bak"/&gt;</pre>
             <p>Applying the mapper, you will get the following results from the following
                 filenames:</p>
-            <div class="table"><a name="idp22211"></a><p class="formal-object-title"><span class="label">Table F.8: </span><span class="title">Result of mapping</span></p><div class="table-contents">
+            <div class="table"><a name="idp22357"></a><p class="formal-object-title"><span class="label">Table F.8: </span><span class="title">Result of mapping</span></p><div class="table-contents">
                 
                 <table class="table" summary="Result of mapping" border="1"><colgroup><col class="name"><col class="name"></colgroup><thead><tr><th>From</th><th>To</th></tr></thead><tbody><tr><td><code class="filename">test.txt</code></td><td><code class="filename">test.txt.bak</code></td></tr><tr><td><code class="filename">./foo/bar/test.txt</code></td><td><code class="filename">./foo/bar/test.txt.bak</code></td></tr><tr><td><code class="filename">mytxt</code></td><td><code class="filename">mytxt.bak</code></td></tr><tr><td><code class="filename">SomeClass.php</code></td><td><code class="literal">ignored</code>, SomeClass.php</td></tr></tbody></table>
             </div></div><br class="table-break">

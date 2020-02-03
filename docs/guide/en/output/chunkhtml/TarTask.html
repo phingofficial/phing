@@ -2,7 +2,7 @@
         
         <p> The <code class="literal">TarTask</code> creates a tarball from a fileset or directory.</p>
 
-        <div class="table"><a name="idp18791"></a><p class="formal-object-title"><span class="label">Table C.144: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp18937"></a><p class="formal-object-title"><span class="label">Table C.143: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">destfile</code></td><td><code class="literal">String</code></td><td>Tarball filename</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">basedir</code></td><td><code class="literal">String</code></td><td>Base directory to tar (if no fileset specified, entire directory
                             contents will be included in tar)</td><td>none</td><td>No</td></tr><tr><td><code class="literal">compression</code></td><td><code class="literal">String</code></td><td>Type of compression to use (gzip, bzip2, lzma2, none)</td><td>none</td><td>No</td></tr><tr><td><code class="literal">includeemptydirs</code></td><td><code class="literal">Boolean</code></td><td>If set to <code class="literal">true</code>, also empty directories are copied. </td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">longfile</code></td><td><code class="literal">String</code></td><td>How to handle long files, those with a path &gt; 100 chars. Allowable
@@ -21,7 +21,7 @@
             <p>using basedir and fileset simultaneously can result in strange contents in the
                 archive.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp18866"></a>C.109.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp19012"></a>C.109.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;tar destfile="phing.tar"&gt;
  &lt;fileset dir="."&gt;
@@ -36,7 +36,7 @@
                 directory (including subdirectories) in the archive,
                 compressing the archive using gzip.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp18872"></a>C.109.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp19018"></a>C.109.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="FileSet.html" title="D.4 FileSet">fileset</a></code></p>

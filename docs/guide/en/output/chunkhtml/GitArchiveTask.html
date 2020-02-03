@@ -2,13 +2,13 @@
         
         <p>Create an archive of files from a named tree.</p>
 
-        <div class="table"><a name="idp7958"></a><p class="formal-object-title"><span class="label">Table C.15: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp7978"></a><p class="formal-object-title"><span class="label">Table C.14: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table class="table" summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>The repository.</td><td>n/a</td><td rowspan="2">One of these attributes is required.</td></tr><tr><td><code class="literal">remoterepo</code></td><td><code class="literal">String</code></td><td>The remote repository.</td><td>n/a</td></tr><tr><td><code class="literal">treeish</code></td><td><code class="literal">String</code></td><td>The tree or commit to produce an archive for.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">output</code></td><td><code class="literal">String</code></td><td>Write the archive to file.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">prefix</code></td><td><code class="literal">String</code></td><td>Prepend prefix to each filename in the archive.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>Format of the resulting archive: tar or zip. If this option is not given, and the output
                             file is specified, the format is inferred from the filename if possible (e.g. writing to
                             "foo.zip" makes the output to be in the zip format). Otherwise the output format is tar</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8029"></a>C.14.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8049"></a>C.14.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;gitclone gitPath="${git-path}"
           singleBranch="true"

@@ -3,16 +3,16 @@
         <p>The <code class="literal">RegexpMapper</code> changes filenames according to a pattern defined
             by a regular expression. This is the most powerful mapper and you should be able to use
             it for every possible application.</p>
-        <div class="table"><a name="idp22284"></a><p class="formal-object-title"><span class="label">Table F.10: </span><span class="title"> The regexp mapper can take the following extra attributes.</span></p><div class="table-contents">
+        <div class="table"><a name="idp22430"></a><p class="formal-object-title"><span class="label">Table F.10: </span><span class="title"> The regexp mapper can take the following extra attributes.</span></p><div class="table-contents">
             
             <table class="table" summary=" The regexp mapper can take the following extra attributes." border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">handledirsep</code></td><td><code class="literal">String</code></td><td>If this is specified, the mapper will ignore the difference between the normal directory
                             separator characters - \ and /. This attribute is useful for cross-platform build files.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">casesensitive</code></td><td><code class="literal">Boolean</code></td><td>If this is false, the mapper will ignore case when matching the glob pattern.</td><td>true</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp22316"></a>F.10.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp22462"></a>F.10.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;mapper type="regexp" from="^(.*)\.conf\.xml" to="\1.php"/&gt;</pre>
             <p>The mapper as above will do the following mappings:</p>
-            <div class="table"><a name="idp22320"></a><p class="formal-object-title"><span class="label">Table F.11: </span><span class="title">Result of mapping</span></p><div class="table-contents">
+            <div class="table"><a name="idp22466"></a><p class="formal-object-title"><span class="label">Table F.11: </span><span class="title">Result of mapping</span></p><div class="table-contents">
                 
                 <table class="table" summary="Result of mapping" border="1"><colgroup><col class="name"><col class="name"></colgroup><thead><tr><th>From</th><th>To</th></tr></thead><tbody><tr><td><code class="filename">test.txt</code></td><td>ignore, <code class="filename">test.txt</code></td></tr><tr><td><code class="filename">./foo/bar/test.conf.xml</code></td><td><code class="filename">./foo/bar/test.php</code></td></tr><tr><td><code class="filename">someconf.conf.xml</code></td><td><code class="filename">someconf.php</code></td></tr></tbody></table>
             </div></div><br class="table-break">
