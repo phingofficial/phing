@@ -55,7 +55,6 @@
         "pear/pear-core-minimal": "~1.10.9",
         "pear/versioncontrol_git": "dev-master",
         "pear/versioncontrol_svn": "~0.5",
-        "phpdocumentor/phpdocumentor": "^2.9",
         "phploc/phploc": "^4.0 || ^5.0",
         "phpmd/phpmd": "~2.7",
         "phpunit/phpunit": "^7.5 || ^8.0",
