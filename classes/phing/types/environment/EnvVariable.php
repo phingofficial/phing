@@ -105,7 +105,7 @@ class EnvVariable
     public function getContent()
     {
         $this->validate();
-        return trim($this->key) . '=' . trim($this->value);
+        return trim($this->key) . '=' . escapeshellarg(trim($this->value));
     }
 
     /**
