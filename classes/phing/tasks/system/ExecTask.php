@@ -265,12 +265,14 @@ class ExecTask extends Task
 
         $envString = '';
         $environment = $this->env->getVariables();
-        foreach ($environment as $variable) {
-            if ($this->isPath($variable)) {
-                continue;
+        if ($environment !== null) {
+            foreach ($environment as $variable) {
+                if ($this->isPath($variable)) {
+                    continue;
+                }
+                $this->log('Setting environment variable: ' . $variable, Project::MSG_VERBOSE);
+                $envString .= $variable . '; ';
             }
-            $this->log('Setting environment variable: ' . $variable, Project::MSG_VERBOSE);
-            $envString .= $variable . '; ';
         }
 
         $this->realCommand = $envString . $this->commandline . $this->realCommand;
