@@ -39,6 +39,9 @@ class TouchTask extends Task
     private $mkdirs = false;
     private $verbose = true;
 
+    /** @var Mapper $mapperElement */
+    private $mapperElement;
+
     /**
      *
      */
@@ -114,7 +117,17 @@ class TouchTask extends Task
      * @throws BuildException
      * @throws IOException
      */
-    public function main()
+    public function createMapper()
+    {
+        if ($this->mapperElement !== null) {
+            throw new BuildException("Cannot define more than one mapper", $this->getLocation());
+        }
+        $this->mapperElement = new Mapper($this->project);
+
+        return $this->mapperElement;
+    }
+
+    protected function checkConfiguration()
     {
         $savedMillis = $this->millis;
 
@@ -133,12 +146,25 @@ class TouchTask extends Task
                     throw new BuildException("Date of {$this->dateTime} results in negative milliseconds value relative to epoch (January 1, 1970, 00:00:00 GMT).");
                 }
             }
-            $this->_touch();
         } catch (Exception $ex) {
             throw new BuildException("Error touch()ing file", $ex, $this->getLocation());
         }
+        $this->log(
+            "Setting millis to " . $savedMillis . " from datetime attribute",
+            ($this->millis < 0 ? Project::MSG_DEBUG : Project::MSG_VERBOSE)
+        );
 
         $this->millis = $savedMillis;
+    }
+
+    /**
+     * Execute the touch operation.
+     * @throws BuildException
+     */
+    public function main()
+    {
+        $this->checkConfiguration();
+        $this->_touch();
     }
 
     /**
@@ -149,14 +175,14 @@ class TouchTask extends Task
         if ($this->file !== null) {
             if (!$this->file->exists()) {
                 $this->log(
-                    "Creating " . $this->file->__toString(),
+                    "Creating " . $this->file,
                     $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE
                 );
                 try { // try to create file
                     $this->file->createNewFile($this->mkdirs);
                 } catch (IOException  $ioe) {
                     throw new BuildException(
-                        "Error creating new file " . $this->file->__toString(),
+                        "Error creating new file " . $this->file,
                         $ioe,
                         $this->getLocation()
                     );
@@ -174,20 +200,24 @@ class TouchTask extends Task
             $this->touchFile($this->file);
         }
 
-        // deal with the filesets
+        $project = $this->getProject();
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($this->getProject());
-            $fromDir = $fs->getDir($this->getProject());
+            $ds = $fs->getDirectoryScanner($project);
+            $fromDir = $fs->getDir($project);
 
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs = $ds->getIncludedDirectories();
 
             for ($j = 0, $_j = count($srcFiles); $j < $_j; $j++) {
-                $this->touchFile(new PhingFile($fromDir, (string) $srcFiles[$j]));
+                foreach ($this->getMappedFileNames((string) $srcFiles[$j]) as $fileName) {
+                    $this->touchFile(new PhingFile($fromDir, $fileName));
+                }
             }
 
             for ($j = 0, $_j = count($srcDirs); $j < $_j; $j++) {
-                $this->touchFile(new PhingFile($fromDir, (string) $srcDirs[$j]));
+                foreach ($this->getMappedFileNames((string) $srcDirs[$j]) as $fileName) {
+                    $this->touchFile(new PhingFile($fromDir, $fileName));
+                }
             }
         }
 
@@ -198,7 +228,9 @@ class TouchTask extends Task
             $srcFiles = $fl->getFiles($this->getProject());
 
             for ($j = 0, $_j = count($srcFiles); $j < $_j; $j++) {
-                $this->touchFile(new PhingFile($fromDir, (string) $srcFiles[$j]));
+                foreach ($this->getMappedFileNames((string) $srcFiles[$j]) as $fileName) {
+                    $this->touchFile(new PhingFile($fromDir, $fileName));
+                }
             }
         }
 
@@ -207,14 +239,30 @@ class TouchTask extends Task
         }
     }
 
+    private function getMappedFileNames($file)
+    {
+        if ($this->mapperElement !== null) {
+            $mapper = $this->mapperElement->getImplementation();
+            $results = $mapper->main($file);
+            if ($results === null) {
+                return '';
+            }
+            $fileNames = $results;
+        } else {
+            $fileNames = [$file];
+        }
+
+        return $fileNames;
+    }
+
     /**
      * @param $file
      * @throws BuildException
      */
-    private function touchFile($file)
+    private function touchFile(PhingFile $file)
     {
         if (!$file->canWrite()) {
-            throw new BuildException("Can not change modification date of read-only file " . $file->__toString());
+            throw new BuildException("Can not change modification date of read-only file " . (string) $file);
         }
         $file->setLastModified($this->millis);
     }
