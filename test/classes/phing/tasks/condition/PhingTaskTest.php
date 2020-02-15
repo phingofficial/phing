@@ -69,4 +69,85 @@ class PhingTaskTest extends BuildFileTest
     {
         $this->getProject()->executeTarget(__FUNCTION__);
     }
+
+    public function testExplicitBasedir1(): void
+    {
+        $dir1 = $this->getProject()->getBaseDir();
+        $dir2 = $this->getProject()->resolveFile("..");
+        $this->baseDirs('explicitBasedir1', [$dir1->getAbsolutePath(), $dir2->getAbsolutePath()]);
+    }
+
+    private function baseDirs(string $target, array $dirs): void
+    {
+        $bc = new class ($dirs) implements BuildListener {
+            private $expectedBasedirs;
+            private $calls = 0;
+            private $error;
+
+            public function __construct(array $dirs)
+            {
+                $this->expectedBasedirs = $dirs;
+            }
+
+            public function buildStarted(BuildEvent $event)
+            {
+            }
+
+            public function buildFinished(BuildEvent $event)
+            {
+            }
+
+            public function targetFinished(BuildEvent $event)
+            {
+            }
+
+            public function taskStarted(BuildEvent $event)
+            {
+            }
+
+            public function taskFinished(BuildEvent $event)
+            {
+            }
+
+            public function messageLogged(BuildEvent $event)
+            {
+            }
+
+            public function targetStarted(BuildEvent $event)
+            {
+                if ($event->getTarget()->getName() === '') {
+                    return;
+                }
+                if ($this->error === null) {
+                    try {
+                        BuildFileTest::assertEquals(
+                            $this->expectedBasedirs[$this->calls++],
+                            $event->getProject()->getBaseDir()->getAbsolutePath()
+                        );
+                    } catch (AssertionError $e) {
+                        $this->error = $e;
+                    }
+                }
+            }
+
+            public function getError()
+            {
+                return $this->error;
+            }
+        };
+        $this->getProject()->addBuildListener($bc);
+        $this->executeTarget($target);
+        $ae = $bc->getError();
+        if ($ae !== null) {
+            throw $ae;
+        }
+        $this->getProject()->removeBuildListener($bc);
+    }
+
+    public function testExplicitBasedir2(): void
+    {
+        $dir1 = $this->getProject()->getBaseDir();
+        $dir2 = $this->getProject()->resolveFile("..");
+        $this->baseDirs('explicitBasedir2', [$dir1->getAbsolutePath(), $dir2->getAbsolutePath()]);
+    }
 }
