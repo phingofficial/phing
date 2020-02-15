@@ -2319,6 +2319,9 @@
                     <ref name="filelist"/>
                 </choice>
                 <optional>
+                    <ref name="mapper"/>
+                </optional>
+                <optional>
                     <attribute name="datetime"/>
                 </optional>
                 <optional>
