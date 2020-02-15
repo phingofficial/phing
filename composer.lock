@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d7df4793dfad57fec565da6822aff2e",
+    "content-hash": "e4b70173750597498b6e26416b0ee797",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -435,6 +435,50 @@
             ],
             "description": "A task for generating output by using Smarty.",
             "time": "2020-02-15T21:30:17+00:00"
+        },
+        {
+            "name": "phing/task-zendcodeanalyser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-zendcodeanalyser.git",
+                "reference": "9dde83ec8981c41b19dfa152a609ebe855300315"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-zendcodeanalyser/zipball/9dde83ec8981c41b19dfa152a609ebe855300315",
+                "reference": "9dde83ec8981c41b19dfa152a609ebe855300315",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev"
+            },
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "zendcodeanalyser": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "The ZendCodeAnalyzerTask analyze PHP source files using the Zend Code Analyzer tool that ships with all versions of Zend Studio.",
+            "time": "2020-02-15T22:41:26+00:00"
         },
         {
             "name": "psr/container",
@@ -4228,6 +4272,7 @@
         "phing/task-phkpackage": 20,
         "phing/task-ioncube": 20,
         "phing/task-smarty": 20,
+        "phing/task-zendcodeanalyser": 20,
         "pear/net_growl": 20,
         "pear/versioncontrol_git": 20
     },
