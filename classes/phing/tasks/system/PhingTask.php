@@ -164,7 +164,7 @@ class PhingTask extends Task
     private function reinit()
     {
         $this->init();
-        
+
         $count = count($this->properties);
         for ($i = 0; $i < $count; $i++) {
             /**
