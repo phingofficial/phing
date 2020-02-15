@@ -150,4 +150,24 @@ class PhingTaskTest extends BuildFileTest
         $dir2 = $this->getProject()->resolveFile("..");
         $this->baseDirs('explicitBasedir2', [$dir1->getAbsolutePath(), $dir2->getAbsolutePath()]);
     }
+
+    public function testInheritBasedir(): void
+    {
+        $basedir = $this->getProject()->getBaseDir()->getAbsolutePath();
+        $this->baseDirs('inheritBasedir', [$basedir, $basedir]);
+    }
+
+    public function testDoNotInheritBasedir(): void
+    {
+        $dir1 = $this->getProject()->getBaseDir();
+        $dir2 = $this->getProject()->resolveFile('phing');
+        $this->baseDirs('doNotInheritBasedir', [$dir1->getAbsolutePath(), $dir2->getAbsolutePath()]);
+    }
+
+    public function testBasedirTripleCall(): void
+    {
+        $dir1 = $this->getProject()->getBaseDir();
+        $dir2 = $this->getProject()->resolveFile("phing");
+        $this->baseDirs('tripleCall', [$dir1->getAbsolutePath(), $dir2->getAbsolutePath(), $dir1->getAbsolutePath()]);
+    }
 }
