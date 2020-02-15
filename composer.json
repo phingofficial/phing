@@ -24,7 +24,8 @@
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "zendcodeanalyser": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask"
+      "zendcodeanalyzer": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask",
+      "analyze": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask"
     }
   }
 }
