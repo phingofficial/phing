@@ -258,4 +258,25 @@ abstract class Task extends ProjectComponent
             $this->project->fireTaskFinished($this, $reason);
         }
     }
+
+    /**
+     * Bind a task to another; use this when configuring a newly created
+     * task to do work on behalf of another.
+     * Project, OwningTarget, TaskName, Location and Description are all copied
+     *
+     * Important: this method does not call {@link Task#init()}.
+     * If you are creating a task to delegate work to, call {@link Task#init()}
+     * to initialize it.
+     *
+     * @param Task $owner owning target
+     */
+    public function bindToOwner(Task $owner): void
+    {
+        $this->setProject($owner->getProject());
+        $this->setOwningTarget($owner->getOwningTarget());
+        $this->setTaskName($owner->getTaskName());
+        $this->setDescription($owner->getDescription());
+        $this->setLocation($owner->getLocation());
+        $this->setTaskType($owner->getTaskType());
+    }
 }
