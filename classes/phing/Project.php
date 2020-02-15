@@ -314,6 +314,11 @@ class Project
         return PropertyHelper::getPropertyHelper($this)->getUserProperties();
     }
 
+    public function getInheritedProperties()
+    {
+        return PropertyHelper::getPropertyHelper($this)->getInheritedProperties();
+    }
+
     /**
      * Copies all user properties that have been set on the command
      * line or a GUI tool from this instance to the Project instance
