@@ -26,6 +26,9 @@
     "phing-custom-taskdefs": {
       "ssh": "Phing\\Tasks\\Ext\\SshTask",
       "scp": "Phing\\Tasks\\Ext\\ScpTask"
+    },
+    "phing-custom-typedefs": {
+      "sshconfig": "Phing\\Tasks\\Ext\\Ssh2MethodParam"
     }
   }
 }
