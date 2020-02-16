@@ -318,4 +318,22 @@ class PhingTaskTest extends BuildFileTest
     {
         $this->expectLogContaining('test-property-override-no-inheritall-start', 'The value of test is 4');
     }
+
+    /**
+     * Fail due to infinite recursion loop
+     */
+    public function testInfiniteLoopViaDepends(): void
+    {
+        $this->expectBuildException('infinite-loop-via-depends', 'infinite loop');
+    }
+
+    public function testMultiSameProperty(): void
+    {
+        $this->expectLogContaining('multi-same-property', 'prop is two');
+    }
+
+    public function testTopLevelTarget(): void
+    {
+        $this->expectLogContaining('topleveltarget', 'Hello world');
+    }
 }
