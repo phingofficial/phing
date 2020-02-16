@@ -318,4 +318,9 @@ class PhingTaskTest extends BuildFileTest
     {
         $this->expectLogContaining('test-property-override-no-inheritall-start', 'The value of test is 4');
     }
+
+    public function testTopLevelTarget(): void
+    {
+        $this->expectLogContaining('topleveltarget', 'Hello world');
+    }
 }
