@@ -278,4 +278,20 @@ class PhingTaskTest extends BuildFileTest
         }
         $this->getProject()->removeBuildListener($rc);
     }
+
+    public function testReferenceNoInheritance(): void
+    {
+        $p = new Path($this->getProject(), 'test-path');
+        $this->getProject()->addReference("path", $p);
+        $this->getProject()->addReference("no-override", $p);
+        $this->reference("testNoInherit", ["path", "path"], [true, false], $p);
+        $this->reference("testNoInherit", ["path", "path"], [false, true], null);
+        $this->reference("testInherit", ["no-override", "no-override"], [true, false], $p);
+        $this->reference("testInherit", ["no-override", "no-override"], [false, false], null);
+    }
+
+    public function testInheritPath(): void
+    {
+        $this->getProject()->executeTarget('testInheritPath');
+    }
 }
