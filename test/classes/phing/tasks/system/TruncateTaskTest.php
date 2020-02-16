@@ -52,6 +52,12 @@ class TruncateTaskTest extends BuildFileTest
         $this->assertSame($this->getProject()->getProperty('test.explicit.length'), 1034);
     }
 
+    public function testExplicitUnit()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertSame($this->getProject()->getProperty('test.explicit.unit.length'), 1024);
+    }
+
     public function testExtend()
     {
         $this->executeTarget(__FUNCTION__);
