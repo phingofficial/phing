@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4b70173750597498b6e26416b0ee797",
+    "content-hash": "3efce4b83f5a6ac31aa40f8e2bc327a1",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -437,17 +437,17 @@
             "time": "2020-02-15T21:30:17+00:00"
         },
         {
-            "name": "phing/task-zendcodeanalyser",
+            "name": "phing/task-ssh",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phingofficial/task-zendcodeanalyser.git",
-                "reference": "9dde83ec8981c41b19dfa152a609ebe855300315"
+                "url": "https://github.com/phingofficial/task-ssh.git",
+                "reference": "54ac9284da3e0de2d57a14b14b65ba9dd372d3a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-zendcodeanalyser/zipball/9dde83ec8981c41b19dfa152a609ebe855300315",
-                "reference": "9dde83ec8981c41b19dfa152a609ebe855300315",
+                "url": "https://api.github.com/repos/phingofficial/task-ssh/zipball/54ac9284da3e0de2d57a14b14b65ba9dd372d3a7",
+                "reference": "54ac9284da3e0de2d57a14b14b65ba9dd372d3a7",
                 "shasum": ""
             },
             "require": {
@@ -459,7 +459,56 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "zendcodeanalyser": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask"
+                    "ssh": "Phing\\Tasks\\Ext\\SshTask",
+                    "scp": "Phing\\Tasks\\Ext\\ScpTask"
+                },
+                "phing-custom-typedefs": {
+                    "sshconfig": "Phing\\Tasks\\Ext\\Ssh2MethodParam"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "Execute commands on a remote host using ssh.",
+            "time": "2020-02-16T00:25:13+00:00"
+        },
+        {
+            "name": "phing/task-zendcodeanalyser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-zendcodeanalyser.git",
+                "reference": "8cb7596f0f544ad1f9a9bcee7415c95783c47326"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-zendcodeanalyser/zipball/8cb7596f0f544ad1f9a9bcee7415c95783c47326",
+                "reference": "8cb7596f0f544ad1f9a9bcee7415c95783c47326",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev"
+            },
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "zendcodeanalyzer": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask",
+                    "analyze": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask"
                 }
             },
             "autoload": {
@@ -478,7 +527,7 @@
                 }
             ],
             "description": "The ZendCodeAnalyzerTask analyze PHP source files using the Zend Code Analyzer tool that ships with all versions of Zend Studio.",
-            "time": "2020-02-15T22:41:26+00:00"
+            "time": "2020-02-15T23:00:06+00:00"
         },
         {
             "name": "psr/container",
@@ -4273,6 +4322,7 @@
         "phing/task-ioncube": 20,
         "phing/task-smarty": 20,
         "phing/task-zendcodeanalyser": 20,
+        "phing/task-ssh": 20,
         "pear/net_growl": 20,
         "pear/versioncontrol_git": 20
     },
