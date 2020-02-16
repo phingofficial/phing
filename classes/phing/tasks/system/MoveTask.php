@@ -33,6 +33,12 @@
  */
 class MoveTask extends CopyTask
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->overwrite = true;
+    }
+
     /**
      * Validates attributes coming in from XML
      *
