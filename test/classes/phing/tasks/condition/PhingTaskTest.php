@@ -170,4 +170,112 @@ class PhingTaskTest extends BuildFileTest
         $dir2 = $this->getProject()->resolveFile("phing");
         $this->baseDirs('tripleCall', [$dir1->getAbsolutePath(), $dir2->getAbsolutePath(), $dir1->getAbsolutePath()]);
     }
+
+    public function testReferenceInheritance(): void
+    {
+        $p = new Path($this->getProject(), 'test-path');
+        $this->getProject()->addReference('path', $p);
+        $this->getProject()->addReference('no-override', $p);
+        $this->reference('testInherit', ['path', 'path'], [true, true], $p);
+        $this->reference('testInherit', ['no-override', 'no-override'], [true, false], $p);
+        $this->reference('testInherit', ['no-override', 'no-override'], [false, false], null);
+    }
+
+    protected function reference(string $target, array $keys, array $expect, $value): void
+    {
+        $rc = new class ($keys, $expect, $value) implements BuildListener {
+            private $keys;
+            private $expectSame;
+            private $value;
+            private $calls = 0;
+            private $error;
+
+            public function __construct(array $keys, array $expectSame, $value)
+            {
+                $this->keys = $keys;
+                $this->expectSame = $expectSame;
+                $this->value = $value;
+            }
+
+            public function buildStarted(BuildEvent $event)
+            {
+            }
+
+            public function buildFinished(BuildEvent $event)
+            {
+            }
+
+            public function targetFinished(BuildEvent $event)
+            {
+            }
+
+            public function taskStarted(BuildEvent $event)
+            {
+            }
+
+            public function taskFinished(BuildEvent $event)
+            {
+            }
+
+            public function messageLogged(BuildEvent $event)
+            {
+            }
+
+            public function targetStarted(BuildEvent $event)
+            {
+                if ($event->getTarget()->getName() === '') {
+                    return;
+                }
+                if ($this->error === null) {
+                    try {
+                        $msg = "Call " . $this->calls . " refid=\'" . $this->keys[$this->calls] . "\'";
+                        if ($this->value === null) {
+                            $o = $event->getProject()->getReference($this->keys[$this->calls]);
+                            if ($this->expectSame[$this->calls++]) {
+                                PhingTaskTest::assertNull($o, $msg);
+                            } else {
+                                PhingTaskTest::assertNotNull($o, $msg);
+                            }
+                        } else {
+                            // a rather convoluted equals() test
+                            /** @var Path $expect */
+                            $expect = $this->value;
+                            $received = $event->getProject()->getReference($this->keys[$this->calls]);
+                            $shouldBeEqual = $this->expectSame[$this->calls++];
+                            if ($received === null) {
+                                PhingTaskTest::assertFalse($shouldBeEqual, $msg);
+                            } else {
+                                $l1 = $expect->listPaths();
+                                $l2 = $received->listPaths();
+                                if (count($l1) === count($l2)) {
+                                    for ($i = 0, $iMax = count($l1); $i < $iMax; $i++) {
+                                        if ($l1[$i] !== $l2[$i]) {
+                                            PhingTaskTest::assertFalse($shouldBeEqual, $msg);
+                                        }
+                                    }
+                                    PhingTaskTest::assertTrue($shouldBeEqual, $msg);
+                                } else {
+                                    PhingTaskTest::assertFalse($shouldBeEqual, $msg);
+                                }
+                            }
+                        }
+                    } catch (\Throwable $e) {
+                        $this->error = $e;
+                    }
+                }
+            }
+
+            public function getError()
+            {
+                return $this->error;
+            }
+        };
+        $this->getProject()->addBuildListener($rc);
+        $this->getProject()->executeTarget($target);
+        $ae = $rc->getError();
+        if ($ae !== null) {
+            throw $ae;
+        }
+        $this->getProject()->removeBuildListener($rc);
+    }
 }
