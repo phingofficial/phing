@@ -327,11 +327,6 @@ class PhingTaskTest extends BuildFileTest
         $this->expectBuildException('infinite-loop-via-depends', 'infinite loop');
     }
 
-    public function testMultiSameProperty(): void
-    {
-        $this->expectLogContaining('multi-same-property', 'prop is two');
-    }
-
     public function testTopLevelTarget(): void
     {
         $this->expectLogContaining('topleveltarget', 'Hello world');
