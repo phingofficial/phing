@@ -111,6 +111,7 @@ class FileUtils
      * @param  Project $project
      * @param  integer $mode
      * @param  bool $preservePermissions
+     * @param int $granularity
      * @throws Exception
      * @throws IOException
      * @return void
@@ -123,9 +124,14 @@ class FileUtils
         $preserveLastModified = true,
         &$filterChains = null,
         $mode = 0755,
-        $preservePermissions = true
+        $preservePermissions = true,
+        int $granularity = 0
     ) {
-        if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
+        if (
+            $overwrite
+            || !$destFile->exists()
+            || $destFile->lastModified() < $sourceFile->lastModified() - $granularity
+        ) {
             if ($destFile->exists() && ($destFile->isFile() || $destFile->isLink())) {
                 $destFile->delete();
             }
