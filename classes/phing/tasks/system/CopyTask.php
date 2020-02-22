@@ -96,10 +96,9 @@ class CopyTask extends Task
     }
 
     /**
-     * Set the number of milliseconds leeway to give before deciding a
+     * Set the number of seconds leeway to give before deciding a
      * target is out of date.
      *
-     * <p>Default is 1 second, or 2 seconds on DOS systems.</p>
      * @param int $granularity the granularity used to decide if a target is out of date.
      */
     public function setGranularity(int $granularity): void
