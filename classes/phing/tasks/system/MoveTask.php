@@ -91,7 +91,8 @@ class MoveTask extends CopyTask
                             $this->overwrite,
                             $this->preserveLMT,
                             $this->filterChains,
-                            $this->mode
+                            $this->mode,
+                            $this->preservePermissions
                         );
                         $f->delete(true);
                     } else {
@@ -127,7 +128,8 @@ class MoveTask extends CopyTask
                         $this->overwrite,
                         $this->preserveLMT,
                         $this->filterChains,
-                        $this->mode
+                        $this->mode,
+                        $this->preservePermissions
                     );
 
                     $f->delete();
