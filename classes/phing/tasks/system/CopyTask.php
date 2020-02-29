@@ -81,6 +81,9 @@ class CopyTask extends Task
 
     protected $enableMultipleMappings = false;
 
+    /** @var int $granularity */
+    protected $granularity = 0;
+
     /**
      * Sets up this object internal stuff.
      * i.e. the Fileutils instance and default mode.
@@ -90,6 +93,17 @@ class CopyTask extends Task
         parent::__construct();
         $this->fileUtils = new FileUtils();
         $this->mode = 0777 - umask();
+    }
+
+    /**
+     * Set the number of seconds leeway to give before deciding a
+     * target is out of date.
+     *
+     * @param int $granularity the granularity used to decide if a target is out of date.
+     */
+    public function setGranularity(int $granularity): void
+    {
+        $this->granularity = $granularity;
     }
 
     /**
@@ -300,7 +314,10 @@ class CopyTask extends Task
                 if ($this->destFile === null) {
                     $this->destFile = new PhingFile($this->destDir, (string) $this->file->getName());
                 }
-                if ($this->overwrite === true || ($this->file->lastModified() > $this->destFile->lastModified())) {
+                if (
+                    $this->overwrite === true
+                    || ($this->file->lastModified() - $this->granularity > $this->destFile->lastModified())
+                ) {
                     $this->fileCopyMap[$this->file->getAbsolutePath()] = $this->destFile->getAbsolutePath();
                 } else {
                     $this->log($this->file->getName() . " omitted, " . $this->destFile->getName() . " is up to date");
@@ -641,7 +658,8 @@ class CopyTask extends Task
                 $this->preserveLMT,
                 $this->filterChains,
                 $this->mode,
-                $this->preservePermissions
+                $this->preservePermissions,
+                $this->granularity
             );
 
             $count++;
