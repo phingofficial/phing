@@ -81,4 +81,9 @@ class MoveTaskTest extends BuildFileTest
 
         $this->assertEquals("BAR", $contents);
     }
+
+    public function testGranularity()
+    {
+        $this->expectLogContaining(__FUNCTION__, 'Test omitted, Test is up to date');
+    }
 }
