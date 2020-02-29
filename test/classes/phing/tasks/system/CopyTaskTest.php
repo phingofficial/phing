@@ -96,6 +96,6 @@ class CopyTaskTest extends BuildFileTest
 
     public function testGranularity()
     {
-        $this->expectLogContaining(__FUNCTION__, 'Copying 1 file to');
+        $this->expectLogContaining(__FUNCTION__, 'Test omitted, Test is up to date');
     }
 }
