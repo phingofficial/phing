@@ -77,7 +77,7 @@
 	<target name="testGranularity">
 		<touch mkdirs="true" file="${tmp.dir}/copysrcs/Test" millis="102134111"/>
 		<touch mkdirs="true" file="${tmp.dir}/copydest/Test"/>
-		<copy file="copysrcs/Test" todir="copydest" granularity="999999999"/>
+		<copy file="${tmp.dir}/copysrcs/Test" todir="${tmp.dir}/copydest" granularity="999999999"/>
 	</target>
 
 	<target name="main"/>
