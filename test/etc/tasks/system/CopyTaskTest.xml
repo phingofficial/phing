@@ -74,9 +74,9 @@
 		<copy file="${tmp.dir}/link-a" tofile="${tmp.dir}/link-b" overwrite="true"/>
 	</target>
 
-	<target name="testGranularity">
-		<touch mkdirs="true" file="${tmp.dir}/copysrcs/Test" datetime="10/10/2000 09:31 AM"/>
-		<touch mkdirs="true" file="${tmp.dir}/copydest/Test" datetime="10/10/1999 09:31 AM"/>
+	<target name="testGranularity" description="do not overwrite existing file without touching  it first">
+		<touch mkdirs="true" file="${tmp.dir}/copysrcs/Test" datetime="-1 day"/>
+		<touch mkdirs="true" file="${tmp.dir}/copydest/Test" datetime="-1 year"/>
 		<copy file="${tmp.dir}/copysrcs/Test" todir="${tmp.dir}/copydest" granularity="999999999" overwrite="false"/>
 	</target>
 
