@@ -87,6 +87,7 @@ class TouchTask extends Task
     public function setDatetime($dateTime)
     {
         $this->dateTime = (string) $dateTime;
+        $this->setMillis(strtotime($this->dateTime));
     }
 
     /**
@@ -141,7 +142,6 @@ class TouchTask extends Task
 
         try { // try to touch file
             if ($this->dateTime !== null) {
-                $this->setMillis(strtotime($this->dateTime));
                 if ($this->millis < 0) {
                     throw new BuildException("Date of {$this->dateTime} results in negative milliseconds value relative to epoch (January 1, 1970, 00:00:00 GMT).");
                 }
