@@ -1942,6 +1942,11 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="granularity" a:defaultValue="0">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <choice>
