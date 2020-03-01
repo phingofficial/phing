@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3efce4b83f5a6ac31aa40f8e2bc327a1",
+    "content-hash": "955a01771f221954c0347777e56d309e",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -390,6 +390,52 @@
             ],
             "description": "This task runs PHK_Creator.phk to build PHK-package.",
             "time": "2020-01-31T22:14:03+00:00"
+        },
+        {
+            "name": "phing/task-phpdoc",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-phpdoc.git",
+                "reference": "912c0438f68d33d04a1fcf237d4d3334ea55e7f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-phpdoc/zipball/912c0438f68d33d04a1fcf237d4d3334ea55e7f8",
+                "reference": "912c0438f68d33d04a1fcf237d4d3334ea55e7f8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev",
+                "phpdocumentor/phpdocumentor": "^2.9"
+            },
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "phpdoc": "Phing\\Tasks\\Ext\\PhpDocumentor2Task",
+                    "phpdoc2": "Phing\\Tasks\\Ext\\PhpDocumentor2Task"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "This task runs phpDocumentor 2, a API documentation tool. This project is the result of the merge of the phpDocumentor and DocBlox projects.",
+            "time": "2020-03-01T21:48:23+00:00"
         },
         {
             "name": "phing/task-smarty",
@@ -1077,16 +1123,16 @@
         },
         {
             "name": "composer/xdebug-handler",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/xdebug-handler.git",
-                "reference": "cbe23383749496fe0f373345208b79568e4bc248"
+                "reference": "1ab9842d69e64fb3a01be6b656501032d1b78cb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/cbe23383749496fe0f373345208b79568e4bc248",
-                "reference": "cbe23383749496fe0f373345208b79568e4bc248",
+                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/1ab9842d69e64fb3a01be6b656501032d1b78cb7",
+                "reference": "1ab9842d69e64fb3a01be6b656501032d1b78cb7",
                 "shasum": ""
             },
             "require": {
@@ -1117,7 +1163,7 @@
                 "Xdebug",
                 "performance"
             ],
-            "time": "2019-11-06T16:40:04+00:00"
+            "time": "2020-03-01T12:26:26+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -2152,13 +2198,13 @@
             "authors": [
                 {
                     "name": "Michiel Rook",
-                    "email": "mrook@php.net",
-                    "role": "Lead"
+                    "role": "Lead",
+                    "email": "mrook@php.net"
                 },
                 {
                     "name": "Clay Loveless",
-                    "email": "clay@loveless.net",
-                    "role": "Lead"
+                    "role": "Lead",
+                    "email": "clay@loveless.net"
                 }
             ],
             "description": "More info available on: http://pear.php.net/package/VersionControl_SVN",
@@ -2468,22 +2514,22 @@
         },
         {
             "name": "phpmd/phpmd",
-            "version": "2.8.1",
+            "version": "2.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpmd/phpmd.git",
-                "reference": "5664b95d484797582f5af9536238deb9ecde58a1"
+                "reference": "714629ed782537f638fe23c4346637659b779a77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpmd/phpmd/zipball/5664b95d484797582f5af9536238deb9ecde58a1",
-                "reference": "5664b95d484797582f5af9536238deb9ecde58a1",
+                "url": "https://api.github.com/repos/phpmd/phpmd/zipball/714629ed782537f638fe23c4346637659b779a77",
+                "reference": "714629ed782537f638fe23c4346637659b779a77",
                 "shasum": ""
             },
             "require": {
                 "composer/xdebug-handler": "^1.0",
                 "ext-xml": "*",
-                "pdepend/pdepend": "^2.6",
+                "pdepend/pdepend": "^2.7.1",
                 "php": ">=5.3.9"
             },
             "require-dev": {
@@ -2534,7 +2580,7 @@
                 "phpmd",
                 "pmd"
             ],
-            "time": "2019-12-27T11:09:06+00:00"
+            "time": "2020-02-16T20:15:50+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -3074,16 +3120,16 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "e2dadd21ef6188f038aaf72cd2d55d0e1b522741"
+                "reference": "20d661952d19d4d75508180c453a594423b4f10b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/e2dadd21ef6188f038aaf72cd2d55d0e1b522741",
-                "reference": "e2dadd21ef6188f038aaf72cd2d55d0e1b522741",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/20d661952d19d4d75508180c453a594423b4f10b",
+                "reference": "20d661952d19d4d75508180c453a594423b4f10b",
                 "shasum": ""
             },
             "require": {
@@ -3131,7 +3177,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2020-01-31T16:45:58+00:00"
+            "time": "2020-02-20T16:44:03+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -3851,16 +3897,16 @@
         },
         {
             "name": "symfony/config",
-            "version": "v4.4.4",
+            "version": "v4.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "4d3979f54472637169080f802dc82197e21fdcce"
+                "reference": "cbfef5ae91ccd3b06621c18d58cd355c68c87ae9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/4d3979f54472637169080f802dc82197e21fdcce",
-                "reference": "4d3979f54472637169080f802dc82197e21fdcce",
+                "url": "https://api.github.com/repos/symfony/config/zipball/cbfef5ae91ccd3b06621c18d58cd355c68c87ae9",
+                "reference": "cbfef5ae91ccd3b06621c18d58cd355c68c87ae9",
                 "shasum": ""
             },
             "require": {
@@ -3911,7 +3957,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-04T13:00:46+00:00"
+            "time": "2020-02-04T09:32:40+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -3988,7 +4034,7 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v4.4.4",
+            "version": "v4.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
@@ -4038,16 +4084,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.4.4",
+            "version": "v4.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "3a50be43515590faf812fbd7708200aabc327ec3"
+                "reference": "ea69c129aed9fdeca781d4b77eb20b62cf5d5357"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/3a50be43515590faf812fbd7708200aabc327ec3",
-                "reference": "3a50be43515590faf812fbd7708200aabc327ec3",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/ea69c129aed9fdeca781d4b77eb20b62cf5d5357",
+                "reference": "ea69c129aed9fdeca781d4b77eb20b62cf5d5357",
                 "shasum": ""
             },
             "require": {
@@ -4083,11 +4129,11 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-04T13:00:46+00:00"
+            "time": "2020-02-14T07:42:58+00:00"
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v4.4.4",
+            "version": "v4.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
@@ -4323,6 +4369,7 @@
         "phing/task-smarty": 20,
         "phing/task-zendcodeanalyser": 20,
         "phing/task-ssh": 20,
+        "phing/task-phpdoc": 20,
         "pear/net_growl": 20,
         "pear/versioncontrol_git": 20
     },
