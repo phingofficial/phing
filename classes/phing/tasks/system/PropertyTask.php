@@ -419,6 +419,10 @@ class PropertyTask extends Task
                 $this->getLocation()
             );
         }
+
+        if ($this->file === null && $this->prefix !== null) {
+            throw new BuildException('Prefix is only valid when loading from a file.', $this->getLocation());
+        }
     }
 
     /**
