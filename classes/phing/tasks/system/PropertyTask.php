@@ -406,22 +406,18 @@ class PropertyTask extends Task
      */
     private function validate(): void
     {
-        if ($this->name !== null && $this->value === null && $this->reference === null) {
+        if ($this->name !== null) {
+            if ($this->value === null && $this->reference === null) {
+                throw new BuildException(
+                    "You must specify value or refid with the name attribute",
+                    $this->getLocation()
+                );
+            }
+        } elseif ($this->file === null && $this->env === null) {
             throw new BuildException(
-                'You must specify value or refid with the name attribute',
+                "You must specify file or environment when not using the name attribute",
                 $this->getLocation()
             );
-        }
-
-        if ($this->name === null && $this->file === null && $this->env === null) {
-            throw new BuildException(
-                'You must specify file or environment when not using the name attribute',
-                $this->getLocation()
-            );
-        }
-
-        if ($this->file === null && $this->prefix !== null) {
-            throw new BuildException('Prefix is only valid when loading from a file.', $this->getLocation());
         }
     }
 
