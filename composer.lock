@@ -993,16 +993,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.133.15",
+            "version": "3.133.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "18289bf4a3fe68e9a0853f29d82b6cd4b1de2f9e"
+                "reference": "0bccb2841d035fe983a811b964d3b485171c0406"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/18289bf4a3fe68e9a0853f29d82b6cd4b1de2f9e",
-                "reference": "18289bf4a3fe68e9a0853f29d82b6cd4b1de2f9e",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0bccb2841d035fe983a811b964d3b485171c0406",
+                "reference": "0bccb2841d035fe983a811b964d3b485171c0406",
                 "shasum": ""
             },
             "require": {
@@ -1073,7 +1073,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-02-14T19:09:24+00:00"
+            "time": "2020-02-29T00:41:14+00:00"
         },
         {
             "name": "composer/xdebug-handler",
