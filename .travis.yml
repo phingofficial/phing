@@ -28,6 +28,7 @@ stages:
   - static code analysis
   - test
   - test with coverage
+  - build phar
 
 before_install:
   - phpenv config-rm xdebug.ini || echo "xdebug not available"
@@ -98,6 +99,14 @@ jobs:
       php: 7.2
       env: DEPS="NORMAL"
       script: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
+
+    - stage: build phar
+      os: linux
+      php: 7.2
+      env: DEPS="NORMAL"
+      script:
+        - cd build
+        - ../bin/phing
 
 notifications:
   secure: "Q8xCtM0IMQyjQuPJOPFCcFvBUlD7zwg6E5vEFfsaFQj+9bJ83Xo3loURsizTBf+WpRruDxmu3tlg0GNk5yDt92POOCOISzyWPBDmHiy2MVDfINEwyNsJpzdlw1UnChoTjSwRS3goPivfQDkOsbSrszLE93iE9PIIUw5BV4CAoho="
