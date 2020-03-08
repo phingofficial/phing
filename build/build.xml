@@ -204,7 +204,7 @@
         Generate SHA512 file hashes
         ==============================================
     -->
-    <target name="generate-hash" unless="${env.TRAVIS}">
+    <target name="generate-hash" unless="env.TRAVIS">
         <filehash file="${filename}" algorithm="sha512" />
         <filehash file="${filename}" algorithm="sha384" />
         <filehash file="${filename}" algorithm="sha256" />
