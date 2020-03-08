@@ -1,6 +1,5 @@
 language: php
-
-sudo: false
+os: linux
 
 php:
   - 7.1
@@ -59,6 +58,7 @@ script:
 
 jobs:
   allow_failures:
+    - php: 7.4
     - php: master
     - php: nightly
   include:
@@ -88,20 +88,17 @@ jobs:
         - wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=clover ./test/reports/clover-coverage.xml
 
     - stage: composer validate
-      os: linux
       php: 7.2
       env: DEPS="NORMAL"
       script:
         - composer validate
 
     - stage: static code analysis
-      os: linux
       php: 7.2
       env: DEPS="NORMAL"
       script: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
 
     - stage: build phar
-      os: linux
       php: 7.2
       env: DEPS="NORMAL"
       script:
