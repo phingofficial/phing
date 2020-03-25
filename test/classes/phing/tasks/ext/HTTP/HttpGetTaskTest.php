@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use GuzzleHttp\Psr7\Response;
+
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext
@@ -38,55 +40,26 @@ class HttpGetTaskTest extends BaseHttpTaskTest
 
     public function testError404()
     {
-        $this->copyTasksAddingCustomRequest(
-            'error404',
-            'recipient',
-            $this->createRequest(
-                $this->createMockAdapter(
-                    [
-                        "HTTP/1.1 404 Not Found\r\n" .
-                        "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-                        "\r\n" .
-                        "The file you seek is not here"
-                    ]
-                )
-            )
-        );
+        $this->createMockHandler([new Response(404, [], 'The file you seek is not here')]);
 
         $this->expectException(BuildException::class);
-        $this->expectExceptionMessage('Response from server: 404 Not Found');
+        $this->expectExceptionMessage('resulted in a `404 Not Found`');
 
-        $this->executeTarget('recipient');
+        $this->executeTarget('error404');
     }
 
     public function testFileNamingOptions()
     {
         $this->executeTarget('mkdir');
 
-        $this->copyTasksAddingCustomRequest(
-            'filenames',
-            'recipient',
-            $this->createRequest(
-                $this->createMockAdapter(
-                    [
-                        "HTTP/1.1 200 OK\r\n" .
-                        "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-                        "\r\n" .
-                        "This file is named explicitly",
-                        "HTTP/1.1 200 OK\r\n" .
-                        "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-                        "Content-Disposition: attachment; filename=\"disposition.txt\"\r\n" .
-                        "\r\n" .
-                        "This file is named according to Content-Disposition header",
-                        "HTTP/1.1 200 OK\r\n" .
-                        "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-                        "\r\n" .
-                        "This file is named according to an URL part"
-                    ]
-                )
-            )
+        $this->createMockHandler(
+            [
+                new Response(200, [], 'This file is named explicitly'),
+                new Response(200, ['Content-Disposition' => 'attachment; filename="disposition.txt"'], 'This file is named according to Content-Disposition header'),
+                new Response(200, [], 'This file is named according to an URL part'),
+            ]
         );
-        $this->executeTarget('recipient');
+        $this->executeTarget('filenames');
 
         $this->assertStringEqualsFile(
             PHING_TEST_BASE . '/tmp/httpget/foobar.txt',
@@ -106,73 +79,67 @@ class HttpGetTaskTest extends BaseHttpTaskTest
 
     public function testExplicitConfiguration()
     {
-        $trace = new TraceHttpAdapter();
-        $this->copyTasksAddingCustomRequest('configuration', 'recipient', $this->createRequest($trace));
+        $this->createMockHandler([new Response(404, [], '')]);
 
         try {
-            $this->executeTarget('recipient');
+            $this->executeTarget('configuration');
         } catch (BuildException $e) {
-            // the request returns error 400, but we don't really care
         }
 
-        $request = new HTTP_Request2(null, 'GET', [
-                'proxy' => 'socks5://localhost:1080/',
-                'ssl_verify_peer' => false,
-                'follow_redirects' => true
-            ]);
+        $options = [
+            'proxy' => 'socks5://localhost:1080/',
+            'verify' => false,
+            'allow_redirects' => true
+        ];
 
-        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
+        $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
+        $this->assertEquals($options['verify'], $this->traces[0]['options']['verify']);
+        $this->assertEquals(\GuzzleHttp\RedirectMiddleware::$defaultSettings, $this->traces[0]['options']['allow_redirects']);
     }
 
     public function testAuthentication()
     {
-        $trace = new TraceHttpAdapter();
+        $this->createMockHandler([new Response(404, [], '')]);
 
-        $this->copyTasksAddingCustomRequest('authentication', 'recipient', $this->createRequest($trace));
         try {
-            $this->executeTarget('recipient');
+            $this->executeTarget('authentication');
         } catch (BuildException $e) {
-            // the request returns error 400, but we don't really care
         }
 
         $this->assertEquals(
-            ['user' => 'luser', 'password' => 'secret', 'scheme' => 'basic'],
-            $trace->requests[0]['auth']
+            ['luser', 'secret', 'basic'],
+            $this->traces[0]['options']['auth']
         );
     }
 
     public function testConfigAndHeaderTags()
     {
-        $trace = new TraceHttpAdapter();
+        $this->createMockHandler([new Response(404, [], '')]);
 
-        $this->copyTasksAddingCustomRequest('nested-tags', 'recipient', $this->createRequest($trace));
         try {
-            $this->executeTarget('recipient');
+            $this->executeTarget('nested-tags');
         } catch (BuildException $e) {
-            // the request returns error 400, but we don't really care
         }
 
-        $this->assertEquals(15, $trace->requests[0]['config']['timeout']);
-        $this->assertEquals('Phing HttpGetTask', $trace->requests[0]['headers']['user-agent']);
+        $this->assertEquals(15, $this->traces[0]['options']['timeout']);
+        $this->assertEquals('Phing HttpGetTask', $this->traces[0]['request']->getHeader('user-agent')[0]);
     }
 
     public function testConfigurationViaProperties()
     {
-        $trace = new TraceHttpAdapter();
-        $this->copyTasksAddingCustomRequest('config-properties', 'recipient', $this->createRequest($trace));
+        $this->createMockHandler([new Response(404, [], '')]);
 
         try {
-            $this->executeTarget('recipient');
+            $this->executeTarget('config-properties');
         } catch (BuildException $e) {
-            // the request returns error 400, but we don't really care
         }
 
-        $request = new HTTP_Request2(null, 'GET', [
-                'proxy' => 'http://localhost:8080/',
-                'timeout' => 20,
-                'max_redirects' => 9
-            ]);
+        $options = [
+            'proxy' => 'http://localhost:8080/',
+            'timeout' => 20
+        ];
 
-        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
+        $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
+        $this->assertEquals($options['timeout'], $this->traces[0]['options']['timeout']);
     }
 }
