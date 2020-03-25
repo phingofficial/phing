@@ -31,10 +31,11 @@ class FileUtils
      * path separator string, static, obtained from FileSystem (; or :)
      */
     public static $pathSeparator;
+
     /**
      * separator string, static, obtained from FileSystem
      */
-    public static $separator;
+    public static $separator = '';
 
     public function __construct()
     {
