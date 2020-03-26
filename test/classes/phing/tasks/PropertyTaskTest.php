@@ -54,7 +54,7 @@ class PropertyTaskTest extends BuildFileTest
     public function testPrefixFailure()
     {
         $this->expectException(BuildException::class);
-        $this->expectExceptionMessageRegExp('/Prefix is only valid/');
+        $this->expectExceptionMessageMatches('/Prefix is only valid/');
 
 //        try {
 //            $this->executeTarget("prefix.fail");
@@ -89,7 +89,7 @@ class PropertyTaskTest extends BuildFileTest
     public function testCircularDefinitionDetection($target)
     {
         $this->expectException(BuildException::class);
-        $this->expectExceptionMessageRegExp('/was circularly defined/');
+        $this->expectExceptionMessageMatches('/was circularly defined/');
 
 //        try {
 //            $this->executeTarget($target);

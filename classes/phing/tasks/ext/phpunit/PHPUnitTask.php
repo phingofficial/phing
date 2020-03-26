@@ -304,61 +304,44 @@ class PHPUnitTask extends Task
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
         }
 
-        $config = \PHPUnit\Util\Configuration::getInstance($configuration->getAbsolutePath());
+        $config = \PHPUnit\TextUI\Configuration\Registry::getInstance()->get($configuration->getAbsolutePath());
 
         if (empty($config)) {
             return [];
         }
 
-        $phpunit = $config->getPHPUnitConfiguration();
+        $phpunit = $config->phpunit();
 
         if (empty($phpunit)) {
             return [];
         }
 
-        $config->handlePHPConfiguration();
-
-        if (isset($phpunit['bootstrap'])) {
-            $this->setBootstrap($phpunit['bootstrap']);
+        if ($phpunit->hasBootstrap()) {
+            $this->setBootstrap($phpunit->bootstrap());
         }
+        $this->setHaltonfailure($phpunit->stopOnFailure());
+        $this->setHaltonerror($phpunit->stopOnError());
+        $this->setHaltonskipped($phpunit->stopOnSkipped());
+        $this->setHaltonincomplete($phpunit->stopOnIncomplete());
+        $this->setProcessIsolation($phpunit->processIsolation());
 
-        if (isset($phpunit['stopOnFailure'])) {
-            $this->setHaltonfailure($phpunit['stopOnFailure']);
-        }
-
-        if (isset($phpunit['stopOnError'])) {
-            $this->setHaltonerror($phpunit['stopOnError']);
-        }
-
-        if (isset($phpunit['stopOnSkipped'])) {
-            $this->setHaltonskipped($phpunit['stopOnSkipped']);
-        }
-
-        if (isset($phpunit['stopOnIncomplete'])) {
-            $this->setHaltonincomplete($phpunit['stopOnIncomplete']);
-        }
-
-        if (isset($phpunit['processIsolation'])) {
-            $this->setProcessIsolation($phpunit['processIsolation']);
-        }
-
-        foreach ($config->getListenerConfiguration() as $listener) {
+        foreach ($config->listeners() as $listener) {
             if (
-                !class_exists($listener['class'], false)
-                && $listener['file'] !== ''
+                !class_exists($listener->className(), false)
+                && $listener->hasSourceFile()
             ) {
-                include_once $listener['file'];
+                include_once $listener->sourceFile();
             }
 
-            if (class_exists($listener['class'])) {
-                if (count($listener['arguments']) == 0) {
-                    $listener = new $listener['class']();
+            if (class_exists($listener->className())) {
+                if ($listener->hasArguments()) {
+                    $listener = (new $listener->className())();
                 } else {
                     $listenerClass = new ReflectionClass(
-                        $listener['class']
+                        $listener->className()
                     );
                     $listener = $listenerClass->newInstanceArgs(
-                        $listener['arguments']
+                        $listener->arguments()
                     );
                 }
 
@@ -368,7 +351,7 @@ class PHPUnitTask extends Task
             }
         }
 
-        if (method_exists($config, 'getSeleniumBrowserConfiguration')) {
+/*        if (method_exists($config, 'getSeleniumBrowserConfiguration')) {
             $browsers = $config->getSeleniumBrowserConfiguration();
 
             if (
@@ -377,7 +360,7 @@ class PHPUnitTask extends Task
             ) {
                 PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
             }
-        }
+        } */
 
         return $phpunit;
     }
@@ -402,13 +385,13 @@ class PHPUnitTask extends Task
         }
 
         if ($this->configuration) {
-            $arguments = $this->handlePHPUnitConfiguration($this->configuration);
+            $phpunit = $this->handlePHPUnitConfiguration($this->configuration);
 
-            if ($arguments['backupGlobals'] === false) {
+            if ($phpunit->backupGlobals() === false) {
                 $suite->setBackupGlobals(false);
             }
 
-            if ($arguments['backupStaticAttributes'] === true) {
+            if ($phpunit->backupStaticAttributes() === true) {
                 $suite->setBackupStaticAttributes(true);
             }
         }

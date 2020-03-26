@@ -51,7 +51,7 @@ class DirectoryScannerTest extends BuildFileTest
         $ds->setErrorOnMissingDir(true);
 
         $this->expectException(BuildException::class);
-        $this->expectExceptionMessageRegExp('/basedir (.*)THIS_DOES_NOT_EXIST does not exist\./');
+        $this->expectExceptionMessageMatches('/basedir (.*)THIS_DOES_NOT_EXIST does not exist\./');
 
         $ds->scan();
     }
