@@ -17,11 +17,16 @@
  * <http://phing.info>.
  */
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\HandlerStack;
+use Psr\Http\Message\ResponseInterface;
+
 /**
- * Base class for HTTP_Request2-backed tasks
+ * Base class for GuzzleHttp-backed tasks
  *
  * Handles nested <config /> and <header /> tags, contains a method for
- * HTTP_Request2 instance creation
+ * GuzzleHttp instance creation
  *
  * @package phing.tasks.ext
  * @author  Alexey Borzov <avb@php.net>
@@ -36,13 +41,6 @@ abstract class HttpTask extends Task
     protected $url = null;
 
     /**
-     * Prototype HTTP_Request2 object, cloned in createRequest()
-     *
-     * @var HTTP_Request2
-     */
-    protected $requestPrototype = null;
-
-    /**
      * Holds additional header data
      *
      * @var Parameter[]
@@ -50,18 +48,25 @@ abstract class HttpTask extends Task
     protected $headers = [];
 
     /**
-     * Holds additional config data for HTTP_Request2
+     * Holds additional config data for GuzzleHttp
      *
      * @var Parameter[]
      */
     protected $configData = [];
 
     /**
+     * Holds the request method
+     *
+     * @var string
+     */
+    protected $method = 'GET';
+
+    /**
      * Holds the authentication user name
      *
      * @var string
      */
-    protected $authUser = null;
+    protected $authUser = '';
 
     /**
      * Holds the authentication password
@@ -75,7 +80,23 @@ abstract class HttpTask extends Task
      *
      * @var string
      */
-    protected $authScheme;
+    protected $authScheme = 'basic';
+
+    /**
+     * @var HandlerStack
+     */
+    protected static $handlerStack = null;
+
+    /**
+     * @return HandlerStack
+     */
+    public static function getHandlerStack(): HandlerStack
+    {
+        if (self::$handlerStack === null) {
+            self::$handlerStack = HandlerStack::create();
+        }
+        return self::$handlerStack;
+    }
 
     /**
      * Load the necessary environment for running this task.
@@ -84,11 +105,9 @@ abstract class HttpTask extends Task
      */
     public function init()
     {
-        @include_once 'HTTP/Request2.php';
-
-        if (!class_exists('HTTP_Request2')) {
+        if (!class_exists('\GuzzleHttp\Client')) {
             throw new BuildException(
-                get_class($this) . ' depends on HTTP_Request2 being installed '
+                get_class($this) . ' depends on Guzzle being installed '
                 . 'and on include_path.',
                 $this->getLocation()
             );
@@ -106,70 +125,59 @@ abstract class HttpTask extends Task
     }
 
     /**
-     * Sets the prototype object that will be cloned in createRequest()
-     *
-     * Used in tests to inject an instance of HTTP_Request2 containing a custom adapter
-     *
-     * @param HTTP_Request2 $request
-     */
-    public function setRequestPrototype(HTTP_Request2 $request)
-    {
-        $this->requestPrototype = $request;
-    }
-
-    /**
      * Creates and configures an instance of HTTP_Request2
      *
-     * @return HTTP_Request2
+     * @param array $options
+     * @return ResponseInterface
      */
-    protected function createRequest()
+    protected function request($options = [])
     {
-        if (!$this->requestPrototype) {
-            $request = new HTTP_Request2($this->url);
-        } else {
-            $request = clone $this->requestPrototype;
-            $request->setUrl($this->url);
+        // set the authentication data
+        if (!empty($this->authUser)) {
+            $options['auth'] = [
+                $this->authUser,
+                $this->authPassword,
+                $this->authScheme
+            ];
+        }
+
+        if (!empty($this->headers)) {
+            $options['headers'] = [];
+
+            foreach ($this->headers as $header) {
+                $options['headers'][$header->getName()] = $header->getValue();
+            }
         }
 
         foreach (array_keys($this->getProject()->getProperties()) as $propName) {
             if (0 === strpos($propName, 'phing.http.')) {
-                $request->setConfig(substr($propName, 11), $this->getProject()->getProperty($propName));
+                $options[substr($propName, 11)] = $this->getProject()->getProperty($propName);
             }
         }
 
-        // set the authentication data
-        if (!empty($this->authUser)) {
-            $request->setAuth(
-                $this->authUser,
-                $this->authPassword,
-                $this->authScheme
-            );
+        foreach ($this->configData as $parameter) {
+            $options[$parameter->getName()] = $parameter->getValue();
         }
 
-        foreach ($this->configData as $config) {
-            $request->setConfig($config->getName(), $config->getValue());
-        }
+        $client = new Client(['handler' => self::$handlerStack]);
 
-        foreach ($this->headers as $header) {
-            $request->setHeader($header->getName(), $header->getValue());
-        }
-
-        return $request;
+        return $client->request($this->method, $this->url, $options);
     }
 
     /**
      * Processes the server's response
      *
-     * @param  HTTP_Request2_Response $response
+     * @param  ResponseInterface $response
      * @return void
      * @throws BuildException
      */
-    abstract protected function processResponse(HTTP_Request2_Response $response);
+    abstract protected function processResponse(ResponseInterface $response);
 
     /**
      * Makes a HTTP request and processes its response
      *
      * @throws BuildException
+     * @throws Exception
      */
     public function main()
     {
@@ -177,11 +185,7 @@ abstract class HttpTask extends Task
             throw new BuildException("Required attribute 'url' is missing");
         }
 
-        try {
-            $this->processResponse($this->createRequest()->send());
-        } catch (HTTP_Request2_MessageException $e) {
-            throw new BuildException($e);
-        }
+        $this->processResponse($this->request());
     }
 
     /**
