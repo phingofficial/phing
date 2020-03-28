@@ -295,6 +295,27 @@ class PhingTaskTest extends BuildFileTest
         $this->getProject()->executeTarget('testInheritPath');
     }
 
+    public function testLogfilePlacement(): void
+    {
+        /** @var PhingFile[] $logFiles */
+        $logFiles = [
+            $this->getProject()->resolveFile("test1.log"),
+            $this->getProject()->resolveFile("test2.log"),
+            $this->getProject()->resolveFile("phing/test3.log"),
+            $this->getProject()->resolveFile("phing/test4.log")
+        ];
+
+        foreach ($logFiles as $file) {
+            $this->assertFalse($file->exists(), $file->getName() . " doesn't exist");
+        }
+
+        $this->getProject()->executeTarget(__FUNCTION__);
+
+        foreach ($logFiles as $file) {
+            $this->assertTrue($file->exists(), $file->getName() . " exist");
+        }
+    }
+
     public function testUserPropertyWinsInheritAll(): void
     {
         $this->getProject()->setUserProperty("test", "7");
