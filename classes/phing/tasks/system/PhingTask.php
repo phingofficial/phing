@@ -87,6 +87,14 @@ class PhingTask extends Task
     private $haltOnFailure = false;
 
     /**
+     * @var OutputStream
+     */
+    private $out;
+
+    /** @var string */
+    private $output;
+
+    /**
      *  If true, abort the build process if there is a problem with or in the target build file.
      *  Defaults to false.
      *
@@ -315,6 +323,10 @@ class PhingTask extends Task
             $this->properties[$k]->setProject(null);
         }
 
+        if ($this->output !== null && $this->out !== null) {
+            $this->out->close();
+        }
+
         $this->dir = $savedDir;
         $this->phingFile = $savedPhingFile;
         $this->newTarget = $savedTarget;
@@ -376,6 +388,24 @@ class PhingTask extends Task
                 continue;
             }
             $this->newProject->addTaskDefinition($taskName, $taskClass);
+        }
+
+        if ($this->output !== null) {
+            try {
+                if ($this->dir !== null) {
+                    $outfile = (new FileUtils())->resolveFile($this->dir, $this->output);
+                } else {
+                    $outfile = $this->getProject()->resolveFile($this->output);
+                }
+                $this->out = new FileOutputStream($outfile);
+                $logger = new DefaultLogger();
+                $logger->setMessageOutputLevel(Project::MSG_INFO);
+                $logger->setOutputStream($this->out);
+                $logger->setErrorStream($this->out);
+                $this->newProject->addBuildListener($logger);
+            } catch (Exception $ex) {
+                $this->log("Phing: Can't set output to " . $this->output);
+            }
         }
 
         // set user-defined properties
@@ -602,6 +632,17 @@ class PhingTask extends Task
         }
 
         $this->newTarget = $s;
+    }
+
+    /**
+     * Set the filename to write the output to. This is relative to the value
+     * of the dir attribute if it has been set or to the base directory of the
+     * current project otherwise.
+     * @param string $outputFile the name of the file to which the output should go.
+     */
+    public function setOutput(string $outputFile): void
+    {
+        $this->output = $outputFile;
     }
 
     /**

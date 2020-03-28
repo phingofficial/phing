@@ -1985,6 +1985,9 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="output"/>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <ref name="fileset"/>
