@@ -8,10 +8,10 @@ pull_requests:
 version: '{build}.{branch}'
 
 environment:
-  COMPOSER_ROOT_VERSION: '7.0-dev'
+  COMPOSER_ROOT_VERSION: 'dev-master'
 
   matrix:
-    - PHP_VERSION: '7.2.13'
+    - PHP_VERSION: '7.3.15'
       XDEBUG_VERSION: '2.6.1-7.2'
 
 matrix:
