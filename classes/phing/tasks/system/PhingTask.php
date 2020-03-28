@@ -94,11 +94,19 @@ class PhingTask extends Task
     /** @var string */
     private $output;
 
+    public function __construct(Task $owner = null)
+    {
+        if ($owner !== null) {
+            $this->bindToOwner($owner);
+        }
+        parent::__construct();
+    }
+
     /**
      *  If true, abort the build process if there is a problem with or in the target build file.
      *  Defaults to false.
      *
-     * @param boolean $hof new value
+     * @param bool $hof new value
      */
     public function setHaltOnFailure($hof)
     {
@@ -130,6 +138,7 @@ class PhingTask extends Task
     private function reinit()
     {
         $this->init();
+
         $count = count($this->properties);
         for ($i = 0; $i < $count; $i++) {
             /**
@@ -174,9 +183,8 @@ class PhingTask extends Task
      */
     public function main()
     {
-
         // Call Phing on the file set with the attribute "phingfile"
-        if ($this->phingFile !== null or $this->dir !== null) {
+        if ($this->phingFile !== null || $this->dir !== null) {
             $this->processFile();
         }
 
@@ -227,9 +235,8 @@ class PhingTask extends Task
      * Execute phing file.
      *
      * @throws BuildException
-     * @return void
      */
-    private function processFile()
+    private function processFile(): void
     {
         $buildFailed = false;
         $savedDir = $this->dir;
@@ -270,9 +277,7 @@ class PhingTask extends Task
             }
 
             $this->overrideProperties();
-            if ($this->phingFile === null) {
-                $this->phingFile = "build.xml";
-            }
+            $this->phingFile = $this->phingFile ?? 'build.xml';
 
             $fu = new FileUtils();
             $file = $fu->resolveFile($this->dir, $this->phingFile);
@@ -313,31 +318,31 @@ class PhingTask extends Task
                 }
             }
             // important!!! continue on to perform cleanup tasks.
-        }
+        } finally {
+            // reset environment values to prevent side-effects.
 
-        // reset environment values to prevent side-effects.
+            $this->newProject = null;
+            $pkeys = array_keys($this->properties);
+            foreach ($pkeys as $k) {
+                $this->properties[$k]->setProject(null);
+            }
 
-        $this->newProject = null;
-        $pkeys = array_keys($this->properties);
-        foreach ($pkeys as $k) {
-            $this->properties[$k]->setProject(null);
-        }
+            if ($this->output !== null && $this->out !== null) {
+                $this->out->close();
+            }
 
-        if ($this->output !== null && $this->out !== null) {
-            $this->out->close();
-        }
+            $this->dir = $savedDir;
+            $this->phingFile = $savedPhingFile;
+            $this->newTarget = $savedTarget;
 
-        $this->dir = $savedDir;
-        $this->phingFile = $savedPhingFile;
-        $this->newTarget = $savedTarget;
+            // If the basedir for any project was changed, we need to set that back here.
+            if ($savedBasedirAbsPath !== null) {
+                chdir($savedBasedirAbsPath);
+            }
 
-        // If the basedir for any project was changed, we need to set that back here.
-        if ($savedBasedirAbsPath !== null) {
-            chdir($savedBasedirAbsPath);
-        }
-
-        if ($this->haltOnFailure && $buildFailed) {
-            throw new BuildException("Execution of the target buildfile failed. Aborting.");
+            if ($this->haltOnFailure && $buildFailed) {
+                throw new BuildException("Execution of the target buildfile failed. Aborting.");
+            }
         }
     }
 
@@ -470,21 +475,15 @@ class PhingTask extends Task
 
         if (count($this->references) > 0) {
             for ($i = 0, $count = count($this->references); $i < $count; $i++) {
+                /** @var Reference $ref */
                 $ref = $this->references[$i];
                 $refid = $ref->getRefId();
 
                 if ($refid === null) {
-                    throw new BuildException(
-                        "the refid attribute is required"
-                        . " for reference elements"
-                    );
+                    throw new BuildException('the refid attribute is required for reference elements');
                 }
                 if (!isset($projReferences[$refid])) {
-                    $this->log(
-                        "Parent project doesn't contain any reference '"
-                        . $refid . "'",
-                        Project::MSG_WARN
-                    );
+                    $this->log("Parent project doesn't contain any reference '" . $refid . "'", Project::MSG_WARN);
                     continue;
                 }
 
@@ -583,15 +582,11 @@ class PhingTask extends Task
      * has been set to false, in which case it doesn't have a default
      * value. This will override the basedir setting of the called project.
      *
-     * @param $d
+     * @param PhingFile $d
      */
-    public function setDir($d)
+    public function setDir(PhingFile $d): void
     {
-        if (is_string($d)) {
-            $this->dir = new PhingFile($d);
-        } else {
-            $this->dir = $d;
-        }
+        $this->dir = $d;
     }
 
     /**
