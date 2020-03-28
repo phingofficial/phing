@@ -358,25 +358,7 @@ class PropertyTask extends Task
      */
     public function main()
     {
-        if ($this->name !== null) {
-            if ($this->value === null && $this->reference === null) {
-                throw new BuildException(
-                    "You must specify value or refid with the name attribute",
-                    $this->getLocation()
-                );
-            }
-        } else {
-            if ($this->file === null && $this->env === null) {
-                throw new BuildException(
-                    "You must specify file or environment when not using the name attribute",
-                    $this->getLocation()
-                );
-            }
-        }
-
-        if ($this->file === null && $this->prefix !== null) {
-            throw new BuildException("Prefix is only valid when loading from a file.", $this->getLocation());
-        }
+        $this->validate();
 
         if ($this->name !== null && $this->value !== null) {
             $this->addProperty($this->name, $this->value);
@@ -416,6 +398,30 @@ class PropertyTask extends Task
                     throw $be;
                 }
             }
+        }
+    }
+
+    /**
+     * @throws BuildException
+     */
+    private function validate(): void
+    {
+        if ($this->name !== null) {
+            if ($this->value === null && $this->reference === null) {
+                throw new BuildException(
+                    "You must specify value or refid with the name attribute",
+                    $this->getLocation()
+                );
+            }
+        } elseif ($this->file === null && $this->env === null) {
+            throw new BuildException(
+                "You must specify file or environment when not using the name attribute",
+                $this->getLocation()
+            );
+        }
+
+        if ($this->file === null && $this->prefix !== null) {
+            throw new BuildException('Prefix is only valid when loading from a file.', $this->getLocation());
         }
     }
 

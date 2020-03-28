@@ -1,4 +1,4 @@
-FROM composer:1.7 AS composer
+FROM composer:1.9 AS composer
 
 ADD composer.* ./
 ADD classes/ classes
@@ -7,7 +7,7 @@ RUN mkdir -p test/classes
 RUN composer global require hirak/prestissimo --no-plugins --no-scripts
 RUN composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction
 
-FROM php:7.2-cli-alpine AS phing
+FROM php:7.4-cli-alpine AS phing
 MAINTAINER Phing <info@phing.info>
 
 RUN mkdir /app

@@ -1397,6 +1397,11 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="granularity" a:defaultValue="0">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <choice>
@@ -1937,6 +1942,11 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="granularity" a:defaultValue="0">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <choice>
@@ -1974,6 +1984,9 @@
                     <attribute name="haltonfailure">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
+                    <attribute name="output"/>
                 </optional>
             </interleave>
             <zeroOrMore>

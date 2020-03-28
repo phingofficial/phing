@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use PHPUnit\Framework\ExpectationFailedException;
+
 /**
  * Prints plain text output of the test to a specified Writer.
  *
@@ -157,6 +159,10 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
                 $this->inner .= $e->getPreviousWrapped() ? $e->getPreviousWrapped()->getMessage() : $e->getMessage() . "\n";
             } else {
                 $this->inner .= $e->getMessage() . "\n";
+            }
+
+            if ($e instanceof ExpectationFailedException && $e->getComparisonFailure()) {
+                $this->inner .= $e->getComparisonFailure()->getDiff();
             }
         }
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use GuzzleHttp\Psr7\Response;
+
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext
@@ -30,89 +32,88 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
 
     protected function createRequestWithMockAdapter()
     {
-        return $this->createRequest(
-            $this->createMockAdapter(
-                [
-                    "HTTP/1.1 200 OK\r\n" .
-                    "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-                    "\r\n" .
-                    "The response containing a 'foo' string"
-                ]
-            )
-        );
+        $this->createMockHandler([
+            new Response(200, [], "The response containing a 'foo' string")
+        ]);
     }
 
     public function testMatchesRegexp()
     {
-        $this->copyTasksAddingCustomRequest('matchesRegexp', 'recipient', $this->createRequestWithMockAdapter());
+        $this->createRequestWithMockAdapter();
 
-        $this->expectLog('recipient', 'The response body matched the provided regex.');
+        $this->expectLog('matchesRegexp', 'The response body matched the provided regex.');
     }
 
     public function testMatchesCodeRegexp()
     {
-        $this->copyTasksAddingCustomRequest('matchesCodeRegexp', 'recipient', $this->createRequestWithMockAdapter());
+        $this->createRequestWithMockAdapter();
 
-        $this->expectLog('recipient', 'The response status-code matched the provided regex.');
+        $this->expectLog('matchesCodeRegexp', 'The response status-code matched the provided regex.');
     }
 
     public function testDoesntMatchRegexp()
     {
-        $this->copyTasksAddingCustomRequest('doesNotMatchRegexp', 'recipient', $this->createRequestWithMockAdapter());
+        $this->createRequestWithMockAdapter();
 
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('The received response body did not match the given regular expression');
 
-        $this->executeTarget('recipient');
+        $this->executeTarget('doesNotMatchRegexp');
     }
 
     public function testPostRequest()
     {
-        $trace = new TraceHttpAdapter();
+        $this->createRequestWithMockAdapter();
 
-        $this->copyTasksAddingCustomRequest('post', 'recipient', $this->createRequest($trace));
-        $this->executeTarget('recipient');
+        $this->executeTarget('post');
 
-        $this->assertEquals('POST', $trace->requests[0]['method']);
-        $this->assertEquals('foo=bar&baz=quux', $trace->requests[0]['body']);
+        $this->assertEquals('POST', $this->traces[0]['request']->getMethod());
+        $this->assertEquals('foo=bar&baz=quux', $this->traces[0]['request']->getBody()->getContents());
     }
 
     public function testAuthentication()
     {
-        $trace = new TraceHttpAdapter();
+        $this->createMockHandler([new Response(404, [], '')]);
 
-        $this->copyTasksAddingCustomRequest('authentication', 'recipient', $this->createRequest($trace));
-        $this->executeTarget('recipient');
+        try {
+            $this->executeTarget('authentication');
+        } catch (BuildException $e) {
+        }
 
         $this->assertEquals(
-            ['user' => 'luser', 'password' => 'secret', 'scheme' => 'digest'],
-            $trace->requests[0]['auth']
+            ['luser', 'secret', 'digest'],
+            $this->traces[0]['options']['auth']
         );
     }
 
     public function testConfigAndHeaderTags()
     {
-        $trace = new TraceHttpAdapter();
+        $this->createMockHandler([new Response(404, [], '')]);
 
-        $this->copyTasksAddingCustomRequest('nested-tags', 'recipient', $this->createRequest($trace));
-        $this->executeTarget('recipient');
+        try {
+            $this->executeTarget('nested-tags');
+        } catch (BuildException $e) {
+        }
 
-        $this->assertEquals(10, $trace->requests[0]['config']['timeout']);
-        $this->assertEquals('Phing HttpRequestTask', $trace->requests[0]['headers']['user-agent']);
+        $this->assertEquals(10, $this->traces[0]['options']['timeout']);
+        $this->assertEquals('Phing HttpRequestTask', $this->traces[0]['request']->getHeader('user-agent')[0]);
     }
 
     public function testConfigurationViaProperties()
     {
-        $trace = new TraceHttpAdapter();
+        $this->createMockHandler([new Response(404, [], '')]);
 
-        $this->copyTasksAddingCustomRequest('config-properties', 'recipient', $this->createRequest($trace));
-        $this->executeTarget('recipient');
+        try {
+            $this->executeTarget('config-properties');
+        } catch (BuildException $e) {
+        }
 
-        $request = new HTTP_Request2(null, 'GET', [
-                'proxy' => 'http://localhost:8080/',
-                'max_redirects' => 9
-            ]);
+        $options = [
+            'proxy' => 'http://localhost:8080/',
+            'timeout' => 20
+        ];
 
-        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
+        $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
+        $this->assertEquals($options['timeout'], $this->traces[0]['options']['timeout']);
     }
 }

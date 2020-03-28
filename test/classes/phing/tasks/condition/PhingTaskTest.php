@@ -306,10 +306,10 @@ class PhingTaskTest extends BuildFileTest
         ];
 
         foreach ($logFiles as $file) {
-            $this->assertFalse($file->exists(), $file->getName() . " doesn\'t exist");
+            $this->assertFalse($file->exists(), $file->getName() . " doesn't exist");
         }
 
-        $this->getProject()->executeTarget('testLogfilePlacement');
+        $this->getProject()->executeTarget(__FUNCTION__);
 
         foreach ($logFiles as $file) {
             $this->assertTrue($file->exists(), $file->getName() . " exist");

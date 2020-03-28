@@ -356,7 +356,7 @@ class VisualizerTask extends HttpTask
         $encodedPuml = encodep($pumlDiagram);
         $this->prepareImageUrl($format, $encodedPuml);
 
-        $response = $this->createRequest()->send();
+        $response = $this->request()->send();
         $this->processResponse($response); // used for status validation
 
         return $response->getBody();
@@ -410,13 +410,13 @@ class VisualizerTask extends HttpTask
      *
      * This method validates `$response`'s status
      *
-     * @param HTTP_Request2_Response $response Response from server
+     * @param \Psr\Http\Message\ResponseInterface $response Response from server
      *
      * @return void
      */
-    protected function processResponse(HTTP_Request2_Response $response): void
+    protected function processResponse(\Psr\Http\Message\ResponseInterface $response): void
     {
-        $status = $response->getStatus();
+        $status = $response->getStatusCode();
         $reasonPhrase = $response->getReasonPhrase();
         $this->log("Response status: $status", Project::MSG_DEBUG);
         $this->log("Response reason: $reasonPhrase", Project::MSG_DEBUG);

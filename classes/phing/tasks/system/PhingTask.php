@@ -727,7 +727,7 @@ class PhingTask extends Task
      * current project otherwise.
      * @param string $outputFile the name of the file to which the output should go.
      */
-    public function setOutput(string $outputFile)
+    public function setOutput(string $outputFile): void
     {
         $this->output = $outputFile;
     }

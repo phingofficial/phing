@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+use GuzzleHttp\Middleware;
+use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+
 /**
  * A HTTP request task.
  * Making an HTTP request and try to match the response against an provided
@@ -48,27 +52,6 @@ class HttpRequestTask extends HttpTask
      * @var boolean
      */
     protected $verbose = false;
-
-    /**
-     * Holds the events that will be logged
-     *
-     * @var array<string>
-     */
-    protected $observerEvents = [
-        'connect',
-        'sentHeaders',
-        'sentBodyPart',
-        'receivedHeaders',
-        'receivedBody',
-        'disconnect',
-    ];
-
-    /**
-     * Holds the request method
-     *
-     * @var string
-     */
-    protected $method = null;
 
     /**
      * Holds additional post parameters for the request
@@ -113,24 +96,6 @@ class HttpRequestTask extends HttpTask
     }
 
     /**
-     * Sets a list of observer events that will be logged if verbose output is enabled.
-     *
-     * @param string $observerEvents List of observer events
-     */
-    public function setObserverEvents($observerEvents)
-    {
-        $this->observerEvents = [];
-
-        $token = ' ,;';
-        $ext = strtok($observerEvents, $token);
-
-        while ($ext !== false) {
-            $this->observerEvents[] = $ext;
-            $ext = strtok($token);
-        }
-    }
-
-    /**
      * The setter for the method
      *
      * @param $method
@@ -162,55 +127,33 @@ class HttpRequestTask extends HttpTask
         parent::init();
 
         $this->regexp = new Regexp();
-
-        $this->authScheme = HTTP_Request2::AUTH_BASIC;
-
-        // Other dependencies that should only be loaded when class is actually used
-        include_once 'HTTP/Request2/Observer/Log.php';
     }
 
     /**
      * Creates and configures an instance of HTTP_Request2
      *
-     * @return HTTP_Request2
+     * @param array $options
+     * @return ResponseInterface
      * @throws HTTP_Request2_Exception
-     * @throws HTTP_Request2_LogicException
      */
-    protected function createRequest()
+    protected function request($options = [])
     {
-        $request = parent::createRequest();
-
-        if ($this->method == HTTP_Request2::METHOD_POST) {
-            $request->setMethod(HTTP_Request2::METHOD_POST);
-
-            if ($this->isHeaderSet('content-type', 'application/json')) {
-                $request->setBody(
-                    json_encode(
-                        array_map(
-                            function (Parameter $postParameter) {
-                                return [$postParameter->getName() => $postParameter->getValue()];
-                            },
-                            $this->postParameters
-                        )
-                    )
-                );
-            } else {
-                foreach ($this->postParameters as $postParameter) {
-                    $request->addPostParameter($postParameter->getName(), $postParameter->getValue());
-                }
-            }
+        if ($this->method === 'POST') {
+            $idx = ($this->isHeaderSet('content-type', 'application/json') ? 'json' : 'form_params');
+            $options[$idx] = array_reduce(
+                $this->postParameters,
+                function ($carry, Parameter $postParameter) {
+                    return $carry + [$postParameter->getName() => $postParameter->getValue()];
+                },
+                []
+            );
         }
 
         if ($this->verbose) {
-            $observer = new HTTP_Request2_Observer_Log();
-
-            // set the events we want to log
-            $observer->events = $this->observerEvents;
-
-            $request->attach($observer);
+            self::getHandlerStack()->push(Middleware::log(new ConsoleLogger(), new \GuzzleHttp\MessageFormatter()));
         }
 
-        return $request;
+        return parent::request($options);
     }
 
     private function isHeaderSet($headerName, $headerValue)
@@ -229,13 +172,11 @@ class HttpRequestTask extends HttpTask
     /**
      * Checks whether response body or status-code matches the given regexp
      *
-     * @param  HTTP_Request2_Response $response
+     * @param ResponseInterface $response
      * @return void
-     * @throws BuildException
-     * @throws HTTP_Request2_Exception
      * @throws RegexpException
      */
-    protected function processResponse(HTTP_Request2_Response $response)
+    protected function processResponse(ResponseInterface $response)
     {
         if ($this->responseRegex !== '') {
             $this->regexp->setPattern($this->responseRegex);
@@ -250,7 +191,7 @@ class HttpRequestTask extends HttpTask
         if ($this->responseCodeRegex !== '') {
             $this->regexp->setPattern($this->responseCodeRegex);
 
-            if (!$this->regexp->matches($response->getStatus())) {
+            if (!$this->regexp->matches($response->getStatusCode())) {
                 throw new BuildException('The received response status-code did not match the given regular expression');
             }
 
