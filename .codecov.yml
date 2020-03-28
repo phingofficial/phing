@@ -1,0 +1,11 @@
+ignore:
+- "ansible"
+- "docs"
+- "etc"
+- "vendor"
+coverage:
+  status:
+    patch: off
+    project:
+      default:
+        threshold: 2
