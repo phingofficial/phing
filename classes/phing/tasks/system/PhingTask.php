@@ -103,6 +103,14 @@ class PhingTask extends Task
     /** @var string */
     private $output;
 
+    public function __construct(Task $owner = null)
+    {
+        if ($owner !== null) {
+            $this->bindToOwner($owner);
+        }
+        parent::__construct();
+    }
+
     /**
      * @var array
      */
