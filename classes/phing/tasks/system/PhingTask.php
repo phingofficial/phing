@@ -474,8 +474,9 @@ class PhingTask extends Task
      */
     private function overrideProperties()
     {
-        foreach (array_keys($this->properties) as $i) {
-            $p = $this->properties[$i];
+        // remove duplicate properties - last property wins
+        $this->properties = array_unique(array_reverse($this->properties));
+        foreach ($this->properties as $p) {
             $p->setProject($this->newProject);
             $p->main();
         }
