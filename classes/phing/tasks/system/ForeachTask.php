@@ -187,11 +187,9 @@ class ForeachTask extends Task
                     Project::MSG_VERBOSE
                 );
                 $prop = $callee->createProperty();
-                $prop->setOverride(true);
                 $prop->setName($this->param);
                 $prop->setValue($value);
                 $prop = $callee->createProperty();
-                $prop->setOverride(true);
                 $prop->setName($this->index);
                 $prop->setValue($index);
                 $callee->main();
