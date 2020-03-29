@@ -351,7 +351,7 @@ class PhingTask extends Task
                 $targets = $this->getProject()->getTargets();
                 $taskName = $this->getTaskName();
 
-                foreach ($this->local as $local) {
+                foreach ($this->locals as $local) {
                     if (isset($targets[$local])) {
                         if ($targets[$local]->dependsOn($owningTargetName)) {
                             throw new BuildException(
