@@ -296,15 +296,33 @@ class PhingTask extends Task
                 $this->newTarget = $this->newProject->getDefaultTarget();
             }
 
+            $owningTargetName = $this->getOwningTarget()->getName();
             // Are we trying to call the target in which we are defined?
             if (
                 $this->newProject->getBaseDir() == $this->project->getBaseDir()
                 && $this->newProject->getProperty("phing.file") == $this->project->getProperty("phing.file")
                 && $this->getOwningTarget() !== null
-                && $this->newTarget == $this->getOwningTarget()->getName()
+                && $this->newTarget == $owningTargetName
             ) {
                 throw new BuildException("phing task calling its own parent target");
             }
+
+            $targets = $this->getProject()->getTargets();
+            $taskName = $this->getTaskName();
+            array_walk(
+                $targets,
+                static function (Target $target) use ($owningTargetName, $taskName) {
+                    if (in_array($owningTargetName, $target->getDependencies())) {
+                        throw new BuildException(
+                            sprintf(
+                                "%s task calling a target that depends on its parent target '%s'.",
+                                $taskName,
+                                $owningTargetName
+                            )
+                        );
+                    }
+                }
+            );
 
             $this->addReferences();
             $this->newProject->executeTarget($this->newTarget);
