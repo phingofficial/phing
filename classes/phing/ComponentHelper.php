@@ -402,4 +402,12 @@ class ComponentHelper
             throw new BuildException("Can't load custom type list");
         }
     }
+
+    public function initSubProject(ComponentHelper $helper): void
+    {
+        $dataTypes = $helper->getDataTypeDefinitions();
+        foreach ($dataTypes as $name => $class) {
+            $this->addDataTypeDefinition($name, $class);
+        }
+    }
 }

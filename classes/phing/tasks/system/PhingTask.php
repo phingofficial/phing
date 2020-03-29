@@ -103,6 +103,11 @@ class PhingTask extends Task
     /** @var string */
     private $output;
 
+    /**
+     * @var array
+     */
+    private $locals;
+
     public function __construct(Task $owner = null)
     {
         if ($owner !== null) {
@@ -141,7 +146,7 @@ class PhingTask extends Task
      */
     public function init()
     {
-        $this->newProject = new Project();
+        $this->newProject = $this->getProject()->createSubProject();
         $tdf = $this->project->getTaskDefinitions();
         $this->newProject->addTaskDefinition("property", $tdf["property"]);
     }
@@ -290,13 +295,36 @@ class PhingTask extends Task
             $fu = new FileUtils();
             $file = $fu->resolveFile($this->dir, $this->phingFile);
             $this->phingFile = $file->getAbsolutePath();
-
-            $this->log(
-                "Calling Buildfile '" . $this->phingFile . "' with target '" . $this->newTarget . "'",
-                Project::MSG_VERBOSE
-            );
+            $this->log('calling target(s) '
+                . (empty($this->locals) ? '[default]' : implode(', ', $this->locals))
+                . ' in build file ' . $this->phingFile, Project::MSG_VERBOSE);
 
             $this->newProject->setUserProperty("phing.file", $this->phingFile);
+
+            if (empty($this->locals)) {
+                $defaultTarget = $this->newProject->getDefaultTarget();
+                if ($defaultTarget !== null) {
+                    $this->locals[] = $defaultTarget;
+                }
+            }
+
+            $thisPhingFile = $this->getProject()->getProperty('phing.file');
+            // Are we trying to call the target in which we are defined (or
+            // the build file if this is a top level task)?
+            if (
+                $thisPhingFile !== null
+                && $this->getOwningTarget() !== null
+                && $thisPhingFile === $file->getPath()
+                && $this->getOwningTarget()->getName() === ''
+            ) {
+                if ('phingcall' === $this->getTaskName()) {
+                    throw new BuildException('phingcall must not be used at the top level.');
+                }
+                throw new BuildException(
+                    '%s task at the top level must not invoke its own build file.',
+                    $this->getTaskName()
+                );
+            }
 
             ProjectConfigurator::configureProject($this->newProject, new PhingFile($this->phingFile));
 
@@ -306,12 +334,36 @@ class PhingTask extends Task
 
             // Are we trying to call the target in which we are defined?
             if (
-                $this->newProject->getBaseDir() == $this->project->getBaseDir()
-                && $this->newProject->getProperty("phing.file") == $this->project->getProperty("phing.file")
+                $this->newProject->getBasedir()->equals($this->project->getBasedir())
+                && $this->newProject->getProperty('phing.file') === $this->project->getProperty('phing.file')
                 && $this->getOwningTarget() !== null
-                && $this->newTarget == $this->getOwningTarget()->getName()
             ) {
-                throw new BuildException("phing task calling its own parent target");
+                $owningTargetName = $this->getOwningTarget()->getName();
+                if ($this->newTarget === $owningTargetName) {
+                    throw new BuildException(
+                        sprintf(
+                            "%s task calling its own parent target",
+                            $this->getTaskName()
+                        )
+                    );
+                }
+
+                $targets = $this->getProject()->getTargets();
+                $taskName = $this->getTaskName();
+
+                foreach ($this->locals as $local) {
+                    if (isset($targets[$local])) {
+                        if ($targets[$local]->dependsOn($owningTargetName)) {
+                            throw new BuildException(
+                                sprintf(
+                                    "%s task calling a target that depends on its parent target '%s'.",
+                                    $taskName,
+                                    $owningTargetName
+                                )
+                            );
+                        }
+                    }
+                }
             }
 
             $this->addReferences();
@@ -395,7 +447,7 @@ class PhingTask extends Task
 
         // Add Task definitions
         foreach ($this->project->getTaskDefinitions() as $taskName => $taskClass) {
-            if ($taskClass == "propertytask") {
+            if ($taskClass === 'phing.tasks.system.PropertyTask') {
                 // we have already added this taskdef in init()
                 continue;
             }
@@ -529,7 +581,7 @@ class PhingTask extends Task
                 }
 
                 $subprojRefKeys[] = $refid;
-                //thisReferences.remove(refid);
+                unset($this->references[$i]);//thisReferences.remove(refid);
                 $toRefid = $ref->getToRefid();
                 if ($toRefid === null) {
                     $toRefid = $refid;
@@ -690,6 +742,7 @@ class PhingTask extends Task
         $p = new PropertyTask();
         $p->setFallback($this->getNewProject());
         $p->setUserProperty(true);
+        $p->setTaskName('property');
         $this->properties[] = $p;
 
         return $p;

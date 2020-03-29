@@ -152,11 +152,8 @@ class PhingCallTask extends Task
      */
     public function init()
     {
-        $this->callee = $this->project->createTask("phing");
-        $this->callee->setOwningTarget($this->getOwningTarget());
-        $this->callee->setTaskName($this->getTaskName());
+        $this->callee = new PhingTask($this);
         $this->callee->setHaltOnFailure(true);
-        $this->callee->setLocation($this->getLocation());
         $this->callee->init();
     }
 

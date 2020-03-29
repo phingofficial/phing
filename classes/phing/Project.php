@@ -159,6 +159,36 @@ class Project
     }
 
     /**
+     * Create and initialize a subproject. By default the subproject will be of
+     * the same type as its parent. If a no-arg constructor is unavailable, the
+     * <code>Project</code> class will be used.
+     * @return Project instance configured as a subproject of this Project.
+     */
+    public function createSubProject(): \Project
+    {
+        try {
+            $ref = new ReflectionObject($this);
+            $subProject = $ref->newInstance();
+        } catch (ReflectionException $e) {
+            $subProject = new Project();
+        }
+        $this->initSubProject($subProject);
+        return $subProject;
+    }
+
+    /**
+     * Initialize a subproject.
+     * @param Project $subProject the subproject to initialize.
+     */
+    public function initSubProject(Project $subProject): void
+    {
+        ComponentHelper::getComponentHelper($subProject)
+            ->initSubProject(ComponentHelper::getComponentHelper($this));
+        $subProject->setKeepGoingMode($this->isKeepGoingMode());
+        $subProject->setStrictMode($this->strictMode);
+    }
+
+    /**
      * returns the global filterset (future use)
      */
     public function getGlobalFilterSet()
@@ -498,7 +528,7 @@ class Project
             throw new BuildException("Basedir " . $dir->getAbsolutePath() . " is not a directory");
         }
         $this->basedir = $dir;
-        $this->setPropertyInternal("project.basedir", $this->basedir->getAbsolutePath());
+        $this->setPropertyInternal("project.basedir", $this->basedir->getPath());
         $this->log("Project base dir set to: " . $this->basedir->getPath(), Project::MSG_VERBOSE);
 
         // [HL] added this so that ./ files resolve correctly.  This may be a mistake ... or may be in wrong place.
@@ -674,7 +704,7 @@ class Project
     /**
      * Create a new task instance and return reference to it.
      *
-     * @param  string $taskType Task name
+     * @param string $taskType Task name
      * @return Task           A task object
      * @throws BuildException
      */
@@ -795,8 +825,8 @@ class Project
      *
      * @param  string $fileName
      * @param  PhingFile $rootDir
-     * @throws IOException
      * @return \PhingFile
+     * @throws IOException
      */
     public function resolveFile(string $fileName, PhingFile $rootDir = null): PhingFile
     {
@@ -834,9 +864,9 @@ class Project
      * @param  string $rootTarget is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
      *                         target is the minimum possible such sequence.
-     * @throws BuildException
-     * @throws Exception
      * @return Target[] targets in sorted order
+     * @throws Exception
+     * @throws BuildException
      */
     public function topoSort($rootTarget)
     {
