@@ -170,35 +170,35 @@ class PhingTask extends Task
             /**
              * @var PropertyTask $p
              */
-            $p = $this->properties[$i];
-            /**
-             * @var PropertyTask $newP
-             */
-            $newP = $this->newProject->createTask("property");
-            $newP->setName($p->getName());
-            if ($p->getValue() !== null) {
-                $newP->setValue($p->getValue());
-            }
-            if ($p->getFile() !== null) {
-                $newP->setFile($p->getFile());
-            }
-            if ($p->getPrefix() !== null) {
-                $newP->setPrefix($p->getPrefix());
-            }
-            if ($p->getRefid() !== null) {
-                $newP->setRefid($p->getRefid());
-            }
-            if ($p->getEnvironment() !== null) {
-                $newP->setEnvironment($p->getEnvironment());
-            }
-            if ($p->getUserProperty() !== null) {
-                $newP->setUserProperty($p->getUserProperty());
-            }
-            $newP->setOverride($p->getOverride());
-            $newP->setLogoutput($p->getLogoutput());
-            $newP->setQuiet($p->getQuiet());
+            $p = $this->properties[$i] ?? null;
+            if ($p !== null) {
+                /** @var PropertyTask $newP */
+                $newP = $this->newProject->createTask("property");
+                $newP->setName($p->getName());
+                if ($p->getValue() !== null) {
+                    $newP->setValue($p->getValue());
+                }
+                if ($p->getFile() !== null) {
+                    $newP->setFile($p->getFile());
+                }
+                if ($p->getPrefix() !== null) {
+                    $newP->setPrefix($p->getPrefix());
+                }
+                if ($p->getRefid() !== null) {
+                    $newP->setRefid($p->getRefid());
+                }
+                if ($p->getEnvironment() !== null) {
+                    $newP->setEnvironment($p->getEnvironment());
+                }
+                if ($p->getUserProperty() !== null) {
+                    $newP->setUserProperty($p->getUserProperty());
+                }
+                $newP->setOverride($p->getOverride());
+                $newP->setLogoutput($p->getLogoutput());
+                $newP->setQuiet($p->getQuiet());
 
-            $this->properties[$i] = $newP;
+                $this->properties[$i] = $newP;
+            }
         }
     }
 
@@ -526,10 +526,11 @@ class PhingTask extends Task
      */
     private function overrideProperties()
     {
+        // remove duplicate properties - last property wins
+        $properties = array_reverse($this->properties);
         $set = [];
-        foreach (array_reverse(array_keys($this->properties)) as $i) {
-            $p = $this->properties[$i];
-            if ($p->getName() !== null && $p->getName() !== '' && $p->getName() !== null) {
+        foreach ($properties as $i => $p) {
+            if ($p->getName() !== null && $p->getName() !== '') {
                 if (in_array($p->getName(), $set)) {
                     unset($this->properties[$i]);
                 } else {
