@@ -286,7 +286,6 @@ class ForeachTask extends Task
 
             if ($this->absparam) {
                 $prop = $callee->createProperty();
-                $prop->setOverride(true);
                 $prop->setName($this->absparam);
                 $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
             }
@@ -306,7 +305,6 @@ class ForeachTask extends Task
                     Project::MSG_VERBOSE
                 );
                 $prop = $callee->createProperty();
-                $prop->setOverride(true);
                 $prop->setName($this->param);
                 $prop->setValue($value);
             }
