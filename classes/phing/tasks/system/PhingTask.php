@@ -350,20 +350,20 @@ class PhingTask extends Task
 
                 $targets = $this->getProject()->getTargets();
                 $taskName = $this->getTaskName();
-                array_walk(
-                    $targets,
-                    static function (Target $target) use ($owningTargetName, $taskName) {
-                        if (in_array($owningTargetName, $target->getDependencies())) {
+
+                foreach ($this->local as $local) {
+                    if (isset($targets[$local])) {
+                        if ($targets[$local]->dependsOn($owningTargetName)) {
                             throw new BuildException(
                                 sprintf(
-                                    "%s task calling its own parent target '%s'",
+                                    "%s task calling a target that depends on its parent target '%s'.",
                                     $taskName,
                                     $owningTargetName
                                 )
                             );
                         }
                     }
-                );
+                }
             }
 
             $this->addReferences();
