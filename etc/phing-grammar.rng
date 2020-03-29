@@ -1988,6 +1988,11 @@
                 <optional>
                     <attribute name="output"/>
                 </optional>
+                <optional>
+                    <attribute name="usenativebasedir" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <ref name="fileset"/>
