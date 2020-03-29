@@ -490,10 +490,10 @@ class PhingTask extends Task
     /**
      * Copies all properties from the given table to the new project -
      * omitting those that have already been set in the new project as
-     * well as properties named basedir or ant.file.
+     * well as properties named basedir or phing.file.
      * @param array $props properties <code>Hashtable</code> to copy to the
      * new project.
-     * @param string $type the type of property to set (a plain Ant property, a
+     * @param string $type the type of property to set (a plain Phing property, a
      * user property or an inherited property).
      */
     private function addAlmostAll(array $props, string $type): void
