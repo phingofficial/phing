@@ -155,6 +155,15 @@ class Target implements TaskContainer
     }
 
     /**
+     * @param string $targetName Name of the target to search for
+     * @return false|int|string
+     */
+    public function dependsOn($targetName)
+    {
+        return \array_search($targetName, $this->dependencies);
+    }
+
+    /**
      * Sets the name of the target
      *
      * @param string $name Name of this target
