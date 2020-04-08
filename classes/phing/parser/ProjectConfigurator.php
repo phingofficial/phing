@@ -86,10 +86,14 @@ class ProjectConfigurator
      */
     private function __construct(Project $project, PhingFile $buildFile)
     {
-        $this->project = $project;
-        $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
-        $this->buildFileParent = new PhingFile($this->buildFile->getParent());
-        $this->parseEndTarget = new Target();
+        try {
+            $this->project = $project;
+            $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
+            $this->buildFileParent = new PhingFile($this->buildFile->getParent());
+            $this->parseEndTarget = new Target();
+        } catch (Exception $e) {
+            throw new BuildException($e);
+        }
     }
 
     /**
