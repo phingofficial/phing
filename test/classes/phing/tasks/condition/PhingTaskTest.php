@@ -345,7 +345,7 @@ class PhingTaskTest extends BuildFileTest
      */
     public function testInfiniteLoopViaDepends(): void
     {
-//        $this->expectBuildException('infinite-loop-via-depends', 'infinite loop');
+        $this->expectBuildException('infinite-loop-via-depends', 'infinite loop');
     }
 
     public function testMultiSameProperty(): void
