@@ -155,12 +155,26 @@ class Target implements TaskContainer
     }
 
     /**
-     * @param string $targetName Name of the target to search for
-     * @return false|int|string
+     * Does this target depend on the named target?
+     * @param string $other the other named target.
+     * @return bool true if the target does depend on the named target
      */
-    public function dependsOn($targetName)
+    public function dependsOn(string $other): bool
     {
-        return \array_search($targetName, $this->dependencies);
+        $p = $this->getProject();
+        $t = $p !== null ? $p->getTargets() : null;
+
+        $found = false;
+        if ($p !== null) {
+            foreach ($t as $target) {
+                $found = $target->getName() === $other;
+                if ($found) {
+                    break;
+                }
+            }
+        }
+
+        return $found;
     }
 
     /**
