@@ -1583,11 +1583,7 @@ class Phing
                 break;
         }
 
-        if (defined('PHP_BINARY')) {
-            self::setProperty(self::PHP_INTERPRETER, PHP_BINARY);
-        } else {
-            self::setProperty(self::PHP_INTERPRETER, getenv('PHP_COMMAND'));
-        }
+        self::setProperty(self::PHP_INTERPRETER, PHP_BINARY);
         self::setProperty('file.separator', FileUtils::$separator);
         self::setProperty('line.separator', PHP_EOL);
         self::setProperty('path.separator', FileUtils::$pathSeparator);
