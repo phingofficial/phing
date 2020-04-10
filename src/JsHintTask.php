@@ -171,7 +171,7 @@ class JsHintTask extends \Task
             $fileList = [$this->file];
         }
 
-        $this->_checkJsHintIsInstalled();
+        $this->checkJsHintIsInstalled();
 
         $fileList = array_map('escapeshellarg', $fileList);
         if ($this->config) {
@@ -259,7 +259,7 @@ class JsHintTask extends \Task
      *
      * @throws \BuildException
      */
-    private function _checkJsHintIsInstalled()
+    private function checkJsHintIsInstalled()
     {
         exec('jshint -v', $output, $return);
         if ($return !== 0) {
