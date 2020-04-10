@@ -303,7 +303,7 @@ class PhingTask extends Task
 
             if (empty($this->locals)) {
                 $defaultTarget = $this->newProject->getDefaultTarget();
-                if ($defaultTarget !== null) {
+                if (!empty($defaultTarget)) {
                     $this->locals[] = $defaultTarget;
                 }
             }
@@ -321,8 +321,10 @@ class PhingTask extends Task
                     throw new BuildException('phingcall must not be used at the top level.');
                 }
                 throw new BuildException(
-                    '%s task at the top level must not invoke its own build file.',
-                    $this->getTaskName()
+                    sprintf(
+                        '%s task at the top level must not invoke its own build file.',
+                        $this->getTaskName()
+                    )
                 );
             }
 
