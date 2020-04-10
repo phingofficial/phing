@@ -37,6 +37,7 @@
         "phing/task-coverage": "dev-master",
         "phing/task-ftpdeploy": "dev-master",
         "phing/task-ioncube": "dev-master",
+        "phing/task-jshint": "dev-master",
         "phing/task-jsmin": "dev-master",
         "phing/task-liquibase": "dev-master",
         "phing/task-phkpackage": "dev-master",
