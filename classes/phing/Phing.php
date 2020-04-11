@@ -1761,7 +1761,6 @@ class Phing
 
         self::$origIniSettings['short_open_tag'] = ini_set('short_open_tag', 'off');
         self::$origIniSettings['default_charset'] = ini_set('default_charset', 'iso-8859-1');
-        self::$origIniSettings['track_errors'] = ini_set('track_errors', 1);
 
         $mem_limit = (int) self::convertShorthand(ini_get('memory_limit'));
         if ($mem_limit < (32 * 1024 * 1024) && $mem_limit > -1) {
