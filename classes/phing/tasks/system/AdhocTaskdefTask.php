@@ -81,11 +81,10 @@ class AdhocTaskdefTask extends AdhocTask
                 throw new BuildException("You must define at least one class for AdhocTaskdefTask.");
             }
 
-            $classname = array_pop($classes);
+            $classname = array_shift($classes);
 
-            // instantiate it to make sure it is an instance of Task
-            $t = new $classname();
-            if (!($t instanceof Task)) {
+            $t = new ReflectionClass($classname);
+            if (!$t->isSubclassOf('Task')) {
                 throw new BuildException(
                     "The adhoc class you defined must be an instance of phing.Task",
                     $this->getLocation()
