@@ -646,22 +646,6 @@ class Phing
     }
 
     /**
-     * Helper to get the parent file for a given file.
-     *
-     * @param PhingFile $file
-     *
-     * @return PhingFile Parent file or null if none
-     */
-    private function _getParentFile(PhingFile $file)
-    {
-        $filename = $file->getAbsolutePath();
-        $file = new PhingFile($filename);
-        $filename = $file->getParent();
-
-        return ($filename === null) ? null : new PhingFile($filename);
-    }
-
-    /**
      * Search parent directories for the build file.
      *
      * Takes the given target as a suffix to append to each
@@ -678,14 +662,17 @@ class Phing
      */
     private function _findBuildFile($start, $suffix)
     {
-        $startf = new PhingFile($start);
-        $parent = new PhingFile($startf->getAbsolutePath());
+        if (self::getMsgOutputLevel() >= Project::MSG_INFO) {
+            self::$out->write('Searching for ' . $suffix . ' ...' . PHP_EOL);
+        }
+
+        $parent = new PhingFile((new PhingFile($start))->getAbsolutePath());
         $file = new PhingFile($parent, $suffix);
 
         // check if the target file exists in the current directory
         while (!$file->exists()) {
             // change to parent directory
-            $parent = $this->_getParentFile($parent);
+            $parent = $parent->getParentFile();
 
             // if parent is null, then we are at the root of the fs,
             // complain that we can't find the build file.
