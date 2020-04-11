@@ -1573,27 +1573,19 @@ class Phing
         // used by Fileself::getFileSystem to instantiate the correct
         // abstraction layer
 
-        switch (strtoupper(PHP_OS)) {
-            case 'WINNT':
-            case 'WIN32':
-                self::setProperty('host.fstype', 'WINDOWS');
-                break;
-            default:
-                self::setProperty('host.fstype', 'UNIX');
-                break;
+        if (PHP_OS_FAMILY === 'Windows') {
+            self::setProperty('host.fstype', 'WINDOWS');
+            self::setProperty('user.home', getenv('HOMEDRIVE') . getenv('HOMEPATH'));
+        } else {
+            self::setProperty('host.fstype', 'UNIX');
+            self::setProperty('user.home', getenv('HOME'));
         }
-
         self::setProperty(self::PHP_INTERPRETER, PHP_BINARY);
         self::setProperty('file.separator', FileUtils::$separator);
         self::setProperty('line.separator', PHP_EOL);
         self::setProperty('path.separator', FileUtils::$pathSeparator);
         self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
-        if (stripos(PHP_OS, 'WIN') !== 0) {
-            self::setProperty('user.home', getenv('HOME'));
-        } else {
-            self::setProperty('user.home', getenv('HOMEDRIVE') . getenv('HOMEPATH'));
-        }
         self::setProperty('application.startdir', getcwd());
         self::setProperty('phing.startTime', gmdate('D, d M Y H:i:s', time()) . ' GMT');
 
