@@ -713,12 +713,8 @@ class Phing
             $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
             $project->setUserProperty("phing.dir", dirname($this->buildFile->getAbsolutePath()));
             $project->setUserProperty("phing.version", static::getPhingVersion());
-
-            if (!$this->projectHelp) {
-                $project->fireBuildStarted();
-                $project->init();
-            }
-
+            $project->fireBuildStarted();
+            $project->init();
             $project->setKeepGoingMode($this->keepGoingMode);
 
             $e = self::$definedProps->keys();
