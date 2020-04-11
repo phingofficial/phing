@@ -92,6 +92,13 @@ class Target implements TaskContainer
      */
     private $project;
 
+    private $location;
+
+    public function __construct()
+    {
+        $this->location = new Location();
+    }
+
     /**
      * References the project to the current component.
      *
@@ -110,6 +117,26 @@ class Target implements TaskContainer
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * Sets the location of this target's definition.
+     *
+     * @param location location
+     */
+    public function setLocation(Location $location): void
+    {
+        $this->location = $location;
+    }
+
+    /**
+     * Get the location of this target's definition.
+     *
+     * @return Location
+     */
+    public function getLocation(): Location
+    {
+        return $this->location;
     }
 
     /**
