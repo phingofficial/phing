@@ -129,15 +129,7 @@ class TruncateTask extends Task
         }
         $exception = null;
         try {
-            /**
-             * @var PhingFile $parent
-             */
-            $parent = $f->getParentFile();
-            if ($this->mkdirs && !$parent->exists()) {
-                $parent->mkdirs();
-            }
-
-            if ($f->createNewFile()) {
+            if ($f->createNewFile($this->mkdirs)) {
                 return true;
             }
         } catch (IOException $e) {
