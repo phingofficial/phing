@@ -689,12 +689,10 @@ class Phing
     /**
      * Executes the build.
      *
-     * @throws ConfigurationException
-     * @throws Exception
-     *
-     * @return void
+     * @throws IOException
+     * @throws Throwable
      */
-    public function runBuild()
+    public function runBuild(): void
     {
         if (!$this->readyToRun) {
             return;
@@ -707,96 +705,76 @@ class Phing
 
         $error = null;
 
-        $this->addBuildListeners($project);
-        $this->addInputHandler($project);
-
-        // set this right away, so that it can be used in logging.
-        $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
-        $project->setUserProperty("phing.dir", dirname($this->buildFile->getAbsolutePath()));
-
         try {
-            $project->fireBuildStarted();
-            $project->init();
-        } catch (Exception $exc) {
-            $project->fireBuildFinished($exc);
-            throw $exc;
-        }
+            $this->addBuildListeners($project);
+            $this->addInputHandler($project);
 
-        $project->setKeepGoingMode($this->keepGoingMode);
+            // set this right away, so that it can be used in logging.
+            $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
+            $project->setUserProperty("phing.dir", dirname($this->buildFile->getAbsolutePath()));
+            $project->setUserProperty("phing.version", static::getPhingVersion());
 
-        $project->setUserProperty("phing.version", static::getPhingVersion());
-
-        $e = self::$definedProps->keys();
-        while (count($e)) {
-            $arg = (string) array_shift($e);
-            $value = (string) self::$definedProps->getProperty($arg);
-            $project->setUserProperty($arg, $value);
-        }
-        unset($e);
-
-        $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
-
-        // first use the Configurator to create the project object
-        // from the given build file.
-
-        try {
-            ProjectConfigurator::configureProject($project, $this->buildFile);
-        } catch (Exception $exc) {
-            $project->fireBuildFinished($exc);
-            restore_error_handler();
-            self::unsetCurrentProject();
-            throw $exc;
-        }
-
-        // Set the project mode
-        $project->setStrictMode(StringHelper::booleanValue($this->strictMode));
-
-        // make sure that we have a target to execute
-        if (count($this->targets) === 0) {
-            $this->targets[] = $project->getDefaultTarget();
-        }
-
-        // make sure that minimum required phing version is satisfied
-        try {
-            $this->comparePhingVersion($project->getPhingVersion());
-        } catch (Exception $exc) {
-            $project->fireBuildFinished($exc);
-            restore_error_handler();
-            self::unsetCurrentProject();
-            throw $exc;
-        }
-
-        // execute targets if help param was not given
-        if (!$this->projectHelp) {
-            try {
-                $project->executeTargets($this->targets);
-            } catch (Exception $exc) {
-                $project->fireBuildFinished($exc);
-                restore_error_handler();
-                self::unsetCurrentProject();
-                throw $exc;
+            if (!$this->projectHelp) {
+                $project->fireBuildStarted();
+                $project->init();
             }
-        }
-        // if help is requested print it
-        if ($this->projectHelp) {
-            try {
+
+            $project->setKeepGoingMode($this->keepGoingMode);
+
+            $e = self::$definedProps->keys();
+            while (count($e)) {
+                $arg = (string) array_shift($e);
+                $value = (string) self::$definedProps->getProperty($arg);
+                $project->setUserProperty($arg, $value);
+            }
+            unset($e);
+
+            // first use the Configurator to create the project object
+            // from the given build file.
+
+            ProjectConfigurator::configureProject($project, $this->buildFile);
+
+            // Set the project mode
+            $project->setStrictMode(StringHelper::booleanValue($this->strictMode));
+
+            // make sure that minimum required phing version is satisfied
+            $this->comparePhingVersion($project->getPhingVersion());
+
+            if ($this->projectHelp) {
                 $this->printDescription($project);
                 $this->printTargets($project);
-            } catch (Exception $exc) {
-                $project->fireBuildFinished($exc);
-                restore_error_handler();
-                self::unsetCurrentProject();
-                throw $exc;
+                return;
             }
-        }
 
-        // finally {
-        if (!$this->projectHelp) {
-            $project->fireBuildFinished(null);
-        }
+            // make sure that we have a target to execute
+            if (count($this->targets) === 0) {
+                $this->targets[] = $project->getDefaultTarget();
+            }
 
-        restore_error_handler();
-        self::unsetCurrentProject();
+            $project->executeTargets($this->targets);
+        } catch (Throwable $t) {
+            $error = $t;
+            throw $t;
+        } finally {
+            if (!$this->projectHelp) {
+                try {
+                    $project->fireBuildFinished($error);
+                } catch (Exception $e) {
+                    self::$err->write('Caught an exception while logging the end of the build.  Exception was:' . PHP_EOL);
+                    self::$err->write($e->getTraceAsString());
+                    if ($error !== null) {
+                        self::$err->write('There has been an error prior to that:' . PHP_EOL);
+                        self::$err->write($error->getTraceAsString());
+                    }
+                    throw new BuildException($t);
+                }
+            } elseif ($error !== null) {
+                $project->log($error->getMessage(), Project::MSG_ERR);
+            }
+
+            restore_error_handler();
+            self::unsetCurrentProject();
+        }
     }
 
     /**
