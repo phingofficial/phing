@@ -662,6 +662,10 @@ class Phing
      */
     private function _findBuildFile($start, $suffix)
     {
+        if (self::getMsgOutputLevel() >= Project::MSG_INFO) {
+            self::$out->write('Searching for ' . $suffix . ' ...' . PHP_EOL);
+        }
+
         $parent = new PhingFile((new PhingFile($start))->getAbsolutePath());
         $file = new PhingFile($parent, $suffix);
 
