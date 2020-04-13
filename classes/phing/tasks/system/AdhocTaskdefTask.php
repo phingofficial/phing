@@ -81,7 +81,7 @@ class AdhocTaskdefTask extends AdhocTask
                 throw new BuildException("You must define at least one class for AdhocTaskdefTask.");
             }
 
-            $classname = array_shift($classes);
+            $classname = array_pop($classes);
 
             $t = new ReflectionClass($classname);
             if (!$t->isSubclassOf('Task')) {
