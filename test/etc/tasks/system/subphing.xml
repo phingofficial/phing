@@ -39,4 +39,16 @@
             <fileset dir="." includes="subphing/subphing-test*"/>
         </subphing>
     </target>
+
+    <target name="testPhingVersion">
+        <subphing inheritall="false" target="echoProperties">
+            <fileset file="${phing.file}" />
+        </subphing>
+    </target>
+    
+    <target name="echoProperties">
+        <property name="version" value="${phing.version}"/>
+        <property name="home" value="${phing.home}"/>
+        <property name="classpath" value="${php.classpath}"/>
+    </target>
 </project>

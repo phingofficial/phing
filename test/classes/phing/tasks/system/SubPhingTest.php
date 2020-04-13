@@ -32,12 +32,12 @@ class SubPhingTest extends BuildFileTest
         );
     }
 
-    public function testNoDirs()
+    public function testNoDirs(): void
     {
         $this->expectLog(__FUNCTION__, 'No sub-builds to iterate on');
     }
 
-    public function testGenericPhingFile()
+    public function testGenericPhingFile(): void
     {
         $dir1 = $this->getProject()->resolveFile('.');
         $dir2 = $this->getProject()->resolveFile('subphing/subphing-test1');
@@ -53,7 +53,7 @@ class SubPhingTest extends BuildFileTest
         );
     }
 
-    public function testPhingFile()
+    public function testPhingFile(): void
     {
         $dir1 = $this->getProject()->resolveFile('.');
         // basedir of subphing/subphing-test1/subphing.xml is ..
@@ -73,6 +73,18 @@ class SubPhingTest extends BuildFileTest
         );
     }
 
+    public function testPhingVersion()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertySet('version');
+        $this->assertPropertySet('home');
+        $this->assertPropertySet('classpath');
+    }
+
+    /**
+     * @param string $target
+     * @param array $dirs
+     */
     private function baseDirs(string $target, array $dirs): void
     {
         $bc = new class ($dirs) implements BuildListener {
