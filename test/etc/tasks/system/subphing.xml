@@ -18,7 +18,7 @@
   -->
 <project name="subphing-test" basedir="." default="testGenericPhingFile">
     <target name="testNoDirs">
-        <fileset refid="not-exists" dir="." includes="subphing-test*"/>
+        <fileset id="not-exists" dir="." includes="subphing-test*"/>
         <subphing genericphingfile="subphing/genericsubphing.xml"
                   verbose="false"
                   inheritAll="false" 
