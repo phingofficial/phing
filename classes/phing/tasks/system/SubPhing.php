@@ -108,7 +108,7 @@ class SubPhing extends Task
                     }
                 }
                 $this->execute($file, $directory);
-                if ($this->verbose && $subdirPath != null) {
+                if ($this->verbose && $subdirPath !== null) {
                     $this->log('Leaving directory: ' . $subdirPath . "\n", Project::MSG_INFO);
                 }
             } catch (RuntimeException $ex) {
@@ -121,7 +121,7 @@ class SubPhing extends Task
                 $thrownException = $ex;
             } catch (Throwable $ex) {
                 if (!$this->getProject()->isKeepGoingMode()) {
-                    if ($this->verbose && $subdirPath != null) {
+                    if ($this->verbose && $subdirPath !== null) {
                         $this->log('Leaving directory: ' . $subdirPath . "\n", Project::MSG_INFO);
                     }
                     throw new BuildException($ex);
@@ -242,7 +242,7 @@ class SubPhing extends Task
         $phingTask->setInheritAll($this->inheritAll);
 
         foreach ($this->properties as $p) {
-            $p->copyProperty($phingTask->createProperty(), $p);
+            self::copyProperty($phingTask->createProperty(), $p);
         }
 
         $phingTask->setInheritRefs($this->inheritRefs);
