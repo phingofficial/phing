@@ -16,25 +16,27 @@
   ~ and is licensed under the LGPL. For more information please see
   ~ <http://phing.info>.
   -->
-<project name="subphing-test" basedir="." default="testgenericphingfile">
+<project name="subphing-test" basedir="." default="testGenericPhingFile">
     <target name="testNoDirs">
+        <fileset refid="not-exists" dir="." includes="subphing-test*"/>
         <subphing genericphingfile="subphing/genericsubphing.xml"
                   verbose="false"
                   inheritAll="false" 
-                  inheritRefs="false">
-            <fileset dir="." includes="subphing-test*/build.xml"/>
+                  inheritRefs="false"
+                  failonerror="true">
+            <fileset refid="not-exists"/>
         </subphing>
     </target>
 
     <target name="testGenericPhingFile">
         <subphing genericphingfile="subphing/genericsubphing.xml">
-            <fileset dir="subphing" includes="subphing-test*/build.xml"/>
+            <fileset dir="subphing" includes="subphing-test*"/>
         </subphing>
     </target>
 
     <target name="testPhingFile">
         <subphing phingfile="mysubphing.xml">
-            <fileset dir="." includes="subphing/subphing-test*/build.xml"/>
+            <fileset dir="." includes="subphing/subphing-test*"/>
         </subphing>
     </target>
 </project>
