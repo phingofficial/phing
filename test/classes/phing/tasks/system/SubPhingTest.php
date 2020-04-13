@@ -40,8 +40,8 @@ class SubPhingTest extends BuildFileTest
     public function testGenericPhingFile()
     {
         $dir1 = $this->getProject()->resolveFile('.');
-        $dir2 = $this->getProject()->resolveFile('subant/subant-test1');
-        $dir3 = $this->getProject()->resolveFile('subant/subant-test2');
+        $dir2 = $this->getProject()->resolveFile('subphing/subphing-test1');
+        $dir3 = $this->getProject()->resolveFile('subphing/subphing-test2');
 
         $this->baseDirs(
             __FUNCTION__,
@@ -56,12 +56,12 @@ class SubPhingTest extends BuildFileTest
     public function testPhingFile()
     {
         $dir1 = $this->getProject()->resolveFile('.');
-        // basedir of subant/subant-test1/subant.xml is ..
-        // therefore we expect here the subant/subant-test1 subdirectory
-        $dir2 = $this->getProject()->resolveFile('subant/subant-test1');
-        // basedir of subant/subant-test2/subant.xml is ..
-        // therefore we expect here the subant subdirectory
-        $dir3 = $this->getProject()->resolveFile('subant');
+        // basedir of subphing/subphing-test1/subphing.xml is ..
+        // therefore we expect here the subphing/subphing-test1 subdirectory
+        $dir2 = $this->getProject()->resolveFile('subphing/subphing-test1');
+        // basedir of subphing/subphing-test2/subphing.xml is ..
+        // therefore we expect here the subphing subdirectory
+        $dir3 = $this->getProject()->resolveFile('subphing');
 
         $this->baseDirs(
             __FUNCTION__,
