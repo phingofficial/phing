@@ -22,19 +22,19 @@
                   verbose="false"
                   inheritAll="false" 
                   inheritRefs="false">
-            <fileset dir="." includes="subphing-test*"/>
+            <fileset dir="." includes="subphing-test*/build.xml"/>
         </subphing>
     </target>
 
     <target name="testGenericPhingFile">
         <subphing genericphingfile="subphing/genericsubphing.xml">
-            <fileset dir="subphing" includes="subphing-test*"/>
+            <fileset dir="subphing" includes="subphing-test*/build.xml"/>
         </subphing>
     </target>
 
     <target name="testPhingFile">
         <subphing phingfile="mysubphing.xml">
-            <fileset dir="." includes="subphing/subphing-test*"/>
+            <fileset dir="." includes="subphing/subphing-test*/build.xml"/>
         </subphing>
     </target>
 </project>
