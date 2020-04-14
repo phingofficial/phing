@@ -65,7 +65,7 @@ class SassCompilerTest extends TestCase
             false
         );
 
-        $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
+        $this->assertFileDoesNotExist(self::SASS_TEST_BASE . 'test.css');
     }
 
     public function testItThrowsExceptionWhenFailOnErrorIsSet(): void
@@ -78,6 +78,6 @@ class SassCompilerTest extends TestCase
 
         $this->expectException(BuildException::class);
 
-        $this->assertFileNotExists(self::SASS_TEST_BASE . 'test.css');
+        $this->assertFileDoesNotExist(self::SASS_TEST_BASE . 'test.css');
     }
 }

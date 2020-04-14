@@ -66,8 +66,8 @@ class DeleteTaskTest extends BuildFileTest
         $dir3 = $tmpDir . '/test-three';
 
         $this->executeTarget(__FUNCTION__);
-        $this->assertDirectoryNotExists($dir1);
-        $this->assertDirectoryNotExists($dir2);
-        $this->assertDirectoryNotExists($dir3);
+        $this->assertDirectoryDoesNotExist($dir1);
+        $this->assertDirectoryDoesNotExist($dir2);
+        $this->assertDirectoryDoesNotExist($dir3);
     }
 }
