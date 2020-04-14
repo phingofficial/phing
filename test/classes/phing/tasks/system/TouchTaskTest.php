@@ -64,7 +64,7 @@ class TouchTaskTest extends BuildFileTest
 
         $this->executeTarget(__FUNCTION__);
 
-        $this->assertFileNotExists(
+        $this->assertFileDoesNotExist(
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/this/is/a/test/file"
         );
