@@ -48,14 +48,14 @@ class MoveTaskTest extends BuildFileTest
     public function testMoveFileSet()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
+        $this->assertFileDoesNotExist(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
     }
 
     public function testRenameDirectory()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileNotExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
+        $this->assertFileDoesNotExist(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
     }
 

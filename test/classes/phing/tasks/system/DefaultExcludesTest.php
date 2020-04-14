@@ -171,7 +171,7 @@ class DefaultExcludesTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $output = $this->getProject()->getProperty('output');
         $this->assertFileExists(__DIR__ . '/../../../../etc/tasks/system/defaultexcludes-test.xml');
-        $this->assertFileNotExists($output . '/.svn/entries');
+        $this->assertFileDoesNotExist($output . '/.svn/entries');
     }
 
     public function testCopyExplicitExcludes()
@@ -179,7 +179,7 @@ class DefaultExcludesTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $output = $this->getProject()->getProperty('output');
         $this->assertFileExists(__DIR__ . '/../../../../etc/tasks/system/defaultexcludes-test.xml');
-        $this->assertFileNotExists($output . '/.svn/entries');
+        $this->assertFileDoesNotExist($output . '/.svn/entries');
     }
 
     public function testCopyExplicitNoExcludes()
