@@ -45,6 +45,7 @@
         "phing/task-smarty": "dev-master",
         "phing/task-ssh": "dev-master",
         "phing/task-zendcodeanalyser": "dev-master",
+        "phing/task-zendserverdevelopmenttools": "dev-master",
         "sebastian/version": "^3.0",
         "symfony/console": "^5.0",
         "symfony/yaml": "^5.0"
