@@ -377,8 +377,8 @@ class PathConvert extends Task
 
         // Determine the separator strings.  The dirsep and pathsep attributes
         // override the targetOS settings.
-        $dsep = FileSystem::getFileSystem()->getSeparator();
-        $psep = FileSystem::getFileSystem()->getPathSeparator();
+        $dsep = FileUtils::getSeparator();
+        $psep = FileUtils::getPathSeparator();
 
         if ($this->targetOS !== null) {
             $psep = $this->targetWindows ? ";" : ":";
