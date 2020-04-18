@@ -69,6 +69,11 @@ class PathConvertTest extends BuildFileTest
         $this->assertCount(6, $l, "6 after preserved duplicates");
     }
 
+    public function testNoTargetOs()
+    {
+        $this->executeTarget('testnotargetos');
+    }
+
     private function assertTarget(string $target)
     {
         $this->executeTarget($target);

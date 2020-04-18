@@ -362,19 +362,6 @@ class PathConvert extends Task
             throw new BuildException("You must specify a path to convert");
         }
 
-        if ($this->property === null) {
-            throw new BuildException("You must specify a property");
-        }
-
-        // Must either have a target OS or both a dirSep and pathSep
-
-        if ($this->targetOS == null && $this->pathSep == null && $this->dirSep == null) {
-            throw new BuildException(
-                "You must specify at least one of "
-                . "targetOS, dirSep, or pathSep"
-            );
-        }
-
         // Determine the separator strings.  The dirsep and pathsep attributes
         // override the targetOS settings.
         $dsep = FileUtils::getSeparator();
