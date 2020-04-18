@@ -3,7 +3,6 @@
 .git
 .github
 .idea
-ansible
 build
 docs
 test
