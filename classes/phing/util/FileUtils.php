@@ -30,20 +30,27 @@ class FileUtils
     /**
      * path separator string, static, obtained from FileSystem (; or :)
      */
-    public static $pathSeparator;
+    private static $pathSeparator;
 
     /**
      * separator string, static, obtained from FileSystem
      */
-    public static $separator = '';
+    private static $separator;
 
-    public function __construct()
+    public static function getPathSeparator(): string
     {
-        if (self::$separator === null || FileUtils::$pathSeparator === null) {
-            $fs = FileSystem::getFileSystem();
-            self::$separator = $fs->getSeparator();
-            self::$pathSeparator = $fs->getPathSeparator();
+        if (self::$pathSeparator === null) {
+            self::$pathSeparator = FileSystem::getFileSystem()->getPathSeparator();
         }
+        return self::$pathSeparator;
+    }
+
+    public static function getSeparator(): string
+    {
+        if (self::$separator === null) {
+            self::$separator = FileSystem::getFileSystem()->getSeparator();
+        }
+        return self::$separator;
     }
 
     /**
