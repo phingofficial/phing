@@ -1542,9 +1542,9 @@ class Phing
             self::setProperty('user.home', getenv('HOME'));
         }
         self::setProperty(self::PHP_INTERPRETER, PHP_BINARY);
-        self::setProperty('file.separator', FileSystem::getFileSystem()->getSeparator());
+        self::setProperty('file.separator', FileUtils::getSeparator());
         self::setProperty('line.separator', PHP_EOL);
-        self::setProperty('path.separator', FileSystem::getFileSystem()->getPathSeparator());
+        self::setProperty('path.separator', FileUtils::getPathSeparator());
         self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
         self::setProperty('application.startdir', getcwd());
