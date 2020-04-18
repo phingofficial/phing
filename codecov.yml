@@ -1,5 +1,4 @@
 ignore:
-- "ansible"
 - "docs"
 - "etc"
 - "vendor"
