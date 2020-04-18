@@ -141,7 +141,7 @@ class PhingFile
     public function getName()
     {
         // that's a lastIndexOf
-        $index = ((($res = strrpos($this->path, FileUtils::$separator)) === false) ? -1 : $res);
+        $index = ((($res = strrpos($this->path, FileUtils::getSeparator())) === false) ? -1 : $res);
         if ($index < $this->prefixLength) {
             return substr($this->path, $this->prefixLength);
         }
@@ -164,7 +164,7 @@ class PhingFile
     public function getParent()
     {
         // that's a lastIndexOf
-        $index = ((($res = strrpos($this->path, FileUtils::$separator)) === false) ? -1 : $res);
+        $index = ((($res = strrpos($this->path, FileUtils::getSeparator())) === false) ? -1 : $res);
         if ($index < $this->prefixLength) {
             if (($this->prefixLength > 0) && (strlen($this->path) > $this->prefixLength)) {
                 return substr($this->path, 0, $this->prefixLength);
@@ -222,8 +222,8 @@ class PhingFile
      */
     public function getPathWithoutBase($basedir)
     {
-        if (!StringHelper::endsWith(FileUtils::$separator, $basedir)) {
-            $basedir .= FileUtils::$separator;
+        if (!StringHelper::endsWith(FileUtils::getSeparator(), $basedir)) {
+            $basedir .= FileUtils::getSeparator();
         }
         $path = $this->getPath();
         if (substr($path, 0, strlen($basedir)) != $basedir) {
