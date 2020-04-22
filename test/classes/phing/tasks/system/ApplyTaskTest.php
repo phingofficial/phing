@@ -191,7 +191,7 @@ class ApplyTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('was not found in the specified list of valid OSes: unknownos');
 
-        $this->assertNotContains('this should not be executed', $this->getOutput());
+        $this->assertStringNotContainsString('this should not be executed', $this->getOutput());
     }
 
     /**

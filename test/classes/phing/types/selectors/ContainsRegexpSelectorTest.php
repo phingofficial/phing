@@ -42,7 +42,7 @@ class ContainsRegexpSelectorTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
         $result = $project->getProperty('result');
-        $this->assertFileNotExists($result . '/shouldnotcopy.txt');
+        $this->assertFileDoesNotExist($result . '/shouldnotcopy.txt');
         $this->assertFileExists($result . '/shouldcopy.txt');
     }
 }

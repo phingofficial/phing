@@ -128,7 +128,7 @@ class PathToFileSet extends Task
         $fileSet->setDir($this->dir);
         $fileUtils = new FileUtils();
         $dirNormal = $fileUtils->normalize($this->dir->getAbsolutePath());
-        $dirNormal = rtrim($dirNormal, FileUtils::$separator) . FileUtils::$separator;
+        $dirNormal = rtrim($dirNormal, FileUtils::getSeparator()) . FileUtils::getSeparator();
 
         $atLeastOne = false;
         for ($i = 0, $resourcesCount = count($sources); $i < $resourcesCount; ++$i) {

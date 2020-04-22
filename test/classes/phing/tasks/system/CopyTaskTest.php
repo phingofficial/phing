@@ -93,4 +93,9 @@ class CopyTaskTest extends BuildFileTest
         $this->assertInLogs("Copying 1 file to");
         $this->assertEquals("tmp/target-a", readlink(PHING_TEST_BASE . "/etc/tasks/system/tmp/link-b"));
     }
+
+    public function testGranularity()
+    {
+        $this->expectLogContaining(__FUNCTION__, 'Test omitted, Test is up to date');
+    }
 }

@@ -206,4 +206,12 @@
         </exec>
     </target>
 
+    <target name="testEnvVars">
+        <exec executable="echo" outputProperty="hello">
+            <env key="HELLO" value="world"/>
+            <arg value="$HELLO"/>
+        </exec>
+        <echo msg="${hello}"/>
+    </target>
+
 </project>

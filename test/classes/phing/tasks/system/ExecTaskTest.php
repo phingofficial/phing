@@ -207,7 +207,7 @@ class ExecTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('not found in the specified list of valid OSes: unknownos');
-        $this->assertNotContains(
+        $this->assertStringNotContainsString(
             'this should not be executed',
             $this->getOutput()
         );
@@ -233,7 +233,7 @@ class ExecTaskTest extends BuildFileTest
     public function testFailOnNonExistingDir()
     {
         $this->expectException(BuildException::class);
-        $this->expectExceptionMessageRegExp('/' . preg_quote(str_replace('/', DIRECTORY_SEPARATOR, "'/this/dir/does/not/exist' does not exist"), '/') . '/');
+        $this->expectExceptionMessageMatches('/' . preg_quote(str_replace('/', DIRECTORY_SEPARATOR, "'/this/dir/does/not/exist' does not exist"), '/') . '/');
 
 //        try {
 //            $this->executeTarget(__FUNCTION__);
@@ -373,5 +373,13 @@ class ExecTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertStringStartsWith('phploc', $this->getProject()->getProperty('envtest'));
+    }
+
+    public function testEnvVars(): void
+    {
+        if ($this->windows) {
+            $this->markTestSkipped('Setting environment variables for command is not supported on windows.');
+        }
+        $this->expectPropertySet(__FUNCTION__, 'hello', 'world');
     }
 }

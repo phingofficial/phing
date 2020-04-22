@@ -20,6 +20,11 @@
         <filesize file="${tmp.dir}/foo" propertyname="test.explicit.length" />
     </target>
 
+    <target name="testExplicitUnit">
+        <truncate file="${tmp.dir}/foo" length="1k" />
+        <filesize file="${tmp.dir}/foo" propertyname="test.explicit.unit.length" />
+    </target>
+
     <target name="testExtend">
         <truncate file="${tmp.dir}/foo" length="5" />
         <filesize file="${tmp.dir}/foo" propertyname="test.extend.length" />

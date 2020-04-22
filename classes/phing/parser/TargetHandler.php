@@ -153,13 +153,14 @@ class TargetHandler extends AbstractHandler
 
         $this->target = new Target();
         $this->target->setProject($project);
+        $this->target->setLocation($this->parser->getLocation());
         $this->target->setHidden($isHidden);
         $this->target->setIf($ifCond);
         $this->target->setUnless($unlessCond);
         $this->target->setDescription($description);
         $this->target->setLogSkipped(StringHelper::booleanValue($logskipped));
         // take care of dependencies
-        if (strlen($depends) > 0) {
+        if ($depends !== '') {
             $this->target->setDepends($depends);
         }
 

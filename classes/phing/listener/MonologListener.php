@@ -137,7 +137,7 @@ class MonologListener implements BuildListener
         $log = $this->log->withName(get_class($categoryObject));
         switch ($event->getPriority()) {
             case Project::MSG_WARN:
-                $log->warn($event->getMessage());
+                $log->warning($event->getMessage());
                 break;
             case Project::MSG_INFO:
                 $log->info($event->getMessage());

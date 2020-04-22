@@ -61,7 +61,7 @@ class CommandlineTest extends \PHPUnit\Framework\TestCase
         $cmd4 = "cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m \"added a new test file for 'fun' Test.php";
 
         $this->expectException(BuildException::class);
-        $this->expectExceptionMessageRegExp('/unbalanced quotes/');
+        $this->expectExceptionMessageMatches('/unbalanced quotes/');
 
 //        try {
 //            new Commandline($cmd4);

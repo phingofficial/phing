@@ -312,6 +312,10 @@ class IntrospectionHelper
             $as = "set" . strtolower($attributeName);
 
             if (!isset($this->attributeSetters[$as])) {
+                if ($element instanceof DynamicAttribute) {
+                    $element->setDynamicAttribute($attributeName, (string) $value);
+                    return;
+                }
                 $msg = $this->getElementName($project, $element) . " doesn't support the '$attributeName' attribute.";
                 throw new BuildException($msg);
             }

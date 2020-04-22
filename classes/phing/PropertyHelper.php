@@ -143,15 +143,8 @@ class PropertyHelper
      */
     public function setPropertyHook($ns, $name, $value, $inherited, $user, $isNew)
     {
-        if ($this->getNext() !== null) {
-            $subst = $this->getNext()->setPropertyHook($ns, $name, $value, $inherited, $user, $isNew);
-            // If next has handled the property
-            if ($subst) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->getNext() !== null
+            && $this->getNext()->setPropertyHook($ns, $name, $value, $inherited, $user, $isNew);
     }
 
     /**
@@ -204,7 +197,7 @@ class PropertyHelper
      *                           <code>${</code> without a closing
      *                           <code>}</code>
      */
-    public function replaceProperties($value, $keys)
+    public function replaceProperties($value, $keys): ?string
     {
         if ($value === null) {
             return null;
@@ -491,6 +484,11 @@ class PropertyHelper
         return $this->userProperties;
     }
 
+    public function getInheritedProperties()
+    {
+        return $this->inheritedProperties;
+    }
+
     /**
      * Copies all user properties that have not been set on the
      * command line or a GUI tool from this instance to the Project
@@ -504,11 +502,9 @@ class PropertyHelper
     public function copyInheritedProperties(Project $other)
     {
         foreach ($this->inheritedProperties as $arg => $value) {
-            if ($other->getUserProperty($arg) !== null) {
-                continue;
+            if ($other->getUserProperty($arg) === null) {
+                $other->setInheritedProperty($arg, (string) $this->inheritedProperties[$arg]);
             }
-            $value = $this->inheritedProperties[$arg];
-            $other->setInheritedProperty($arg, (string) $value);
         }
     }
 
@@ -525,10 +521,9 @@ class PropertyHelper
     public function copyUserProperties(Project $other)
     {
         foreach ($this->userProperties as $arg => $value) {
-            if (isset($this->inheritedProperties[$arg])) {
-                continue;
+            if (!isset($this->inheritedProperties[$arg])) {
+                $other->setUserProperty($arg, $value);
             }
-            $other->setUserProperty($arg, $value);
         }
     }
 

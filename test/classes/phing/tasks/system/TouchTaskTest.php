@@ -60,11 +60,11 @@ class TouchTaskTest extends BuildFileTest
     public function testMkdirsFails()
     {
         $this->expectException(BuildException::class);
-        $this->expectExceptionMessage('Error touch()ing file');
+        $this->expectExceptionMessage('Error creating new file');
 
         $this->executeTarget(__FUNCTION__);
 
-        $this->assertFileNotExists(
+        $this->assertFileDoesNotExist(
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/this/is/a/test/file"
         );
@@ -86,5 +86,24 @@ class TouchTaskTest extends BuildFileTest
             PHING_TEST_BASE
             . "/etc/tasks/system/tmp/simple-file"
         );
+    }
+
+    public function testMappedFileset()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $tmpDir = $this->getProject()->getProperty('tmp.dir');
+        $this->assertFileExists($tmpDir . '/touchtest');
+        $this->assertFileExists($tmpDir . '/touchtestfoo');
+        $this->assertFileExists($tmpDir . '/touchtestbar');
+    }
+
+    /**
+     * test the mapped file list
+     */
+    public function testMappedFilelist()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $tmpDir = $this->getProject()->getProperty('tmp.dir');
+        $this->assertFileExists($tmpDir . '/touchtest');
     }
 }

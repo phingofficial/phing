@@ -140,8 +140,16 @@ class ForeachTask extends Task
      */
     public function main()
     {
-        if ($this->list === null && $this->currPath === null && count($this->dirsets) === 0 && count($this->filesets) == 0 && count($this->filelists) == 0) {
-            throw new BuildException("Need either list, path, nested dirset, nested fileset or nested filelist to iterate through");
+        if (
+            $this->list === null
+            && $this->currPath === null
+            && count($this->dirsets) === 0
+            && count($this->filesets) === 0
+            && count($this->filelists) === 0
+        ) {
+            throw new BuildException(
+                'Need either list, path, nested dirset, nested fileset or nested filelist to iterate through'
+            );
         }
         if ($this->param === null) {
             throw new BuildException("You must supply a property name to set on each iteration in param");
@@ -179,11 +187,9 @@ class ForeachTask extends Task
                     Project::MSG_VERBOSE
                 );
                 $prop = $callee->createProperty();
-                $prop->setOverride(true);
                 $prop->setName($this->param);
                 $prop->setValue($value);
                 $prop = $callee->createProperty();
-                $prop->setOverride(true);
                 $prop->setName($this->index);
                 $prop->setValue($index);
                 $callee->main();
@@ -280,7 +286,6 @@ class ForeachTask extends Task
 
             if ($this->absparam) {
                 $prop = $callee->createProperty();
-                $prop->setOverride(true);
                 $prop->setName($this->absparam);
                 $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
             }
@@ -300,7 +305,6 @@ class ForeachTask extends Task
                     Project::MSG_VERBOSE
                 );
                 $prop = $callee->createProperty();
-                $prop->setOverride(true);
                 $prop->setName($this->param);
                 $prop->setValue($value);
             }

@@ -15,9 +15,6 @@
     	<include name="bin/phing.bat"/>
     	<include name="bin/phing.php"/>
         <include name="classes/**"/>
-        <include name="docs/api/**"/>
-        <include name="docs/example/**"/>
-        <include name="docs/docbook5/en/output/hlhtml/**"/>
         <include name="etc/**"/>
         <include name="CHANGELOG.md"/>
         <include name="CREDITS.md"/>
@@ -28,12 +25,6 @@
 
     <fileset dir="${phingpkg.home}/classes/phing" id="classes">
         <include name="**"/>
-    </fileset>
-
-    <fileset dir="${phingpkg.home}/docs" id="docs">
-        <include name="api/docs/**"/>
-        <include name="example/**"/>
-        <include name="docbook5/en/output/hlhtml/**"/>
     </fileset>
 
     <fileset dir="${phingpkg.home}" id="etc">
@@ -58,7 +49,7 @@
         ==============================================
     -->
     <target name="main"
-        depends="clean,clean-external,create-api-docs,copy-files,composer,package.phar"
+        depends="clean,copy-files,composer,package.phar"
     />
 
     <!--
@@ -71,7 +62,6 @@
         <loadfile property="version" file="${phingpkg.home}/etc/VERSION.TXT"/>
 
         <property name="pkgname" value="phing-${version}"/>
-        <property name="pkgname-docs" value="phingdocs-${version}" override="true"/>
         <property name="build.full.dir" value="${buildfile.dir}/full/${pkgname}" override="true"/>
 
         <if>
@@ -125,27 +115,6 @@
         </copy>
 
         <chmod file="${build.full.dir}/bin/phing" mode="755"/>
-
-    </target>
-
-    <!--
-        ==============================================
-        Create the API documentation
-        with phpDocumentor 2 and Responsive template
-        ==============================================
-    -->
-    <target name="create-api-docs"
-        depends="setproperties">
-
-        <phing phingfile="build.xml" dir="${phingpkg.home}/docs/api"
-            target="build"
-        />
-
-        <delete>
-            <fileset dir=".">
-                <include name="*.log"/>
-            </fileset>
-        </delete>
 
     </target>
 
@@ -219,24 +188,6 @@
         Clean up build files.
         ==============================================
     -->
-    <target name="clean-external"
-        depends="setproperties">
-
-        <phing phingfile="build.xml" dir="${phingpkg.home}/docs/example"
-            target="clean"
-        />
-
-        <phing phingfile="build.xml" dir="${phingpkg.home}/docs/api"
-            target="clean"
-        />
-
-    </target>
-
-    <!--
-        ==============================================
-        Clean up build files.
-        ==============================================
-    -->
      <target name="clean"
         depends="setproperties">
 
@@ -253,13 +204,15 @@
         Generate SHA512 file hashes
         ==============================================
     -->
-    <target name="generate-hash" unless="${env.TRAVIS}">
+    <target name="generate-hash" unless="env.TRAVIS">
         <filehash file="${filename}" algorithm="sha512" />
         <filehash file="${filename}" algorithm="sha384" />
         <filehash file="${filename}" algorithm="sha256" />
         <filehash file="${filename}" algorithm="sha1" />
 
-        <exec command="gpg -u mrook@php.net --detach-sign --output ${filename}.asc ${filename}" checkreturn="true" logoutput="true"/>
+        <exec executable="gpg" checkreturn="true" logoutput="true" taskname="gpg">
+            <arg line="-u mrook@php.net --detach-sign --output ${filename}.asc ${filename}"/>
+        </exec>
     </target>
 
 </project>
