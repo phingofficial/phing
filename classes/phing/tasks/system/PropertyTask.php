@@ -447,7 +447,7 @@ class PropertyTask extends Task
      * iterate through a set of properties,
      * resolve them then assign them
      *
-     * @param  $props
+     * @param Properties $props
      * @throws BuildException
      */
     protected function addProperties($props)
@@ -471,11 +471,6 @@ class PropertyTask extends Task
      */
     protected function addProperty($name, $value)
     {
-        if (count($this->filterChains) > 0) {
-            $in = FileUtils::getChainedReader(new StringReader($value), $this->filterChains, $this->project);
-            $value = $in->read();
-        }
-
         $ph = PropertyHelper::getPropertyHelper($this->getProject());
         if ($this->userProperty) {
             if ($ph->getUserProperty(null, $name) === null || $this->override) {
@@ -505,7 +500,19 @@ class PropertyTask extends Task
         $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
             if ($file->exists()) {
-                $props->load($file);
+                $value = null;
+                if (count($this->filterChains) > 0) {
+                    $in = FileUtils::getChainedReader(new FileReader($file), $this->filterChains, $this->project);
+                    $value = $in->read();
+                }
+                if ($value) {
+                    foreach (array_filter(explode(PHP_EOL, $value)) as $line) {
+                        [$key, $prop] = explode('=', $line);
+                        $props->setProperty($key, $prop);
+                    }
+                } else {
+                    $props->load($file);
+                }
                 $this->addProperties($props);
             } else {
                 if ($this->required) {
