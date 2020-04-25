@@ -471,6 +471,11 @@ class PropertyTask extends Task
      */
     protected function addProperty($name, $value)
     {
+        if ($this->file === null && count($this->filterChains) > 0) {
+            $in = FileUtils::getChainedReader(new StringReader($value), $this->filterChains, $this->project);
+            $value = $in->read();
+        }
+
         $ph = PropertyHelper::getPropertyHelper($this->getProject());
         if ($this->userProperty) {
             if ($ph->getUserProperty(null, $name) === null || $this->override) {
