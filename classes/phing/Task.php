@@ -57,16 +57,12 @@ abstract class Task extends ProjectComponent
      * @var RuntimeConfigurable
      */
     protected $wrapper;
-
+    private $invalid;
     /**
-     * Sets the owning target this task belongs to.
-     *
-     * @param Target Reference to owning target
+     * Replacement element used if this task is invalidated.
+     * @var UnknownElement
      */
-    public function setOwningTarget(Target $target)
-    {
-        $this->target = $target;
-    }
+    private $replacement;
 
     /**
      * @return RuntimeConfigurable
@@ -74,77 +70,6 @@ abstract class Task extends ProjectComponent
     public function getWrapper()
     {
         return $this->wrapper;
-    }
-
-    /**
-     * Returns the owning target of this task.
-     *
-     * @return Target The target object that owns this task
-     */
-    public function getOwningTarget()
-    {
-        return $this->target;
-    }
-
-    /**
-     * Returns the name of task, used only for log messages
-     *
-     * @return string Name of this task
-     */
-    public function getTaskName()
-    {
-        if ($this->taskName === null) {
-            // if no task name is set, then it's possible
-            // this task was created from within another task.  We don't
-            // therefore know the XML tag name for this task, so we'll just
-            // use the class name stripped of "task" suffix.  This is only
-            // for log messages, so we don't have to worry much about accuracy.
-            return preg_replace('/task$/i', '', get_class($this));
-        }
-
-        return $this->taskName;
-    }
-
-    /**
-     * Sets the name of this task for log messages
-     *
-     * @param string $name
-     */
-    public function setTaskName($name)
-    {
-        $this->taskName = (string) $name;
-    }
-
-    /**
-     * Returns the name of the task under which it was invoked,
-     * usually the XML tagname
-     *
-     * @return string The type of this task (XML Tag)
-     */
-    public function getTaskType()
-    {
-        return $this->taskType;
-    }
-
-    /**
-     * Sets the type of the task. Usually this is the name of the XML tag
-     *
-     * @param string $name The type of this task (XML Tag)
-     */
-    public function setTaskType($name)
-    {
-        $this->taskType = (string) $name;
-    }
-
-    /**
-     * Returns a name
-     *
-     * @param  string $slotName
-     * @return \RegisterSlot
-     */
-    protected function getRegisterSlot($slotName)
-    {
-        return Register::getSlot('task.' . $this->getTaskName() . '.' . $slotName);
     }
 
     /**
@@ -204,24 +129,41 @@ abstract class Task extends ProjectComponent
     }
 
     /**
-     *  Sets the wrapper object this task should use for runtime
-     *  configurable elements.
+     * Returns the name of task, used only for log messages
      *
-     * @param RuntimeConfigurable $wrapper The wrapper object this task should use
+     * @return string Name of this task
      */
-    public function setRuntimeConfigurableWrapper(RuntimeConfigurable $wrapper)
+    public function getTaskName()
     {
-        $this->wrapper = $wrapper;
+        if ($this->taskName === null) {
+            // if no task name is set, then it's possible
+            // this task was created from within another task.  We don't
+            // therefore know the XML tag name for this task, so we'll just
+            // use the class name stripped of "task" suffix.  This is only
+            // for log messages, so we don't have to worry much about accuracy.
+            return preg_replace('/task$/i', '', get_class($this));
+        }
+
+        return $this->taskName;
     }
 
     /**
-     *  Configure this task if it hasn't been done already.
+     * Sets the name of this task for log messages
+     *
+     * @param string $name
      */
-    public function maybeConfigure()
+    public function setTaskName($name)
     {
-        if ($this->wrapper !== null) {
-            $this->wrapper->maybeConfigure($this->project);
-        }
+        $this->taskName = (string) $name;
+    }
+
+    /**
+     * Marks this task as invalid. Any further use of this task
+     * will go through a replacement with the updated definition.
+     */
+    public function markInvalid()
+    {
+        $this->invalid = true;
     }
 
     /**
@@ -234,28 +176,111 @@ abstract class Task extends ProjectComponent
      */
     public function perform(): void
     {
-        $reason = null;
-        try { // try executing task
-            $this->project->fireTaskStarted($this);
-            $this->maybeConfigure();
-            DispatchUtils::main($this);
-        } catch (\BuildException $ex) {
-            $loc = $ex->getLocation();
-            if ($loc === null || (string) $loc === '') {
-                $ex->setLocation($this->getLocation());
+        if ($this->invalid) {
+            $this->getReplacement()->getTask()->perform();
+        } else {
+            $reason = null;
+            try { // try executing task
+                $this->project->fireTaskStarted($this);
+                $this->maybeConfigure();
+                DispatchUtils::main($this);
+            } catch (\BuildException $ex) {
+                $loc = $ex->getLocation();
+                if ($loc === null || (string) $loc === '') {
+                    $ex->setLocation($this->getLocation());
+                }
+                $reason = $ex;
+                throw $ex;
+            } catch (\Exception $ex) {
+                $reason = $ex;
+                $be = new \BuildException($ex);
+                $be->setLocation($this->getLocation());
+                throw $be;
+            } catch (\Error $ex) {
+                $reason = $ex;
+                throw $ex;
+            } finally {
+                $this->project->fireTaskFinished($this, $reason);
             }
-            $reason = $ex;
-            throw $ex;
-        } catch (\Exception $ex) {
-            $reason = $ex;
-            $be = new \BuildException($ex);
-            $be->setLocation($this->getLocation());
-            throw $be;
-        } catch (\Error $ex) {
-            $reason = $ex;
-            throw $ex;
-        } finally {
-            $this->project->fireTaskFinished($this, $reason);
+        }
+    }
+
+    /**
+     *  Configure this task if it hasn't been done already.
+     */
+    public function maybeConfigure()
+    {
+        if ($this->invalid) {
+            $this->getReplacement();
+        } elseif ($this->wrapper !== null) {
+            $this->wrapper->maybeConfigure($this->project);
+        }
+    }
+
+    /**
+     * Force the task to be reconfigured from its RuntimeConfigurable.
+     */
+    public function reconfigure()
+    {
+        if ($this->wrapper !== null) {
+            $this->wrapper->reconfigure($this->getProject());
+        }
+    }
+    
+    private function getReplacement(): \UnknownElement
+    {
+        if ($this->replacement === null) {
+            $this->replacement = new UnknownElement($this->taskType);
+            $this->replacement->setProject($this->getProject());
+            $this->replacement->setTaskType($this->taskType);
+            $this->replacement->setTaskName($this->taskName);
+            $this->replacement->setLocation($this->getLocation());
+            $this->replacement->setOwningTarget($this->target);
+            $this->replacement->setRuntimeConfigurableWrapper($this->wrapper);
+            $this->wrapper->setProxy($this->replacement);
+            $this->replaceChildren($this->wrapper, $this->replacement);
+            $this->target->replaceChild($this, $this->replacement);
+            $this->replacement->maybeConfigure();
+        }
+        return $this->replacement;
+    }
+
+    /**
+     * Sets the owning target this task belongs to.
+     *
+     * @param Target Reference to owning target
+     */
+    public function setOwningTarget(Target $target): void
+    {
+        $this->target = $target;
+    }
+
+    /**
+     *  Sets the wrapper object this task should use for runtime
+     *  configurable elements.
+     *
+     * @param RuntimeConfigurable $wrapper The wrapper object this task should use
+     */
+    public function setRuntimeConfigurableWrapper(RuntimeConfigurable $wrapper): void
+    {
+        $this->wrapper = $wrapper;
+    }
+
+    /**
+     * Recursively adds an UnknownElement instance for each child
+     * element of replacement.
+     * @param RuntimeConfigurable $wrapper
+     * @param UnknownElement $parentElement
+     */
+    private function replaceChildren(RuntimeConfigurable $wrapper, UnknownElement $parentElement): void
+    {
+        foreach ($wrapper->getChildren() as $childWrapper) {
+            $childElement = new UnknownElement($childWrapper->getElementTag());
+            $parentElement->addChild($childElement);
+            $childElement->setProject($this->getProject());
+            $childElement->setRuntimeConfigurableWrapper($childWrapper);
+            $childWrapper->setProxy($childElement);
+            $this->replaceChildren($childWrapper, $childElement);
         }
     }
 
@@ -278,5 +303,58 @@ abstract class Task extends ProjectComponent
         $this->setDescription($owner->getDescription());
         $this->setLocation($owner->getLocation());
         $this->setTaskType($owner->getTaskType());
+    }
+
+    /**
+     * Returns the owning target of this task.
+     *
+     * @return Target The target object that owns this task
+     */
+    public function getOwningTarget()
+    {
+        return $this->target;
+    }
+
+    /**
+     * Returns the name of the task under which it was invoked,
+     * usually the XML tagname
+     *
+     * @return string The type of this task (XML Tag)
+     */
+    public function getTaskType()
+    {
+        return $this->taskType;
+    }
+
+    /**
+     * Sets the type of the task. Usually this is the name of the XML tag
+     *
+     * @param string $name The type of this task (XML Tag)
+     */
+    public function setTaskType($name)
+    {
+        $this->taskType = (string) $name;
+    }
+
+    /**
+     * Returns a name
+     *
+     * @param string $slotName
+     * @return \RegisterSlot
+     */
+    protected function getRegisterSlot($slotName)
+    {
+        return Register::getSlot('task.' . $this->getTaskName() . '.' . $slotName);
+    }
+
+    /**
+     * Has this task been marked invalid?
+     *
+     * @return bool true if this task is no longer valid. A new task should be
+     * configured in this case.
+     */
+    protected function isInvalid()
+    {
+        return $this->invalid;
     }
 }

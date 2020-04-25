@@ -1050,6 +1050,17 @@ class Project
     }
 
     /**
+     * Does the project know this reference?
+     *
+     * @param  string $key The reference id/key.
+     * @return bool
+     */
+    public function hasReference(string $key): bool
+    {
+        return isset($this->references[$key]);
+    }
+
+    /**
      * Abstracting and simplifyling Logger calls for project messages
      *
      * @param string $msg
