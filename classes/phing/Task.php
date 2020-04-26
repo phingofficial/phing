@@ -226,7 +226,7 @@ abstract class Task extends ProjectComponent
             $this->wrapper->reconfigure($this->getProject());
         }
     }
-    
+
     private function getReplacement(): \UnknownElement
     {
         if ($this->replacement === null) {
