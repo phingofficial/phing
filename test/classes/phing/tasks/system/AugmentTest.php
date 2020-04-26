@@ -38,7 +38,6 @@ class AugmentTest extends BuildFileTest
 
     public function testNoref()
     {
-        $this->markTestSkipped('Unknown reference check not supported.');
         $this->expectSpecificBuildException(
             __FUNCTION__,
             'an unknown reference was found.',
