@@ -57,7 +57,8 @@ class AugmentReference extends Task implements TypeAdapter
             throw new LogicException($this->getTaskName() . 'Project owner unset');
         }
         $this->hijackId();
-        if ($this->getProject()->hasReference($this->id)) {
+        $ref = $this->getProject()->getReference($this->id);
+        if ($this->getProject()->hasReference($this->id) && !$ref instanceof UnknownElement) {
             $result = $this->getProject()->getReference($this->id);
             $this->log('project reference ' . $this->id . '=' . get_class($result), Project::MSG_DEBUG);
             return $result;

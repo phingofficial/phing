@@ -462,8 +462,8 @@ class Target implements TaskContainer
      */
     public function replaceChild(Task $task, $o)
     {
-        $index = array_search($task, $this->children);
-        if (isset($this->children[$index])) {
+        $keys = array_keys($this->children, $task);
+        foreach ($keys as $index) {
             $this->children[$index] = $o;
         }
     }
