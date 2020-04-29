@@ -171,6 +171,17 @@ class RuntimeConfigurable
     }
 
     /**
+     * Reconfigure the element, even if it has already been configured.
+     *
+     * @param Project $p the project instance for this configuration.
+     */
+    public function reconfigure(Project $p)
+    {
+        $this->proxyConfigured = false;
+        $this->maybeConfigure($p);
+    }
+
+    /**
      * Configure the wrapped element and all children.
      *
      * @param Project $project

@@ -97,6 +97,7 @@
         <zeroOrMore>
             <choice>
                 <ref name="apigen"/>
+                <ref name="augment"/>
                 <ref name="autoloader"/>
                 <ref name="capsule"/>
                 <ref name="composer"/>
@@ -2845,6 +2846,14 @@
                     </attribute>
                 </optional>
             </interleave>
+        </element>
+    </define>
+
+    <define name="augment">
+        <element name="augment">
+            <attribute name="id">
+                <data type="IDREF"/>
+            </attribute>
         </element>
     </define>
 
