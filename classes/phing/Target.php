@@ -467,4 +467,18 @@ class Target implements TaskContainer
 
         return $result;
     }
+
+    /**
+     * Replaces all occurrences of the given task in the list
+     * of children with the replacement data type wrapper.
+     * @param Task $task
+     * @param RuntimeConfigurable|Task $o
+     */
+    public function replaceChild(Task $task, $o)
+    {
+        $keys = array_keys($this->children, $task);
+        foreach ($keys as $index) {
+            $this->children[$index] = $o;
+        }
+    }
 }

@@ -87,7 +87,7 @@ class ZipUnzipTaskTest extends BuildFileTest
         $filename = PHING_TEST_BASE .
             "/etc/tasks/ext/tmp/test.txt";
 
-        $this->assertFileNotExists($filename);
+        $this->assertFileDoesNotExist($filename);
 
         $this->executeTarget(__FUNCTION__);
 

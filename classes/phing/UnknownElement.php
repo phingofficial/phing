@@ -64,13 +64,33 @@ class UnknownElement extends Task
      */
     public function maybeConfigure()
     {
-        $this->realThing = $this->makeObject($this, $this->wrapper);
+        if ($this->realThing !== null) {
+            return;
+        }
+        $this->configure($this->makeObject($this, $this->wrapper));
+    }
+
+    public function configure($realObj)
+    {
+        if ($realObj === null) {
+            return;
+        }
+        $this->realThing = $realObj;
         $this->wrapper->setProxy($this->realThing);
+
+        $task = null;
         if ($this->realThing instanceof Task) {
-            $this->realThing->setRuntimeConfigurableWrapper($this->wrapper);
-            $this->realThing->maybeConfigure();
+            $task = $this->realThing;
+            $task->setRuntimeConfigurableWrapper($this->wrapper);
+            if ($this->getWrapper()->getId() !== null) {
+                $this->getOwningTarget()->replaceChild($this, $this->realThing);
+            }
+        }
+
+        if ($task !== null) {
+            $task->maybeConfigure();
         } else {
-            $this->wrapper->maybeConfigure($this->getProject());
+            $this->getWrapper()->maybeConfigure($this->getProject());
         }
         $this->handleChildren($this->realThing, $this->wrapper);
     }
@@ -112,7 +132,7 @@ class UnknownElement extends Task
      */
     public function handleChildren($parent, $parentWrapper)
     {
-        if ($parent instanceof TaskAdapter) {
+        if ($parent instanceof TypeAdapter) {
             $parent = $parent->getProxy();
         }
 
@@ -129,7 +149,7 @@ class UnknownElement extends Task
                 continue;
             }
 
-            $project = $this->project ?? $parent->project;
+            $project = $this->project ?? $parent->getProject();
             $realChild = $ih->createElement($project, $parent, $child->getTag());
 
             $childWrapper->setProxy($realChild);
@@ -163,6 +183,12 @@ class UnknownElement extends Task
                 "Could not create task/type: '" . $ue->getTag() . "'. Make sure that this class has been declared using taskdef / typedef."
             );
         }
+        if ($o instanceof Task) {
+            $o->setOwningTarget($this->getOwningTarget());
+        }
+        if ($o instanceof ProjectComponent) {
+            $o->setLocation($this->getLocation());
+        }
 
         return $o;
     }
@@ -187,22 +213,11 @@ class UnknownElement extends Task
 
             return null;
         }
-
-        // used to set the location within the xmlfile so that exceptions can
-        // give detailed messages
-
         $task->setLocation($this->getLocation());
-        $attrs = $w->getAttributes();
-        if (isset($attrs['id'])) {
-            $this->project->addReference($attrs['id'], $task);
-        }
-
         if ($this->target !== null) {
             $task->setOwningTarget($this->target);
         }
-
         $task->init();
-
         return $task;
     }
 
@@ -216,6 +231,20 @@ class UnknownElement extends Task
         return $this->realThing === null || !$this->realThing instanceof Task
             ? parent::getTaskName()
             : $this->realThing->getTaskName();
+    }
+
+    /**
+     * Returns the task instance after it has been created and if it is a task.
+     *
+     * @return Task a task instance or <code>null</code> if the real object is not
+     *              a task.
+     */
+    public function getTask()
+    {
+        if ($this->realThing instanceof Task) {
+            return $this->realThing;
+        }
+        return null;
     }
 
     /**

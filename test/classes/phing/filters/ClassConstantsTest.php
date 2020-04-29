@@ -18,38 +18,27 @@
  */
 
 /**
- * Class ZendServerDeploymentToolTask
- *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.zendserverdevelopmenttools
+ * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>
+ * @package phing.filters
  */
-class ZsdtValidateTask extends ZsdtBaseTask
+class ClassConstantsTest extends BuildFileTest
 {
-    /**
-     * @inheritdoc}
-     *
-     * @return void
-     */
-    public function init()
+    public function setUp(): void
     {
-        $this->action = 'validate';
+        $this->configureProject(PHING_TEST_BASE . "/etc/filters/classconstants.xml");
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @throws BuildException
-     *
-     * @return void
-     */
-    protected function validate()
+    public function tearDown(): void
     {
-        parent::validate();
+        $this->executeTarget("cleanup");
+    }
 
-        if ($this->descriptor === null) {
-            throw new BuildException('The package descriptor file have to be set.');
-        }
+    public function testClassConstants()
+    {
+        $this->executeTarget(__FUNCTION__);
 
-        $this->arguments .= $this->descriptor;
+        $this->assertInLogs('Setting project property: CONST1 -> CONST 1', Project::MSG_DEBUG);
+        $this->assertInLogs('Setting project property: CONST2 -> CONST 2', Project::MSG_DEBUG);
+        $this->assertInLogs('Setting project property: CONST3 -> CONST 3', Project::MSG_DEBUG);
     }
 }

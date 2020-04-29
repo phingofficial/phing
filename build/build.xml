@@ -210,7 +210,9 @@
         <filehash file="${filename}" algorithm="sha256" />
         <filehash file="${filename}" algorithm="sha1" />
 
-        <exec command="gpg -u mrook@php.net --detach-sign --output ${filename}.asc ${filename}" checkreturn="true" logoutput="true"/>
+        <exec executable="gpg" checkreturn="true" logoutput="true" taskname="gpg">
+            <arg line="-u mrook@php.net --detach-sign --output ${filename}.asc ${filename}"/>
+        </exec>
     </target>
 
 </project>

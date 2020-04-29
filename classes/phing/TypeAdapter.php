@@ -17,39 +17,37 @@
  * <http://phing.info>.
  */
 
-/**
- * Tests the Attrib Task
- *
- * @author  Siad Ardroumli
- * @package phing.tasks.system
- *
- * @requires OS WIN32|WINNT
- */
-class AttribTaskTest extends BuildFileTest
+interface TypeAdapter
 {
-    public function setUp(): void
-    {
-        $this->configureProject(
-            PHING_TEST_BASE
-            . "/etc/tasks/system/AttribTaskTest.xml"
-        );
-        $this->executeTarget("setup");
-    }
+    /**
+     * Sets the project
+     *
+     * @param Project $p the project instance.
+     */
+    public function setProject(Project $p);
 
-    public function tearDown(): void
-    {
-        $this->executeTarget("clean");
-    }
+    /**
+     * Gets the project
+     *
+     * @return Project the project instance.
+     */
+    public function getProject();
 
-    public function testAttrib()
-    {
-        $this->executeTarget(__FUNCTION__);
+    /**
+     * Sets the proxy object, whose methods are going to be
+     * invoked by ant.
+     * A proxy object is normally the object defined by
+     * a &lt;typedef/&gt; task that is adapted by the "adapter"
+     * attribute.
+     *
+     * @param object $o The target object. Must not be <code>null</code>.
+     */
+    public function setProxy($o);
 
-        /** @var Project $project */
-        $project = $this->getProject();
-        $input = $project->getProperty('input');
-
-        $this->assertIsNotWritable($input . '/TEST.TXT');
-        $this->assertInLogs('+R', Project::MSG_VERBOSE);
-    }
+    /**
+     * Returns the proxy object.
+     *
+     * @return mixed the target proxy object
+     */
+    public function getProxy();
 }
