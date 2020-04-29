@@ -257,7 +257,7 @@ class ProjectConfigurator
      */
     public static function configure($target, $attrs, Project $project)
     {
-        if ($target instanceof TaskAdapter) {
+        if ($target instanceof TypeAdapter) {
             $target = $target->getProxy();
         }
 
@@ -276,16 +276,20 @@ class ProjectConfigurator
         $ih = IntrospectionHelper::getHelper($bean);
 
         foreach ($attrs as $key => $value) {
-            if ($key == 'id') {
+            if ($key === 'id') {
                 continue;
                 // throw new BuildException("Id must be set Extermnally");
             }
-            $value = $project->replaceProperties($value);
+            if (method_exists($value, 'main')) {
+                $value = $value->main();
+            } else {
+                $value = $project->replaceProperties($value);
+            }
             try { // try to set the attribute
                 $ih->setAttribute($project, $target, strtolower($key), $value);
             } catch (BuildException $be) {
                 // id attribute must be set externally
-                if ($key !== "id") {
+                if ($key !== 'id') {
                     throw $be;
                 }
             }
