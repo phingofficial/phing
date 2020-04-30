@@ -34,7 +34,7 @@ class TargetHandler extends AbstractHandler
      * Reference to the target object that represents the currently parsed
      * target.
      *
-     * @var object the target instance
+     * @var Target the target instance
      */
     private $target;
 
@@ -95,6 +95,8 @@ class TargetHandler extends AbstractHandler
     {
         $name = null;
         $depends = "";
+        $extensionPoint = null;//'fail';
+        $extensionPointMissing = null;
         $ifCond = null;
         $unlessCond = null;
         $id = null;
@@ -128,6 +130,15 @@ class TargetHandler extends AbstractHandler
                 case "logskipped":
                     $logskipped = $value;
                     break;
+                case "extensionof":
+                    $extensionPoint = $value;
+                    break;
+                case "onmissingextensionpoint":
+                    if (!in_array($value, ['fail', 'warn', 'ignore'], true)) {
+                        throw new BuildException('Invalid onMissingExtensionPoint ' . $value);
+                    }
+                    $extensionPointMissing = $value;
+                    break;
                 default:
                     throw new ExpatParseException("Unexpected attribute '$key'", $this->parser->getLocation());
             }
@@ -151,7 +162,7 @@ class TargetHandler extends AbstractHandler
             );
         }
 
-        $this->target = new Target();
+        $this->target = $tag === 'target' ? new Target() : new ExtensionPoint();
         $this->target->setProject($project);
         $this->target->setLocation($this->parser->getLocation());
         $this->target->setHidden($isHidden);
@@ -191,11 +202,31 @@ class TargetHandler extends AbstractHandler
             }
         }
 
-        if ($name != null) {
+        if ($name !== null) {
             $this->target->setName($name);
             $project->addOrReplaceTarget($name, $this->target);
             if ($id !== null && $id !== "") {
                 $project->addReference($id, $this->target);
+            }
+        }
+
+        if ($extensionPointMissing !== null && $extensionPoint === null) {
+            throw new BuildException("onMissingExtensionPoint attribute cannot " .
+                "be specified unless extensionOf is specified",
+                $this->target->getLocation());
+
+        }
+        if ($extensionPoint !== null) {
+            foreach (Target::parseDepends($extensionPoint, $name, 'extensionof') as $extPointName) {
+                if ($extensionPointMissing === null) {
+                    $extensionPointMissing = 'fail';
+                }
+                $this->context->addExtensionPoint([
+                    $extPointName,
+                    $this->target->getName(),
+                    $extensionPointMissing,
+                    null
+                ]);
             }
         }
     }
@@ -219,7 +250,7 @@ class TargetHandler extends AbstractHandler
      */
     protected function finished()
     {
-        if (!count($this->target->getDependencies()) && !count($this->target->getTasks())) {
+        if (!$this->target instanceof ExtensionPoint && !count($this->target->getDependencies()) && !count($this->target->getTasks())) {
             $this->configurator->project->log(
                 "Warning: target '" . $this->target->getName() .
                 "' has no tasks or dependencies",

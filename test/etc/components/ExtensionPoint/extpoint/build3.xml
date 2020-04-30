@@ -1,0 +1,4 @@
+<project default="foo">
+  <target name="foo"/>
+  <target name="bar" extensionof="foo"/>
+</project>

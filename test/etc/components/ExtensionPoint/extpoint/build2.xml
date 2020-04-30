@@ -1,0 +1,6 @@
+<project default="foo">
+  <extension-point name="foo"/>
+  <target name="bar" extensionof="foo">
+    <echo>In target bar</echo>
+  </target>
+</project>

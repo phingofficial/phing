@@ -1,0 +1,5 @@
+<project default="bar">
+  <target name="bar" onmissingextensionpoint="ignore">
+    <echo>bar</echo>
+  </target>
+</project>
