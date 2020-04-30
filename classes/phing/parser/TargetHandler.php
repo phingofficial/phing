@@ -211,10 +211,11 @@ class TargetHandler extends AbstractHandler
         }
 
         if ($extensionPointMissing !== null && $extensionPoint === null) {
-            throw new BuildException("onMissingExtensionPoint attribute cannot " .
+            throw new BuildException(
+                "onMissingExtensionPoint attribute cannot " .
                 "be specified unless extensionOf is specified",
-                $this->target->getLocation());
-
+                $this->target->getLocation()
+            );
         }
         if ($extensionPoint !== null) {
             foreach (Target::parseDepends($extensionPoint, $name, 'extensionof') as $extPointName) {
