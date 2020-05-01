@@ -65,7 +65,7 @@
         "pear/versioncontrol_git": "dev-master",
         "pear/versioncontrol_svn": "~0.5",
         "phploc/phploc": "^6.0",
-        "phpmd/phpmd": "~2.7",
+        "phpmd/phpmd": "~2.8",
         "phpunit/phpunit": "^9.0",
         "scssphp/scssphp": "~1.0",
         "sebastian/phpcpd": "^5.0",
