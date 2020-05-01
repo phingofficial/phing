@@ -208,6 +208,8 @@ class ProjectConfigurator
                 $this->_parse($ctx);
                 $ctx->getImplicitTarget()->main();
             }
+
+            $this->resolveExtensionOfAttributes($this->project, $ctx);
         } catch (Exception $exc) {
             //throw new BuildException("Error reading project file", $exc);
             throw $exc;
@@ -376,5 +378,70 @@ class ProjectConfigurator
         }
 
         return new BuildException($errorMessage, $ex, $newLocation);
+    }
+
+    /**
+     * Check extensionStack and inject all targets having extensionOf attributes
+     * into extensionPoint.
+     * <p>
+     * This method allow you to defer injection and have a powerful control of
+     * extensionPoint wiring.
+     * </p>
+     * <p>
+     * This should be invoked by each concrete implementation of ProjectHelper
+     * when the root "buildfile" and all imported/included buildfile are loaded.
+     * </p>
+     *
+     * @param Project $project The project containing the target. Must not be
+     *            <code>null</code>.
+     * @throws BuildException if OnMissingExtensionPoint.FAIL and
+     *                extensionPoint does not exist
+     * @see OnMissingExtensionPoint
+     */
+    public function resolveExtensionOfAttributes(Project $project, PhingXMLContext $ctx)
+    {
+        /** @var PhingXMLContext $ctx */
+        foreach ($ctx->getExtensionPointStack() as [$extPointName, $targetName, $missingBehaviour, $prefixAndSep]) {
+            // find the target we're extending
+            $projectTargets = $project->getTargets();
+            $extPoint = null;
+            if ($prefixAndSep === null) {
+                // no prefix - not from an imported/included build file
+                $extPoint = isset($projectTargets[$extPointName]) ? $projectTargets[$extPointName] : null;
+            } else {
+                // we have a prefix, which means we came from an include/import
+
+                // FIXME: here we handle no particular level of include. We try
+                // the fully prefixed name, and then the non-prefixed name. But
+                // there might be intermediate project in the import stack,
+                // which prefix should be tested before testing the non-prefix
+                // root name.
+
+                $extPoint = isset($projectTargets[$prefixAndSep . $extPointName]) ? $projectTargets[$prefixAndSep . $extPointName] : null;
+                if ($extPoint === null) {
+                    $extPoint = isset($projectTargets[$extPointName]) ? $projectTargets[$extPointName] : null;
+                }
+            }
+
+            // make sure we found a point to extend on
+            if ($extPoint === null) {
+                $message = "can't add target " . $targetName
+                    . " to extension-point " . $extPointName
+                    . " because the extension-point is unknown.";
+                if ($missingBehaviour === 'fail') {
+                    throw new BuildException($message);
+                }
+                if ($missingBehaviour === 'warn') {
+                    $t = $projectTargets[$targetName];
+                    $project->log("Warning: " . $message, Project::MSG_WARN);
+                }
+            } else {
+                if (!$extPoint instanceof ExtensionPoint) {
+                    throw new BuildException("referenced target " . $extPointName
+                        . " is not an extension-point");
+                }
+                $extPoint->addDependency($targetName);
+            }
+        }
     }
 }

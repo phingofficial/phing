@@ -1,0 +1,6 @@
+<project default="prepare">
+  <import file="master.xml"/>
+  <target name="prepare" extensionof="foo">
+    <echo>in target prepare</echo>
+  </target>
+</project>

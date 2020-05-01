@@ -177,7 +177,7 @@ class ProjectHandler extends AbstractHandler
         $project = $this->configurator->project;
         $types = $project->getDataTypeDefinitions();
 
-        if ($name === "target") {
+        if ($name === "target" || $name === "extension-point") {
             $tf = new TargetHandler($this->parser, $this, $this->configurator, $this->context);
             $tf->init($name, $attrs);
         } else {

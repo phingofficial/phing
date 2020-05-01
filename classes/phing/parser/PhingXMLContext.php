@@ -47,6 +47,9 @@ class PhingXMLContext
      */
     private $currentTargets = null;
 
+    /** @var string */
+    private $currentProjectName;
+
     /**
      * Constructor
      *
@@ -109,9 +112,28 @@ class PhingXMLContext
     /**
      * @return array
      */
-    public function getImportStack()
+    public function &getImportStack()
     {
         return $this->importStack;
+    }
+
+    /** Impoerted files */
+    private $extensionPointStack = [];
+
+    /**
+     * @param $file
+     */
+    public function addExtensionPoint($elem)
+    {
+        $this->extensionPointStack[] = $elem;
+    }
+
+    /**
+     * @return array
+     */
+    public function &getExtensionPointStack()
+    {
+        return $this->extensionPointStack;
     }
 
     /**
@@ -122,6 +144,24 @@ class PhingXMLContext
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * find out the current project name
+     * @return string current project name
+     */
+    public function getCurrentProjectName()
+    {
+        return $this->currentProjectName;
+    }
+
+    /**
+     * set the name of the current project
+     * @param string $name name of the current project
+     */
+    public function setCurrentProjectName(string $name)
+    {
+        $this->currentProjectName = $name;
     }
 
     /**
