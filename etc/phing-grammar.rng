@@ -267,6 +267,7 @@
                 <ref name="relentless"/>
                 <ref name="retry"/>
                 <ref name="sleep"/>
+                <ref name="subphing"/>
                 <ref name="switch"/>
                 <ref name="taskdef"/>
                 <ref name="tempfile"/>
@@ -2012,6 +2013,52 @@
                     <attribute name="usenativebasedir" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="subphing">
+        <element name="subphing">
+            <interleave>
+                <optional>
+                    <attribute name="phingfile"/>
+                </optional>
+                <optional>
+                    <attribute name="genericphingfile"/>
+                </optional>
+                <optional>
+                    <attribute name="buildpath"/>
+                </optional>
+                <optional>
+                    <attribute name="buildpathref"/>
+                </optional>
+                <optional>
+                    <attribute name="inheritAll">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="inheritRefs">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="target"/>
+                </optional>
+                <optional>
+                    <attribute name="failonerror">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="output"/>
+                </optional>
+                <optional>
+                    <attribute name="verbose"/>
                 </optional>
             </interleave>
             <zeroOrMore>
