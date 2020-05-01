@@ -91,12 +91,21 @@ class Target implements TaskContainer
      * @var Project
      */
     private $project;
-
     private $location;
 
-    public function __construct()
+    public function __construct(Target $other = null)
     {
-        $this->location = new Location();
+        if ($other !== null) {
+            $this->name = $other->name;
+            $this->ifCondition = $other->ifCondition;
+            $this->unlessCondition = $other->unlessCondition;
+            $this->dependencies = $other->dependencies;
+            $this->location = $other->location;
+            $this->project = $other->project;
+            $this->description = $other->description;
+            // The children are added to after this cloning
+            $this->children = $other->children;
+        }
     }
 
     /**
@@ -452,5 +461,43 @@ class Target implements TaskContainer
         }
 
         return $result;
+    }
+
+    /**
+     * Replaces all occurrences of the given task in the list
+     * of children with the replacement data type wrapper.
+     * @param Task $task
+     * @param RuntimeConfigurable|Task $o
+     */
+    public function replaceChild(Task $task, $o)
+    {
+        $keys = array_keys($this->children, $task);
+        foreach ($keys as $index) {
+            $this->children[$index] = $o;
+        }
+    }
+
+    /**
+     * @param string $depends
+     * @param string $targetName
+     * @param string $attributeName
+     * @return string[]
+     * @throws \BuildException
+     */
+    public static function parseDepends($depends, $targetName, $attributeName)
+    {
+        $list = [];
+        if ($depends !== '') {
+            $list = explode(',', $depends);
+            array_walk($list, 'trim');
+            if (count($list) === 0) {
+                throw new BuildException("Syntax Error: "
+                    . $attributeName
+                    . " attribute of target \""
+                    . $targetName
+                    . "\" contains an empty string.");
+            }
+        }
+        return $list;
     }
 }

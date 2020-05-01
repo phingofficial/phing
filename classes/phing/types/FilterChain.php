@@ -248,6 +248,14 @@ class FilterChain extends DataType
         $this->add($o);
     }
 
+    /**
+     * @param ClassConstants $o
+     */
+    public function addClassConstants(ClassConstants $o)
+    {
+        $this->add($o);
+    }
+
     private function add(BaseFilterReader $o)
     {
         $o->setProject($this->project);

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AugmentTest" default="test">
+    <property name="tmp.dir" value="tmp/augment"/>
+    <property name="input" value="${tmp.dir}/augment"/>
+
+    <target name="setUp">
+        <mkdir dir="${input}" />
+        <touch>
+            <filelist id="filelist" dir="${input}" files="foo,bar,baz" />
+        </touch>
+        <fileset id="input-fs" dir="${input}" />
+    </target>
+
+    <target name="tearDown">
+        <delete dir="${input}"/>
+    </target>
+
+    <target name="testAugmentAttribute">
+        <augment id="input-fs" excludes="foo" />
+    </target>
+
+    <target name="testAugmentElement">
+        <augment id="input-fs">
+            <filename name="bar" />
+        </augment>
+    </target>
+
+    <target name="testNoref">
+        <augment id="nosuchreference" />
+    </target>
+
+    <target name="testIdNotSet">
+        <augment foo="bar" />
+    </target>
+
+    <target name="testIllegalAttribute">
+        <augment id="input-fs" filesetwillmostlikelyneversupportthisattribute="blah" />
+    </target>
+
+    <target name="testIllegalElement">
+        <augment id="input-fs">
+            <filesetwillmostlikelyneversupportthiselement />
+        </augment>
+    </target>
+</project>

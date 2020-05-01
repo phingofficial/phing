@@ -1,6 +1,0 @@
----
-- hosts: all
-  roles:
-    - { role: phing.vagrant, tags: [vagrant] }
-    - { role: phing.environment, tags: [vagrant] }
-    - { role: phing.php, tags: [vagrant] }

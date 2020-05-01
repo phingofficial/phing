@@ -26,4 +26,8 @@
     </pathconvert>
   </target>
 
+  <target name="testnotargetos">
+    <pathconvert property="result" refid="testpath" />
+  </target>
+
 </project>

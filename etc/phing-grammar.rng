@@ -63,6 +63,9 @@
                 <zeroOrMore>
                     <ref name="target"/>
                 </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="extension-point"/>
+                </zeroOrMore>
                 <ref name="coretasks"/>
                 <ref name="optionaltasks"/>
                 <ref name="coretypes"/>
@@ -97,6 +100,7 @@
         <zeroOrMore>
             <choice>
                 <ref name="apigen"/>
+                <ref name="augment"/>
                 <ref name="autoloader"/>
                 <ref name="capsule"/>
                 <ref name="composer"/>
@@ -314,6 +318,22 @@
                 <ref name="coretypes"/>
                 <ref name="optionaltasks"/>
                 <ref name="selector"/>
+            </interleave>
+        </element>
+    </define>
+
+    <!--
+        ===========================================================================================================
+        Extension-point element.
+        ===========================================================================================================
+    -->
+    <define name="extension-point">
+        <element name="extension-point">
+            <interleave>
+                <attribute name="name"/>
+                <optional>
+                    <attribute name="depends"/>
+                </optional>
             </interleave>
         </element>
     </define>
@@ -2845,6 +2865,14 @@
                     </attribute>
                 </optional>
             </interleave>
+        </element>
+    </define>
+
+    <define name="augment">
+        <element name="augment">
+            <attribute name="id">
+                <data type="IDREF"/>
+            </attribute>
         </element>
     </define>
 
