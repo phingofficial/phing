@@ -1,0 +1,6 @@
+<project name="compile-java" default="invalid">
+  <import file="abstract-compile.xml"/>
+  <target name="compile-java" extensionof="compile">
+    <echo>in compile java</echo>
+  </target>
+</project>
