@@ -70,7 +70,7 @@ class PearPackageFileSetTest extends BuildFileTest
         $arFiles = $ds->getIncludedFiles();
         $this->assertContains('docs/Archive_Tar.txt', $arFiles);
         foreach ($arFiles as $file) {
-            $this->assertNotContains(
+            $this->assertStringNotContainsString(
                 '.php',
                 $file,
                 'php files should not be in there'
@@ -91,10 +91,7 @@ class PearPackageFileSetTest extends BuildFileTest
             file_exists($dir),
             'Directory does not exist: ' . $dir
         );
-        $this->assertTrue(
-            is_dir($dir),
-            '$dir is not a directory: ' . $dir
-        );
+        $this->assertDirectoryExists($dir, '$dir is not a directory: ' . $dir);
     }
 
     public function testGetDirWithoutScanner()
