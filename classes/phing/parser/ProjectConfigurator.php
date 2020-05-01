@@ -282,7 +282,7 @@ class ProjectConfigurator
                 continue;
                 // throw new BuildException("Id must be set Extermnally");
             }
-            if (method_exists($value, 'main')) {
+            if (!is_string($value) && method_exists($value, 'main')) {
                 $value = $value->main();
             } else {
                 $value = $project->replaceProperties($value);
