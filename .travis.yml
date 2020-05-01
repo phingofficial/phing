@@ -51,7 +51,7 @@ install:
 script:
   - echo "=== TESTING PHING ==="
   - cd test
-  - ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
+  - ../bin/phing -verbose -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
   - cd ..
 
 jobs:
