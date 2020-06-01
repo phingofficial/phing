@@ -4809,26 +4809,26 @@
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v5.0.8",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
-                "reference": "a1d86d30d4522423afc998f32404efa34fcf5a73"
+                "reference": "0f7c58cf81dbb5dd67d423a89d577524a2ec0323"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/a1d86d30d4522423afc998f32404efa34fcf5a73",
-                "reference": "a1d86d30d4522423afc998f32404efa34fcf5a73",
+                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/0f7c58cf81dbb5dd67d423a89d577524a2ec0323",
+                "reference": "0f7c58cf81dbb5dd67d423a89d577524a2ec0323",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5",
+                "php": ">=7.2.5",
                 "symfony/service-contracts": "^1.0|^2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.0-dev"
+                    "dev-master": "5.1-dev"
                 }
             },
             "autoload": {
@@ -4855,7 +4855,7 @@
             ],
             "description": "Symfony Stopwatch Component",
             "homepage": "https://symfony.com",
-            "time": "2020-03-27T16:56:45+00:00"
+            "time": "2020-05-20T17:43:50+00:00"
         },
         {
             "name": "theseer/fdomdocument",
