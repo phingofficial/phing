@@ -34,6 +34,15 @@ class PhpCSTask extends Task
      */
     private $file;
 
+    /**
+     * The
+     *
+     * @var array
+     */
+    protected $filesets = [];
+    protected $files = [];
+
+
     /** @var Commandline */
     private $cmd;
 
@@ -103,8 +112,25 @@ class PhpCSTask extends Task
 
     public function main()
     {
+        $project = $this->getProject();
+        /*
         if ($this->file === null) {
             throw new BuildException('Missing attribute "file".');
+        }
+        */
+        if ($this->file === null && count($this->filesets) == 0) {
+            throw new BuildException('Missing both attribute "file" and "fileset".');
+        }
+        if ($this->file === null) {
+            // check filesets, and compile a list of files for phpcs to analyse
+            foreach ($this->filesets as $fileset) {
+                $scanner = $fileset->getDirectoryScanner($project);
+                $files = $scanner->getIncludedFiles();
+                $fromDir = $fileset->getDir($project);
+                foreach ($files as $file) {
+                    $this->files[] = $fromDir . "/" . $file;
+                }
+            }
         }
 
         $toExecute = $this->getCommandline();
@@ -117,7 +143,13 @@ class PhpCSTask extends Task
             $toExecute->createArgument()->setValue('--ignore-annotations');
         }
 
-        $toExecute->createArgument()->setFile($this->file);
+        if ($this->file !== null) {
+            $toExecute->createArgument()->setFile($this->file);
+        } else {
+            foreach ($this->files as $file) {
+                $toExecute->createArgument()->setFile(new PhingFile($file));
+            }
+        }
 
         $exe = new ExecTask();
         $exe->setProject($this->getProject());
@@ -130,5 +162,16 @@ class PhpCSTask extends Task
         $exe->setExecutable($toExecute->getExecutable());
         $exe->createArg()->setLine(implode(' ', $toExecute->getArguments()));
         $exe->main();
+    }
+
+    /**
+     * Nested creator, creates a FileSet for this task
+     *
+     * @return FileSet The created fileset object
+     */
+    public function createFileSet()
+    {
+        $num = array_push($this->filesets, new FileSet());
+        return $this->filesets[$num - 1];
     }
 }

@@ -2,4 +2,13 @@
     <target name="testPhpCs">
         <phpcs bin="../../../../../bin/phpcs" file="../../../../../classes/phing/dispatch" level="debug" checkreturn="false" ignoreAnnotations="true" />
     </target>
+    <target name="testMissingFileSetAndFilePhpCs1">
+        <phpcs bin="../../../../../bin/phpcs" level="debug" checkreturn="false" ignoreAnnotations="true" >
+        </phpcs>
+    </target>
+    <target name="testFileSetInPhpCs1">
+        <phpcs bin="../../../../../bin/phpcs" level="debug" checkreturn="false" ignoreAnnotations="true" >
+        <fileset dir="../.." includes="**/*.php"/>
+        </phpcs>
+    </target>
 </project>
