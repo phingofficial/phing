@@ -26,6 +26,7 @@
 class PhpCSTask extends Task
 {
     use LogLevelAware;
+    use FileSetAware;
 
     /**
      * A php source code filename or directory
@@ -39,7 +40,6 @@ class PhpCSTask extends Task
      *
      * @var array
      */
-    protected $filesets = [];
     protected $files = [];
 
 
@@ -112,7 +112,6 @@ class PhpCSTask extends Task
 
     public function main()
     {
-        $project = $this->getProject();
         /*
         if ($this->file === null) {
             throw new BuildException('Missing attribute "file".');
@@ -124,11 +123,9 @@ class PhpCSTask extends Task
         if ($this->file === null) {
             // check filesets, and compile a list of files for phpcs to analyse
             foreach ($this->filesets as $fileset) {
-                $scanner = $fileset->getDirectoryScanner($project);
-                $files = $scanner->getIncludedFiles();
-                $fromDir = $fileset->getDir($project);
+                $files = $fileset->getIterator($this->includeEmpty);
                 foreach ($files as $file) {
-                    $this->files[] = $fromDir . "/" . $file;
+                    $this->files[] = $file;
                 }
             }
         }
@@ -171,7 +168,8 @@ class PhpCSTask extends Task
      */
     public function createFileSet()
     {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num - 1];
+        $fileset = new FileSet();
+        $this->addFileSet($fileset);
+        return $fileset;
     }
 }
