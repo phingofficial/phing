@@ -112,18 +112,13 @@ class PhpCSTask extends Task
 
     public function main()
     {
-        /*
-        if ($this->file === null) {
-            throw new BuildException('Missing attribute "file".');
-        }
-        */
         if ($this->file === null && count($this->filesets) == 0) {
             throw new BuildException('Missing both attribute "file" and "fileset".');
         }
         if ($this->file === null) {
             // check filesets, and compile a list of files for phpcs to analyse
             foreach ($this->filesets as $fileset) {
-                $files = $fileset->getIterator($this->includeEmpty);
+                $files = $fileset->getIterator();
                 foreach ($files as $file) {
                     $this->files[] = $file;
                 }
@@ -159,17 +154,5 @@ class PhpCSTask extends Task
         $exe->setExecutable($toExecute->getExecutable());
         $exe->createArg()->setLine(implode(' ', $toExecute->getArguments()));
         $exe->main();
-    }
-
-    /**
-     * Nested creator, creates a FileSet for this task
-     *
-     * @return FileSet The created fileset object
-     */
-    public function createFileSet()
-    {
-        $fileset = new FileSet();
-        $this->addFileSet($fileset);
-        return $fileset;
     }
 }
