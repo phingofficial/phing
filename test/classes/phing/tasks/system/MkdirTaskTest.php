@@ -170,7 +170,7 @@ class MkdirTaskTest extends BuildFileTest
     {
         $output = shell_exec('getfacl --omit-header --absolute-names ' . escapeshellarg($filename));
 
-        $aclEntries = preg_split('/[\r\n]+/', $output, -1,  PREG_SPLIT_NO_EMPTY);
+        $aclEntries = preg_split('/[\r\n]+/', $output, -1, PREG_SPLIT_NO_EMPTY);
 
         $matchFound = false;
         foreach ($aclEntries as $aclEntry) {
@@ -192,13 +192,15 @@ class MkdirTaskTest extends BuildFileTest
         );
     }
 
-    private function markTestSkippedIfOsIsWindows() {
+    private function markTestSkippedIfOsIsWindows()
+    {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             $this->markTestSkipped('POSIX ACL tests cannot be run on Windows.');
         }
     }
 
-    private function markTestSkippedIfAclIsNotSupported() {
+    private function markTestSkippedIfAclIsNotSupported()
+    {
         $this->markTestSkippedIfOsIsWindows();
 
         exec('which setfacl', $dummyOutput, $exitCode);
