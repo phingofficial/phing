@@ -33,9 +33,18 @@ class PhpCSTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
     }
 
-    public function testPhpCs()
+    public function testPhpCs(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Missing');
+    }
+    public function testMissingFileSetAndFilePhpCs1(): void
+    {
+        $this->expectException(BuildException::class);
+        $this->executeTarget(__FUNCTION__);
+    }
+    public function testFileSetInPhpCs1(): void
+    {
+        $this->executeTarget(__FUNCTION__);
     }
 }

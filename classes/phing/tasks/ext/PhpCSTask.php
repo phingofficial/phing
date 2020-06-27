@@ -26,6 +26,7 @@
 class PhpCSTask extends Task
 {
     use LogLevelAware;
+    use FileSetAware;
 
     /**
      * A php source code filename or directory
@@ -33,6 +34,14 @@ class PhpCSTask extends Task
      * @var PhingFile
      */
     private $file;
+
+    /**
+     * The
+     *
+     * @var array
+     */
+    protected $files = [];
+
 
     /** @var Commandline */
     private $cmd;
@@ -103,8 +112,17 @@ class PhpCSTask extends Task
 
     public function main()
     {
+        if ($this->file === null && count($this->filesets) == 0) {
+            throw new BuildException('Missing both attribute "file" and "fileset".');
+        }
         if ($this->file === null) {
-            throw new BuildException('Missing attribute "file".');
+            // check filesets, and compile a list of files for phpcs to analyse
+            foreach ($this->filesets as $fileset) {
+                $files = $fileset->getIterator();
+                foreach ($files as $file) {
+                    $this->files[] = $file;
+                }
+            }
         }
 
         $toExecute = $this->getCommandline();
@@ -117,7 +135,13 @@ class PhpCSTask extends Task
             $toExecute->createArgument()->setValue('--ignore-annotations');
         }
 
-        $toExecute->createArgument()->setFile($this->file);
+        if ($this->file !== null) {
+            $toExecute->createArgument()->setFile($this->file);
+        } else {
+            foreach ($this->files as $file) {
+                $toExecute->createArgument()->setFile(new PhingFile($file));
+            }
+        }
 
         $exe = new ExecTask();
         $exe->setProject($this->getProject());

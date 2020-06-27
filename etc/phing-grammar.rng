@@ -5213,6 +5213,9 @@
                     </attribute>
                 </optional>
             </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
         </element>
     </define>
 
