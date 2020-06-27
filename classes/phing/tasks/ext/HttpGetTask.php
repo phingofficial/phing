@@ -65,46 +65,43 @@ class HttpGetTask extends HttpTask
     private $quiet = false;
 
     /**
-     * @return HTTP_Request2
-     * @throws BuildException
-     * @throws HTTP_Request2_LogicException
+     * @param array $options
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function createRequest()
+    protected function request($options = [])
     {
         if (!isset($this->dir)) {
             throw new BuildException("Required attribute 'dir' is missing", $this->getLocation());
         }
 
-        $config = [
-            'ssl_verify_peer' => $this->sslVerifyPeer
+        $options = [
+            'verify' => $this->sslVerifyPeer
         ];
         if (isset($this->proxy)) {
-            $config['proxy'] = $this->proxy;
+            $options['proxy'] = $this->proxy;
         }
         if (null !== $this->followRedirects) {
-            $config['follow_redirects'] = $this->followRedirects;
+            $options['allow_redirects'] = $this->followRedirects;
         }
 
-        $request = parent::createRequest();
-        $request->setConfig($config);
+        $response = parent::request($options);
 
         $this->log("Fetching " . $this->url);
 
-        return $request;
+        return $response;
     }
 
     /**
      * Saves the response body to a specified directory
      *
-     * @param  HTTP_Request2_Response $response
+     * @param \Psr\Http\Message\ResponseInterface $response
      * @return void
-     * @throws BuildException
      */
-    protected function processResponse(HTTP_Request2_Response $response)
+    protected function processResponse(\Psr\Http\Message\ResponseInterface $response)
     {
-        if ($response->getStatus() != 200) {
+        if ($response->getStatusCode() != 200) {
             throw new BuildException(
-                "Request unsuccessful. Response from server: " . $response->getStatus()
+                "Request unsuccessful. Response from server: " . $response->getStatusCode()
                 . " " . $response->getReasonPhrase(),
                 $this->getLocation()
             );
@@ -116,9 +113,9 @@ class HttpGetTask extends HttpTask
         if ($this->filename) {
             $filename = $this->filename;
         } elseif (
-            $disposition
-            && 0 == strpos($disposition, 'attachment')
-            && preg_match('/filename="([^"]+)"/', $disposition, $m)
+            !empty($disposition)
+            && 0 == strpos($disposition[0], 'attachment')
+            && preg_match('/filename="([^"]+)"/', $disposition[0], $m)
         ) {
             $filename = basename($m[1]);
         } else {

@@ -34,6 +34,6 @@ class ForeachFileSetTest extends BuildFileTest
     {
         $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/252/build.xml");
         $this->executeTarget("main");
-        $this->assertInLogs("Calling Buildfile '" . $f->getAbsolutePath() . "' with target 'subtask'");
+        $this->assertInLogs("calling target(s) [default] in build file " . $f->getAbsolutePath());
     }
 }

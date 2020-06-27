@@ -54,4 +54,17 @@ class FileUtilsTest extends BuildFileTest
         $this->assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__FILE__)));
         $this->assertTrue($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__FILE__)));
     }
+
+    /**
+     * @test
+     */
+    public function copyFile()
+    {
+        $this->fu->copyFile(new PhingFile(__FILE__), new PhingFile('tmp/test.php'), $this->getProject());
+        try {
+            $this->assertFileExists('tmp/test.php');
+        } finally {
+            @unlink('tmp/test.php');
+        }
+    }
 }

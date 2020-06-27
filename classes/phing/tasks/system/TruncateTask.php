@@ -33,40 +33,37 @@ class TruncateTask extends Task
     /**
      * Set a single target File.
      *
-     * @param  PhingFile|string $f the single File
+     * @param  PhingFile $f the single File
      * @throws \IOException
      * @throws \NullPointerException
      */
-    public function setFile($f)
+    public function setFile(PhingFile $f): void
     {
-        if (is_string($f)) {
-            $f = new PhingFile($f);
-        }
         $this->file = $f;
     }
 
     /**
      * Set the amount by which files' lengths should be adjusted.
-     * It is permissible to append K / M / G / T / P.
+     * It is permissible to append k / m / g.
      *
-     * @param $adjust (positive or negative) adjustment amount.
+     * @param string $adjust (positive or negative) adjustment amount.
      */
-    public function setAdjust($adjust)
+    public function setAdjust(string $adjust)
     {
-        $this->adjust = $adjust;
+        $this->adjust = Phing::convertShorthand($adjust);
     }
 
     /**
      * Set the length to which files should be set.
-     * It is permissible to append K / M / G / T / P.
+     * It is permissible to append k / m / g.
      *
-     * @param $length (positive) adjustment amount.
+     * @param string $length (positive) adjustment amount.
      *
      * @throws \BuildException
      */
-    public function setLength($length)
+    public function setLength(string $length)
     {
-        $this->length = $length;
+        $this->length = Phing::convertShorthand($length);
         if ($this->length !== null && $this->length < 0) {
             throw new BuildException('Cannot truncate to length ' . $this->length);
         }
@@ -132,15 +129,7 @@ class TruncateTask extends Task
         }
         $exception = null;
         try {
-            /**
-             * @var PhingFile $parent
-             */
-            $parent = $f->getParentFile();
-            if ($this->mkdirs && !$parent->exists()) {
-                $parent->mkdirs();
-            }
-
-            if ($f->createNewFile()) {
+            if ($f->createNewFile($this->mkdirs)) {
                 return true;
             }
         } catch (IOException $e) {

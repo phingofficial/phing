@@ -269,7 +269,7 @@ abstract class FileSystem
 
         if (false === $mtime) {
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             $msg = "FileSystem::getLastModifiedTime() FAILED. Can not get modified time of $strPath. $errormsg";
             throw new IOException($msg);
         }
@@ -296,7 +296,7 @@ abstract class FileSystem
         }
 
         $lastError = error_get_last();
-        $errormsg = $lastError['message'];
+        $errormsg = $lastError['message'] ?? 'unknown error';
         $msg = "FileSystem::Read() FAILED. Cannot get filesize of $strPath. $errormsg";
         throw new IOException($msg);
     }
@@ -323,7 +323,9 @@ abstract class FileSystem
         $fp = @fopen($strPathname, "w");
         if ($fp === false) {
             $error = error_get_last();
-            throw new IOException("The file \"$strPathname\" could not be created: " . $error['message']);
+            throw new IOException(
+                "The file \"$strPathname\" could not be created: " . $error['message'] ?? 'unknown error'
+            );
         }
         @fclose($fp);
 
@@ -416,7 +418,7 @@ abstract class FileSystem
         $dest = $f2->getAbsolutePath();
         if (false === @rename($src, $dest)) {
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             $msg = "Rename FAILED. Cannot rename $src to $dest. $errormsg";
             throw new IOException($msg);
         }
@@ -439,7 +441,7 @@ abstract class FileSystem
         $success = @touch($path, $time);
         if (!$success) {
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             throw new IOException("Could not touch '" . $path . "' due to: $errormsg");
         }
     }
@@ -483,7 +485,7 @@ abstract class FileSystem
         if (false === @copy($srcPath, $destPath)) { // Copy FAILED. Log and return err.
             // Add error from php to end of log message. $errormsg.
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             $msg = "FileSystem::copy() FAILED. Cannot copy $srcPath to $destPath. $errormsg";
             throw new IOException($msg);
         }
@@ -553,7 +555,7 @@ abstract class FileSystem
         error_clear_last();
         if (false === @chown($pathname, $user)) { // FAILED.
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             $msg = "FileSystem::chown() FAILED. Cannot chown $pathname. User $user." . (isset($errormsg) ? ' ' . $errormsg : "");
             throw new IOException($msg);
         }
@@ -573,7 +575,7 @@ abstract class FileSystem
         error_clear_last();
         if (false === @chgrp($pathname, $group)) { // FAILED.
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             $msg = "FileSystem::chgrp() FAILED. Cannot chown $pathname. Group $group." . (isset($errormsg) ? ' ' . $errormsg : "");
             throw new IOException($msg);
         }
@@ -596,7 +598,7 @@ abstract class FileSystem
         $str_mode = decoct($mode); // Show octal in messages.
         if (false === @chmod($pathname, $mode)) { // FAILED.
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             $msg = "FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode." . (isset($errormsg) ? ' ' . $errormsg : "");
             throw new IOException($msg);
         }
@@ -651,7 +653,7 @@ abstract class FileSystem
         error_clear_last();
         if (false === @unlink($file)) {
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             $msg = "FileSystem::unlink() FAILED. Cannot unlink '$file'. $errormsg";
             throw new IOException($msg);
         }
@@ -676,7 +678,7 @@ abstract class FileSystem
 
         if (false === @symlink($target, $link)) {
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             // Add error from php to end of log message.
             $msg = "FileSystem::Symlink() FAILED. Cannot symlink '$target' to '$link'. $errormsg";
             throw new IOException($msg);
@@ -702,7 +704,7 @@ abstract class FileSystem
 
         if (false === $error) { // FAILED.
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             // Add error from php to end of log message.
             $msg = "FileSystem::touch() FAILED. Cannot touch '$file'. $errormsg";
             throw new Exception($msg);
@@ -728,7 +730,7 @@ abstract class FileSystem
         if (false === $children) {
             if (false === @rmdir($dir)) { // FAILED.
                 $lastError = error_get_last();
-                $errormsg = $lastError['message'];
+                $errormsg = $lastError['message'] ?? 'unknown error';
                 // Add error from php to end of log message.
                 $msg = "FileSystem::rmdir() FAILED. Cannot rmdir $dir. $errormsg";
                 throw new Exception($msg);
@@ -736,7 +738,7 @@ abstract class FileSystem
         } else { // delete contents and dir.
             $handle = @opendir($dir);
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
 
             if (false === $handle) { // Error.
                 $msg = "FileSystem::rmdir() FAILED. Cannot opendir() $dir. $errormsg";
@@ -785,7 +787,7 @@ abstract class FileSystem
             if (false === @rmdir($dir)) { // FAILED.
                 // Add error from php to end of log message.
                 $lastError = error_get_last();
-                $errormsg = $lastError['message'];
+                $errormsg = $lastError['message'] ?? 'unknown error';
                 $msg = "FileSystem::rmdir() FAILED. Cannot rmdir $dir. $errormsg";
                 throw new Exception($msg);
             }
@@ -813,7 +815,7 @@ abstract class FileSystem
 
         if (false === @umask($mode)) { // FAILED.
             $lastError = error_get_last();
-            $errormsg = $lastError['message'];
+            $errormsg = $lastError['message'] ?? 'unknown error';
             // Add error from php to end of log message.
             $msg = "FileSystem::Umask() FAILED. Value $mode. $errormsg";
             throw new Exception($msg);

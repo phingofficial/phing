@@ -99,13 +99,12 @@ class Diagnostics
      */
     private static function doReportSystemProperties(PrintStream $out)
     {
-        $phing = new Phing();
-
-        $phingprops = $phing->getProperties();
-
-        foreach ($phingprops as $key => $value) {
-            $out->println($key . " : " . $value);
-        }
+        array_walk(
+            Phing::getProperties(),
+            static function ($v, $k) use ($out) {
+                $out->println($k . ' : ' . $v);
+            }
+        );
     }
 
     /**
@@ -132,7 +131,7 @@ class Diagnostics
      */
     private static function doReportPhingVendorLibraries(PrintStream $out)
     {
-        $libs = self::listLibraries('installed');
+        $libs = self::listLibraries('');
         self::printLibraries($libs, $out);
     }
 

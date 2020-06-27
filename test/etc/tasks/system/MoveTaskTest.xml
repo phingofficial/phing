@@ -48,5 +48,11 @@
         </move>
     </target>
 
+    <target name="testGranularity">
+        <touch mkdirs="true" file="${tmp.dir}/copysrcs/Test" datetime="-1 day"/>
+        <touch mkdirs="true" file="${tmp.dir}/copydest/Test" datetime="-1 year"/>
+        <move file="${tmp.dir}/copysrcs/Test" todir="${tmp.dir}/copydest" granularity="999999999" overwrite="false"/>
+    </target>
+
     <target name="main"/>
 </project>

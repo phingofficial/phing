@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="EchoXMLTest" default="nothing">
+    <resolvepath propertyName="file" file="echoed.xml" />
+    <target name="tearDown">
+        <delete file="${file}" />
+    </target>
+    <target name="testPass">
+        <echoxml file="${file}">
+            <project name="failure" default="" basedir=".">
+                <fail message="foo=bar"/>
+            </project>
+        </echoxml>
+    </target>
+    <target name="testEmpty">
+        <echoxml />
+    </target>
+</project>

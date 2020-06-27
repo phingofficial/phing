@@ -1,12 +1,9 @@
 language: php
-
-sudo: false
+os: linux
 
 php:
-  - 7.1
-  - 7.2
   - 7.3
-  - 7.4snapshot
+  - 7.4
   - master
 
 env:
@@ -29,6 +26,7 @@ stages:
   - static code analysis
   - test
   - test with coverage
+  - build phar
 
 before_install:
   - phpenv config-rm xdebug.ini || echo "xdebug not available"
@@ -59,7 +57,7 @@ script:
 
 jobs:
   allow_failures:
-    - php: 7.4snapshot
+    - php: 7.4
     - php: master
     - php: nightly
   include:
@@ -68,7 +66,7 @@ jobs:
       install: composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest --ignore-platform-reqs
 
     - stage: test with coverage
-      php: 7.2
+      php: 7.3
       env: DEPS="NORMAL"
       before_install:
         - phpenv config-add .travis.php.ini
@@ -89,17 +87,23 @@ jobs:
         - wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=clover ./test/reports/clover-coverage.xml
 
     - stage: composer validate
-      os: linux
-      php: 7.2
+      php: 7.3
       env: DEPS="NORMAL"
       script:
         - composer validate
 
     - stage: static code analysis
-      os: linux
-      php: 7.2
+      php: 7.3
       env: DEPS="NORMAL"
       script: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
+
+    - stage: build phar
+      php: 7.3
+      env: DEPS="NORMAL"
+      script:
+        - cd build
+        - ../bin/phing
+        - php full/phing-$(cat ../etc/VERSION.TXT).phar -v
 
 notifications:
   secure: "Q8xCtM0IMQyjQuPJOPFCcFvBUlD7zwg6E5vEFfsaFQj+9bJ83Xo3loURsizTBf+WpRruDxmu3tlg0GNk5yDt92POOCOISzyWPBDmHiy2MVDfINEwyNsJpzdlw1UnChoTjSwRS3goPivfQDkOsbSrszLE93iE9PIIUw5BV4CAoho="

@@ -69,12 +69,25 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->assertEquals('test.txt', $archive->getNameIndex(0));
     }
 
+    public function testZipBaseDir()
+    {
+        $filename = PHING_TEST_BASE . '/etc/tasks/ext/tmp/simple-test.zip';
+
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists($filename);
+
+        $archive = new ZipArchive();
+        $archive->open($filename);
+
+        $this->assertEquals('test.txt', $archive->getNameIndex(0));
+    }
+
     public function testUnzipSimpleZip()
     {
         $filename = PHING_TEST_BASE .
             "/etc/tasks/ext/tmp/test.txt";
 
-        $this->assertFileNotExists($filename);
+        $this->assertFileDoesNotExist($filename);
 
         $this->executeTarget(__FUNCTION__);
 

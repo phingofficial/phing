@@ -20,4 +20,11 @@
         <svnexport todir="${tmp.dir.resolved}" />
     </target>
 
+    <target name="exportConfigOption" description="Export with unreachable http-proxy">
+        <svnexport
+                repositoryurl="${repo.url}"
+                todir="${tmp.dir.resolved}"
+                configOption="servers:global:http-proxy-host=non-existed.phing.org" />
+    </target>
+
 </project>

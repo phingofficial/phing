@@ -121,7 +121,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
         $res = new PHPUnit\Framework\TestResult();
 
         if ($this->codecoverage) {
-            $whitelist = CoverageMerger::getWhiteList($this->project);
+            $whitelist = \Phing\Tasks\Ext\Coverage\CoverageMerger::getWhiteList($this->project);
 
             $this->codecoverage->filter()->addFilesToWhiteList($whitelist);
 
@@ -153,7 +153,7 @@ class PHPUnitTestRunner7 implements \PHPUnit\Framework\TestListener
 
         if ($this->codecoverage) {
             try {
-                CoverageMerger::merge($this->project, $this->codecoverage->getData());
+                \Phing\Tasks\Ext\Coverage\CoverageMerger::merge($this->project, $this->codecoverage->getData());
             } catch (IOException $e) {
                 throw new BuildException('Merging code coverage failed.', $e);
             }

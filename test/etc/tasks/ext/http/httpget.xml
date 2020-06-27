@@ -50,9 +50,6 @@
     <target name="config-properties">
         <property name="phing.http.proxy" value="http://localhost:8080/" />
         <property name="phing.http.timeout" value="20" />
-        <property name="phing.http.max_redirects" value="10" />
-        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}">
-            <config name="max_redirects" value="9" />
-        </httpget>
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}"/>
     </target>
 </project>
