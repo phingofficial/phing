@@ -548,13 +548,12 @@ class PhingFile
      * filesystem activities that might affect the file.
      *
      * @param  bool $parents
-     * @param  int $mode
      * @throws IOException
      * @return boolean     true if the named file does not exist and was
      *                     successfully created; <code>false</code> if the named file
      *                     already exists
      */
-    public function createNewFile($parents = true, $mode = 0777)
+    public function createNewFile($parents = true)
     {
         /**
          * @var PhingFile $parent
@@ -640,13 +639,13 @@ class PhingFile
      * operation fails it may have succeeded in creating some of the necessary
      * parent directories.
      *
-     * @param  int $mode
+     * @param  int|null $mode
      * @throws IOException
      * @return boolean     true if and only if the directory was created,
      *                     along with all necessary parent directories; false
      *                     otherwise
      */
-    public function mkdirs($mode = 0755)
+    public function mkdirs($mode = null)
     {
         if ($this->exists()) {
             return false;
@@ -660,17 +659,17 @@ class PhingFile
         }
         $parentFile = $this->getParentFile();
 
-        return (($parentFile !== null) && ($parentFile->mkdirs($mode) && $this->mkdir($mode)));
+        return (($parentFile !== null) && ($parentFile->mkdirs() && $this->mkdir($mode)));
     }
 
     /**
      * Creates the directory named by this abstract pathname.
      *
-     * @param  int $mode
+     * @param  int|null $mode
      * @throws IOException
      * @return boolean     true if and only if the directory was created; false otherwise
      */
-    public function mkdir($mode = 0755)
+    public function mkdir($mode = null)
     {
         $fs = FileSystem::getFileSystem();
 

@@ -36,18 +36,9 @@ class MkdirTask extends Task
     /**
      * Mode to create directory with
      *
-     * @var integer
+     * @var integer|null
      */
-    private $mode = 0;
-
-    /**
-     * Sets up this object internal stuff. i.e. the default mode.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->mode = 0777 - umask();
-    }
+    private $mode = null;
 
     /**
      * create the directory and all parents

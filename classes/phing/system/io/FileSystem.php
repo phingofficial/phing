@@ -373,17 +373,29 @@ abstract class FileSystem
      * Create a new directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
      *
-     * NOTE: umask() is reset to 0 while executing mkdir(), and restored afterwards
+     * The behaviour is the same as of "mkdir" command in Linux.
+     * Without $mode argument, the directory is created with permissions
+     * corresponding to the umask setting.
+     * If $mode argument is specified, umask setting is ignored and
+     * the permissions are set according to the $mode argument using chmod().
      *
      * @param  PhingFile $f
-     * @param  int $mode
+     * @param  int|null $mode
      * @return boolean
      */
-    public function createDirectory(&$f, $mode = 0755)
+    public function createDirectory(&$f, $mode = null)
     {
-        $old_umask = umask(0);
-        $return = @mkdir($f->getAbsolutePath(), $mode);
-        umask($old_umask);
+        if ($mode === null) {
+            $return = @mkdir($f->getAbsolutePath());
+        } else {
+            // If the $mode is specified, mkdir() is called with the $mode
+            // argument so that the new directory does not temporarily have
+            // higher permissions than it should before chmod() is called.
+            $return = @mkdir($f->getAbsolutePath(), $mode);
+            if ($return) {
+                chmod($f->getAbsolutePath(), $mode);
+            }
+        }
 
         return $return;
     }
