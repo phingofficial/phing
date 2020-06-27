@@ -26,7 +26,7 @@ class MkdirTaskTest extends BuildFileTest
 {
     private $originalUmask;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->originalUmask = umask();
         $this->configureProject(
@@ -37,7 +37,7 @@ class MkdirTaskTest extends BuildFileTest
         mkdir(PHING_TEST_BASE . '/etc/tasks/system/tmp');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->executeTarget('clean');
         umask($this->originalUmask);
@@ -57,7 +57,8 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', $expectedDirMode);
     }
 
-    public function umaskIsHonouredWhenNotUsingModeArgumentDataProvider() {
+    public function umaskIsHonouredWhenNotUsingModeArgumentDataProvider()
+    {
         return [
             [0000, 0777],
             [0007, 0770],
@@ -75,7 +76,8 @@ class MkdirTaskTest extends BuildFileTest
     /**
      * @dataProvider parentDirectoriesHaveDefaultPermissionsDataProvider
      */
-    public function testParentDirectoriesHaveDefaultPermissions($umask, $expectedModeA, $expectedModeB) {
+    public function testParentDirectoriesHaveDefaultPermissions($umask, $expectedModeA, $expectedModeB)
+    {
         if ($umask !== 0) {
             $this->markTestSkippedIfOsIsWindows();
         }
@@ -86,7 +88,8 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a/b', $expectedModeB);
     }
 
-    public function parentDirectoriesHaveDefaultPermissionsDataProvider() {
+    public function parentDirectoriesHaveDefaultPermissionsDataProvider()
+    {
         return [
             [
                 'umask' => 0000,
