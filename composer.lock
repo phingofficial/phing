@@ -4852,16 +4852,16 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v5.1.0",
+            "version": "v5.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "6a6791e9584273b32eeb01790da4c7446d87a621"
+                "reference": "6508423eded583fc07e88a0172803e1a62f0310c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/6a6791e9584273b32eeb01790da4c7446d87a621",
-                "reference": "6a6791e9584273b32eeb01790da4c7446d87a621",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/6508423eded583fc07e88a0172803e1a62f0310c",
+                "reference": "6508423eded583fc07e88a0172803e1a62f0310c",
                 "shasum": ""
             },
             "require": {
@@ -4937,7 +4937,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-05-30T20:35:19+00:00"
+            "time": "2020-06-12T08:11:32+00:00"
         },
         {
             "name": "symfony/filesystem",
