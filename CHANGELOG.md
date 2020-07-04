@@ -2,7 +2,7 @@ P     H     I     N     G
 =========================
 
 
-Jul. X, 2020 - Phing 3.0.0 alpha 4
+Jul. 4, 2020 - Phing 3.0.0 alpha 4
 ----------------------------------
 
 The following issues and pull requests were closed in this release:
