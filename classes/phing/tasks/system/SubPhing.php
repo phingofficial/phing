@@ -213,17 +213,17 @@ class SubPhing extends Task
     }
 
     /**
-     * Creates the &lt;ant&gt; task configured to run a specific target.
+     * Creates the &lt;phing&gt; task configured to run a specific target.
      *
-     * @param directory : if not null the directory where the build should run
+     * @param ?PhingFile $directory : if not null the directory where the build should run
      *
-     * @return PhingTask the ant task, configured with the explicit properties and
+     * @return PhingTask the phing task, configured with the explicit properties and
      *         references necessary to run the sub-build.
      */
     private function createPhingTask(?PhingFile $directory): PhingTask
     {
         $phingTask = new PhingTask($this);
-        $phingTask->setHaltOnFailure(true);
+        $phingTask->setHaltOnFailure($this->failOnError);
         $phingTask->init();
         if ($this->subTarget !== null && $this->subTarget !== '') {
             $phingTask->setTarget($this->subTarget);
