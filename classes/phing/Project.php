@@ -159,6 +159,36 @@ class Project
     }
 
     /**
+     * Create and initialize a subproject. By default the subproject will be of
+     * the same type as its parent. If a no-arg constructor is unavailable, the
+     * <code>Project</code> class will be used.
+     * @return Project instance configured as a subproject of this Project.
+     */
+    public function createSubProject(): \Project
+    {
+        try {
+            $ref = new ReflectionObject($this);
+            $subProject = $ref->newInstance();
+        } catch (ReflectionException $e) {
+            $subProject = new Project();
+        }
+        $this->initSubProject($subProject);
+        return $subProject;
+    }
+
+    /**
+     * Initialize a subproject.
+     * @param Project $subProject the subproject to initialize.
+     */
+    public function initSubProject(Project $subProject): void
+    {
+        ComponentHelper::getComponentHelper($subProject)
+            ->initSubProject(ComponentHelper::getComponentHelper($this));
+        $subProject->setKeepGoingMode($this->isKeepGoingMode());
+        $subProject->setStrictMode($this->strictMode);
+    }
+
+    /**
      * returns the global filterset (future use)
      */
     public function getGlobalFilterSet()
@@ -314,6 +344,11 @@ class Project
         return PropertyHelper::getPropertyHelper($this)->getUserProperties();
     }
 
+    public function getInheritedProperties()
+    {
+        return PropertyHelper::getPropertyHelper($this)->getInheritedProperties();
+    }
+
     /**
      * Copies all user properties that have been set on the command
      * line or a GUI tool from this instance to the Project instance
@@ -403,7 +438,7 @@ class Project
      */
     public function setDescription($description)
     {
-        $this->description = (string) trim($description);
+        $this->description = $description;
     }
 
     /**
@@ -413,6 +448,9 @@ class Project
      */
     public function getDescription()
     {
+        if ($this->description === null) {
+            $this->description = Description::getAll($this);
+        }
         return $this->description;
     }
 
@@ -490,7 +528,7 @@ class Project
             throw new BuildException("Basedir " . $dir->getAbsolutePath() . " is not a directory");
         }
         $this->basedir = $dir;
-        $this->setPropertyInternal("project.basedir", $this->basedir->getAbsolutePath());
+        $this->setPropertyInternal("project.basedir", $this->basedir->getPath());
         $this->log("Project base dir set to: " . $this->basedir->getPath(), Project::MSG_VERBOSE);
 
         // [HL] added this so that ./ files resolve correctly.  This may be a mistake ... or may be in wrong place.
@@ -554,7 +592,7 @@ class Project
     {
 
         // first get system properties
-        $systemP = array_merge(self::getProperties(), Phing::getProperties());
+        $systemP = array_merge($this->getProperties(), Phing::getProperties());
         foreach ($systemP as $name => $value) {
             $this->setPropertyInternal($name, $value);
         }
@@ -666,7 +704,7 @@ class Project
     /**
      * Create a new task instance and return reference to it.
      *
-     * @param  string $taskType Task name
+     * @param string $taskType Task name
      * @return Task           A task object
      * @throws BuildException
      */
@@ -787,8 +825,8 @@ class Project
      *
      * @param  string $fileName
      * @param  PhingFile $rootDir
-     * @throws IOException
      * @return \PhingFile
+     * @throws IOException
      */
     public function resolveFile(string $fileName, PhingFile $rootDir = null): PhingFile
     {
@@ -826,9 +864,9 @@ class Project
      * @param  string $rootTarget is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
      *                         target is the minimum possible such sequence.
-     * @throws BuildException
-     * @throws Exception
      * @return Target[] targets in sorted order
+     * @throws Exception
+     * @throws BuildException
      */
     public function topoSort($rootTarget)
     {
@@ -1009,6 +1047,17 @@ class Project
     public function getReference($key)
     {
         return $this->references[$key] ?? null; // just to be explicit
+    }
+
+    /**
+     * Does the project know this reference?
+     *
+     * @param  string $key The reference id/key.
+     * @return bool
+     */
+    public function hasReference(string $key): bool
+    {
+        return isset($this->references[$key]);
     }
 
     /**

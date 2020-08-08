@@ -646,22 +646,6 @@ class Phing
     }
 
     /**
-     * Helper to get the parent file for a given file.
-     *
-     * @param PhingFile $file
-     *
-     * @return PhingFile Parent file or null if none
-     */
-    private function _getParentFile(PhingFile $file)
-    {
-        $filename = $file->getAbsolutePath();
-        $file = new PhingFile($filename);
-        $filename = $file->getParent();
-
-        return ($filename === null) ? null : new PhingFile($filename);
-    }
-
-    /**
      * Search parent directories for the build file.
      *
      * Takes the given target as a suffix to append to each
@@ -678,14 +662,17 @@ class Phing
      */
     private function _findBuildFile($start, $suffix)
     {
-        $startf = new PhingFile($start);
-        $parent = new PhingFile($startf->getAbsolutePath());
+        if (self::getMsgOutputLevel() >= Project::MSG_INFO) {
+            self::$out->write('Searching for ' . $suffix . ' ...' . PHP_EOL);
+        }
+
+        $parent = new PhingFile((new PhingFile($start))->getAbsolutePath());
         $file = new PhingFile($parent, $suffix);
 
         // check if the target file exists in the current directory
         while (!$file->exists()) {
             // change to parent directory
-            $parent = $this->_getParentFile($parent);
+            $parent = $parent->getParentFile();
 
             // if parent is null, then we are at the root of the fs,
             // complain that we can't find the build file.
@@ -702,12 +689,10 @@ class Phing
     /**
      * Executes the build.
      *
-     * @throws ConfigurationException
-     * @throws Exception
-     *
-     * @return void
+     * @throws IOException
+     * @throws Throwable
      */
-    public function runBuild()
+    public function runBuild(): void
     {
         if (!$this->readyToRun) {
             return;
@@ -720,96 +705,72 @@ class Phing
 
         $error = null;
 
-        $this->addBuildListeners($project);
-        $this->addInputHandler($project);
-
-        // set this right away, so that it can be used in logging.
-        $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
-        $project->setUserProperty("phing.dir", dirname($this->buildFile->getAbsolutePath()));
-
         try {
+            $this->addBuildListeners($project);
+            $this->addInputHandler($project);
+
+            // set this right away, so that it can be used in logging.
+            $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
+            $project->setUserProperty("phing.dir", dirname($this->buildFile->getAbsolutePath()));
+            $project->setUserProperty("phing.version", static::getPhingVersion());
             $project->fireBuildStarted();
             $project->init();
-        } catch (Exception $exc) {
-            $project->fireBuildFinished($exc);
-            throw $exc;
-        }
+            $project->setKeepGoingMode($this->keepGoingMode);
 
-        $project->setKeepGoingMode($this->keepGoingMode);
-
-        $project->setUserProperty("phing.version", static::getPhingVersion());
-
-        $e = self::$definedProps->keys();
-        while (count($e)) {
-            $arg = (string) array_shift($e);
-            $value = (string) self::$definedProps->getProperty($arg);
-            $project->setUserProperty($arg, $value);
-        }
-        unset($e);
-
-        $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
-
-        // first use the Configurator to create the project object
-        // from the given build file.
-
-        try {
-            ProjectConfigurator::configureProject($project, $this->buildFile);
-        } catch (Exception $exc) {
-            $project->fireBuildFinished($exc);
-            restore_error_handler();
-            self::unsetCurrentProject();
-            throw $exc;
-        }
-
-        // Set the project mode
-        $project->setStrictMode(StringHelper::booleanValue($this->strictMode));
-
-        // make sure that we have a target to execute
-        if (count($this->targets) === 0) {
-            $this->targets[] = $project->getDefaultTarget();
-        }
-
-        // make sure that minimum required phing version is satisfied
-        try {
-            $this->comparePhingVersion($project->getPhingVersion());
-        } catch (Exception $exc) {
-            $project->fireBuildFinished($exc);
-            restore_error_handler();
-            self::unsetCurrentProject();
-            throw $exc;
-        }
-
-        // execute targets if help param was not given
-        if (!$this->projectHelp) {
-            try {
-                $project->executeTargets($this->targets);
-            } catch (Exception $exc) {
-                $project->fireBuildFinished($exc);
-                restore_error_handler();
-                self::unsetCurrentProject();
-                throw $exc;
+            $e = self::$definedProps->keys();
+            while (count($e)) {
+                $arg = (string) array_shift($e);
+                $value = (string) self::$definedProps->getProperty($arg);
+                $project->setUserProperty($arg, $value);
             }
-        }
-        // if help is requested print it
-        if ($this->projectHelp) {
-            try {
+            unset($e);
+
+            // first use the Configurator to create the project object
+            // from the given build file.
+
+            ProjectConfigurator::configureProject($project, $this->buildFile);
+
+            // Set the project mode
+            $project->setStrictMode(StringHelper::booleanValue($this->strictMode));
+
+            // make sure that minimum required phing version is satisfied
+            $this->comparePhingVersion($project->getPhingVersion());
+
+            if ($this->projectHelp) {
                 $this->printDescription($project);
                 $this->printTargets($project);
-            } catch (Exception $exc) {
-                $project->fireBuildFinished($exc);
-                restore_error_handler();
-                self::unsetCurrentProject();
-                throw $exc;
+                return;
             }
-        }
 
-        // finally {
-        if (!$this->projectHelp) {
-            $project->fireBuildFinished(null);
-        }
+            // make sure that we have a target to execute
+            if (count($this->targets) === 0) {
+                $this->targets[] = $project->getDefaultTarget();
+            }
 
-        restore_error_handler();
-        self::unsetCurrentProject();
+            $project->executeTargets($this->targets);
+        } catch (Throwable $t) {
+            $error = $t;
+            throw $t;
+        } finally {
+            if (!$this->projectHelp) {
+                try {
+                    $project->fireBuildFinished($error);
+                } catch (Exception $e) {
+                    self::$err->write('Caught an exception while logging the end of the build.  Exception was:' . PHP_EOL);
+                    self::$err->write($e->getTraceAsString());
+                    if ($error !== null) {
+                        self::$err->write('There has been an error prior to that:' . PHP_EOL);
+                        self::$err->write($error->getTraceAsString());
+                    }
+                    throw new BuildException($t);
+                }
+            } elseif ($error !== null) {
+                $project->log($error->getMessage(), Project::MSG_ERR);
+            }
+
+            restore_error_handler();
+            self::unsetCurrentProject();
+        }
     }
 
     /**
@@ -1223,7 +1184,7 @@ class Phing
     public function printDescription(Project $project)
     {
         if ($project->getDescription() !== null) {
-            self::$out->write($project->getDescription() . PHP_EOL);
+            $project->log($project->getDescription());
         }
     }
 
@@ -1239,12 +1200,14 @@ class Phing
         $targets = $project->getTargets();
         $targetName = null;
         $targetDescription = null;
+        /** @var Target $currentTarget */
         $currentTarget = null;
 
         // split the targets in top-level and sub-targets depending
         // on the presence of a description
 
         $subNames = [];
+        $subDependencies = [];
         $topNameDescMap = [];
 
         foreach ($targets as $currentTarget) {
@@ -1257,6 +1220,10 @@ class Phing
             // subtargets are targets w/o descriptions
             if ($targetDescription === null) {
                 $subNames[] = $targetName;
+                $currentDependencies = $currentTarget->getDependencies();
+                if (!empty($currentDependencies)) {
+                    array_push($subDependencies, ...$currentTarget->getDependencies());
+                }
             } else {
                 // topNames and topDescriptions are handled later
                 // here we store in hash map (for sorting purposes)
@@ -1273,6 +1240,7 @@ class Phing
 
         $topNames = array_keys($topNameDescMap);
         $topDescriptions = array_values($topNameDescMap);
+        $topDependencies = $currentTarget->getDependencies();
 
         $defaultTarget = $project->getDefaultTarget();
 
@@ -1287,15 +1255,16 @@ class Phing
                 $defaultDesc[] = $topDescriptions[$indexOfDefDesc];
             }
 
-            $this->_printTargets($defaultName, $defaultDesc, "Default target:", $maxLength);
+            $this->_printTargets($project, $defaultName, $defaultDesc, [], "Default target:", $maxLength);
         }
-        $this->_printTargets($topNames, $topDescriptions, "Main targets:", $maxLength);
-        $this->_printTargets($subNames, null, "Subtargets:", 0);
+        $this->_printTargets($project, $topNames, $topDescriptions, $topDependencies, "Main targets:", $maxLength);
+        $this->_printTargets($project, $subNames, null, $subDependencies, "Subtargets:", 0);
     }
 
     /**
      * Writes a formatted list of target names with an optional description.
      *
+     * @param Project $project
      * @param array $names The names to be printed.
      *                             Must not be <code>null</code>.
      * @param array $descriptions The associated target descriptions.
@@ -1303,6 +1272,7 @@ class Phing
      *                             no descriptions are displayed.
      *                             If non-<code>null</code>, this should have
      *                             as many elements as <code>names</code>.
+     * @param $dependencies
      * @param string $heading The heading to display.
      *                             Should not be <code>null</code>.
      * @param int $maxlen The maximum length of the names of the targets.
@@ -1310,7 +1280,7 @@ class Phing
      *                             position so they line up (so long as the names really
      *                             <i>are</i> shorter than this).
      */
-    private function _printTargets($names, $descriptions, $heading, $maxlen)
+    private function _printTargets(Project $project, $names, $descriptions, $dependencies, $heading, $maxlen)
     {
         $spaces = '  ';
         while (strlen($spaces) < $maxlen) {
@@ -1329,10 +1299,12 @@ class Phing
                 $msg .= $descriptions[$i];
             }
             $msg .= PHP_EOL;
+            if (!empty($dependencies) && isset($dependencies[$i + 1])) {
+                $msg .= '   depends on: ' . implode(', ', $dependencies) . PHP_EOL;
+            }
         }
-        if ($total > 0) {
-            self::$out->write($msg . PHP_EOL);
-        }
+
+        $project->log($msg, Project::MSG_WARN);
     }
 
     /**
@@ -1562,31 +1534,19 @@ class Phing
         // used by Fileself::getFileSystem to instantiate the correct
         // abstraction layer
 
-        switch (strtoupper(PHP_OS)) {
-            case 'WINNT':
-            case 'WIN32':
-                self::setProperty('host.fstype', 'WINDOWS');
-                break;
-            default:
-                self::setProperty('host.fstype', 'UNIX');
-                break;
-        }
-
-        if (defined('PHP_BINARY')) {
-            self::setProperty(self::PHP_INTERPRETER, PHP_BINARY);
+        if (PHP_OS_FAMILY === 'Windows') {
+            self::setProperty('host.fstype', 'WINDOWS');
+            self::setProperty('user.home', getenv('HOMEDRIVE') . getenv('HOMEPATH'));
         } else {
-            self::setProperty(self::PHP_INTERPRETER, getenv('PHP_COMMAND'));
+            self::setProperty('host.fstype', 'UNIX');
+            self::setProperty('user.home', getenv('HOME'));
         }
-        self::setProperty('file.separator', FileUtils::$separator);
+        self::setProperty(self::PHP_INTERPRETER, PHP_BINARY);
+        self::setProperty('file.separator', FileUtils::getSeparator());
         self::setProperty('line.separator', PHP_EOL);
-        self::setProperty('path.separator', FileUtils::$pathSeparator);
+        self::setProperty('path.separator', FileUtils::getPathSeparator());
         self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
-        if (stripos(PHP_OS, 'WIN') !== 0) {
-            self::setProperty('user.home', getenv('HOME'));
-        } else {
-            self::setProperty('user.home', getenv('HOMEDRIVE') . getenv('HOMEPATH'));
-        }
         self::setProperty('application.startdir', getcwd());
         self::setProperty('phing.startTime', gmdate('D, d M Y H:i:s', time()) . ' GMT');
 
@@ -1762,7 +1722,6 @@ class Phing
 
         self::$origIniSettings['short_open_tag'] = ini_set('short_open_tag', 'off');
         self::$origIniSettings['default_charset'] = ini_set('default_charset', 'iso-8859-1');
-        self::$origIniSettings['track_errors'] = ini_set('track_errors', 1);
 
         $mem_limit = (int) self::convertShorthand(ini_get('memory_limit'));
         if ($mem_limit < (32 * 1024 * 1024) && $mem_limit > -1) {

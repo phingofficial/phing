@@ -27,16 +27,10 @@
  */
 class PearPackageScannerTest extends BuildFileTest
 {
-    protected $backupGlobals = false;
-
     public function setUp(): void
     {
         if (!class_exists('PEAR_Config')) {
             $this->markTestSkipped("This test requires PEAR to be installed");
-        }
-
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PEAR tests do not run on HHVM");
         }
 
         //needed for PEAR's Config and Registry classes

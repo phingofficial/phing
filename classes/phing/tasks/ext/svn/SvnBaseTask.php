@@ -53,6 +53,8 @@ abstract class SvnBaseTask extends Task
 
     private $svnSwitches = [];
 
+    protected $configOption = null;
+
     private $toDir = "";
 
     protected $fetchMode;
@@ -281,6 +283,24 @@ abstract class SvnBaseTask extends Task
     }
 
     /**
+     * Sets the config-option switch
+     *
+     * @param $value
+     */
+    public function setConfigOption($value)
+    {
+        $this->configOption = $value;
+    }
+
+    /**
+     * Returns the config-option switch
+     */
+    public function getConfigOption()
+    {
+        return $this->configOption;
+    }
+
+    /**
      * Creates a VersionControl_SVN class based on $mode
      *
      * @param  string The SVN mode to use (info, export, checkout, ...)
@@ -298,6 +318,10 @@ abstract class SvnBaseTask extends Task
             $options['svn_path'] = $this->getSvnPath();
         } else {
             $options['binaryPath'] = $this->getSvnPath();
+        }
+
+        if ($this->configOption) {
+            $options['configOption'] = $this->configOption;
         }
 
         // Pass array of subcommands we need to factory

@@ -23,7 +23,7 @@
  * @author  Siad Ardroumli
  * @package phing.tasks.system
  *
- * @requires OS WIN
+ * @requires OS WIN32|WINNT
  */
 class AttribTaskTest extends BuildFileTest
 {
@@ -43,16 +43,13 @@ class AttribTaskTest extends BuildFileTest
 
     public function testAttrib()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
-            $this->markTestSkipped('Windows only test.');
-        }
         $this->executeTarget(__FUNCTION__);
 
         /** @var Project $project */
         $project = $this->getProject();
         $input = $project->getProperty('input');
 
-        $this->assertNotIsWritable($input . '/TEST.TXT');
+        $this->assertIsNotWritable($input . '/TEST.TXT');
         $this->assertInLogs('+R', Project::MSG_VERBOSE);
     }
 }

@@ -33,10 +33,6 @@ class PearPackageFileSetTest extends BuildFileTest
             $this->markTestSkipped("This test requires PEAR to be installed");
         }
 
-        if (defined('HHVM_VERSION')) {
-            $this->markTestSkipped("PEAR tests do not run on HHVM");
-        }
-
         //needed for PEAR's Config and Registry classes
         error_reporting(error_reporting() & ~E_DEPRECATED & ~E_STRICT);
     }
@@ -74,7 +70,7 @@ class PearPackageFileSetTest extends BuildFileTest
         $arFiles = $ds->getIncludedFiles();
         $this->assertContains('docs/Archive_Tar.txt', $arFiles);
         foreach ($arFiles as $file) {
-            $this->assertNotContains(
+            $this->assertStringNotContainsString(
                 '.php',
                 $file,
                 'php files should not be in there'
@@ -95,10 +91,7 @@ class PearPackageFileSetTest extends BuildFileTest
             file_exists($dir),
             'Directory does not exist: ' . $dir
         );
-        $this->assertTrue(
-            is_dir($dir),
-            '$dir is not a directory: ' . $dir
-        );
+        $this->assertDirectoryExists($dir, '$dir is not a directory: ' . $dir);
     }
 
     public function testGetDirWithoutScanner()

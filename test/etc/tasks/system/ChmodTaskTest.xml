@@ -24,7 +24,6 @@
 
     <target name="testChangeModeDirSet">
         <mkdir dir="${tmp.dir}/A"/>
-        <touch file="${tmp.dir}/A/chmodtest"/>
         <chmod mode="0700">
             <dirset dir="${tmp.dir}">
                 <include name="A"/>

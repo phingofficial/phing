@@ -52,6 +52,12 @@ class TruncateTaskTest extends BuildFileTest
         $this->assertSame($this->getProject()->getProperty('test.explicit.length'), 1034);
     }
 
+    public function testExplicitUnit()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertSame($this->getProject()->getProperty('test.explicit.unit.length'), 1024);
+    }
+
     public function testExtend()
     {
         $this->executeTarget(__FUNCTION__);
@@ -69,12 +75,12 @@ class TruncateTaskTest extends BuildFileTest
     public function testNoCreate()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileNotExists($this->getProject()->getProperty('tmp.dir') . '/foo');
+        $this->assertFileDoesNotExist($this->getProject()->getProperty('tmp.dir') . '/foo');
     }
 
     public function testMkdirs()
     {
-        $this->assertFileNotExists($this->getProject()->getProperty('tmp.dir') . '/baz');
+        $this->assertFileDoesNotExist($this->getProject()->getProperty('tmp.dir') . '/baz');
         $this->executeTarget(__FUNCTION__);
         $this->assertSame($this->getProject()->getProperty('test.mkdirs.length'), 0);
     }

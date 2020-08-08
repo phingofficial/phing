@@ -1,0 +1,3 @@
+<project name="master" default="invalid">
+  <import file="compile-java.xml"/>
+</project>

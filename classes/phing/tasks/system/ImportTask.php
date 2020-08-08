@@ -36,6 +36,7 @@
  */
 class ImportTask extends Task
 {
+    use ResourceAware;
 
     /**
      * @var FileSystem
@@ -45,17 +46,22 @@ class ImportTask extends Task
     /**
      * @var PhingFile
      */
-    protected $file = null;
-
-    /**
-     * @var array
-     */
-    private $filesets = [];
+    protected $file;
 
     /**
      * @var bool
      */
     protected $optional = false;
+
+    /**
+     * @var string
+     */
+    private $targetPrefix;
+
+    /**
+     * @var string
+     */
+    private $prefixSeparator = '.';
 
     /**
      * Initialize task.
@@ -79,15 +85,24 @@ class ImportTask extends Task
     }
 
     /**
-     * Nested creator, adds a set of files (nested <fileset> attribute).
-     * This is for when you don't care what order files get appended.
+     * The prefix to use when prefixing the imported target names.
      *
-     * @return FileSet
+     * @param string $prefix
      */
-    public function createFileSet()
+    public function setAs(string $prefix)
     {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num - 1];
+        $this->targetPrefix = $prefix;
+    }
+
+    /**
+     * The separator to use between prefix and target name, default is
+     * ".".
+     *
+     * @param string $s
+     */
+    public function setPrefixSeparator(string $s)
+    {
+        $this->prefixSeparator = $s;
     }
 
     /**
@@ -144,6 +159,7 @@ class ImportTask extends Task
         // Filesets.
         $total_files = 0;
         $total_dirs = 0;
+        /** @var FileSet $fs */
         foreach ($this->filesets as $fs) {
             $ds = $fs->getDirectoryScanner($this->project);
             $fromDir = $fs->getDir($this->project);
@@ -174,6 +190,7 @@ class ImportTask extends Task
      */
     protected function importFile(PhingFile $file)
     {
+        /** @var PhingXMLContext $ctx */
         $ctx = $this->project->getReference(ProjectConfigurator::PARSING_CONTEXT_REFERENCE);
         $cfg = $ctx->getConfigurator();
         // Import xml file into current project scope
@@ -186,5 +203,24 @@ class ImportTask extends Task
             Project::MSG_VERBOSE
         );
         ProjectConfigurator::configureProject($this->project, $file);
+    }
+
+    /**
+     * Whether the task is in include (as opposed to import) mode.
+     *
+     * <p>In include mode included targets are only known by their
+     * prefixed names and their depends lists get rewritten so that
+     * all dependencies get the prefix as well.</p>
+     *
+     * <p>In import mode imported targets are known by an adorned as
+     * well as a prefixed name and the unadorned target may be
+     * overwritten in the importing build file.  The depends list of
+     * the imported targets is not modified at all.</p>
+     *
+     * @return bool
+     */
+    protected function isInIncludeMode(): bool
+    {
+        return 'include' === $this->getTaskType();
     }
 }

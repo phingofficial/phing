@@ -241,4 +241,12 @@ trait SelectorAware
     {
         $this->appendSelector($selector);
     }
+
+    /**
+     * add a symlink selector entry on the selector list
+     */
+    public function addPosixPermissions(PosixPermissionsSelector $selector)
+    {
+        $this->appendSelector($selector);
+    }
 }

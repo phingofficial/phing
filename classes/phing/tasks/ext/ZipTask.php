@@ -182,7 +182,7 @@ class ZipTask extends MatchingTask
 
                 if (empty($this->filesets)) {
                     // add the main fileset to the list of filesets to process.
-                    $mainFileSet = $this->fileset;
+                    $mainFileSet = new ZipFileSet($this->fileset);
                     $mainFileSet->setDir($this->baseDir);
                     $this->filesets[] = $mainFileSet;
                 }

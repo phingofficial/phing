@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  ~ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  ~ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  ~ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  ~ OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  ~ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  ~ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  ~ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  ~ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  ~ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  ~
+  ~ This software consists of voluntary contributions made by many individuals
+  ~ and is licensed under the LGPL. For more information please see
+  ~ <http://phing.info>.
+  -->
+
+<project name="ExtensionPointTest" default="invalid">
+
+    <target name="invalid">
+        <fail>This file should only be run via a testcase</fail>
+    </target>
+
+    <extension-point name="testExtensionPointWorksLikeTarget"
+                     depends="setProperty, assertProperty"/>
+
+    <target name="setProperty">
+        <property name="foo" value="bar"/>
+    </target>
+
+    <target name="assertProperty">
+        <echo>foo${foo}</echo>
+    </target>
+
+    <target name="testExtensionPointMustBeEmpty">
+        <phing dir="extpoint" buildfile="build.xml"/>
+    </target>
+
+    <target name="testAddToExtensionPoint">
+        <phing dir="extpoint" buildfile="build2.xml"/>
+    </target>
+
+    <target name="testCantAddToPlainTarget">
+        <phing haltonfailure="true" dir="extpoint" buildfile="build3.xml"/>
+    </target>
+
+    <target name="testExtensionPointInImportedBuildfile">
+        <phing dir="extpoint" buildfile="master.xml"/>
+        <phing dir="extpoint" buildfile="build4.xml" target="bar"/>
+    </target>
+
+    <target name="testExtensionPointInImportedBuildfileWithNestedImport">
+        <phing dir="extpoint" target="compile" buildfile="build-java.xml"/>
+
+    </target>
+
+    <target name="testMissingExtensionPointCausesError">
+        <phing haltonfailure="true" dir="extpoint" buildfile="build5.xml" target="bar"/>
+    </target>
+
+    <target name="testMissingExtensionPointCausesWarningWhenConfigured">
+        <phing dir="extpoint" buildfile="build6.xml" target="bar"/>
+    </target>
+
+    <target name="testMissingExtensionPointIgnoredWhenConfigured">
+        <phing dir="extpoint" buildfile="build7.xml" target="bar"/>
+    </target>
+
+    <target name="testOnlyAllowsExtensionPointMissingAttributeWhenExtensionOfPresent">
+        <phing haltonfailure="true" dir="extpoint" buildfile="build8.xml" target="bar"/>
+    </target>
+
+</project>

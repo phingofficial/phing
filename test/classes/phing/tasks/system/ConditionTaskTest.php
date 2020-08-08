@@ -56,6 +56,9 @@ class ConditionTaskTest extends BuildFileTest
         $this->assertPropertyUnset('ref.exists');
     }
 
+    /**
+     * @requires extension sockets
+     */
     public function testSocketCondition()
     {
         $this->executeTarget(__FUNCTION__);
@@ -66,5 +69,19 @@ class ConditionTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('matches', 'true');
+    }
+
+    public function testIsTrue()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('istrueEqOne', 'true');
+        $this->assertPropertyEquals('istrueEqEleven', 'true');
+    }
+
+    public function testZero()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('zero', '0');
+        $this->assertPropertyEquals('one', '1');
     }
 }

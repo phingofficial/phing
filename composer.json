@@ -23,24 +23,40 @@
     },
     "config": {
         "platform": {
-            "php": "7.1.3"
+            "php": "7.3.15"
         },
         "bin-dir": "bin",
         "preferred-install": "dist",
         "sort-packages": true
     },
     "require": {
-        "php": "^7.1.3",
-        "sebastian/version": "^2.0",
-        "symfony/console": "^2.8 || ^3.1 || ^4.0",
-        "symfony/yaml": "^2.8 || ^3.1 || ^4.0",
-        "mehr-als-nix/parallel": "^v1.0"
+        "php": "^7.3 || ^7.4",
+        "mehr-als-nix/parallel": "^v1.0",
+        "phing/phing-composer-configurator": "dev-master",
+        "phing/task-apigen": "dev-master",
+        "phing/task-coverage": "dev-master",
+        "phing/task-ftpdeploy": "dev-master",
+        "phing/task-ioncube": "dev-master",
+        "phing/task-jshint": "dev-master",
+        "phing/task-jsmin": "dev-master",
+        "phing/task-liquibase": "dev-master",
+        "phing/task-phkpackage": "dev-master",
+        "phing/task-phpdoc": "dev-master",
+        "phing/task-smarty": "dev-master",
+        "phing/task-ssh": "dev-master",
+        "phing/task-zendcodeanalyser": "dev-master",
+        "phing/task-zendserverdevelopmenttools": "dev-master",
+        "sebastian/version": "^3.0",
+        "symfony/console": "^5.0",
+        "symfony/yaml": "^5.0"
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
         "aws/aws-sdk-php": "^3.112",
+        "guzzlehttp/guzzle": "^7.0",
         "jawira/plantuml-encoding": "^1.0",
         "mikey179/vfsstream": "^1.6",
+        "monolog/monolog": "^1.25 || ^2.0",
         "pdepend/pdepend": "^2.5.2",
         "pear/archive_tar": "~1.4.7",
         "pear/http_request2": "^2.3",
@@ -48,16 +64,15 @@
         "pear/pear-core-minimal": "~1.10.9",
         "pear/versioncontrol_git": "dev-master",
         "pear/versioncontrol_svn": "~0.5",
-        "phpdocumentor/phpdocumentor": "^2.9",
-        "phploc/phploc": "^4.0 || ^5.0",
-        "phpmd/phpmd": "~2.7",
-        "phpunit/phpunit": "^7.5 || ^8.0",
+        "phploc/phploc": "^6.0",
+        "phpmd/phpmd": "~2.8",
+        "phpunit/phpunit": "^9.0",
         "scssphp/scssphp": "~1.0",
-        "sebastian/phpcpd": "^4.1",
+        "sebastian/phpcpd": "^5.0",
         "siad007/versioncontrol_hg": "^1.0",
         "squizlabs/php_codesniffer": "^2.9 || ^3.5",
-        "symfony/stopwatch": "~2.8 || ^3.1 || ^4.0",
-        "tedivm/jshrink": "^1.3"
+        "symfony/dependency-injection": "^2.8.50 || ^3.4.26 || ~4.1.12 || >4.2.7 <6.0.0",
+        "symfony/stopwatch": "~2.8 || ^3.1 || ^4.0 || ^5.0"
     },
     "autoload": {
         "classmap": [
@@ -94,7 +109,8 @@
         "symfony/stopwatch": "Needed by the StopwatchTask",
         "aws/aws-sdk-php": "AWS SDK used by S3*Tasks",
         "scssphp/scssphp": "A compiler for SCSS written in PHP, used by SassTask",
-        "jawira/plantuml-encoding": "Required by VisualizerTask"
+        "jawira/plantuml-encoding": "Required by VisualizerTask",
+        "monolog/monolog": "Required by the MonologListener"
     },
     "prefer-stable": true
 }

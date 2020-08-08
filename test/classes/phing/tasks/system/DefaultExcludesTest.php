@@ -42,6 +42,9 @@ class DefaultExcludesTest extends BuildFileTest
         $this->executeTarget("cleanup-excludes");
     }
 
+    /**
+     * @requires PHPUnit < 8
+     */
     public function test1()
     {
         $expected = [
@@ -80,6 +83,9 @@ class DefaultExcludesTest extends BuildFileTest
         $this->assertArraySubset($expected, DirectoryScanner::getDefaultExcludes());
     }
 
+    /**
+     * @requires PHPUnit < 8
+     */
     public function test2()
     {
         $expected = [
@@ -119,6 +125,9 @@ class DefaultExcludesTest extends BuildFileTest
         $this->assertArraySubset($expected, DirectoryScanner::getDefaultExcludes());
     }
 
+    /**
+     * @requires PHPUnit < 8
+     */
     public function test3()
     {
         $expected = [
@@ -162,7 +171,7 @@ class DefaultExcludesTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $output = $this->getProject()->getProperty('output');
         $this->assertFileExists(__DIR__ . '/../../../../etc/tasks/system/defaultexcludes-test.xml');
-        $this->assertFileNotExists($output . '/.svn/entries');
+        $this->assertFileDoesNotExist($output . '/.svn/entries');
     }
 
     public function testCopyExplicitExcludes()
@@ -170,7 +179,7 @@ class DefaultExcludesTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $output = $this->getProject()->getProperty('output');
         $this->assertFileExists(__DIR__ . '/../../../../etc/tasks/system/defaultexcludes-test.xml');
-        $this->assertFileNotExists($output . '/.svn/entries');
+        $this->assertFileDoesNotExist($output . '/.svn/entries');
     }
 
     public function testCopyExplicitNoExcludes()

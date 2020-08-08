@@ -136,6 +136,11 @@ class RuntimeConfigurable
         return $this->children[(int) $index];
     }
 
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
     /**
      * Add characters from #PCDATA areas to the wrapped element.
      *
@@ -148,9 +153,32 @@ class RuntimeConfigurable
         $this->characters .= (string) $data;
     }
 
+    /**
+     * Get the text content of this element. Various text chunks are
+     * concatenated, there is no way (currently) of keeping track of
+     * multiple fragments.
+     *
+     * @return string the text content of this element.
+     */
+    public function getText()
+    {
+        return (string) $this->characters;
+    }
+
     public function getElementTag()
     {
         return $this->elementTag;
+    }
+
+    /**
+     * Reconfigure the element, even if it has already been configured.
+     *
+     * @param Project $p the project instance for this configuration.
+     */
+    public function reconfigure(Project $p)
+    {
+        $this->proxyConfigured = false;
+        $this->maybeConfigure($p);
     }
 
     /**
@@ -171,33 +199,41 @@ class RuntimeConfigurable
 
         $id = null;
 
-        // DataType configured in ProjectConfigurator
-        //        if ( is_a($this->wrappedObject, "DataType") )
-        //            return;
-
-        if ($this->attributes || (isset($this->characters) && $this->characters != '')) {
+        if ($this->attributes || (isset($this->characters) && $this->characters !== '')) {
             ProjectConfigurator::configure($this->wrappedObject, $this->attributes, $project);
 
             if (isset($this->attributes["id"])) {
                 $id = $this->attributes["id"];
             }
 
-            if (isset($this->characters) && $this->characters != '') {
-                ProjectConfigurator::addText($project, $this->wrappedObject, (string) $this->characters);
+            if ($this->characters !== '') {
+                ProjectConfigurator::addText($project, $this->wrappedObject, $this->characters);
             }
             if ($id !== null) {
                 $project->addReference($id, $this->wrappedObject);
             }
         }
 
-        /*if ( is_array($this->children) && !empty($this->children) ) {
-            // Configure all child of this object ...
-            foreach ($this->children as $child) {
-                $child->maybeConfigure($project);
-                ProjectConfigurator::storeChild($project, $this->wrappedObject, $child->wrappedObject, strtolower($child->getElementTag()));
-            }
-        }*/
-
         $this->proxyConfigured = true;
+    }
+
+    public function setAttribute(string $name, $value)
+    {
+        $this->attributes[$name] = $value;
+    }
+
+    public function removeAttribute(string $name)
+    {
+        unset($this->attributes[$name]);
+    }
+
+    public function setElementTag(string $name)
+    {
+        $this->elementTag = $name;
+    }
+
+    public function getId()
+    {
+        return $this->attributes['id'] ?? null;
     }
 }

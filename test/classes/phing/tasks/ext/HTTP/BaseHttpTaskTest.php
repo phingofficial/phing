@@ -17,44 +17,33 @@
  * <http://phing.info>.
  */
 
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+
 /**
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext
  */
 abstract class BaseHttpTaskTest extends BuildFileTest
 {
-    protected function copyTasksAddingCustomRequest($fromTarget, $toTarget, HTTP_Request2 $request)
-    {
-        /* @var Target[] $targets */
-        $targets = $this->project->getTargets();
-        foreach ($targets[$fromTarget]->getTasks() as $task) {
-            if ($task instanceof UnknownElement) {
-                $task->maybeConfigure();
-                $task = $task->getRuntimeConfigurableWrapper()->getProxy(); // gets HttpTask instead of UE
-            }
-            if ($task instanceof HttpTask) {
-                $task->setRequestPrototype($request);
-            }
-            $targets[$toTarget]->addTask($task);
-        }
-    }
+    protected $traces = [];
 
-    protected function createRequest(HTTP_Request2_Adapter $adapter)
+    /**
+     * @param \GuzzleHttp\Psr7\Response[] $responses
+     * @return void
+     */
+    protected function createMockHandler(array $responses): void
     {
-        $request = new HTTP_Request2();
-        $request->setAdapter($adapter);
-
-        return $request;
-    }
-
-    protected function createMockAdapter(array $responses)
-    {
-        $adapter = new HTTP_Request2_Adapter_Mock();
+        $mockHandler = new MockHandler();
         foreach ($responses as $response) {
-            $adapter->addResponse($response);
+            $mockHandler->append($response);
         }
 
-        return $adapter;
+        $requestsHandler = Middleware::history($this->traces);
+
+        HttpTask::getHandlerStack()->setHandler($mockHandler);
+        HttpTask::getHandlerStack()->push($requestsHandler);
     }
 
     public function testMissingUrl()
