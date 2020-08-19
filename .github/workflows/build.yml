@@ -14,7 +14,6 @@ jobs:
 
       - name: Test phing
         run: |
-          phpunit -v
           cd test
-          sudo ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
+          ../bin/phing -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
           cd ..
