@@ -11,15 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/cache@v2
-        id: composer-cache
-        with:
-          path: |
-            ~/.composer/cache
-            build/cache
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+      - uses: php-actions/composer@v2
+      - uses: owenvoke/phpunit-action@v1.0.0
+
       - name: Setup
         run: composer global require hirak/prestissimo
 
