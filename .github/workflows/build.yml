@@ -10,18 +10,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
       - uses: php-actions/composer@v2
-      - uses: owenvoke/phpunit-action@v1.0.0
-
-      - name: Setup
-        run: composer global require hirak/prestissimo
-
-      - name: Install dependencies
-        run: composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction --no-suggest
 
       - name: Test phing
         run: |
+          phpunit -v
           cd test
           sudo ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
           cd ..
