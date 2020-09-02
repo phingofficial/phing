@@ -18,7 +18,7 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
 
 /* set include paths */
 set_include_path(
-            __DIR__ . '/../classes' .
+            realpath(__DIR__ . '/../classes') .
             PATH_SEPARATOR .
             get_include_path()
         );
