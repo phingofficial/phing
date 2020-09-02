@@ -64,7 +64,7 @@
         "pear/pear-core-minimal": "~1.10.9",
         "pear/versioncontrol_git": "dev-master",
         "pear/versioncontrol_svn": "~0.5",
-        "phploc/phploc": "^6.0",
+        "phploc/phploc": "^7.0",
         "phpmd/phpmd": "~2.8",
         "phpunit/phpunit": "^9.0",
         "scssphp/scssphp": "~1.0",
