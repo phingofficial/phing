@@ -157,6 +157,7 @@
                 <include name="etc/**" />
                 <include name="vendor/**" />
                 <include name="manifest.xml" />
+                <include name="custom*.properties" />
             </fileset>
             <metadata>
                 <element name="version" value="${version}" />
