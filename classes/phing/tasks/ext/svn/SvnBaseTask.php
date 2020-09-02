@@ -72,7 +72,7 @@ abstract class SvnBaseTask extends Task
         include_once 'VersionControl/SVN.php';
         $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
         if (!class_exists('VersionControl_SVN')) {
-            throw new Exception("The SVN tasks depend on PEAR VersionControl_SVN package being installed.");
+            throw new Exception("The SVN tasks depend on the VersionControl_SVN package being installed.");
         }
     }
 
