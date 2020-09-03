@@ -39,16 +39,16 @@ class PHPLocFormatterFactory
 
         switch ($type) {
             case "xml":
-                include_once 'phing/tasks/ext/phploc/PHPLocXMLFormatter.php';
                 $formatter = new PHPLocXMLFormatter();
                 break;
+            case "json":
+                $formatter = new PHPLocJSONFormatter();
+                break;
             case "csv":
-                include_once 'phing/tasks/ext/phploc/PHPLocCSVFormatter.php';
                 $formatter = new PHPLocCSVFormatter();
                 break;
             case "txt":
             case "cli":
-                include_once 'phing/tasks/ext/phploc/PHPLocTextFormatter.php';
                 $formatter = new PHPLocTextFormatter();
                 break;
             default:

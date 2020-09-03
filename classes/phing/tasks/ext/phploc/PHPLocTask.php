@@ -35,7 +35,7 @@ class PHPLocTask extends Task
     /**
      * @var array
      */
-    protected $acceptedReportTypes = ['cli', 'txt', 'xml', 'csv'];
+    protected $acceptedReportTypes = ['cli', 'txt', 'xml', 'csv', 'json'];
 
     /**
      * @var null
@@ -302,7 +302,7 @@ class Application
 
         if (count($this->filesToCheck) > 0) {
             foreach ($this->filesToCheck as $file) {
-                $files[] = new SplFileInfo($file);
+                $files[] = (new SplFileInfo($file))->getRealPath();
             }
         } elseif ($this->fileToCheck !== null) {
             $files = [new SplFileInfo($this->fileToCheck)];
