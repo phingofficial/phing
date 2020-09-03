@@ -53,7 +53,7 @@
     "require-dev": {
         "ext-pdo_sqlite": "*",
         "aws/aws-sdk-php": "^3.112",
-        "guzzlehttp/guzzle": "^7.0",
+        "guzzlehttp/guzzle": "^6.5",
         "jawira/plantuml-encoding": "^1.0",
         "mikey179/vfsstream": "^1.6",
         "monolog/monolog": "^1.25 || ^2.0",
