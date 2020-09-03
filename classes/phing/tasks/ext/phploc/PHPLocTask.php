@@ -305,7 +305,7 @@ class Application
                 $files[] = (new SplFileInfo($file))->getRealPath();
             }
         } elseif ($this->fileToCheck !== null) {
-            $files = [new SplFileInfo($this->fileToCheck)];
+            $files = [(new SplFileInfo($this->fileToCheck))->getRealPath()];
         }
 
         return $files;
