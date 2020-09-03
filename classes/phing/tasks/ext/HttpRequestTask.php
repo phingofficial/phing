@@ -20,6 +20,7 @@
 use GuzzleHttp\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
  * A HTTP request task.
@@ -150,7 +151,7 @@ class HttpRequestTask extends HttpTask
         }
 
         if ($this->verbose) {
-            self::getHandlerStack()->push(Middleware::log(new ConsoleLogger(), new \GuzzleHttp\MessageFormatter()));
+            self::getHandlerStack()->push(Middleware::log(new ConsoleLogger(new ConsoleOutput()), new \GuzzleHttp\MessageFormatter()));
         }
 
         return parent::request($options);
