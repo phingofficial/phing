@@ -61,79 +61,28 @@ class VisualizerTask extends HttpTask
      */
     public function init(): void
     {
+        parent::init();
+        if (!function_exists(\Jawira\PlantUml\encodep::class)) {
+            $exceptionMessage = get_class($this) . ' requires "jawira/plantuml-encoding" library';
+        }
+        if (!class_exists(XSLTProcessor::class)) {
+            $exceptionMessage = get_class($this) . ' requires XSL extension';
+        }
+        if (!class_exists(SimpleXMLElement::class)) {
+            $exceptionMessage = get_class($this) . ' requires SimpleXML extension';
+        }
+        if (isset($exceptionMessage)) {
+            $this->log($exceptionMessage, Project::MSG_ERR);
+            throw new BuildException($exceptionMessage);
+        }
         $this->setFormat(VisualizerTask::FORMAT_PNG);
         $this->setServer(VisualizerTask::SERVER);
-        $this->checkHttpRequestLibrary();
-        $this->checkPlantUmlLibrary();
-        $this->checkXslExtension();
-        $this->checkXmlExtension();
-    }
-
-    /**
-     * Checks that `\HTTP_Request2` class is available
-     *
-     * Instead of checking that `pear/http_request2` library is loaded we only check `\HTTP_Request2` class availability
-     */
-    protected function checkHttpRequestLibrary()
-    {
-        $this->classExists('HTTP_Request2', "Please install 'pear/http_request2' library");
-    }
-
-    /**
-     * Verifies that provided $class exists
-     *
-     * @param string $class Name of the class to verify
-     * @param string $message Error message to display when class don't exists
-     */
-    protected function classExists(string $class, string $message): void
-    {
-        if (!class_exists($class)) {
-            $this->log($message, Project::MSG_ERR);
-            throw new BuildException($message);
-        }
-    }
-
-    /**
-     * Checks that `encodep` function is available
-     *
-     * Instead of checking that `jawira/plantuml-encoding` library is loaded we only check 'encodep' function
-     * availability
-     */
-    protected function checkPlantUmlLibrary()
-    {
-        $function = '\Jawira\PlantUml\encodep';
-        $message = "Please install 'jawira/plantuml-encoding' library";
-
-        if (!function_exists($function)) {
-            $this->log($message, Project::MSG_ERR);
-            throw new BuildException($message);
-        }
-    }
-
-    /**
-     * Checks that `XSLTProcessor` class is available
-     *
-     * Instead of checking that XSL extension is loaded we only check `XSLTProcessor` class availability
-     */
-    protected function checkXslExtension(): void
-    {
-        $this->classExists('XSLTProcessor', 'Please install XSL extension');
-    }
-
-    /**
-     * Checks that `SimpleXMLElement` class is available
-     *
-     * Instead of checking that SimpleXML extension is loaded we only check `SimpleXMLElement` class availability
-     */
-    protected function checkXmlExtension(): void
-    {
-        $this->classExists('SimpleXMLElement', 'Please install SimpleXML extension');
     }
 
     /**
      * The main entry point method.
      *
-     * @throws \HTTP_Request2_Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \IOException
      * @throws \NullPointerException
      */
@@ -342,7 +291,7 @@ class VisualizerTask extends HttpTask
      * @param string $format
      *
      * @return string
-     * @throws \HTTP_Request2_Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function generateImage(string $pumlDiagram, string $format): string
     {
@@ -356,10 +305,10 @@ class VisualizerTask extends HttpTask
         $encodedPuml = encodep($pumlDiagram);
         $this->prepareImageUrl($format, $encodedPuml);
 
-        $response = $this->request()->send();
+        $response = $this->request();
         $this->processResponse($response); // used for status validation
 
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 
     /**
