@@ -3,6 +3,7 @@
 
 try {
     Phar::mapPhar('phing.phar');
+    putenv("PHING_HOME=phar://" . __FILE__);
     include 'phar://phing.phar/bin/phing.php';
 } catch (PharException $e) {
     echo $e->getMessage();
