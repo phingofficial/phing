@@ -428,6 +428,9 @@ class PropertyHelper
         if (false !== strpos($found, '${')) {
             // attempt to resolve properties
             $found = $this->replaceProperties($found, null);
+            if (StringHelper::startsWith('${', $found) && StringHelper::endsWith('}', $found)) {
+                $found = null;
+            }
             // save resolved value
             $this->properties[$name] = $found;
         }

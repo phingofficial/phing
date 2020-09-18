@@ -142,4 +142,22 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
         $this->assertEquals($options['timeout'], $this->traces[0]['options']['timeout']);
     }
+
+    public function testConfigurationViaEmptyProperty()
+    {
+        $this->createMockHandler([new Response(404, [], '')]);
+
+        try {
+            $this->executeTarget('config-properties-empty');
+        } catch (BuildException $e) {
+        }
+
+        $options = [
+            'proxy' => null,
+            'timeout' => 20
+        ];
+
+        $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
+        $this->assertEquals($options['timeout'], $this->traces[0]['options']['timeout']);
+    }
 }

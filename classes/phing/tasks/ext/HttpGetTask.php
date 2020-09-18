@@ -32,14 +32,14 @@ class HttpGetTask extends HttpTask
      *
      * @var string
      */
-    protected $filename = null;
+    protected $filename;
 
     /**
      * Holds the save location
      *
      * @var string
      */
-    protected $dir = null;
+    protected $dir;
 
     /**
      * Holds value for "ssl_verify_peer" option
@@ -53,14 +53,14 @@ class HttpGetTask extends HttpTask
      *
      * @var null|bool
      */
-    protected $followRedirects = null;
+    protected $followRedirects;
 
     /**
      * Holds the proxy
      *
      * @var string
      */
-    protected $proxy = null;
+    protected $proxy;
 
     private $quiet = false;
 
@@ -74,13 +74,12 @@ class HttpGetTask extends HttpTask
             throw new BuildException("Required attribute 'dir' is missing", $this->getLocation());
         }
 
-        $options = [
-            'verify' => $this->sslVerifyPeer
-        ];
+        $options['verify'] = $this->sslVerifyPeer;
+
         if (isset($this->proxy)) {
             $options['proxy'] = $this->proxy;
         }
-        if (null !== $this->followRedirects) {
+        if ($this->followRedirects !== null) {
             $options['allow_redirects'] = $this->followRedirects;
         }
 
