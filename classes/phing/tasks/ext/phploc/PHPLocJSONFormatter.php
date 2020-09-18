@@ -18,22 +18,18 @@
  */
 
 /**
- * @author Michiel Rook <mrook@php.net>
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phploc
  */
-class PHPLocTextFormatter extends AbstractPHPLocFormatter
+class PHPLocJSONFormatter extends AbstractPHPLocFormatter
 {
     public function printResult(array $count, $countTests = false)
     {
-        $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\Text';
-        $printer = new $printerClass();
-        if ($this->getUseFile()) {
-            ob_start();
-            $printer->printResult($count, $countTests);
-            $output = ob_get_clean();
-            file_put_contents($this->getToDir() . DIRECTORY_SEPARATOR . $this->getOutfile(), $output, FILE_APPEND);
+        if (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\Json')) {
+            $printer = new SebastianBergmann\PHPLOC\Log\Json();
         } else {
-            $printer->printResult($count, $countTests);
+            throw new BuildException('Not supported PHPLOC version used.');
         }
+        $printer->printResult($this->getToDir() . DIRECTORY_SEPARATOR . $this->getOutfile(), $count);
     }
 }
