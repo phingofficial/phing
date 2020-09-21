@@ -136,7 +136,7 @@ class HttpGetTask extends HttpTask
      *
      * @param string $filename
      */
-    public function setFilename($filename)
+    public function setFilename($filename): void
     {
         $this->filename = $filename;
     }
@@ -146,7 +146,7 @@ class HttpGetTask extends HttpTask
      *
      * @param string $dir
      */
-    public function setDir($dir)
+    public function setDir($dir): void
     {
         $this->dir = $dir;
     }
@@ -156,7 +156,7 @@ class HttpGetTask extends HttpTask
      *
      * @param bool $value
      */
-    public function setSslVerifyPeer($value)
+    public function setSslVerifyPeer($value): void
     {
         $this->sslVerifyPeer = $value;
     }
@@ -166,7 +166,7 @@ class HttpGetTask extends HttpTask
      *
      * @param bool $value
      */
-    public function setFollowRedirects($value)
+    public function setFollowRedirects($value): void
     {
         $this->followRedirects = $value;
     }
@@ -176,7 +176,7 @@ class HttpGetTask extends HttpTask
      *
      * @param string $proxy
      */
-    public function setProxy($proxy)
+    public function setProxy($proxy): void
     {
         $this->proxy = $proxy;
     }
@@ -186,7 +186,7 @@ class HttpGetTask extends HttpTask
      *
      * @param boolean $v if "true" then be quiet
      */
-    public function setQuiet($v)
+    public function setQuiet($v): void
     {
         $this->quiet = $v;
     }
