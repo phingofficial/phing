@@ -151,7 +151,7 @@ abstract class HttpTask extends Task
 
         foreach (array_keys($this->getProject()->getProperties()) as $propName) {
             if (0 === strpos($propName, 'phing.http.')) {
-                $options[substr($propName, 11)] = $this->getProject()->getProperty($propName);
+                $options[substr($propName, 11)] = (string) $this->getProject()->getProperty($propName);
             }
         }
 
