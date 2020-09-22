@@ -375,11 +375,19 @@ class ExecTaskTest extends BuildFileTest
         $this->assertStringStartsWith('phploc', $this->getProject()->getProperty('envtest'));
     }
 
-    public function testEnvVars(): void
+    public function testEnvVar(): void
     {
         if ($this->windows) {
             $this->markTestSkipped('Setting environment variables for command is not supported on windows.');
         }
         $this->expectPropertySet(__FUNCTION__, 'hello', 'world');
+    }
+
+    public function testMultipleEnvVars(): void
+    {
+        if ($this->windows) {
+            $this->markTestSkipped('Setting environment variables for command is not supported on windows.');
+        }
+        $this->expectPropertySet(__FUNCTION__, 'outputProperty', 'hello world');
     }
 }
