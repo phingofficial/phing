@@ -32,31 +32,22 @@ class NotifySendTask extends Task
      *
      * @param string $icon name/location of icon
      *
+     * @throws \IOException
      * @return void
      */
     public function setIcon($icon)
     {
-        switch ($icon) {
-            case 'info':
-            case 'error':
-            case 'warning':
-                $this->icon = $icon;
-                break;
-            default:
-                if (file_exists($icon) && is_file($icon)) {
-                    $this->icon = $icon;
-                } else {
-                    if (isset($this->log)) {
-                        $this->log(
-                            sprintf(
-                                "%s is not a file. Using default icon instead.",
-                                $icon
-                            ),
-                            Project::MSG_WARN
-                        );
-                    }
-                }
+        // Notify send requires an absolute path for icon filename
+        $absolute = (new FileUtils())->resolveFile($this->getProject()->getBasedir(), $icon);
+
+        if (is_file($absolute)) {
+            $this->log(sprintf("Using %s as icon.", $absolute), Project::MSG_DEBUG);
+            $this->icon = $absolute;
+            return;
         }
+
+        $this->log(sprintf("%s is not a file. Assuming it's a stock icon name.", $icon), Project::MSG_WARN);
+        $this->icon = $icon;
     }
 
     /**
