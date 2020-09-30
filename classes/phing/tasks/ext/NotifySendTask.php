@@ -30,24 +30,20 @@ class NotifySendTask extends Task
     /**
      * Set icon attribute
      *
-     * @param string $icon name/location of icon
+     * @param \PhingFile $icon name/location of icon
      *
-     * @throws \IOException
      * @return void
      */
-    public function setIcon($icon)
+    public function setIcon(PhingFile $icon)
     {
-        // Notify send requires an absolute path for icon filename
-        $absolute = (new FileUtils())->resolveFile($this->getProject()->getBasedir(), $icon);
-
-        if (is_file($absolute)) {
-            $this->log(sprintf("Using %s as icon.", $absolute), Project::MSG_DEBUG);
-            $this->icon = $absolute;
+        if ($icon->isFile()) {
+            $this->log(sprintf('Using "%s" as icon.', $icon), Project::MSG_VERBOSE);
+            $this->icon = $icon->getAbsoluteFile();
             return;
         }
 
-        $this->log(sprintf("%s is not a file. Assuming it's a stock icon name.", $icon), Project::MSG_WARN);
-        $this->icon = $icon;
+        $this->log(sprintf('"%s" is not a file. Assuming it is a stock icon name.', $icon->getName()), Project::MSG_WARN);
+        $this->icon = $icon->getName();
     }
 
     /**
