@@ -221,12 +221,13 @@
                 "shasum": ""
             },
             "require": {
+                "ext-ftp": "*",
                 "php": ">= 7.1"
             },
             "require-dev": {
-                "pear/net_ftp": "dev-master",
-                "pear/pear-core-minimal": "~1.10.9",
-                "phing/phing": "3.0.x-dev"
+                "mehr-als-nix/php-ftp-client": "dev-master",
+                "phing/phing": "3.0.x-dev",
+                "phpunit/phpunit": "^9.2"
             },
             "type": "phing-extension",
             "extra": {
@@ -2578,16 +2579,16 @@
         },
         {
             "name": "pear/http_request2",
-            "version": "v2.4.1",
+            "version": "v2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/HTTP_Request2.git",
-                "reference": "72d3992d04d2de38c8d1162eae79a507394884c2"
+                "reference": "84da432fbbf615593bd8aa25408aca3478b77502"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/HTTP_Request2/zipball/72d3992d04d2de38c8d1162eae79a507394884c2",
-                "reference": "72d3992d04d2de38c8d1162eae79a507394884c2",
+                "url": "https://api.github.com/repos/pear/HTTP_Request2/zipball/84da432fbbf615593bd8aa25408aca3478b77502",
+                "reference": "84da432fbbf615593bd8aa25408aca3478b77502",
                 "shasum": ""
             },
             "require": {
@@ -2628,7 +2629,7 @@
                 "http",
                 "request"
             ],
-            "time": "2020-08-01T09:06:26+00:00"
+            "time": "2020-09-24T22:07:33+00:00"
         },
         {
             "name": "pear/net_growl",
@@ -2927,13 +2928,13 @@
             "authors": [
                 {
                     "name": "Michiel Rook",
-                    "role": "Lead",
-                    "email": "mrook@php.net"
+                    "email": "mrook@php.net",
+                    "role": "Lead"
                 },
                 {
                     "name": "Clay Loveless",
-                    "role": "Lead",
-                    "email": "clay@loveless.net"
+                    "email": "clay@loveless.net",
+                    "role": "Lead"
                 }
             ],
             "description": "More info available on: http://pear.php.net/package/VersionControl_SVN",
@@ -4496,6 +4497,7 @@
             ],
             "description": "FinderFacade is a convenience wrapper for Symfony's Finder component.",
             "homepage": "https://github.com/sebastianbergmann/finder-facade",
+            "abandoned": true,
             "time": "2020-02-08T06:07:58+00:00"
         },
         {
