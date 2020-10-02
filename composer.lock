@@ -3856,16 +3856,16 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "1.2",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "ce970268a912dabbfaa0eff65dbc5e4a2a6cb757"
+                "reference": "a05ea68160b7286ebbfd6e5fd7ae9e1a946ad6e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/ce970268a912dabbfaa0eff65dbc5e4a2a6cb757",
-                "reference": "ce970268a912dabbfaa0eff65dbc5e4a2a6cb757",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/a05ea68160b7286ebbfd6e5fd7ae9e1a946ad6e1",
+                "reference": "a05ea68160b7286ebbfd6e5fd7ae9e1a946ad6e1",
                 "shasum": ""
             },
             "require": {
@@ -3914,7 +3914,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2020-08-26T20:47:29+00:00"
+            "time": "2020-09-07T21:15:42+00:00"
         },
         {
             "name": "sebastian/cli-parser",
