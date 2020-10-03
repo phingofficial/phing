@@ -12,13 +12,12 @@
     }
   ],
   "require": {
-    "php": ">= 7.1",
-    "ext-ftp": "*"
+    "php": ">= 7.1"
   },
   "require-dev": {
     "phing/phing": "3.0.x-dev",
-    "phpunit/phpunit": "^9.2",
-    "mehr-als-nix/php-ftp-client": "dev-master"
+    "pear/pear-core-minimal": "~1.10.9",
+    "pear/net_ftp": "dev-master"
   },
   "autoload": {
     "psr-4": {
