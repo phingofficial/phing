@@ -19,8 +19,6 @@
 
 namespace Phing\Tasks\Ext;
 
-use MehrAlsNix\PhpFtp\Client;
-
 /**
  * FtpDeployTask
  *
@@ -49,13 +47,13 @@ class FtpDeployTask extends \Task
     use \FileSetAware;
     use \LogLevelAware;
 
-    private $host;
+    private $host = null;
     private $port = 21;
     private $ssl = false;
     private $username;
     private $password;
     private $dir;
-    private $mode = \FTP_BINARY;
+    private $mode = FTP_BINARY;
     private $clearFirst = false;
     private $passive = false;
     private $depends = false;
@@ -63,6 +61,12 @@ class FtpDeployTask extends \Task
     private $filemode = false;
     private $rawDataFallback = false;
     private $skipOnSameSize = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->filesets = [];
+    }
 
     /**
      * @param string $host
@@ -91,7 +95,7 @@ class FtpDeployTask extends \Task
     /**
      * @param string $username
      */
-    public function setUsername(string $username): void
+    public function setUsername($username): void
     {
         $this->username = $username;
     }
@@ -99,7 +103,7 @@ class FtpDeployTask extends \Task
     /**
      * @param string $password
      */
-    public function setPassword(string $password): void
+    public function setPassword(string $password)
     {
         $this->password = $password;
     }
@@ -107,7 +111,7 @@ class FtpDeployTask extends \Task
     /**
      * @param $dir
      */
-    public function setDir($dir): void
+    public function setDir($dir)
     {
         $this->dir = $dir;
     }
@@ -115,15 +119,15 @@ class FtpDeployTask extends \Task
     /**
      * @param $mode
      */
-    public function setMode($mode): void
+    public function setMode($mode)
     {
         switch (strtolower($mode)) {
             case 'ascii':
-                $this->mode = \FTP_ASCII;
+                $this->mode = FTP_ASCII;
                 break;
             case 'binary':
             case 'bin':
-                $this->mode = \FTP_BINARY;
+                $this->mode = FTP_BINARY;
                 break;
         }
     }
@@ -185,36 +189,61 @@ class FtpDeployTask extends \Task
     }
 
     /**
+     * The init method: check if Net_FTP is available
+     */
+    public function init()
+    {
+        $paths = \Phing::explodeIncludePath();
+        foreach ($paths as $path) {
+            if (file_exists($path . DIRECTORY_SEPARATOR . 'Net' . DIRECTORY_SEPARATOR . 'FTP.php')) {
+                return true;
+            }
+        }
+        throw new \BuildException('The FTP Deploy task requires the Net_FTP PEAR package.');
+    }
+
+    /**
      * The main entry point method.
      */
     public function main()
     {
         $project = $this->getProject();
-        
-        if ($this->ssl) {
-            $ftp = new Client($this->host, $this->port, $this->ssl);
-            $this->log('Use SSL connection', $this->logLevel);
-        } else {
-            $ftp = new Client($this->host, $this->port);
-        }
-        $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, $this->logLevel);
 
-        try {
-            $ftp->login($this->username, $this->password);
-        } catch (\RuntimeException $e) {
+        $ftp = new \Net_FTP($this->host, $this->port);
+        if ($this->ssl) {
+            $ret = $ftp->setSsl();
+            if (@\PEAR::isError($ret)) {
+                throw new \BuildException(
+                    'SSL connection not supported by php: ' . $ret->getMessage()
+                );
+            }
+
+            $this->log('Use SSL connection', $this->logLevel);
+        }
+        $ret = $ftp->connect();
+        if (@\PEAR::isError($ret)) {
             throw new \BuildException(
-                'Could not login to FTP server ' . $this->host . ' on port ' . $this->port . ' with username ' . $this->username
+                'Could not connect to FTP server ' . $this->host . ' on port ' . $this->port . ': ' . $ret->getMessage()
             );
         }
+
+        $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, $this->logLevel);
+
+        $ret = $ftp->login($this->username, $this->password);
+        if (@\PEAR::isError($ret)) {
+            throw new \BuildException(
+                'Could not login to FTP server ' . $this->host . ' on port ' . $this->port . ' with username ' . $this->username . ': ' . $ret->getMessage()
+            );
+        }
+
         $this->log('Logged in to FTP server with username ' . $this->username, $this->logLevel);
 
         if ($this->passive) {
             $this->log('Setting passive mode', $this->logLevel);
-            try {
-                $ftp->setPassive();
-            } catch (\RuntimeException $e) {
+            $ret = $ftp->setPassive();
+            if (@\PEAR::isError($ret)) {
                 $ftp->disconnect();
-                throw new \BuildException('Could not set PASSIVE mode.');
+                throw new \BuildException('Could not set PASSIVE mode: ' . $ret->getMessage());
             }
         }
 
@@ -228,18 +257,16 @@ class FtpDeployTask extends \Task
         }
 
         // Create directory just in case
-        try {
-            $ftp->mkdir($dir, true);
-        } catch (\RuntimeException $e) {
+        $ret = $ftp->mkdir($dir, true);
+        if (@\PEAR::isError($ret)) {
             $ftp->disconnect();
-            throw new \BuildException('Could not create directory ' . $dir);
+            throw new \BuildException('Could not create directory ' . $dir . ': ' . $ret->getMessage());
         }
 
-        try {
-            $ftp->cd($dir);
-        } catch (\RuntimeException $e) {
+        $ret = $ftp->cd($dir);
+        if (@\PEAR::isError($ret)) {
             $ftp->disconnect();
-            throw new \BuildException('Could not change to directory ' . $dir);
+            throw new \BuildException('Could not change to directory ' . $dir . ': ' . $ret->getMessage());
         }
 
         $this->log('Changed directory ' . $dir, $this->logLevel);
@@ -264,11 +291,10 @@ class FtpDeployTask extends \Task
                 // Read directory informations, if file exists, else create the directory
                 if (!$this->_directoryInformations($ftp, $remoteFileInformations, $dirname)) {
                     $this->log('Will create directory ' . $dirname, $this->logLevel);
-                    try {
-                        $ftp->mkdir($dirname, true);
-                    } catch (\RuntimeException $e) {
+                    $ret = $ftp->mkdir($dirname, true);
+                    if (@\PEAR::isError($ret)) {
                         $ftp->disconnect();
-                        throw new \BuildException('Could not create directory ' . $dirname);
+                        throw new \BuildException('Could not create directory ' . $dirname . ': ' . $ret->getMessage());
                     }
                 }
                 if ($this->dirmode) {
@@ -277,7 +303,8 @@ class FtpDeployTask extends \Task
                     } else {
                         $mode = $this->dirmode;
                     }
-                    $ftp->chmod($mode, $dirname);
+                    // Because Net_FTP does not support a chmod call we call ftp_chmod directly
+                    ftp_chmod($ftp->_handle, $mode, $dirname);
                 }
             }
 
@@ -297,11 +324,10 @@ class FtpDeployTask extends \Task
                     }
 
                     $this->log('Will copy ' . $file->getCanonicalPath() . ' to ' . $filename, $this->logLevel);
-                    try {
-                        $ftp->put($file->getCanonicalPath(), $filename, true, $this->mode);
-                    } catch (\RuntimeException $e) {
+                    $ret = $ftp->put($file->getCanonicalPath(), $filename, true, $this->mode);
+                    if (@\PEAR::isError($ret)) {
                         $ftp->disconnect();
-                        throw new \BuildException('Could not deploy file ' . $filename);
+                        throw new \BuildException('Could not deploy file ' . $filename . ': ' . $ret->getMessage());
                     }
                 }
                 if ($this->filemode) {
@@ -310,7 +336,8 @@ class FtpDeployTask extends \Task
                     } else {
                         $mode = $this->filemode;
                     }
-                    $ftp->chmod($mode, $filename);
+                    // Because Net_FTP does not support a chmod call we call ftp_chmod directly
+                    ftp_chmod($ftp->_handle, $mode, $filename);
                 }
             }
         }
@@ -320,27 +347,25 @@ class FtpDeployTask extends \Task
     }
 
     /**
-     * @param Client $ftp
+     * @param \Net_FTP $ftp
      * @param $remoteFileInformations
      * @param $directory
      * @return bool
      */
-    private function _directoryInformations(Client $ftp, &$remoteFileInformations, $directory): bool
+    private function _directoryInformations(\Net_FTP $ftp, &$remoteFileInformations, $directory)
     {
-        try {
-            $content = $ftp->ls($directory);
-        } catch (\RuntimeException $e) {
+        $content = $ftp->ls($directory);
+        if (@\PEAR::isError($content)) {
             if ($this->rawDataFallback) {
-                try {
-                    $content = $ftp->ls($directory, Client::RAWLIST);
-                } catch (\RuntimeException $e) {
-                    return false;
-                }
+                $content = $ftp->ls($directory, NET_FTP_RAWLIST);
+            }
+            if (@\PEAR::isError($content)) {
+                return false;
             }
             $content = $this->parseRawFtpContent($content, $directory);
         }
 
-        if (count($content) === 0) {
+        if (count($content) == 0) {
             return false;
         }
 
