@@ -10,4 +10,10 @@
          syntaxCheck="false"
          verbose="false"
          strict="false">
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="display_errors" value="On"/>
+        <ini name="memory_limit" value="-1"/>
+        <ini name="date.timezone" value="UTC"/>
+    </php>
 </phpunit>
