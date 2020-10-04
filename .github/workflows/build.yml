@@ -15,5 +15,5 @@ jobs:
       - name: Test phing
         run: |
           cd test
-          ../bin/phing -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
+          ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
           cd ..
