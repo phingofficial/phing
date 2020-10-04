@@ -14,7 +14,7 @@ jobs:
 
       - name: Test phing
         run: |
-          ls -la /usr/local/bin/
+          /usr/local/bin/phpunit -v
           cd test
           ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
           cd ..
