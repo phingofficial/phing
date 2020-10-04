@@ -14,4 +14,9 @@ jobs:
 
       - name: Test phing
         working-directory: test
-        run: ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
+        run: | 
+          echo "=== SETTING GIT IDENTITY ==="
+          git config --global user.email "travis-ci-build@phing.info"
+          git config --global user.name "Phing Travis Builder"
+          echo "=== RUN TESTS ==="
+          ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
