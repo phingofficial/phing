@@ -13,8 +13,5 @@ jobs:
       - uses: php-actions/composer@v2
 
       - name: Test phing
-        run: |
-          /usr/local/bin/phpunit -v
-          cd test
-          ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
-          cd ..
+        working-directory: test
+        run: ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
