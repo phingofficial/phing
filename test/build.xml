@@ -70,7 +70,6 @@
             </then>
         </if>
         <phpunit codecoverage="${tests.codecoverage}" haltonerror="true" haltonfailure="true" printsummary="true"
-                 pharlocation="../bin/phpunit"
                  configuration="phpunit-sparse.xml" bootstrap="../vendor/autoload.php">
             <formatter type="xml" usefile="true" todir="${tests.reports.dir.resolved}" outfile="test-results.xml"/>
             <formatter type="clover" todir="${tests.reports.dir.resolved}"/>
