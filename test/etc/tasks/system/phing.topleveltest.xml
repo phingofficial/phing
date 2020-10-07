@@ -16,6 +16,6 @@
   ~ <http://phing.info>.
   -->
 
-<project>
+<project default="test">
     <echo>Hello world</echo>
 </project>
