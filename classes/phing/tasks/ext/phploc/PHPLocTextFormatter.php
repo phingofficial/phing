@@ -25,17 +25,15 @@ class PHPLocTextFormatter extends AbstractPHPLocFormatter
 {
     public function printResult(array $count, $countTests = false)
     {
-        if ($this->getUseFile()) {
-            $outputClass = '\\Symfony\\Component\\Console\\Output\\StreamOutput';
-            $stream = fopen($this->getToDir() . DIRECTORY_SEPARATOR . $this->getOutfile(), 'a+');
-            $output = new $outputClass($stream);
-        } else {
-            $outputClass = '\\Symfony\\Component\\Console\\Output\\ConsoleOutput';
-            $output = new $outputClass();
-        }
-
         $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\Text';
         $printer = new $printerClass();
-        $printer->printResult($output, $count, $countTests);
+        if ($this->getUseFile()) {
+            ob_start();
+            $printer->printResult($count, $countTests);
+            $output = ob_get_clean();
+            file_put_contents($this->getToDir() . DIRECTORY_SEPARATOR . $this->getOutfile(), $output, FILE_APPEND);
+        } else {
+            $printer->printResult($count, $countTests);
+        }
     }
 }

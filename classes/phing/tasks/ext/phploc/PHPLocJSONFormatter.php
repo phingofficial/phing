@@ -18,59 +18,18 @@
  */
 
 /**
- * Encapsulates file roles
- *
- * @package phing.tasks.ext
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.ext.phploc
  */
-class PearPkgRole
+class PHPLocJSONFormatter extends AbstractPHPLocFormatter
 {
-    /**
-     * @var string
-     */
-    private $extension;
-
-    /**
-     * @var string
-     */
-    private $role;
-
-    /**
-     * Sets the file extension
-     *
-     * @param string $extension
-     */
-    public function setExtension($extension)
+    public function printResult(array $count, $countTests = false)
     {
-        $this->extension = $extension;
-    }
-
-    /**
-     * Retrieves the file extension
-     *
-     * @return string
-     */
-    public function getExtension()
-    {
-        return $this->extension;
-    }
-
-    /**
-     * Sets the role
-     *
-     * @param string $role
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-    }
-
-    /**
-     * Retrieves the role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
+        if (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\Json')) {
+            $printer = new SebastianBergmann\PHPLOC\Log\Json();
+        } else {
+            throw new BuildException('Not supported PHPLOC version used.');
+        }
+        $printer->printResult($this->getToDir() . DIRECTORY_SEPARATOR . $this->getOutfile(), $count);
     }
 }

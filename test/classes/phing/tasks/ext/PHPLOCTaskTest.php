@@ -22,8 +22,6 @@
  *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
- *
- * @requires PHP < 7.3
  */
 class PHPLOCTaskTest extends BuildFileTest
 {
@@ -57,6 +55,15 @@ class PHPLOCTaskTest extends BuildFileTest
             PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.xml'
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.xml');
+    }
+
+    public function testReportJSON()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.json'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.json');
     }
 
     public function testFormatters()

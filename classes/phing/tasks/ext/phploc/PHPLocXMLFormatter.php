@@ -25,9 +25,7 @@ class PHPLocXMLFormatter extends AbstractPHPLocFormatter
 {
     public function printResult(array $count, $countTests = false)
     {
-        if (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\XML')) {
-            $printer = new SebastianBergmann\PHPLOC\Log\XML();
-        } elseif (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\Xml')) {
+        if (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\Xml')) {
             $printer = new SebastianBergmann\PHPLOC\Log\Xml();
         } else {
             throw new BuildException('Not supported PHPLOC version used.');

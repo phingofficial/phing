@@ -61,10 +61,10 @@ class MailTask extends Task
         @include_once 'Mail/mime.php';
 
         if (!class_exists('Mail_mime')) {
-            throw new BuildException('Need the PEAR Mail_mime package to send attachments');
+            throw new BuildException('Need the pear/mail and pear/mail_mime packages installed');
         }
 
-        $mime = new Mail_mime(['text_charset' => 'UTF-8']);
+        $mime = new \Mail_mime(['text_charset' => 'UTF-8']);
         $hdrs = [
             'From' => $this->from,
             'Subject' => $this->subject
@@ -84,7 +84,7 @@ class MailTask extends Task
         $body = $mime->get();
         $hdrs = $mime->headers($hdrs);
 
-        $mail = Mail::factory($this->backend, $this->backendParams);
+        $mail = \Mail::factory($this->backend, $this->backendParams);
         $mail->send($this->tolist, $hdrs, $body);
     }
 
