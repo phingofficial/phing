@@ -22,7 +22,6 @@ cache:
     - build/cache
 
 stages:
-  - composer validate
   - static code analysis
   - test
   - test with coverage
