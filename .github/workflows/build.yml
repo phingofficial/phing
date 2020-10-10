@@ -29,6 +29,11 @@ jobs:
           path: vendor
           key: ${{ runner.OS }}-build-${{ hashFiles('**/composer.lock') }}
 
+      - name: Validate composer.json
+        uses: php-actions/composer@v2
+        with:
+          command: validate
+  
       - uses: php-actions/composer@v2
       - name: Test phing
         working-directory: test
