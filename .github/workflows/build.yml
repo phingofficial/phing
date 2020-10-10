@@ -33,6 +33,7 @@ jobs:
         uses: php-actions/composer@v2
         with:
           command: validate
+          only_args: ""
   
       - uses: php-actions/composer@v2
       - name: Test phing
