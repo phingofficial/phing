@@ -5,6 +5,8 @@
   [![codecov](https://codecov.io/gh/phingofficial/phing/branch/master/graph/badge.svg)](https://codecov.io/gh/phingofficial/phing)
   [![Build status](https://ci.appveyor.com/api/projects/status/ws2xv6tuu36sere7/branch/master?svg=true)](https://ci.appveyor.com/project/mrook/phing/branch/master)
 
+<img width="100" src="https://raw.githubusercontent.com/phingofficial/phing-github-action/main/action.svg">
+
   Thank you for using PHING!
 
   (PH)ing (I)s (N)ot (G)NU make; it's a PHP project build system or build tool based on Apache Ant. You can do anything with it that you could do with a traditional build system like GNU make, and its use of simple XML build files and extensible PHP "task" classes make it an easy-to-use and highly flexible build framework.
