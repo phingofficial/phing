@@ -271,7 +271,7 @@ class ExecTask extends Task
                     continue;
                 }
                 $this->log('Setting environment variable: ' . $variable, Project::MSG_VERBOSE);
-                $envString .= $variable . '; ';
+                $envString .= 'export ' . $variable . '; ';
             }
         }
 
