@@ -271,7 +271,11 @@ class ExecTask extends Task
                     continue;
                 }
                 $this->log('Setting environment variable: ' . $variable, Project::MSG_VERBOSE);
-                $envString .= $variable . '; ';
+                if (OsCondition::isOS(OsCondition::FAMILY_WINDOWS)) {
+                    $envString .= 'set ' . $variable . ' & ';
+                } else {
+                    $envString .= $variable . '; ';
+                }
             }
         }
 
