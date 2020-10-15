@@ -210,9 +210,10 @@
         <if>
             <os family="windows"/>
             <then>
-                <exec executable="echo" outputProperty="hello">
+                <exec executable="cmd" outputProperty="hello">
                     <env key="HELLO" value="world"/>
-                    <arg value="%HELLO%"/>
+                    <arg value="/C"/>
+                    <arg line ="echo %HELLO%"/>
                 </exec>
             </then>
             <else>
