@@ -90,7 +90,7 @@ class GrowlNotifyTask extends Task
 
         if (!$handle = @fopen($autoloader, 'r', true)) {
             throw new BuildException(
-                'The Growl Notify task requires the Net_Growl PEAR package.'
+                'The Growl Notify task requires the pear/net_growl package.'
             );
         }
 

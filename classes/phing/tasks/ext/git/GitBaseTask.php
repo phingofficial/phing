@@ -55,8 +55,7 @@ abstract class GitBaseTask extends Task
         @include_once 'VersionControl/Git.php';
         if (false == class_exists('VersionControl_Git')) {
             throw new BuildException(
-                "The Git tasks depend on PEAR\'s "
-                . "VersionControl_Git package.",
+                "The Git tasks depend on the pear/versioncontrol_git package being installed.",
                 $this->getLocation()
             );
         }
