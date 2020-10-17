@@ -377,9 +377,6 @@ class ExecTaskTest extends BuildFileTest
 
     public function testEnvVars(): void
     {
-        if ($this->windows) {
-            $this->markTestSkipped('Setting environment variables for command is not supported on windows.');
-        }
         $this->expectPropertySet(__FUNCTION__, 'hello', 'world');
     }
 }
