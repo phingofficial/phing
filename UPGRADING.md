@@ -28,3 +28,4 @@ that you might stumble across when upgrading from Phing 2.x to 3.0.
     mask the group permissions of newly created directories according to umask 
     setting which resulted in lower than expected permissions. This should not
     happen when using ACL. Now, `MkdirTask` respects ACL settings.
+* The tasks to generate PEAR packages \(including supporting code\) have been removed from Phing.

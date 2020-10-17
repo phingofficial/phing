@@ -207,10 +207,22 @@
     </target>
 
     <target name="testEnvVars">
-        <exec executable="echo" outputProperty="hello">
-            <env key="HELLO" value="world"/>
-            <arg value="$HELLO"/>
-        </exec>
+        <if>
+            <os family="windows"/>
+            <then>
+                <exec executable="cmd" outputProperty="hello">
+                    <env key="HELLO" value="world"/>
+                    <arg value="/C"/>
+                    <arg line ="echo %HELLO%"/>
+                </exec>
+            </then>
+            <else>
+                <exec executable="echo" outputProperty="hello">
+                    <env key="HELLO" value="world"/>
+                    <arg value="$HELLO"/>
+                </exec>
+            </else>
+        </if>
         <echo msg="${hello}"/>
     </target>
 

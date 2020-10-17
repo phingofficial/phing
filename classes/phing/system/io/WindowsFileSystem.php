@@ -548,7 +548,11 @@ class WindowsFileSystem extends FileSystem
      */
     private function fixEncoding($strPath)
     {
-        $codepage = 'CP' . trim(strstr(setlocale(LC_CTYPE, ''), '.'), '.');
+        $charSet = trim(strstr(setlocale(LC_CTYPE, ''), '.'), '.');
+        if ($charSet === 'utf8') {
+            return $strPath;
+        }
+        $codepage = 'CP' . $charSet;
         if (function_exists('iconv')) {
             $strPath = iconv('UTF-8', $codepage . '//IGNORE', $strPath);
         } elseif (function_exists('mb_convert_encoding')) {

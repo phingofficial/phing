@@ -47,7 +47,7 @@ class UntarTask extends ExtractBaseTask
     {
         include_once 'Archive/Tar.php';
         if (!class_exists('Archive_Tar')) {
-            throw new BuildException("You must have installed the PEAR Archive_Tar class in order to use UntarTask.");
+            throw new BuildException("You must have installed the pear/archive_tar package to use UntarTask.");
         }
     }
 
