@@ -66,39 +66,29 @@ class FileSizeTaskTest extends BuildFileTest
 
     public function testExceptionFileNotSet()
     {
-        $this->expectBuildExceptionContaining(__FUNCTION__,
-                                              'File attribute was not set',
-                                              'Input file not specified');
+        $this->expectBuildExceptionContaining(__FUNCTION__, 'File attribute was not set', 'Input file not specified');
     }
 
     public function testExceptionInvalidFile()
     {
-        $this->expectBuildExceptionContaining(__FUNCTION__,
-                                              'File is set, but non-existent',
-                                              'Input file does not exist or is not readable: invalid-file');
+        $this->expectBuildExceptionContaining(__FUNCTION__, 'File is set, but non-existent', 'Input file does not exist or is not readable: invalid-file');
     }
 
     public function testExceptionInvalidUnit()
     {
         $this->getProject()->setProperty('dummy.size', '1K');
-        $this->expectBuildExceptionContaining(__FUNCTION__,
-                                              'The unit is not a valid one',
-                                              'Invalid unit: foo');
+        $this->expectBuildExceptionContaining(__FUNCTION__, 'The unit is not a valid one', 'Invalid unit: foo');
     }
 
     public function testExceptionEmptyUnit()
     {
         $this->getProject()->setProperty('dummy.size', '1K');
-        $this->expectBuildExceptionContaining(__FUNCTION__,
-                                              'The unit attribute is empty',
-                                              'Invalid unit: ');
+        $this->expectBuildExceptionContaining(__FUNCTION__, 'The unit attribute is empty', 'Invalid unit: ');
     }
 
     public function testExceptionEmptyProperty()
     {
         $this->getProject()->setProperty('dummy.size', '1K');
-        $this->expectBuildExceptionContaining(__FUNCTION__,
-                                              'Empty string (or "0") is passed to propertyName attribute',
-                                              'Property name cannot be empty');
+        $this->expectBuildExceptionContaining(__FUNCTION__, 'Empty string (or "0") is passed to propertyName attribute', 'Property name cannot be empty');
     }
 }
