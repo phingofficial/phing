@@ -13,15 +13,6 @@
 
   If you find yourself writing custom scripts to handle the packaging, deploying, or testing of your applications, then we suggest looking at Phing. Pre-packaged with numerous out-of-the-box operation modules (tasks), and an easy-to-use OO model to extend or add your own custom tasks.
 
-  Phing provides the following features:
-
-  * Simple XML buildfiles
-  * Rich set of provided tasks
-  * Easily extendable via PHP classes
-  * Works on Linux, Mac & Windows
-  * No required external dependencies
-  * Runs great on PHP 7
-
 ## The Latest Version
 
   Details of the latest version can be found on the Phing homepage
