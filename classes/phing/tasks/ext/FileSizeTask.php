@@ -18,16 +18,17 @@
  */
 
 /**
- * fileHash
+ * FileSizeTask
  *
- * Calculate either MD5 or SHA hash value of a specified file and retun the
- * value in a property
+ * Returns the size of a file
  *
  * @author  Johan Persson <johan162@gmail.com>
  * @package phing.tasks.ext
  */
 class FileSizeTask extends Task
 {
+    const UNITS = ['B', 'K', 'M', 'G', 'T', 'P'];
+
     /**
      * Property for File
      *
@@ -38,17 +39,27 @@ class FileSizeTask extends Task
     /**
      * Property where the file size will be stored
      *
-     * @var string $property
+     * @var string
      */
     private $propertyName = "filesize";
+
+    /**
+     * Return size in this unit
+     *
+     * @var string
+     */
+    private $unit = self::UNITS[0];
 
     /**
      * Which file to calculate the file size of
      *
      * @param PhingFile $file
      */
-    public function setFile($file)
+    public function setFile(PhingFile $file)
     {
+        if (!$file->canRead()) {
+            throw new BuildException(sprintf('Input file does not exist or is not readable: %s', $file->getName()));
+        }
         $this->file = $file;
     }
 
@@ -58,9 +69,21 @@ class FileSizeTask extends Task
      * @param  $property
      * @return void
      */
-    public function setPropertyName($property)
+    public function setPropertyName(string $property)
     {
+        if (empty($property)) {
+            throw new BuildException('Property name cannot be empty');
+        }
         $this->propertyName = $property;
+    }
+
+    public function setUnit(string $originalUnit)
+    {
+        $unit = strtoupper($originalUnit);
+        if (!in_array($unit, self::UNITS)) {
+            throw new BuildException(sprintf('Invalid unit: %s', $originalUnit));
+        }
+        $this->unit = $unit;
     }
 
     /**
@@ -71,58 +94,25 @@ class FileSizeTask extends Task
      */
     public function main()
     {
-        $this->checkFile();
-        $this->checkPropertyName();
+        if (!($this->file instanceof PhingFile)) {
+            throw new BuildException('Input file not specified');
+        }
 
         $size = filesize($this->file);
 
         if ($size === false) {
-            throw new BuildException(sprintf('[FileSize] Cannot determine size of file: %s', $this->file));
+            throw new BuildException(sprintf('Cannot determine size of file: %s', $this->file));
         }
+        $this->log(sprintf('%s %s', $size, self::UNITS[0]), Project::MSG_VERBOSE);
+
+        $size = $size / pow(1024, array_search($this->unit, self::UNITS, true));
+
+        if (is_float($size)) {
+            $size = round($size, 2);
+        }
+        $this->log(sprintf('%s %s', $size, $this->unit), Project::MSG_INFO);
 
         // publish hash value
         $this->project->setProperty($this->propertyName, $size);
-    }
-
-    /**
-     * checks file attribute
-     *
-     * @return void
-     * @throws BuildException
-     */
-    private function checkFile()
-    {
-        // check File
-        if (
-            $this->file === null
-            || strlen($this->file) == 0
-        ) {
-            throw new BuildException('[FileSize] You must specify an input file.', $this->file);
-        }
-
-        if (!is_readable($this->file)) {
-            throw new BuildException(
-                sprintf(
-                    '[FileSize] Input file does not exist or is not readable: %s',
-                    $this->file
-                )
-            );
-        }
-    }
-
-    /**
-     * checks property attribute
-     *
-     * @return void
-     * @throws BuildException
-     */
-    private function checkPropertyName()
-    {
-        if (
-            null === $this->propertyName
-            || strlen($this->propertyName) === 0
-        ) {
-            throw new BuildException('[FileSize] Property name for publishing file size is not set');
-        }
     }
 }
