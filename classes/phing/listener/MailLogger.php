@@ -40,7 +40,7 @@ class MailLogger extends DefaultLogger
         parent::__construct();
 
         if (!class_exists('Mail')) {
-            throw new BuildException('Need the PEAR Mail package to send logs');
+            throw new BuildException('Need the pear/mail_mime package installed to send logs');
         }
 
         $tolist = Phing::getDefinedProperty('phing.log.mail.recipients');

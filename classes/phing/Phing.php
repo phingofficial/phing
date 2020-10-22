@@ -1494,10 +1494,6 @@ class Phing
         return $paths;
     }
 
-    // -------------------------------------------------------------------------------------------
-    // System-wide methods (moved from System class, which had namespace conflicts w/ PEAR System)
-    // -------------------------------------------------------------------------------------------
-
     /**
      * Set System constants which can be retrieved by calling Phing::getProperty($propName).
      *

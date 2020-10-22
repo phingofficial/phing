@@ -78,7 +78,7 @@ class TarTask extends MatchingTask
     {
         include_once 'Archive/Tar.php';
         if (!class_exists('Archive_Tar')) {
-            throw new BuildException("You must have installed the PEAR Archive_Tar class in order to use TarTask.");
+            throw new BuildException("You must have installed the pear/archive_tar package use TarTask.");
         }
     }
 

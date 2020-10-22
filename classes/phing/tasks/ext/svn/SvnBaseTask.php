@@ -72,7 +72,7 @@ abstract class SvnBaseTask extends Task
         include_once 'VersionControl/SVN.php';
         $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
         if (!class_exists('VersionControl_SVN')) {
-            throw new Exception("The SVN tasks depend on PEAR VersionControl_SVN package being installed.");
+            throw new Exception("The SVN tasks depend on the pear/versioncontrol_svn package being installed.");
         }
     }
 
@@ -369,7 +369,7 @@ abstract class SvnBaseTask extends Task
         $tempSwitches = array_merge($this->svnSwitches, $switches);
 
         if ($this->oldVersion) {
-            $svnstack = PEAR_ErrorStack::singleton('VersionControl_SVN');
+            $svnstack = \PEAR_ErrorStack::singleton('VersionControl_SVN');
 
             if ($output = $this->svn->run($tempArgs, $tempSwitches)) {
                 return $output;

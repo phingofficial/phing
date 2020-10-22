@@ -1,26 +1,17 @@
-# P     H     I     N     G
+<h1><img width="30" src="https://raw.githubusercontent.com/phingofficial/phing-github-action/main/action.svg"/>P     H     I     N     G</h1>
 
-  [![Build Status](https://travis-ci.org/phingofficial/phing.svg?branch=master)](https://travis-ci.org/phingofficial/phing)
+  [![Build Status](https://travis-ci.com/phingofficial/phing.svg?branch=master)](https://travis-ci.com/phingofficial/phing)
   [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/phingofficial/phing/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/phingofficial/phing/?branch=master)
   [![codecov](https://codecov.io/gh/phingofficial/phing/branch/master/graph/badge.svg)](https://codecov.io/gh/phingofficial/phing)
   [![Build status](https://ci.appveyor.com/api/projects/status/ws2xv6tuu36sere7/branch/master?svg=true)](https://ci.appveyor.com/project/mrook/phing/branch/master)
 
   Thank you for using PHING!
 
-  (PH)ing (I)s (N)ot (G)NU make; it's a PHP project build system or build tool based on Apache Ant. You can do anything with it that you could do with a traditional build system like GNU make, and its use of simple XML build files and extensible PHP "task" classes make it an easy-to-use and highly flexible build framework.
+  **PH**ing **I**s **N**ot **G**NU make; it's a PHP project build system or build tool based on Apache Ant. You can do anything with it that you could do with a traditional build system like GNU make, and its use of simple XML build files and extensible PHP "task" classes make it an easy-to-use and highly flexible build framework.
 
-  Features include running PHPUnit unit tests (including test result and coverage reports), file transformations (e.g. token replacement, XSLT transformation, template transformations), file system operations, interactive build support, SQL execution, Git/Subversion operations, tools for creating PEAR packages, documentation generation (PhpDocumentor, ApiGen) and much, much more.
+  Features include running PHPUnit unit tests (including test result and coverage reports), file transformations (e.g. token replacement, XSLT transformation, template transformations), file system operations, interactive build support, SQL execution, SCM operations (Git, Subversion and Mercurial), documentation generation (PhpDocumentor, ApiGen) and much, much more.
 
   If you find yourself writing custom scripts to handle the packaging, deploying, or testing of your applications, then we suggest looking at Phing. Pre-packaged with numerous out-of-the-box operation modules (tasks), and an easy-to-use OO model to extend or add your own custom tasks.
-
-  Phing provides the following features:
-
-  * Simple XML buildfiles
-  * Rich set of provided tasks
-  * Easily extendable via PHP classes
-  * Works on Linux, Mac & Windows
-  * No required external dependencies
-  * Runs great on PHP 7
 
 ## The Latest Version
 
@@ -60,6 +51,30 @@
   To execute Phing inside a container and execute `build.xml` located in `/home/user`, run the following:
 
          $ docker run --rm -v /home/user:/opt phing/phing:3.0 -f /opt/build.xml
+
+  4. **Phing GitHub Action**
+  
+  The official GitHub action [phingofficial/phing-github-action](https://github.com/phingofficial/phing-github-action) is available on [GitHub Marketplace](https://github.com/marketplace/actions/run-a-phing-build).
+  
+  To *Run a Phing Build* as an action, you need to setup a `.github/workflow/phing.yml` workflow file and paste the following snipped:
+
+     name: CI
+     on: [ push ]
+     jobs:
+       build-test:
+         runs-on: ubuntu-latest
+
+         steps:
+           - uses: actions/checkout@v2
+           - name: Phing Build
+             uses: phingofficial/phing-github-action@v2.0.0
+             with:
+               version: 3.0.0-alpha4
+               user-properties: prop=FooBar
+               targets: foo
+               verbose: true
+   
+   [README]([phingofficial/phing-github-action](https://github.com/phingofficial/phing-github-action)) for more info and documentation.
 
 ## Documentation
 
