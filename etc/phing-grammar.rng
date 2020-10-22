@@ -1585,7 +1585,7 @@
             <anyName/>
         </attribute>
     </define>
-    
+
     <define name="echoxml">
         <element name="echoxml">
             <choice>
@@ -3120,6 +3120,18 @@
                 <attribute name="file"/>
                 <optional>
                     <attribute name="propertyname"/>
+                </optional>
+                <optional>
+                    <attribute name="unit">
+                        <choice>
+                            <value>B</value>
+                            <value>K</value>
+                            <value>M</value>
+                            <value>G</value>
+                            <value>T</value>
+                            <value>P</value>
+                        </choice>
+                    </attribute>
                 </optional>
             </interleave>
         </element>
