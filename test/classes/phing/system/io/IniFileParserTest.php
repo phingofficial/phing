@@ -123,6 +123,14 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
                     'property' => false,
                 ],
             ],
+            [
+                'data' => "[app]\napp.uno=foo\napp.dos=bar\napp.tres=baz\n",
+                'expected' => [
+                    'app.uno' => 'foo',
+                    'app.dos' => 'bar',
+                    'app.tres' => 'baz',
+                ],
+            ],
         ];
     }
 }
