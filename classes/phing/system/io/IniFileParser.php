@@ -56,6 +56,9 @@ class IniFileParser implements FileParserInterface
             }
 
             $pos = strpos($line, '=');
+            if (false === $pos) {
+                continue;
+            }
             $property = trim(substr($line, 0, $pos));
             $value = trim(substr($line, $pos + 1));
             $properties[$property] = $this->inVal($value);
