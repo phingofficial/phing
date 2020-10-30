@@ -294,7 +294,7 @@ class PHPUnitTask extends Task
      * Load and processes the PHPUnit configuration
      *
      * @param  $configuration
-     * @return array
+     * @return mixed
      * @throws ReflectionException
      * @throws BuildException
      */
@@ -473,7 +473,8 @@ class PHPUnitTask extends Task
                     $filter->addDirectoryToBlacklist($path);
                 }
                 if (class_exists('\SebastianBergmann\CodeCoverage\CodeCoverage')) {
-                    $codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage(null, $filter);
+                    $driver = (new \SebastianBergmann\CodeCoverage\Driver\Selector())->forLineCoverage($filter);
+                    $codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage($driver, $filter);
                     $runner->setCodecoverage($codeCoverage);
                 }
             }
