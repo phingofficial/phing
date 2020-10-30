@@ -56,7 +56,6 @@ script:
 
 jobs:
   allow_failures:
-    - php: 7.4
     - php: master
     - php: nightly
   include:
