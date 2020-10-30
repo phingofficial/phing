@@ -37,8 +37,7 @@ before_install:
   - echo "=== SETTING GIT IDENTITY ==="
   - git config --global user.email "travis-ci-build@phing.info"
   - git config --global user.name "Phing Travis Builder"
-  - composer self-update
-  - composer global require hirak/prestissimo
+  - composer self-update --2
 
 install:
   - |
