@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use SebastianBergmann\PHPCPD\CodeCloneMap;
+
 /**
  * Prints plain text output of phpcpd run
  *
@@ -70,13 +72,14 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
     private function processClonesNew($clones, $useFile = false, $outFile = null)
     {
         if ($useFile) {
-            $resource = fopen($outFile->getPath(), "w");
-        } else {
-            $resource = fopen("php://output", "w");
+            ob_start();
         }
 
-        $output = new \Symfony\Component\Console\Output\StreamOutput($resource);
         $logger = new \SebastianBergmann\PHPCPD\Log\Text();
-        $logger->printResult($output, $clones);
+        $logger->printResult($clones, true);
+
+        if ($useFile) {
+            file_put_contents($outFile->getPath(), ob_get_clean());
+        }
     }
 }
