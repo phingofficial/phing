@@ -304,7 +304,13 @@ class PHPUnitTask extends Task
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
         }
 
-        $config = \PHPUnit\TextUI\Configuration\Registry::getInstance()->get($configuration->getAbsolutePath());
+        if (class_exists('\PHPUnit\TextUI\Configuration\Registry')) {
+            $config = \PHPUnit\TextUI\Configuration\Registry::getInstance()->get($configuration->getAbsolutePath());
+        } elseif (class_exists('\PHPUnit\TextUI\XmlConfiguration\Loader')) {
+            $config = (new \PHPUnit\TextUI\XmlConfiguration\Loader())->load($configuration->getAbsolutePath());
+        } else {
+            throw new BuildException("Can't parse PHPUnit configuration file '" . (string) $configuration . "'");
+        }
 
         if (empty($config)) {
             return [];
