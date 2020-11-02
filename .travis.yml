@@ -64,7 +64,7 @@ jobs:
       install: composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest --ignore-platform-reqs
 
     - stage: test with coverage
-      php: 7.3
+      php: 7.4
       env: DEPS="NORMAL"
       before_install:
         - phpenv config-add .travis.php.ini
@@ -74,7 +74,7 @@ jobs:
         - echo "=== SETTING GIT IDENTITY ==="
         - git config --global user.email "travis-ci-build@phing.info"
         - git config --global user.name "Phing Travis Builder"
-        - composer self-update
+        - composer self-update --2
       script:
         - echo "=== TESTING PHING ==="
         - cd test
@@ -85,18 +85,18 @@ jobs:
         - wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=clover ./test/reports/clover-coverage.xml
 
     - stage: composer validate
-      php: 7.3
+      php: 7.4
       env: DEPS="NORMAL"
       script:
         - composer validate
 
     - stage: static code analysis
-      php: 7.3
+      php: 7.4
       env: DEPS="NORMAL"
       script: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
 
     - stage: build phar
-      php: 7.3
+      php: 7.4
       env: DEPS="NORMAL"
       script:
         - cd build
