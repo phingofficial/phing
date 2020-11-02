@@ -44,6 +44,9 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     private $listeners = [];
 
+    /**
+     * @var \SebastianBergmann\CodeCoverage\CodeCoverage
+     */
     private $codecoverage;
 
     /**
@@ -79,7 +82,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * @param $codecoverage
      */
-    public function setCodecoverage($codecoverage): void
+    public function setCodecoverage(\SebastianBergmann\CodeCoverage\CodeCoverage $codecoverage): void
     {
         $this->codecoverage = $codecoverage;
     }
@@ -132,8 +135,13 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
 
         if ($this->codecoverage) {
             $whitelist = \Phing\Tasks\Ext\Coverage\CoverageMerger::getWhiteList($this->project);
+            $filter = $this->codecoverage->filter();
 
-            $this->codecoverage->filter()->addFilesToWhiteList($whitelist);
+            if (method_exists($filter, 'includeFiles')) {
+                $filter->includeFiles($whitelist);
+            } else if (method_exists($filter, 'addFilesToWhiteList')) {
+                $filter->addFilesToWhiteList($whitelist);
+            }
 
             $res->setCodeCoverage($this->codecoverage);
         }
