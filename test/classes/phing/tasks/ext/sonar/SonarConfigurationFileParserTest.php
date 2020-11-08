@@ -169,4 +169,69 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $this->assertArrayHasKey('foo', $properties);
         $this->assertContains('This is a multi-line comment.', $properties);
     }
+
+    /*
+     * Tests property file with Newline(LF) line termination
+     *
+     * @covers SonarConfigurationFileParser::parse
+     */
+    public function testFileWithNL()
+    {
+        $tmpFile = tempnam(sys_get_temp_dir(), 'cfp');
+
+        $fh = fopen($tmpFile, 'w');
+
+        if (false !== $fh) {
+            register_shutdown_function(function () use ($tmpFile) {
+                unlink($tmpFile);
+            });
+
+            fwrite($fh, "foo:bar\nbrown:cow\n");
+            fclose($fh);
+
+            $parser = new SonarConfigurationFileParser($tmpFile, $this->getProject());
+
+            $properties = $parser->parse();
+
+            $this->assertArrayHasKey('foo', $properties);
+            $this->assertContains('bar', $properties);
+
+            $this->assertArrayHasKey('brown', $properties);
+            $this->assertContains('cow', $properties);
+        } else {
+            $this->fail('Failed to create temporary file');
+        }
+    }
+
+    /*
+     * Tests property file with CarriageReturn/LineFeed (CRLF) line termination
+     *
+     * @covers SonarConfigurationFileParser::parse
+     */
+    public function testFileWithCRLF()
+    {
+        $tmpFile = tempnam(sys_get_temp_dir(), 'cfp');
+
+        $fh = fopen($tmpFile, 'w');
+        if (false !== $fh) {
+            register_shutdown_function(function () use ($tmpFile) {
+                unlink($tmpFile);
+            });
+
+            fwrite($fh, "rag:doll\r\nhouse:cat\r\n");
+            fclose($fh);
+
+            $parser = new SonarConfigurationFileParser($tmpFile, $this->getProject());
+
+            $properties = $parser->parse();
+
+            $this->assertArrayHasKey('rag', $properties);
+            $this->assertContains('doll', $properties);
+
+            $this->assertArrayHasKey('house', $properties);
+            $this->assertContains('cat', $properties);
+        } else {
+            $this->fail('Failed to create temporary file');
+        }
+    }
 }
