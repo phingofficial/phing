@@ -88,16 +88,24 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ComposerTask::getComposer
      */
-    public function testGetComposer()
+    public function testGetComposerNotOnPath()
     {
         $composer = 'bar';
         $o = $this->object;
 
+        $orgPath = getenv("PATH");
+        
         $prop = new ReflectionProperty('ComposerTask', 'composer');
         $prop->setAccessible(true);
         $prop->setValue($o, $composer);
 
-        $this->assertEquals($composer, $o->getComposer());
+        putenv("PATH=/foo/bar");
+
+        $pathComposer = $o->getComposer();
+        
+        putenv("PATH=$orgPath");
+        
+        $this->assertEquals($composer, $pathComposer);
     }
 
     /**
