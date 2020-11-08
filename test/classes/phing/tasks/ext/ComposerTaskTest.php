@@ -72,18 +72,55 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers ComposerTask::setComposer
+     */
+    public function testSetComposer()
+    {
+        $composer = 'foobar';
+        $o = $this->object;
+        $o->setComposer($composer);
+
+        $prop = new ReflectionProperty ('ComposerTask', 'composer');
+        $prop->setAccessible(true);
+
+        $this->assertEquals($composer, $prop->getValue($o));
+    }
+
+    /**
      * @covers ComposerTask::getComposer
      */
-    public function testSetGetComposer()
+    public function testGetComposer()
+    {
+        $composer = 'bar';
+        $o = $this->object;
+
+        $prop = new ReflectionProperty ('ComposerTask', 'composer');
+        $prop->setAccessible(true);
+        $prop->setValue($o, $composer);
+
+        $this->assertEquals($composer, $o->getComposer());
+    }
+
+    /**
+     * @covers ComposerTask::getComposer
+     */
+    public function testGetComposerFromPath()
     {
         $composer = 'foo';
         $o = $this->object;
         $o->setComposer($composer);
-        $composerFile = new SplFileInfo($composer);
-        if (false === $composerFile->isFile()) {
-            $composer = FileSystem::getFileSystem()->which('composer');
-        }
-        $this->assertEquals($composer, $o->getComposer());
+
+        $testPath = PHING_TEST_BASE . '/etc/tasks/ext/composer';
+        $orgPath = getenv("PATH");
+
+        $pathSeparator = FileSystem::getFileSystem()->getPathSeparator();
+        putenv("PATH=$testPath$pathSeparator$orgPath");
+
+        $pathComposer = $o->getComposer();
+
+        putenv("PATH=$orgPath");
+
+        // The composer found shouldn't be the one we set
+        $this->assertNotEquals($composer, $pathComposer);
     }
 
     /**
