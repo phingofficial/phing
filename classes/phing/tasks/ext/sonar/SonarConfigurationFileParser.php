@@ -89,7 +89,7 @@ class SonarConfigurationFileParser
             throw new BuildException($message);
         }
 
-        $lines = explode("\n", $contents);
+        $lines = preg_split("/\r?\n/", $contents);
         $count = count($lines);
         $isMultiLine = false;
         for ($i = 0; $i < $count; $i++) {
