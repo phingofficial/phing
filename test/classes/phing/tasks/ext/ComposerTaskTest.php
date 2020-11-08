@@ -94,7 +94,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $o = $this->object;
 
         $orgPath = getenv("PATH");
-        
+
         $prop = new ReflectionProperty('ComposerTask', 'composer');
         $prop->setAccessible(true);
         $prop->setValue($o, $composer);
@@ -102,9 +102,9 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         putenv("PATH=/foo/bar");
 
         $pathComposer = $o->getComposer();
-        
+
         putenv("PATH=$orgPath");
-        
+
         $this->assertEquals($composer, $pathComposer);
     }
 
