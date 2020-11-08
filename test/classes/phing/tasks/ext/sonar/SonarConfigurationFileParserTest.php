@@ -181,8 +181,8 @@ class SonarConfigurationFileParserTest extends BuildFileTest
 
         $fh = fopen($tmpFile, 'w');
 
-        if (FALSE !== $fh) {
-            register_shutdown_function(function() use($tmpFile) {
+        if (false !== $fh) {
+            register_shutdown_function(function () use ($tmpFile) {
                 unlink($tmpFile);
             });
 
@@ -198,8 +198,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
 
             $this->assertArrayHasKey('brown', $properties);
             $this->assertContains('cow', $properties);
-        }
-        else {
+        } else {
             $this->fail('Failed to create temporary file');
         }
     }
@@ -214,9 +213,8 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $tmpFile = tempnam(sys_get_temp_dir(), 'cfp');
 
         $fh = fopen($tmpFile, 'w');
-
-        if (FALSE !== $fh) {
-            register_shutdown_function(function() use($tmpFile) {
+        if (false !== $fh) {
+            register_shutdown_function(function () use ($tmpFile) {
                 unlink($tmpFile);
             });
 
@@ -232,8 +230,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
 
             $this->assertArrayHasKey('house', $properties);
             $this->assertContains('cat', $properties);
-        }
-        else {
+        } else {
             $this->fail('Failed to create temporary file');
         }
     }
