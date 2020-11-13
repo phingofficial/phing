@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<phpunit backupGlobals="false"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
          backupStaticAttributes="false"
          colors="false"
          convertErrorsToExceptions="true"
@@ -7,13 +9,24 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="true"
-         syntaxCheck="false"
-         verbose="false"
-         strict="false">
+         verbose="false">
     <php>
         <ini name="error_reporting" value="-1"/>
         <ini name="display_errors" value="On"/>
         <ini name="memory_limit" value="-1"/>
         <ini name="date.timezone" value="UTC"/>
     </php>
+    <coverage cacheDirectory="./reports/cache"
+              processUncoveredFiles="true"
+              pathCoverage="false"
+              ignoreDeprecatedCodeUnits="true" >
+        <include>
+            <directory suffix=".php">../classes/phing</directory>
+        </include>
+        <exclude>
+            <directory>../bin</directory>
+            <directory>.</directory>
+            <directory>../vendor</directory>
+        </exclude>
+    </coverage>
 </phpunit>

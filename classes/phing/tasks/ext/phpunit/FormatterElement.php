@@ -168,6 +168,9 @@ class FormatterElement
             $this->formatter = new SummaryPHPUnitResultFormatter7($this->parent);
         } elseif ($this->type === "clover") {
             $this->formatter = new CloverPHPUnitResultFormatter7($this->parent);
+        } elseif ($this->type === "clover-html") {
+            $this->useFile = false;
+            $this->formatter = new CloverHtmlPHPUnitResultFormatter9($this->parent, $this->toDir);
         } elseif ($this->type === "xml") {
             $this->formatter = new XMLPHPUnitResultFormatter7($this->parent);
         } elseif ($this->type === "plain") {
