@@ -52,6 +52,33 @@ class PHPUnitTaskTest extends BuildFileTest
     }
 
     /**
+     *
+     */
+    public function testCloverFormatter()
+    {
+        $project = $this->getProject();
+        $outputDir = rtrim($project->getProperty('output.dir'), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        
+        $this->executeTarget(__FUNCTION__);
+        
+        $this->assertFileExists($outputDir . 'clover-coverage.xml');
+    }
+
+    /**
+     *
+     */
+    public function testCloverHtmlFormatter()
+    {
+        $project = $this->getProject();
+        $outputDir = rtrim($project->getProperty('output.dir'), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        
+        $this->executeTarget(__FUNCTION__);
+        
+        $this->assertFileExists($outputDir . 'index.html');
+        $this->assertFileExists($outputDir . 'dashboard.html');
+    }
+    
+    /**
      * Regression test for ticket http://www.phing.info/trac/ticket/893
      */
     public function testDoubleAutoloader()
@@ -71,6 +98,22 @@ class PHPUnitTaskTest extends BuildFileTest
      * Regression test for ticket http://www.phing.info/trac/ticket/1159
      */
     public function testExcludeGroups()
+    {
+        $this->executeTarget(__FUNCTION__);
+    }
+
+    /**
+     *
+     */
+    public function testMissingPhpunitConfig()
+    {
+        $this->expectBuildException(__FUNCTION__, "Fail");
+    }
+
+    /**
+     *
+     */
+    public function testPhpunitConfig()
     {
         $this->executeTarget(__FUNCTION__);
     }
