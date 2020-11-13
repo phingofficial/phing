@@ -1,69 +1,117 @@
 <?xml version="1.0" ?>
 <project name="PHPUnit Tests" default="testAll">
-	<target name="testPlainFormatterDataProvider">
-		<phpunit codecoverage="false" haltonfailure="false" haltonerror="false">
-			<formatter type="plain" usefile="false"/>
-			<formatter type="summary" usefile="false"/>
-			<batchtest>
-				<fileset dir="tests">
-					<include name="provider_failTest.php"/>
-				</fileset>
-			</batchtest>
-		</phpunit>
-	</target>
+	<property name="tmp.dir" value="tmp/phpunittask"/>
 
-        <target name="testXmlFormatter">
-                <phpunit haltonerror="true" haltonfailure="true"
-	                printsummary="true">
-                        <formatter type="xml" usefile="false"/>
-                        <formatter type="plain" usefile="false"/>
-                        <batchtest>
-                                <fileset dir="tests">
-                                        <include name="HelloWorldTest.php"/>
-                                </fileset>
-                        </batchtest>
-                </phpunit>
-        </target>
-        
-        <target name="testDoubleAutoloader" depends="testAutoloader1,testAutoloader2"/>
-	
-	<target name="testAutoloader1">
-		<phpunit bootstrap="${project.basedir}/bootstrap.php">
-			<batchtest>
-				<fileset dir="tests">
-					<include name="**/*Test.php"/>
-				</fileset>
-			</batchtest>
-		</phpunit>
-	</target>
+    <resolvepath propertyName="output.dir" dir="${tmp.dir}" path="testoutput"/>
 
-	<target name="testAutoloader2">
-		<phpunit bootstrap="${project.basedir}/bootstrap.php">
-			<batchtest>
-				<fileset dir="tests">
-					<include name="**/*Test.php"/>
-				</fileset>
-			</batchtest>
-		</phpunit>
-	</target>
-	
-	<target name="testShouldNotIgnoreFailuresAfterError">
-		<phpunit haltonerror="false" haltonfailure="true">
-			<batchtest>
-				<fileset dir="tests">
-					<include name="ErroringTest.php"/>
-				</fileset>
-			</batchtest>
-		</phpunit>
-	</target>
-	
-	<target name="testExcludeGroups">
-		<phpunit haltonfailure="true" excludeGroups="shouldBeExcluded">
-			<batchtest>
-				<fileset dir="tests">
-					<include name="ExcludedTest.php"/>
-				</fileset>
-			</batchtest>
-		</phpunit>
-	</target>
+    <target name="testPlainFormatterDataProvider">
+        <phpunit codecoverage="false" haltonfailure="false" haltonerror="false">
+            <formatter type="plain" usefile="false"/>
+            <formatter type="summary" usefile="false"/>
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="provider_failTest.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <target name="testXmlFormatter">
+        <phpunit haltonerror="true" haltonfailure="true" printsummary="true">
+            <formatter type="xml" usefile="false"/>
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="HelloWorldTest.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+    
+    <target name="testCloverFormatter">
+        <phpunit codecoverage="true" haltonerror="true" haltonfailure="true" printsummary="false">
+            <formatter type="clover" todir="${output.dir}"/>
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="HelloWorldTest.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+    
+    <target name="testCloverHtmlFormatter">
+        <phpunit codecoverage="true" haltonerror="false" haltonfailure="true" printsummary="true">
+            <formatter type="clover-html" todir="${output.dir}"/>
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="HelloWorldTest.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+    
+    <target name="testDoubleAutoloader" depends="testAutoloader1,testAutoloader2"/>
+    
+    <target name="testAutoloader1">
+        <phpunit bootstrap="${project.basedir}/bootstrap.php">
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="**/*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <target name="testAutoloader2">
+        <phpunit bootstrap="${project.basedir}/bootstrap.php">
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="**/*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+    
+    <target name="testShouldNotIgnoreFailuresAfterError">
+        <phpunit haltonerror="false" haltonfailure="true">
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="ErroringTest.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+    
+    <target name="testExcludeGroups">
+        <phpunit haltonfailure="true" excludeGroups="shouldBeExcluded">
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="ExcludedTest.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <target name="testMissingPhpunitConfig">
+        <phpunit configuration="phpunit-missing.xml" codecoverage="false">
+            <formatter type="summary" usefile="false"/>
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="HelloWorldTest.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <target name="testPhpunitConfig">
+        <phpunit configuration="phpunit-test.xml" codecoverage="false" >
+            <formatter type="summary" usefile="false"/>
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="HelloWorldTest.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
 </project>

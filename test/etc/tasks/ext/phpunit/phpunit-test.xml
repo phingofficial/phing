@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="false"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="true"
+         verbose="false">
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="display_errors" value="On"/>
+        <ini name="memory_limit" value="-1"/>
+        <ini name="date.timezone" value="UTC"/>
+    </php>
+    <groups>
+        <include>
+            <group>unit</group>
+            <group>integration</group>
+        </include>
+        <exclude>
+            <group>disable</group>
+        </exclude>
+    </groups>
+    <coverage cacheDirectory="./reports/cache"
+              processUncoveredFiles="true"
+              pathCoverage="false"
+              ignoreDeprecatedCodeUnits="true" >
+        <include>
+            <directory suffix=".php">../classes/phing</directory>
+        </include>
+        <exclude>
+            <directory>../bin</directory>
+            <directory>.</directory>
+            <directory>../vendor</directory>
+        </exclude>
+    </coverage>
+</phpunit>
