@@ -44,6 +44,8 @@ class PHPUnitTask extends Task
     private $failureproperty;
     private $incompleteproperty;
     private $skippedproperty;
+    private $warningproperty;
+    private $riskyproperty;
     private $printsummary = false;
     private $testfailed = false;
     private $testfailuremessage = "";
@@ -138,6 +140,22 @@ class PHPUnitTask extends Task
     public function setSkippedproperty($value)
     {
         $this->skippedproperty = $value;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setRiskyproperty($value)
+    {
+        $this->riskyproperty = $value;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setWarningproperty($value)
+    {
+        $this->riskyproperty = $value;
     }
 
     /**
@@ -598,6 +616,28 @@ class PHPUnitTask extends Task
             if ($this->haltonskipped) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastSkippedMessage();
+            }
+        }
+
+        if ($runner->hasWarnings()) {
+            if ($this->warningproperty) {
+                $this->project->setNewProperty($this->warningproperty, true);
+            }
+
+            if ($this->haltonwarning) {
+                $this->testfailed = true;
+                $this->testfailuremessage = $runner->getLastWarningMessage();
+            }
+        }
+
+        if ($runner->hasRisky()) {
+            if ($this->riskyproperty) {
+                $this->project->setNewProperty($this->riskyproperty, true);
+            }
+
+            if ($this->haltonrisky) {
+                $this->testfailed = true;
+                $this->testfailuremessage = $runner->getLastRiskyMessage();
             }
         }
     }
