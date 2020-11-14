@@ -1,5 +1,4 @@
 <?php
-use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

@@ -48,12 +48,12 @@ class CloverHtmlPHPUnitResultFormatter9 extends PHPUnitResultFormatter7
     /**
      * @param PHPUnit\Framework\TestResult $result
      */
-    public function processResult(PHPUnit\Framework\TestResult $result)
+    public function processResult(PHPUnit\Framework\TestResult $result): void
     {
         $this->result = $result;
     }
 
-    public function endTestRun()
+    public function endTestRun(): void
     {
         $coverage = $this->result->getCodeCoverage();
 

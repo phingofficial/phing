@@ -51,9 +51,6 @@ class PHPUnitTaskTest extends BuildFileTest
         $this->assertInLogs("<testcase name=\"testSayHello\" class=\"HelloWorldTest\"");
     }
 
-    /**
-     *
-     */
     public function testCloverFormatter()
     {
         $project = $this->getProject();
@@ -64,9 +61,6 @@ class PHPUnitTaskTest extends BuildFileTest
         $this->assertFileExists($outputDir . 'clover-coverage.xml');
     }
 
-    /**
-     *
-     */
     public function testCloverHtmlFormatter()
     {
         $project = $this->getProject();
@@ -102,17 +96,11 @@ class PHPUnitTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
     }
 
-    /**
-     *
-     */
     public function testMissingPhpunitConfig()
     {
         $this->expectBuildException(__FUNCTION__, "Fail");
     }
 
-    /**
-     *
-     */
     public function testPhpunitConfig()
     {
         $this->executeTarget(__FUNCTION__);

@@ -23,7 +23,7 @@
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phpunit
  */
-class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook
+class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework\TestListener
 {
     private $hasErrors = false;
     private $hasFailures = false;
@@ -40,7 +40,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook
     private $formatters = [];
 
     /**
-     * @var \PHPUnit\Runner\TestHook[]
+     * @var \PHPUnit\Framework\TestListener[]
      */
     private $listeners = [];
 
@@ -69,9 +69,9 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook
      */
     public function __construct(
         Project $project,
-        $groups = [],
-        $excludeGroups = [],
-        $processIsolation = false
+        array $groups = [],
+        array $excludeGroups = [],
+        bool $processIsolation = false
     ) {
         $this->project = $project;
         $this->groups = $groups;
@@ -90,7 +90,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook
     /**
      * @param $useCustomErrorHandler
      */
-    public function setUseCustomErrorHandler($useCustomErrorHandler): void
+    public function setUseCustomErrorHandler(bool $useCustomErrorHandler): void
     {
         $this->useCustomErrorHandler = $useCustomErrorHandler;
     }
@@ -98,13 +98,13 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook
     /**
      * @param $formatter
      */
-    public function addFormatter($formatter): void
+    public function addFormatter(\PHPUnit\Framework\TestListener $formatter): void
     {
         $this->addListener($formatter);
         $this->formatters[] = $formatter;
     }
 
-    public function addListener($listener): void
+    public function addListener(\PHPUnit\Framework\TestListener $listener): void
     {
         $this->listeners[] = $listener;
     }
@@ -116,7 +116,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook
      * @param $line
      * @return bool
      */
-    public function handleError($level, $message, $file, $line): bool
+    public function handleError(int $level, string $message, string $file, int $line): bool
     {
         $invoke = new PHPUnit\Util\ErrorHandler(true, true, true, true);
         return $invoke($level, $message, $file, $line);
@@ -197,29 +197,12 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook
      */
     private function checkResult(\PHPUnit\Framework\TestResult $res): void
     {
-        if ($res->skippedCount() > 0) {
-            $this->hasSkipped = true;
-        }
-
-        if ($res->notImplementedCount() > 0) {
-            $this->hasIncomplete = true;
-        }
-
-        if ($res->warningCount() > 0) {
-            $this->hasWarnings = true;
-        }
-
-        if ($res->failureCount() > 0) {
-            $this->hasFailures = true;
-        }
-
-        if ($res->errorCount() > 0) {
-            $this->hasErrors = true;
-        }
-
-        if ($res->riskyCount() > 0) {
-            $this->hasRisky = true;
-        }
+        $this->hasSkipped = $res->skippedCount() > 0;
+        $this->hasIncomplete = $res->notImplementedCount() > 0;
+        $this->hasWarnings = $res->warningCount() > 0;
+        $this->hasFailures = $res->failureCount() > 0;
+        $this->hasErrors = $res->errorCount() > 0;
+        $this->hasRisky = $res->riskyCount() > 0;
     }
 
     /**
@@ -336,7 +319,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook
      * @param Throwable $e
      * @return string
      */
-    protected function composeMessage($message, PHPUnit\Framework\Test $test, Throwable $e)
+    protected function composeMessage(string $message, PHPUnit\Framework\Test $test, Throwable $e): string
     {
         $name = ($test instanceof \PHPUnit\Framework\TestCase ? $test->getName() : '');
         $message = "Test {$message} ({$name} in class " . get_class($test) . ' ' . $e->getFile()
@@ -411,35 +394,6 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook
     public function addRiskyTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
         $this->lastRiskyMessage = $this->composeMessage('RISKY', $test, $e);
-    }
-
-    /**
-     * A test started.
-     *
-     * @param string $testName
-     */
-    public function testStarted($testName): void
-    {
-    }
-
-    /**
-     * A test ended.
-     *
-     * @param string $testName
-     */
-    public function testEnded($testName): void
-    {
-    }
-
-    /**
-     * A test failed.
-     *
-     * @param integer $status
-     * @param PHPUnit\Framework\Test $test
-     * @param PHPUnit\Framework\AssertionFailedError $e
-     */
-    public function testFailed($status, PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e): void
-    {
     }
 
     /**
