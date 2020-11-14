@@ -37,6 +37,9 @@ class PHPUnitTask extends Task
     private $haltonfailure = false;
     private $haltonincomplete = false;
     private $haltonskipped = false;
+    private $haltondefect = false;
+    private $haltonwarning = false;
+    private $haltonrisky = false;
     private $errorproperty;
     private $failureproperty;
     private $incompleteproperty;
@@ -135,6 +138,54 @@ class PHPUnitTask extends Task
     public function setSkippedproperty($value)
     {
         $this->skippedproperty = $value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHaltondefect(): bool
+    {
+        return $this->haltondefect;
+    }
+
+    /**
+     * @param bool $haltondefect
+     */
+    public function setHaltondefect(bool $haltondefect): void
+    {
+        $this->haltondefect = $haltondefect;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHaltonwarning(): bool
+    {
+        return $this->haltonwarning;
+    }
+
+    /**
+     * @param bool $haltonwarning
+     */
+    public function setHaltonwarning(bool $haltonwarning): void
+    {
+        $this->haltonwarning = $haltonwarning;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHaltonrisky(): bool
+    {
+        return $this->haltonrisky;
+    }
+
+    /**
+     * @param bool $haltonrisky
+     */
+    public function setHaltonrisky(bool $haltonrisky): void
+    {
+        $this->haltonrisky = $haltonrisky;
     }
 
     /**
@@ -329,6 +380,9 @@ class PHPUnitTask extends Task
         $this->setHaltonerror($phpunit->stopOnError());
         $this->setHaltonskipped($phpunit->stopOnSkipped());
         $this->setHaltonincomplete($phpunit->stopOnIncomplete());
+        $this->setHaltondefect($phpunit->stopOnDefect());
+        $this->setHaltonwarning($phpunit->stopOnWarning());
+        $this->setHaltonrisky($phpunit->stopOnRisky());
         $this->setProcessIsolation($phpunit->processIsolation());
 
         foreach ($config->listeners() as $listener) {
@@ -356,17 +410,6 @@ class PHPUnitTask extends Task
                 }
             }
         }
-
-/*        if (method_exists($config, 'getSeleniumBrowserConfiguration')) {
-            $browsers = $config->getSeleniumBrowserConfiguration();
-
-            if (
-                !empty($browsers)
-                && class_exists('PHPUnit_Extensions_SeleniumTestCase')
-            ) {
-                PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
-            }
-        } */
 
         return $phpunit;
     }
