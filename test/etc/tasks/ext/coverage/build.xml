@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  ~ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  ~ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  ~ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  ~ OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  ~ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  ~ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  ~ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  ~ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  ~ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  ~
+  ~ This software consists of voluntary contributions made by many individuals
+  ~ and is licensed under the LGPL. For more information please see
+  ~ <http://phing.info>.
+  -->
+
+<project name="Coverage Build Tests" default="main" basedir=".">
+    <resolvepath propertyName="workspace" path="${phing.dir}/workspace" />
+    <property name="test" value="${workspace}/test.db" />
+    <property name="output" value="${workspace}/output.xml" />
+    
+    <target name="collect">
+        <coverage-setup database="${test}">
+            <fileset dir="${phing.dir}" includes="**/test/*"/>
+        </coverage-setup>
+        <phpunit codecoverage="true">
+            <formatter type="xml" todir="${workspace}" outfile="test-results1.xml"/>
+            <formatter type="clover" todir="${workspace}/1"/>
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset dir="${phing.dir}" includes="test-1/test/*"/>
+            </batchtest>
+        </phpunit>
+        <phpunit codecoverage="true">
+            <formatter type="xml" todir="${workspace}" outfile="test-results2.xml"/>
+            <formatter type="clover" todir="${workspace}/2"/>
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset dir="${phing.dir}" includes="test-2/test/*"/>
+            </batchtest>
+        </phpunit>
+        <phpunit codecoverage="true">
+            <formatter type="xml" todir="${workspace}" outfile="test-results3.xml"/>
+            <formatter type="clover" todir="${workspace}/3"/>
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset dir="${phing.dir}" includes="test-3/test/*"/>
+            </batchtest>
+        </phpunit>
+        <coverage-report outfile="${output}"/>
+    </target>
+    <target name="main">
+        <echo msg="Use this test inside the phing test suite."/>
+    </target>
+</project>
