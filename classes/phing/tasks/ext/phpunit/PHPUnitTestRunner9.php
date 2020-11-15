@@ -134,6 +134,18 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
         $res = new PHPUnit\Framework\TestResult();
 
         if ($this->codecoverage) {
+            // Check if Phing coverage is being utlizied
+            if ($this->project->getProperty('coverage.database')) {
+                $whitelist = \Phing\Tasks\Ext\Coverage\CoverageMerger::getWhiteList($this->project);
+                $filter = $this->codecoverage->filter();
+
+                if (method_exists($filter, 'includeFiles')) {
+                    $filter->includeFiles($whitelist);
+                } else if (method_exists($filter, 'addFilesToWhiteList')) {
+                    $filter->addFilesToWhiteList($whitelist);
+                }
+            }
+
             $res->setCodeCoverage($this->codecoverage);
         }
 
@@ -160,6 +172,14 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
             restore_error_handler();
         }
 
+        // Check if Phing coverage is being utlizied
+        if ($this->codecoverage && $this->project->getProperty('coverage.database')) {
+            try {
+                \Phing\Tasks\Ext\Coverage\CoverageMerger::merge($this->project, $this->codecoverage->getData());
+            } catch (IOException $e) {
+                throw new BuildException('Merging code coverage failed.', $e);
+            }
+        }
         $this->checkResult($res);
     }
 
