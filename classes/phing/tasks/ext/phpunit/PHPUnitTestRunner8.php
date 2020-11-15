@@ -137,10 +137,10 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
             $whitelist = \Phing\Tasks\Ext\Coverage\CoverageMerger::getWhiteList($this->project);
             $filter = $this->codecoverage->filter();
 
-            if (method_exists($filter, 'includeFiles')) {
-                $filter->includeFiles($whitelist);
-            } else if (method_exists($filter, 'addFilesToWhiteList')) {
+            if (method_exists($filter, 'addFilesToWhiteList')) {
                 $filter->addFilesToWhiteList($whitelist);
+            } elseif (method_exists($filter, 'includeFiles')) {
+                $filter->includeFiles($whitelist);
             }
 
             $res->setCodeCoverage($this->codecoverage);
