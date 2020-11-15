@@ -279,7 +279,7 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
      */
     public function getRiskyCount()
     {
-        return end($this->warningCounts);
+        return end($this->riskyCounts);
     }
 
     /**
