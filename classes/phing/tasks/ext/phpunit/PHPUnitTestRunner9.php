@@ -134,7 +134,6 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
         $res = new PHPUnit\Framework\TestResult();
 
         if ($this->codecoverage) {
-<<<<<<< HEAD
             // Check if Phing coverage is being utlizied
             if ($this->project->getProperty('coverage.database')) {
                 $whitelist = \Phing\Tasks\Ext\Coverage\CoverageMerger::getWhiteList($this->project);
@@ -147,8 +146,6 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
                 }
             }
 
-=======
->>>>>>> b61209de584905bad4e218e8862c584ba9d7731e
             $res->setCodeCoverage($this->codecoverage);
         }
 
@@ -175,7 +172,6 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
             restore_error_handler();
         }
 
-<<<<<<< HEAD
         // Check if Phing coverage is being utlizied
         if ($this->codecoverage && $this->project->getProperty('coverage.database')) {
             try {
@@ -184,8 +180,6 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
                 throw new BuildException('Merging code coverage failed.', $e);
             }
         }
-=======
->>>>>>> b61209de584905bad4e218e8862c584ba9d7731e
         $this->checkResult($res);
     }
 
