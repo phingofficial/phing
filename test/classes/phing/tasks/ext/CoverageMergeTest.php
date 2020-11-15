@@ -48,6 +48,7 @@ class CoverageMergeTest extends BuildFileTest
         $this->assertFileExists($workspace . '/test-results1.xml');
         $this->assertFileExists($workspace . '/test-results2.xml');
         $this->assertFileExists($workspace . '/test-results3.xml');
+        $this->assertStringNotContainsString('"coverage";a:0:{}', file_get_contents($workspace . '/test.db'));
         $this->assertStringContainsString('Dummy1Test.php', file_get_contents($workspace . '/test.db'));
         $this->assertStringContainsString('Dummy2Test.php', file_get_contents($workspace . '/test.db'));
         $this->assertStringContainsString('Dummy3Test.php', file_get_contents($workspace . '/test.db'));
