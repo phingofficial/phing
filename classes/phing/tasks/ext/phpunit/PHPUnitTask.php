@@ -67,6 +67,11 @@ class PHPUnitTask extends Task
     private $configuration = null;
 
     /**
+     * @var \PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage
+     */
+    private $codeCoverageConfig = null;
+
+    /**
      * Initialize Task.
      * This method includes any necessary PHPUnit libraries and triggers
      * appropriate error if they cannot be found.  This is not done in header
@@ -429,6 +434,7 @@ class PHPUnitTask extends Task
             }
         }
 
+        $this->codeCoverageConfig = $config->codeCoverage();
         return $phpunit;
     }
 
@@ -513,12 +519,24 @@ class PHPUnitTask extends Task
                 $this->processIsolation
             );
         } else {
-            $runner = new PHPUnitTestRunner8(
-                $this->project,
-                $this->groups,
-                $this->excludeGroups,
-                $this->processIsolation
-            );
+            if (
+                class_exists('\PHPUnit\Runner\Version', false) &&
+                version_compare(\PHPUnit\Runner\Version::id(), '9.0.0', '<')
+            ) {
+                $runner = new PHPUnitTestRunner8(
+                    $this->project,
+                    $this->groups,
+                    $this->excludeGroups,
+                    $this->processIsolation
+                );
+            } else {
+                $runner = new PHPUnitTestRunner9(
+                    $this->project,
+                    $this->groups,
+                    $this->excludeGroups,
+                    $this->processIsolation
+                );
+            }
         }
 
         if ($this->codecoverage) {
@@ -534,8 +552,48 @@ class PHPUnitTask extends Task
                     $filter->addDirectoryToBlacklist($path);
                 }
                 if (class_exists('\SebastianBergmann\CodeCoverage\CodeCoverage')) {
+                    if (null !== $this->codeCoverageConfig) {
+                        // Update filters
+                        foreach ($this->codeCoverageConfig->files()->asArray() as $file) {
+                            $filter->includeFile($file->path());
+                        }
+                        foreach ($this->codeCoverageConfig->directories()->asArray() as $dir) {
+                            $filter->includeDirectory($dir->path(), $dir->suffix(), $dir->prefix());
+                        }
+                        foreach ($this->codeCoverageConfig->excludeFiles()->asArray() as $file) {
+                            $filter->excludeFile($file->path());
+                        }
+                        foreach ($this->codeCoverageConfig->excludeDirectories()->asArray() as $dir) {
+                            $filter->excludeDirectory($dir->path(), $dir->suffix(), $dir->prefix());
+                        }
+                    }
+
+                    if (null !== $this->codeCoverageConfig && $this->codeCoverageConfig->pathCoverage()) {
+                        $driver = (new \SebastianBergmann\CodeCoverage\Driver\Selector())->forLineAndPathCoverage($filter);
+                    } else {
+                        $driver = (new \SebastianBergmann\CodeCoverage\Driver\Selector())->forLineCoverage($filter);
+                    }
+
                     $driver = (new \SebastianBergmann\CodeCoverage\Driver\Selector())->forLineCoverage($filter);
                     $codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage($driver, $filter);
+
+                    if (null !== $this->codeCoverageConfig) {
+                        // Set code coverage configuration
+                        if ($this->codeCoverageConfig->hasCacheDirectory()) {
+                            $codeCoverage->cacheStaticAnalysis($this->codeCoverageConfig->cacheDirectory()->path());
+                        }
+                        if ($this->codeCoverageConfig->ignoreDeprecatedCodeUnits()) {
+                            $codeCoverage->ignoreDeprecatedCode();
+                        } else {
+                            $codeCoverage->doNotIgnoreDeprecatedCode();
+                        }
+                        if ($this->codeCoverageConfig->includeUncoveredFiles()) {
+                            $codeCoverage->includeUncoveredFiles();
+                        } else {
+                            $codeCoverage->doNotProcessUncoveredFiles();
+                        }
+                    }
+
                     $runner->setCodecoverage($codeCoverage);
                 }
             }
