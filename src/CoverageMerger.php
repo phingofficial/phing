@@ -125,6 +125,9 @@ class CoverageMerger
         $props = self::_getDatabase($project);
 
         $coverageTotal = $codeCoverageInformation;
+        if (!is_array($coverageTotal)) {
+            $coverageTotal = $coverageTotal->lineCoverage();
+        }
 
         foreach ($coverageTotal as $filename => $data) {
             $lines = [];
