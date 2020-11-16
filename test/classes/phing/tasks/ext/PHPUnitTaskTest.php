@@ -72,6 +72,7 @@ class PHPUnitTaskTest extends BuildFileTest
      */
     public function testExcludeGroups()
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
     }
 }
