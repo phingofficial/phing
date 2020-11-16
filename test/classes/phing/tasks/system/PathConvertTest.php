@@ -71,6 +71,7 @@ class PathConvertTest extends BuildFileTest
 
     public function testNoTargetOs()
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget('testnotargetos');
     }
 

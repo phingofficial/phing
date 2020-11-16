@@ -195,6 +195,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
      */
     public function testEmptyProtocol()
     {
+        $this->expectNotToPerformAssertions();
         try {
             $this->executeTarget(__FUNCTION__);
         } catch (BuildException $e) {

@@ -56,15 +56,6 @@ class PropertyTaskTest extends BuildFileTest
         $this->expectException(BuildException::class);
         $this->expectExceptionMessageMatches('/Prefix is only valid/');
 
-//        try {
-//            $this->executeTarget("prefix.fail");
-//        } catch (BuildException $e) {
-//            $this->assertContains("Prefix is only valid", $e->getMessage(), "Prefix allowed on non-resource/file load - ");
-//
-//            return;
-//        }
-//        $this->fail("Did not throw exception on invalid use of prefix");
-
         $this->executeTarget("prefix.fail");
     }
 
@@ -91,15 +82,6 @@ class PropertyTaskTest extends BuildFileTest
         $this->expectException(BuildException::class);
         $this->expectExceptionMessageMatches('/was circularly defined/');
 
-//        try {
-//            $this->executeTarget($target);
-//        } catch (BuildException $e) {
-//            $this->assertContains("was circularly defined", $e->getMessage(), "Circular definition not detected - ");
-//
-//            return;
-//        }
-//        $this->fail("Did not throw exception on circular exception");
-
         $this->executeTarget($target);
     }
 
@@ -114,6 +96,7 @@ class PropertyTaskTest extends BuildFileTest
      */
     public function testUsingPropertyTwiceInPropertyValueShouldNotThrowException()
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
     }
 

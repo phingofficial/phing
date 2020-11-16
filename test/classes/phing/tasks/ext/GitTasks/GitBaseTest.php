@@ -45,6 +45,7 @@ class GitBaseTest extends BuildFileTest
      */
     public function testArguments()
     {
+        $this->markTestIncomplete('needs investigation');
     }
 
     public function testMutators()

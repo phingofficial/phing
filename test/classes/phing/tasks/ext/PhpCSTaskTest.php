@@ -45,6 +45,7 @@ class PhpCSTaskTest extends BuildFileTest
     }
     public function testFileSetInPhpCs1(): void
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
     }
 }
