@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="FileSizeTaskTest" default="clean">
+
+    <property name="dummy.path" value="../../../tmp/dummy.txt"/>
+
+    <target name="clean" description="Delete dummy file">
+        <delete file="${dummy.path}"/>
+    </target>
+
+    <target name="testSimpleCase">
+        <truncate file="${dummy.path}" length="${dummy.size}"/>
+        <filesize file="${dummy.path}"/>
+    </target>
+
+    <target name="testPropertyNameAttribute">
+        <truncate file="${dummy.path}" length="${dummy.size}"/>
+        <filesize file="${dummy.path}" propertyname="my-filesize"/>
+    </target>
+
+    <target name="testUnitAttribute">
+        <truncate file="${dummy.path}" length="${dummy.size}"/>
+        <filesize file="${dummy.path}" unit="${filesize.unit}"/>
+    </target>
+
+    <target name="testExceptionFileNotSet">
+        <filesize/>
+    </target>
+
+    <target name="testExceptionInvalidFile">
+        <filesize file="invalid-file"/>
+    </target>
+
+    <target name="testExceptionInvalidUnit">
+        <truncate file="${dummy.path}" length="${dummy.size}"/>
+        <filesize file="${dummy.path}" unit="foo"/>
+    </target>
+
+    <target name="testExceptionEmptyUnit">
+        <truncate file="${dummy.path}" length="${dummy.size}"/>
+        <filesize file="${dummy.path}" unit=""/>
+    </target>
+
+    <target name="testExceptionEmptyProperty">
+        <truncate file="${dummy.path}" length="${dummy.size}"/>
+        <filesize file="${dummy.path}" propertyname=""/>
+    </target>
+
+</project>

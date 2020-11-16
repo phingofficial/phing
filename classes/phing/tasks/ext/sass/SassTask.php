@@ -873,17 +873,6 @@ class SassTask extends Task
     }
 
     /**
-     * Init: pull in the PEAR System class
-     *
-     * @access public
-     * @return void
-     */
-    public function init()
-    {
-        @include_once 'vendor/autoload.php';
-    }
-
-    /**
      * Our main execution of the task.
      *
      * @throws BuildException

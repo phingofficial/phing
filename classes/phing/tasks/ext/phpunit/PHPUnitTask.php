@@ -37,10 +37,15 @@ class PHPUnitTask extends Task
     private $haltonfailure = false;
     private $haltonincomplete = false;
     private $haltonskipped = false;
+    private $haltondefect = false;
+    private $haltonwarning = false;
+    private $haltonrisky = false;
     private $errorproperty;
     private $failureproperty;
     private $incompleteproperty;
     private $skippedproperty;
+    private $warningproperty;
+    private $riskyproperty;
     private $printsummary = false;
     private $testfailed = false;
     private $testfailuremessage = "";
@@ -135,6 +140,70 @@ class PHPUnitTask extends Task
     public function setSkippedproperty($value)
     {
         $this->skippedproperty = $value;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setRiskyproperty($value)
+    {
+        $this->riskyproperty = $value;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setWarningproperty($value)
+    {
+        $this->riskyproperty = $value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHaltondefect(): bool
+    {
+        return $this->haltondefect;
+    }
+
+    /**
+     * @param bool $haltondefect
+     */
+    public function setHaltondefect(bool $haltondefect): void
+    {
+        $this->haltondefect = $haltondefect;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHaltonwarning(): bool
+    {
+        return $this->haltonwarning;
+    }
+
+    /**
+     * @param bool $haltonwarning
+     */
+    public function setHaltonwarning(bool $haltonwarning): void
+    {
+        $this->haltonwarning = $haltonwarning;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHaltonrisky(): bool
+    {
+        return $this->haltonrisky;
+    }
+
+    /**
+     * @param bool $haltonrisky
+     */
+    public function setHaltonrisky(bool $haltonrisky): void
+    {
+        $this->haltonrisky = $haltonrisky;
     }
 
     /**
@@ -294,7 +363,7 @@ class PHPUnitTask extends Task
      * Load and processes the PHPUnit configuration
      *
      * @param  $configuration
-     * @return array
+     * @return mixed
      * @throws ReflectionException
      * @throws BuildException
      */
@@ -304,7 +373,13 @@ class PHPUnitTask extends Task
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
         }
 
-        $config = \PHPUnit\TextUI\Configuration\Registry::getInstance()->get($configuration->getAbsolutePath());
+        if (class_exists('\PHPUnit\TextUI\Configuration\Registry')) {
+            $config = \PHPUnit\TextUI\Configuration\Registry::getInstance()->get($configuration->getAbsolutePath());
+        } elseif (class_exists('\PHPUnit\TextUI\XmlConfiguration\Loader')) {
+            $config = (new \PHPUnit\TextUI\XmlConfiguration\Loader())->load($configuration->getAbsolutePath());
+        } else {
+            throw new BuildException("Can't parse PHPUnit configuration file '" . (string) $configuration . "'");
+        }
 
         if (empty($config)) {
             return [];
@@ -323,6 +398,9 @@ class PHPUnitTask extends Task
         $this->setHaltonerror($phpunit->stopOnError());
         $this->setHaltonskipped($phpunit->stopOnSkipped());
         $this->setHaltonincomplete($phpunit->stopOnIncomplete());
+        $this->setHaltondefect($phpunit->stopOnDefect());
+        $this->setHaltonwarning($phpunit->stopOnWarning());
+        $this->setHaltonrisky($phpunit->stopOnRisky());
         $this->setProcessIsolation($phpunit->processIsolation());
 
         foreach ($config->listeners() as $listener) {
@@ -350,17 +428,6 @@ class PHPUnitTask extends Task
                 }
             }
         }
-
-/*        if (method_exists($config, 'getSeleniumBrowserConfiguration')) {
-            $browsers = $config->getSeleniumBrowserConfiguration();
-
-            if (
-                !empty($browsers)
-                && class_exists('PHPUnit_Extensions_SeleniumTestCase')
-            ) {
-                PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
-            }
-        } */
 
         return $phpunit;
     }
@@ -467,7 +534,8 @@ class PHPUnitTask extends Task
                     $filter->addDirectoryToBlacklist($path);
                 }
                 if (class_exists('\SebastianBergmann\CodeCoverage\CodeCoverage')) {
-                    $codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage(null, $filter);
+                    $driver = (new \SebastianBergmann\CodeCoverage\Driver\Selector())->forLineCoverage($filter);
+                    $codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage($driver, $filter);
                     $runner->setCodecoverage($codeCoverage);
                 }
             }
@@ -548,6 +616,28 @@ class PHPUnitTask extends Task
             if ($this->haltonskipped) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastSkippedMessage();
+            }
+        }
+
+        if ($runner->hasWarnings()) {
+            if ($this->warningproperty) {
+                $this->project->setNewProperty($this->warningproperty, true);
+            }
+
+            if ($this->haltonwarning) {
+                $this->testfailed = true;
+                $this->testfailuremessage = $runner->getLastWarningMessage();
+            }
+        }
+
+        if ($runner->hasRisky()) {
+            if ($this->riskyproperty) {
+                $this->project->setNewProperty($this->riskyproperty, true);
+            }
+
+            if ($this->haltonrisky) {
+                $this->testfailed = true;
+                $this->testfailuremessage = $runner->getLastRiskyMessage();
             }
         }
     }

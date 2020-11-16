@@ -131,11 +131,10 @@ class HttpRequestTask extends HttpTask
     }
 
     /**
-     * Creates and configures an instance of HTTP_Request2
+     * Creates, configures, and sends a request
      *
      * @param array $options
      * @return ResponseInterface
-     * @throws HTTP_Request2_Exception
      */
     protected function request($options = [])
     {

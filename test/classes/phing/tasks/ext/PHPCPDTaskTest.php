@@ -53,6 +53,6 @@ class PHPCPDTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
-        $this->assertStringContainsString("No clones found.\n\n", $output);
+        $this->assertStringContainsString("No clones found.", $output);
     }
 }

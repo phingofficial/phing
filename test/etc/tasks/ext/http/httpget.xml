@@ -52,4 +52,10 @@
         <property name="phing.http.timeout" value="20" />
         <httpget url="http://example.com/foo.bar" dir="${tmp.dir}"/>
     </target>
+
+    <target name="config-properties-empty">
+        <property name="phing.http.proxy" value="${does.not.exist}" />
+        <property name="phing.http.timeout" value="20" />
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}"/>
+    </target>
 </project>

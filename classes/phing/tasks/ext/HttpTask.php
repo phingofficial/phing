@@ -125,7 +125,7 @@ abstract class HttpTask extends Task
     }
 
     /**
-     * Creates and configures an instance of HTTP_Request2
+     * Creates, configures, and sends a request
      *
      * @param array $options
      * @return ResponseInterface
@@ -151,7 +151,7 @@ abstract class HttpTask extends Task
 
         foreach (array_keys($this->getProject()->getProperties()) as $propName) {
             if (0 === strpos($propName, 'phing.http.')) {
-                $options[substr($propName, 11)] = $this->getProject()->getProperty($propName);
+                $options[substr($propName, 11)] = (string) $this->getProject()->getProperty($propName);
             }
         }
 
