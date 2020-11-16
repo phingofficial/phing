@@ -198,6 +198,7 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
      */
     public function testPatternMatchWithPatternDelimiter()
     {
+        $this->expectNotToPerformAssertions();
         $pregEngine = new PregEngine();
         $pattern = PregEngine::DELIMITER;
         $source = PregEngine::DELIMITER;

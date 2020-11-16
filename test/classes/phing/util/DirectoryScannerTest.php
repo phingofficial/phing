@@ -58,6 +58,7 @@ class DirectoryScannerTest extends BuildFileTest
 
     public function testNoErrorOnMissingDir()
     {
+        $this->expectNotToPerformAssertions();
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->basedir . '/THIS_DOES_NOT_EXIST');
         $ds->scan();

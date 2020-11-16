@@ -39,34 +39,20 @@ class WikiPublishTaskTest extends BuildFileTest
         $task->setContent('some content');
         $task->setMode('prepend');
 
-        $task->expects($this->at(0))
+        $task->expects($this->exactly(4))
             ->method('callApi')
-            ->with(
-                'action=login',
-                ['lgname' => 'testUser', 'lgpassword' => 'testPassword']
+            ->withConsecutive(
+                ['action=login', ['lgname' => 'testUser', 'lgpassword' => 'testPassword']],
+                ['action=login', ['lgname' => 'testUser', 'lgpassword' => 'testPassword', 'lgtoken' => 'testLgToken']],
+                ['action=tokens&type=edit'],
+                ['action=edit&token=testEditToken%2B%2F', ['minor' => '', 'title' => 'some page', 'prependtext' => 'some content']]
             )
-            ->willReturn(['login' => ['result' => 'NeedToken', 'token' => 'testLgToken']]);
-
-        $task->expects($this->at(1))
-            ->method('callApi')
-            ->with(
-                'action=login',
-                ['lgname' => 'testUser', 'lgpassword' => 'testPassword', 'lgtoken' => 'testLgToken']
-            )
-            ->willReturn(['login' => ['result' => 'Success']]);
-
-        $task->expects($this->at(2))
-            ->method('callApi')
-            ->with('action=tokens&type=edit')
-            ->willReturn(['tokens' => ['edittoken' => 'testEditToken+/']]);
-
-        $task->expects($this->at(3))
-            ->method('callApi')
-            ->with(
-                'action=edit&token=testEditToken%2B%2F',
-                ['minor' => '', 'title' => 'some page', 'prependtext' => 'some content']
-            )
-            ->willReturn(['edit' => ['result' => 'Success']]);
+            ->willReturnOnConsecutiveCalls(
+                ['login' => ['result' => 'NeedToken', 'token' => 'testLgToken']],
+                ['login' => ['result' => 'Success']],
+                ['tokens' => ['edittoken' => 'testEditToken+/']],
+                ['edit' => ['result' => 'Success']]
+            );
 
         $task->main();
     }
@@ -100,6 +86,6 @@ class WikiPublishTaskTest extends BuildFileTest
     {
         $result = $this->getMockBuilder('WikiPublishTask');
 
-        return $result->setMethods(['callApi'])->getMock();
+        return $result->onlyMethods(['callApi'])->getMock();
     }
 }
