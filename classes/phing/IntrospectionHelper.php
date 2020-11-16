@@ -207,11 +207,8 @@ class IntrospectionHelper
                         );
                     }
 
-                    $classname = null;
-
-                    if (($hint = $params[0]->getClass()) !== null) {
-                        $classname = $hint->getName();
-                    }
+                    /** @var \ReflectionType $hint */
+                    $classname = (($hint = $params[0]->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
 
                     if ($classname === null) {
                         throw new BuildException(
@@ -239,11 +236,8 @@ class IntrospectionHelper
                         );
                     }
 
-                    $classname = null;
-
-                    if (($hint = $params[0]->getClass()) !== null) {
-                        $classname = $hint->getName();
-                    }
+                    /** @var \ReflectionType $hint */
+                    $classname = (($hint = $params[0]->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
 
                     // we don't use the classname here, but we need to make sure it exists before
                     // we later try to instantiate a non-existent class
@@ -326,16 +320,9 @@ class IntrospectionHelper
                 $value = new Reference($project, $value);
             } else {
                 $params = $method->getParameters();
-                $reflectedAttr = null;
 
-                // try to determine parameter type
-                if (($argType = $params[0]->getType()) !== null) {
-                    /** @var ReflectionNamedType $argType */
-                    $reflectedAttr = $argType->getName();
-                } elseif (($classType = $params[0]->getClass()) !== null) {
-                    /** @var ReflectionClass $classType */
-                    $reflectedAttr = $classType->getName();
-                }
+                /** @var \ReflectionType $hint */
+                $reflectedAttr = ($hint = $params[0]->getType()) ? $hint->getName() : null;
 
                 // value is a string representation of a boolean type,
                 // convert it to primitive
@@ -437,11 +424,8 @@ class IntrospectionHelper
                 // exist and that method is using class hints
                 $params = $method->getParameters();
 
-                $classname = null;
-
-                if (($hint = $params[0]->getClass()) !== null) {
-                    $classname = $hint->getName();
-                }
+                /** @var \ReflectionType $hint */
+                $classname = (($hint = $params[0]->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
 
                 // create a new instance of the object and add it via $addMethod
                 $clazz = new ReflectionClass($classname);

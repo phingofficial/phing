@@ -66,6 +66,7 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
 
         $sb = "Testsuite: " . $suite->getName() . "\n";
         $sb .= "Tests run: " . $this->getRunCount();
+        $sb .= ", Risky: " . $this->getRiskyCount();
         $sb .= ", Warnings: " . $this->getWarningCount();
         $sb .= ", Failures: " . $this->getFailureCount();
         $sb .= ", Errors: " . $this->getErrorCount();
@@ -116,6 +117,17 @@ class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     {
         parent::addWarning($test, $e, $time);
         $this->formatError("WARNING", $test, $e);
+    }
+
+    /**
+     * @param PHPUnit\Framework\Test $test
+     * @param PHPUnit\Framework\AssertionFailedError $e
+     * @param float $time
+     */
+    public function addRiskyTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
+    {
+        parent::addRiskyTest($test, $e, $time);
+        $this->formatError("RISKY", $test, $e);
     }
 
     /**
