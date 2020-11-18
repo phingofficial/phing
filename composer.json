@@ -62,7 +62,7 @@
         "pear/mail": "^1.4",
         "pear/mail_mime": "^1.10",
         "pear/net_growl": "dev-master",
-        "pear/pear-core-minimal": "~1.10.9",
+        "pear/pear-core-minimal": "^1.10.10",
         "pear/versioncontrol_git": "dev-master",
         "pear/versioncontrol_svn": "~0.5",
         "phploc/phploc": "^7.0",
