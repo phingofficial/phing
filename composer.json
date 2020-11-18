@@ -65,7 +65,7 @@
         "pear/net_growl": "dev-master",
         "pear/pear-core-minimal": "^1.10.10",
         "pear/versioncontrol_git": "dev-master",
-        "pear/versioncontrol_svn": "~0.5",
+        "pear/versioncontrol_svn": "^0.5.2",
         "phploc/phploc": "^7.0",
         "phpmd/phpmd": "~2.8",
         "phpunit/phpunit": "^9.4",
