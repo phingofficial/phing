@@ -49,10 +49,6 @@ class StripPhpCommentsTest extends BuildFileTest
         $expected = file_get_contents($expectedFile->getAbsolutePath());
         $result = file_get_contents($resultFile->getAbsolutePath());
 
-        if (OsCondition::isFamily(OsCondition::FAMILY_WINDOWS)) {
-            $expected = str_replace("\n", PHP_EOL, $expected);
-        }
-
         $this->assertEquals($expected, $result, "Files don't match!");
     }
 }
