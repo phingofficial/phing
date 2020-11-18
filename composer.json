@@ -55,7 +55,7 @@
         "aws/aws-sdk-php": "^3.112",
         "guzzlehttp/guzzle": "^7.1",
         "jawira/plantuml-encoding": "^1.0",
-        "mikey179/vfsstream": "^1.6",
+        "mikey179/vfsstream": "^1.6.8",
         "monolog/monolog": "^1.25 || ^2.0",
         "pdepend/pdepend": "^2.5.2",
         "pear/archive_tar": "~1.4.7",

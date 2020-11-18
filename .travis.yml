@@ -5,7 +5,6 @@ php:
   - 7.3
   - 7.4
   - 8.0snapshot
-  - 8.1snapshot
   - master
 
 env:
@@ -44,28 +43,27 @@ before_install:
 install:
   - |
     if [[ "$DEPS" == "LOW" ]]; then
-      composer install --prefer-dist --no-progress --no-interaction --no-suggest;
-      composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest --prefer-lowest;
+      composer install --prefer-dist --no-progress --no-interaction;
+      composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --prefer-lowest;
     else
-      composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction --no-suggest;
+      composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction;
     fi
 
 script:
   - echo "=== TESTING PHING ==="
   - cd test
-  - ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
+  - ../bin/phing -verbose -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
   - cd ..
 
 jobs:
   allow_failures:
     - php: 8.0snapshot
-    - php: 8.1snapshot
     - php: master
     - php: nightly
   include:
     - php: nightly
       env: DEPS="IGNORE"
-      install: composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest --ignore-platform-reqs
+      install: composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --ignore-platform-reqs
 
     - stage: test with coverage
       php: 7.4
