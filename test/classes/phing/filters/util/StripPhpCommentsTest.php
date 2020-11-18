@@ -39,15 +39,19 @@ class StripPhpCommentsTest extends BuildFileTest
         $this->executeTarget("cleanup");
     }
 
-    public function testSortFilter()
+    public function testStripPhpComments()
     {
-        $this->executeTarget("testStripPhpComments");
+        $this->executeTarget(__FUNCTION__);
 
         $expectedFile = $this->getProject()->resolveFile("expected/stripphpcomments.test");
         $resultFile = $this->getProject()->resolveFile("result/stripphpcomments.test");
 
         $expected = file_get_contents($expectedFile->getAbsolutePath());
         $result = file_get_contents($resultFile->getAbsolutePath());
+
+        if (OsCondition::isFamily(OsCondition::FAMILY_WINDOWS)) {
+            $expected = str_replace("\n", PHP_EOL, $expected);
+        }
 
         $this->assertEquals($expected, $result, "Files don't match!");
     }

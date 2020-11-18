@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5993d47fdc539053491cbae22d6ae9fa",
+    "content-hash": "8f873d7b510d9422a30b8166ce7041a7",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",

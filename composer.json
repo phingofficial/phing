@@ -59,6 +59,7 @@
         "monolog/monolog": "^1.25 || ^2.0",
         "pdepend/pdepend": "^2.5.2",
         "pear/archive_tar": "~1.4.7",
+        "pear/console_getopt": "^v1.4.3",
         "pear/mail": "^1.4",
         "pear/mail_mime": "^1.10",
         "pear/net_growl": "dev-master",
