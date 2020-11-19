@@ -47,6 +47,7 @@ class GitPullTaskTest extends BuildFileTest
 
     public function testAllParamsSet()
     {
+        $this->markTestIncomplete('needs investigation');
         /*$repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
@@ -58,6 +59,7 @@ class GitPullTaskTest extends BuildFileTest
 
     public function testAllParamsSetRebase()
     {
+        $this->markTestIncomplete('needs investigation');
         /*$repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSetRebase');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
@@ -78,6 +80,7 @@ class GitPullTaskTest extends BuildFileTest
 
     public function testTagsSet()
     {
+        $this->markTestIncomplete('needs investigation');
         /*$repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('tagsSet');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
@@ -97,6 +100,7 @@ class GitPullTaskTest extends BuildFileTest
 
     public function testNoTagsSet()
     {
+        $this->markTestIncomplete('needs investigation');
         /*$repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('noTagsSet');
         $this->assertInLogs('git-pull: pulling from origin foobranch');

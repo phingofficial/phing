@@ -57,11 +57,13 @@ class DependSetTest extends BuildFileTest
 
     public function test4()
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
     }
 
     public function test5()
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
         $f = new PhingFile($this->getProjectDir(), 'older.tmp');
         if ($f->exists()) {

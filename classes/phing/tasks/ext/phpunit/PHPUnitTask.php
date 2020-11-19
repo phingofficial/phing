@@ -83,14 +83,6 @@ class PHPUnitTask extends Task
 
     private function loadPHPUnit()
     {
-        /**
-         * Determine PHPUnit version number, try
-         * PEAR old-style, then composer, then PHAR
-         */
-        @include_once 'PHPUnit/Runner/Version.php';
-        if (!class_exists('PHPUnit_Runner_Version')) {
-            @include_once 'phpunit/Runner/Version.php';
-        }
         if (!empty($this->pharLocation)) {
             $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
             ob_start();
@@ -98,7 +90,6 @@ class PHPUnitTask extends Task
             ob_end_clean();
         }
 
-        @include_once 'PHPUnit/Autoload.php';
         if (!class_exists('PHPUnit\Runner\Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
         }
