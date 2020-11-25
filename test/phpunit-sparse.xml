@@ -16,4 +16,17 @@
         <ini name="memory_limit" value="-1"/>
         <ini name="date.timezone" value="UTC"/>
     </php>
+    <coverage cacheDirectory="./reports/cache"
+              processUncoveredFiles="true"
+              pathCoverage="false"
+              ignoreDeprecatedCodeUnits="true" >
+        <include>
+            <directory suffix=".php">../classes/phing</directory>
+        </include>
+        <exclude>
+            <directory>../bin</directory>
+            <directory>.</directory>
+            <directory>../vendor</directory>
+        </exclude>
+    </coverage>
 </phpunit>
