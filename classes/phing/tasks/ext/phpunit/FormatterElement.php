@@ -156,7 +156,7 @@ class FormatterElement
      * Returns formatter object
      *
      * @return PHPUnitResultFormatter
-     *@throws BuildException
+     * @throws BuildException
      */
     public function getFormatter()
     {
