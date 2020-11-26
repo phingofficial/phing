@@ -33,7 +33,7 @@ class PHPUnitTaskTest extends BuildFileTest
 
     /**
      * Regression test for http://www.phing.info/trac/ticket/655
-     * "PlainPHPUnitResultFormatter7 does not display errors if dataProvider was used"
+     * "PlainPHPUnitResultFormatter does not display errors if dataProvider was used"
      */
     public function testPlainFormatterDataProvider()
     {
