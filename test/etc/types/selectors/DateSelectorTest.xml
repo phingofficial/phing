@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test.dateselector" basedir="." default="main">
+    <property name="tmp.dir" value="tmp/date"/>
+
+    <resolvepath propertyName="input.dir" dir="${tmp.dir}" path="testinput"/>
+    <resolvepath propertyName="output.dir" dir="${tmp.dir}" path="testoutput"/>
+
+    <target name="setup">
+        <mkdir dir="${input.dir}"/>
+        <mkdir dir="${output.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${input.dir}"/>
+        <delete dir="${output.dir}"/>
+    </target>
+
+    <target name="testSecondsWithDefaults">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="${epoch.seconds}" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testSecondsWithWhenAfter">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="${epoch.seconds}" when="after" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testSecondsWithWhenBefore">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="${epoch.seconds}" when="before" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testSecondsGranularitySixtySeconds">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="${epoch.seconds}" granularity="60" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testMillis">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date millis="${epoch.millis}" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testInvalidWhen">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="100000" when="ever" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testInvalidAttribute">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="100000" moonpie="Sheldon" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="main">
+        <echo msg="This test build file is not executable."/>
+    </target>
+</project>

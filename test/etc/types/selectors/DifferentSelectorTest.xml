@@ -19,8 +19,8 @@
     </target>
 
     <target name="testSameTime">
-        <touch file="${a}/a.txt" millis="102134111"/>
-        <touch file="${b}/a.txt" millis="102134111"/>
+        <touch file="${a}/a.txt" seconds="102134111"/>
+        <touch file="${b}/a.txt" seconds="102134111"/>
         <copy todir="${result}">
             <fileset dir="${b}">
                 <different targetdir="${a}" ignoreContents="true" ignoreFileTimes="false"/>
@@ -29,8 +29,8 @@
     </target>
 
     <target name="testDifferentTime">
-        <touch file="${a}/b.txt" millis="102134111"/>
-        <touch file="${b}/b.txt" millis="102134200"/>
+        <touch file="${a}/b.txt" seconds="102134111"/>
+        <touch file="${b}/b.txt" seconds="102134200"/>
         <copy todir="${result}">
             <fileset dir="${b}">
                 <different targetdir="${a}" ignoreContents="true" ignoreFileTimes="false" />
