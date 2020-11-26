@@ -20,15 +20,16 @@
 /**
  * Prints Clover XML output of the test
  *
- * @author  Daniel Kreckel <daniel@kreckel.koeln>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.formatter
  */
-class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
+class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     /**
      * @var PHPUnit\Framework\TestResult
      */
     private $result = null;
+
     /**
      * PHPUnit version
      *
@@ -42,6 +43,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     public function __construct(PHPUnitTask $parentTask)
     {
         parent::__construct($parentTask);
+
         $this->version = PHPUnit\Runner\Version::id();
     }
 
@@ -50,7 +52,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      */
     public function getExtension()
     {
-        return '.xml';
+        return ".xml";
     }
 
     /**
@@ -58,7 +60,7 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
      */
     public function getPreferredOutfile()
     {
-        return 'crap4j-coverage';
+        return "clover-coverage";
     }
 
     /**
@@ -72,15 +74,19 @@ class Crap4JPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     public function endTestRun()
     {
         $coverage = $this->result->getCodeCoverage();
+
         if (!empty($coverage)) {
-            $crapClass = '\SebastianBergmann\CodeCoverage\Report\Crap4j';
-            $crap = new $crapClass();
-            $contents = $crap->process($coverage);
+            $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Clover';
+            $clover = new $cloverClass();
+
+            $contents = $clover->process($coverage);
+
             if ($this->out) {
                 $this->out->write($contents);
                 $this->out->close();
             }
         }
+
         parent::endTestRun();
     }
 }

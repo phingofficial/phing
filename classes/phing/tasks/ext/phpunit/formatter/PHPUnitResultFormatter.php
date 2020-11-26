@@ -23,7 +23,7 @@
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
-abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
+abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
 {
     protected $out;
 
