@@ -34,6 +34,7 @@ class DateSelector extends BaseExtendSelector
     private $granularity = 0;
     private $cmp = 2;
     public const MILLIS_KEY = "millis";
+    public const SECONDS_KEY = "seconds";
     public const DATETIME_KEY = "datetime";
     public const CHECKDIRS_KEY = "checkdirs";
     public const GRANULARITY_KEY = "granularity";
@@ -54,10 +55,14 @@ class DateSelector extends BaseExtendSelector
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = "{dateselector date: ";
-        $buf .= $this->dateTime;
+        if (null === $this->dateTime) {
+            $buf .= date(DateTimeInterface::RFC822, $this->seconds);
+        } else {
+            $buf .= $this->dateTime;
+        }
         $buf .= " compare: ";
         if ($this->cmp === 0) {
             $buf .= "before";
@@ -79,15 +84,15 @@ class DateSelector extends BaseExtendSelector
      * @param int $seconds the time to compare file's last modified date to,
      *                     expressed in seconds
      */
-    public function setSeconds($seconds)
+    public function setSeconds(int $seconds): void
     {
-        $this->seconds = (int) $seconds;
+        $this->seconds = $seconds;
     }
 
     /**
      * Returns the seconds value the selector is set for.
      */
-    public function getSeconds()
+    public function getSeconds(): int
     {
         return $this->seconds;
     }
@@ -95,9 +100,9 @@ class DateSelector extends BaseExtendSelector
     /**
      * @param int $millis the time to compare file's last modified date to, expressed in milliseconds
      */
-    public function setMillis($millis)
+    public function setMillis(int $millis): void
     {
-        $this->setSeconds((int) $millis * 1000);
+        $this->setSeconds($millis / 1000);
     }
 
     /**
@@ -106,10 +111,10 @@ class DateSelector extends BaseExtendSelector
      *
      * @param string $dateTime a string in MM/DD/YYYY HH:MM AM_PM format
      */
-    public function setDatetime($dateTime)
+    public function setDatetime(string $dateTime): void
     {
         $dt = strtotime($dateTime);
-        if ($dt == -1) {
+        if (false === $dt) {
             $this->setError(
                 "Date of " . $dateTime
                 . " Cannot be parsed correctly. It should be in"
@@ -126,19 +131,27 @@ class DateSelector extends BaseExtendSelector
      *
      * @param boolean $includeDirs whether to check the timestamp on directories
      */
-    public function setCheckdirs($includeDirs)
+    public function setCheckdirs(bool $includeDirs): void
     {
-        $this->includeDirs = (bool) $includeDirs;
+        $this->includeDirs = $includeDirs;
     }
 
     /**
-     * Sets the number of milliseconds leeway we will give before we consider
+     * Sets the number of seconds leeway we will give before we consider
      * a file not to have matched a date.
      *
      * @param int $granularity
      */
-    public function setGranularity($granularity)
+    public function setGranularity(int $granularity): void
     {
+        /*
+         * For BC, if $granularity is greater than 1000 assume that
+         * milliseconds was passed and convert to seconds.
+         */
+        if ($granularity > 1000) {
+            $granularity /= 1000;
+        }
+
         $this->granularity = (int) $granularity;
     }
 
@@ -148,10 +161,10 @@ class DateSelector extends BaseExtendSelector
      *
      * @param string $cmp The comparison to perform
      */
-    public function setWhen($cmp)
+    public function setWhen(string $cmp): void
     {
         $idx = array_search($cmp, self::$timeComparisons, true);
-        if ($idx === null) {
+        if (false === $idx) {
             $this->setError("Invalid value for " . self::WHEN_KEY . ": " . $cmp);
         } else {
             $this->cmp = $idx;
@@ -174,6 +187,9 @@ class DateSelector extends BaseExtendSelector
                 switch (strtolower($paramname)) {
                     case self::MILLIS_KEY:
                         $this->setMillis($parameters[$i]->getValue());
+                        break;
+                    case self::SECONDS_KEY:
+                        $this->setSeconds($parameters[$i]->getValue());
                         break;
                     case self::DATETIME_KEY:
                         $this->setDatetime($parameters[$i]->getValue());
@@ -198,7 +214,7 @@ class DateSelector extends BaseExtendSelector
      * This is a consistency check to ensure the selector's required
      * values have been set.
      */
-    public function verifySettings()
+    public function verifySettings(): void
     {
         if ($this->dateTime === null && $this->seconds < 0) {
             $this->setError(

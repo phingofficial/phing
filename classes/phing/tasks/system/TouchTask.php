@@ -33,7 +33,7 @@ class TouchTask extends Task
      * @var PhingFile $file
      */
     private $file;
-    private $millis = -1;
+    private $seconds = -1;
     private $dateTime;
     private $fileUtils;
     private $mkdirs = false;
@@ -58,7 +58,7 @@ class TouchTask extends Task
      * @param  PhingFile $file
      * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(PhingFile $file): void
     {
         $this->file = $file;
     }
@@ -68,12 +68,27 @@ class TouchTask extends Task
      * in milliseconds since midnight Jan 1 1970.
      * Optional, default=now
      *
+     * @deprecated Use setSeconds() instead.
+     *
      * @param  $millis
      * @return void
      */
-    public function setMillis($millis)
+    public function setMillis(int $millis): void
     {
-        $this->millis = (int) $millis;
+        $this->seconds = ($millis) / 1000;
+    }
+
+    /**
+     * the new modification time of the file
+     * in seconds since midnight Jan 1 1970.
+     * Optional, default=now
+     *
+     * @param  $seconds
+     * @return void
+     */
+    public function setSeconds(int $seconds): void
+    {
+        $this->seconds = $seconds;
     }
 
     /**
@@ -84,10 +99,15 @@ class TouchTask extends Task
      * @param  $dateTime
      * @return void
      */
-    public function setDatetime($dateTime)
+    public function setDatetime(string $dateTime): void
     {
-        $this->dateTime = (string) $dateTime;
-        $this->setMillis(strtotime($this->dateTime));
+        $timestmap = strtotime($dateTime);
+        if (false !== $timestmap) {
+            $this->dateTime = (string) $dateTime;
+            $this->setSeconds($timestmap);
+        } else {
+            throw new BuildException("Invalidate datetime attribute value: " . $dateTime . PHP_EOL);
+        }
     }
 
     /**
@@ -96,7 +116,7 @@ class TouchTask extends Task
      *
      * @param boolean $mkdirs whether to create parent directories.
      */
-    public function setMkdirs($mkdirs)
+    public function setMkdirs(bool $mkdirs): void
     {
         $this->mkdirs = $mkdirs;
     }
@@ -107,7 +127,7 @@ class TouchTask extends Task
      *
      * @param boolean $verbose flag.
      */
-    public function setVerbose($verbose)
+    public function setVerbose(bool $verbose): void
     {
         $this->verbose = $verbose;
     }
@@ -118,7 +138,7 @@ class TouchTask extends Task
      * @throws BuildException
      * @throws IOException
      */
-    public function createMapper()
+    public function createMapper(): Mapper
     {
         if ($this->mapperElement !== null) {
             throw new BuildException("Cannot define more than one mapper", $this->getLocation());
@@ -128,9 +148,9 @@ class TouchTask extends Task
         return $this->mapperElement;
     }
 
-    protected function checkConfiguration()
+    protected function checkConfiguration(): void
     {
-        $savedMillis = $this->millis;
+        $savedSeconds = $this->seconds;
 
         if ($this->file === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
             throw new BuildException("Specify at least one source - a file, a fileset or a filelist.");
@@ -142,7 +162,7 @@ class TouchTask extends Task
 
         try { // try to touch file
             if ($this->dateTime !== null) {
-                if ($this->millis < 0) {
+                if ($this->seconds < 0) {
                     throw new BuildException("Date of {$this->dateTime} results in negative milliseconds value relative to epoch (January 1, 1970, 00:00:00 GMT).");
                 }
             }
@@ -150,18 +170,18 @@ class TouchTask extends Task
             throw new BuildException("Error touch()ing file", $ex, $this->getLocation());
         }
         $this->log(
-            "Setting millis to " . $savedMillis . " from datetime attribute",
-            ($this->millis < 0 ? Project::MSG_DEBUG : Project::MSG_VERBOSE)
+            "Setting seconds to " . $savedSeconds . " from datetime attribute",
+            ($this->seconds < 0 ? Project::MSG_DEBUG : Project::MSG_VERBOSE)
         );
 
-        $this->millis = $savedMillis;
+        $this->seconds = $savedSeconds;
     }
 
     /**
      * Execute the touch operation.
      * @throws BuildException
      */
-    public function main()
+    public function main(): void
     {
         $this->checkConfiguration();
         $this->_touch();
@@ -170,7 +190,7 @@ class TouchTask extends Task
     /**
      * Does the actual work.
      */
-    public function _touch()
+    public function _touch(): void
     {
         if ($this->file !== null) {
             if (!$this->file->exists()) {
@@ -191,9 +211,9 @@ class TouchTask extends Task
         }
 
         $resetMillis = false;
-        if ($this->millis < 0) {
+        if ($this->seconds < 0) {
             $resetMillis = true;
-            $this->millis = Phing::currentTimeMillis();
+            $this->seconds = Phing::currentTimeMillis();
         }
 
         if ($this->file !== null) {
@@ -235,11 +255,11 @@ class TouchTask extends Task
         }
 
         if ($resetMillis) {
-            $this->millis = -1;
+            $this->seconds = -1;
         }
     }
 
-    private function getMappedFileNames($file)
+    private function getMappedFileNames(string $file): array
     {
         if ($this->mapperElement !== null) {
             $mapper = $this->mapperElement->getImplementation();
@@ -259,11 +279,12 @@ class TouchTask extends Task
      * @param $file
      * @throws BuildException
      */
-    private function touchFile(PhingFile $file)
+    private function touchFile(PhingFile $file): void
     {
         if (!$file->canWrite()) {
             throw new BuildException("Can not change modification date of read-only file " . (string) $file);
         }
-        $file->setLastModified($this->millis);
+
+        $file->setLastModified($this->seconds);
     }
 }

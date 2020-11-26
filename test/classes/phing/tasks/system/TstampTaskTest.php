@@ -25,17 +25,11 @@
  */
 class TstampTaskTest extends BuildFileTest
 {
-    /** @var TstampTask */
-    private $tstamp;
-
     public function setUp(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/TstampTest.xml'
         );
-
-        $this->tstamp = new TstampTask();
-        $this->tstamp->setProject($this->project);
     }
 
     public function testMagicProperty()
@@ -64,8 +58,10 @@ class TstampTaskTest extends BuildFileTest
 
     public function testPrefix()
     {
-        $this->tstamp->setPrefix('prefix');
-        $this->tstamp->main();
+        $tstamp = new TstampTask();
+        $tstamp->setProject($this->project);
+        $tstamp->setPrefix('prefix');
+        $tstamp->main();
         $prop = $this->project->getProperty('prefix.DSTAMP');
         $this->assertNotNull($prop);
     }

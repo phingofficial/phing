@@ -255,13 +255,19 @@ abstract class BuildFileTest extends TestCase
     {
         $this->logBuffer = [];
         $this->fullLogBuffer = "";
-        $this->project = new Project();
-        $this->project->init();
+
         $f = new PhingFile($filename);
-        $this->project->setUserProperty("phing.file", $f->getAbsolutePath());
-        $this->project->setUserProperty("phing.dir", dirname($f->getAbsolutePath()));
-        $this->project->addBuildListener(new PhingTestListener($this));
-        ProjectConfigurator::configureProject($this->project, new PhingFile($filename));
+        $absPath = $f->getAbsolutePath();
+
+        $project = new Project();
+        $project->init();
+        $project->setUserProperty("phing.file", $absPath);
+        $project->setUserProperty("phing.dir", dirname($absPath));
+        $project->addBuildListener(new PhingTestListener($this));
+
+        ProjectConfigurator::configureProject($project, $f);
+
+        $this->project = $project;
     }
 
     /**

@@ -106,4 +106,28 @@ class TouchTaskTest extends BuildFileTest
         $tmpDir = $this->getProject()->getProperty('tmp.dir');
         $this->assertFileExists($tmpDir . '/touchtest');
     }
+
+    /**
+     * test millis attribute
+     */
+    public function testMillis()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $testFile = $this->getProject()->getProperty('tmp.dir') . '/millis-file';
+        $this->assertFileExists($testFile);
+
+        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+    }
+
+    /**
+     * test seconds attribute
+     */
+    public function testSeconds()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $testFile = $this->getProject()->getProperty('tmp.dir') . '/seconds-file';
+        $this->assertFileExists($testFile);
+
+        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+    }
 }
