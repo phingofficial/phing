@@ -18,51 +18,38 @@
  */
 
 /**
- * Prints Clover HTML code coverage of the tests
+ * Prints short summary output of the test to Phing's logging system.
  *
- * @author  Blair Cooper <dev@raincitysolutions.com>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.formatter
+ * @since   2.1.0
  */
-class CloverHtmlPHPUnitResultFormatter9 extends PHPUnitResultFormatter7
+class SummaryPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
-    /**
-     * @var PHPUnit\Framework\TestResult
-     */
-    private $result = null;
-
-    /**
-     * @var string
-     */
-    private $toDir = '.';
-
-    /**
-     * @param PHPUnitTask $parentTask
-     */
-    public function __construct(PHPUnitTask $parentTask, string $toDir)
+    public function endTestRun()
     {
-        parent::__construct($parentTask);
-
-        $this->toDir = $toDir;
-    }
-
-    /**
-     * @param PHPUnit\Framework\TestResult $result
-     */
-    public function processResult(PHPUnit\Framework\TestResult $result): void
-    {
-        $this->result = $result;
-    }
-
-    public function endTestRun(): void
-    {
-        $coverage = $this->result->getCodeCoverage();
-
-        if (!empty($coverage)) {
-            $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Html\Facade';
-            $clover = new $cloverClass();
-            $clover->process($coverage, $this->toDir);
-        }
-
         parent::endTestRun();
+
+        $sb = "Total tests run: " . $this->getRunCount();
+        $sb .= ", Risky: " . $this->getRiskyCount();
+        $sb .= ", Warnings: " . $this->getWarningCount();
+        $sb .= ", Failures: " . $this->getFailureCount();
+        $sb .= ", Errors: " . $this->getErrorCount();
+        $sb .= ", Incomplete: " . $this->getIncompleteCount();
+        $sb .= ", Skipped: " . $this->getSkippedCount();
+        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
+
+        if ($this->out != null) {
+            $this->out->write($sb);
+            $this->out->close();
+        }
+    }
+
+    /**
+     * @return null
+     */
+    public function getExtension()
+    {
+        return null;
     }
 }

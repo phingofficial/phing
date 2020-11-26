@@ -25,7 +25,7 @@ use PHPUnit\Framework\ExpectationFailedException;
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
-class PlainPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
+class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     private $inner = "";
 

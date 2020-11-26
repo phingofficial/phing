@@ -27,7 +27,7 @@
 class FormatterElement
 {
     /**
-     * @var PHPUnitResultFormatter7 $fomatter
+     * @var PHPUnitResultFormatter $fomatter
      */
     protected $formatter;
 
@@ -155,8 +155,8 @@ class FormatterElement
     /**
      * Returns formatter object
      *
+     * @return PHPUnitResultFormatter
      * @throws BuildException
-     * @return PHPUnitResultFormatter7
      */
     public function getFormatter()
     {
@@ -166,18 +166,18 @@ class FormatterElement
 
         if ($this->type === "summary") {
             $this->useFile = false; // Summary formatter never writes to a file
-            $this->formatter = new SummaryPHPUnitResultFormatter7($this->parent);
+            $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
         } elseif ($this->type === "clover") {
-            $this->formatter = new CloverPHPUnitResultFormatter7($this->parent);
+            $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
         } elseif ($this->type === "clover-html") {
             $this->useFile = false; // Clover HTML formatter never writes to a single file
-            $this->formatter = new CloverHtmlPHPUnitResultFormatter9($this->parent, $this->toDir);
+            $this->formatter = new CloverHtmlPHPUnitResultFormatter($this->parent, $this->toDir);
         } elseif ($this->type === "xml") {
-            $this->formatter = new XMLPHPUnitResultFormatter7($this->parent);
+            $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
         } elseif ($this->type === "plain") {
-            $this->formatter = new PlainPHPUnitResultFormatter7($this->parent);
+            $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
         } elseif ($this->type === "crap4j") {
-            $this->formatter = new Crap4JPHPUnitResultFormatter7($this->parent);
+            $this->formatter = new Crap4JPHPUnitResultFormatter($this->parent);
         } else {
             throw new BuildException("Formatter '" . $this->type . "' not implemented");
         }
