@@ -629,7 +629,7 @@ class PHPUnitTask extends Task
             if ($this->errorproperty) {
                 $this->project->setNewProperty($this->errorproperty, true);
             }
-            if ($this->haltonerror) {
+            if ($this->haltonerror || $this->haltondefect) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastErrorMessage();
             }
@@ -640,7 +640,7 @@ class PHPUnitTask extends Task
                 $this->project->setNewProperty($this->failureproperty, true);
             }
 
-            if ($this->haltonfailure) {
+            if ($this->haltonfailure || $this->haltondefect) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastFailureMessage();
             }
@@ -673,7 +673,7 @@ class PHPUnitTask extends Task
                 $this->project->setNewProperty($this->warningproperty, true);
             }
 
-            if ($this->haltonwarning) {
+            if ($this->haltonwarning || $this->haltondefect) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastWarningMessage();
             }
