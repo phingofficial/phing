@@ -161,6 +161,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
         }
 
         $this->injectFilters($suite);
+        $suite->setRunTestInSeparateProcess($this->processIsolation);
         $suite->run($res);
 
         foreach ($this->formatters as $formatter) {
