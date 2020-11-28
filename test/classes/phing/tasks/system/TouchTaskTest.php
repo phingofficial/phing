@@ -109,21 +109,19 @@ class TouchTaskTest extends BuildFileTest
 
     /**
      * test millis attribute
-     *
-     * Skip on 32-bit Windows
-     * @requires OS ^((?!WIN32).)*$
      */
     public function testMillis()
     {
-        fwrite(STDERR, 'OS Family: ' . PHP_OS_FAMILY . PHP_EOL);
-        fwrite(STDERR, 'OS: ' . PHP_OS . PHP_EOL);
-        fwrite(STDERR, 'Integer Size: ' . PHP_INT_SIZE . PHP_EOL);
+        // Don't run the test on 32-bit systems
+        if (PHP_INT_SIZE > 4) {
+            $this->executeTarget(__FUNCTION__);
+            $testFile = $this->getProject()->getProperty('tmp.dir') . '/millis-file';
+            $this->assertFileExists($testFile);
 
-        $this->executeTarget(__FUNCTION__);
-        $testFile = $this->getProject()->getProperty('tmp.dir') . '/millis-file';
-        $this->assertFileExists($testFile);
-
-        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+            $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+        } else {
+            $this->markTestSkipped('Test cannot run on 32-bit systems, epoch millis would have a max of ~25 days');
+        }
     }
 
     /**
