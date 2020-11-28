@@ -100,5 +100,13 @@
         <touch file="${readonly.file}" />
     </target>
 
+    <target name="testMillisSubSecond">
+        <touch file="${tmp.dir}/subsecond-file" millis="689" />
+    </target>
+
+    <target name="testDefaultToNow">
+        <touch file="${tmp.dir}/default-now-file" />
+    </target>
+
     <target name="main"/>
 </project>
