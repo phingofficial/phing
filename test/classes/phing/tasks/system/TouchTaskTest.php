@@ -106,4 +106,100 @@ class TouchTaskTest extends BuildFileTest
         $tmpDir = $this->getProject()->getProperty('tmp.dir');
         $this->assertFileExists($tmpDir . '/touchtest');
     }
+
+    /**
+     * test millis attribute
+     */
+    public function testMillis()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $testFile = $this->getProject()->getProperty('tmp.dir') . '/millis-file';
+        $this->assertFileExists($testFile);
+
+        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+    }
+
+    /**
+     * test seconds attribute
+     */
+    public function testSeconds()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $testFile = $this->getProject()->getProperty('tmp.dir') . '/seconds-file';
+        $this->assertFileExists($testFile);
+
+        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+    }
+
+    /**
+     * test datetime attribute
+     */
+    public function testDatetime()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $testFile = $this->getProject()->getProperty('tmp.dir') . '/datetime-file';
+        $this->assertFileExists($testFile);
+
+        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+    }
+
+    /**
+     * test datetime with improper datetime
+     */
+    public function testNotDateTime()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when datetime has invalid value');
+    }
+
+    public function testNoFile()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when no file specified');
+    }
+
+    public function testFileIsDirectory()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when file specified is a directory');
+    }
+
+    public function testDatetimePreEpoch()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when datetime is prior to January 1, 1970');
+    }
+
+    public function testReadOnlyFile()
+    {
+        $readOnlyFile = $this->getProject()->getProperty('tmp.dir') . '/readonly-file';
+        if (file_exists($readOnlyFile)) {
+            chmod($readOnlyFile, 0666); // ensure file is writable
+        }
+        $writeCnt = file_put_contents($readOnlyFile, 'TouchTaskTest file');
+        if (false !== $writeCnt) {
+            $this->getProject()->setProperty('readonly.file', $readOnlyFile);
+
+            chmod($readOnlyFile, 0444);
+
+            try {
+                $this->executeTarget(__FUNCTION__);
+                $this->fail('Should not be able to "touch" a read-only file');
+            } catch (Exception $e) {
+                // A BuildException is expected to be thrown
+                $this->assertInstanceOf(BuildException::class, $e);
+            } finally {
+                chmod($readOnlyFile, 0666);
+                unlink($readOnlyFile);
+            }
+        } else {
+            $this->fail('Unable to create test file: ' . $readOnlyFile);
+        }
+    }
+
+    public function testMillisNegative()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when millis is negative');
+    }
+
+    public function testSecondsNegative()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when seconds is negative');
+    }
 }
