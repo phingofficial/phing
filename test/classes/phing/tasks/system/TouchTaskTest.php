@@ -115,6 +115,10 @@ class TouchTaskTest extends BuildFileTest
      */
     public function testMillis()
     {
+        fwrite(STDERR, 'OS Family: ' . PHP_OS_FAMILY . PHP_EOL);
+        fwrite(STDERR, 'OS: ' . PHP_OS . PHP_EOL);
+        fwrite(STDERR, 'Integer Size: ' . PHP_INT_SIZE . PHP_EOL);
+
         $this->executeTarget(__FUNCTION__);
         $testFile = $this->getProject()->getProperty('tmp.dir') . '/millis-file';
         $this->assertFileExists($testFile);
