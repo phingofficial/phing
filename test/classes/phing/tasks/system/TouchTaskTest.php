@@ -109,6 +109,9 @@ class TouchTaskTest extends BuildFileTest
 
     /**
      * test millis attribute
+     *
+     * Skip on 32-bit Windows
+     * @requires OS ^((?!WIN32).)*$
      */
     public function testMillis()
     {
