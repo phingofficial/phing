@@ -5648,6 +5648,21 @@
                     </attribute>
                 </optional>
                 <optional>
+                    <attribute name="haltonwarning">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="haltondefect">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="haltonrisky">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
                     <attribute name="haltonincomplete">
                         <data type="boolean"/>
                     </attribute>
