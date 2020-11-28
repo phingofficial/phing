@@ -2,10 +2,12 @@
 <project name="TouchTaskTest" default="main">
     <property name="tmp.dir" value="tmp"/>
 
-    <tstamp />
+    <tstamp>
+        <format property="formattedTimestamp" pattern="%m/%d/%Y %I:%M %p" /> <!-- MM/DD/YYYY HH:MM AM or PM /> -->
+    </tstamp>
 
     <selector id="map.selector">
-        <date datetime="${DSTAMP}:${TSTAMP}" />
+        <date datetime="${formattedTimestamp}" />
     </selector>
 
     <target name="setup">
@@ -29,19 +31,19 @@
     </target>
 
     <target name="testFilelist">
-        <touch datetime="${DSTAMP}:${TSTAMP}">
+        <touch datetime="${formattedTimestamp}">
             <filelist dir="${tmp.dir}" files="simple-file"/>
         </touch>
     </target>
 
     <target name="testFileset" depends="testSimpleTouch">
-        <touch datetime="${DSTAMP}:${TSTAMP}" >
+        <touch datetime="${formattedTimestamp}" >
             <fileset dir="${tmp.dir}" includes="simple-file"/>
         </touch>
     </target>
 
     <target name="testMappedFileset">
-        <touch file="${tmp.dir}/touchtest" datetime="${DSTAMP}:${TSTAMP}" />
+        <touch file="${tmp.dir}/touchtest" datetime="${formattedTimestamp}" />
         <touch>
             <fileset file="${tmp.dir}/touchtest" />
             <mapper type="composite">
@@ -52,10 +54,50 @@
     </target>
 
     <target name="testMappedFilelist">
-        <touch datetime="${DSTAMP}:${TSTAMP}">
+        <touch datetime="${formattedTimestamp}">
             <filelist dir="." files="${tmp.dir}/idonotexist" />
             <mapper type="merge" to="${tmp.dir}/touchtest" />
         </touch>
+    </target>
+
+    <target name="testMillis">
+        <touch file="${tmp.dir}/millis-file" millis="946684799864" /> <!-- Friday, December 31, 1999 11:59:59.864 PM -->
+    </target>
+
+    <target name="testSeconds">
+        <touch file="${tmp.dir}/seconds-file" seconds="946684799" /> <!-- Friday, December 31, 1999 11:59:59 PM -->
+    </target>
+
+    <target name="testDatetime">
+        <touch file="${tmp.dir}/datetime-file" datetime="12/31/1999 11:59:59 PM" />
+    </target>
+
+    <target name="testNotDateTime">
+        <touch file="${tmp.dir}/not-a-datetime" datetime="Not A DateTime" />
+    </target>
+
+    <target name="testNoFile">
+        <touch />
+    </target>
+
+    <target name="testFileIsDirectory">
+        <touch file="${tmp.dir}" />
+    </target>
+
+    <target name="testMillisNegative">
+        <touch file="${tmp.dir}/millis-file" millis="-684799864" />
+    </target>
+
+    <target name="testSecondsNegative">
+        <touch file="${tmp.dir}/seconds-file" millis="-689864" />
+    </target>
+
+    <target name="testDatetimePreEpoch">
+        <touch file="${tmp.dir}/datetime-file" datetime="10/28/1965 10:00:00 AM" />
+    </target>
+
+    <target name="testReadOnlyFile">
+        <touch file="${readonly.file}" />
     </target>
 
     <target name="main"/>
