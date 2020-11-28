@@ -1,4 +1,6 @@
 <?php
+use PHPUnit\Framework\Constraint\IsEqual;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -206,5 +208,27 @@ class TouchTaskTest extends BuildFileTest
     public function testSecondsNegative()
     {
         $this->expectBuildException(__FUNCTION__, 'when seconds is negative');
+    }
+
+    public function testMillisSubSecond()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when millis is less than a second');
+    }
+
+    public function testDefaultToNow()
+    {
+        $nowTime = time();
+
+        $this->executeTarget(__FUNCTION__);
+        $testFile = $this->getProject()->getProperty('tmp.dir') . '/default-now-file';
+        $this->assertFileExists($testFile);
+
+        /*
+         * Assert that the timestamp is within 1 second of the time the test
+         * started. Ideally it's exactly the same but we'll allow for minimal
+         * drift to account for a lag between when we noted the time and when
+         * the file was touched.
+         */
+        $this->assertThat(filemtime($testFile), new IsEqual($nowTime, 1), 'File timestamp not within 1 second of now');
     }
 }

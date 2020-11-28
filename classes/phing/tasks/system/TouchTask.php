@@ -64,8 +64,11 @@ class TouchTask extends Task
     }
 
     /**
-     * The new modification time of the file
-     * in milliseconds since midnight Jan 1 1970.
+     * The new modification time of the file in milliseconds since midnight
+     * Jan 1 1970. Negative values are not accepted nor are values less than
+     * 1000. Note that PHP is actually based on seconds so the value passed
+     * in will be divided by 1000.
+     *
      * Optional, default=now
      *
      * @param  $millis
@@ -74,7 +77,11 @@ class TouchTask extends Task
     public function setMillis($millis)
     {
         if ($millis >= 0) {
-            $this->seconds = (int) $millis / 1000;
+            if ($millis >= 1000) {
+                $this->seconds = (int) $millis / 1000;
+            } else {
+                throw new BuildException("Millis less than 1000 would be treated as 0");
+            }
         } else {
             throw new BuildException("Millis attribute cannot be negative");
         }
