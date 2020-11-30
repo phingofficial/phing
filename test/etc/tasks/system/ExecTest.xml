@@ -202,7 +202,7 @@
         <property environment="env"/>
         <exec executable="phploc" outputProperty="envtest" resolveexecutable="true" searchpath="true">
             <env key="Path" path="${env.Path};${project.basedir}\..\..\..\..\bin"/>
-            <arg value="-V"/>
+            <arg value="-v"/>
         </exec>
     </target>
 
