@@ -1,5 +1,4 @@
 <?php
-use PHPUnit\Framework\Constraint\IsEqual;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -229,6 +228,6 @@ class TouchTaskTest extends BuildFileTest
          * drift to account for a lag between when we noted the time and when
          * the file was touched.
          */
-        $this->assertThat(filemtime($testFile), new IsEqual($nowTime, 1), 'File timestamp not within 1 second of now');
+        $this->assertEqualsWithDelta(filemtime($testFile), $nowTime, 1, 'File timestamp not within 1 second of now');
     }
 }
