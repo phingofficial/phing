@@ -35,6 +35,7 @@
     <php expression="ini_set('error_reporting', -1);"/>
     <php expression="ini_set('memory_limit', -1);"/>
     <php expression="ini_set('date.timezone', 'UTC');"/>
+    <php expression="if (version_compare(phpversion('xdebug'), '3', '>=')) ini_set('xdebug.mode', 'coverage');"/>
 
     <target name="configure">
         <echo>-------------------------------------------------</echo>
