@@ -43,7 +43,7 @@ jobs:
       matrix:
         operating-system: [ ubuntu-latest, windows-latest ]
         php: [ '7.3', '7.4' ]
-    name: PHP ${{ matrix.php }}
+    name: PHP ${{ matrix.php }} on ${{ matrix.operating-system }}
 
     steps:
       - uses: actions/checkout@v2
