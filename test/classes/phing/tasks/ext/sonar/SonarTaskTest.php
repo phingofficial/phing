@@ -72,7 +72,7 @@ class SonarTaskTest extends BuildFileTest
         $this->expectBuildExceptionContaining(
             'executable-path-does-not-exist',
             'executable-path-does-not-exist',
-            'Cannot find SonarQube Scanner'
+            'SonarQube Scanner'
         );
     }
 
