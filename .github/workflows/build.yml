@@ -22,6 +22,7 @@ jobs:
     needs: 
       - static_code_analysis
     runs-on: ${{ matrix.operating-system }}
+    continue-on-error: true
     strategy:
       matrix:
         operating-system: [ ubuntu-latest, macos-latest, windows-latest ]
