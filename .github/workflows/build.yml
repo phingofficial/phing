@@ -42,10 +42,9 @@ jobs:
         name: Checkout repository
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@master
+        uses: nanasess/setup-php@master
         with:
           php-version: ${{ matrix.php }}
-          operating-system: ${{ matrix.operating-system }}
 
       - uses: "ramsey/composer-install@v1"
         with:
