@@ -20,10 +20,10 @@
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *
- * @author  Michiel Rook <mrook@php.net>
+ * @author  Blair Cooper <dev@raincitysolutions.com>
  * @package phing.tasks.ext.phpunit
  */
-class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework\TestListener
+class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework\TestListener
 {
     private $hasErrors = false;
     private $hasFailures = false;
@@ -40,7 +40,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     private $formatters = [];
 
     /**
-     * @var \PHPUnit\Runner\TestHook[]
+     * @var \PHPUnit\Framework\TestListener[]
      */
     private $listeners = [];
 
@@ -69,9 +69,9 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     public function __construct(
         Project $project,
-        $groups = [],
-        $excludeGroups = [],
-        $processIsolation = false
+        array $groups = [],
+        array $excludeGroups = [],
+        bool $processIsolation = false
     ) {
         $this->project = $project;
         $this->groups = $groups;
@@ -90,7 +90,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * @param $useCustomErrorHandler
      */
-    public function setUseCustomErrorHandler($useCustomErrorHandler): void
+    public function setUseCustomErrorHandler(bool $useCustomErrorHandler): void
     {
         $this->useCustomErrorHandler = $useCustomErrorHandler;
     }
@@ -98,13 +98,13 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     /**
      * @param $formatter
      */
-    public function addFormatter($formatter): void
+    public function addFormatter(\PHPUnit\Framework\TestListener $formatter): void
     {
         $this->addListener($formatter);
         $this->formatters[] = $formatter;
     }
 
-    public function addListener($listener): void
+    public function addListener(\PHPUnit\Framework\TestListener $listener): void
     {
         $this->listeners[] = $listener;
     }
@@ -116,7 +116,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * @param $line
      * @return bool
      */
-    public function handleError($level, $message, $file, $line): bool
+    public function handleError(int $level, string $message, string $file, int $line): bool
     {
         $invoke = new PHPUnit\Util\ErrorHandler(true, true, true, true);
         return $invoke($level, $message, $file, $line);
@@ -134,13 +134,16 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
         $res = new PHPUnit\Framework\TestResult();
 
         if ($this->codecoverage) {
-            $whitelist = \Phing\Tasks\Ext\Coverage\CoverageMerger::getWhiteList($this->project);
-            $filter = $this->codecoverage->filter();
+            // Check if Phing coverage is being utlizied
+            if ($this->project->getProperty('coverage.database')) {
+                $whitelist = \Phing\Tasks\Ext\Coverage\CoverageMerger::getWhiteList($this->project);
+                $filter = $this->codecoverage->filter();
 
-            if (method_exists($filter, 'addFilesToWhiteList')) {
-                $filter->addFilesToWhiteList($whitelist);
-            } elseif (method_exists($filter, 'includeFiles')) {
-                $filter->includeFiles($whitelist);
+                if (method_exists($filter, 'includeFiles')) {
+                    $filter->includeFiles($whitelist);
+                } else if (method_exists($filter, 'addFilesToWhiteList')) {
+                    $filter->addFilesToWhiteList($whitelist);
+                }
             }
 
             $res->setCodeCoverage($this->codecoverage);
@@ -158,6 +161,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
         }
 
         $this->injectFilters($suite);
+        $suite->setRunTestInSeparateProcess($this->processIsolation);
         $suite->run($res);
 
         foreach ($this->formatters as $formatter) {
@@ -169,14 +173,14 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
             restore_error_handler();
         }
 
-        if ($this->codecoverage) {
+        // Check if Phing coverage is being utlizied
+        if ($this->codecoverage && $this->project->getProperty('coverage.database')) {
             try {
                 \Phing\Tasks\Ext\Coverage\CoverageMerger::merge($this->project, $this->codecoverage->getData());
             } catch (IOException $e) {
                 throw new BuildException('Merging code coverage failed.', $e);
             }
         }
-
         $this->checkResult($res);
     }
 
@@ -214,29 +218,12 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     private function checkResult(\PHPUnit\Framework\TestResult $res): void
     {
-        if ($res->skippedCount() > 0) {
-            $this->hasSkipped = true;
-        }
-
-        if ($res->notImplementedCount() > 0) {
-            $this->hasIncomplete = true;
-        }
-
-        if ($res->warningCount() > 0) {
-            $this->hasWarnings = true;
-        }
-
-        if ($res->failureCount() > 0) {
-            $this->hasFailures = true;
-        }
-
-        if ($res->errorCount() > 0) {
-            $this->hasErrors = true;
-        }
-
-        if ($res->riskyCount() > 0) {
-            $this->hasRisky = true;
-        }
+        $this->hasSkipped = $res->skippedCount() > 0;
+        $this->hasIncomplete = $res->notImplementedCount() > 0;
+        $this->hasWarnings = $res->warningCount() > 0;
+        $this->hasFailures = $res->failureCount() > 0;
+        $this->hasErrors = $res->errorCount() > 0;
+        $this->hasRisky = $res->riskyCount() > 0;
     }
 
     /**
@@ -353,7 +340,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * @param Throwable $e
      * @return string
      */
-    protected function composeMessage($message, PHPUnit\Framework\Test $test, Throwable $e)
+    protected function composeMessage(string $message, PHPUnit\Framework\Test $test, Throwable $e): string
     {
         $name = ($test instanceof \PHPUnit\Framework\TestCase ? $test->getName() : '');
         $message = "Test {$message} ({$name} in class " . get_class($test) . ' ' . $e->getFile()
@@ -428,35 +415,6 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     public function addRiskyTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
         $this->lastRiskyMessage = $this->composeMessage('RISKY', $test, $e);
-    }
-
-    /**
-     * A test started.
-     *
-     * @param string $testName
-     */
-    public function testStarted($testName): void
-    {
-    }
-
-    /**
-     * A test ended.
-     *
-     * @param string $testName
-     */
-    public function testEnded($testName): void
-    {
-    }
-
-    /**
-     * A test failed.
-     *
-     * @param integer $status
-     * @param PHPUnit\Framework\Test $test
-     * @param PHPUnit\Framework\AssertionFailedError $e
-     */
-    public function testFailed($status, PHPUnit\Framework\Test $test, PHPUnit\Framework\AssertionFailedError $e): void
-    {
     }
 
     /**

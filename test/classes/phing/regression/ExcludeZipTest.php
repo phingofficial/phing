@@ -34,6 +34,7 @@ class ExcludeZipTest extends BuildFileTest
 
     public function testZipTask()
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget("main");
 
         $expected = "Adding ./.git to archive.";

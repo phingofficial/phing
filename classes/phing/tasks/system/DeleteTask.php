@@ -199,7 +199,8 @@ class DeleteTask extends Task
         foreach ($this->filelists as $fl) {
             try {
                 $files = $fl->getFiles($this->project);
-                $this->removeFiles($fl->getDir($this->project), $files, $empty = []);
+                $empty = [];
+                $this->removeFiles($fl->getDir($this->project), $files, $empty);
             } catch (BuildException $be) {
                 // directory doesn't exist or is not readable
                 if ($this->failonerror) {

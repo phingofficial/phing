@@ -62,11 +62,13 @@ class PhingTaskTest extends BuildFileTest
 
     public function test5(): void
     {
+        $this->expectNotToPerformAssertions();
         $this->getProject()->executeTarget(__FUNCTION__);
     }
 
     public function test6(): void
     {
+        $this->expectNotToPerformAssertions();
         $this->getProject()->executeTarget(__FUNCTION__);
     }
 
@@ -292,6 +294,7 @@ class PhingTaskTest extends BuildFileTest
 
     public function testInheritPath(): void
     {
+        $this->expectNotToPerformAssertions();
         $this->getProject()->executeTarget('testInheritPath');
     }
 
@@ -345,6 +348,7 @@ class PhingTaskTest extends BuildFileTest
      */
     public function testInfiniteLoopViaDepends(): void
     {
+        $this->markTestSkipped('infinite loop could occure');
 //        $this->expectBuildException('infinite-loop-via-depends', 'infinite loop');
     }
 

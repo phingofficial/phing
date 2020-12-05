@@ -125,6 +125,7 @@ class MapperTest extends \PHPUnit\Framework\TestCase
 
     public function testCopyTaskWithTwoFilesets()
     {
+        $this->expectNotToPerformAssertions();
         $t = new TaskdefForCopyTest("test1");
         try {
             $t->setUp();

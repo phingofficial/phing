@@ -32,25 +32,12 @@
 class StripPhpComments extends BaseFilterReader implements ChainableReader
 {
     /**
-     * The read-ahead character, used for effectively pushing a single
-     * character back. -1 indicates that no character is in the buffer.
-     */
-    private $readAheadCh = -1;
-
-    /**
-     * Whether or not the parser is currently in the middle of a string
-     * literal.
-     *
-     * @var boolean
-     */
-    private $inString = false;
-
-    /**
      * Returns the  stream without Php comments.
      *
-     * @param  int $len
+     * @param int|null $len
      * @return string the resulting stream, or -1
      *             if the end of the resulting stream has been reached
+     * @throws IOException
      */
     public function read($len = null)
     {

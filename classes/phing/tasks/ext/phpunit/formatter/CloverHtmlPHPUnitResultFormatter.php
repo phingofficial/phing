@@ -18,37 +18,51 @@
  */
 
 /**
- * Prints short summary output of the test to Phing's logging system.
+ * Prints Clover HTML code coverage of the tests
  *
- * @author  Michiel Rook <mrook@php.net>
+ * @author  Blair Cooper <dev@raincitysolutions.com>
  * @package phing.tasks.ext.formatter
- * @since   2.1.0
  */
-class SummaryPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
+class CloverHtmlPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
-    public function endTestRun()
+    /**
+     * @var PHPUnit\Framework\TestResult
+     */
+    private $result = null;
+
+    /**
+     * @var string
+     */
+    private $toDir = '.';
+
+    /**
+     * @param PHPUnitTask $parentTask
+     */
+    public function __construct(PHPUnitTask $parentTask, string $toDir)
     {
-        parent::endTestRun();
+        parent::__construct($parentTask);
 
-        $sb = "Total tests run: " . $this->getRunCount();
-        $sb .= ", Warnings: " . $this->getWarningCount();
-        $sb .= ", Failures: " . $this->getFailureCount();
-        $sb .= ", Errors: " . $this->getErrorCount();
-        $sb .= ", Incomplete: " . $this->getIncompleteCount();
-        $sb .= ", Skipped: " . $this->getSkippedCount();
-        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
-
-        if ($this->out != null) {
-            $this->out->write($sb);
-            $this->out->close();
-        }
+        $this->toDir = $toDir;
     }
 
     /**
-     * @return null
+     * @param PHPUnit\Framework\TestResult $result
      */
-    public function getExtension()
+    public function processResult(PHPUnit\Framework\TestResult $result): void
     {
-        return null;
+        $this->result = $result;
+    }
+
+    public function endTestRun(): void
+    {
+        $coverage = $this->result->getCodeCoverage();
+
+        if (!empty($coverage)) {
+            $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Html\Facade';
+            $clover = new $cloverClass();
+            $clover->process($coverage, $this->toDir);
+        }
+
+        parent::endTestRun();
     }
 }

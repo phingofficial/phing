@@ -79,6 +79,7 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
 
     public function testFlush()
     {
+        $this->expectNotToPerformAssertions();
         $this->outStream->write("Some data");
         $this->outStream->flush();
         $this->outStream->close();

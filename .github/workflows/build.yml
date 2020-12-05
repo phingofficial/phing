@@ -5,31 +5,43 @@ on:
   pull_request:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+#  static_code_analysis:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#        name: Checkout repository
+#
+#      - uses: "ramsey/composer-install@v1"
+#        with:
+#          dependency-versions: 'locked'
+#
+#      - name:  Static Code Analysis
+#        run: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
+
+  test:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-latest, macos-latest, windows-latest ]
+        php: [ '7.3', '7.4' ]    
+        dependencies: [ 'lowest', 'locked' ]
+
+    name: PHP ${{ matrix.php }} on ${{ matrix.operating-system }}
 
     steps:
       - uses: actions/checkout@v2
-    
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache Composer Downloads
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
-      
-      - name: Cache PHP dependencies
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/composer.lock') }}
+        name: Checkout repository
 
-      - uses: php-actions/composer@v2
+      - name: Setup PHP
+        uses: nanasess/setup-php@master
+        with:
+          php-version: ${{ matrix.php }}
+
+      - uses: "ramsey/composer-install@v1"
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
+          composer-options: "${{ matrix.composer-options }}"
+
       - name: Test phing
         working-directory: test
         run: | 
@@ -37,4 +49,4 @@ jobs:
           git config --global user.email "travis-ci-build@phing.info"
           git config --global user.name "Phing Travis Builder"
           echo "=== RUN TESTS ==="
-          ../bin/phing -debug -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
+          ../bin/phing -verbose -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"

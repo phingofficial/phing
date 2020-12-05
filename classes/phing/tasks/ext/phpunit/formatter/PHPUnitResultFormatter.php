@@ -23,7 +23,7 @@
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.phpunit.formatter
  */
-abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
+abstract class PHPUnitResultFormatter implements PHPUnit\Framework\TestListener
 {
     protected $out;
 
@@ -64,6 +64,7 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
      * @var array
      */
     private $warningCounts = [];
+    private $riskyCounts = [];
 
     /**
      * Constructor
@@ -119,6 +120,7 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
         $this->warningCounts = [0];
         $this->incompleteCounts = [0];
         $this->skipCounts = [0];
+        $this->riskyCounts = [0];
     }
 
     public function endTestRun()
@@ -136,6 +138,8 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
         $this->errorCounts[] = 0;
         $this->incompleteCounts[] = 0;
         $this->skipCounts[] = 0;
+        $this->warningCounts[] = 0;
+        $this->riskyCounts[] = 0;
     }
 
     /**
@@ -157,6 +161,12 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
 
         $lastSkipCount = array_pop($this->skipCounts);
         $this->skipCounts[count($this->skipCounts) - 1] += $lastSkipCount;
+
+        $lastWarningCount = array_pop($this->warningCounts);
+        $this->warningCounts[count($this->warningCounts) - 1] += $lastWarningCount;
+
+        $lastRiskyCount = array_pop($this->riskyCounts);
+        $this->riskyCounts[count($this->riskyCounts) - 1] += $lastRiskyCount;
 
         array_pop($this->timers);
     }
@@ -237,6 +247,7 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
      */
     public function addRiskyTest(PHPUnit\Framework\Test $test, Throwable $e, float $time): void
     {
+        $this->riskyCounts[count($this->riskyCounts) - 1]++;
     }
 
     /**
@@ -261,6 +272,14 @@ abstract class PHPUnitResultFormatter7 implements PHPUnit\Framework\TestListener
     public function getWarningCount()
     {
         return end($this->warningCounts);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRiskyCount()
+    {
+        return end($this->riskyCounts);
     }
 
     /**

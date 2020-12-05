@@ -18,37 +18,38 @@
  */
 
 /**
+ * Prints short summary output of the test to Phing's logging system.
+ *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.filters
+ * @package phing.tasks.ext.formatter
+ * @since   2.1.0
  */
-class StripPhpCommentsTest extends BuildFileTest
+class SummaryPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
+    public function endTestRun()
+    {
+        parent::endTestRun();
+
+        $sb = "Total tests run: " . $this->getRunCount();
+        $sb .= ", Risky: " . $this->getRiskyCount();
+        $sb .= ", Warnings: " . $this->getWarningCount();
+        $sb .= ", Failures: " . $this->getFailureCount();
+        $sb .= ", Errors: " . $this->getErrorCount();
+        $sb .= ", Incomplete: " . $this->getIncompleteCount();
+        $sb .= ", Skipped: " . $this->getSkippedCount();
+        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
+
+        if ($this->out != null) {
+            $this->out->write($sb);
+            $this->out->close();
+        }
+    }
+
     /**
-     * @var FileUtils
+     * @return null
      */
-    protected $fu;
-
-    public function setUp(): void
+    public function getExtension()
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/stripphpcomments.xml");
-        $this->fu = new FileUtils();
-    }
-
-    public function tearDown(): void
-    {
-        $this->executeTarget("cleanup");
-    }
-
-    public function testStripPhpComments()
-    {
-        $this->executeTarget(__FUNCTION__);
-
-        $expectedFile = $this->getProject()->resolveFile("expected/stripphpcomments.test");
-        $resultFile = $this->getProject()->resolveFile("result/stripphpcomments.test");
-
-        $expected = file_get_contents($expectedFile->getAbsolutePath());
-        $result = file_get_contents($resultFile->getAbsolutePath());
-
-        $this->assertEquals($expected, $result, "Files don't match!");
+        return null;
     }
 }

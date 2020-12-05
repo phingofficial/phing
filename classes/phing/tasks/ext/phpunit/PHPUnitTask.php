@@ -37,10 +37,15 @@ class PHPUnitTask extends Task
     private $haltonfailure = false;
     private $haltonincomplete = false;
     private $haltonskipped = false;
+    private $haltondefect = false;
+    private $haltonwarning = false;
+    private $haltonrisky = false;
     private $errorproperty;
     private $failureproperty;
     private $incompleteproperty;
     private $skippedproperty;
+    private $warningproperty;
+    private $riskyproperty;
     private $printsummary = false;
     private $testfailed = false;
     private $testfailuremessage = "";
@@ -62,6 +67,11 @@ class PHPUnitTask extends Task
     private $configuration = null;
 
     /**
+     * @var \PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage
+     */
+    private $codeCoverageConfig = null;
+
+    /**
      * Initialize Task.
      * This method includes any necessary PHPUnit libraries and triggers
      * appropriate error if they cannot be found.  This is not done in header
@@ -73,14 +83,6 @@ class PHPUnitTask extends Task
 
     private function loadPHPUnit()
     {
-        /**
-         * Determine PHPUnit version number, try
-         * PEAR old-style, then composer, then PHAR
-         */
-        @include_once 'PHPUnit/Runner/Version.php';
-        if (!class_exists('PHPUnit_Runner_Version')) {
-            @include_once 'phpunit/Runner/Version.php';
-        }
         if (!empty($this->pharLocation)) {
             $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
             ob_start();
@@ -88,7 +90,6 @@ class PHPUnitTask extends Task
             ob_end_clean();
         }
 
-        @include_once 'PHPUnit/Autoload.php';
         if (!class_exists('PHPUnit\Runner\Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
         }
@@ -135,6 +136,70 @@ class PHPUnitTask extends Task
     public function setSkippedproperty($value)
     {
         $this->skippedproperty = $value;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setRiskyproperty($value)
+    {
+        $this->riskyproperty = $value;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setWarningproperty($value)
+    {
+        $this->riskyproperty = $value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHaltondefect(): bool
+    {
+        return $this->haltondefect;
+    }
+
+    /**
+     * @param bool $haltondefect
+     */
+    public function setHaltondefect(bool $haltondefect): void
+    {
+        $this->haltondefect = $haltondefect;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHaltonwarning(): bool
+    {
+        return $this->haltonwarning;
+    }
+
+    /**
+     * @param bool $haltonwarning
+     */
+    public function setHaltonwarning(bool $haltonwarning): void
+    {
+        $this->haltonwarning = $haltonwarning;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHaltonrisky(): bool
+    {
+        return $this->haltonrisky;
+    }
+
+    /**
+     * @param bool $haltonrisky
+     */
+    public function setHaltonrisky(bool $haltonrisky): void
+    {
+        $this->haltonrisky = $haltonrisky;
     }
 
     /**
@@ -329,6 +394,9 @@ class PHPUnitTask extends Task
         $this->setHaltonerror($phpunit->stopOnError());
         $this->setHaltonskipped($phpunit->stopOnSkipped());
         $this->setHaltonincomplete($phpunit->stopOnIncomplete());
+        $this->setHaltondefect($phpunit->stopOnDefect());
+        $this->setHaltonwarning($phpunit->stopOnWarning());
+        $this->setHaltonrisky($phpunit->stopOnRisky());
         $this->setProcessIsolation($phpunit->processIsolation());
 
         foreach ($config->listeners() as $listener) {
@@ -357,17 +425,7 @@ class PHPUnitTask extends Task
             }
         }
 
-/*        if (method_exists($config, 'getSeleniumBrowserConfiguration')) {
-            $browsers = $config->getSeleniumBrowserConfiguration();
-
-            if (
-                !empty($browsers)
-                && class_exists('PHPUnit_Extensions_SeleniumTestCase')
-            ) {
-                PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
-            }
-        } */
-
+        $this->codeCoverageConfig = $config->codeCoverage();
         return $phpunit;
     }
 
@@ -452,12 +510,24 @@ class PHPUnitTask extends Task
                 $this->processIsolation
             );
         } else {
-            $runner = new PHPUnitTestRunner8(
-                $this->project,
-                $this->groups,
-                $this->excludeGroups,
-                $this->processIsolation
-            );
+            if (
+                class_exists('\PHPUnit\Runner\Version', false) &&
+                version_compare(\PHPUnit\Runner\Version::id(), '9.0.0', '<')
+            ) {
+                $runner = new PHPUnitTestRunner8(
+                    $this->project,
+                    $this->groups,
+                    $this->excludeGroups,
+                    $this->processIsolation
+                );
+            } else {
+                $runner = new PHPUnitTestRunner9(
+                    $this->project,
+                    $this->groups,
+                    $this->excludeGroups,
+                    $this->processIsolation
+                );
+            }
         }
 
         if ($this->codecoverage) {
@@ -473,8 +543,48 @@ class PHPUnitTask extends Task
                     $filter->addDirectoryToBlacklist($path);
                 }
                 if (class_exists('\SebastianBergmann\CodeCoverage\CodeCoverage')) {
+                    if (null !== $this->codeCoverageConfig) {
+                        // Update filters
+                        foreach ($this->codeCoverageConfig->files()->asArray() as $file) {
+                            $filter->includeFile($file->path());
+                        }
+                        foreach ($this->codeCoverageConfig->directories()->asArray() as $dir) {
+                            $filter->includeDirectory($dir->path(), $dir->suffix(), $dir->prefix());
+                        }
+                        foreach ($this->codeCoverageConfig->excludeFiles()->asArray() as $file) {
+                            $filter->excludeFile($file->path());
+                        }
+                        foreach ($this->codeCoverageConfig->excludeDirectories()->asArray() as $dir) {
+                            $filter->excludeDirectory($dir->path(), $dir->suffix(), $dir->prefix());
+                        }
+                    }
+
+                    if (null !== $this->codeCoverageConfig && $this->codeCoverageConfig->pathCoverage()) {
+                        $driver = (new \SebastianBergmann\CodeCoverage\Driver\Selector())->forLineAndPathCoverage($filter);
+                    } else {
+                        $driver = (new \SebastianBergmann\CodeCoverage\Driver\Selector())->forLineCoverage($filter);
+                    }
+
                     $driver = (new \SebastianBergmann\CodeCoverage\Driver\Selector())->forLineCoverage($filter);
                     $codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage($driver, $filter);
+
+                    if (null !== $this->codeCoverageConfig) {
+                        // Set code coverage configuration
+                        if ($this->codeCoverageConfig->hasCacheDirectory()) {
+                            $codeCoverage->cacheStaticAnalysis($this->codeCoverageConfig->cacheDirectory()->path());
+                        }
+                        if ($this->codeCoverageConfig->ignoreDeprecatedCodeUnits()) {
+                            $codeCoverage->ignoreDeprecatedCode();
+                        } else {
+                            $codeCoverage->doNotIgnoreDeprecatedCode();
+                        }
+                        if ($this->codeCoverageConfig->includeUncoveredFiles()) {
+                            $codeCoverage->includeUncoveredFiles();
+                        } else {
+                            $codeCoverage->doNotProcessUncoveredFiles();
+                        }
+                    }
+
                     $runner->setCodecoverage($codeCoverage);
                 }
             }
@@ -519,7 +629,7 @@ class PHPUnitTask extends Task
             if ($this->errorproperty) {
                 $this->project->setNewProperty($this->errorproperty, true);
             }
-            if ($this->haltonerror) {
+            if ($this->haltonerror || $this->haltondefect) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastErrorMessage();
             }
@@ -530,7 +640,7 @@ class PHPUnitTask extends Task
                 $this->project->setNewProperty($this->failureproperty, true);
             }
 
-            if ($this->haltonfailure) {
+            if ($this->haltonfailure || $this->haltondefect) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastFailureMessage();
             }
@@ -555,6 +665,28 @@ class PHPUnitTask extends Task
             if ($this->haltonskipped) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastSkippedMessage();
+            }
+        }
+
+        if ($runner->hasWarnings()) {
+            if ($this->warningproperty) {
+                $this->project->setNewProperty($this->warningproperty, true);
+            }
+
+            if ($this->haltonwarning || $this->haltondefect) {
+                $this->testfailed = true;
+                $this->testfailuremessage = $runner->getLastWarningMessage();
+            }
+        }
+
+        if ($runner->hasRisky()) {
+            if ($this->riskyproperty) {
+                $this->project->setNewProperty($this->riskyproperty, true);
+            }
+
+            if ($this->haltonrisky) {
+                $this->testfailed = true;
+                $this->testfailuremessage = $runner->getLastRiskyMessage();
             }
         }
     }
