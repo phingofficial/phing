@@ -2,8 +2,6 @@ language: php
 os: linux
 
 php:
-  - 7.3
-  - 7.4
   - 8.0snapshot
   - master
 
@@ -58,11 +56,7 @@ jobs:
   allow_failures:
     - php: 8.0snapshot
     - php: master
-    - php: nightly
   include:
-    - php: nightly
-      env: DEPS="IGNORE"
-      install: composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction --ignore-platform-reqs
 
     - stage: test with coverage
       php: 7.4
