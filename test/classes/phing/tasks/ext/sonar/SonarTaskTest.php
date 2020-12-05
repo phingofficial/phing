@@ -21,6 +21,8 @@
  *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
+ *
+ * @requires OSFAMILY Windows|Linux
  */
 class SonarTaskTest extends BuildFileTest
 {
@@ -72,7 +74,7 @@ class SonarTaskTest extends BuildFileTest
         $this->expectBuildExceptionContaining(
             'executable-path-does-not-exist',
             'executable-path-does-not-exist',
-            'SonarQube Scanner'
+            'Cannot find SonarQube Scanner'
         );
     }
 
