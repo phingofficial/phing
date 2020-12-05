@@ -41,7 +41,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        operating-system: [ ubuntu-latest, macos-latest ]
+        operating-system: [ ubuntu-latest, windows-latest ]
         php: [ '7.3', '7.4' ]
     name: PHP ${{ matrix.php }} on ${{ matrix.operating-system }}
 
@@ -73,7 +73,8 @@ jobs:
           path: vendor
           key: ${{ runner.OS }}-build-${{ hashFiles('**/composer.lock') }}
 
-      - name: Validate composer.json
+      - if: runner.OS != 'windows'
+        name: Validate composer.json
         uses: php-actions/composer@v4
         with:
           command: validate
