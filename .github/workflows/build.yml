@@ -10,6 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        name: Checkout repository
     
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -29,7 +30,14 @@ jobs:
           path: vendor
           key: ${{ runner.OS }}-build-${{ hashFiles('**/composer.lock') }}
 
-      - uses: php-actions/composer@v2
+      - name: Validate composer.json
+        uses: php-actions/composer@v4
+        with:
+          command: validate
+
+      - uses: php-actions/composer@v4
+        name: Composer install
+
       - name: Test phing
         working-directory: test
         run: | 
