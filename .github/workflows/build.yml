@@ -5,20 +5,22 @@ on:
   pull_request:
 
 jobs:
-#  static_code_analysis:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#        name: Checkout repository
-#
-#      - uses: "ramsey/composer-install@v1"
-#        with:
-#          dependency-versions: 'locked'
-#
-#      - name:  Static Code Analysis
-#        run: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
+  static_code_analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout repository
+
+      - uses: ramsey/composer-install@v1
+        with:
+          dependency-versions: 'locked'
+
+      - name:  Static Code Analysis
+        run: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
 
   test:
+    needs: 
+      - static_code_analysis
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
@@ -37,10 +39,10 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - uses: "ramsey/composer-install@v1"
+      - uses: ramsey/composer-install@v1
         with:
-          dependency-versions: "${{ matrix.dependencies }}"
-          composer-options: "${{ matrix.composer-options }}"
+          dependency-versions: ${{ matrix.dependencies }}
+          composer-options: ${{ matrix.composer-options }}
 
       - name: Test phing
         working-directory: test
