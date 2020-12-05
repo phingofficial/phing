@@ -21,7 +21,6 @@ cache:
     - build/cache
 
 stages:
-  - static code analysis
   - test
   - test with coverage
   - build phar
@@ -79,11 +78,6 @@ jobs:
       after_success:
         - bash <(curl -s https://codecov.io/bash) -f ./test/reports/clover-coverage.xml
         - wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=clover ./test/reports/clover-coverage.xml
-
-    - stage: static code analysis
-      php: 7.4
-      env: DEPS="NORMAL"
-      script: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
 
     - stage: build phar
       php: 7.4
