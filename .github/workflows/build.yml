@@ -5,18 +5,18 @@ on:
   pull_request:
 
 jobs:
-  static_code_analysis:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        name: Checkout repository
-
-      - uses: "ramsey/composer-install@v1"
-        with:
-          dependency-versions: 'locked'
-
-      - name:  Static Code Analysis
-        run: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
+#  static_code_analysis:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#        name: Checkout repository
+#
+#      - uses: "ramsey/composer-install@v1"
+#        with:
+#          dependency-versions: 'locked'
+#
+#      - name:  Static Code Analysis
+#        run: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
 
   test:
     runs-on: ${{ matrix.operating-system }}
