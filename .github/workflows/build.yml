@@ -25,6 +25,7 @@ jobs:
       - static_code_analysis
     runs-on: ${{ matrix.operating-system }}
     strategy:
+      fail-fast: true
       matrix:
         operating-system: [ ubuntu-latest, macos-latest, windows-latest ]
         php: [ '7.3', '7.4', '8.0' ]
@@ -53,7 +54,25 @@ jobs:
           git config --global user.email "travis-ci-build@phing.info"
           git config --global user.name "Phing Travis Builder"
           echo "=== RUN TESTS ==="
-          ../bin/phing -verbose -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
+          ../bin/phing -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
+
+  build_phar:
+    runs-on: ubuntu-latest
+    needs:
+      - test
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout repository
+
+      - uses: ramsey/composer-install@v1
+        with:
+          dependency-versions: 'locked'
+
+      - name: Build phar
+        working-directory: build
+        run: |
+          ../bin/phing
+          php full/phing-$(cat ../etc/VERSION.TXT).phar -v
 
   coverage:
     runs-on: ubuntu-latest
@@ -74,9 +93,9 @@ jobs:
           git config --global user.email "travis-ci-build@phing.info"
           git config --global user.name "Phing Travis Builder"
           echo "=== RUN TESTS ==="
-          ../bin/phing -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
+          ../bin/phing -debug -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
 
       - name: Transfer coverage
-        run : |
+        run: |
           bash <(curl -s https://codecov.io/bash) -f ./test/reports/clover-coverage.xml
           wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=clover ./test/reports/clover-coverage.xml
