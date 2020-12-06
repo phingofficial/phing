@@ -2,6 +2,8 @@ name: Phing CI
 
 on:
   push:
+    branches:
+      - master
   pull_request:
 
 jobs:
@@ -72,4 +74,9 @@ jobs:
           git config --global user.email "travis-ci-build@phing.info"
           git config --global user.name "Phing Travis Builder"
           echo "=== RUN TESTS ==="
-          ../bin/phing -verbose -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
+          ../bin/phing -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
+
+      - name: Transfer coverage
+        run : |
+          bash <(curl -s https://codecov.io/bash) -f ./test/reports/clover-coverage.xml
+          wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=clover ./test/reports/clover-coverage.xml
