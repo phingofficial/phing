@@ -22,11 +22,10 @@ jobs:
     needs: 
       - static_code_analysis
     runs-on: ${{ matrix.operating-system }}
-    continue-on-error: true
     strategy:
       matrix:
         operating-system: [ ubuntu-latest, macos-latest, windows-latest ]
-        php: [ '7.3', '7.4' ]
+        php: [ '7.3', '7.4', '8.0' ]
         dependencies: [ 'lowest', 'locked' ]
 
     name: PHP ${{ matrix.php }} on ${{ matrix.operating-system }} with ${{ matrix.dependencies }} dependencies
@@ -53,3 +52,24 @@ jobs:
           git config --global user.name "Phing Travis Builder"
           echo "=== RUN TESTS ==="
           ../bin/phing -verbose -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs:
+      - static_code_analysis
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout repository
+
+      - uses: ramsey/composer-install@v1
+        with:
+          dependency-versions: 'locked'
+
+      - name: Test with coverage
+        working-directory: test
+        run: |
+          echo "=== SETTING GIT IDENTITY ==="
+          git config --global user.email "travis-ci-build@phing.info"
+          git config --global user.name "Phing Travis Builder"
+          echo "=== RUN TESTS ==="
+          ../bin/phing -verbose -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
