@@ -17,5 +17,4 @@ hlsaxon text eol=lf
 
 docs export-ignore
 test export-ignore
-.travis.* export-ignore
 composer.lock export-ignore

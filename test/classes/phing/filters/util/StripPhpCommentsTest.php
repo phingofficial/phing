@@ -39,6 +39,11 @@ class StripPhpCommentsTest extends BuildFileTest
         $this->executeTarget("cleanup");
     }
 
+    /**
+     * @throws IOException
+     * @requires PHP 7
+     * @requires OSFAMILY Windows|Linux
+     */
     public function testStripPhpComments()
     {
         $this->executeTarget(__FUNCTION__);
