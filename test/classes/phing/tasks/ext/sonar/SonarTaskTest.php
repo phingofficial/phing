@@ -21,6 +21,8 @@
  *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
+ *
+ * @requires OSFAMILY Windows|Linux
  */
 class SonarTaskTest extends BuildFileTest
 {
