@@ -30,7 +30,7 @@
 
     <target name="testDifferentTime">
         <touch file="${a}/b.txt" millis="102134111"/>
-        <touch file="${b}/b.txt" millis="102134200"/>
+        <touch file="${b}/b.txt" millis="102195200"/>
         <copy todir="${result}">
             <fileset dir="${b}">
                 <different targetdir="${a}" ignoreContents="true" ignoreFileTimes="false" />

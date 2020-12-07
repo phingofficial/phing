@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -105,5 +106,128 @@ class TouchTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $tmpDir = $this->getProject()->getProperty('tmp.dir');
         $this->assertFileExists($tmpDir . '/touchtest');
+    }
+
+    /**
+     * test millis attribute
+     */
+    public function testMillis()
+    {
+        // Don't run the test on 32-bit systems
+        if (PHP_INT_SIZE > 4) {
+            $this->executeTarget(__FUNCTION__);
+            $testFile = $this->getProject()->getProperty('tmp.dir') . '/millis-file';
+            $this->assertFileExists($testFile);
+
+            $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+        } else {
+            $this->markTestSkipped('Test cannot run on 32-bit systems, epoch millis would have a max of ~25 days');
+        }
+    }
+
+    /**
+     * test seconds attribute
+     */
+    public function testSeconds()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $testFile = $this->getProject()->getProperty('tmp.dir') . '/seconds-file';
+        $this->assertFileExists($testFile);
+
+        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+    }
+
+    /**
+     * test datetime attribute
+     */
+    public function testDatetime()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $testFile = $this->getProject()->getProperty('tmp.dir') . '/datetime-file';
+        $this->assertFileExists($testFile);
+
+        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+    }
+
+    /**
+     * test datetime with improper datetime
+     */
+    public function testNotDateTime()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when datetime has invalid value');
+    }
+
+    public function testNoFile()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when no file specified');
+    }
+
+    public function testFileIsDirectory()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when file specified is a directory');
+    }
+
+    public function testDatetimePreEpoch()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when datetime is prior to January 1, 1970');
+    }
+
+    public function testReadOnlyFile()
+    {
+        $readOnlyFile = $this->getProject()->getProperty('tmp.dir') . '/readonly-file';
+        if (file_exists($readOnlyFile)) {
+            chmod($readOnlyFile, 0666); // ensure file is writable
+        }
+        $writeCnt = file_put_contents($readOnlyFile, 'TouchTaskTest file');
+        if (false !== $writeCnt) {
+            $this->getProject()->setProperty('readonly.file', $readOnlyFile);
+
+            chmod($readOnlyFile, 0444);
+
+            try {
+                $this->executeTarget(__FUNCTION__);
+                $this->fail('Should not be able to "touch" a read-only file');
+            } catch (Exception $e) {
+                // A BuildException is expected to be thrown
+                $this->assertInstanceOf(BuildException::class, $e);
+            } finally {
+                chmod($readOnlyFile, 0666);
+                unlink($readOnlyFile);
+            }
+        } else {
+            $this->fail('Unable to create test file: ' . $readOnlyFile);
+        }
+    }
+
+    public function testMillisNegative()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when millis is negative');
+    }
+
+    public function testSecondsNegative()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when seconds is negative');
+    }
+
+    public function testMillisSubSecond()
+    {
+        $this->expectBuildException(__FUNCTION__, 'when millis is less than a second');
+    }
+
+    public function testDefaultToNow()
+    {
+        $nowTime = time();
+
+        $this->executeTarget(__FUNCTION__);
+        $testFile = $this->getProject()->getProperty('tmp.dir') . '/default-now-file';
+        $this->assertFileExists($testFile);
+
+        /*
+         * Assert that the timestamp is within 1 second of the time the test
+         * started. Ideally it's exactly the same but we'll allow for minimal
+         * drift to account for a lag between when we noted the time and when
+         * the file was touched.
+         */
+        $this->assertEqualsWithDelta(filemtime($testFile), $nowTime, 1, 'File timestamp not within 1 second of now');
     }
 }
