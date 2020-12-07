@@ -119,6 +119,11 @@ jobs:
 
   notify:
     runs-on: ubuntu-latest
+    needs:
+      - static_code_analysis
+      - test
+      - build_phar
+      - coverage
     steps:
       - name: Notify Slack
         uses: 8398a7/action-slack@v3.8.0
