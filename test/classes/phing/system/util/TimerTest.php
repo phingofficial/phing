@@ -43,10 +43,6 @@ class TimerTest extends \PHPUnit\Framework\TestCase
         $this->timer->start();
         $this->timer->stop();
 
-        if (method_exists($this, 'assertEqualsWithDelta')) {
-            $this->assertEqualsWithDelta(0.0, $this->timer->getElapsedTime(), 0.001);
-        } else {
-            $this->assertEquals(0.0, $this->timer->getElapsedTime(), '', 0.001);
-        }
+        $this->assertEqualsWithDelta(0.0, $this->timer->getElapsedTime(), 0.01);
     }
 }
