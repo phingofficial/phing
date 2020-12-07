@@ -21,7 +21,7 @@ jobs:
         run: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
 
   test:
-    needs: 
+    needs:
       - static_code_analysis
     runs-on: ${{ matrix.operating-system }}
     strategy:
@@ -49,7 +49,7 @@ jobs:
 
       - name: Test phing
         working-directory: test
-        run: | 
+        run: |
           echo "=== SETTING GIT IDENTITY ==="
           git config --global user.email "travis-ci-build@phing.info"
           git config --global user.name "Phing Travis Builder"
@@ -82,7 +82,7 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
-      - name: Install dependencies  
+      - name: Install dependencies
         run: composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction
 
       - name: Build phar
@@ -116,3 +116,22 @@ jobs:
         run: |
           bash <(curl -s https://codecov.io/bash) -f ./test/reports/clover-coverage.xml
           wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=clover ./test/reports/clover-coverage.xml
+
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: 8398a7/action-slack@v3
+      with:
+        status: custom
+        fields: workflow,job,commit,repo,ref,author,took
+        custom_payload: |
+          {
+            username: 'action-slack',
+            icon_emoji: ':octocat:',
+            attachments: [{
+              color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+              text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} succeeded in ${process.env.AS_TOOK}`,
+            }]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_BUILDS }}
