@@ -115,7 +115,7 @@ class DateSelector extends BaseExtendSelector
                 "Date of " . $dateTime
                 . " Cannot be parsed correctly. It should be in"
                 . " a format parsable by PHP's strtotime() function."
-                );
+            );
         } else {
             $this->dateTime = $dateTime;
             $this->setSeconds($dt);
@@ -206,15 +206,14 @@ class DateSelector extends BaseExtendSelector
     {
         if ($this->dateTime === null && $this->seconds < 0) {
             $this->setError(
-                "You must provide a datetime or the number of "
-                . "seconds."
-                );
+                "You must provide a datetime or the number of seconds."
+            );
         } elseif ($this->seconds < 0) {
             $this->setError(
                 "Date of " . $this->dateTime
                 . " results in negative seconds"
                 . " value relative to epoch (January 1, 1970, 00:00:00 GMT)."
-                );
+            );
         }
     }
 
