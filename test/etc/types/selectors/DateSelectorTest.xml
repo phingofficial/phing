@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test.dateselector" basedir="." default="main">
+    <property name="tmp.dir" value="tmp/date"/>
+
+    <resolvepath propertyName="input.dir" dir="${tmp.dir}" path="testinput"/>
+    <resolvepath propertyName="output.dir" dir="${tmp.dir}" path="testoutput"/>
+
+    <target name="setup">
+        <mkdir dir="${input.dir}"/>
+        <mkdir dir="${output.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${input.dir}"/>
+        <delete dir="${output.dir}"/>
+    </target>
+
+    <target name="testSecondsWithDefaults">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="${epoch.seconds}" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testSecondsWithWhenAfter">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="${epoch.seconds}" when="after" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testSecondsWithWhenBefore">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="${epoch.seconds}" when="before" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testSecondsGranularitySixtySeconds">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="${epoch.seconds}" granularity="60" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testSecondsInvalidSeconds">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="-7313" />
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="testDateTimeWithDefaults">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date datetime="${datetime}" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testDateTimeWithWhenAfter">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date datetime="${datetime}" when="after" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testDateTimeWithWhenBefore">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date datetime="${datetime}" when="before" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testDateTimeGranularityThirtySeconds">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date datetime="${datetime}" granularity="30" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testDateTimeInvalidDateTime">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date datetime="01/01/1965 05:12 AM" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testDateTimeNotDateTime">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date datetime="Not A DateTime" />
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="testMillisWithDefaults">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date millis="${epoch.millis}" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testMillisWithWhenAfter">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date millis="${epoch.millis}" when="after" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testMillisWithWhenBefore">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date millis="${epoch.millis}" when="before" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testMillisGranularitySixSeconds">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date millis="${epoch.millis}" granularity="6" />
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="testDateTimeInvalidMillis">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date millis="-51441455" />
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="testInvalidWhen">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="100000" when="ever" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="testInvalidAttribute">
+        <copy todir="${output.dir}">
+            <fileset dir="${input.dir}">
+                <date seconds="100000" moonpie="Sheldon" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="main">
+        <echo msg="This test build file is not executable."/>
+    </target>
+</project>
