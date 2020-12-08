@@ -126,6 +126,7 @@ jobs:
       - coverage
     steps:
       - name: Notify Slack
+        if: ${{ github.repository_owner == 'phingofficial' }}
         uses: 8398a7/action-slack@v3.8.0
         with:
           status: custom
