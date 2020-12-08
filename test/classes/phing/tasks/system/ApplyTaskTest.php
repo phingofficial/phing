@@ -513,7 +513,7 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * @param string $property
-     * @param string $value
+     * @param mixed $value
      * @param string $propertyName
      */
     protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
