@@ -34,6 +34,7 @@ class DateSelector extends BaseExtendSelector
     private $granularity = 0;
     private $cmp = 2;
     public const MILLIS_KEY = "millis";
+    public const SECONDS_KEY = "seconds";
     public const DATETIME_KEY = "datetime";
     public const CHECKDIRS_KEY = "checkdirs";
     public const GRANULARITY_KEY = "granularity";
@@ -97,7 +98,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function setMillis($millis)
     {
-        $this->setSeconds((int) $millis * 1000);
+        $this->setSeconds((int) $millis / 1000);
     }
 
     /**
@@ -109,12 +110,12 @@ class DateSelector extends BaseExtendSelector
     public function setDatetime($dateTime)
     {
         $dt = strtotime($dateTime);
-        if ($dt == -1) {
+        if (false === $dt) {
             $this->setError(
                 "Date of " . $dateTime
                 . " Cannot be parsed correctly. It should be in"
                 . " a format parsable by PHP's strtotime() function."
-            );
+                );
         } else {
             $this->dateTime = $dateTime;
             $this->setSeconds($dt);
@@ -132,7 +133,7 @@ class DateSelector extends BaseExtendSelector
     }
 
     /**
-     * Sets the number of milliseconds leeway we will give before we consider
+     * Sets the number of seconds leeway we will give before we consider
      * a file not to have matched a date.
      *
      * @param int $granularity
@@ -151,7 +152,7 @@ class DateSelector extends BaseExtendSelector
     public function setWhen($cmp)
     {
         $idx = array_search($cmp, self::$timeComparisons, true);
-        if ($idx === null) {
+        if (false === $idx) {
             $this->setError("Invalid value for " . self::WHEN_KEY . ": " . $cmp);
         } else {
             $this->cmp = $idx;
@@ -174,6 +175,9 @@ class DateSelector extends BaseExtendSelector
                 switch (strtolower($paramname)) {
                     case self::MILLIS_KEY:
                         $this->setMillis($parameters[$i]->getValue());
+                        break;
+                    case self::SECONDS_KEY:
+                        $this->setSeconds($parameters[$i]->getValue());
                         break;
                     case self::DATETIME_KEY:
                         $this->setDatetime($parameters[$i]->getValue());
@@ -204,13 +208,13 @@ class DateSelector extends BaseExtendSelector
             $this->setError(
                 "You must provide a datetime or the number of "
                 . "seconds."
-            );
+                );
         } elseif ($this->seconds < 0) {
             $this->setError(
                 "Date of " . $this->dateTime
                 . " results in negative seconds"
                 . " value relative to epoch (January 1, 1970, 00:00:00 GMT)."
-            );
+                );
         }
     }
 
