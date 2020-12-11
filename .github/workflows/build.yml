@@ -118,6 +118,7 @@ jobs:
           ../bin/phing -debug -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
 
       - name: Transfer coverage
+        if: github.repository_owner == 'phingofficial'
         run: |
           bash <(curl -s https://codecov.io/bash) -f ./test/reports/clover-coverage.xml
           wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=clover ./test/reports/clover-coverage.xml
