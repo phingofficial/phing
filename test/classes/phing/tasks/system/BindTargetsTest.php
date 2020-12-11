@@ -35,6 +35,7 @@ class BindTargetsTest extends BuildFileTest
     public function testBind()
     {
         $this->executeTarget(__FUNCTION__);
+
         $this->assertInLogs('bound #1');
         $this->assertInLogs('bound #2');
     }
