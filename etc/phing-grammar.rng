@@ -231,6 +231,7 @@
                 <ref name="attrib"/>
                 <ref name="available"/>
                 <ref name="basename"/>
+                <ref name="bindtargets"/>
                 <ref name="blockfor"/>
                 <ref name="chmod"/>
                 <ref name="chown"/>
@@ -1208,6 +1209,24 @@
         </element>
     </define>
 
+    <define name="bindtargets">
+        <element name="bindtargets">
+            <interleave>
+                <attribute name="targets" />
+                <attribute name="extensionpoint" />
+                <optional>
+                    <attribute name="onmissingextensionpoint" a:defaultValue="fail">
+                        <choice>
+                            <value>fail</value>
+                            <value>warn</value>
+                            <value>ignore</value>
+                        </choice>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+    
     <define name="blockfor">
         <element name="blockfor">
             <interleave>
