@@ -119,13 +119,17 @@ jobs:
 
   notify:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'phingofficial'
     needs:
       - static_code_analysis
       - test
       - build_phar
       - coverage
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_BUILDS }}
     steps:
       - name: Notify Slack
+        if: ${{env.SLACK_WEBHOOK_URL}} != 0
         uses: 8398a7/action-slack@v3.8.0
         with:
           status: custom
@@ -140,5 +144,4 @@ jobs:
               }]
             }
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_BUILDS }}
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
