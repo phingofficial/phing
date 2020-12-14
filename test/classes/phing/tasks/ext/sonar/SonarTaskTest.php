@@ -21,6 +21,8 @@
  *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  * @package phing.tasks.ext.sonar
+ *
+ * @requires OSFAMILY Windows|Linux
  */
 class SonarTaskTest extends BuildFileTest
 {
@@ -113,6 +115,7 @@ class SonarTaskTest extends BuildFileTest
 
     public function testErrorsAttributeIsMissing()
     {
+        $this->expectNotToPerformAssertions();
         try {
             $this->expectPropertySet('errors-attribute-is-missing', 'errors', 'false');
         } catch (BuildException $e) {
@@ -144,6 +147,7 @@ class SonarTaskTest extends BuildFileTest
 
     public function testDebugAttributeIsMissing()
     {
+        $this->expectNotToPerformAssertions();
         try {
             $this->expectPropertySet('debug-attribute-is-missing', 'debug', 'false');
         } catch (BuildException $e) {
@@ -175,6 +179,7 @@ class SonarTaskTest extends BuildFileTest
 
     public function testConfigurationAttributeIsMissing()
     {
+        $this->expectNotToPerformAssertions();
         try {
             $this->expectPropertySet('configuration-attribute-is-missing', 'configuration', null);
         } catch (BuildException $e) {
@@ -184,6 +189,7 @@ class SonarTaskTest extends BuildFileTest
 
     public function testConfigurationAttributeIsEmpty()
     {
+        $this->expectNotToPerformAssertions();
         try {
             $this->expectPropertySet('configuration-attribute-is-empty', 'configuration', '');
         } catch (BuildException $e) {

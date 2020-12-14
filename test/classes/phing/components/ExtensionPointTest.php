@@ -45,6 +45,7 @@ class ExtensionPointTest extends BuildFileTest
 
     public function testExtensionPointMustBeEmpty()
     {
+        $this->expectNotToPerformAssertions();
         try {
             $this->executeTarget(__FUNCTION__);
         } catch (BuildException $e) {

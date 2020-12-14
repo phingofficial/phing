@@ -34,11 +34,13 @@ class TaskdefForCopyTest extends BuildFileTest
 
     public function test1()
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget("test1");
     }
 
     public function test2()
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget("test2");
     }
 

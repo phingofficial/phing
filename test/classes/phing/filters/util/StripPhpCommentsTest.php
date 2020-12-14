@@ -39,9 +39,14 @@ class StripPhpCommentsTest extends BuildFileTest
         $this->executeTarget("cleanup");
     }
 
-    public function testSortFilter()
+    /**
+     * @throws IOException
+     * @requires PHP 7
+     * @requires OSFAMILY Windows|Linux
+     */
+    public function testStripPhpComments()
     {
-        $this->executeTarget("testStripPhpComments");
+        $this->executeTarget(__FUNCTION__);
 
         $expectedFile = $this->getProject()->resolveFile("expected/stripphpcomments.test");
         $resultFile = $this->getProject()->resolveFile("result/stripphpcomments.test");

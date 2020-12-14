@@ -1,9 +1,8 @@
 <h1><img width="30" src="https://raw.githubusercontent.com/phingofficial/phing-github-action/main/action.svg"/>P     H     I     N     G</h1>
 
-  [![Build Status](https://travis-ci.com/phingofficial/phing.svg?branch=master)](https://travis-ci.com/phingofficial/phing)
+  ![Phing CI](https://github.com/phingofficial/phing/workflows/Phing%20CI/badge.svg?branch=master)
   [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/phingofficial/phing/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/phingofficial/phing/?branch=master)
   [![codecov](https://codecov.io/gh/phingofficial/phing/branch/master/graph/badge.svg)](https://codecov.io/gh/phingofficial/phing)
-  [![Build status](https://ci.appveyor.com/api/projects/status/ws2xv6tuu36sere7/branch/master?svg=true)](https://ci.appveyor.com/project/mrook/phing/branch/master)
 
   Thank you for using PHING!
 

@@ -59,11 +59,6 @@
                 <coverage-setup database="reports/coverage.db">
                     <fileset dir="${phing.classes.dir.resolved}">
                         <include name="**/*.php"/>
-                        <!-- exclude these to prevent fatals when running on phpunit 6 (the default) -->
-                        <exclude name="**/phpunit/PHPUnitTestRunner.php"/>
-                        <exclude name="**/phpunit/PHPUnitTestRunner6.php"/>
-                        <exclude name="**/phpunit/formatter5/*.php"/>
-                        <exclude name="**/phpunit/formatter6/*.php"/>
                         <exclude name="**/phpcs/*.php"/>
                     </fileset>
                 </coverage-setup>
@@ -71,8 +66,9 @@
         </if>
         <phpunit codecoverage="${tests.codecoverage}" haltonerror="true" haltonfailure="true" printsummary="true"
                  configuration="phpunit-sparse.xml" bootstrap="../vendor/autoload.php">
-            <formatter type="xml" usefile="true" todir="${tests.reports.dir.resolved}" outfile="test-results.xml"/>
+            <formatter type="xml" todir="${tests.reports.dir.resolved}" outfile="test-results.xml"/>
             <formatter type="clover" todir="${tests.reports.dir.resolved}"/>
+            <formatter type="clover-html" todir="${tests.reports.dir.resolved}/coverage"/>
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset refid="relevant-tests"/>

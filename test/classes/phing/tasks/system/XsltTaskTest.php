@@ -39,6 +39,7 @@ class XsltTaskTest extends BuildFileTest
 
     public function testHtmlButNotValidXml(): void
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
     }
 }

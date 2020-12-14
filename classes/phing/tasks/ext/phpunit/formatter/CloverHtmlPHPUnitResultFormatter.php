@@ -18,12 +18,12 @@
  */
 
 /**
- * Prints Clover XML output of the test
+ * Prints Clover HTML code coverage of the tests
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Blair Cooper <dev@raincitysolutions.com>
  * @package phing.tasks.ext.formatter
  */
-class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
+class CloverHtmlPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     /**
      * @var PHPUnit\Framework\TestResult
@@ -31,60 +31,36 @@ class CloverPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
     private $result = null;
 
     /**
-     * PHPUnit version
-     *
      * @var string
      */
-    private $version = null;
+    private $toDir = '.';
 
     /**
      * @param PHPUnitTask $parentTask
      */
-    public function __construct(PHPUnitTask $parentTask)
+    public function __construct(PHPUnitTask $parentTask, string $toDir)
     {
         parent::__construct($parentTask);
 
-        $this->version = PHPUnit\Runner\Version::id();
-    }
-
-    /**
-     * @return string
-     */
-    public function getExtension()
-    {
-        return ".xml";
-    }
-
-    /**
-     * @return string
-     */
-    public function getPreferredOutfile()
-    {
-        return "clover-coverage";
+        $this->toDir = $toDir;
     }
 
     /**
      * @param PHPUnit\Framework\TestResult $result
      */
-    public function processResult(PHPUnit\Framework\TestResult $result)
+    public function processResult(PHPUnit\Framework\TestResult $result): void
     {
         $this->result = $result;
     }
 
-    public function endTestRun()
+    public function endTestRun(): void
     {
         $coverage = $this->result->getCodeCoverage();
 
         if (!empty($coverage)) {
-            $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Clover';
+            $cloverClass = '\SebastianBergmann\CodeCoverage\Report\Html\Facade';
             $clover = new $cloverClass();
-
-            $contents = $clover->process($coverage);
-
-            if ($this->out) {
-                $this->out->write($contents);
-                $this->out->close();
-            }
+            $clover->process($coverage, $this->toDir);
         }
 
         parent::endTestRun();

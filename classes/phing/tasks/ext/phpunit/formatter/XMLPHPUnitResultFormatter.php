@@ -24,7 +24,7 @@
  * @package phing.tasks.ext.formatter
  * @since   2.1.0
  */
-class XMLPHPUnitResultFormatter7 extends PHPUnitResultFormatter7
+class XMLPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     /**
      * @var JUnit

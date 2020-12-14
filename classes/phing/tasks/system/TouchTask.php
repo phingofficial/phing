@@ -33,7 +33,7 @@ class TouchTask extends Task
      * @var PhingFile $file
      */
     private $file;
-    private $millis = -1;
+    private $seconds = -1;
     private $dateTime;
     private $fileUtils;
     private $mkdirs = false;
@@ -64,8 +64,11 @@ class TouchTask extends Task
     }
 
     /**
-     * the new modification time of the file
-     * in milliseconds since midnight Jan 1 1970.
+     * The new modification time of the file in milliseconds since midnight
+     * Jan 1 1970. Negative values are not accepted nor are values less than
+     * 1000. Note that PHP is actually based on seconds so the value passed
+     * in will be divided by 1000.
+     *
      * Optional, default=now
      *
      * @param  $millis
@@ -73,7 +76,32 @@ class TouchTask extends Task
      */
     public function setMillis($millis)
     {
-        $this->millis = (int) $millis;
+        if ($millis >= 0) {
+            if ($millis >= 1000) {
+                $this->seconds = (int) $millis / 1000;
+            } else {
+                throw new BuildException("Millis less than 1000 would be treated as 0");
+            }
+        } else {
+            throw new BuildException("Millis attribute cannot be negative");
+        }
+    }
+
+    /**
+     * the new modification time of the file
+     * in seconds since midnight Jan 1 1970.
+     * Optional, default=now
+     *
+     * @param  $seconds
+     * @return void
+     */
+    public function setSeconds($seconds)
+    {
+        if ($seconds >= 0) {
+            $this->seconds = (int) $seconds;
+        } else {
+            throw new BuildException("Seconds attribute cannot be negative");
+        }
     }
 
     /**
@@ -86,8 +114,13 @@ class TouchTask extends Task
      */
     public function setDatetime($dateTime)
     {
-        $this->dateTime = (string) $dateTime;
-        $this->setMillis(strtotime($this->dateTime));
+        $timestmap = strtotime($dateTime);
+        if (false !== $timestmap) {
+            $this->dateTime = (string) $dateTime;
+            $this->setSeconds($timestmap);
+        } else {
+            throw new BuildException("Date of ${dateTime} cannot be parsed correctly. It should be in a format parsable by PHP's strtotime() function." . PHP_EOL);
+        }
     }
 
     /**
@@ -130,7 +163,7 @@ class TouchTask extends Task
 
     protected function checkConfiguration()
     {
-        $savedMillis = $this->millis;
+        $savedSeconds = $this->seconds;
 
         if ($this->file === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
             throw new BuildException("Specify at least one source - a file, a fileset or a filelist.");
@@ -140,21 +173,12 @@ class TouchTask extends Task
             throw new BuildException("Use a fileset to touch directories.");
         }
 
-        try { // try to touch file
-            if ($this->dateTime !== null) {
-                if ($this->millis < 0) {
-                    throw new BuildException("Date of {$this->dateTime} results in negative milliseconds value relative to epoch (January 1, 1970, 00:00:00 GMT).");
-                }
-            }
-        } catch (Exception $ex) {
-            throw new BuildException("Error touch()ing file", $ex, $this->getLocation());
-        }
         $this->log(
-            "Setting millis to " . $savedMillis . " from datetime attribute",
-            ($this->millis < 0 ? Project::MSG_DEBUG : Project::MSG_VERBOSE)
+            "Setting seconds to " . $savedSeconds . " from datetime attribute",
+            ($this->seconds < 0 ? Project::MSG_DEBUG : Project::MSG_VERBOSE)
         );
 
-        $this->millis = $savedMillis;
+        $this->seconds = $savedSeconds;
     }
 
     /**
@@ -190,10 +214,11 @@ class TouchTask extends Task
             }
         }
 
-        $resetMillis = false;
-        if ($this->millis < 0) {
-            $resetMillis = true;
-            $this->millis = Phing::currentTimeMillis();
+        $resetSeconds = false;
+        if ($this->seconds < 0) {
+            $resetSeconds = true;
+            // Note: this function actually returns seconds, not milliseconds (e.g. 1606505920.2657)
+            $this->seconds = Phing::currentTimeMillis();
         }
 
         if ($this->file !== null) {
@@ -234,8 +259,8 @@ class TouchTask extends Task
             }
         }
 
-        if ($resetMillis) {
-            $this->millis = -1;
+        if ($resetSeconds) {
+            $this->seconds = -1;
         }
     }
 
@@ -264,6 +289,6 @@ class TouchTask extends Task
         if (!$file->canWrite()) {
             throw new BuildException("Can not change modification date of read-only file " . (string) $file);
         }
-        $file->setLastModified($this->millis);
+        $file->setLastModified($this->seconds);
     }
 }
