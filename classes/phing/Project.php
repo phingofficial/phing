@@ -960,6 +960,9 @@ class Project
                 $parent = (string) $visiting[count($visiting) - 1];
                 $sb .= " It is a dependency of target '$parent'.";
             }
+            if ($suggestion = $this->findSuggestion($root)) {
+                $sb .= sprintf(" Did you mean '%s'?", $suggestion);
+            }
             throw new BuildException($sb);
         }
 
@@ -1225,5 +1228,30 @@ class Project
             $event->setException($t);
         }
         $this->fireMessageLoggedEvent($event, $message, $priority);
+    }
+
+    /**
+     * Finds the Target with the most similar name to function's argument
+     *
+     * Will return null if buildfile has no targets.
+     *
+     * @see https://www.php.net/manual/en/function.levenshtein.php
+     * @param string $unknownTarget Target name
+     *
+     * @return Target
+     */
+    private function findSuggestion(string $unknownTarget): ?Target
+    {
+        return array_reduce($this->targets, function (?Target $carry, Target $current) use ($unknownTarget): ?Target {
+            // Omit target with empty name (there's always one)
+            if (empty(strval($current))) {
+                return $carry;
+            }
+            // $carry is null the first time
+            if (is_null($carry)) {
+                return $current;
+            }
+            return levenshtein($unknownTarget, $carry) < levenshtein($unknownTarget, $current) ? $carry : $current;
+        });
     }
 }
