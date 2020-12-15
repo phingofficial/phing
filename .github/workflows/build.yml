@@ -109,7 +109,7 @@ jobs:
           git config --global user.email "github-ci-build@phing.info"
           git config --global user.name "Phing Github Action"
           echo "=== RUN TESTS ==="
-          ../bin/phing -debug -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
+          XDEBUG_MODE=coverage ../bin/phing -debug -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
 
       - name: Transfer coverage
         if: github.repository_owner == 'phingofficial'
