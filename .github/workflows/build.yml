@@ -115,13 +115,15 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
+      - name: Composer install
+        run: composer install --no-interaction --no-progress --ansi
+
       - name: Test with coverage
         working-directory: test
         run: |
           echo "=== SETTING GIT IDENTITY ==="
           git config --global user.email "github-ci-build@phing.info"
           git config --global user.name "Phing Github Action"
-          composer install --no-interaction --no-progress --ansi
           echo "=== RUN TESTS ==="
           ../bin/phing -debug -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
 
