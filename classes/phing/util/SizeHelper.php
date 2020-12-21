@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 /**
  * SizeHelper class
@@ -12,13 +13,6 @@ class SizeHelper
 
     /**
      * Converts strings like '512K', '0.5G', '50M' to bytes.
-     *
-     * Bytes are always returned as an integer.
-     * Upper case and lower case units are supported.
-     *
-     * @param string $human
-     *
-     * @return int
      */
     public static function fromHumanToBytes(string $human): int
     {
@@ -30,30 +24,23 @@ class SizeHelper
 
     /**
      * Convert from bytes to any other valid unit.
-     *
-     * Upper case and lower case units are supported.
-     *
-     * @param int    $bytes
-     * @param string $unit Unit is case sensitive.
-     *
-     * @return float
      */
     public static function fromBytesTo(int $bytes, string $unit): float
     {
-        if (!self::isValidUnit($unit)) {
-            throw new BuildException("Invalid size unit '$unit'");
-        }
-        $converted = $bytes / pow(self::MXXIV, array_search(strtoupper($unit), self::UNITS, true));
+        $unit      = self::normalizeUnit($unit);
+        $converted = $bytes / pow(self::MXXIV, array_search($unit, self::UNITS, true));
 
         return floatval($converted);
     }
 
     /**
-     * Parses size and unit from strings like '1m', '50M', '100.55K', '2048'.
+     * Extracts size and unit from strings like '1m', '50M', '100.55K', '2048'.
      *
-     * Parsing is not locale aware.
-     * Parsing is case insensitive.
-     * Only first letter is parsed, therefore "100Bobo" will be valid for Bytes.
+     * This function can also handle scientific notation, e.g. '18e10k'.
+     * For sake of completeness it can also handle negative values '-1M'.
+     * Parsing is not locale aware, meaning that '.' (dot) is always used as decimal separator.
+     * Parsing is not case-sensitive, '10m' and '10M' are equivalent.
+     * Only first letter is parsed, therefore "100Bob" will be parsed as '100B' (100 bytes).
      *
      * @param string $human
      *
@@ -61,32 +48,38 @@ class SizeHelper
      */
     public static function parseHuman(string $human): array
     {
-        // no units, so we assume bytes
+        // no unit, so we assume bytes
         if (is_numeric($human)) {
             return [floatval($human), self::UNITS[0]];
         }
-        $parsed = sscanf(strtoupper($human), '%f%1s');
+        $parsed = sscanf(strtoupper($human), '%f%s');
         if (empty($parsed[0])) {
-            throw new BuildException("Invalid size string '$human'");
+            throw new BuildException("Invalid size '$human'");
         }
-        if (!self::isValidUnit($parsed[1])) {
-            throw new BuildException("Invalid size unit '${parsed[1]}'");
-        }
+        $parsed[1] = self::normalizeUnit($parsed[1]);
 
         return $parsed;
     }
 
     /**
-     * Tells you if a unit is supported by SizeHelper.
+     * Normalizes unit to a valid unit if possible.
      *
-     * Unit is case insensitive.
+     * Any string can be passed, but only first character will be used.
      *
-     * @param string $unit One character unit.
+     * @param string $unit
      *
-     * @return bool
+     * @return string One character valid unit.
      */
-    public static function isValidUnit(string $unit): bool
+    protected static function normalizeUnit(string $unit): string
     {
-        return in_array(strtoupper($unit), self::UNITS, true);
+        if ($unit === '') {
+            throw new BuildException('Unit string is empty');
+        }
+        $normalized = strtoupper($unit[0]);
+        if (!in_array($normalized, self::UNITS, true)) {
+            throw new BuildException("Invalid unit '$unit'");
+        }
+
+        return $normalized;
     }
 }

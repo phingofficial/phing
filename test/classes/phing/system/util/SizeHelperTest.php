@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 
 use PHPUnit\Framework\TestCase;
@@ -55,6 +56,31 @@ class SizeHelperTest extends TestCase
     }
 
     /**
+     * @dataProvider invalidFromBytesToProvider
+     */
+    public function testInvalidFromBytesTo(string $unit, string $message)
+    {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage($message);
+        SizeHelper::fromBytesTo(1024, $unit);
+    }
+
+
+    public function invalidFromBytesToProvider()
+    {
+        return [
+            ['', "Unit string is empty"],
+            ["\t", "Invalid unit '\t'"],
+            ['-', "Invalid unit '-'"],
+            ['x', "Invalid unit 'x'"],
+            ['E', "Invalid unit 'E'"],
+            ['Z', "Invalid unit 'Z'"],
+            ['Y', "Invalid unit 'Y'"],
+            ['hello', "Invalid unit 'hello'"],
+        ];
+    }
+
+    /**
      * @dataProvider validParseHumanProvider
      */
     public function testValidParseHuman(string $humanSize, float $expectedSize, string $expectedUnit)
@@ -72,11 +98,13 @@ class SizeHelperTest extends TestCase
     {
         return [
             ['0', 0, 'B'],
+            ['18e10', 180000000000.0, 'B'],
             ['-10', -10, 'B'],
             ['1024', 1024, 'B'],
             ['1b', 1, 'B'],
             ['30.50B', 30.5, 'B'],
             ['94.5008Bobo', 94.5008, 'B'],
+            ['18e10k', 180000000000.0, 'K'],
             ['17k', 17, 'K'],
             ['700.0005K', 700.0005, 'K'],
             ['15Kilo', 15.0000, 'K'],
@@ -112,51 +140,15 @@ class SizeHelperTest extends TestCase
     public function invalidParseHumanProvider()
     {
         return [
-            ['', "Invalid size string ''"],
-            ['+', "Invalid size string '+'"],
-            ['--', "Invalid size string '--'"],
-            ['M', "Invalid size string 'M'"],
-            ['M50', "Invalid size string 'M50'"],
-            ['90x', "Invalid size unit 'X'"],
-            ['10E', "Invalid size unit 'E'"],
-            ['10Z', "Invalid size unit 'Z'"],
-            ['10Y', "Invalid size unit 'Y'"],
-        ];
-    }
-
-    /**
-     * @dataProvider isValidUnitProvider
-     */
-    public function testIsValidUnit(string $unit, bool $expectedValidity)
-    {
-        $validity = SizeHelper::isValidUnit($unit);
-        $this->assertSame($expectedValidity, $validity);
-    }
-
-    public function isValidUnitProvider()
-    {
-        return [
-            ['b', true],
-            ['B', true],
-            ['k', true],
-            ['K', true],
-            ['m', true],
-            ['M', true],
-            ['g', true],
-            ['G', true],
-            ['t', true],
-            ['T', true],
-            ['p', true],
-            ['P', true],
-            ['e', false],
-            ['E', false],
-            ['z', false],
-            ['Z', false],
-            ['y', false],
-            ['Y', false],
-            [' ', false],
-            ['', false],
-            ['qsdf', false],
+            ['', "Invalid size ''"],
+            ['+', "Invalid size '+'"],
+            ['--', "Invalid size '--'"],
+            ['M', "Invalid size 'M'"],
+            ['M50', "Invalid size 'M50'"],
+            ['90x', "Invalid unit 'X'"],
+            ['10E', "Invalid unit 'E'"],
+            ['10Z', "Invalid unit 'Z'"],
+            ['10Y', "Invalid unit 'Y'"],
         ];
     }
 }
