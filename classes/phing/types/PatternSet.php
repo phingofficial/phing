@@ -410,35 +410,12 @@ class PatternSet extends DataType
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
-
-        // We can't compile includeList into array because, toString() does
-        // not know about project:
-        //
-        // $includes = $this->makeArray($this->includeList, $this->project);
-        // $excludes = $this->makeArray($this->excludeList, $this->project);
-
-        if (empty($this->includeList)) {
-            $includes = "empty";
-        } else {
-            $includes = "";
-            foreach ($this->includeList as $ne) {
-                $includes .= (string) $ne . ",";
-            }
-            $includes = rtrim($includes, ",");
-        }
-
-        if (empty($this->excludeList)) {
-            $excludes = "empty";
-        } else {
-            $excludes = "";
-            foreach ($this->excludeList as $ne) {
-                $excludes .= (string) $ne . ",";
-            }
-            $excludes = rtrim($excludes, ",");
-        }
-
-        return "patternSet{ includes: $includes  excludes: $excludes }";
+        return sprintf(
+            'patternSet{ includes: %s  excludes: %s }',
+            !empty($this->includeList) ? implode(',', $this->includeList) : 'empty',
+            !empty($this->excludeList) ? implode(',', $this->excludeList) : 'empty'
+        );
     }
 }
