@@ -1126,7 +1126,7 @@
     </define>
 
     <define name="attrib">
-        <element name="available">
+        <element name="attrib">
             <interleave>
                 <choice>
                     <attribute name="file"/>
@@ -7616,7 +7616,6 @@
             <ref name="isset"/>
             <ref name="contains_cond"/>
             <ref name="referenceexists"/>
-            <ref name="available"/>
             <ref name="filesmatch"/>
             <ref name="hasfreespace"/>
             <ref name="isfailure"/>
@@ -7630,6 +7629,7 @@
             <ref name="pdosqlexec_cond"/>
             <ref name="matches_cond"/>
             <ref name="os_cond"/>
+            <ref name="uptodate_cond"/>
         </choice>
     </define>
 
@@ -7639,6 +7639,25 @@
         </element>
     </define>
 
+    <define name="uptodate_cond">
+        <element name="uptodate">
+            <interleave>
+                <choice>
+                    <attribute name="srcfile"/>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <choice>
+                    <attribute name="targetfile"/>
+                    <oneOrMore>
+                        <ref name="mapper"/>
+                    </oneOrMore>
+                </choice>
+            </interleave>
+        </element>
+    </define>
+    
     <define name="or">
         <element name="or">
             <oneOrMore>
