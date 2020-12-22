@@ -27,8 +27,6 @@
  */
 class FileSizeTask extends Task
 {
-    const UNITS = ['B', 'K', 'M', 'G', 'T', 'P'];
-
     /**
      * Property for File
      *
@@ -48,7 +46,7 @@ class FileSizeTask extends Task
      *
      * @var string
      */
-    private $unit = self::UNITS[0];
+    private $unit = SizeHelper::UNITS[0];
 
     /**
      * Which file to calculate the file size of
@@ -77,12 +75,8 @@ class FileSizeTask extends Task
         $this->propertyName = $property;
     }
 
-    public function setUnit(string $originalUnit)
+    public function setUnit(string $unit)
     {
-        $unit = strtoupper($originalUnit);
-        if (!in_array($unit, self::UNITS)) {
-            throw new BuildException(sprintf('Invalid unit: %s', $originalUnit));
-        }
         $this->unit = $unit;
     }
 
@@ -101,18 +95,14 @@ class FileSizeTask extends Task
         $size = filesize($this->file);
 
         if ($size === false) {
-            throw new BuildException(sprintf('Cannot determine size of file: %s', $this->file));
+            throw new BuildException(sprintf('Cannot determine filesize of: %s', $this->file));
         }
-        $this->log(sprintf('%s %s', $size, self::UNITS[0]), Project::MSG_VERBOSE);
+        $this->log(sprintf('%s filesize in bytes is %s%s', $this->file, $size, SizeHelper::UNITS[0]), Project::MSG_VERBOSE);
 
-        $size = $size / pow(1024, array_search($this->unit, self::UNITS, true));
+        $size = SizeHelper::fromBytesTo($size, $this->unit);
 
-        if (is_float($size)) {
-            $size = round($size, 2);
-        }
-        $this->log(sprintf('%s %s', $size, $this->unit), Project::MSG_INFO);
+        $this->log(sprintf('%s filesize is %s%s', $this->file, $size, $this->unit), Project::MSG_INFO);
 
-        // publish hash value
         $this->project->setProperty($this->propertyName, $size);
     }
 }
