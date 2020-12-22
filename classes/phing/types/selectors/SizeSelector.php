@@ -28,169 +28,45 @@
 class SizeSelector extends BaseExtendSelector
 {
     /**
-     * @var int $size
+     * @var float
      */
-    private $size = -1;
+    private $bytes = -1;
 
     /**
-     * @var int $multiplier
+     * @var string
      */
-    private $multiplier = 1;
+    private $value = '';
 
     /**
-     * @var int $sizelimit
+     * @var string 'less', 'equal' or 'more'.
      */
-    private $sizelimit = -1;
+    private $when = self::WHEN[0];
 
-    /**
-     * @var int $cmp
-     */
-    private $cmp = 2;
+    private const VALUE_KEY = 'value';
+    private const WHEN_KEY  = 'when';
+    private const WHEN      = [-1 => 'less',
+                               0  => 'equal',
+                               1  => 'more',];
 
-    public const SIZE_KEY = "value";
-    public const UNITS_KEY = "units";
-    public const WHEN_KEY = "when";
-
-    /**
-     * @var array $sizeComparisons
-     */
-    private static $sizeComparisons = ["less", "more", "equal"];
-
-    /**
-     * @var array $byteUnits
-     */
-    private static $byteUnits = [
-        "K",
-        "k",
-        "kilo",
-        "KILO",
-        "Ki",
-        "KI",
-        "ki",
-        "kibi",
-        "KIBI",
-        "M",
-        "m",
-        "mega",
-        "MEGA",
-        "Mi",
-        "MI",
-        "mi",
-        "mebi",
-        "MEBI",
-        "G",
-        "g",
-        "giga",
-        "GIGA",
-        "Gi",
-        "GI",
-        "gi",
-        "gibi",
-        "GIBI",
-        "T",
-        "t",
-        "tera",
-        "TERA",
-        /* You wish! */
-        "Ti",
-        "TI",
-        "ti",
-        "tebi",
-        "TEBI"
-    ];
-
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
-        $buf = "{sizeselector value: ";
-        $buf .= $this->sizelimit;
-        $buf .= "compare: ";
-        if ($this->cmp === 0) {
-            $buf .= "less";
-        } elseif ($this->cmp === 1) {
-            $buf .= "more";
-        } else {
-            $buf .= "equal";
-        }
-        $buf .= "}";
-
-        return $buf;
+        $format = '{%s value: %s when: %s}';
+        return sprintf($format, __CLASS__, $this->value, $this->when);
     }
 
     /**
-     * A size selector needs to know what size to base its selecting on.
-     * This will be further modified by the multiplier to get an
-     * actual size limit.
+     * Filesize
      *
-     * @param int $size the size to select against expressed in units
+     * Possible values are: '1024', '5000B', '300M', '2G'.
      *
-     * @return void
-     */
-    public function setValue($size)
-    {
-        $this->size = $size;
-        if (($this->multiplier !== 0) && ($this->size > -1)) {
-            $this->sizelimit = $size * $this->multiplier;
-        }
-    }
-
-    /**
-     * Sets the units to use for the comparison. This is a little
-     * complicated because common usage has created standards that
-     * play havoc with capitalization rules. Thus, some people will
-     * use "K" for indicating 1000's, when the SI standard calls for
-     * "k". Others have tried to introduce "K" as a multiple of 1024,
-     * but that falls down when you reach "M", since "m" is already
-     * defined as 0.001.
-     * <p>
-     * To get around this complexity, a number of standards bodies
-     * have proposed the 2^10 standard, and at least one has adopted
-     * it. But we are still left with a populace that isn't clear on
-     * how capitalization should work.
-     * <p>
-     * We therefore ignore capitalization as much as possible.
-     * Completely mixed case is not possible, but all upper and lower
-     * forms are accepted for all long and short forms. Since we have
-     * no need to work with the 0.001 case, this practice works here.
-     * <p>
-     * This function translates all the long and short forms that a
-     * unit prefix can occur in and translates them into a single
-     * multiplier.
-     *
-     * @param array $units The units to compare the size to.
+     * @param string $value
      *
      * @return void
      */
-    public function setUnits($units)
+    public function setValue(string $value)
     {
-        $i = array_search($units, self::$byteUnits, true);
-        if ($i === false) {
-            $i = -1;
-        } // make it java-like
-
-        $this->multiplier = 0;
-        if (($i > -1) && ($i < 4)) {
-            $this->multiplier = 1000;
-        } elseif (($i > 3) && ($i < 9)) {
-            $this->multiplier = 1024;
-        } elseif (($i > 8) && ($i < 13)) {
-            $this->multiplier = 1000000;
-        } elseif (($i > 12) && ($i < 18)) {
-            $this->multiplier = 1048576;
-        } elseif (($i > 17) && ($i < 22)) {
-            $this->multiplier = 1000000000;
-        } elseif (($i > 21) && ($i < 27)) {
-            $this->multiplier = 1073741824;
-        } elseif (($i > 26) && ($i < 31)) {
-            $this->multiplier = 1000000000000;
-        } elseif (($i > 30) && ($i < 36)) {
-            $this->multiplier = 1099511627776;
-        }
-        if (($this->multiplier > 0) && ($this->size > -1)) {
-            $this->sizelimit = $this->size * $this->multiplier;
-        }
+        $this->value = $value;
+        $this->bytes = SizeHelper::fromHumanToBytes($value);
     }
 
     /**
@@ -198,16 +74,14 @@ class SizeSelector extends BaseExtendSelector
      * when the file matches a particular size, when it is smaller,
      * or whether it is larger.
      *
-     * @param array $cmp The comparison to perform, an EnumeratedAttribute
-     *
-     * @return void
+     * @param string $when
      */
-    public function setWhen($cmp)
+    public function setWhen(string $when): void
     {
-        $c = array_search($cmp, self::$sizeComparisons, true);
-        if ($c !== false) {
-            $this->cmp = $c;
+        if (!in_array($when, self::WHEN, true)) {
+            throw new BuildException("Invalid 'when' value");
         }
+        $this->when = $when;
     }
 
     /**
@@ -216,7 +90,7 @@ class SizeSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @param array $parameters the complete set of parameters for this selector
+     * @param Parameter[] $parameters the complete set of parameters for this selector
      *
      * @return void
      *
@@ -224,31 +98,22 @@ class SizeSelector extends BaseExtendSelector
      */
     public function setParameters(array $parameters): void
     {
-        parent::setParameters($parameters);
-        if ($parameters !== null) {
-            for ($i = 0, $size = count($parameters); $i < $size; $i++) {
-                $paramname = $parameters[$i]->getName();
-                switch (strtolower($paramname)) {
-                    case self::SIZE_KEY:
-                        try {
-                            $this->setValue($parameters[$i]->getValue());
-                        } catch (Exception $nfe) {
-                            $this->setError(
-                                "Invalid size setting "
-                                . $parameters[$i]->getValue()
-                            );
-                        }
-                        break;
-                    case self::UNITS_KEY:
-                        $this->setUnits($parameters[$i]->getValue());
+        try {
+            parent::setParameters($parameters);
+            foreach ($parameters as $param) {
+                switch (strtolower($param->getName())) {
+                    case self::VALUE_KEY:
+                        $this->setValue($param->getValue());
                         break;
                     case self::WHEN_KEY:
-                        $this->setWhen($parameters[$i]->getValue());
+                        $this->setWhen($param->getValue());
                         break;
                     default:
-                        $this->setError("Invalid parameter " . $paramname);
+                        throw new BuildException(sprintf('Invalid parameter %s', $param->getName()));
                 }
             }
+        } catch (Exception $exception) {
+            $this->setError($exception->getMessage(), $exception);
         }
     }
 
@@ -268,12 +133,11 @@ class SizeSelector extends BaseExtendSelector
      */
     public function verifySettings()
     {
-        if ($this->size < 0) {
-            $this->setError("The value attribute is required, and must be positive");
-        } elseif ($this->multiplier < 1) {
-            $this->setError("Invalid Units supplied, must be K,Ki,M,Mi,G,Gi,T,or Ti");
-        } elseif ($this->sizelimit < 0) {
-            $this->setError("Internal error: Code is not setting sizelimit correctly");
+        if ($this->value === '') {
+            $this->setError("The 'value' attribute is required");
+        }
+        if ($this->bytes < 0) {
+            $this->setError("The 'value' attribute must be positive");
         }
     }
 
@@ -283,13 +147,14 @@ class SizeSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @param PhingFile $basedir A PhingFile object for the base directory
-     * @param string $filename The name of the file to check
-     * @param PhingFile $file A PhingFile object for this filename
+     * @param PhingFile $basedir  A PhingFile object for the base directory
+     * @param string    $filename The name of the file to check
+     * @param PhingFile $file     A PhingFile object for this filename
      *
      * @return bool whether the file should be selected or not
+     * @throws IOException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file): bool
     {
         $this->validate();
 
@@ -297,14 +162,8 @@ class SizeSelector extends BaseExtendSelector
         if ($file->isDirectory()) {
             return true;
         }
-        if ($this->cmp === 0) {
-            return ($file->length() < $this->sizelimit);
-        }
+        $expected = array_search($this->when, self::WHEN);
 
-        if ($this->cmp === 1) {
-            return ($file->length() > $this->sizelimit);
-        }
-
-        return ($file->length() === $this->sizelimit);
+        return ($file->length() <=> $this->bytes) === $expected;
     }
 }
