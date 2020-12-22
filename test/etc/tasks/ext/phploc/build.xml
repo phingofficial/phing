@@ -40,7 +40,7 @@
 			<formatter type="txt" toDir="${project.basedir}" outFile="phploc-report.txt" />
 			<formatter type="csv" toDir="${project.basedir}" outFile="phploc-report.csv" />
 			<formatter type="xml" toDir="${project.basedir}" outFile="phploc-report.xml" />
-			<formatter type="xml" toDir="${project.basedir}" outFile="phploc-report.json" />
+			<formatter type="json" toDir="${project.basedir}" outFile="phploc-report.json" />
 			<fileset dir=".">
 				<include name="*.php" />
 			</fileset>
