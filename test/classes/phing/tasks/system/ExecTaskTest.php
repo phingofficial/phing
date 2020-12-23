@@ -358,7 +358,7 @@ class ExecTaskTest extends BuildFileTest
     public function testEscapedArg()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('outval', $this->windows ? 'abc$b3 SB' : 'abc$b3!SB');
+        $this->assertPropertyEquals('outval', 'abc$b3!SB');
     }
 
     public function testEscapedArgWithoutWhitespace()
@@ -375,8 +375,13 @@ class ExecTaskTest extends BuildFileTest
         $this->assertStringStartsWith('phploc', $this->getProject()->getProperty('envtest'));
     }
 
-    public function testEnvVars(): void
+    public function testEnvVar(): void
     {
         $this->expectPropertySet(__FUNCTION__, 'hello', 'world');
+    }
+
+    public function testMultipleEnvVars(): void
+    {
+        $this->expectPropertySet(__FUNCTION__, 'outputProperty', 'hello world');
     }
 }
