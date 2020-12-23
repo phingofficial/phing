@@ -358,7 +358,7 @@ class ExecTaskTest extends BuildFileTest
     public function testEscapedArg()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('outval', $this->windows ? 'abc$b3 SB' : 'abc$b3!SB');
+        $this->assertPropertyEquals('outval', 'abc$b3!SB');
     }
 
     public function testEscapedArgWithoutWhitespace()

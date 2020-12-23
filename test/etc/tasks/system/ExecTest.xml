@@ -187,9 +187,20 @@
     </target>
 
     <target name="testEscapedArg">
-        <exec executable="echo" escape="true" outputProperty="outval">
-            <arg value="abc$b3!SB"/>
-        </exec>
+        <if>
+            <os family="windows"/>
+            <then>
+                <exec executable="cmd" outputProperty="outval">
+                    <arg value="/C"/>
+                    <arg line ="echo abc$b3!SB"/>
+                </exec>
+            </then>
+            <else>
+                <exec executable="echo" escape="true" outputProperty="outval">
+                    <arg value="abc$b3!SB"/>
+                </exec>
+            </else>
+        </if>
     </target>
 
     <target name="testEscapedArgWithoutWhitespace">
