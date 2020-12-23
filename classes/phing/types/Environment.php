@@ -26,9 +26,9 @@
 class Environment
 {
     /**
-     * a vector of type Environment.Variable
+     * a vector of type EnvVariable
      *
-     * @see Variable
+     * @type EnvVariable[]
      */
     protected $variables;
 
@@ -64,7 +64,7 @@ class Environment
             return null;
         }
         return array_map(
-            function ($env) {
+            function (EnvVariable $env) {
                 return $env->getContent();
             },
             $this->variables->getArrayCopy()
