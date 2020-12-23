@@ -185,7 +185,7 @@
         <exec>
         </exec>
     </target>
-    
+
     <target name="testEscapedArg">
         <exec executable="echo" escape="true" outputProperty="outval">
             <arg value="abc$b3!SB"/>
@@ -206,7 +206,7 @@
         </exec>
     </target>
 
-    <target name="testEnvVars">
+    <target name="testEnvVar">
         <if>
             <os family="windows"/>
             <then>
@@ -226,4 +226,12 @@
         <echo msg="${hello}"/>
     </target>
 
+    <target name="testMultipleEnvVars">
+        <exec executable="php" outputProperty="outputProperty">
+            <env key="HELLO" value="hello"/>
+            <env key="WORLD" value="world"/>
+            <arg value="-r"/>
+            <arg value="print getEnv('HELLO') . ' ' . getEnv('WORLD');"/>
+        </exec>
+    </target>
 </project>

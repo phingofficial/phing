@@ -274,7 +274,7 @@ class ExecTask extends Task
                 if (OsCondition::isOS(OsCondition::FAMILY_WINDOWS)) {
                     $envString .= 'set ' . $variable . ' & ';
                 } else {
-                    $envString .= $variable . '; ';
+                    $envString .= 'export ' . $variable . '; ';
                 }
             }
         }
