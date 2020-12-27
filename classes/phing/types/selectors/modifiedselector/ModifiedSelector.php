@@ -104,9 +104,8 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
 
         $p = $this->getProject();
         $filename = 'cache.properties';
-        $this->cachefile;
         if ($p !== null) {
-            // normal use inside Ant
+            // normal use inside Phing
             $this->cachefile = new PhingFile($p->getBasedir(), $filename);
 
             // set self as a BuildListener to delay cachefile saves

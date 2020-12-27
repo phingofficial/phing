@@ -42,4 +42,26 @@ class ModifiedSelectorTest extends BuildFileTest
         $output = $project->getProperty('phing.dir');
         $this->assertFileExists($output . '/cc.properties');
     }
+
+    /** Test correct use of cache names. */
+    public function testValidateWrongCache()
+    {
+        $name = "this-is-not-a-valid-cache-name";
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Cache must be set');
+        $sel = new ModifiedSelector();
+        $sel->setCache($name);
+        $sel->validate();
+    }
+
+    /** Test correct use of algorithm names. */
+    public function testValidateWrongAlgorithm()
+    {
+        $name = "this-is-not-a-valid-algorithm-name";
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Algorithm must be set');
+        $sel = new ModifiedSelector();
+        $sel->setAlgorithm($name);
+        $sel->validate();
+    }
 }
