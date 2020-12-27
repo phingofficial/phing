@@ -39,7 +39,7 @@ class ModifiedSelectorTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
-        $output = $project->getProperty('output');
+        $output = $project->getProperty('phing.dir');
         $this->assertFileExists($output . '/cc.properties');
     }
 }
