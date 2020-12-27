@@ -203,6 +203,14 @@ trait SelectorAware
     }
 
     /**
+     * add a modified selector entry on the selector list
+     */
+    public function addModified(ModifiedSelector $selector)
+    {
+        $this->appendSelector($selector);
+    }
+
+    /**
      * add a type selector entry on the selector list
      */
     public function addType(TypeSelector $selector)

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test" basedir="." default="main">
+
+    <property name="tmp.dir" value="tmp/selector"/>
+    <resolvepath propertyName="output" dir="${tmp.dir}" path="testoutput"/>
+
+    <target name="setup">
+        <mkdir dir="${output}"/>
+    </target>
+    <target name="clean">
+        <delete dir="${output}"/>
+    </target>
+
+    <target name="testOneFile">
+        <copy todir="${output}" overwrite="yes">
+            <fileset dir="." includes="ModifiedSelectorTest.xml">
+                <modified update="true"
+                          seldirs="true"
+                          cache="propertyfile"
+                          algorithm="hashfile"
+                          comparator="equal">
+                    <param name="cache.cachefile" value="cc.properties"/>
+                    <param name="algorithm.algorithm" value="md5"/>
+                </modified>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="main">
+        <echo msg="This test build file is not executable."/>
+    </target>
+</project>
