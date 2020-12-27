@@ -43,6 +43,14 @@ class ModifiedSelectorTest extends BuildFileTest
         $this->assertFileExists($output . '/cc.properties');
     }
 
+    public function testWithParam(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $project = $this->getProject();
+        $output = $project->getProperty('phing.dir');
+        $this->assertFileExists($output . '/cc.properties');
+    }
+
     /** Test correct use of cache names. */
     public function testValidateWrongCache()
     {
