@@ -411,6 +411,14 @@ abstract class MatchingTask extends Task implements SelectorContainer
     }
 
     /**
+     * add a different selector entry on the selector list
+     */
+    public function addModified(ModifiedSelector $selector)
+    {
+        $this->fileset->addModified($selector);
+    }
+
+    /**
      * add a type selector entry on the selector list
      *
      * @param TypeSelector $selector

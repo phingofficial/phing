@@ -180,6 +180,13 @@ interface SelectorContainer
     public function addDifferent(DifferentSelector $selector);
 
     /**
+     * add a modified selector entry on the selector list
+     *
+     * @param ModifiedSelector $selector
+     */
+    public function addModified(ModifiedSelector $selector);
+
+    /**
      * add a type selector entry on the selector list
      *
      * @param TypeSelector $selector
