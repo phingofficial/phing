@@ -43,4 +43,12 @@ class LastModifiedAlgorithm implements Algorithm
 
         return (string) $lastModified;
     }
+
+    /**
+     * @return string some information about this algorithm.
+     */
+    public function __toString(): string
+    {
+        return sprintf('<%s>', __CLASS__);
+    }
 }
