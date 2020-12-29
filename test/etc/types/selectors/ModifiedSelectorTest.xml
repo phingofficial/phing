@@ -33,7 +33,7 @@
                     <param name="update" value="true"/>
                     <param name="seldirs" value="true"/>
                     <param name="cache" value="propertyfile"/>
-                    <param name="algorithm" value="hashfile"/>
+                    <param name="algorithm" value="lastmodified"/>
                     <param name="comparator" value="equal"/>
                     <param name="cache.cachefile" value="cc.properties"/>
                     <param name="algorithm.algorithm" value="md5"/>
