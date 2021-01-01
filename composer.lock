@@ -5069,21 +5069,21 @@
         },
         {
             "name": "sebastian/phpcpd",
-            "version": "6.0.2",
+            "version": "6.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpcpd.git",
-                "reference": "4f130523214c755c69d1d59297afdff206c7b029"
+                "reference": "f3683aa0db2e8e09287c2bb33a595b2873ea9176"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpcpd/zipball/4f130523214c755c69d1d59297afdff206c7b029",
-                "reference": "4f130523214c755c69d1d59297afdff206c7b029",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpcpd/zipball/f3683aa0db2e8e09287c2bb33a595b2873ea9176",
+                "reference": "f3683aa0db2e8e09287c2bb33a595b2873ea9176",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
-                "php": "^7.3",
+                "php": ">=7.3",
                 "phpunit/php-file-iterator": "^3.0",
                 "phpunit/php-timer": "^5.0",
                 "sebastian/cli-parser": "^1.0",
@@ -5118,7 +5118,7 @@
             "homepage": "https://github.com/sebastianbergmann/phpcpd",
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpcpd/issues",
-                "source": "https://github.com/sebastianbergmann/phpcpd/tree/6.0.2"
+                "source": "https://github.com/sebastianbergmann/phpcpd/tree/6.0.3"
             },
             "funding": [
                 {
@@ -5126,7 +5126,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-18T13:27:23+00:00"
+            "time": "2020-12-07T05:39:23+00:00"
         },
         {
             "name": "sebastian/recursion-context",
