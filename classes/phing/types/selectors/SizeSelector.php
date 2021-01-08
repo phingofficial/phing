@@ -50,7 +50,7 @@ class SizeSelector extends BaseExtendSelector
 
     public function __toString(): string
     {
-        $format = '{%s value: %s when: %s}';
+        $format = '{%s value: %s compare: %s}';
         return sprintf($format, __CLASS__, $this->value, $this->when);
     }
 
