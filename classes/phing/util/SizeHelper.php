@@ -41,12 +41,12 @@ class SizeHelper
     /**
      * Converts strings like '512K', '0.5G', '50M' to bytes.
      */
-    public static function fromHumanToBytes(string $human): int
+    public static function fromHumanToBytes(string $human): float
     {
         [$size, $unit] = self::parseHuman($human);
         $multiple = self::findUnitMultiple($unit);
 
-        return intval($bytes);
+        return $size * $multiple;
     }
 
     /**
@@ -60,14 +60,30 @@ class SizeHelper
     }
 
     /**
-     * Convert from bytes to any other valid unit.
+     * Extracts size and unit from strings like '1m', '50M', '100.55K', '2048'.
+     *
+     * - The default unit is 'B'.
+     * - If unit exists then it is returned as-is, even invalid units.
+     * - This function can also handle scientific notation, e.g. '8e10k'.
+     * - It can also handle negative values '-1M'.
+     * - Parsing is not locale aware, this means that '.' (dot) is always used as decimal separator.
+     *
+     * @param string $human Filesize as a human writes it.
+     *
+     * @return array{0: float, 1: string} First element is size, and second is the unit.
      */
-    public static function fromBytesTo(int $bytes, string $unit): float
+    protected static function parseHuman(string $human): array
     {
-        $unit      = self::normalizeUnit($unit);
-        $converted = $bytes / pow(self::MXXIV, array_search($unit, self::UNITS, true));
+        // no unit, so we assume bytes
+        if (is_numeric($human)) {
+            return [floatval($human), self::B];
+        }
+        $parsed = sscanf($human, '%f%s');
+        if (empty($parsed[0])) {
+            throw new BuildException("Invalid size '$human'");
+        }
 
-        return floatval($converted);
+        return $parsed;
     }
 
     /**
