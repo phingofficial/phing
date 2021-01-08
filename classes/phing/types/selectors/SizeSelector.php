@@ -57,9 +57,7 @@ class SizeSelector extends BaseExtendSelector
     /**
      * Filesize
      *
-     * Possible values are: '1024', '5000B', '300M', '2G'.
-     *
-     * @param string $value
+     * @param string $value Values like '1024', '5000B', '300M', '2G'.
      *
      * @return void
      */
@@ -79,7 +77,7 @@ class SizeSelector extends BaseExtendSelector
     public function setWhen(string $when): void
     {
         if (!in_array($when, self::WHEN, true)) {
-            throw new BuildException("Invalid 'when' value");
+            throw new BuildException("Invalid 'when' value '$when'");
         }
         $this->when = $when;
     }

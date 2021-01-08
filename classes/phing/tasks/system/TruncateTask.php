@@ -44,7 +44,7 @@ class TruncateTask extends Task
 
     /**
      * Set the amount by which files' lengths should be adjusted.
-     * It is permissible to append b / k / m / g / t / p .
+     * It is permissible to append b / k / m / g / t.
      *
      * @param string $adjust (positive or negative) adjustment amount.
      */
