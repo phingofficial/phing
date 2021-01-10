@@ -501,33 +501,21 @@ class PHPUnitTask extends Task
     {
         if (
             class_exists('\PHPUnit\Runner\Version', false) &&
-            version_compare(\PHPUnit\Runner\Version::id(), '8.0.0', '<')
+            version_compare(\PHPUnit\Runner\Version::id(), '9.0.0', '<')
         ) {
-            $runner = new PHPUnitTestRunner7(
+            $runner = new PHPUnitTestRunner8(
                 $this->project,
                 $this->groups,
                 $this->excludeGroups,
                 $this->processIsolation
             );
         } else {
-            if (
-                class_exists('\PHPUnit\Runner\Version', false) &&
-                version_compare(\PHPUnit\Runner\Version::id(), '9.0.0', '<')
-            ) {
-                $runner = new PHPUnitTestRunner8(
-                    $this->project,
-                    $this->groups,
-                    $this->excludeGroups,
-                    $this->processIsolation
-                );
-            } else {
-                $runner = new PHPUnitTestRunner9(
-                    $this->project,
-                    $this->groups,
-                    $this->excludeGroups,
-                    $this->processIsolation
-                );
-            }
+            $runner = new PHPUnitTestRunner9(
+                $this->project,
+                $this->groups,
+                $this->excludeGroups,
+                $this->processIsolation
+            );
         }
 
         if ($this->codecoverage) {
