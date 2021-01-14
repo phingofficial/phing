@@ -46,7 +46,7 @@ class FileSizeTask extends Task
      *
      * @var string
      */
-    private $unit = SizeHelper::UNITS[0];
+    private $unit = SizeHelper::B;
 
     /**
      * Which file to calculate the file size of
@@ -97,7 +97,7 @@ class FileSizeTask extends Task
         if ($size === false) {
             throw new BuildException(sprintf('Cannot determine filesize of: %s', $this->file));
         }
-        $this->log(sprintf('%s filesize in bytes is %s%s', $this->file, $size, SizeHelper::UNITS[0]), Project::MSG_VERBOSE);
+        $this->log(sprintf('%s filesize is %s%s', $this->file, $size, SizeHelper::B), Project::MSG_VERBOSE);
 
         $size = SizeHelper::fromBytesTo($size, $this->unit);
 
