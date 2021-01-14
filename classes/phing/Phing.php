@@ -1672,37 +1672,6 @@ class Phing
     }
 
     /**
-     * Converts shorthand notation values as returned by ini_get()
-     *
-     * @see    http://www.php.net/ini_get
-     * @param  string|int $val
-     * @return int
-     */
-    public static function convertShorthand($val): int
-    {
-        $val = trim($val);
-        $last = strtolower($val[strlen($val) - 1]);
-
-        if (!is_numeric($last)) {
-            $val = (int) substr($val, 0, -1);
-
-            switch ($last) {
-                // The 'G' modifier is available since PHP 5.1.0
-                case 'g':
-                    $val *= 1024;
-                // no break
-                case 'm':
-                    $val *= 1024;
-                // no break
-                case 'k':
-                    $val *= 1024;
-            }
-        }
-
-        return $val;
-    }
-
-    /**
      * Sets PHP INI values that Phing needs.
      */
     private static function setIni(): void
@@ -1719,7 +1688,7 @@ class Phing
         self::$origIniSettings['short_open_tag'] = ini_set('short_open_tag', 'off');
         self::$origIniSettings['default_charset'] = ini_set('default_charset', 'iso-8859-1');
 
-        $mem_limit = (int) self::convertShorthand(ini_get('memory_limit'));
+        $mem_limit = (int) SizeHelper::fromHumanToBytes(ini_get('memory_limit'));
         if ($mem_limit < (32 * 1024 * 1024) && $mem_limit > -1) {
             // We do *not* need to save the original value here, since we don't plan to restore
             // this after shutdown (we don't trust the effectiveness of PHP's garbage collection).

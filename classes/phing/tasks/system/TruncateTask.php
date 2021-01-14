@@ -44,13 +44,13 @@ class TruncateTask extends Task
 
     /**
      * Set the amount by which files' lengths should be adjusted.
-     * It is permissible to append k / m / g.
+     * It is permissible to append b / k / m / g / t.
      *
      * @param string $adjust (positive or negative) adjustment amount.
      */
     public function setAdjust(string $adjust)
     {
-        $this->adjust = Phing::convertShorthand($adjust);
+        $this->adjust = SizeHelper::fromHumanToBytes($adjust);
     }
 
     /**
@@ -63,7 +63,7 @@ class TruncateTask extends Task
      */
     public function setLength(string $length)
     {
-        $this->length = Phing::convertShorthand($length);
+        $this->length = SizeHelper::fromHumanToBytes($length);
         if ($this->length !== null && $this->length < 0) {
             throw new BuildException('Cannot truncate to length ' . $this->length);
         }

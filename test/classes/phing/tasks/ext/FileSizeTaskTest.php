@@ -22,18 +22,18 @@ class FileSizeTaskTest extends BuildFileTest
 
     public function testSimpleCase()
     {
-        $this->getProject()->setProperty('dummy.size', '1K');
+        $this->getProject()->setProperty('dummy.size', '12345B');
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('1024 B');
-        $this->assertPropertyEquals('filesize', 1024);
+        $this->assertInLogs('12345B');
+        $this->assertPropertyEquals('filesize', 12345);
     }
 
     public function testPropertyNameAttribute()
     {
-        $this->getProject()->setProperty('dummy.size', '2K');
+        $this->getProject()->setProperty('dummy.size', '27027K');
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('2048 B');
-        $this->assertPropertyEquals('my-filesize', 2048);
+        $this->assertInLogs('27675648B');
+        $this->assertPropertyEquals('my-filesize', 27675648);
     }
 
     /**
@@ -52,15 +52,14 @@ class FileSizeTaskTest extends BuildFileTest
     public function unitAttributeProvider()
     {
         return [
-            ['1K', 'b', '1024 B', '1024 B', 1024],
-            ['13K', 'B', '13312 B', '13312 B', 13312],
-            ['13K', 'k', '13312 B', '13 K', 13],
-            ['517K', 'M', '529408 B', '0.5 M', 0.50],
-            ['500K', 'm', '512000 B', '0.49 M', 0.49],
-            ['10M', 'G', '10485760 B', '0.01 G', 0.01],
-            ['2K', 'G', '2048 B', '0 G', 0],
-            ['2K', 't', '2048 B', '0 T', 0],
-            ['2K', 'P', '2048 B', '0 P', 0],
+            ['1K', 'b', '1024B', '1024B', 1024],
+            ['13K', 'B', '13312B', '13312B', 13312],
+            ['13K', 'k', '13312B', '13K', 13],
+            ['517K', 'M', '529408B', '0.5048828125M', 0.5048828125],
+            ['500K', 'm', '512000B', '0.48828125m', 0.48828125],
+            ['10M', 'g', '10485760B', '0.009765625g', 0.009765625],
+            ['20M', 'G', '20971520B', '0.01953125G', 0.01953125],
+            ['20m', 't', '20971520B', '1.9073486328125E-5t', '1.9073486328125E-5'],
         ];
     }
 
@@ -77,13 +76,13 @@ class FileSizeTaskTest extends BuildFileTest
     public function testExceptionInvalidUnit()
     {
         $this->getProject()->setProperty('dummy.size', '1K');
-        $this->expectBuildExceptionContaining(__FUNCTION__, 'The unit is not a valid one', 'Invalid unit: foo');
+        $this->expectBuildExceptionContaining(__FUNCTION__, 'The unit is not a valid one', "Invalid unit 'foo'");
     }
 
     public function testExceptionEmptyUnit()
     {
         $this->getProject()->setProperty('dummy.size', '1K');
-        $this->expectBuildExceptionContaining(__FUNCTION__, 'The unit attribute is empty', 'Invalid unit: ');
+        $this->expectBuildExceptionContaining(__FUNCTION__, 'The unit attribute is empty', "Invalid unit ''");
     }
 
     public function testExceptionEmptyProperty()

@@ -47,7 +47,7 @@ class HasFreeSpaceCondition implements Condition
         $this->validate();
 
         $free = disk_free_space($this->partition);
-        return $free >= $this->parseHumanSizes($this->needed);
+        return $free >= SizeHelper::fromHumanToBytes($this->needed);
     }
 
     /**
@@ -85,33 +85,5 @@ class HasFreeSpaceCondition implements Condition
     public function setNeeded($needed)
     {
         $this->needed = $needed;
-    }
-
-    /**
-     * @param string $humanSize
-     *
-     * @return float
-     */
-    private function parseHumanSizes($humanSize)
-    {
-        if (ctype_alpha($char = $humanSize[strlen($humanSize - 1)])) {
-            $value = (float) substr($humanSize, 0, strlen($humanSize - 1));
-            switch ($char) {
-                case 'K':
-                    return $value * 1024;
-                case 'M':
-                    return $value * 1024 * 1024;
-                case 'G':
-                    return $value * 1024 * 1024 * 1024;
-                case 'T':
-                    return $value * 1024 * 1024 * 1024 * 1024;
-                case 'P':
-                    return $value * 1024 * 1024 * 1024 * 1024 * 1024;
-                default:
-                    return $value;
-            }
-        } else {
-            return (float) $humanSize;
-        }
     }
 }
