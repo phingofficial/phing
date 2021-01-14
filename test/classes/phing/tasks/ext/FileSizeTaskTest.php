@@ -60,7 +60,6 @@ class FileSizeTaskTest extends BuildFileTest
             ['10M', 'g', '10485760B', '0.009765625g', 0.009765625],
             ['20M', 'G', '20971520B', '0.01953125G', 0.01953125],
             ['20m', 't', '20971520B', '1.9073486328125E-5t', '1.9073486328125E-5'],
-            ['20M', 'P', '20971520B', '1.862645149231E-8P', '1.862645149231E-8'],
         ];
     }
 
@@ -83,7 +82,7 @@ class FileSizeTaskTest extends BuildFileTest
     public function testExceptionEmptyUnit()
     {
         $this->getProject()->setProperty('dummy.size', '1K');
-        $this->expectBuildExceptionContaining(__FUNCTION__, 'The unit attribute is empty', 'Unit string is empty');
+        $this->expectBuildExceptionContaining(__FUNCTION__, 'The unit attribute is empty', "Invalid unit ''");
     }
 
     public function testExceptionEmptyProperty()
