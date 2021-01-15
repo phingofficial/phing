@@ -132,6 +132,7 @@ class BaseFilterReader extends FilterReader
         while (($ch = $this->in->read(1)) !== -1) {
             $line .= $ch;
             if ($ch === "\n") {
+                $line = rtrim($line);
                 break;
             }
         }
