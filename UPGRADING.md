@@ -29,3 +29,5 @@ that you might stumble across when upgrading from Phing 2.x to 3.0.
     setting which resulted in lower than expected permissions. This should not
     happen when using ACL. Now, `MkdirTask` respects ACL settings.
 * The tasks to generate PEAR packages \(including supporting code\) have been removed from Phing.
+* [AppendTask] The default behavior of `append` attribute was changed to `true`
+* [MoveTask] The default behavior of `overwrite` attribute was changed to `true`
