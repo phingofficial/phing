@@ -88,7 +88,7 @@ class HtmlColorLogger extends DefaultLogger
      * Set the colors to use from a property file specified in the
      * special phing property file "phing/listener/defaults.properties".
      */
-    final private function setColors()
+    private function setColors()
     {
 
         $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
