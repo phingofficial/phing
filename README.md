@@ -12,10 +12,11 @@
 
   If you find yourself writing custom scripts to handle the packaging, deploying, or testing of your applications, then we suggest looking at Phing. Pre-packaged with numerous out-of-the-box operation modules (tasks), and an easy-to-use OO model to extend or add your own custom tasks.
 
-## The Latest Version
+  For more information and documentation, you can visit our official website at <https://www.phing.info/>.
 
-  Details of the latest version can be found on the Phing homepage
-  <https://www.phing.info/>.
+## Phing 3
+
+  Phing 3 is a significant update with some breaking changes compared to Phing 2. For details, please refer to the [UPGRADING.md](UPGRADING.md) file.
 
 ## Supported PHP versions
 
