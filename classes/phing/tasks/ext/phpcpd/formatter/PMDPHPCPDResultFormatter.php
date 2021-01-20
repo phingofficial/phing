@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use SebastianBergmann\PHPCPD\CodeCloneMap;
+
 /**
  * Prints PMD-XML output of phpcpd run
  *

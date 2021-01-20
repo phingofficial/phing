@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Uses CSS class that must be defined in the HTML page
  * where the Phing output is displayed.

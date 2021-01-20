@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Task that invokes phing on another build file.
  *

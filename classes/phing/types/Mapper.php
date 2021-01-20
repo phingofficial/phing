@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Filename Mapper maps source file name(s) to target file name(s).
  *

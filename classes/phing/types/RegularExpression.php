@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * A regular expression datatype.  Keeps an instance of the
  * compiled expression for speed purposes.  This compiled

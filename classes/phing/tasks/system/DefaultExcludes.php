@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Alters the default excludes for the <strong>entire</strong> build.
  *

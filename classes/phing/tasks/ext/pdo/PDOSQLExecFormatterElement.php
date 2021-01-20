@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.
  *

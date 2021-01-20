@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Helper class that collects the methods that a task or nested element
  * holds to set attributes, create nested elements or hold PCDATA

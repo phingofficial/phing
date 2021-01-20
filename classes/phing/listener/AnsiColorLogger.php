@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Uses ANSI Color Code Sequences to colorize messages
  * sent to the console.

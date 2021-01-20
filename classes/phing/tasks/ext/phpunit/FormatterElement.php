@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *

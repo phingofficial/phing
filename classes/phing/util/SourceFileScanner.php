@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  *  Utility class that collects the functionality of the various
  *  scanDir methods that have been scattered in several tasks before.

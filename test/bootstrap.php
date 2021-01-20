@@ -1,4 +1,7 @@
 <?php
+
+use Phing\Phing;
+
 defined('PHING_TEST_BASE') || define('PHING_TEST_BASE', __DIR__);
 set_include_path(
     realpath(__DIR__ . '/../classes') . PATH_SEPARATOR .
@@ -7,7 +10,6 @@ set_include_path(
 );
 
 require_once __DIR__ . '/classes/phing/BuildFileTest.php';
-require_once 'phing/Phing.php';
 
 // Use composers autoload.php if available
 if (file_exists(__DIR__ . '/../vendor/autoload.php')) {

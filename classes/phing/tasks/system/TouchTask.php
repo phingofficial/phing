@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Touch a file and/or fileset(s); corresponds to the Unix touch command.
  *

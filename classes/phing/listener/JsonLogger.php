@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Generates a file in the current directory with
  * an JSON description of what happened during a build.

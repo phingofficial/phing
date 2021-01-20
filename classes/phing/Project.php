@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  *  The Phing project class. Represents a completely configured Phing project.
  *  The class defines the project and all tasks/targets. It also contains

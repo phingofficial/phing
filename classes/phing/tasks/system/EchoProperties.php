@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  *  Displays all the current properties in the build. The output can be sent to
  *  a file if desired.

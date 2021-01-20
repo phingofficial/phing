@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * This is a class that represents a recorder. This is the listener to the
  * build process.

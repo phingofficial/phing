@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Uses PEAR Mail package to send the build log to one or
  * more recipients.

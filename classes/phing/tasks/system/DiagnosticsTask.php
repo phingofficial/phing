@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * This is a task that hands off work to the Diagnostics module.
  * It lets you run diagnostics in an IDE.

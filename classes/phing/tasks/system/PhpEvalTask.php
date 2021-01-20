@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Executes PHP function or evaluates expression and sets return value to a property.
  *

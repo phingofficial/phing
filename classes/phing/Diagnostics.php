@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * A little diagnostic helper that output some information that may help
  * in support. It should quickly give correct information about the

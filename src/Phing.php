@@ -17,8 +17,37 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use BuildException;
+use BuildLogger;
+use ConfigurationException;
+use ConsoleInputHandler;
+use DefaultLogger;
+use Diagnostics;
+use Exception;
+use ExitStatusException;
+use FileOutputStream;
+use FileParserFactory;
+use FileReader;
+use FileSystem;
+use FileUtils;
+use IOException;
+use OutputStream;
+use PhingFile;
+use PrintStream;
+use Project;
+use ProjectConfigurator;
+use Properties;
 use SebastianBergmann\Version;
+use SilentLogger;
+use SizeHelper;
+use StreamRequiredBuildLogger;
+use StringHelper;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Target;
+use Throwable;
+use Timer;
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
@@ -701,7 +730,7 @@ class Phing
         $project = new Project();
 
         self::setCurrentProject($project);
-        set_error_handler(['Phing', 'handlePhpError']);
+        set_error_handler(['Phing\Phing', 'handlePhpError']);
 
         $error = null;
 
@@ -776,8 +805,6 @@ class Phing
     /**
      * @param string $version
      *
-     * @return int
-     *
      * @throws BuildException
      * @throws ConfigurationException
      */
@@ -788,7 +815,7 @@ class Phing
 
         // make sure that version checks are not applied to trunk
         if ('dev' === $current) {
-            return 1;
+            return;
         }
 
         if (-1 == version_compare($current, $version)) {
@@ -1120,7 +1147,6 @@ class Phing
      *
      * @param $buildfilePath buildfile's location
      *
-     * @return null
      * @throws ConfigurationException
      */
     protected static function initWrite($buildfilePath)
@@ -1454,7 +1480,7 @@ class Phing
         }
 
         // Do one additional check based on path of current file (Phing.php)
-        $maybeHomeDir = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
+        $maybeHomeDir = realpath(__DIR__ . DIRECTORY_SEPARATOR);
         $testPath = $maybeHomeDir . DIRECTORY_SEPARATOR . $path;
         if (file_exists($testPath)) {
             return $testPath;

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * Transform a PHPUnit xml report using XSLT.
  * This transformation generates an html report in either framed or non-framed

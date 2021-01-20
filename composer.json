@@ -79,7 +79,10 @@
     "autoload": {
         "classmap": [
             "classes/phing/"
-        ]
+        ],
+        "psr-4": {
+            "Phing\\": "src"
+        }
     },
     "autoload-dev": {
         "classmap": [

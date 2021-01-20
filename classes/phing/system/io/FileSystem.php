@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 /**
  * This is an abstract class for platform specific filesystem implementations
  * you have to implement each method in the platform specific filesystem implementation
