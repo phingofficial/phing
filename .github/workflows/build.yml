@@ -72,7 +72,7 @@ jobs:
           git config --global user.email "github-ci-build@phing.info"
           git config --global user.name "Phing Github Action"
           echo "=== RUN TESTS ==="
-          ../bin/phing -Dtests.codecoverage=false -listener "phing.listener.StatisticsListener"
+          ../bin/phing -Dtests.codecoverage=false -listener "Phing\\Listener\\StatisticsListener"
 
   build_phar:
     runs-on: ubuntu-latest
@@ -148,7 +148,7 @@ jobs:
           git config --global user.email "github-ci-build@phing.info"
           git config --global user.name "Phing Github Action"
           echo "=== RUN TESTS ==="
-          ../bin/phing -debug -Dtests.codecoverage=true -listener "phing.listener.StatisticsListener"
+          ../bin/phing -debug -Dtests.codecoverage=true -listener "Phing\\Listener\\StatisticsListener"
 
       - name: Transfer coverage
         if: github.repository_owner == 'phingofficial'
