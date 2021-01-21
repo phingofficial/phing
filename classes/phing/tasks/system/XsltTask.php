@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Filter\XsltFilter;
+use Phing\Filter\XsltParam;
+
 /**
  * Implements an XSLT processing filter while copying files.
  *

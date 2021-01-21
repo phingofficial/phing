@@ -13,7 +13,7 @@
     <copy todir="result">
       <fileset dir="input"/>
       <filterchain>
-        <filterreader classname="phing.filters.SuffixLines">
+        <filterreader classname="Phing\Filter\SuffixLines">
           <param name="suffix" value="Foo"/>
         </filterreader>
         <!-- To make the test also working on windows, ignore line breaks. -->

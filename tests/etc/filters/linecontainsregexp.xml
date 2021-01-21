@@ -13,7 +13,7 @@
     <copy todir="result">
       <fileset dir="input"/>
       <filterchain>
-        <filterreader classname="phing.filters.LineContainsRegexp">
+        <filterreader classname="Phing\Filter\LineContainsRegexp">
           <param type="regexp" value="beta*"/>
         </filterreader>
       </filterchain>
@@ -24,7 +24,7 @@
     <copy todir="result">
       <fileset dir="input"/>
       <filterchain>
-        <filterreader classname="phing.filters.LineContainsRegexp">
+        <filterreader classname="Phing\Filter\LineContainsRegexp">
           <param type="regexp" value="beta*"/>
           <param type="negate" value="true"/>
         </filterreader>
@@ -36,7 +36,7 @@
     <copy todir="result">
       <fileset dir="input"/>
       <filterchain>
-        <filterreader classname="phing.filters.LineContainsRegexp">
+        <filterreader classname="Phing\Filter\LineContainsRegexp">
           <param type="regexp" value="BETA*"/>
           <param type="casesensitive" value="false"/>
         </filterreader>

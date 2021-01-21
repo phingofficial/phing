@@ -18,6 +18,32 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Filter\BaseFilterReader;
+use Phing\Filter\ClassConstants;
+use Phing\Filter\ConcatFilter;
+use Phing\Filter\EscapeUnicode;
+use Phing\Filter\ExpandProperties;
+use Phing\Filter\HeadFilter;
+use Phing\Filter\IconvFilter;
+use Phing\Filter\LineContains;
+use Phing\Filter\LineContainsRegexp;
+use Phing\Filter\PhpArrayMapLines;
+use Phing\Filter\PrefixLines;
+use Phing\Filter\ReplaceRegexp;
+use Phing\Filter\ReplaceTokens;
+use Phing\Filter\ReplaceTokensWithFile;
+use Phing\Filter\SortFilter;
+use Phing\Filter\StripLineBreaks;
+use Phing\Filter\StripLineComments;
+use Phing\Filter\StripPhpComments;
+use Phing\Filter\StripWhitespace;
+use Phing\Filter\SuffixLines;
+use Phing\Filter\TabToSpaces;
+use Phing\Filter\TailFilter;
+use Phing\Filter\TidyFilter;
+use Phing\Filter\TranslateGettext;
+use Phing\Filter\XincludeFilter;
+use Phing\Filter\XsltFilter;
 
 /**
  * FilterChain may contain a chained set of filter readers.

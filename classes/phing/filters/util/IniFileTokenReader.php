@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Filter\Token;
 
 /**
  * Class that allows reading tokens from INI files.

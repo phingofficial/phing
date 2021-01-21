@@ -13,7 +13,7 @@
     <copy todir="result">
       <fileset dir="input"/>
       <filterchain>
-        <filterreader classname="phing.filters.EscapeUnicode"/>
+        <filterreader classname="Phing\Filter\EscapeUnicode"/>
       </filterchain>
     </copy>
   </target>

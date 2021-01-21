@@ -13,7 +13,7 @@
     <copy todir="result">
       <fileset dir="input"/>
       <filterchain>
-        <filterreader classname="phing.filters.LineContains">
+        <filterreader classname="Phing\Filter\LineContains">
           <param type="contains" value="beta"/>
         </filterreader>
       </filterchain>
@@ -24,7 +24,7 @@
     <copy todir="result">
       <fileset dir="input"/>
       <filterchain>
-        <filterreader classname="phing.filters.LineContains">
+        <filterreader classname="Phing\Filter\LineContains">
           <param type="contains" value="beta"/>
           <param type="negate" value="true"/>
         </filterreader>

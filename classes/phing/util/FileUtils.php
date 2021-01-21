@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Filter\ChainReaderHelper;
 use Phing\Phing;
 use Phing\Util\StringHelper;
 

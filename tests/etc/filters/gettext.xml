@@ -8,14 +8,14 @@
   <target name="cleanup">
     <delete dir="result" />
   </target>
-  
+
   <target name="testTranslate" depends="init">
     <copy todir="result" overwrite="true">
       <fileset dir="gettext">
 	  	<include name="*.php"/>
 	  </fileset>
       <filterchain>
-        <filterreader classname="phing.filters.TranslateGettext">
+        <filterreader classname="Phing\Filter\TranslateGettext">
           <param type="locale" value="fr_FR"/>
 		  <param type="dir" value="gettext/"/>
         </filterreader>

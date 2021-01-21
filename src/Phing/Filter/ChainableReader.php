@@ -17,38 +17,24 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Filter;
+use Reader;
+
 /**
- * @author Michiel Rook <mrook@php.net>
+ * Interface indicating that a reader may be chained to another one.
+ *
+ * @author  Magesh Umasankar
  * @package phing.filters
  */
-class ReplaceTokensWithFileTest extends BuildFileTest
+interface ChainableReader
 {
-    public function setUp(): void
-    {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/ReplaceTokensWithFile/build.xml");
-    }
-
     /**
-     * Inspired by ticket #798 - http://www.phing.info/trac/ticket/798
+     * Returns a reader with the same configuration as this one,
+     * but filtering input from the specified reader.
+     *
+     * @param Reader $reader
+     * @return Reader A reader with the same configuration as this one, but
+     *                filtering input from the specified reader
      */
-    public function testPostfix()
-    {
-        $this->executeTarget(__FUNCTION__);
-
-        $this->assertInLogs(
-            '[filter:Phing\Filter\ReplaceTokensWithFile] Replaced "#!testReplace##" with content from file "testReplace.tpl"'
-        );
-    }
-
-    /**
-     * Inspired by ticket #1046 - http://www.phing.info/trac/ticket/1046
-     */
-    public function testSlashInToken()
-    {
-        $this->executeTarget(__FUNCTION__);
-
-        $this->assertInLogs(
-            '[filter:Phing\Filter\ReplaceTokensWithFile] Replaced "//#file:testReplace:endfile#" with content from file "testReplace.tpl"'
-        );
-    }
+    public function chain(Reader $reader): Reader;
 }

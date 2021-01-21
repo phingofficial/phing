@@ -17,38 +17,41 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Filter;
 /**
- * @author Michiel Rook <mrook@php.net>
+ * The class that holds a comment representation.
+ *
  * @package phing.filters
  */
-class ReplaceTokensWithFileTest extends BuildFileTest
+class Comment
 {
-    public function setUp(): void
-    {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/ReplaceTokensWithFile/build.xml");
-    }
 
     /**
-     * Inspired by ticket #798 - http://www.phing.info/trac/ticket/798
+     * The prefix for a line comment.
      */
-    public function testPostfix()
-    {
-        $this->executeTarget(__FUNCTION__);
+    private $value;
 
-        $this->assertInLogs(
-            '[filter:Phing\Filter\ReplaceTokensWithFile] Replaced "#!testReplace##" with content from file "testReplace.tpl"'
-        );
+    /*
+     * Sets the prefix for this type of line comment.
+     *
+     * @param string $value The prefix for a line comment of this type.
+     *                      Must not be <code>null</code>.
+     */
+    /**
+     * @param $value
+     */
+    public function setValue($value)
+    {
+        $this->value = (string)$value;
     }
 
-    /**
-     * Inspired by ticket #1046 - http://www.phing.info/trac/ticket/1046
-     */
-    public function testSlashInToken()
+    /*
+     * Returns the prefix for this type of line comment.
+     *
+     * @return string The prefix for this type of line comment.
+    */
+    public function getValue()
     {
-        $this->executeTarget(__FUNCTION__);
-
-        $this->assertInLogs(
-            '[filter:Phing\Filter\ReplaceTokensWithFile] Replaced "//#file:testReplace:endfile#" with content from file "testReplace.tpl"'
-        );
+        return $this->value;
     }
 }

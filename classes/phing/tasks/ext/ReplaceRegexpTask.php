@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Filter\ReplaceRegexp;
 
 /**
  * ReplaceRegExp is a directory based task for replacing the occurrence of a

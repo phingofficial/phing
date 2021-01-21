@@ -17,38 +17,37 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Filter;
 /**
- * @author Michiel Rook <mrook@php.net>
+ * Holds a contains element.
+ *
  * @package phing.filters
  */
-class ReplaceTokensWithFileTest extends BuildFileTest
+class Contains
 {
-    public function setUp(): void
+
+    /**
+     * @var string
+     */
+    private $value;
+
+    /**
+     * Set 'contains' value.
+     *
+     * @param string $contains
+     */
+    public function setValue($contains)
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/ReplaceTokensWithFile/build.xml");
+        $this->value = (string)$contains;
     }
 
     /**
-     * Inspired by ticket #798 - http://www.phing.info/trac/ticket/798
+     * Returns 'contains' value.
+     *
+     * @return string
      */
-    public function testPostfix()
+    public function getValue()
     {
-        $this->executeTarget(__FUNCTION__);
-
-        $this->assertInLogs(
-            '[filter:Phing\Filter\ReplaceTokensWithFile] Replaced "#!testReplace##" with content from file "testReplace.tpl"'
-        );
-    }
-
-    /**
-     * Inspired by ticket #1046 - http://www.phing.info/trac/ticket/1046
-     */
-    public function testSlashInToken()
-    {
-        $this->executeTarget(__FUNCTION__);
-
-        $this->assertInLogs(
-            '[filter:Phing\Filter\ReplaceTokensWithFile] Replaced "//#file:testReplace:endfile#" with content from file "testReplace.tpl"'
-        );
+        return $this->value;
     }
 }
