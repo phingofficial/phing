@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
 /**
  * This class can be used to obtain the execution time of all of the scripts
  * that are executed in the process of building a page.

@@ -17,17 +17,10 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
 /**
- * @package phing.system.lang
+ * @package  phing.util.regexp
  */
-class Character
+class RegexpException extends \Exception
 {
-    /**
-     * @param $char
-     * @return bool
-     */
-    public static function isLetter($char)
-    {
-        return strlen($char) === 1 && ctype_alpha($char);
-    }
 }

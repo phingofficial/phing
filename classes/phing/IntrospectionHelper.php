@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreator;
 use Phing\Parser\DynamicAttribute;
 use Phing\Phing;
+use Phing\Util\Register;
 use Phing\Util\StringHelper;
 
 /**

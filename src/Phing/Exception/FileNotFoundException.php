@@ -17,9 +17,12 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Exception;
+use Exception;
+
 /**
- * @package phing.system.lang
+ * @package   phing.system.lang
  */
-class SecurityException extends Exception
+class FileNotFoundException extends Exception
 {
 }

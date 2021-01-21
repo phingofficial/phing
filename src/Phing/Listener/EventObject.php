@@ -17,43 +17,55 @@
  * <http://phing.info>.
  */
 
-use Phing\Util\Character;
+namespace Phing\Listener;
+use Exception;
 
 /**
- * Unit test for Character
- *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.system.lang
  */
-class CharacterTest extends \PHPUnit\Framework\TestCase
+class EventObject
 {
-    /** @var Character */
-    private $char;
 
-    public function setUp(): void
-    {
-        $this->char = new Character();
-    }
+    /**
+     * The object on which the Event initially occurred.
+     */
+    protected $source;
 
-    public function tearDown(): void
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param  $source
+     * @throws Exception
+     */
+    public function __construct($source)
     {
-        $this->char = null;
+        if ($source === null) {
+            throw new Exception("Null source");
+        }
+        $this->source = $source;
     }
 
     /**
-     * @dataProvider getChars
+     * The object on which the Event initially occurred.
      */
-    public function testIsChar($elem, bool $expected)
+    public function getSource()
     {
-        $this->assertSame($this->char::isLetter($elem), $expected);
+        return $this->source;
     }
 
-    public function getChars(): array
+    /**
+     * Returns a String representation of this EventObject.
+     */
+    public function __toString()
     {
-        return [
-            'more than 2' => ['as', false],
-            'no char' => ['1', false],
-            'legal' => ['s', true],
-        ];
+        if (method_exists($this->getSource(), "toString")) {
+            return get_class($this) . "[source=" . $this->getSource()->toString() . "]";
+        }
+
+        if (method_exists($this->getSource(), "__toString")) {
+            return get_class($this) . "[source=" . $this->getSource() . "]";
+        }
+
+        return get_class($this) . "[source=" . get_class($this->getSource()) . "]";
     }
 }

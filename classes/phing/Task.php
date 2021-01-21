@@ -21,6 +21,7 @@ use Phing\Dispatch\DispatchUtils;
 use Phing\Exception\BuildException;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
+use Phing\Util\Register;
 
 /**
  * The base class for all Tasks.
@@ -345,7 +346,7 @@ abstract class Task extends ProjectComponent
      * Returns a name
      *
      * @param string $slotName
-     * @return \RegisterSlot
+     * @return \Phing\Util\RegisterSlot
      */
     protected function getRegisterSlot($slotName)
     {

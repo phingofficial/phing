@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Phing;
+use Phing\Util\Properties;
 
 /**
  *  Displays all the current properties in the build. The output can be sent to

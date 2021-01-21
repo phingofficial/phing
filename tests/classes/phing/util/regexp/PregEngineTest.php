@@ -19,6 +19,8 @@
  * @package phing.util
  */
 
+use Phing\Util\PregEngine;
+
 /**
  * Class PregEngineTest
  *

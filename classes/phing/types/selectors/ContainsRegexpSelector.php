@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\Regexp;
+use Phing\Util\RegexpException;
 
 /**
  * Selector that filters files based on whether they contain a

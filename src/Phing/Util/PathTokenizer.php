@@ -19,7 +19,7 @@
 
 namespace Phing\Util;
 
-use Character;
+use Phing\Util\Character;
 use Exception;
 
 /**

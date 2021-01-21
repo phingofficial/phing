@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
 /**
  * Represents a slot in the register.
  *
@@ -42,7 +43,7 @@ class RegisterSlot
      */
     public function __construct($key)
     {
-        $this->key = (string) $key;
+        $this->key = (string)$key;
     }
 
     /**
@@ -52,7 +53,7 @@ class RegisterSlot
      */
     public function setKey($k)
     {
-        $this->key = (string) $k;
+        $this->key = (string)$k;
     }
 
     /**
@@ -88,7 +89,7 @@ class RegisterSlot
     /**
      * Recursively implodes an array to a comma-separated string
      *
-     * @param  array $arr
+     * @param array $arr
      * @return string
      */
     private function implodeArray(array $arr)
@@ -117,6 +118,6 @@ class RegisterSlot
             return $this->implodeArray($this->value);
         }
 
-        return (string) $this->value;
+        return (string)$this->value;
     }
 }

@@ -38,7 +38,7 @@ use PhingFile;
 use PrintStream;
 use Project;
 use Phing\Parser\ProjectConfigurator;
-use Properties;
+use Phing\Util\Properties;
 use SebastianBergmann\Version;
 use Phing\Listener\SilentLogger;
 use Phing\Util\SizeHelper;
@@ -47,7 +47,7 @@ use Phing\Util\StringHelper;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Target;
 use Throwable;
-use Timer;
+use Phing\Util\Timer;
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from

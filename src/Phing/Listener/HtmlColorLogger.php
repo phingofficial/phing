@@ -24,7 +24,7 @@ use OutputStream;
 use Phing\Phing;
 use PhingFile;
 use Project;
-use Properties;
+use Phing\Util\Properties;
 
 /**
  * Uses CSS class that must be defined in the HTML page

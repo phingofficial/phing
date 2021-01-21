@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Util\Properties;
+
 /**
  * Class PropertiesfileCache
  */

@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\Properties;
 
 /**
  * Register a task for use within a buildfile.

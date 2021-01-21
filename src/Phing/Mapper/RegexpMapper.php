@@ -20,7 +20,7 @@
 namespace Phing\Mapper;
 
 use Phing\Exception\BuildException;
-use Regexp;
+use Phing\Util\Regexp;
 
 /**
  * Uses regular expressions to perform filename transformations.

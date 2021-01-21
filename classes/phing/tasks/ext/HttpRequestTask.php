@@ -19,6 +19,8 @@
 
 use GuzzleHttp\Middleware;
 use Phing\Exception\BuildException;
+use Phing\Util\Regexp;
+use Phing\Util\RegexpException;
 use Phing\Util\StringHelper;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger;

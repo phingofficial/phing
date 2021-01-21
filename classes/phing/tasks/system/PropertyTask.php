@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Util\Properties;
 use Phing\Util\StringHelper;
 
 /**

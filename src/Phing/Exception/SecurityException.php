@@ -17,9 +17,12 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Exception;
+use Exception;
+
 /**
- * @package  phing.util.regexp
+ * @package phing.system.lang
  */
-class RegexpException extends \Exception
+class SecurityException extends Exception
 {
 }

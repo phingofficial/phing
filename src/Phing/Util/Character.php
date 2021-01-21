@@ -17,52 +17,18 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
 /**
  * @package phing.system.lang
  */
-class EventObject
+class Character
 {
-
     /**
-     * The object on which the Event initially occurred.
+     * @param $char
+     * @return bool
      */
-    protected $source;
-
-    /**
-     * Constructs a prototypical Event.
-     *
-     * @param  $source
-     * @throws Exception
-     */
-    public function __construct($source)
+    public static function isLetter($char)
     {
-        if ($source === null) {
-            throw new Exception("Null source");
-        }
-        $this->source = $source;
-    }
-
-    /**
-     * The object on which the Event initially occurred.
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * Returns a String representation of this EventObject.
-     */
-    public function __toString()
-    {
-        if (method_exists($this->getSource(), "toString")) {
-            return get_class($this) . "[source=" . $this->getSource()->toString() . "]";
-        }
-
-        if (method_exists($this->getSource(), "__toString")) {
-            return get_class($this) . "[source=" . $this->getSource() . "]";
-        }
-
-        return get_class($this) . "[source=" . get_class($this->getSource()) . "]";
+        return strlen($char) === 1 && ctype_alpha($char);
     }
 }

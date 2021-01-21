@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
+use Phing\Util\RegisterSlot;
+
 /**
  * Static class to handle a slot-listening system.
  *
@@ -67,7 +71,7 @@ class Register
      *
      * If not slot exists a new one is created for key.
      *
-     * @param  string $key
+     * @param string $key
      * @return RegisterSlot
      */
     public static function getSlot($key)

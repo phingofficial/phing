@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Util\RegisterSlot;
+
 /**
  * A parameter is composed of a name, type and value. Nested
  * Parameters are also possible, but the using task/type has

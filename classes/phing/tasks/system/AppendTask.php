@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Util\Register;
 
 /**
  *  Appends text, contents of a file or set of files defined by a filelist to a destination file.

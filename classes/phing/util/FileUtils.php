@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Filter\ChainReaderHelper;
 use Phing\Phing;
+use Phing\Util\Character;
 use Phing\Util\StringHelper;
 
 /**

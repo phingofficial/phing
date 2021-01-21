@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Util\RegisterSlot;
+
 /**
  * Unit test for RegisterSlot
  *

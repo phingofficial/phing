@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\Properties;
 
 /**
  * Task for setting properties from an XML file in buildfiles.

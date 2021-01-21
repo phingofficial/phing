@@ -18,7 +18,7 @@
  */
 
 namespace Phing\Filter;
-use RegisterSlot;
+use Phing\Util\RegisterSlot;
 
 /**
  * Class that holds an XSLT parameter.

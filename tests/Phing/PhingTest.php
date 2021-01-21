@@ -21,6 +21,7 @@ namespace Phing;
 
 use OutputStream;
 use Phing\Phing;
+use Phing\Util\Timer;
 use Project;
 use Target;
 
@@ -71,7 +72,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
 
     public function testTimer()
     {
-        $this->assertInstanceOf('Timer', Phing::getTimer());
+        $this->assertInstanceOf(Timer::class, Phing::getTimer());
     }
 
     public function testFloatOnCurrentTimeMillis()

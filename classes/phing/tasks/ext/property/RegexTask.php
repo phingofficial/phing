@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\Regexp;
 
 /**
  * Regular Expression Task for properties.

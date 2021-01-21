@@ -24,7 +24,7 @@ use OutputStream;
 use Phing\Phing;
 use PhingFile;
 use Project;
-use Properties;
+use Phing\Util\Properties;
 
 /**
  * Uses ANSI Color Code Sequences to colorize messages

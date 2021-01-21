@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Mapper\FileNameMapper;
 use Phing\Mapper\FlattenMapper;
 use Phing\Mapper\IdentityMapper;
+use Phing\Util\RegisterSlot;
 
 /**
  * A phing copy task.  Copies a file or directory to a new file
