@@ -229,11 +229,7 @@ class IntrospectionHelper
                         );
                     }
 
-                    $classname = null;
-
-                    if (($hint = $params[0]->getClass()) !== null) {
-                        $classname = $hint->getName();
-                    }
+                    $classname = $this->getClassNameFromParameter($params[0]);
 
                     if ($classname === null) {
                         throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
@@ -262,11 +258,7 @@ class IntrospectionHelper
                         );
                     }
 
-                    $classname = null;
-
-                    if (($hint = $params[0]->getClass()) !== null) {
-                        $classname = $hint->getName();
-                    }
+                    $classname = $this->getClassNameFromParameter($params[0]);
 
                     // we don't use the classname here, but we need to make sure it exists before
                     // we later try to instantiate a non-existent class
@@ -348,11 +340,7 @@ class IntrospectionHelper
                 // pass a project-relative file.
                 $params = $method->getParameters();
 
-                $classname = null;
-
-                if (($hint = $params[0]->getClass()) !== null) {
-                    $classname = $hint->getName();
-                }
+                $classname = $this->getClassNameFromParameter($params[0]);
 
                 // there should only be one param; we'll just assume ....
                 if ($classname !== null) {
@@ -458,11 +446,7 @@ class IntrospectionHelper
                 // exist and that method is using class hints
                 $params = $method->getParameters();
 
-                $classname = null;
-
-                if (($hint = $params[0]->getClass()) !== null) {
-                    $classname = $hint->getName();
-                }
+                $classname = $this->getClassNameFromParameter($params[0]);
 
                 // create a new instance of the object and add it via $addMethod
                 $clazz = new ReflectionClass($classname);
@@ -659,6 +643,25 @@ class IntrospectionHelper
         if (Phing::getMsgOutputLevel() === Project::MSG_DEBUG) {
             print("[IntrospectionHelper] " . $msg . "\n");
         }
+    }
+
+    /**
+     * @param ReflectionParameter $param
+     * @return string|null
+     */
+    private function getClassNameFromParameter(ReflectionParameter $param)
+    {
+        $classname = null;
+        if (version_compare(phpversion(), '7.0.0', '>=')) {
+            /** @var \ReflectionType $hint */
+            $classname = (($hint = $param->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
+        } else {
+            if (($hint = $param->getClass()) !== null) {
+                $classname = $hint->getName();
+            }
+        }
+
+        return $classname;
     }
 
 }
