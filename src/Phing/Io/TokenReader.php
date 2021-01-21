@@ -17,7 +17,10 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Io;
+
 use Phing\Io\IOException;
+use Project;
 
 /**
  * Abstract class for TokenReaders.
@@ -61,9 +64,9 @@ abstract class TokenReader
     /**
      * Reads the next token from the Reader.
      *
+     * @return string
      * @throws IOException - On error
      *
-     * @return string
      */
     abstract public function readToken();
 }

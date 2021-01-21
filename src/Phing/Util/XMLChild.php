@@ -17,7 +17,13 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
+use DOMDocument;
+use DOMDocumentFragment;
+use DOMElement;
 use Phing\Parser\DynamicConfigurator;
+use Project;
 
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>

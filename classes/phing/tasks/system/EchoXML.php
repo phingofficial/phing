@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\XMLFragment;
 
 /**
  * Echos a message to the logging system or to a file
