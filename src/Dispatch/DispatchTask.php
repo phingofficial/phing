@@ -17,58 +17,55 @@
  * <http://phing.info>.
  */
 
-use Phing\Exception\BuildException;
+namespace Phing\Dispatch;
+
+use Task;
 
 /**
- * A mapper that strips of the a configurable number of leading
- * directories from a file name.
+ * Tasks extending this class may contain multiple actions.
+ * The method that is invoked for execution depends upon the
+ * value of the action attribute of the task.
+ * <br>
+ * Example:<br>
+ * &lt;mytask action=&quot;list&quot;/&gt; will invoke the method
+ * with the signature public function list() in mytask's class.
+ * If the action attribute is not defined in the task or is empty,
+ * the main() method will be called.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.mappers
+ * @package phing.dispatch
  */
-class CutDirsMapper implements FileNameMapper
+abstract class DispatchTask extends Task implements Dispatchable
 {
-    private $dirs = 0;
+    private $action;
 
     /**
-     * Empty implementation.
+     * Get the action parameter name.
      *
-     * @param mixed $ignore ignored.
+     * @return string the <code>String</code> "action" by default (can be overridden).
      */
-    public function setFrom($ignore)
+    public function getActionParameterName()
     {
+        return "action";
     }
 
     /**
-     * The number of leading directories to cut.
+     * Set the action.
      *
-     * @param int $dirs
+     * @param string $action the method name.
      */
-    public function setTo($dirs)
+    public function setAction($action)
     {
-        $this->dirs = (int) $dirs;
+        $this->action = $action;
     }
 
     /**
-     * {@inheritDoc}.
+     * Get the action.
+     *
+     * @return string the action.
      */
-    public function main($sourceFileName)
+    public function getAction()
     {
-        if ($this->dirs <= 0) {
-            throw new BuildException('dirs must be set to a positive number');
-        }
-        $fileSep = FileUtils::getSeparator();
-        $fileSepCorrected = str_replace(['/', '\\'], $fileSep, $sourceFileName);
-        $nthMatch = strpos($fileSepCorrected, $fileSep);
-
-        for ($n = 1; $nthMatch > -1 && $n < $this->dirs; $n++) {
-            $nthMatch = strpos($fileSepCorrected, $fileSep, $nthMatch + 1);
-        }
-
-        if ($nthMatch === false) {
-            return null;
-        }
-
-        return [substr($sourceFileName, $nthMatch + 1)];
+        return $this->action;
     }
 }

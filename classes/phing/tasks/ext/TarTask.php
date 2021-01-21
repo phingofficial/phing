@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Mapper\MergeMapper;
 
 /**
  * Creates a tar archive using PEAR Archive_Tar.

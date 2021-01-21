@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Dispatch\DispatchTask;
 use Phing\Exception\BuildException;
 use Symfony\Component\Stopwatch\Stopwatch;
 

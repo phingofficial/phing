@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Mapper\FileNameMapper;
+use Phing\Mapper\IdentityMapper;
 
 /**
  * A mapping selector is an abstract class adding mapping support to the

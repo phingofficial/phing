@@ -17,26 +17,21 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Dispatch;
 /**
- * Plugin to Phing to handle requests for user input.
+ * Classes implementing this interface specify the
+ * name of the parameter that contains the name
+ * of the task's method to execute.
  *
- * @author  Stefan Bodewig <stefan.bodewig@epost.de>
- * @package phing.input
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.dispatch
  */
-interface InputHandler
+interface Dispatchable
 {
-
     /**
-     * Handle the request encapsulated in the argument.
+     * Get the name of the parameter.
      *
-     * <p>Precondition: the request.getPrompt will return a non-null
-     * value.</p>
-     *
-     * <p>Postcondition: request.getInput will return a non-null
-     * value, request.isInputValid will return true.</p>
-     *
-     * @param  InputRequest $request
-     * @return void
+     * @return string the name of the parameter that contains the name of the method.
      */
-    public function handleInput(InputRequest $request);
+    public function getActionParameterName();
 }

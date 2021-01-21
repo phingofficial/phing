@@ -17,32 +17,28 @@
  * <http://phing.info>.
  */
 
-use Phing\Util\StringHelper;
+namespace Phing\Input;
 
 /**
- * Encapsulates an input request that returns a boolean (yes/no).
+ * Plugin to Phing to handle requests for user input.
  *
- * @author  Hans Lellelid <hans@xmpl.org>
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de>
  * @package phing.input
  */
-class YesNoInputRequest extends MultipleChoiceInputRequest
+interface InputHandler
 {
 
     /**
-     * @return bool true if the input is one of the allowed values.
-     */
-    public function isInputValid()
-    {
-        return StringHelper::isBoolean($this->input);
-    }
-
-    /**
-     * Converts input to boolean.
+     * Handle the request encapsulated in the argument.
      *
-     * @return bool
+     * <p>Precondition: the request.getPrompt will return a non-null
+     * value.</p>
+     *
+     * <p>Postcondition: request.getInput will return a non-null
+     * value, request.isInputValid will return true.</p>
+     *
+     * @param InputRequest $request
+     * @return void
      */
-    public function getInput()
-    {
-        return StringHelper::booleanValue($this->input);
-    }
+    public function handleInput(InputRequest $request);
 }

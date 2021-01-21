@@ -38,7 +38,7 @@
               <mapper type="glob" from="*.php" to="*.php2"/>
           </mapper>
       </mapper>
-      <fileset dir="../../../classes/phing/mappers"/>
+      <fileset dir="../../../src/Mapper"/>
       </copy>
   </target>
 
@@ -49,7 +49,7 @@
         <mapper type="glob" from="*.xml" to="*.php1"/>
         <mapper type="glob" from="*.php" to="*.php2"/>
       </mapper>
-      <fileset dir="../../../classes/phing/mappers"/>
+      <fileset dir="../../../src/Mapper"/>
     </copy>
   </target>
 

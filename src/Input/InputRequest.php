@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Input;
+
 use Phing\Exception\BuildException;
 
 /**

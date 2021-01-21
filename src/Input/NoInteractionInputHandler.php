@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Input;
+
 /**
  * Plugin to Phing to disable user input.
  *

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Mapper;
+
 use Phing\Exception\BuildException;
 
 /**
@@ -37,9 +39,9 @@ class MergeMapper implements FileNameMapper
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
-     * @param  mixed $sourceFileName The data the mapper works on
-     * @throws BuildException
+     * @param mixed $sourceFileName The data the mapper works on
      * @return mixed The data after the mapper has been applied
+     * @throws BuildException
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function main($sourceFileName)
@@ -54,7 +56,7 @@ class MergeMapper implements FileNameMapper
     /**
      * Accessor. Sets the to property
      *
-     * @param  string     To what this mapper should convert the from string
+     * @param string     To what this mapper should convert the from string
      * @return boolean True
      * @author Andreas Aderhold, andi@binarycloud.com
      */

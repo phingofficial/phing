@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Mapper\FileNameMapper;
 use Phing\Phing;
 
 /**

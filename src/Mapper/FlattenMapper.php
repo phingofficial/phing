@@ -17,40 +17,50 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Mapper;
+use PhingFile;
+
 /**
- * Interface for filename mapper classes.
+ * Removes any directory information from the passed path.
  *
- * @author  Andreas Aderhold, andi@binarycloud.com
- * @author  Hans Lellelid <hans@xmpl.org>
+ * @author  Andreas Aderhold <andi@binarycloud.com>
  * @package phing.mappers
  */
-interface FileNameMapper
+class FlattenMapper implements FileNameMapper
 {
-
     /**
-     * The mapper implementation.
+     * The mapper implementation. Returns string with source filename
+     * but without leading directory information
      *
-     * @param  mixed $sourceFileName The data the mapper works on.
-     * @return array The data after the mapper has been applied; must be in array format (for some reason).
+     * @param string $sourceFileName The data the mapper works on
+     * @return array  The data after the mapper has been applied
      */
-    public function main($sourceFileName);
+    public function main($sourceFileName)
+    {
+        $f = new PhingFile($sourceFileName);
+
+        return [$f->getName()];
+    }
 
     /**
-     * Accessor. Sets the to property. The actual implementation
-     * depends on the child class.
+     * Ignored here.
+     * {@inheritdoc}
      *
-     * @param  string $to To what this mapper should convert the from string
+     * @param string $to
      * @return void
      */
-    public function setTo($to);
+    public function setTo($to)
+    {
+    }
 
     /**
-     * Accessor. Sets the from property. What this mapper should
-     * recognize. The actual implementation is dependent upon the
-     * child class
+     * Ignored here.
+     * {@inheritdoc}
      *
-     * @param  string $from On what this mapper should work
+     * @param string $from
      * @return void
      */
-    public function setFrom($from);
+    public function setFrom($from)
+    {
+    }
 }

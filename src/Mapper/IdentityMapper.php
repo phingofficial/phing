@@ -17,35 +17,47 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Mapper;
+
 /**
- * A <code>ContainerMapper</code> that chains the results of the first
- * nested <code>FileNameMapper</code>s into sourcefiles for the second,
- * the second to the third, and so on, returning the resulting mapped
- * filenames from the last nested <code>FileNameMapper</code>.
+ * This mapper does nothing ;)
+ *
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.mappers
  */
-class ChainedMapper extends ContainerMapper
+class IdentityMapper implements FileNameMapper
 {
     /**
-     * {@inheritDoc}.
+     * The mapper implementation. Basically does nothing in this case.
+     *
+     * @param string $sourceFileName The data the mapper works on.
+     * @return array  The data after the mapper has been applied
      */
     public function main($sourceFileName)
     {
-        $results[] = $sourceFileName;
-        $mapper = null;
+        return [$sourceFileName];
+    }
 
-        foreach ($this->getMappers() as $mapper) {
-            if ($mapper !== null) {
-                $inputs = $results;
-                $results = [];
+    /**
+     * Ignored here.
+     * {@inheritdoc}
+     *
+     * @param string $to
+     * @return void
+     */
+    public function setTo($to)
+    {
+    }
 
-                foreach ($inputs as $input) {
-                    $mapped = $mapper->getImplementation()->main($input);
-                    if ($mapped != null) {
-                        $results = $mapped;
-                    }
-                }
-            }
-        }
-        return !empty($results) ? $results : null;
+    /**
+     * Ignored here.
+     * {@inheritdoc}
+     *
+     * @param string $from
+     * @return void
+     */
+    public function setFrom($from)
+    {
     }
 }

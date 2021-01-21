@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Mapper\MergeMapper;
 
 /**
  * Sets the given property if the specified target has a timestamp

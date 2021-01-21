@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Input;
+
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -63,7 +65,7 @@ class ConsoleInputHandler implements InputHandler
      * <p>Postcondition: request.getInput will return a non-null
      * value, request.isInputValid will return true.</p>
      *
-     * @param  InputRequest $request
+     * @param InputRequest $request
      * @return void
      */
     public function handleInput(InputRequest $request)

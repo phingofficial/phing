@@ -17,51 +17,46 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Input;
+
 /**
- * Tasks extending this class may contain multiple actions.
- * The method that is invoked for execution depends upon the
- * value of the action attribute of the task.
- * <br>
- * Example:<br>
- * &lt;mytask action=&quot;list&quot;/&gt; will invoke the method
- * with the signature public function list() in mytask's class.
- * If the action attribute is not defined in the task or is empty,
- * the main() method will be called.
+ * Encapsulates an input request.
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.dispatch
+ * @author Stefan Bodewig <stefan.bodewig@epost.de>
+ *
+ * @package phing.input
  */
-abstract class DispatchTask extends Task implements Dispatchable
+class MultipleChoiceInputRequest extends InputRequest
 {
-    private $action;
+    /**
+     * @var array $choises
+     */
+    protected $choices = [];
 
     /**
-     * Get the action parameter name.
-     *
-     * @return string the <code>String</code> "action" by default (can be overridden).
+     * @param string $prompt The prompt to show to the user.  Must not be null.
+     * @param array $choices holds all input values that are allowed.
+     *                        Must not be null.
      */
-    public function getActionParameterName()
+    public function __construct($prompt, $choices)
     {
-        return "action";
+        parent::__construct($prompt);
+        $this->choices = $choices;
     }
 
     /**
-     * Set the action.
-     *
-     * @param string $action the method name.
+     * @return array The possible values.
      */
-    public function setAction($action)
+    public function getChoices()
     {
-        $this->action = $action;
+        return $this->choices;
     }
 
     /**
-     * Get the action.
-     *
-     * @return string the action.
+     * @return bool true if the input is one of the allowed values.
      */
-    public function getAction()
+    public function isInputValid()
     {
-        return $this->action;
+        return in_array($this->getInput(), $this->choices); // not strict (?)
     }
 }

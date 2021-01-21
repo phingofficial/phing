@@ -17,7 +17,13 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Dispatch;
+
 use Phing\Exception\BuildException;
+use ReflectionClass;
+use ReflectionException;
+use Task;
+use UnknownElement;
 
 /**
  * Determines and Executes the action method for the task.
@@ -30,7 +36,7 @@ class DispatchUtils
     /**
      * Determines and Executes the action method for the task.
      *
-     * @param  object $task the task to execute.
+     * @param object $task the task to execute.
      * @throws BuildException on error.
      */
     public static function main($task)
@@ -61,7 +67,7 @@ class DispatchUtils
                     $c = new ReflectionClass($dispatchable);
                     $actionM = $c->getMethod($mName);
                     $o = $actionM->invoke($dispatchable);
-                    $methodName = trim((string) $o);
+                    $methodName = trim((string)$o);
                     if (empty($methodName)) {
                         throw new ReflectionException();
                     }

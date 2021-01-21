@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Mapper\IdentityMapper;
 
 /**
  * Converts path and classpath information to a specific target OS

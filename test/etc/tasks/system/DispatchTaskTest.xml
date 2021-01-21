@@ -3,7 +3,7 @@
 
     <target name="testDispatch">
         <adhoc-task name="dispatch"><![CDATA[
-            include_once 'phing/dispatch/DispatchTask.php';
+            use Phing\Dispatch\DispatchTask;
 
             class CustomDispatchTask extends DispatchTask
             {

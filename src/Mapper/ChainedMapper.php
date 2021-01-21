@@ -17,47 +17,37 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Mapper;
+
 /**
- * Removes any directory information from the passed path.
- *
- * @author  Andreas Aderhold <andi@binarycloud.com>
- * @package phing.mappers
+ * A <code>ContainerMapper</code> that chains the results of the first
+ * nested <code>FileNameMapper</code>s into sourcefiles for the second,
+ * the second to the third, and so on, returning the resulting mapped
+ * filenames from the last nested <code>FileNameMapper</code>.
  */
-class FlattenMapper implements FileNameMapper
+class ChainedMapper extends ContainerMapper
 {
     /**
-     * The mapper implementation. Returns string with source filename
-     * but without leading directory information
-     *
-     * @param  string $sourceFileName The data the mapper works on
-     * @return array  The data after the mapper has been applied
+     * {@inheritDoc}.
      */
     public function main($sourceFileName)
     {
-        $f = new PhingFile($sourceFileName);
+        $results[] = $sourceFileName;
+        $mapper = null;
 
-        return [$f->getName()];
-    }
+        foreach ($this->getMappers() as $mapper) {
+            if ($mapper !== null) {
+                $inputs = $results;
+                $results = [];
 
-    /**
-     * Ignored here.
-     * {@inheritdoc}
-     *
-     * @param  string $to
-     * @return void
-     */
-    public function setTo($to)
-    {
-    }
-
-    /**
-     * Ignored here.
-     * {@inheritdoc}
-     *
-     * @param  string $from
-     * @return void
-     */
-    public function setFrom($from)
-    {
+                foreach ($inputs as $input) {
+                    $mapped = $mapper->getImplementation()->main($input);
+                    if ($mapped != null) {
+                        $results = $mapped;
+                    }
+                }
+            }
+        }
+        return !empty($results) ? $results : null;
     }
 }

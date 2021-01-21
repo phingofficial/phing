@@ -17,28 +17,34 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Input;
+
+use Phing\Util\StringHelper;
+
 /**
- * A <code>ContainerMapper</code> that unites the results of its constituent
- * <code>FileNameMapper</code>s into a single set of result filenames.
+ * Encapsulates an input request that returns a boolean (yes/no).
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.mappers
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @package phing.input
  */
-class CompositeMapper extends ContainerMapper
+class YesNoInputRequest extends MultipleChoiceInputRequest
 {
+
     /**
-     * {@inheritDoc}.
+     * @return bool true if the input is one of the allowed values.
      */
-    public function main($sourceFileName)
+    public function isInputValid()
     {
-        $results = [];
-        foreach ($this->getMappers() as $mapper) {
-            $result = $mapper->getImplementation()->main($sourceFileName);
-            if ($result === null) {
-                continue;
-            }
-            $results[] = $result[0];
-        }
-        return !empty($results) ? $results : null;
+        return StringHelper::isBoolean($this->input);
+    }
+
+    /**
+     * Converts input to boolean.
+     *
+     * @return bool
+     */
+    public function getInput()
+    {
+        return StringHelper::booleanValue($this->input);
     }
 }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Mapper;
+
 /**
  * A <code>ContainerMapper</code> that returns the results of its
  * first constituent <code>FileNameMapper</code>s that matches.

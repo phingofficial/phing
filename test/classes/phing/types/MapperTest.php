@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Mapper\GlobMapper;
 
 /**
  * Unit test for mappers.

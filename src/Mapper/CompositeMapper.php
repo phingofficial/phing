@@ -17,45 +17,30 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Mapper;
+
 /**
- * This mapper does nothing ;)
+ * A <code>ContainerMapper</code> that unites the results of its constituent
+ * <code>FileNameMapper</code>s into a single set of result filenames.
  *
- * @author  Andreas Aderhold <andi@binarycloud.com>
- * @author  Hans Lellelid <hans@xmpl.org>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.mappers
  */
-class IdentityMapper implements FileNameMapper
+class CompositeMapper extends ContainerMapper
 {
     /**
-     * The mapper implementation. Basically does nothing in this case.
-     *
-     * @param  string $sourceFileName The data the mapper works on.
-     * @return array  The data after the mapper has been applied
+     * {@inheritDoc}.
      */
     public function main($sourceFileName)
     {
-        return [$sourceFileName];
-    }
-
-    /**
-     * Ignored here.
-     * {@inheritdoc}
-     *
-     * @param  string $to
-     * @return void
-     */
-    public function setTo($to)
-    {
-    }
-
-    /**
-     * Ignored here.
-     * {@inheritdoc}
-     *
-     * @param  string $from
-     * @return void
-     */
-    public function setFrom($from)
-    {
+        $results = [];
+        foreach ($this->getMappers() as $mapper) {
+            $result = $mapper->getImplementation()->main($sourceFileName);
+            if ($result === null) {
+                continue;
+            }
+            $results[] = $result[0];
+        }
+        return !empty($results) ? $results : null;
     }
 }

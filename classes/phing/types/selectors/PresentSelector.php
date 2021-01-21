@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Mapper\IdentityMapper;
 
 /**
  * Selector that filters files based on whether they appear in another

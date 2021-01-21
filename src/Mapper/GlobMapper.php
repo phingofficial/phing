@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Mapper;
+
 use Phing\Exception\BuildException;
 use Phing\Util\StringHelper;
 
@@ -109,7 +111,7 @@ class GlobMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     * @param  mixed $sourceFileName
+     * @param mixed $sourceFileName
      * @return array|null
      */
     public function main($sourceFileName)
@@ -119,7 +121,7 @@ class GlobMapper implements FileNameMapper
             $this->fromPrefix === null
             || (strlen($sourceFileName) < ($this->prefixLength + $this->postfixLength)
                 || (!$this->fromContainsStar
-                && !$modName === $this->modifyName($this->fromPrefix)))
+                    && !$modName === $this->modifyName($this->fromPrefix)))
             || ($this->fromContainsStar
                 && (!StringHelper::startsWith($this->modifyName($this->fromPrefix), $modName)
                     || !StringHelper::endsWith($this->modifyName($this->fromPostfix), $modName)))
@@ -138,7 +140,7 @@ class GlobMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     * @param  string $from
+     * @param string $from
      * @return void
      */
     public function setFrom($from)
@@ -165,7 +167,7 @@ class GlobMapper implements FileNameMapper
      * Sets the &quot;to&quot; pattern. Required.
      * {@inheritdoc}
      *
-     * @param  string $to
+     * @param string $to
      * @return void
      */
     public function setTo($to)
@@ -188,7 +190,7 @@ class GlobMapper implements FileNameMapper
     /**
      * Extracts the variable part.
      *
-     * @param  string $name
+     * @param string $name
      * @return string
      */
     private function extractVariablePart($name)
@@ -199,7 +201,7 @@ class GlobMapper implements FileNameMapper
     /**
      * modify string based on dir char mapping and case sensitivity
      *
-     * @param  string $name the name to convert
+     * @param string $name the name to convert
      * @return string the converted name
      */
     private function modifyName($name)

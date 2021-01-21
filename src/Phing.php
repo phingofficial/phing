@@ -22,7 +22,7 @@ namespace Phing;
 use Phing\Exception\BuildException;
 use Phing\Listener\BuildLogger;
 use Phing\Exception\ConfigurationException;
-use ConsoleInputHandler;
+use Phing\Input\ConsoleInputHandler;
 use Phing\Listener\DefaultLogger;
 use Phing\Util\Diagnostics;
 use Exception;

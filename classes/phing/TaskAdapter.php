@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Dispatch\DispatchUtils;
 use Phing\Exception\BuildException;
 
 /**
