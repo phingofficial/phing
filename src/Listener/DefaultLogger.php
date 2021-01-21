@@ -200,9 +200,22 @@ class DefaultLogger implements StreamRequiredBuildLogger
                 break;
             }
         }
-        $msg .= $verbose || !$error instanceof BuildException
-            ? $error->getMessage() . PHP_EOL . $error->getTraceAsString() . PHP_EOL
-            : $error->getLocation() . ' ' . $error->getMessage() . PHP_EOL;
+
+        if ($verbose) {
+            if ($error instanceof BuildException) {
+                $msg .= $error->getLocation() . PHP_EOL;
+            }
+            $msg .= '[' . get_class($error) . '] ' . $error->getMessage() . PHP_EOL . $error->getTraceAsString() . PHP_EOL;
+        } else {
+            $msg .= ($error instanceof BuildException ? $error->getLocation() . " " : "") . $error->getMessage() . PHP_EOL;
+        }
+
+        if ($error->getPrevious() && $verbose) {
+            $error = $error->getPrevious();
+            do {
+                $msg .= '[Caused by ' . get_class($error) . '] ' . $error->getMessage() . PHP_EOL . $error->getTraceAsString() . PHP_EOL;
+            } while ($error = $error->getPrevious());
+        }
     }
 
     /**
