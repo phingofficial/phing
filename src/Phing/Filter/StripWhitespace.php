@@ -76,7 +76,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
         $file = new SplFileObject(tempnam(FileUtils::getTempDir(), mt_rand()), 'w+');
         $file->fwrite($php);
         $name = $file->getRealPath();
-        $output = php_strip_whitespace($name);
+        $output = trim(php_strip_whitespace($name));
         $file = null;
         unlink($name);
 

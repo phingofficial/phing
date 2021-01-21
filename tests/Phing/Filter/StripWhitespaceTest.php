@@ -44,7 +44,7 @@ class StripWhitespaceTest extends BuildFileTest
 
         $expected = <<<EXPECTED
 <?php
-class { public function __construct() { return ''; } } 
+class { public function __construct() { return ''; } }
 EXPECTED;
 
         $result = file_get_contents($resultFile->getAbsolutePath());
