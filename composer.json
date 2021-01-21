@@ -82,7 +82,7 @@
             "classes/phing/"
         ],
         "psr-4": {
-            "Phing\\": "src"
+            "Phing\\": "src/Phing"
         }
     },
     "autoload-dev": {
