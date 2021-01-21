@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * UTs for Target component
  *
@@ -79,7 +81,7 @@ class TargetTest extends BuildFileTest
      */
     public function testSetDependsInvalid($depends)
     {
-        $this->expectException('BuildException');
+        $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Syntax Error: Depend attribute for target MyTarget is malformed.');
 
         $this->target->setDepends($depends);

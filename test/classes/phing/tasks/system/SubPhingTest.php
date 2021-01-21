@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Listener\BuildEvent;
+use Phing\Listener\BuildListener;
+
 /**
  * Tests the SubPhing Task
  *

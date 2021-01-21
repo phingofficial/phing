@@ -17,41 +17,47 @@
  * <http://phing.info>.
  */
 
-use Phing\Phing;
+namespace Phing\Listener;
+
+use Phing\Listener\BuildEvent;
 
 /**
- * Extends AnsiColorLogger to display times for each target
+ * A logger which logs nothing but build failure and what task might output.
  *
- * @author    Patrick McAndrew <patrick@urg.name>
- * @copyright 2013. All rights reserved
- * @package   phing.listener
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.listener
  */
-class TargetLogger extends AnsiColorLogger
+class SilentLogger extends DefaultLogger
 {
-    private $targetName = null;
-    private $targetStartTime;
-
-    /**
-     * @param BuildEvent $event
-     */
-    public function targetStarted(BuildEvent $event)
+    public function buildStarted(BuildEvent $event)
     {
-        parent::targetStarted($event);
-        $target = $event->getTarget();
-        $this->targetName = $target->getName();
-        $this->targetStartTime = Phing::currentTimeMillis();
+        // log nothing
     }
 
-    /**
-     * @param BuildEvent $event
-     */
+    public function buildFinished(BuildEvent $event)
+    {
+        if ($event->getException() != null) {
+            parent::buildFinished($event);
+        }
+    }
+
+    public function targetStarted(BuildEvent $event)
+    {
+        // log nothing
+    }
+
     public function targetFinished(BuildEvent $event)
     {
-        $msg = PHP_EOL . "Target time: " . self::formatTime(
-            Phing::currentTimeMillis() - $this->targetStartTime
-        ) . PHP_EOL;
-        $event->setMessage($msg, Project::MSG_INFO);
-        $this->messageLogged($event);
-        $this->targetName = null;
+        // log nothing
+    }
+
+    public function taskStarted(BuildEvent $event)
+    {
+        // log nothing
+    }
+
+    public function taskFinished(BuildEvent $event)
+    {
+        // log nothing
     }
 }

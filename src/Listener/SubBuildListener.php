@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+
+use Phing\Listener\BuildEvent;
+
 /**
  * Instances of classes that implement this interface can register
  * to be also notified when things happened during a subbuild.

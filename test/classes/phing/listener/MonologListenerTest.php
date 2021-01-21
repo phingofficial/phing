@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Listener\BuildEvent;
+use Phing\Listener\MonologListener;
 use PHPUnit\Framework\TestCase;
 
 class MonologListenerTest extends TestCase

@@ -4,7 +4,6 @@
     <target name="testDispatch">
         <adhoc-task name="dispatch"><![CDATA[
             include_once 'phing/dispatch/DispatchTask.php';
-            include_once 'phing/BuildException.php';
 
             class CustomDispatchTask extends DispatchTask
             {

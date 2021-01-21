@@ -20,10 +20,10 @@
 namespace Phing;
 
 use Phing\Exception\BuildException;
-use BuildLogger;
+use Phing\Listener\BuildLogger;
 use Phing\Exception\ConfigurationException;
 use ConsoleInputHandler;
-use DefaultLogger;
+use Phing\Listener\DefaultLogger;
 use Diagnostics;
 use Exception;
 use Phing\Exception\ExitStatusException;
@@ -40,9 +40,9 @@ use Project;
 use ProjectConfigurator;
 use Properties;
 use SebastianBergmann\Version;
-use SilentLogger;
+use Phing\Listener\SilentLogger;
 use SizeHelper;
-use StreamRequiredBuildLogger;
+use Phing\Listener\StreamRequiredBuildLogger;
 use StringHelper;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Target;

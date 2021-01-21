@@ -17,8 +17,15 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+
+use Phing\Listener\BuildEvent;
+use IOException;
+use OutputStream;
 use Phing\Exception\BuildException;
 use Phing\Phing;
+use Project;
+use StringHelper;
 
 /**
  * Writes a build event to the console.
@@ -99,7 +106,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function setMessageOutputLevel($level)
     {
-        $this->msgOutputLevel = (int) $level;
+        $this->msgOutputLevel = (int)$level;
     }
 
     /**
@@ -299,13 +306,13 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Formats a time micro integer to human readable format.
      *
-     * @param  integer The time stamp
+     * @param integer The time stamp
      * @return string
      */
     public static function formatTime($micros)
     {
         $seconds = $micros;
-        $minutes = (int) floor($seconds / 60);
+        $minutes = (int)floor($seconds / 60);
         if ($minutes >= 1) {
             return sprintf(
                 "%1.0f minute%s %0.2f second%s",
@@ -322,15 +329,15 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      * Prints a message to console.
      *
-     * @param  string $message The message to print.
+     * @param string $message The message to print.
      *                                         Should not be
      *                                         <code>null</code>.
-     * @param  OutputStream|resource $stream The stream to use for message printing.
-     * @param  int $priority The priority of the message.
+     * @param OutputStream|resource $stream The stream to use for message printing.
+     * @param int $priority The priority of the message.
      *                                         (Ignored in this
      *                                         implementation.)
-     * @throws IOException
      * @return void
+     * @throws IOException
      */
     protected function printMessage($message, OutputStream $stream, $priority)
     {

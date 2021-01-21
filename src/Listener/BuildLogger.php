@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+
+use OutputStream;
+
 /**
  * Interface for build loggers.
  *

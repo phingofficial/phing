@@ -17,6 +17,16 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+
+use Phing\Listener\BuildEvent;
+use Clock;
+use DefaultClock;
+use ProjectTimer;
+use ProjectTimerMap;
+use SeriesTimer;
+use StatisticsReport;
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener

@@ -17,7 +17,14 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+
+use IOException;
+use OutputStream;
 use Phing\Phing;
+use PhingFile;
+use Project;
+use Properties;
 
 /**
  * Uses CSS class that must be defined in the HTML page

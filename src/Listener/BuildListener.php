@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+use Phing\Listener\BuildEvent;
+
 /**
  * Interface for build listeners.
  *

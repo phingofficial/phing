@@ -17,8 +17,19 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+
+use BadMethodCallException;
+use Phing\Listener\BuildEvent;
+use IOException;
+use Mail;
+use OutputStream;
 use Phing\Exception\BuildException;
 use Phing\Phing;
+use PhingFile;
+use Project;
+use Properties;
+use StringHelper;
 
 /**
  * Uses PEAR Mail package to send the build log to one or
@@ -54,10 +65,10 @@ class MailLogger extends DefaultLogger
     }
 
     /**
-     * @see DefaultLogger::printMessage
      * @param string $message
      * @param OutputStream $stream
      * @param int $priority
+     * @see DefaultLogger::printMessage
      */
     final protected function printMessage($message, OutputStream $stream, $priority)
     {

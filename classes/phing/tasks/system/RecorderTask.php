@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Listener\BuildEvent;
+use Phing\Listener\SubBuildListener;
 
 /**
  * Adds a listener to the current build process that records the

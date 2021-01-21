@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Listener\BuildEvent;
+use Phing\Listener\SilentLogger;
 use PHPUnit\Framework\TestCase;
 
 class SilentLoggerTest extends TestCase

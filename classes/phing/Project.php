@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Listener\BuildEvent;
+use Phing\Listener\BuildListener;
 use Phing\Phing;
 
 /**

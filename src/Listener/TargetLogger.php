@@ -17,38 +17,45 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+
+use Phing\Listener\BuildEvent;
+use Phing\Phing;
+use Project;
+
 /**
- * Like a normal logger, except with timed outputs.
+ * Extends AnsiColorLogger to display times for each target
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.listener
+ * @author    Patrick McAndrew <patrick@urg.name>
+ * @copyright 2013. All rights reserved
+ * @package   phing.listener
  */
-class TimestampedLogger extends DefaultLogger
+class TargetLogger extends AnsiColorLogger
 {
-    /**
-     * what appears between the old message and the new
-     */
-    public static $SPACER = ' - at ';
+    private $targetName = null;
+    private $targetStartTime;
 
     /**
-     * This is an override point: the message that indicates whether a build failed.
-     * Subclasses can change/enhance the message.
-     *
-     * @return string The classic "BUILD FAILED" plus a timestamp
+     * @param BuildEvent $event
      */
-    protected function getBuildFailedMessage()
+    public function targetStarted(BuildEvent $event)
     {
-        return parent::getBuildFailedMessage() . self::$SPACER . date('n/d/Y h:m a');
+        parent::targetStarted($event);
+        $target = $event->getTarget();
+        $this->targetName = $target->getName();
+        $this->targetStartTime = Phing::currentTimeMillis();
     }
 
     /**
-     * This is an override point: the message that indicates that a build succeeded.
-     * Subclasses can change/enhance the message.
-     *
-     * @return string The classic "BUILD SUCCESSFUL" plus a timestamp
+     * @param BuildEvent $event
      */
-    protected function getBuildSuccessfulMessage()
+    public function targetFinished(BuildEvent $event)
     {
-        return parent::getBuildSuccessfulMessage() . self::$SPACER . date('n/d/Y h:m a');
+        $msg = PHP_EOL . "Target time: " . self::formatTime(
+                Phing::currentTimeMillis() - $this->targetStartTime
+            ) . PHP_EOL;
+        $event->setMessage($msg, Project::MSG_INFO);
+        $this->messageLogged($event);
+        $this->targetName = null;
     }
 }

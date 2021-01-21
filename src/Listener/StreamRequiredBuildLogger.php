@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+
 /**
  * Interface for build loggers that require that out/err streams be set in order to function.
  *

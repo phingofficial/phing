@@ -42,7 +42,7 @@ function hasColorSupport()
 
 // default logger
 if (!in_array('-logger', $argv) && hasColorSupport()) {
-    array_splice($argv, 1, 0, ['-logger', 'phing.listener.AnsiColorLogger']);
+    array_splice($argv, 1, 0, ['-logger', 'Phing\Listener\AnsiColorLogger']);
 }
 
 try {

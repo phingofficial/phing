@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Listener\BuildEvent;
+use Phing\Listener\BuildListener;
+
 /**
  * our own personal build listener
  *

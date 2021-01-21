@@ -17,7 +17,12 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+
+use Phing\Listener\BuildEvent;
 use Monolog\Logger;
+use Project;
+use Target;
 
 /**
  * Listener which sends events to Monolog.

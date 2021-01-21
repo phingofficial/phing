@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Listener\BuildEvent;
+use Phing\Listener\StatisticsListener;
 use PHPUnit\Framework\TestCase;
 
 class StatisticsListenerTest extends TestCase

@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Listener;
+
+use Phing\Listener\BuildEvent;
+
 /**
  * Extends DefaultLogger to strip out empty targets.
  *
