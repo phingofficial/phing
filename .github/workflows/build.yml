@@ -66,7 +66,7 @@ jobs:
           composer-options: ${{ matrix.composer-options }}
 
       - name: Test phing
-        working-directory: test
+        working-directory: tests
         run: |
           echo "=== SETTING GIT IDENTITY ==="
           git config --global user.email "github-ci-build@phing.info"
@@ -142,7 +142,7 @@ jobs:
         run: composer install --no-interaction --no-progress --ansi
 
       - name: Test with coverage
-        working-directory: test
+        working-directory: tests
         run: |
           echo "=== SETTING GIT IDENTITY ==="
           git config --global user.email "github-ci-build@phing.info"
@@ -153,8 +153,8 @@ jobs:
       - name: Transfer coverage
         if: github.repository_owner == 'phingofficial'
         run: |
-          bash <(curl -s https://codecov.io/bash) -f ./test/reports/clover-coverage.xml
-          wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./test/reports/clover-coverage.xml
+          bash <(curl -s https://codecov.io/bash) -f ./tests/reports/clover-coverage.xml
+          wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./tests/reports/clover-coverage.xml
 
   notify:
     runs-on: ubuntu-latest

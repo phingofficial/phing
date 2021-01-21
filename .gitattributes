@@ -16,5 +16,5 @@ hlsaxon text eol=lf
 .gitignore text eol=lf
 
 docs export-ignore
-test export-ignore
+tests export-ignore
 composer.lock export-ignore

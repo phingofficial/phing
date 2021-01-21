@@ -135,7 +135,7 @@ If you'd like to contribute code to Phing, please make sure you run the tests be
 Then, perform the following steps (on a clone/fork of Phing):
 
          $ composer install
-         $ cd test
+         $ cd tests
          $ ../bin/phing
 
 ## Licensing

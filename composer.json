@@ -87,8 +87,11 @@
     },
     "autoload-dev": {
         "classmap": [
-            "test/classes/"
-        ]
+            "tests/classes/"
+        ],
+        "psr-4": {
+            "Phing\\": "tests/Phing"
+        }
     },
     "include-path": ["classes"],
     "bin": [

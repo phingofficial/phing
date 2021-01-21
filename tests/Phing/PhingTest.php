@@ -17,7 +17,12 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use OutputStream;
 use Phing\Phing;
+use Project;
+use Target;
 
 /**
  * Core Phing class test
