@@ -15,32 +15,13 @@
     	<include name="bin/phing.bat"/>
     	<include name="bin/phing.php"/>
         <include name="classes/**"/>
+        <include name="src/**"/>
         <include name="etc/**"/>
         <include name="CHANGELOG.md"/>
         <include name="CREDITS.md"/>
         <include name="LICENSE"/>
         <include name="README.md"/>
         <include name="composer.*"/>
-    </fileset>
-
-    <fileset dir="${phingpkg.home}/classes/phing" id="classes">
-        <include name="**"/>
-    </fileset>
-
-    <fileset dir="${phingpkg.home}" id="etc">
-        <include name="etc/**"/>
-    </fileset>
-
-    <fileset dir="${phingpkg.home}" id="scripts">
-        <include name="bin/phing.php"/>
-    </fileset>
-
-    <fileset dir="${phingpkg.home}" id="misc">
-        <include name="CHANGELOG.md"/>
-        <include name="CREDITS.md"/>
-        <include name="LICENSE"/>
-        <include name="README.md"/>
-        <exclude name="INSTALL*"/>
     </fileset>
 
     <!--
@@ -154,6 +135,7 @@
             <fileset dir="${build.full.dir}">
                 <include name="bin/**" />
                 <include name="classes/**" />
+                <include name="src/**" />
                 <include name="etc/**" />
                 <include name="vendor/**" />
                 <include name="manifest.xml" />
