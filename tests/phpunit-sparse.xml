@@ -22,6 +22,7 @@
               ignoreDeprecatedCodeUnits="true" >
         <include>
             <directory suffix=".php">../classes/phing</directory>
+            <directory suffix=".php">../src/Phing</directory>
         </include>
         <exclude>
             <directory>../bin</directory>

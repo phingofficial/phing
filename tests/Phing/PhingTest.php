@@ -140,6 +140,6 @@ class PhingTest extends \PHPUnit\Framework\TestCase
      */
     protected static function getClassPath()
     {
-        return __DIR__ . '/../../etc/importclasses';
+        return __DIR__ . '/../etc/importclasses';
     }
 }

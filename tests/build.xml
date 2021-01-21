@@ -9,7 +9,6 @@
 
       =========================================================================================
     -->
-    <property name="tests.dir" value="./tests"/>
     <property name="tests.phpunit.dir" value="."/>
     <property name="tests.reports.dir" value="${tests.phpunit.dir}/reports"/>
     <property name="tests.codecoverage" value="false"/>
@@ -26,9 +25,8 @@
 
     <resolvepath propertyName="tests.dir.resolved" file="${tests.phpunit.dir}"/>
     <resolvepath propertyName="tests.reports.dir.resolved" file="${tests.phpunit.dir}/reports"/>
-    <resolvepath propertyName="tests.classes.dir.resolved" file="${tests.phpunit.dir}/classes"/>
-    <resolvepath propertyName="phing.classes.dir.resolved" file="../classes"/>
     <resolvepath propertyName="phing.etc.dir.resolved" file="../etc"/>
+    <resolvepath propertyName="phing.home.dir.resolved" file="../"/>
 
     <autoloader autoloaderpath="${tests.dir.resolved}/bootstrap.php"/>
 
@@ -44,8 +42,9 @@
         <mkdir dir="${tests.reports.dir.resolved}/tests"/>
         <mkdir dir="${tests.reports.dir.resolved}/coverage"/>
 
-        <fileset dir="${tests.classes.dir.resolved}" id="relevant-tests">
-            <include name="**/*${test.class}.php"/>
+        <fileset dir="${tests.dir.resolved}" id="relevant-tests">
+            <include name="classes/**/*${test.class}.php"/>
+            <include name="Phing/**/*${test.class}.php"/>
             <exclude name="**/Svn*TaskTest.php"/>
         </fileset>
     </target>
@@ -57,8 +56,9 @@
             <equals arg1="${tests.codecoverage}" arg2="true"/>
             <then>
                 <coverage-setup database="reports/coverage.db">
-                    <fileset dir="${phing.classes.dir.resolved}">
-                        <include name="**/*.php"/>
+                    <fileset dir="${phing.home.dir.resolved}">
+                        <include name="classes/phing/**/*.php"/>
+                        <include name="src/Phing/**/*.php"/>
                         <exclude name="**/phpcs/*.php"/>
                     </fileset>
                 </coverage-setup>
