@@ -18,6 +18,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Io\File;
+use Phing\Io\XmlFileParser;
 use Phing\Util\Properties;
 
 /**
@@ -106,11 +109,11 @@ class XmlPropertyTask extends PropertyTask
     /**
      * load properties from an XML file.
      *
-     * @param  PhingFile $file
-     * @throws BuildException
+     * @param  File $file
      * @return Properties
+     *@throws BuildException
      */
-    protected function loadFile(PhingFile $file)
+    protected function loadFile(File $file)
     {
         $this->log("Loading " . $file->getAbsolutePath(), Project::MSG_INFO);
         try { // try to load file

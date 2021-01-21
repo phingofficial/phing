@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\IOException;
+
 /**
  * Abstract class for TokenReaders.
  *

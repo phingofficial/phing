@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\DirectoryScanner;
 use Phing\Phing;
 
 /**

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * XML formatter for PDO results.
  *
@@ -125,7 +127,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
      */
     public function getPreferredOutfile()
     {
-        return new PhingFile('results.xml');
+        return new File('results.xml');
     }
 
     /**

@@ -19,7 +19,7 @@
 
 namespace Phing\Listener;
 
-use OutputStream;
+use Phing\Io\OutputStream;
 
 /**
  * Interface for build loggers.

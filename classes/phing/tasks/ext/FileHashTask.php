@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileOutputStream;
+use Phing\Io\File;
 
 /**
  * fileHash
@@ -33,7 +35,7 @@ class FileHashTask extends Task
     /**
      * Property for File
      *
-     * @var PhingFile file
+     * @var File file
      */
     private $file;
 
@@ -74,7 +76,7 @@ class FileHashTask extends Task
     /**
      * Which file to calculate the hash value of
      *
-     * @param PhingFile $file
+     * @param File $file
      */
     public function setFile($file): void
     {

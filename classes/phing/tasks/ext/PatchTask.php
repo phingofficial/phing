@@ -23,6 +23,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 
 /**
@@ -39,12 +41,12 @@ class PatchTask extends Task
     /**
      * File to be patched
      *
-     * @var PhingFile
+     * @var File
      */
     private $originalFile;
 
     /**
-     * @var PhingFile $directory
+     * @var File $directory
      */
     private $directory;
 
@@ -76,11 +78,11 @@ class PatchTask extends Task
      *
      * Required.
      *
-     * @param  PhingFile $file File containing the diff output
+     * @param  File $file File containing the diff output
      * @return void
      * @throws BuildException if $file not exists
      */
-    public function setPatchFile(PhingFile $file)
+    public function setPatchFile(File $file)
     {
         if (!$file->exists()) {
             throw new BuildException('patchfile ' . $file . " doesn't exist", $this->getLocation());
@@ -119,10 +121,10 @@ class PatchTask extends Task
      *
      * Optional if it can be inferred from the diff file.
      *
-     * @param  PhingFile $file File to patch
+     * @param  File $file File to patch
      * @return void
      */
-    public function setOriginalFile(PhingFile $file)
+    public function setOriginalFile(File $file)
     {
         $this->originalFile = $file;
     }
@@ -133,10 +135,10 @@ class PatchTask extends Task
      *
      * Optional.
      *
-     * @param  PhingFile $file File to send the output to
+     * @param  File $file File to send the output to
      * @return void
      */
-    public function setDestFile(PhingFile $file)
+    public function setDestFile(File $file)
     {
         $this->cmd->createArgument()->setValue('-o');
         $this->cmd->createArgument()->setFile($file);
@@ -196,10 +198,10 @@ class PatchTask extends Task
      *
      * Defaults to the project's base directory.
      *
-     * @param  PhingFile $directory Directory to run the patch command in
+     * @param  File $directory Directory to run the patch command in
      * @return void
      */
-    public function setDir(PhingFile $directory)
+    public function setDir(File $directory)
     {
         $this->directory = $directory;
     }

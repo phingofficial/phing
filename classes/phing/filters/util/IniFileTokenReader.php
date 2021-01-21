@@ -20,6 +20,8 @@
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Filter\Token;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * Class that allows reading tokens from INI files.
@@ -120,19 +122,19 @@ class IniFileTokenReader extends TokenReader
     }
 
     /**
-     * @param string|PhingFile $file
+     * @param string|File $file
      * @throws IOException
      * @throws NullPointerException
      */
     public function setFile($file)
     {
         if (is_string($file)) {
-            $this->file = new PhingFile($file);
+            $this->file = new File($file);
 
             return;
         }
 
-        if (is_object($file) && $file instanceof PhingFile) {
+        if (is_object($file) && $file instanceof File) {
             $this->file = $file;
 
             return;

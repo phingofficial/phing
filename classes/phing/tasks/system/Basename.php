@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Util\StringHelper;
 
 /**
@@ -29,7 +30,7 @@ use Phing\Util\StringHelper;
 class Basename extends Task
 {
     /**
-     * @var PhingFile $file
+     * @var File $file
      */
     private $file;
 
@@ -46,9 +47,9 @@ class Basename extends Task
     /**
      * file or directory to get base name from
      *
-     * @param PhingFile $file file or directory to get base name from
+     * @param File $file file or directory to get base name from
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }

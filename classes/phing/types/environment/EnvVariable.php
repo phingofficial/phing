@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Representation of a single env value.
@@ -89,9 +90,9 @@ class EnvVariable
     /**
      * get the absolute path of a file and assign it to the value
      *
-     * @param PhingFile $file file to use as the value
+     * @param File $file file to use as the value
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->value = $file->getAbsolutePath();
     }

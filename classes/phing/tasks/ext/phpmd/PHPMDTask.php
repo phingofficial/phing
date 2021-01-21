@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Util\DataStore;
 
 /**
@@ -35,7 +36,7 @@ class PHPMDTask extends Task
     /**
      * A php source code filename or directory
      *
-     * @var PhingFile
+     * @var File
      */
     protected $file = null;
 
@@ -101,9 +102,9 @@ class PHPMDTask extends Task
     /**
      * Set the input source file or directory.
      *
-     * @param PhingFile $file The input source file or directory.
+     * @param File $file The input source file or directory.
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -195,9 +196,9 @@ class PHPMDTask extends Task
     /**
      * Whether to store last-modified times in cache
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setCacheFile(PhingFile $file)
+    public function setCacheFile(File $file)
     {
         $this->cache = new DataStore($file);
     }
@@ -253,7 +254,7 @@ class PHPMDTask extends Task
     {
         $filesToParse = [];
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $filesToParse[] = $this->file->getPath();
         } else {
             // append any files in filesets

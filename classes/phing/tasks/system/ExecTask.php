@@ -19,6 +19,9 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\File;
 use Phing\Phing;
 use Phing\Util\StringHelper;
 
@@ -55,7 +58,7 @@ class ExecTask extends Task
     /**
      * Working directory.
      *
-     * @var PhingFile
+     * @var File
      */
     protected $dir;
 
@@ -78,7 +81,7 @@ class ExecTask extends Task
     /**
      * Where to direct output.
      *
-     * @var PhingFile
+     * @var File
      */
     protected $output;
 
@@ -99,7 +102,7 @@ class ExecTask extends Task
     /**
      * Where to direct error output.
      *
-     * @var PhingFile
+     * @var File
      */
     protected $error;
 
@@ -423,11 +426,11 @@ class ExecTask extends Task
     /**
      * Specify the working directory for executing this command.
      *
-     * @param PhingFile $dir Working directory
+     * @param File $dir Working directory
      *
      * @return void
      */
-    public function setDir(PhingFile $dir): void
+    public function setDir(File $dir): void
     {
         $this->dir = $dir;
     }
@@ -473,11 +476,11 @@ class ExecTask extends Task
     /**
      * File to which output should be written.
      *
-     * @param PhingFile $f Output log file
+     * @param File $f Output log file
      *
      * @return void
      */
-    public function setOutput(PhingFile $f): void
+    public function setOutput(File $f): void
     {
         $this->output = $f;
     }
@@ -485,11 +488,11 @@ class ExecTask extends Task
     /**
      * File to which error output should be written.
      *
-     * @param PhingFile $f Error log file
+     * @param File $f Error log file
      *
      * @return void
      */
-    public function setError(PhingFile $f): void
+    public function setError(File $f): void
     {
         $this->error = $f;
     }
@@ -717,7 +720,7 @@ class ExecTask extends Task
             if ($p !== null) {
                 $dirs = $p->listPaths();
                 foreach ($dirs as $dir) {
-                    $executableFile = (new FileUtils())->resolveFile(new PhingFile($dir), $exec);
+                    $executableFile = (new FileUtils())->resolveFile(new File($dir), $exec);
                     if ($executableFile->exists()) {
                         return $executableFile->getAbsolutePath();
                     }

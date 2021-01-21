@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 
@@ -303,7 +304,7 @@ class PhingTaskTest extends BuildFileTest
 
     public function testLogfilePlacement(): void
     {
-        /** @var PhingFile[] $logFiles */
+        /** @var File[] $logFiles */
         $logFiles = [
             $this->getProject()->resolveFile("test1.log"),
             $this->getProject()->resolveFile("test2.log"),

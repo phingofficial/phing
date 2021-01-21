@@ -18,6 +18,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Io\File;
+use Phing\Io\SourceFileScanner;
 use Phing\Mapper\MergeMapper;
 
 /**
@@ -39,12 +42,12 @@ class TarTask extends MatchingTask
     public const OMIT = "omit";
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $tarFile;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $baseDir;
 
@@ -115,9 +118,9 @@ class TarTask extends MatchingTask
     /**
      * Set is the name/location of where to create the tar file.
      *
-     * @param PhingFile $destFile The output of the tar
+     * @param File $destFile The output of the tar
      */
-    public function setDestFile(PhingFile $destFile)
+    public function setDestFile(File $destFile)
     {
         $this->tarFile = $destFile;
     }
@@ -125,9 +128,9 @@ class TarTask extends MatchingTask
     /**
      * This is the base directory to look in for things to tar.
      *
-     * @param PhingFile $baseDir
+     * @param File $baseDir
      */
-    public function setBasedir(PhingFile $baseDir)
+    public function setBasedir(File $baseDir)
     {
         $this->baseDir = $baseDir;
     }
@@ -284,7 +287,7 @@ class TarTask extends MatchingTask
                 $fsBasedir = $fs->getDir($this->project);
                 $filesToTar = [];
                 for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
-                    $f = new PhingFile($fsBasedir, $files[$i]);
+                    $f = new File($fsBasedir, $files[$i]);
                     $filesToTar[] = $f->getAbsolutePath();
                     $this->log("Adding file " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);
                 }
@@ -305,7 +308,7 @@ class TarTask extends MatchingTask
 
     /**
      * @param  ArrayIterator $files array of filenames
-     * @param  PhingFile $dir
+     * @param  File $dir
      *
      * @return boolean
      */
@@ -330,7 +333,7 @@ class TarTask extends MatchingTask
                 return false;
             }
             for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
-                if ($this->tarFile->equals(new PhingFile($fs->getDir($this->project), $files[$i]))) {
+                if ($this->tarFile->equals(new File($fs->getDir($this->project), $files[$i]))) {
                     throw new BuildException("A tar file cannot include itself", $this->getLocation());
                 }
             }

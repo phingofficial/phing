@@ -12,6 +12,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileSystem;
+use Phing\Io\FileUtils;
+use Phing\Io\File;
 
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
@@ -174,7 +177,7 @@ class RSTTask extends Task
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $src) {
-                $file = new PhingFile($fromDir, $src);
+                $file = new File($fromDir, $src);
                 if ($mapper !== null) {
                     $results = $mapper->main($file);
                     if ($results === null) {
@@ -214,8 +217,8 @@ class RSTTask extends Task
         $this->renderFile($tool, $source, $tmpTarget);
 
         $this->fileUtils->copyFile(
-            new PhingFile($tmpTarget),
-            new PhingFile($targetFile),
+            new File($tmpTarget),
+            new File($targetFile),
             $this->getProject(),
             true,
             false,

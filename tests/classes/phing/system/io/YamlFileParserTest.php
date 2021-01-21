@@ -17,6 +17,13 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileParserInterface;
+use Phing\Io\FileUtils;
+use Phing\Io\IniFileParser;
+use Phing\Io\IOException;
+use Phing\Io\File;
+use Phing\Io\YamlFileParser;
+
 /**
  * Unit test for YamlFileParser
  *
@@ -69,7 +76,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     {
         $tmpFile = tempnam(FileUtils::getTempDir(), "test");
         touch($tmpFile);
-        $file = new PhingFile($tmpFile);
+        $file = new File($tmpFile);
         unlink($tmpFile);
 
         $this->expectException(IOException::class);
@@ -82,7 +89,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParseFileFileIncorrectYaml()
     {
-        $file = new PhingFile($this->incorrectYamlFileStub);
+        $file = new File($this->incorrectYamlFileStub);
 
         $this->expectException(IOException::class);
 
@@ -97,7 +104,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParseFileFile()
     {
-        $file = new PhingFile($this->yamlFileStub);
+        $file = new File($this->yamlFileStub);
         $properties = $this->objectToTest->parseFile($file);
 
         $this->assertEquals('testvalue', $properties['testarea']);

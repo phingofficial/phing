@@ -20,6 +20,9 @@
 declare(strict_types=1);
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileReader;
+use Phing\Io\FileWriter;
+use Phing\Io\File;
 use function Jawira\PlantUml\encodep;
 
 /**
@@ -84,7 +87,7 @@ class VisualizerTask extends HttpTask
      * The main entry point method.
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \IOException
+     * @throws \Phing\Io\IOException
      * @throws \Phing\Exception\NullPointerException
      */
     public function main(): void
@@ -117,7 +120,7 @@ class VisualizerTask extends HttpTask
     /**
      * Read through provided buildfiles and generates a PlantUML diagram
      *
-     * @param \PhingFile[] $buildFiles
+     * @param \Phing\Io\File[] $buildFiles
      *
      * @return string
      */
@@ -126,7 +129,7 @@ class VisualizerTask extends HttpTask
         $puml = $this->transformToPuml(reset($buildFiles), VisualizerTask::XSL_HEADER);
 
         /**
-         * @var \PhingFile $buildFile
+         * @var \Phing\Io\File $buildFile
          */
         foreach ($buildFiles as $buildFile) {
             $puml .= $this->transformToPuml($buildFile, VisualizerTask::XSL_TARGETS);
@@ -144,12 +147,12 @@ class VisualizerTask extends HttpTask
     /**
      * Transforms buildfile using provided xsl file
      *
-     * @param \PhingFile $buildfile Path to buildfile
+     * @param \Phing\Io\File $buildfile Path to buildfile
      * @param string $xslFile XSLT file
      *
      * @return string
      */
-    protected function transformToPuml(PhingFile $buildfile, string $xslFile): string
+    protected function transformToPuml(File $buildfile, string $xslFile): string
     {
         $xml = $this->loadXmlFile($buildfile->getPath());
         $xsl = $this->loadXmlFile($xslFile);
@@ -184,18 +187,18 @@ class VisualizerTask extends HttpTask
     /**
      * Get the image's final location
      *
-     * @return \PhingFile
-     * @throws \IOException
+     * @return \Phing\Io\File
+     * @throws \Phing\Io\IOException
      * @throws \Phing\Exception\NullPointerException
      */
-    protected function resolveImageDestination(): PhingFile
+    protected function resolveImageDestination(): File
     {
         $phingFile = $this->getProject()->getProperty('phing.file');
         $format = $this->getFormat();
         $candidate = $this->getDestination();
         $path = $this->resolveDestination($phingFile, $format, $candidate);
 
-        return new PhingFile($path);
+        return new File($path);
     }
 
     /**
@@ -382,11 +385,11 @@ class VisualizerTask extends HttpTask
      * Save provided $content string into $destination file
      *
      * @param string $content Content to save
-     * @param \PhingFile $destination Location where $content is saved
+     * @param \Phing\Io\File $destination Location where $content is saved
      *
      * @return void
      */
-    protected function saveToFile(string $content, PhingFile $destination): void
+    protected function saveToFile(string $content, File $destination): void
     {
         $path = $destination->getPath();
         $this->log("Writing: $path", Project::MSG_INFO);

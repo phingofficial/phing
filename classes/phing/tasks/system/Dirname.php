@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Determines the directory name of the specified file.
@@ -40,7 +41,7 @@ use Phing\Exception\BuildException;
 class Dirname extends Task
 {
     /**
-     * @var PhingFile $file
+     * @var File $file
      */
     private $file;
     private $property;
@@ -48,14 +49,14 @@ class Dirname extends Task
     /**
      * Path to take the dirname of.
      *
-     * @param string|PhingFile file a <code>File</code> value
+     * @param string|File file a <code>File</code> value
      */
     public function setFile($file)
     {
-        if ($file instanceof PhingFile) {
+        if ($file instanceof File) {
             $this->file = $file;
         } else {
-            $this->file = new PhingFile($file);
+            $this->file = new File($file);
         }
     }
 

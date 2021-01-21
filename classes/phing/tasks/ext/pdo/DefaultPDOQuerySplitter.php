@@ -19,6 +19,7 @@
  * @package phing.tasks.ext.pdo
  */
 
+use Phing\Io\Reader;
 use Phing\Util\StringHelper;
 
 /**

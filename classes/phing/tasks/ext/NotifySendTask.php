@@ -12,6 +12,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileSystem;
+use Phing\Io\File;
 use Phing\Util\StringHelper;
 
 /**
@@ -33,11 +35,11 @@ class NotifySendTask extends Task
     /**
      * Set icon attribute
      *
-     * @param \PhingFile $icon name/location of icon
+     * @param \Phing\Io\File $icon name/location of icon
      *
      * @return void
      */
-    public function setIcon(PhingFile $icon)
+    public function setIcon(File $icon)
     {
         if ($icon->isFile()) {
             $this->log(sprintf('Using "%s" as icon.', $icon), Project::MSG_VERBOSE);

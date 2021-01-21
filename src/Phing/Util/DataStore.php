@@ -19,9 +19,9 @@
 
 namespace Phing\Util;
 
-use FileWriter;
+use Phing\Io\FileWriter;
 use Phing\Exception\BuildException;
-use PhingFile;
+use Phing\Io\File;
 
 /**
  * An abstract representation of file and directory pathnames.
@@ -37,9 +37,9 @@ class DataStore
     /**
      * Constructs a new data store
      *
-     * @param PhingFile $file object pointing to the data store on disk
+     * @param File $file object pointing to the data store on disk
      */
-    public function __construct(PhingFile $file)
+    public function __construct(File $file)
     {
         $this->file = $file;
 

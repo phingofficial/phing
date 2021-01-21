@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Mapper\IdentityMapper;
 
 /**
@@ -66,10 +67,10 @@ class DependSelector extends BaseSelector
      * The name of the file or directory which is checked for out-of-date
      * files.
      *
-     * @param    PhingFile|the $targetdir
+     * @param    File|the $targetdir
      * @internal param the $targetdir directory to scan looking for files.
      */
-    public function setTargetdir(PhingFile $targetdir)
+    public function setTargetdir(File $targetdir)
     {
         $this->targetdir = $targetdir;
     }
@@ -123,15 +124,15 @@ class DependSelector extends BaseSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir base directory the scan is being done from
+     * @param File $basedir base directory the scan is being done from
      * @param string $filename the name of the file to check
-     * @param PhingFile $file a PhingFile object the selector can use
-     *
-     * @throws BuildException
+     * @param File $file a PhingFile object the selector can use
      *
      * @return bool whether the file should be selected or not
+     *@throws BuildException
+     *
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
         $this->validate();
 
@@ -148,7 +149,7 @@ class DependSelector extends BaseSelector
             throw new BuildException("Invalid destination file results for " . $this->targetdir . " with filename " . $filename);
         }
         $destname = $destfiles[0];
-        $destfile = new PhingFile($this->targetdir, $destname);
+        $destfile = new File($this->targetdir, $destname);
 
         return SelectorUtils::isOutOfDate($file, $destfile, $this->granularity);
     }

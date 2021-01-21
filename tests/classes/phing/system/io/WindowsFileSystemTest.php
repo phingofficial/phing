@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\WindowsFileSystem;
+
 /**
  * Unit test for Win32FileSystem
  *

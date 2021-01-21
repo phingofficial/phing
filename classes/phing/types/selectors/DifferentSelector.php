@@ -18,6 +18,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * This selector selects files against a mapped set of target files, selecting
@@ -76,13 +79,13 @@ class DifferentSelector extends MappingSelector
     /**
      * This test is our selection test that compared the file with the destfile.
      *
-     * @param  PhingFile $srcfile the source file
-     * @param  PhingFile $destfile the destination file
+     * @param  File $srcfile the source file
+     * @param  File $destfile the destination file
      * @return bool true if the files are different
      *
      * @throws BuildException
      */
-    protected function selectionTest(PhingFile $srcfile, PhingFile $destfile)
+    protected function selectionTest(File $srcfile, File $destfile)
     {
         try {
             // if either of them is missing, they are different

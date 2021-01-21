@@ -19,10 +19,11 @@
 
 namespace Phing\Filter;
 
-use IOException;
+use Phing\Io\IOException;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
-use Reader;
+use Phing\Io\FilterReader;
+use Phing\Io\Reader;
 
 /**
  * Attaches a prefix to every line.

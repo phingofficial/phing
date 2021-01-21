@@ -19,11 +19,11 @@
 
 namespace Phing\Util;
 
-use FileUtils;
-use FileWriter;
+use Phing\Io\FileUtils;
+use Phing\Io\FileWriter;
 use Phing\Phing;
-use PhingFile;
-use PrintStream;
+use Phing\Io\File;
+use Phing\Io\PrintStream;
 use Project;
 
 /**
@@ -205,7 +205,7 @@ class Diagnostics
             return;
         }
         $out->println("Temp dir is " . $tempdir);
-        $tempDirectory = new PhingFile($tempdir);
+        $tempDirectory = new File($tempdir);
 
         if (!$tempDirectory->exists()) {
             $out->println("Warning, php.tmpdir directory does not exist: " . $tempdir);

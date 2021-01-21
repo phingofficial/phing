@@ -18,6 +18,10 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\BufferedReader;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
+use Phing\Io\File;
 use Phing\Util\Regexp;
 use Phing\Util\RegexpException;
 
@@ -154,15 +158,15 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir base directory the scan is being done from
+     * @param File $basedir base directory the scan is being done from
      * @param string $filename the name of the file to check
-     * @param PhingFile $file PhingFile object the selector can use
+     * @param File $file PhingFile object the selector can use
      *
      * @return bool whether the file should be selected or not
      * @throws IOException
      * @throws RegexpException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
         $this->validate();
 

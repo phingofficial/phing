@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * This selector is here just to shake up your thinking a bit. Don't get
  * too caught up in boolean, there are other ways you can evaluate a
@@ -62,13 +64,13 @@ class MajoritySelector extends BaseSelectorContainer
      * agree. In case of a tie, go by the allowtie setting. That defaults
      * to true, meaning in case of a tie, the file is selected.
      *
-     * @param  PhingFile $basedir the base directory the scan is being done from
+     * @param  File $basedir the base directory the scan is being done from
      * @param  string $filename is the name of the file to check
-     * @param  PhingFile $file is a PhingFile object for the filename that the selector
+     * @param  File $file is a PhingFile object for the filename that the selector
      *                            can use
      * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
         $this->validate();
 

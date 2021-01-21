@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * The <i>Algorithm</i> defines how a value for a file is computed.
  * It must be sure that multiple calls for the same file results in the
@@ -33,8 +35,8 @@ interface Algorithm
 
     /**
      * Get the value for a file.
-     * @param PhingFile $file File object for which the value should be evaluated.
+     * @param File $file File object for which the value should be evaluated.
      * @return string|null The value for that file
      */
-    public function getValue(PhingFile $file): ?string;
+    public function getValue(File $file): ?string;
 }

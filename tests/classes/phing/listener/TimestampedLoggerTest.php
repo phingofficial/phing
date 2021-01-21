@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\OutputStream;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\TimestampedLogger;
 use PHPUnit\Framework\TestCase;

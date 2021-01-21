@@ -27,15 +27,15 @@ use Phing\Listener\DefaultLogger;
 use Phing\Util\Diagnostics;
 use Exception;
 use Phing\Exception\ExitStatusException;
-use FileOutputStream;
-use FileParserFactory;
-use FileReader;
-use FileSystem;
-use FileUtils;
-use IOException;
-use OutputStream;
-use PhingFile;
-use PrintStream;
+use Phing\Io\FileOutputStream;
+use Phing\Io\FileParserFactory;
+use Phing\Io\FileReader;
+use Phing\Io\FileSystem;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
+use Phing\Io\File;
+use Phing\Io\PrintStream;
 use Project;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Util\Properties;
@@ -507,7 +507,7 @@ class Phing
                         throw new ConfigurationException($msg);
                     }
 
-                    $logFile = new PhingFile($args[++$i]);
+                    $logFile = new File($args[++$i]);
                     $out = new FileOutputStream($logFile); // overwrite
                     self::setOutputStream($out);
                     self::setErrorStream($out);
@@ -522,7 +522,7 @@ class Phing
                     throw new ConfigurationException($msg);
                 }
 
-                $this->buildFile = new PhingFile($args[++$i]);
+                $this->buildFile = new File($args[++$i]);
             } elseif ($arg == "-listener") {
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a listener class when using the -listener argument";
@@ -602,14 +602,14 @@ class Phing
             if ($this->searchForThis !== null) {
                 $this->buildFile = $this->_findBuildFile(self::getProperty("user.dir"), $this->searchForThis);
             } else {
-                $this->buildFile = new PhingFile(self::DEFAULT_BUILD_FILENAME);
+                $this->buildFile = new File(self::DEFAULT_BUILD_FILENAME);
             }
         }
 
         try {
             // make sure buildfile (or buildfile.dist) exists
             if (!$this->buildFile->exists()) {
-                $distFile = new PhingFile($this->buildFile->getAbsolutePath() . ".dist");
+                $distFile = new File($this->buildFile->getAbsolutePath() . ".dist");
                 if (!$distFile->exists()) {
                     throw new ConfigurationException(
                         "Buildfile: " . $this->buildFile->__toString() . " does not exist!"
@@ -664,7 +664,7 @@ class Phing
             $fileParser = $fileParserFactory->createParser(pathinfo($filename, PATHINFO_EXTENSION));
             $p = new Properties(null, $fileParser);
             try {
-                $p->load(new PhingFile($filename));
+                $p->load(new File($filename));
             } catch (IOException $e) {
                 self::$out->write('Could not load property file ' . $filename . ': ' . $e->getMessage());
             }
@@ -685,9 +685,9 @@ class Phing
      * @param string $start Start file path.
      * @param string $suffix Suffix filename to look for in parents.
      *
-     * @throws ConfigurationException
+     * @return File A handle to the build file
+     *@throws ConfigurationException
      *
-     * @return PhingFile A handle to the build file
      */
     private function _findBuildFile($start, $suffix)
     {
@@ -695,8 +695,8 @@ class Phing
             self::$out->write('Searching for ' . $suffix . ' ...' . PHP_EOL);
         }
 
-        $parent = new PhingFile((new PhingFile($start))->getAbsolutePath());
-        $file = new PhingFile($parent, $suffix);
+        $parent = new File((new File($start))->getAbsolutePath());
+        $file = new File($parent, $suffix);
 
         // check if the target file exists in the current directory
         while (!$file->exists()) {
@@ -709,7 +709,7 @@ class Phing
                 throw new ConfigurationException("Could not locate a build file!");
             }
             // refresh our file handle
-            $file = new PhingFile($parent, $suffix);
+            $file = new File($parent, $suffix);
         }
 
         return $file;
@@ -1186,7 +1186,7 @@ class Phing
             throw new ConfigurationException("No VERSION.TXT file found; try setting phing.home environment variable.");
         }
         try { // try to read file
-            $file = new PhingFile($versionPath);
+            $file = new File($versionPath);
             $reader = new FileReader($file);
             $phingVersion = trim($reader->read());
         } catch (IOException $iox) {

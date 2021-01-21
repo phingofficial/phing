@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
 use Phing\Util\StringHelper;
 
 /**
@@ -188,13 +189,13 @@ class FilenameSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
+     * @param File $basedir the base directory the scan is being done from
      * @param string $filename is the name of the file to check
-     * @param PhingFile $file is a PhingFile object the selector can use
+     * @param File $file is a PhingFile object the selector can use
      *
      * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
         $this->validate();
 

@@ -18,14 +18,14 @@
  */
 
 namespace Phing\Util;
-use BufferedWriter;
-use FileParserInterface;
-use FileWriter;
-use IniFileParser;
-use IOException;
-use OutputStream;
-use OutputStreamWriter;
-use PhingFile;
+use Phing\Io\BufferedWriter;
+use Phing\Io\FileParserInterface;
+use Phing\Io\FileWriter;
+use Phing\Io\IniFileParser;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
+use Phing\Io\OutputStreamWriter;
+use Phing\Io\File;
 
 /**
  * Convenience class for reading and writing property files.
@@ -45,7 +45,7 @@ class Properties
     private $fileParser;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $file = null;
 
@@ -69,11 +69,11 @@ class Properties
     /**
      * Load properties from a file.
      *
-     * @param PhingFile $file
+     * @param File $file
      * @return void
      * @throws IOException - if unable to read file.
      */
-    public function load(PhingFile $file)
+    public function load(File $file)
     {
         if ($file->canRead()) {
             $this->parse($file);
@@ -87,9 +87,9 @@ class Properties
     /**
      * Parses the file given.
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    protected function parse(PhingFile $file)
+    protected function parse(File $file)
     {
         $this->properties = $this->fileParser->parseFile($file);
     }
@@ -133,12 +133,12 @@ class Properties
     /**
      * Stores current properties to specified file.
      *
-     * @param PhingFile $file File to create/overwrite with properties.
+     * @param File $file File to create/overwrite with properties.
      * @param string $header Header text that will be placed (within comments) at the top of properties file.
      * @return void
      * @throws IOException - on error writing properties file.
      */
-    public function store(PhingFile $file = null, $header = null)
+    public function store(File $file = null, $header = null)
     {
         if ($file == null) {
             $file = $this->file;

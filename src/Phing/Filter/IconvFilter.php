@@ -20,10 +20,10 @@
 namespace Phing\Filter;
 
 use Phing\Filter\BaseParamFilterReader;
-use IOException;
+use Phing\Io\IOException;
 use Phing\Filter\ChainableReader;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Encode data from <code>in</code> encoding to <code>out</code> encoding.

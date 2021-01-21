@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileUtils;
+use Phing\Io\File;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -87,16 +89,16 @@ class SelectorUtilsTest extends TestCase
      */
     public function testNonExistingSourceFileCausesOutOfDateToReturnFalse()
     {
-        $sourceFile = new PhingFile("doesNotExist");
-        $targetFile = new PhingFile(__FILE__);
+        $sourceFile = new File("doesNotExist");
+        $targetFile = new File(__FILE__);
         $ret = $this->selectorUtils::isOutOfDate($sourceFile, $targetFile, 0);
         $this->assertEquals(false, $ret);
     }
 
     public function testNonExistingTargetFileCausesOutOfDateToReturnTrue()
     {
-        $sourceFile = new PhingFile(__FILE__);
-        $targetFile = new PhingFile("doesNotExist");
+        $sourceFile = new File(__FILE__);
+        $targetFile = new File("doesNotExist");
         $ret = $this->selectorUtils::isOutOfDate($sourceFile, $targetFile, 0);
         $this->assertEquals(true, $ret);
     }
@@ -108,9 +110,9 @@ class SelectorUtilsTest extends TestCase
      */
     public function testOutOfDate()
     {
-        $source = new PhingFile(tempnam(FileUtils::getTempDir(), 'src'));
+        $source = new File(tempnam(FileUtils::getTempDir(), 'src'));
         sleep(3);
-        $target = new PhingFile(tempnam(FileUtils::getTempDir(), 'tgt'));
+        $target = new File(tempnam(FileUtils::getTempDir(), 'tgt'));
         $ret = $this->selectorUtils::isOutOfDate($source, $target, 20);
         $this->assertEquals(false, $ret);
     }

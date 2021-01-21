@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Io\File;
 use Phing\Util\Properties;
 
 /**
@@ -159,10 +161,10 @@ class Variable extends PropertyTask
     /**
      * load variables from a file
      *
-     * @param  PhingFile $file file to load
+     * @param  File $file file to load
      * @throws BuildException
      */
-    protected function loadFile(PhingFile $file)
+    protected function loadFile(File $file)
     {
         $props = new Properties();
         try {

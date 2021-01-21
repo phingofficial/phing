@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FilterReader;
 
 /**
  * A PhingFilterReader is a wrapper class that encloses the className

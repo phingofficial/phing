@@ -19,6 +19,8 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Io\IOException;
+use Phing\Io\File;
 use Phing\Util\PathTokenizer;
 
 /**
@@ -85,14 +87,14 @@ class Path extends DataType
     /**
      * Adds a element definition to the path.
      *
-     * @param PhingFile $location the location of the element to add (must not be
+     * @param File $location the location of the element to add (must not be
      *                            <code>null</code> nor empty.
      *
      * @return void
      *
      * @throws BuildException
      */
-    public function setDir(PhingFile $location)
+    public function setDir(File $location)
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -265,7 +267,7 @@ class Path extends DataType
             if ($this->project !== null) {
                 $f = $this->project->resolveFile($el);
             } else {
-                $f = new PhingFile($el);
+                $f = new File($el);
             }
 
             if ($f->exists()) {
@@ -337,7 +339,7 @@ class Path extends DataType
                 $dirstrs = $ds->getIncludedDirectories();
                 $dir = $dset->getDir($this->project);
                 foreach ($dirstrs as $dstr) {
-                    $d = new PhingFile($dir, $dstr);
+                    $d = new File($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
                 }
             } elseif ($o instanceof FileSet) {
@@ -346,7 +348,7 @@ class Path extends DataType
                 $filestrs = $ds->getIncludedFiles();
                 $dir = $fs->getDir($this->getProject());
                 foreach ($filestrs as $fstr) {
-                    $d = new PhingFile($dir, $fstr);
+                    $d = new File($dir, $fstr);
                     $result[] = $d->getAbsolutePath();
                 }
             } elseif ($o instanceof FileList) {
@@ -354,7 +356,7 @@ class Path extends DataType
                 $dirstrs = $fl->getFiles($this->project);
                 $dir = $fl->getDir($this->project);
                 foreach ($dirstrs as $dstr) {
-                    $d = new PhingFile($dir, $dstr);
+                    $d = new File($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
                 }
             }

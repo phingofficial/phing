@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * A PHP code sniffer task. Checking the style of one or more PHP source files.
@@ -33,7 +34,7 @@ class PhpCSTask extends Task
     /**
      * A php source code filename or directory
      *
-     * @var PhingFile
+     * @var File
      */
     private $file;
 
@@ -105,9 +106,9 @@ class PhpCSTask extends Task
     }
 
     /**
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file): void
+    public function setFile(File $file): void
     {
         $this->file = $file;
     }
@@ -141,7 +142,7 @@ class PhpCSTask extends Task
             $toExecute->createArgument()->setFile($this->file);
         } else {
             foreach ($this->files as $file) {
-                $toExecute->createArgument()->setFile(new PhingFile($file));
+                $toExecute->createArgument()->setFile(new File($file));
             }
         }
 

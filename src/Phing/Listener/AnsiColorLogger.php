@@ -19,10 +19,10 @@
 
 namespace Phing\Listener;
 
-use IOException;
-use OutputStream;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
 use Phing\Phing;
-use PhingFile;
+use Phing\Io\File;
 use Project;
 use Phing\Util\Properties;
 
@@ -162,7 +162,7 @@ class AnsiColorLogger extends DefaultLogger
     private function setColors()
     {
         $userColorFile = Phing::getProperty("phing.logger.defaults");
-        $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
+        $systemColorFile = new File(Phing::getResourcePath("phing/listener/defaults.properties"));
 
         $in = null;
 

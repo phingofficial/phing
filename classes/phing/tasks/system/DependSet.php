@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Examines and removes out of date target files.  If any of the target files
@@ -153,7 +154,7 @@ class DependSet extends MatchingTask
             $targetFiles = $targetDS->getIncludedFiles();
 
             foreach ($targetFiles as $targetFile) {
-                $dest = new PhingFile($targetFS->getDir($this->getProject()), $targetFile);
+                $dest = new File($targetFS->getDir($this->getProject()), $targetFile);
                 $allTargets[] = $dest;
 
                 if ($dest->lastModified() > $now) {
@@ -177,7 +178,7 @@ class DependSet extends MatchingTask
             $targetFiles = $targetFL->getFiles($this->getProject());
 
             foreach ($targetFiles as $targetFile) {
-                $dest = new PhingFile($targetFL->getDir($this->getProject()), $targetFile);
+                $dest = new File($targetFL->getDir($this->getProject()), $targetFile);
                 if (!$dest->exists()) {
                     $this->log($targetFile . ' does not exist.', Project::MSG_VERBOSE);
                     $upToDate = false;
@@ -213,7 +214,7 @@ class DependSet extends MatchingTask
                 $sourceFiles = $sourceFL->getFiles($this->getProject());
 
                 foreach ($sourceFiles as $sourceFile) {
-                    $src = new PhingFile($sourceFL->getDir($this->getProject()), $sourceFile);
+                    $src = new File($sourceFL->getDir($this->getProject()), $sourceFile);
 
                     if ($src->lastModified() > $now) {
                         $this->log(
@@ -249,7 +250,7 @@ class DependSet extends MatchingTask
                 $sourceFiles = $sourceDS->getIncludedFiles();
 
                 foreach ($sourceFiles as $sourceFile) {
-                    $src = new PhingFile($sourceFS->getDir($this->getProject()), $sourceFile);
+                    $src = new File($sourceFS->getDir($this->getProject()), $sourceFile);
 
                     if ($src->lastModified() > $now) {
                         $this->log(

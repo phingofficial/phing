@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * ManifestTask
@@ -93,7 +94,7 @@ class ManifestTask extends Task
     private $meta = ['totalFileCount' => 0, 'totalFileSize' => 0];
 
     /**
-     * @var PhingFile The target file passed in the buildfile.
+     * @var File The target file passed in the buildfile.
      */
     private $file;
 
@@ -101,11 +102,11 @@ class ManifestTask extends Task
      * The setter for the attribute "file".
      * This is where the manifest will be written to/read from
      *
-     * @param PhingFile $file Path to readable file
+     * @param File $file Path to readable file
      *
      * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }

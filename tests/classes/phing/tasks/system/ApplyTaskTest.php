@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileUtils;
+use Phing\Io\File;
+
 /**
  * Tests the Apply Task
  *
@@ -60,7 +63,7 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetDir()
     {
-        $this->assertAttributeIsSetTo('dir', new PhingFile($this->project->getProperty('php.tmpdir')));
+        $this->assertAttributeIsSetTo('dir', new File($this->project->getProperty('php.tmpdir')));
     }
 
     /**
@@ -118,7 +121,7 @@ class ApplyTaskTest extends BuildFileTest
     {
         $this->assertAttributeIsSetTo(
             'output',
-            new PhingFile($this->project->getProperty('php.tmpdir') . '/outputfilename')
+            new File($this->project->getProperty('php.tmpdir') . '/outputfilename')
         );
     }
 
@@ -129,7 +132,7 @@ class ApplyTaskTest extends BuildFileTest
     {
         $this->assertAttributeIsSetTo(
             'error',
-            new PhingFile($this->project->getProperty('php.tmpdir') . '/errorfilename')
+            new File($this->project->getProperty('php.tmpdir') . '/errorfilename')
         );
     }
 

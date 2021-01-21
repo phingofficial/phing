@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/745
  * - MkdirTask mode param mistake
@@ -34,7 +36,7 @@ class MkdirTaskModeTest extends BuildFileTest
     {
         $this->executeTarget("test");
 
-        $dir = new PhingFile(PHING_TEST_BASE . "/etc/regression/745/testdir");
+        $dir = new File(PHING_TEST_BASE . "/etc/regression/745/testdir");
 
         $mode = $dir->getMode() & 511;
 

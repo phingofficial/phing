@@ -18,10 +18,12 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Io\File;
 
 /**
  * This task sets a property to the name of a temporary file.
- * Unlike {@link PhingFile::createTempFile()}, this task does not (by default) actually create the
+ * Unlike {@link File::createTempFile()}, this task does not (by default) actually create the
  * temporary file, but it does guarantee that the file did not
  * exist when the task was executed.
  *
@@ -88,14 +90,14 @@ class TempFile extends Task
      * Sets the destination directory. If not set,
      * the basedir directory is used instead.
      *
-     * @param string|PhingFile $destDir The new destDir value
+     * @param string|File $destDir The new destDir value
      */
     public function setDestDir($destDir)
     {
-        if ($destDir instanceof PhingFile) {
+        if ($destDir instanceof File) {
             $this->destDir = $destDir;
         } else {
-            $this->destDir = new PhingFile($destDir);
+            $this->destDir = new File($destDir);
         }
     }
 

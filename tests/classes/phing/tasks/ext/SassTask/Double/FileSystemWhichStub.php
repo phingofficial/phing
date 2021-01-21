@@ -19,6 +19,8 @@
 
 declare(strict_types=1);
 
+use Phing\Io\UnixFileSystem;
+
 class FileSystemWhichStub extends UnixFileSystem
 {
 

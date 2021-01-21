@@ -23,6 +23,7 @@ use Exception;
 use Parameter;
 use Parameterizable;
 use Phing\Filter\BaseFilterReader;
+use Phing\Io\FilterReader;
 
 /**
  * Base class for core filter readers.

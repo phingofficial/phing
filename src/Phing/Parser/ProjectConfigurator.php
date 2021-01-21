@@ -19,20 +19,20 @@
 
 namespace Phing\Parser;
 
-use BufferedReader;
+use Phing\Io\BufferedReader;
 use Exception;
 use Phing\Parser\ExpatParseException;
 use Phing\Parser\ExpatParser;
 use ExtensionPoint;
-use FileReader;
+use Phing\Io\FileReader;
 use IntrospectionHelper;
-use IOException;
+use Phing\Io\IOException;
 use Phing\Parser\Location;
 use Phing\Exception\BuildException;
 use Phing\Exception\ExitStatusException;
 use Phing\Exception\NullPointerException;
 use Phing\Parser\RootHandler;
-use PhingFile;
+use Phing\Io\File;
 use Phing\Parser\XmlContext;
 use Project;
 use Target;
@@ -86,13 +86,13 @@ class ProjectConfigurator
      * project. Do not use the new operator.
      *
      * @param Project $project the Project instance this configurator should use
-     * @param PhingFile $buildFile the buildfile object the parser should use
+     * @param File $buildFile the buildfile object the parser should use
      *
-     * @throws \IOException
+     * @throws \Phing\Io\IOException
      * @throws \Phing\Exception\BuildException
      * @throws NullPointerException
      */
-    public static function configureProject(Project $project, PhingFile $buildFile): void
+    public static function configureProject(Project $project, File $buildFile): void
     {
         (new self($project, $buildFile))->parse();
     }
@@ -103,22 +103,22 @@ class ProjectConfigurator
      * <code>configureProject</code> to configure a project.
      *
      * @param Project $project the Project instance this configurator should use
-     * @param PhingFile $buildFile the buildfile object the parser should use
+     * @param File $buildFile the buildfile object the parser should use
      * @throws IOException
      * @throws NullPointerException
      */
-    private function __construct(Project $project, PhingFile $buildFile)
+    private function __construct(Project $project, File $buildFile)
     {
         $this->project = $project;
-        $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
-        $this->buildFileParent = new PhingFile($this->buildFile->getParent());
+        $this->buildFile = new File($buildFile->getAbsolutePath());
+        $this->buildFileParent = new File($this->buildFile->getParent());
         $this->parseEndTarget = new Target();
     }
 
     /**
      * find out the build file
      *
-     * @return PhingFile the build file to which the xml context belongs
+     * @return File the build file to which the xml context belongs
      */
     public function getBuildFile()
     {
@@ -128,7 +128,7 @@ class ProjectConfigurator
     /**
      * find out the parent build file of this build file
      *
-     * @return PhingFile the parent build file of this build file
+     * @return File the parent build file of this build file
      */
     public function getBuildFileParent()
     {

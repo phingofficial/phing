@@ -18,6 +18,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * Coverts a path to a fileset.
@@ -44,7 +47,7 @@ use Phing\Exception\BuildException;
 class PathToFileSet extends Task
 {
     /**
-     * @var PhingFile $dir
+     * @var File $dir
      */
     private $dir;
 
@@ -64,9 +67,9 @@ class PathToFileSet extends Task
     private $ignoreNonRelative = false;
 
     /**
-     * @param PhingFile $dir
+     * @param File $dir
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(File $dir)
     {
         $this->dir = $dir;
     }
@@ -134,7 +137,7 @@ class PathToFileSet extends Task
 
         $atLeastOne = false;
         for ($i = 0, $resourcesCount = count($sources); $i < $resourcesCount; ++$i) {
-            $sourceFile = new PhingFile($sources[$i]);
+            $sourceFile = new File($sources[$i]);
             if (!$sourceFile->exists()) {
                 continue;
             }
@@ -158,11 +161,11 @@ class PathToFileSet extends Task
 
     /**
      * @param string $dirNormal
-     * @param PhingFile $file
+     * @param File $file
      * @return string|false
      * @throws IOException
      */
-    private function getIncludePattern($dirNormal, PhingFile $file)
+    private function getIncludePattern($dirNormal, File $file)
     {
         $fileUtils = new FileUtils();
         $fileNormal = $fileUtils->normalize($file->getAbsolutePath());

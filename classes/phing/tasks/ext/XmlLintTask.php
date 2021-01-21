@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * A XML lint task. Checking syntax of one or more XML files against an XML Schema using the DOM extension.
@@ -38,9 +39,9 @@ class XmlLintTask extends Task
     /**
      * File to be performed syntax check on
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -48,9 +49,9 @@ class XmlLintTask extends Task
     /**
      * XML Schema Description file to validate against
      *
-     * @param PhingFile $schema
+     * @param File $schema
      */
-    public function setSchema(PhingFile $schema)
+    public function setSchema(File $schema)
     {
         $this->schema = $schema;
     }
@@ -96,7 +97,7 @@ class XmlLintTask extends Task
         }
 
         set_error_handler([$this, 'errorHandler']);
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $this->lint($this->file->getPath());
         } else { // process filesets
             $project = $this->getProject();

@@ -22,10 +22,10 @@ namespace Phing\Filter;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\Contains;
 use Exception;
-use IOException;
+use Phing\Io\IOException;
 use Phing\Filter\ChainableReader;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Filter which includes only those lines that contain all the user-specified

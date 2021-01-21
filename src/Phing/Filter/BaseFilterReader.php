@@ -18,11 +18,11 @@
  */
 
 namespace Phing\Filter;
-use FilterReader;
-use IOException;
+use Phing\Io\FilterReader;
+use Phing\Io\IOException;
 use Project;
-use Reader;
-use StringReader;
+use Phing\Io\Reader;
+use Phing\Io\StringReader;
 
 /**
  * Base class for core filter readers.

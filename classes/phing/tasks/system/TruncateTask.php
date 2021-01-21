@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Io\File;
 use Phing\Util\SizeHelper;
 
 /**
@@ -36,11 +38,11 @@ class TruncateTask extends Task
     /**
      * Set a single target File.
      *
-     * @param  PhingFile $f the single File
-     * @throws \IOException
+     * @param  File $f the single File
+     * @throws \Phing\Io\IOException
      * @throws \Phing\Exception\NullPointerException
      */
-    public function setFile(PhingFile $f): void
+    public function setFile(File $f): void
     {
         $this->file = $f;
     }
@@ -118,11 +120,11 @@ class TruncateTask extends Task
     }
 
     /**
-     * @param PhingFile $f
+     * @param File $f
      * @return bool
      * @throws \Phing\Exception\BuildException
      */
-    private function shouldProcess(PhingFile $f)
+    private function shouldProcess(File $f)
     {
         if ($f->isFile()) {
             return true;
@@ -146,7 +148,7 @@ class TruncateTask extends Task
         throw new BuildException($msg, $exception);
     }
 
-    private function process(PhingFile $f)
+    private function process(File $f)
     {
         $len = $f->length();
         $newLength = $this->length ?? $len + $this->adjust;

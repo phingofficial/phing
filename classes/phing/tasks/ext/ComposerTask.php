@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileSystem;
+use Phing\Io\IOException;
 
 /**
  * Composer Task

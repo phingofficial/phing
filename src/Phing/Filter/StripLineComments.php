@@ -24,7 +24,7 @@ use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
 use Phing\Filter\Comment;
 use Phing\Util\StringHelper;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * This filter strips line comments.

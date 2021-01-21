@@ -19,16 +19,16 @@
 
 namespace Phing\Filter;
 
-use BufferedReader;
-use FileReader;
-use IOException;
+use Phing\Io\BufferedReader;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
 use Parameter;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
-use PhingFile;
-use Reader;
+use Phing\Io\File;
+use Phing\Io\Reader;
 
 /**
  * Concats a file before and/or after the file.
@@ -55,14 +55,14 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * File to add before the content.
      *
-     * @var PhingFile $prepend
+     * @var File $prepend
      */
     private $prepend;
 
     /**
      * File to add after the content.
      *
-     * @var PhingFile|string $append
+     * @var File|string $append
      */
     private $append;
 
@@ -156,24 +156,24 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
              */
             foreach ($params as $param) {
                 if ('prepend' === $param->getName()) {
-                    $this->setPrepend(new PhingFile($param->getValue()));
+                    $this->setPrepend(new File($param->getValue()));
                     continue;
                 }
                 if ('append' === $param->getName()) {
-                    $this->setAppend(new PhingFile($param->getValue()));
+                    $this->setAppend(new File($param->getValue()));
                     continue;
                 }
             }
         }
         if ($this->prepend !== null) {
             if (!$this->prepend->isAbsolute()) {
-                $this->prepend = new PhingFile($this->getProject()->getBasedir(), $this->prepend->getPath());
+                $this->prepend = new File($this->getProject()->getBasedir(), $this->prepend->getPath());
             }
             $this->prependReader = new BufferedReader(new FileReader($this->prepend));
         }
         if ($this->append !== null) {
             if (!$this->append->isAbsolute()) {
-                $this->append = new PhingFile($this->getProject()->getBasedir(), $this->append->getPath());
+                $this->append = new File($this->getProject()->getBasedir(), $this->append->getPath());
             }
             $this->appendReader = new BufferedReader(new FileReader($this->append));
         }
@@ -204,7 +204,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns `prepend` attribute.
      *
-     * @return PhingFile prepend attribute
+     * @return File prepend attribute
      */
     public function getPrepend()
     {
@@ -214,24 +214,24 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets `prepend` attribute.
      *
-     * @param PhingFile|string $prepend prepend new value
+     * @param File|string $prepend prepend new value
      * @throws IOException
      * @throws NullPointerException
      */
     public function setPrepend($prepend)
     {
-        if ($prepend instanceof PhingFile) {
+        if ($prepend instanceof File) {
             $this->prepend = $prepend;
             return;
         }
 
-        $this->prepend = new PhingFile($prepend);
+        $this->prepend = new File($prepend);
     }
 
     /**
      * Returns `append` attribute.
      *
-     * @return PhingFile|string append attribute
+     * @return File|string append attribute
      */
     public function getAppend()
     {
@@ -241,7 +241,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets `append` attribute.
      *
-     * @param PhingFile|string $append append new value
+     * @param File|string $append append new value
      */
     public function setAppend($append)
     {

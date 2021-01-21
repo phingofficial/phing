@@ -21,9 +21,9 @@ namespace Phing\Listener;
 
 use Phing\Listener\BuildEvent;
 use Exception;
-use FileOutputStream;
-use IOException;
-use OutputStreamWriter;
+use Phing\Io\FileOutputStream;
+use Phing\Io\IOException;
+use Phing\Io\OutputStreamWriter;
 use Phing\Exception\BuildException;
 use Phing\Phing;
 use SimpleXMLElement;

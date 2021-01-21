@@ -21,12 +21,12 @@ namespace Phing\Listener;
 
 use BadMethodCallException;
 use Phing\Listener\BuildEvent;
-use IOException;
+use Phing\Io\IOException;
 use Mail;
-use OutputStream;
+use Phing\Io\OutputStream;
 use Phing\Exception\BuildException;
 use Phing\Phing;
-use PhingFile;
+use Phing\Io\File;
 use Project;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
@@ -95,7 +95,7 @@ class MailLogger extends DefaultLogger
         // overlay specified properties file (if any), which overrides project
         // settings
         $fileProperties = new Properties();
-        $file = new PhingFile($filename);
+        $file = new File($filename);
 
         try {
             $fileProperties->load($file);

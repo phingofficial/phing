@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * A selector that selects files based on their POSIX permissions.
@@ -73,7 +74,7 @@ class PosixPermissionsSelector implements FileSelector
         }
     }
 
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file): bool
+    public function isSelected(File $basedir, $filename, File $file): bool
     {
         if ($this->permissions === null) {
             throw new BuildException('the permissions attribute is required');

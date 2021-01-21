@@ -19,6 +19,15 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Io\FileReader;
+use Phing\Io\FileUtils;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
+use Phing\Io\LogWriter;
+use Phing\Io\File;
+use Phing\Io\Reader;
+use Phing\Io\StringReader;
+use Phing\Io\Writer;
 use Phing\Util\Register;
 
 /**
@@ -108,11 +117,11 @@ class AppendTask extends Task
     /**
      * The more conventional naming for method to set destination file.
      *
-     * @param PhingFile $f
+     * @param File $f
      *
      * @return void
      */
-    public function setDestFile(PhingFile $f)
+    public function setDestFile(File $f)
     {
         $this->to = $f;
     }
@@ -155,9 +164,9 @@ class AppendTask extends Task
     /**
      * Sets specific file to append.
      *
-     * @param PhingFile $f
+     * @param File $f
      */
-    public function setFile(PhingFile $f)
+    public function setFile(File $f)
     {
         $this->file = $f;
     }
@@ -234,7 +243,7 @@ class AppendTask extends Task
 
             if ($this->text !== null) {
                 // simply append the text
-                if ($this->to instanceof PhingFile) {
+                if ($this->to instanceof File) {
                     $this->log("Appending string to " . $this->to->getPath());
                 }
 
@@ -285,7 +294,7 @@ class AppendTask extends Task
                     $dir = $list->getDir($this->project);
                     $files = $list->getFiles($this->project);
                     foreach ($files as $file) {
-                        $this->appendFile($writer, new PhingFile($dir, $file));
+                        $this->appendFile($writer, new File($dir, $file));
                     }
                 }
             }
@@ -362,11 +371,11 @@ class AppendTask extends Task
      *
      * @param Writer $writer The FileWriter that is appending to target file.
      * @param array $files array of files to delete; can be of zero length
-     * @param PhingFile $dir directory to work from
+     * @param File $dir directory to work from
      *
      * @return void
      */
-    private function appendFiles(Writer $writer, $files, PhingFile $dir = null)
+    private function appendFiles(Writer $writer, $files, File $dir = null)
     {
         if (!empty($files)) {
             $this->log(
@@ -383,9 +392,9 @@ class AppendTask extends Task
                     }
 
                     if ($dir !== null) {
-                        $file = is_string($file) ? new PhingFile($dir->getPath(), $file) : $file;
+                        $file = is_string($file) ? new File($dir->getPath(), $file) : $file;
                     } else {
-                        $file = is_string($file) ? new PhingFile($file) : $file;
+                        $file = is_string($file) ? new File($file) : $file;
                     }
                     $basenameSlot->setValue($file);
                     $pathSlot->setValue($file->getPath());
@@ -408,9 +417,9 @@ class AppendTask extends Task
     private function checkFilename($filename, $dir = null)
     {
         if ($dir !== null) {
-            $f = new PhingFile($dir, $filename);
+            $f = new File($dir, $filename);
         } else {
-            $f = new PhingFile($filename);
+            $f = new File($filename);
         }
 
         if (!$f->exists()) {
@@ -440,11 +449,11 @@ class AppendTask extends Task
 
     /**
      * @param FileWriter $writer
-     * @param PhingFile $f
+     * @param File $f
      *
      * @return void
      */
-    private function appendFile(Writer $writer, PhingFile $f)
+    private function appendFile(Writer $writer, File $f)
     {
         $in = $this->getFilteredReader(new FileReader($f));
 
@@ -459,7 +468,7 @@ class AppendTask extends Task
         $text = $this->appendHeader($text);
         $text = $this->appendFooter($text);
         $writer->write($text);
-        if ($f instanceof PhingFile && $this->to instanceof PhingFile) {
+        if ($f instanceof File && $this->to instanceof File) {
             $this->log("Appending contents of " . $f->getPath() . " to " . $this->to->getPath());
         }
     }

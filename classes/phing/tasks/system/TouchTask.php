@@ -18,6 +18,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\File;
 use Phing\Phing;
 
 /**
@@ -33,7 +36,7 @@ class TouchTask extends Task
     use FileSetAware;
 
     /**
-     * @var PhingFile $file
+     * @var File $file
      */
     private $file;
     private $seconds = -1;
@@ -58,10 +61,10 @@ class TouchTask extends Task
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      *
-     * @param  PhingFile $file
+     * @param  File $file
      * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -238,13 +241,13 @@ class TouchTask extends Task
 
             for ($j = 0, $_j = count($srcFiles); $j < $_j; $j++) {
                 foreach ($this->getMappedFileNames((string) $srcFiles[$j]) as $fileName) {
-                    $this->touchFile(new PhingFile($fromDir, $fileName));
+                    $this->touchFile(new File($fromDir, $fileName));
                 }
             }
 
             for ($j = 0, $_j = count($srcDirs); $j < $_j; $j++) {
                 foreach ($this->getMappedFileNames((string) $srcDirs[$j]) as $fileName) {
-                    $this->touchFile(new PhingFile($fromDir, $fileName));
+                    $this->touchFile(new File($fromDir, $fileName));
                 }
             }
         }
@@ -257,7 +260,7 @@ class TouchTask extends Task
 
             for ($j = 0, $_j = count($srcFiles); $j < $_j; $j++) {
                 foreach ($this->getMappedFileNames((string) $srcFiles[$j]) as $fileName) {
-                    $this->touchFile(new PhingFile($fromDir, $fileName));
+                    $this->touchFile(new File($fromDir, $fileName));
                 }
             }
         }
@@ -287,7 +290,7 @@ class TouchTask extends Task
      * @param $file
      * @throws BuildException
      */
-    private function touchFile(PhingFile $file)
+    private function touchFile(File $file)
     {
         if (!$file->canWrite()) {
             throw new BuildException("Can not change modification date of read-only file " . (string) $file);

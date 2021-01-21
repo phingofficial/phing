@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\SourceFileScanner;
 use Phing\Mapper\MergeMapper;
 
 /**
@@ -46,12 +48,12 @@ class UpToDateTask extends Task implements Condition
     private $value;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $sourceFile;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $targetFile;
 
@@ -101,12 +103,12 @@ class UpToDateTask extends Task implements Condition
      * The file which must be more up-to-date than (each of) the source file(s)
      * if the property is to be set.
      *
-     * @param string|PhingFile $file the file we are checking against.
+     * @param string|File $file the file we are checking against.
      */
     public function setTargetFile($file)
     {
         if (is_string($file)) {
-            $file = new PhingFile($file);
+            $file = new File($file);
         }
         $this->targetFile = $file;
     }
@@ -115,12 +117,12 @@ class UpToDateTask extends Task implements Condition
      * The file that must be older than the target file
      * if the property is to be set.
      *
-     * @param string|PhingFile $file the file we are checking against the target file.
+     * @param string|File $file the file we are checking against the target file.
      */
     public function setSrcfile($file)
     {
         if (is_string($file)) {
-            $file = new PhingFile($file);
+            $file = new File($file);
         }
         $this->sourceFile = $file;
     }
@@ -264,11 +266,11 @@ class UpToDateTask extends Task implements Condition
     }
 
     /**
-     * @param PhingFile $srcDir
+     * @param File $srcDir
      * @param $files
      * @return bool
      */
-    protected function scanDir(PhingFile $srcDir, $files)
+    protected function scanDir(File $srcDir, $files)
     {
         $sfs = new SourceFileScanner($this);
         $mapper = null;

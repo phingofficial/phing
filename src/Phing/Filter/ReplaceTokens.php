@@ -24,7 +24,7 @@ use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
 use Phing\Filter\Token;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 use TokenSource;
 
 /**

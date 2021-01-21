@@ -19,6 +19,11 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Io\DirectoryScanner;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\File;
+use Phing\Io\SourceFileScanner;
 use Phing\Phing;
 
 /**
@@ -134,9 +139,9 @@ class ApplyTask extends ExecTask
     /**
      * Specify the directory where target files are to be placed.
      *
-     * @param PhingFile $dest the File object representing the destination directory.
+     * @param File $dest the File object representing the destination directory.
      */
-    public function setDest(PhingFile $dest)
+    public function setDest(File $dest)
     {
         $this->destDir = $dest;
     }
@@ -405,17 +410,17 @@ class ApplyTask extends ExecTask
     /********************** T A S K  C O R E  M E T H O D S ***************************/
     /**********************************************************************************/
 
-    protected function getFiles(PhingFile $baseDir, DirectoryScanner $ds)
+    protected function getFiles(File $baseDir, DirectoryScanner $ds)
     {
         return $this->restrict($ds->getIncludedFiles(), $baseDir);
     }
 
-    protected function getDirs(PhingFile $baseDir, DirectoryScanner $ds)
+    protected function getDirs(File $baseDir, DirectoryScanner $ds)
     {
         return $this->restrict($ds->getIncludedDirectories(), $baseDir);
     }
 
-    protected function restrict($s, PhingFile $baseDir)
+    protected function restrict($s, File $baseDir)
     {
         $sfs = new SourceFileScanner($this);
         return ($this->mapper === null || $this->force)
@@ -423,7 +428,7 @@ class ApplyTask extends ExecTask
             : $sfs->restrict($s, $baseDir, $this->destDir, $this->mapper);
     }
 
-    private function logSkippingFileset($currentType, DirectoryScanner $ds, PhingFile $base)
+    private function logSkippingFileset($currentType, DirectoryScanner $ds, File $base)
     {
         $includedCount = (
             ($currentType !== self::$types['DIR']) ? $ds->getIncludedFilesCount() : 0
@@ -623,7 +628,7 @@ class ApplyTask extends ExecTask
                             if ($this->relative) {
                                 $name = $subTarget;
                             } else {
-                                $name = (new PhingFile($this->destDir, $subTarget))->getAbsolutePath();
+                                $name = (new File($this->destDir, $subTarget))->getAbsolutePath();
                             }
                             if ($this->forwardslash && FileUtils::getSeparator() !== '/') {
                                 $name = str_replace(FileUtils::getSeparator(), '/', $name);
@@ -716,7 +721,7 @@ class ApplyTask extends ExecTask
             if ($this->relative) {
                 $src = $file;
             } else {
-                $src = (new PhingFile($basedir, $file))->getAbsolutePath();
+                $src = (new File($basedir, $file))->getAbsolutePath();
             }
             if ($this->forwardslash && FileUtils::getSeparator() !== '/') {
                 $src = str_replace(FileUtils::getSeparator(), '/', $src);

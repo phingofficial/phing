@@ -19,10 +19,11 @@
 
 namespace Phing\Filter;
 
-use IOException;
+use Phing\Io\IOException;
 use Phing\Filter\BaseFilterReader;
 use Phing\Filter\ChainableReader;
-use Reader;
+use Phing\Io\FilterReader;
+use Phing\Io\Reader;
 
 /**
  * This is a Php comment and string stripper reader that filters

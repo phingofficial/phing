@@ -19,6 +19,7 @@
 
 use Phing\Filter\XsltFilter;
 use Phing\Filter\XsltParam;
+use Phing\Io\File;
 
 /**
  * Implements an XSLT processing filter while copying files.
@@ -77,9 +78,9 @@ class XsltTask extends CopyTask
     /**
      * Set the stylesheet to use.
      *
-     * @param PhingFile $style
+     * @param File $style
      */
-    public function setStyle(PhingFile $style)
+    public function setStyle(File $style)
     {
         $this->xsltFilter->setStyle($style);
     }

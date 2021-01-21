@@ -19,10 +19,10 @@
 
 namespace Phing\Filter;
 
-use IOException;
+use Phing\Io\IOException;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Filter to flatten the stream to a single line.

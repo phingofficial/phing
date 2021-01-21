@@ -18,6 +18,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileOutputStream;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildLogger;
 use Phing\Listener\DefaultLogger;

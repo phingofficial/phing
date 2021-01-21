@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileUtils;
+
 /**
  * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>
  * @package phing.filters

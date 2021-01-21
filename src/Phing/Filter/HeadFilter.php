@@ -21,7 +21,8 @@ namespace Phing\Filter;
 
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
-use Reader;
+use Phing\Io\FilterReader;
+use Phing\Io\Reader;
 
 /**
  * Reads the first <code>n</code> lines of a stream.

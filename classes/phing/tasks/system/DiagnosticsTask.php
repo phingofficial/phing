@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\PrintStream;
 use Phing\Phing;
 use Phing\Util\Diagnostics;
 

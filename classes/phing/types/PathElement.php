@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * Helper class, holds the nested <code>&lt;pathelement&gt;</code> values.
  *
@@ -43,11 +45,11 @@ class PathElement
     }
 
     /**
-     * @param PhingFile $loc
+     * @param File $loc
      *
      * @return void
      */
-    public function setDir(PhingFile $loc)
+    public function setDir(File $loc)
     {
         $this->parts = [Path::translateFile($loc->getAbsolutePath())];
     }

@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * Encodes files using Zeng Guard Encoder
@@ -399,13 +401,13 @@ class ZendGuardEncodeTask extends MatchingTask
             foreach ($this->filesets as $fs) {
                 /* @var $fs FileSet */
 
-                /* @var $fsBasedir PhingFile */
+                /* @var $fsBasedir File */
                 $fsBasedir = $fs->getDir($this->project)->getAbsolutePath();
 
                 $files = $fs->getIterator(false);
 
                 foreach ($files as $file) {
-                    $f = new PhingFile($fsBasedir, $file);
+                    $f = new File($fsBasedir, $file);
 
                     if ($f->isFile()) {
                         $path = $f->getAbsolutePath();

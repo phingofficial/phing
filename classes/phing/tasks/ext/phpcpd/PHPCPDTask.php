@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy;
 use Composer\Autoload\ClassLoader;
 
@@ -54,7 +55,7 @@ class PHPCPDTask extends Task
     /**
      * A php source code filename or directory
      *
-     * @var PhingFile
+     * @var File
      */
     protected $file = null;
 
@@ -120,9 +121,9 @@ class PHPCPDTask extends Task
     /**
      * Set the input source file or directory.
      *
-     * @param PhingFile $file The input source file or directory.
+     * @param File $file The input source file or directory.
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -302,7 +303,7 @@ class Application
 
         $filesToParse = [];
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $filesToParse[] = $this->file->getPath();
         } else {
             // append any files in filesets
@@ -310,7 +311,7 @@ class Application
                 $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 
                 foreach ($files as $filename) {
-                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $f = new File($fs->getDir($this->project), $filename);
                     $filesToParse[] = $f->getAbsolutePath();
                 }
             }

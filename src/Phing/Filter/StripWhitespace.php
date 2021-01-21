@@ -20,13 +20,14 @@
 namespace Phing\Filter;
 
 use A;
-use FileUtils;
-use IOException;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
 use Phing\Exception\NullPointerException;
 use Phing\Filter\BaseFilterReader;
 use Phing\Filter\ChainableReader;
+use Phing\Io\FilterReader;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 use SplFileObject;
 
 /**

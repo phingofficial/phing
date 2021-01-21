@@ -19,6 +19,9 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Io\DirectoryScanner;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * The FileSet class provides methods and properties for accessing
@@ -134,10 +137,10 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if ($dir instanceof PhingFile) {
+        if ($dir instanceof File) {
             $dir = $dir->getPath();
         }
-        $this->dir = new PhingFile((string) $dir);
+        $this->dir = new File((string) $dir);
         $this->directoryScanner = null;
     }
 
@@ -221,7 +224,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         return $this->defaultPatterns->createExcludesFile();
     }
 
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -263,10 +266,10 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param  PhingFile $incl The file to fetch the include patterns from.
+     * @param  File $incl The file to fetch the include patterns from.
      * @throws BuildException
      */
-    public function setIncludesfile(PhingFile $incl)
+    public function setIncludesfile(File $incl)
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -277,7 +280,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param  PhingFile $excl The file to fetch the exclude patterns from.
+     * @param  File $excl The file to fetch the exclude patterns from.
      * @throws BuildException
      */
     public function setExcludesfile($excl)
@@ -322,8 +325,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * returns a reference to the dirscanner object belonging to this fileset
      *
      * @param  Project $p
+     * @return \Phing\Io\DirectoryScanner
      * @throws BuildException
-     * @return \DirectoryScanner
      */
     public function getDirectoryScanner(Project $p = null)
     {

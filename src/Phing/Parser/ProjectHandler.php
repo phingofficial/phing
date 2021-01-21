@@ -25,7 +25,7 @@ use Phing\Parser\ExpatParser;
 use Phing\Parser\AbstractHandler;
 use Phing\Parser\TargetHandler;
 use Phing\Util\StringHelper;
-use PhingFile;
+use Phing\Io\File;
 use Phing\Parser\XmlContext;
 use Phing\Parser\ProjectConfigurator;
 
@@ -165,7 +165,7 @@ class ProjectHandler extends AbstractHandler
                 $project->setBasedir($buildFileParent->getAbsolutePath());
             } else {
                 // check whether the user has specified an absolute path
-                $f = new PhingFile($baseDir);
+                $f = new File($baseDir);
                 if ($f->isAbsolute()) {
                     $project->setBasedir($baseDir);
                 } else {

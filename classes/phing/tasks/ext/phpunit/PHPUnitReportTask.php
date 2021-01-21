@@ -19,6 +19,10 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Io\ExtendedFileStream;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
+use Phing\Io\File;
 use Phing\Phing;
 
 /**
@@ -38,7 +42,7 @@ class PHPUnitReportTask extends Task
     private $styleDir = "";
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $toDir;
 
@@ -58,10 +62,10 @@ class PHPUnitReportTask extends Task
     /**
      * Set the filename of the XML results file to use.
      *
-     * @param  PhingFile $inFile
+     * @param  File $inFile
      * @return void
      */
-    public function setInFile(PhingFile $inFile)
+    public function setInFile(File $inFile)
     {
         $this->inFile = $inFile;
     }
@@ -92,10 +96,10 @@ class PHPUnitReportTask extends Task
      * Set the directory where the files resulting from the
      * transformation should be written to.
      *
-     * @param  PhingFile $toDir
+     * @param  File $toDir
      * @return void
      */
-    public function setToDir(PhingFile $toDir)
+    public function setToDir(File $toDir)
     {
         $this->toDir = $toDir;
     }
@@ -115,7 +119,7 @@ class PHPUnitReportTask extends Task
     /**
      * Returns the path to the XSL stylesheet
      *
-     * @return PhingFile
+     * @return File
      * @throws IOException
      * @throws NullPointerException
      */
@@ -124,7 +128,7 @@ class PHPUnitReportTask extends Task
         $xslname = "phpunit-" . $this->format . ".xsl";
 
         if ($this->styleDir) {
-            $file = new PhingFile($this->styleDir, $xslname);
+            $file = new File($this->styleDir, $xslname);
         } else {
             $path = Phing::getResourcePath("phing/etc/$xslname");
 
@@ -136,7 +140,7 @@ class PHPUnitReportTask extends Task
                 }
             }
 
-            $file = new PhingFile($path);
+            $file = new File($path);
         }
 
         if (!$file->exists()) {
@@ -174,7 +178,7 @@ class PHPUnitReportTask extends Task
         $proc->setParameter('', 'output.sorttable', (string) $this->useSortTable);
 
         if ($this->format === "noframes") {
-            $writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
+            $writer = new FileWriter(new File($this->toDir, "phpunit-noframes.html"));
             $writer->write($proc->transformToXml($document));
             $writer->close();
         } else {

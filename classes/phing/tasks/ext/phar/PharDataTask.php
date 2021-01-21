@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.
@@ -28,7 +29,7 @@ use Phing\Exception\BuildException;
 class PharDataTask extends MatchingTask
 {
     /**
-     * @var PhingFile
+     * @var File
      */
     private $destinationFile;
 
@@ -40,7 +41,7 @@ class PharDataTask extends MatchingTask
     /**
      * Base directory, from where local package paths will be calculated.
      *
-     * @var PhingFile
+     * @var File
      */
     private $baseDirectory;
 
@@ -84,9 +85,9 @@ class PharDataTask extends MatchingTask
     /**
      * Destination (output) file.
      *
-     * @param PhingFile $destinationFile
+     * @param File $destinationFile
      */
-    public function setDestFile(PhingFile $destinationFile)
+    public function setDestFile(File $destinationFile)
     {
         $this->destinationFile = $destinationFile;
     }
@@ -95,9 +96,9 @@ class PharDataTask extends MatchingTask
      * Base directory, which will be deleted from each included file (from path).
      * Paths with deleted basedir part are local paths in archive.
      *
-     * @param PhingFile $baseDirectory
+     * @param File $baseDirectory
      */
-    public function setBaseDir(PhingFile $baseDirectory)
+    public function setBaseDir(File $baseDirectory)
     {
         $this->baseDirectory = $baseDirectory;
     }

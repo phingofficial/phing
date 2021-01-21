@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Selector that filters files based on the how deep in the directory
@@ -142,15 +143,15 @@ class DepthSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @param PhingFile $basedir base directory the scan is being done from
+     * @param File $basedir base directory the scan is being done from
      * @param string $filename the name of the file to check
-     * @param PhingFile $file a PhingFile object the selector can use
-     *
-     * @throws BuildException
+     * @param File $file a PhingFile object the selector can use
      *
      * @return bool whether the file should be selected or not
+     *@throws BuildException
+     *
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
         $this->validate();
 

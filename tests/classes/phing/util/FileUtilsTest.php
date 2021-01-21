@@ -19,6 +19,9 @@
  * @package phing.util
  */
 
+use Phing\Io\FileUtils;
+use Phing\Io\File;
+
 /**
  * Testcases for phing.util.FileUtils
  *
@@ -47,12 +50,12 @@ class FileUtilsTest extends BuildFileTest
      */
     public function contentEquals()
     {
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile('does_not_exists')));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile('does_not_exists'), new PhingFile(__FILE__)));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__DIR__)));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__DIR__)));
-        $this->assertFalse($this->fu->contentEquals(new PhingFile(__DIR__), new PhingFile(__FILE__)));
-        $this->assertTrue($this->fu->contentEquals(new PhingFile(__FILE__), new PhingFile(__FILE__)));
+        $this->assertFalse($this->fu->contentEquals(new File(__FILE__), new File('does_not_exists')));
+        $this->assertFalse($this->fu->contentEquals(new File('does_not_exists'), new File(__FILE__)));
+        $this->assertFalse($this->fu->contentEquals(new File(__DIR__), new File(__DIR__)));
+        $this->assertFalse($this->fu->contentEquals(new File(__FILE__), new File(__DIR__)));
+        $this->assertFalse($this->fu->contentEquals(new File(__DIR__), new File(__FILE__)));
+        $this->assertTrue($this->fu->contentEquals(new File(__FILE__), new File(__FILE__)));
     }
 
     /**
@@ -60,7 +63,7 @@ class FileUtilsTest extends BuildFileTest
      */
     public function copyFile()
     {
-        $this->fu->copyFile(new PhingFile(__FILE__), new PhingFile('tmp/test.php'), $this->getProject());
+        $this->fu->copyFile(new File(__FILE__), new File('tmp/test.php'), $this->getProject());
         try {
             $this->assertFileExists('tmp/test.php');
         } finally {

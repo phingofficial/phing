@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * This is the interface to be used by all selectors.
@@ -35,11 +36,11 @@ interface FileSelector
      * of a selector, it can throw a BuildException to indicate
      * the problem.
      *
-     * @param  PhingFile $basedir A PhingFile object for the base directory
+     * @param  File $basedir A PhingFile object for the base directory
      * @param  string $filename The name of the file to check
-     * @param  PhingFile $file A PhingFile object for this filename
+     * @param  File $file A PhingFile object for this filename
      * @return bool whether the file should be selected or not
      * @throws BuildException if the selector was not configured correctly
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file);
+    public function isSelected(File $basedir, $filename, File $file);
 }

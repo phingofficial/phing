@@ -19,6 +19,10 @@
 
 use Phing\Exception\BuildException;
 use Phing\Input\InputHandler;
+use Phing\Io\FileSystem;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 use Phing\Parser\ProjectConfigurator;
@@ -515,19 +519,19 @@ class Project
     /**
      * Set basedir object from xm
      *
-     * @param  PhingFile|string $dir
+     * @param  File|string $dir
      * @throws BuildException
      */
     public function setBasedir($dir)
     {
-        if ($dir instanceof PhingFile) {
+        if ($dir instanceof File) {
             $dir = $dir->getAbsolutePath();
         }
 
         $dir = $this->fileUtils->normalize($dir);
         $dir = FileSystem::getFileSystem()->canonicalize($dir);
 
-        $dir = new PhingFile((string) $dir);
+        $dir = new File((string) $dir);
         if (!$dir->exists()) {
             throw new BuildException("Basedir " . $dir->getAbsolutePath() . " does not exist");
         }
@@ -545,7 +549,7 @@ class Project
     /**
      * Returns the basedir of this project
      *
-     * @return PhingFile      Basedir PhingFile object
+     * @return File      Basedir PhingFile object
      *
      * @throws BuildException
      *
@@ -831,11 +835,11 @@ class Project
      * Helper function
      *
      * @param  string $fileName
-     * @param  PhingFile $rootDir
-     * @return \PhingFile
+     * @param  File $rootDir
+     * @return \Phing\Io\File
      * @throws IOException
      */
-    public function resolveFile(string $fileName, PhingFile $rootDir = null): PhingFile
+    public function resolveFile(string $fileName, File $rootDir = null): File
     {
         if ($rootDir === null) {
             return $this->fileUtils->resolveFile($this->basedir, $fileName);

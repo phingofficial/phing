@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Parser\ProjectConfigurator;
 use PHPUnit\Framework\TestCase;
 
@@ -259,11 +260,11 @@ abstract class BuildFileTest extends TestCase
         $this->fullLogBuffer = "";
         $this->project = new Project();
         $this->project->init();
-        $f = new PhingFile($filename);
+        $f = new File($filename);
         $this->project->setUserProperty("phing.file", $f->getAbsolutePath());
         $this->project->setUserProperty("phing.dir", dirname($f->getAbsolutePath()));
         $this->project->addBuildListener(new PhingTestListener($this));
-        ProjectConfigurator::configureProject($this->project, new PhingFile($filename));
+        ProjectConfigurator::configureProject($this->project, new File($filename));
     }
 
     /**
@@ -297,7 +298,7 @@ abstract class BuildFileTest extends TestCase
 
     /**
      * get the directory of the project
-     * @return PhingFile the base dir of the project
+     * @return File the base dir of the project
      */
     protected function getProjectDir()
     {

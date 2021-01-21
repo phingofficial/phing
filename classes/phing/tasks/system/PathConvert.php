@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
 use Phing\Mapper\IdentityMapper;
 
 /**

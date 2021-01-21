@@ -340,7 +340,7 @@ class IntrospectionHelper
                 // there should only be one param; we'll just assume ....
                 if ($reflectedAttr !== null) {
                     switch (strtolower($reflectedAttr)) {
-                        case "phingfile":
+                        case strtolower(\Phing\Io\File::class):
                             $value = $project->resolveFile($value);
                             break;
                         case "path":

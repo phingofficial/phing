@@ -22,7 +22,7 @@ namespace Phing\Filter;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Replaces tokens in the original input with the contents of a file.

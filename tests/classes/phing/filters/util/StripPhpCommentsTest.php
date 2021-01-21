@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+
 /**
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.filters

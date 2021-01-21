@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * Selector that selects a certain kind of file: directory or regular file.
  *
@@ -97,12 +99,12 @@ class TypeSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param  PhingFile $basedir the base directory the scan is being done from
+     * @param  File $basedir the base directory the scan is being done from
      * @param  string $filename is the name of the file to check
-     * @param  PhingFile $file is a PhingFile object the selector can use
+     * @param  File $file is a PhingFile object the selector can use
      * @return boolean   Whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
         // throw BuildException on error
         $this->validate();
@@ -116,7 +118,7 @@ class TypeSelector extends BaseExtendSelector
                 $file->getAbsolutePath() . " is a link, proceeding with " . $file->getCanonicalPath() . " instead.",
                 Project::MSG_DEBUG
             );
-            $file = new PhingFile($file->getCanonicalPath());
+            $file = new File($file->getCanonicalPath());
         }
 
         if ($file->isDirectory()) {

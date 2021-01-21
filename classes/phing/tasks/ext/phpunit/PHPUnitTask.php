@@ -18,6 +18,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileWriter;
+use Phing\Io\LogWriter;
+use Phing\Io\File;
 
 /**
  * Runs PHPUnit tests.
@@ -64,7 +67,7 @@ class PHPUnitTask extends Task
     private $pharLocation = "";
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $configuration = null;
 
@@ -342,9 +345,9 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param PhingFile $configuration
+     * @param File $configuration
      */
-    public function setConfiguration(PhingFile $configuration)
+    public function setConfiguration(File $configuration)
     {
         $this->configuration = $configuration;
     }
@@ -365,7 +368,7 @@ class PHPUnitTask extends Task
      * @throws ReflectionException
      * @throws BuildException
      */
-    protected function handlePHPUnitConfiguration(PhingFile $configuration)
+    protected function handlePHPUnitConfiguration(File $configuration)
     {
         if (!$configuration->exists()) {
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
@@ -591,7 +594,7 @@ class PHPUnitTask extends Task
 
             if ($fe->getUseFile()) {
                 try {
-                    $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                    $destFile = new File($fe->getToDir(), $fe->getOutfile());
                 } catch (Exception $e) {
                     throw new BuildException('Unable to create destination.', $e);
                 }

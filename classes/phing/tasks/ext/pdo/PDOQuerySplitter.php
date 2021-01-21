@@ -19,6 +19,9 @@
  * @package phing.tasks.ext.pdo
  */
 
+use Phing\Io\BufferedReader;
+use Phing\Io\Reader;
+
 /**
  * Base class for classes that split SQL source into separate queries
  *

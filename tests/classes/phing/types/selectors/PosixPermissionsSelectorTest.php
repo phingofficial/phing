@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use PHPUnit\Framework\TestCase;
 use OsCondition as Os;
 
@@ -52,7 +53,7 @@ class PosixPermissionsSelectorTest extends TestCase
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('the permissions attribute is required');
 
-        $this->selector->isSelected(new PhingFile(__DIR__), '', new PhingFile(__FILE__));
+        $this->selector->isSelected(new File(__DIR__), '', new File(__FILE__));
     }
 
     /**
@@ -63,9 +64,9 @@ class PosixPermissionsSelectorTest extends TestCase
         $this->selector->setPermissions('rw-rw-r--');
         $this->assertTrue(
             $this->selector->isSelected(
-                new PhingFile(__DIR__),
-                (new PhingFile(__FILE__))->getName(),
-                new PhingFile(__FILE__)
+                new File(__DIR__),
+                (new File(__FILE__))->getName(),
+                new File(__FILE__)
             ),
             'File permission is wrong. Actual ' . decoct(fileperms(__FILE__) & 0777)
         );

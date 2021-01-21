@@ -18,6 +18,10 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileWriter;
+use Phing\Io\LogWriter;
+use Phing\Io\File;
+use Phing\Io\Writer;
 use Phing\Parser\Location;
 use Phing\Phing;
 
@@ -54,7 +58,7 @@ class PDOSQLExecFormatterElement
     /**
      * Output file for formatter.
      *
-     * @var PhingFile
+     * @var File
      */
     private $outfile;
 
@@ -156,7 +160,7 @@ class PDOSQLExecFormatterElement
         if ($this->useFile) {
             $of = $this->getOutfile();
             if (!$of) {
-                $of = new PhingFile($this->formatter->getPreferredOutfile());
+                $of = new File($this->formatter->getPreferredOutfile());
             }
 
             return new FileWriter($of, $this->append);
@@ -259,10 +263,10 @@ class PDOSQLExecFormatterElement
     /**
      * Sets the output file for the formatter results.
      *
-     * @param    PhingFile $outfile
+     * @param    File $outfile
      * @internal param PhingFile $outFile
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(File $outfile)
     {
         $this->outfile = $outfile;
     }
@@ -270,7 +274,7 @@ class PDOSQLExecFormatterElement
     /**
      * Get the output file.
      *
-     * @return PhingFile
+     * @return File
      */
     public function getOutfile()
     {

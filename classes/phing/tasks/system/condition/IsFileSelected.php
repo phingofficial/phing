@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * This is a condition that checks to see if a file passes an embedded selector.
@@ -25,7 +26,7 @@ use Phing\Exception\BuildException;
 class IsFileSelected extends AbstractSelectorContainer implements Condition
 {
     /**
-     * @var PhingFile $file
+     * @var File $file
      */
     private $file;
     private $baseDir;
@@ -35,7 +36,7 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
      *
      * @param file the file to check if if passes the embedded selector.
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -46,7 +47,7 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
      * @param baseDir the base directory to use, if null use the project's
      *                basedir.
      */
-    public function setBaseDir(PhingFile $baseDir)
+    public function setBaseDir(File $baseDir)
     {
         $this->baseDir = $baseDir;
     }

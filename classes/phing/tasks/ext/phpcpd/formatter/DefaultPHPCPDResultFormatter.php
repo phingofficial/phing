@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
 use SebastianBergmann\PHPCPD\CodeCloneMap;
 
 /**
@@ -33,7 +34,7 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
      * @param CodeCloneMap   $clones
      * @param Project        $project
      * @param boolean        $useFile
-     * @param PhingFile|null $outFile
+     * @param File|null $outFile
      */
     public function processClones($clones, Project $project, $useFile = false, $outFile = null)
     {
@@ -67,7 +68,7 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
      *
      * @param CodeCloneMap   $clones
      * @param boolean        $useFile
-     * @param PhingFile|null $outFile
+     * @param File|null $outFile
      */
     private function processClonesNew($clones, $useFile = false, $outFile = null)
     {

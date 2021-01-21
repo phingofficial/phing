@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/252
  * - foreach on a fileset
@@ -32,7 +34,7 @@ class ForeachFileSetTest extends BuildFileTest
 
     public function testCustomTask()
     {
-        $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/252/build.xml");
+        $f = new File(PHING_TEST_BASE . "/etc/regression/252/build.xml");
         $this->executeTarget("main");
         $this->assertInLogs("calling target(s) [default] in build file " . $f->getAbsolutePath());
     }

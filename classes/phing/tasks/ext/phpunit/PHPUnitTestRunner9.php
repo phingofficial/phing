@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\IOException;
 
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.

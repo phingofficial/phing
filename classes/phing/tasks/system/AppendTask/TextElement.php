@@ -18,6 +18,12 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\BufferedReader;
+use Phing\Io\FileInputStream;
+use Phing\Io\FileReader;
+use Phing\Io\InputStreamReader;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * Text element points to a file or contains text.
@@ -57,11 +63,11 @@ class TextElement extends ProjectComponent
     /**
      * set the text using a file
      *
-     * @param  PhingFile $file the file to use
+     * @param  File $file the file to use
      * @throws BuildException if the file does not exist, or cannot be
      *                        read
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         // non-existing files are not allowed
         if (!$file->exists()) {

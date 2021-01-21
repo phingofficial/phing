@@ -20,15 +20,16 @@
 namespace Phing\Filter;
 
 use Phing\Filter\BaseParamFilterReader;
-use BufferedReader;
+use Phing\Io\BufferedReader;
 use DOMDocument;
-use FileReader;
-use IOException;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
 use Phing\Exception\BuildException;
 use Phing\Filter\ChainableReader;
-use PhingFile;
+use Phing\Io\FilterReader;
+use Phing\Io\File;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 use Phing\Filter\XsltParam;
 use XSLTProcessor;
 
@@ -50,7 +51,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Path to XSL stylesheet.
      *
-     * @var PhingFile
+     * @var File
      */
     private $xslFile = null;
 
@@ -132,7 +133,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @param mixed $file PhingFile object or path.
      */
-    public function setStyle(PhingFile $file)
+    public function setStyle(File $file)
     {
         $this->xslFile = $file;
     }
@@ -161,7 +162,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Get the path to XSLT stylesheet.
      *
-     * @return PhingFile XSLT stylesheet path.
+     * @return File XSLT stylesheet path.
      */
     public function getStyle()
     {

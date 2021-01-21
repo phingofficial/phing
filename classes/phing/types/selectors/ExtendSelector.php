@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Phing;
 
 /**
@@ -114,13 +115,13 @@ class ExtendSelector extends BaseSelector
      * Allows the custom selector to choose whether to select a file. This
      * is also where the Parameters are passed to the custom selector.
      *
-     * @param  PhingFile $basedir
+     * @param  File $basedir
      * @param  string $filename The filename
-     * @param  PhingFile $file
+     * @param  File $file
      * @return bool
      * @throws BuildException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
         $this->validate();
 

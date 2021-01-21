@@ -20,10 +20,10 @@
 namespace Phing\Filter;
 
 use Phing\Filter\BaseFilterReader;
-use IOException;
+use Phing\Io\IOException;
 use Phing\Filter\ChainableReader;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Expands Phing Properties, if any, in the data.

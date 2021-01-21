@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Task to create a directory.
@@ -31,7 +32,7 @@ class MkdirTask extends Task
     /**
      * Directory to create.
      *
-     * @var PhingFile $dir
+     * @var File $dir
      */
     private $dir;
 
@@ -80,10 +81,10 @@ class MkdirTask extends Task
     /**
      * The directory to create; required.
      *
-     * @param  PhingFile $dir
+     * @param  File $dir
      * @return void
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(File $dir)
     {
         $this->dir = $dir;
     }

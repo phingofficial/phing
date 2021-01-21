@@ -21,7 +21,7 @@ namespace Phing\Filter;
 
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Reads the last <code>n</code> lines of a stream. (Default is last10 lines.)

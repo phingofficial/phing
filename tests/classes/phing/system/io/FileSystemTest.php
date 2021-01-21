@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileSystem;
+use Phing\Io\IOException;
+use Phing\Io\UnixFileSystem;
+use Phing\Io\WindowsFileSystem;
 use Phing\Phing;
 
 /**
@@ -41,7 +45,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
 
     protected function _resetFileSystem()
     {
-        $refClass = new ReflectionClass('FileSystem');
+        $refClass = new ReflectionClass(FileSystem::class);
         $refProperty = $refClass->getProperty('fs');
         $refProperty->setAccessible(true);
         $refProperty->setValue(null);
@@ -51,7 +55,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
     {
         $this->_resetFileSystem();
 
-        $this->expectException('IOException');
+        $this->expectException(IOException::class);
 
         Phing::setProperty('host.fstype', 'UNRECOGNISED');
 
@@ -75,8 +79,8 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
     public function fileSystemMappingsDataProvider()
     {
         return [
-            ['UnixFileSystem', 'UNIX'],
-            ['WindowsFileSystem', 'WINDOWS'],
+            [UnixFileSystem::class, 'UNIX'],
+            [WindowsFileSystem::class, 'WINDOWS'],
         ];
     }
 

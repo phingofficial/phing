@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileSystem;
+use Phing\Io\File;
 
 /**
  * Generates symlinks based on a target / link combination.
@@ -334,7 +336,7 @@ class SymlinkTask extends Task
         $fs = FileSystem::getFileSystem();
 
         if ($this->isRelative()) {
-            $link = (new PhingFile($link))->getAbsolutePath();
+            $link = (new File($link))->getAbsolutePath();
             $target = rtrim($this->makePathRelative($target, dirname($link)), '/');
         }
 

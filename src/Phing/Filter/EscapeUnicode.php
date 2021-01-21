@@ -20,10 +20,10 @@
 namespace Phing\Filter;
 
 use Phing\Filter\BaseFilterReader;
-use IOException;
+use Phing\Io\IOException;
 use Phing\Filter\ChainableReader;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * UTF-8 to Unicode Code Points

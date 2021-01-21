@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Io\File;
 use Phing\Mapper\FileNameMapper;
 use Phing\Mapper\IdentityMapper;
 
@@ -31,7 +33,7 @@ use Phing\Mapper\IdentityMapper;
 abstract class MappingSelector extends BaseSelector
 {
     /**
-     * @var PhingFile $targetdir
+     * @var File $targetdir
      */
     protected $targetdir;
 
@@ -49,9 +51,9 @@ abstract class MappingSelector extends BaseSelector
      * The name of the file or directory which is checked for out-of-date
      * files.
      *
-     * @param PhingFile $targetdir the directory to scan looking for files.
+     * @param File $targetdir the directory to scan looking for files.
      */
-    public function setTargetdir(PhingFile $targetdir)
+    public function setTargetdir(File $targetdir)
     {
         $this->targetdir = $targetdir;
     }
@@ -111,15 +113,15 @@ abstract class MappingSelector extends BaseSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
+     * @param File $basedir the base directory the scan is being done from
      * @param string $filename is the name of the file to check
-     * @param PhingFile $file is a java.io.File object the selector can use
+     * @param File $file is a java.io.File object the selector can use
      *
      * @return bool whether the file should be selected or not
      *
      * @throws BuildException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
 
         // throw BuildException on error
@@ -149,9 +151,9 @@ abstract class MappingSelector extends BaseSelector
     /**
      * this test is our selection test that compared the file with the destfile
      *
-     * @param  PhingFile $srcfile file to test; may be null
-     * @param  PhingFile $destfile destination file
+     * @param  File $srcfile file to test; may be null
+     * @param  File $destfile destination file
      * @return true if source file compares with destination file
      */
-    abstract protected function selectionTest(PhingFile $srcfile, PhingFile $destfile);
+    abstract protected function selectionTest(File $srcfile, File $destfile);
 }

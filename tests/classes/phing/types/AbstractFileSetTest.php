@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Unit tests for AbstractFileSet.
@@ -115,7 +116,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
         }
 
         try {
-            $f->setIncludesfile(new PhingFile("/a"));
+            $f->setIncludesfile(new File("/a"));
             $this->fail(
                 "Can set includesfile in "
                 . $f
@@ -145,7 +146,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
         }
 
         try {
-            $f->setExcludesfile(new PhingFile("/a"));
+            $f->setExcludesfile(new File("/a"));
             $this->fail(
                 "Can set excludesfile in "
                 . $f

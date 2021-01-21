@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 use Phing\Phing;
@@ -62,7 +63,7 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
     private $delayUpdate = true;
     private $modified = 0;
     private $isConfigured = false;
-    /** @var PhingFile */
+    /** @var File */
     private $cachefile;
     /** @var Parameter[] */
     private $configParameter = [];
@@ -112,13 +113,13 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
         $filename = 'cache.properties';
         if ($p !== null) {
             // normal use inside Phing
-            $this->cachefile = new PhingFile($p->getBasedir(), $filename);
+            $this->cachefile = new File($p->getBasedir(), $filename);
 
             // set self as a BuildListener to delay cachefile saves
             $this->getProject()->addBuildListener($this);
         } else {
             // no reference to project - e.g. during normal JUnit tests
-            $this->cachefile = new PhingFile($filename);
+            $this->cachefile = new File($filename);
             $this->setDelayUpdate(false);
         }
         $defaultCache = new PropertiesfileCache($this->cachefile);
@@ -442,16 +443,16 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
     }
 
     /**
-     * @param PhingFile $basedir
+     * @param File $basedir
      * @param string $filename
-     * @param PhingFile $file
+     * @param File $file
      * @return bool|null
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
         $this->validate();
         try {
-            $f = new PhingFile($basedir, $filename);
+            $f = new File($basedir, $filename);
 
             // You can not compute a value for a directory
             if ($f->isDirectory()) {

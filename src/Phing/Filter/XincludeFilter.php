@@ -21,12 +21,13 @@ namespace Phing\Filter;
 
 use Phing\Filter\BaseParamFilterReader;
 use DOMDocument;
-use IOException;
+use Phing\Io\IOException;
 use Phing\Exception\BuildException;
 use Phing\Filter\ChainableReader;
-use PhingFile;
+use Phing\Io\FilterReader;
+use Phing\Io\File;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Applies Xinclude parsing to incoming text.
@@ -39,7 +40,7 @@ use Reader;
  */
 class XincludeFilter extends BaseParamFilterReader implements ChainableReader
 {
-    /** @var PhingFile */
+    /** @var File */
     private $basedir = null;
 
     /**
@@ -79,15 +80,15 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * @param PhingFile $dir
+     * @param File $dir
      */
-    public function setBasedir(PhingFile $dir)
+    public function setBasedir(File $dir)
     {
         $this->basedir = $dir;
     }
 
     /**
-     * @return PhingFile
+     * @return File
      */
     public function getBasedir()
     {

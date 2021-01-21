@@ -1,4 +1,7 @@
 <?php
+
+use Phing\Io\File;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,13 +23,13 @@
 class PhingFileTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var PhingFile
+     * @var File
      */
     private $file;
 
     protected function setUp(): void
     {
-        $this->file = new PhingFile(__FILE__);
+        $this->file = new File(__FILE__);
     }
 
     public function testPathInsideBasedir()

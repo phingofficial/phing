@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Changes the attributes of a file or all files inside specified directories.
@@ -71,9 +72,9 @@ class AttribTask extends ApplyTask
     /**
      * A file to be attribed.
      *
-     * @param PhingFile $src a file
+     * @param File $src a file
      */
-    public function setFile(PhingFile $src)
+    public function setFile(File $src)
     {
         $fs = new FileSet();
         $fs->setFile($src);

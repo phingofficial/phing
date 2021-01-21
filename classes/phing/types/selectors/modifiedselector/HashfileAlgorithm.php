@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Class ChecksumAlgorithm
@@ -50,10 +51,10 @@ class HashfileAlgorithm implements Algorithm
 
     /**
      * Computes a value for a file content with the specified checksum algorithm.
-     * @param PhingFile $file File object for which the value should be evaluated.
+     * @param File $file File object for which the value should be evaluated.
      * @return string|null The value for that file
      */
-    public function getValue(PhingFile $file): ?string
+    public function getValue(File $file): ?string
     {
         if (!$this->isValid()) {
             throw new BuildException('Wrong hash algorithm.');

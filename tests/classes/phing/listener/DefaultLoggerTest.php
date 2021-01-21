@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\OutputStream;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\DefaultLogger;
 use Phing\Parser\Location;

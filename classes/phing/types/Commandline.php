@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
 
 /**
  * Commandline objects help handling command lines specifying processes to

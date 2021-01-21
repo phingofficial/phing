@@ -19,7 +19,7 @@
 
 namespace Phing;
 
-use OutputStream;
+use Phing\Io\OutputStream;
 use Phing\Phing;
 use Phing\Util\Timer;
 use Project;

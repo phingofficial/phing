@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\DirectoryScanner;
+
 /**
  * Tests the DefaultExcludes Task
  *

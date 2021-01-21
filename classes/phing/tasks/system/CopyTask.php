@@ -18,6 +18,10 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\File;
+use Phing\Io\SourceFileScanner;
 use Phing\Mapper\FileNameMapper;
 use Phing\Mapper\FlattenMapper;
 use Phing\Mapper\IdentityMapper;
@@ -39,17 +43,17 @@ class CopyTask extends Task
     use FilterChainAware;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     protected $file = null; // the source file (from xml attribute)
 
     /**
-     * @var PhingFile
+     * @var File
      */
     protected $destFile = null; // the destiantion file (from xml attribute)
 
     /**
-     * @var PhingFile
+     * @var File
      */
     protected $destDir = null; // the destination dir (from xml attribute)
 
@@ -216,11 +220,11 @@ class CopyTask extends Task
      * type that is coming due to limited type support in php
      * in and convert it manually if necessary.
      *
-     * @param PhingFile $file The source file. Either a string or an PhingFile object
+     * @param File $file The source file. Either a string or an PhingFile object
      *
      * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -230,11 +234,11 @@ class CopyTask extends Task
      * type that is coming due to limited type support in php
      * in and convert it manually if necessary.
      *
-     * @param PhingFile $file The dest file. Either a string or an PhingFile object
+     * @param File $file The dest file. Either a string or an PhingFile object
      *
      * @return void
      */
-    public function setTofile(PhingFile $file)
+    public function setTofile(File $file)
     {
         $this->destFile = $file;
     }
@@ -257,11 +261,11 @@ class CopyTask extends Task
      * type that is coming due to limited type support in php
      * in and convert it manually if necessary.
      *
-     * @param PhingFile $dir The directory, either a string or an PhingFile object
+     * @param File $dir The directory, either a string or an PhingFile object
      *
      * @return void
      */
-    public function setTodir(PhingFile $dir)
+    public function setTodir(File $dir)
     {
         $this->destDir = $dir;
     }
@@ -318,7 +322,7 @@ class CopyTask extends Task
         if ($this->file !== null) {
             if ($this->file->exists()) {
                 if ($this->destFile === null) {
-                    $this->destFile = new PhingFile($this->destDir, (string) $this->file->getName());
+                    $this->destFile = new File($this->destDir, (string) $this->file->getName());
                 }
                 if (
                     $this->overwrite === true
@@ -441,7 +445,7 @@ class CopyTask extends Task
         }
 
         if ($this->destFile !== null) {
-            $this->destDir = new PhingFile($this->destFile->getParent());
+            $this->destDir = new File($this->destFile->getParent());
         }
     }
 
@@ -511,10 +515,10 @@ class CopyTask extends Task
         }
 
         for ($i = 0, $_i = count($toCopy); $i < $_i; $i++) {
-            $src = new PhingFile($fromDir, $toCopy[$i]);
+            $src = new File($fromDir, $toCopy[$i]);
             $mapped = $mapper->main($toCopy[$i]);
             if (!$this->enableMultipleMappings) {
-                $dest = new PhingFile($toDir, $mapped[0]);
+                $dest = new File($toDir, $mapped[0]);
                 $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
             } else {
                 $mappedFiles = [];
@@ -523,7 +527,7 @@ class CopyTask extends Task
                     if ($mappedFile === null) {
                         continue;
                     }
-                    $dest = new PhingFile($toDir, $mappedFile);
+                    $dest = new File($toDir, $mappedFile);
                     $mappedFiles[] = $dest->getAbsolutePath();
                 }
                 $map[$src->getAbsolutePath()] = $mappedFiles;
@@ -554,8 +558,8 @@ class CopyTask extends Task
         if ($this->includeEmpty) {
             $count = 0;
             foreach ($this->dirCopyMap as $srcdir => $destdir) {
-                $s = new PhingFile((string) $srcdir);
-                $d = new PhingFile((string) $destdir);
+                $s = new File((string) $srcdir);
+                $d = new File((string) $destdir);
                 if (!$d->exists()) {
                     // Setting source directory permissions to target
                     // (On permissions preservation, the target directory permissions
@@ -647,8 +651,8 @@ class CopyTask extends Task
         }
         $this->log("From " . $from . " to " . $to, $this->verbosity);
         try { // try to copy file
-            $fromFile = new PhingFile($from);
-            $toFile = new PhingFile($to);
+            $fromFile = new File($from);
+            $toFile = new File($to);
 
             $fromSlot->setValue($fromFile->getPath());
             $fromBasenameSlot->setValue($fromFile->getName());

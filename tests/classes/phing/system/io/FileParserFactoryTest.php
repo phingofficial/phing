@@ -17,6 +17,11 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileParserFactory;
+use Phing\Io\FileParserInterface;
+use Phing\Io\IniFileParser;
+use Phing\Io\YamlFileParser;
+
 /**
  * Unit test for FileParserFactory
  *
@@ -66,11 +71,11 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     public function parserTypeProvider()
     {
         return [
-            ['properties', 'IniFileParser'],
-            ['ini', 'IniFileParser'],
-            ['foo', 'IniFileParser'],
-            ['yml', 'YamlFileParser'],
-            ['yaml', 'YamlFileParser'],
+            ['properties', IniFileParser::class],
+            ['ini', IniFileParser::class],
+            ['foo', IniFileParser::class],
+            ['yml', YamlFileParser::class],
+            ['yaml', YamlFileParser::class],
         ];
     }
 }

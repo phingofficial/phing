@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Repository archive task
@@ -34,7 +35,7 @@ class GitArchiveTask extends GitBaseTask
     private $format = false;
 
     /**
-     * @var PhingFile $output
+     * @var File $output
      */
     private $output;
 
@@ -99,7 +100,7 @@ class GitArchiveTask extends GitBaseTask
     }
 
     /**
-     * @return PhingFile
+     * @return File
      */
     public function getOutput()
     {
@@ -107,9 +108,9 @@ class GitArchiveTask extends GitBaseTask
     }
 
     /**
-     * @param PhingFile $output
+     * @param File $output
      */
-    public function setOutput(PhingFile $output)
+    public function setOutput(File $output)
     {
         $this->output = $output;
     }

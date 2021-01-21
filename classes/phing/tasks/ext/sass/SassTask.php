@@ -24,6 +24,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileSystem;
 use Phing\Util\StringHelper;
 
 /**

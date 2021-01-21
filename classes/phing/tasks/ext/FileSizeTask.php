@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Util\SizeHelper;
 
 /**
@@ -33,7 +34,7 @@ class FileSizeTask extends Task
     /**
      * Property for File
      *
-     * @var PhingFile file
+     * @var File file
      */
     private $file;
 
@@ -54,9 +55,9 @@ class FileSizeTask extends Task
     /**
      * Which file to calculate the file size of
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         if (!$file->canRead()) {
             throw new BuildException(sprintf('Input file does not exist or is not readable: %s', $file->getName()));
@@ -91,7 +92,7 @@ class FileSizeTask extends Task
      */
     public function main()
     {
-        if (!($this->file instanceof PhingFile)) {
+        if (!($this->file instanceof File)) {
             throw new BuildException('Input file not specified');
         }
 

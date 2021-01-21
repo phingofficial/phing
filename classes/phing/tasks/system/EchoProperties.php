@@ -18,6 +18,10 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileOutputStream;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
+use Phing\Io\File;
 use Phing\Phing;
 use Phing\Util\Properties;
 
@@ -79,7 +83,7 @@ class EchoProperties extends Task
     /**
      * the input file.
      *
-     * @var PhingFile
+     * @var File
      */
     private $inFile = null;
 
@@ -87,7 +91,7 @@ class EchoProperties extends Task
      * File object pointing to the output file. If this is null, then
      * we output to the project log, not to a file.
      *
-     * @var PhingFile
+     * @var File
      */
     private $destfile = null;
 
@@ -118,12 +122,12 @@ class EchoProperties extends Task
     /**
      * Sets the input file.
      *
-     * @param string|PhingFile $file the input file
+     * @param string|File $file the input file
      */
     public function setSrcfile($file)
     {
         if (is_string($file)) {
-            $this->inFile = new PhingFile($file);
+            $this->inFile = new File($file);
         } else {
             $this->inFile = $file;
         }
@@ -133,12 +137,12 @@ class EchoProperties extends Task
      *  Set a file to store the property output.  If this is never specified,
      *  then the output will be sent to the Phing log.
      *
-     * @param string|PhingFile $destfile file to store the property output
+     * @param string|File $destfile file to store the property output
      */
     public function setDestfile($destfile)
     {
         if (is_string($destfile)) {
-            $this->destfile = new PhingFile($destfile);
+            $this->destfile = new File($destfile);
         } else {
             $this->destfile = $destfile;
         }
@@ -241,7 +245,7 @@ class EchoProperties extends Task
 
             try {
                 $props = new Properties();
-                $props->load(new PhingFile($this->inFile));
+                $props->load(new File($this->inFile));
                 $allProps = $props->getProperties();
             } catch (IOException $ioe) {
                 $message = "Could not read file " . $this->inFile->getAbsolutePath();

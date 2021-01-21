@@ -20,9 +20,9 @@
 namespace Phing\Filter;
 
 use Phing\Filter\BaseParamFilterReader;
-use IOException;
+use Phing\Io\IOException;
 use Phing\Filter\ChainableReader;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Converts tabs to spaces.

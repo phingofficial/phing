@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileSystem;
+use Phing\Io\File;
 use Phing\Parser\XmlContext;
 use Phing\Parser\ProjectConfigurator;
 
@@ -48,7 +50,7 @@ class ImportTask extends Task
     protected $fs;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     protected $file;
 
@@ -144,9 +146,9 @@ class ImportTask extends Task
 
         // Single file.
         if ($this->file !== null) {
-            $file = new PhingFile($this->file);
+            $file = new File($this->file);
             if (!$file->isAbsolute()) {
-                $file = new PhingFile($this->project->getBasedir(), $this->file);
+                $file = new File($this->project->getBasedir(), $this->file);
             }
             if (!$file->exists()) {
                 $msg = "Unable to find build file: {$file->getPath()}";
@@ -174,13 +176,13 @@ class ImportTask extends Task
             $filecount = count($srcFiles);
             $total_files += $filecount;
             for ($j = 0; $j < $filecount; $j++) {
-                $this->importFile(new PhingFile($fromDir, $srcFiles[$j]));
+                $this->importFile(new File($fromDir, $srcFiles[$j]));
             }
 
             $dircount = count($srcDirs);
             $total_dirs += $dircount;
             for ($j = 0; $j < $dircount; $j++) {
-                $this->importFile(new PhingFile($fromDir, $srcDirs[$j]));
+                $this->importFile(new File($fromDir, $srcDirs[$j]));
             }
         }
     }
@@ -192,7 +194,7 @@ class ImportTask extends Task
      * @throws BuildException
      * @return void
      */
-    protected function importFile(PhingFile $file)
+    protected function importFile(File $file)
     {
         /** @var XmlContext $ctx */
         $ctx = $this->project->getReference(ProjectConfigurator::PARSING_CONTEXT_REFERENCE);

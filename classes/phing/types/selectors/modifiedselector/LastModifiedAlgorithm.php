@@ -1,4 +1,7 @@
 <?php
+
+use Phing\Io\File;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -34,7 +37,7 @@ class LastModifiedAlgorithm implements Algorithm
      * @param file  The file for which the value should be computed
      * @return string|null the timestamp or <i>null</i> if the timestamp couldn't be computed
      */
-    public function getValue(PhingFile $file): ?string
+    public function getValue(File $file): ?string
     {
         $lastModified = $file->lastModified();
         if ($lastModified === 0) {

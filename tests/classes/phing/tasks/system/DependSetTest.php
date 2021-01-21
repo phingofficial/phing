@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * Tests the DependSet Task
  *
@@ -65,7 +67,7 @@ class DependSetTest extends BuildFileTest
     {
         $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
-        $f = new PhingFile($this->getProjectDir(), 'older.tmp');
+        $f = new File($this->getProjectDir(), 'older.tmp');
         if ($f->exists()) {
             $this->fail('dependset failed to remove out of date file ' . (string) $f);
         }

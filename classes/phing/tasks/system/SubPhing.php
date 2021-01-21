@@ -1,6 +1,7 @@
 <?php
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -97,7 +98,7 @@ class SubPhing extends Task
             $thrownException = null;
             try {
                 $directory = null;
-                $file = new PhingFile($filename);
+                $file = new File($filename);
                 if ($file->isDirectory()) {
                     if ($this->verbose) {
                         $subdirPath = $file->getPath();
@@ -107,7 +108,7 @@ class SubPhing extends Task
                         $directory = $file;
                         $file = $this->genericphingfile;
                     } else {
-                        $file = new PhingFile($file, $this->phingfile);
+                        $file = new File($file, $this->phingfile);
                     }
                 }
                 $this->execute($file, $directory);
@@ -170,7 +171,7 @@ class SubPhing extends Task
      *         <code>failOnError</code> is <code>true</code>. Otherwise,
      *         a warning log message is simply output.
      */
-    private function execute(PhingFile $file, ?PhingFile $directory)
+    private function execute(File $file, ?File $directory)
     {
         if (!$file->exists() || $file->isDirectory() || !$file->canRead()) {
             $msg = "Invalid file: " . $file;
@@ -218,12 +219,12 @@ class SubPhing extends Task
     /**
      * Creates the &lt;phing&gt; task configured to run a specific target.
      *
-     * @param ?PhingFile $directory : if not null the directory where the build should run
+     * @param ?File $directory : if not null the directory where the build should run
      *
      * @return PhingTask the phing task, configured with the explicit properties and
      *         references necessary to run the sub-build.
      */
-    private function createPhingTask(?PhingFile $directory): PhingTask
+    private function createPhingTask(?File $directory): PhingTask
     {
         $phingTask = new PhingTask($this);
         $phingTask->setHaltOnFailure($this->failOnError);
@@ -289,11 +290,11 @@ class SubPhing extends Task
      * with different basedirs.</p>
      * If this attribute is set, <code>antfile</code> is ignored.
      *
-     * @param PhingFile $afile (path of the generic ant file, absolute or relative to
+     * @param File $afile (path of the generic ant file, absolute or relative to
      *               project base directory)
      *
      */
-    public function setGenericPhingfile(PhingFile $afile)
+    public function setGenericPhingfile(File $afile)
     {
         $this->genericphingfile = $afile;
     }

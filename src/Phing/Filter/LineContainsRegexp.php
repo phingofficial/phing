@@ -20,11 +20,12 @@
 namespace Phing\Filter;
 
 use Exception;
-use IOException;
+use Phing\Io\IOException;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
+use Phing\Io\FilterReader;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 use Phing\Util\RegexpException;
 use RegularExpression;
 

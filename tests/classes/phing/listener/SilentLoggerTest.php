@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\OutputStream;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\SilentLogger;
 use PHPUnit\Framework\TestCase;

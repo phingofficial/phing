@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * Extracts one or several zip archives using ZipArchive class.
  *
@@ -29,10 +31,10 @@ class UnzipTask extends ExtractBaseTask
     /**
      * Extract archive content into $this->todir directory
      *
-     * @param  PhingFile Zip file to extract
+     * @param  File Zip file to extract
      * @return boolean
      */
-    protected function extractArchive(PhingFile $zipfile)
+    protected function extractArchive(File $zipfile)
     {
         $this->log(
             "Extracting zip: " . $zipfile->__toString() . ' to ' . $this->todir->__toString(),
@@ -61,10 +63,10 @@ class UnzipTask extends ExtractBaseTask
     /**
      * List archive content
      *
-     * @param  PhingFile Zip file to list content
+     * @param  File Zip file to list content
      * @return array List of files inside $zipfile
      */
-    protected function listArchiveContent(PhingFile $zipfile)
+    protected function listArchiveContent(File $zipfile)
     {
         $zip = new ZipArchive();
         $zip->open($zipfile->getAbsolutePath());

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\DirectoryScanner;
+
 /**
  * Datatype which handles excluded files, classes and methods.
  *

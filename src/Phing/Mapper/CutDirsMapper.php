@@ -19,7 +19,7 @@
 
 namespace Phing\Mapper;
 
-use FileUtils;
+use Phing\Io\FileUtils;
 use Phing\Exception\BuildException;
 
 /**

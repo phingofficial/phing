@@ -22,7 +22,7 @@ namespace Phing\Filter;
 use Phing\Exception\BuildException;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Applies a native php function to the original input.

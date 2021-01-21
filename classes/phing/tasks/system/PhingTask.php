@@ -18,6 +18,10 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileOutputStream;
+use Phing\Io\FileUtils;
+use Phing\Io\OutputStream;
+use Phing\Io\File;
 use Phing\Listener\DefaultLogger;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Phing;
@@ -46,7 +50,7 @@ class PhingTask extends Task
 
     /**
      * the basedir where is executed the build file
-     * @var PhingFile
+     * @var File
      */
     private $dir;
 
@@ -237,7 +241,7 @@ class PhingTask extends Task
                 $srcFiles = $ds->getIncludedFiles();
 
                 foreach ($srcFiles as $fname) {
-                    $f = new PhingFile($ds->getbasedir(), $fname);
+                    $f = new File($ds->getbasedir(), $fname);
                     $f = $f->getAbsoluteFile();
                     $this->phingFile = $f->getAbsolutePath();
                     $this->dir = $f->getParentFile();
@@ -333,7 +337,7 @@ class PhingTask extends Task
                 );
             }
 
-            ProjectConfigurator::configureProject($this->newProject, new PhingFile($this->phingFile));
+            ProjectConfigurator::configureProject($this->newProject, new File($this->phingFile));
 
             if ($this->newTarget === null) {
                 $this->newTarget = $this->newProject->getDefaultTarget();
@@ -682,9 +686,9 @@ class PhingTask extends Task
      * has been set to false, in which case it doesn't have a default
      * value. This will override the basedir setting of the called project.
      *
-     * @param PhingFile $d
+     * @param File $d
      */
-    public function setDir(PhingFile $d): void
+    public function setDir(File $d): void
     {
         $this->dir = $d;
     }

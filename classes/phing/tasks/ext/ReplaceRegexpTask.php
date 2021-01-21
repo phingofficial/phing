@@ -19,6 +19,10 @@
 
 use Phing\Exception\BuildException;
 use Phing\Filter\ReplaceRegexp;
+use Phing\Io\FileReader;
+use Phing\Io\FileUtils;
+use Phing\Io\FileWriter;
+use Phing\Io\File;
 
 /**
  * ReplaceRegExp is a directory based task for replacing the occurrence of a
@@ -57,11 +61,11 @@ class ReplaceRegexpTask extends Task
     /**
      * File to apply regexp on
      *
-     * @param PhingFile $path
+     * @param File $path
      *
      * @return void
      */
-    public function setFile(PhingFile $path)
+    public function setFile(File $path)
     {
         $this->file = $path;
     }
@@ -166,7 +170,7 @@ class ReplaceRegexpTask extends Task
                     $filenames = $ds->getIncludedFiles(); // get included filenames
                     $dir = $fs->getDir($this->project);
                     foreach ($filenames as $fname) {
-                        $files[] = new PhingFile($dir, $fname);
+                        $files[] = new File($dir, $fname);
                     }
                 } catch (BuildException $be) {
                     $this->log($be->getMessage(), Project::MSG_WARN);

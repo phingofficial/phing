@@ -19,6 +19,13 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Io\FileParserFactory;
+use Phing\Io\FileParserFactoryInterface;
+use Phing\Io\FileReader;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\File;
+use Phing\Io\StringReader;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
 
@@ -54,7 +61,7 @@ class PropertyTask extends Task
     protected $env;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     protected $file;
 
@@ -183,7 +190,7 @@ class PropertyTask extends Task
     public function setFile($file)
     {
         if (is_string($file)) {
-            $file = new PhingFile($file);
+            $file = new File($file);
         }
         $this->file = $file;
     }
@@ -500,10 +507,10 @@ class PropertyTask extends Task
     /**
      * load properties from a file.
      *
-     * @param  PhingFile $file
+     * @param  File $file
      * @throws BuildException
      */
-    protected function loadFile(PhingFile $file)
+    protected function loadFile(File $file)
     {
         $fileParser = $this->fileParserFactory->createParser($file->getFileExtension());
         $props = new Properties(null, $fileParser);

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileSystem;
+
 /**
  * Test class for the ComposerTask.
  *

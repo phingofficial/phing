@@ -18,6 +18,10 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileReader;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * LoadFileTask
@@ -35,7 +39,7 @@ class LoadFileTask extends Task
     /**
      * File to read
      *
-     * @var PhingFile file
+     * @var File file
      */
     private $file;
 
@@ -72,7 +76,7 @@ class LoadFileTask extends Task
     /**
      * Set file to read
      *
-     * @param PhingFile $file
+     * @param File $file
      */
     public function setFile($file)
     {
@@ -122,7 +126,7 @@ class LoadFileTask extends Task
 
         try {
             if (is_string($this->file)) {
-                $this->file = new PhingFile($this->file);
+                $this->file = new File($this->file);
             }
             if (!$this->file->exists()) {
                 $message = (string) $this->file . ' doesn\'t exist';

@@ -22,9 +22,9 @@ namespace Phing\Filter;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Exception\BuildException;
 use Phing\Filter\ChainableReader;
-use PhingFile;
+use Phing\Io\File;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Replaces gettext("message id") and _("message id") with the translated string.
@@ -100,9 +100,9 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the root locale directory.
      *
-     * @param PhingFile $dir
+     * @param File $dir
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(File $dir)
     {
         $this->dir = $dir;
     }
@@ -110,7 +110,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     /**
      * Gets the root locale directory.
      *
-     * @return PhingFile
+     * @return File
      */
     public function getDir()
     {

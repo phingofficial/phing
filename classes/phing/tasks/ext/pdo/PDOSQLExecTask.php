@@ -18,6 +18,11 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Io\LogWriter;
+use Phing\Io\File;
+use Phing\Io\Reader;
+use Phing\Io\Writer;
 
 /**
  * Executes a series of SQL statements on a database using PDO.
@@ -107,7 +112,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * SQL input file
      *
-     * @var PhingFile
+     * @var File
      */
     private $srcFile;
 
@@ -157,9 +162,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
      *
-     * @param PhingFile $srcFile
+     * @param File $srcFile
      */
-    public function setSrc(PhingFile $srcFile)
+    public function setSrc(File $srcFile)
     {
         $this->srcFile = $srcFile;
     }
@@ -364,7 +369,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 // Make a transaction for each file
                 foreach ($srcFiles as $srcFile) {
                     $t = $this->createTransaction();
-                    $t->setSrc(new PhingFile($srcDir, $srcFile));
+                    $t->setSrc(new File($srcDir, $srcFile));
                 }
             }
 
@@ -375,7 +380,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 // Make a transaction for each file
                 foreach ($srcFiles as $srcFile) {
                     $t = $this->createTransaction();
-                    $t->setSrc(new PhingFile($srcDir, $srcFile));
+                    $t->setSrc(new File($srcDir, $srcFile));
                 }
             }
 

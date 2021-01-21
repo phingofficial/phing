@@ -19,12 +19,12 @@
 
 namespace Phing\Filter;
 
-use IOException;
+use Phing\Io\IOException;
 use Phing\Exception\BuildException;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
 use Phing\Util\StringHelper;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * <p>

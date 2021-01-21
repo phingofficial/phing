@@ -17,6 +17,11 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
+use Phing\Io\File;
+use Phing\Io\StringReader;
+
 /**
  * "Inner" class that contains the definition of a new transaction element.
  * Transactions allow several files or blocks of statements
@@ -41,9 +46,9 @@ class PDOSQLExecTransaction
     }
 
     /**
-     * @param PhingFile $src
+     * @param File $src
      */
-    public function setSrc(PhingFile $src)
+    public function setSrc(File $src)
     {
         $this->tSrcFile = $src;
     }

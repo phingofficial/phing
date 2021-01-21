@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use PHPUnit\Framework\TestCase;
 
 class FileListTest extends TestCase
@@ -48,7 +49,7 @@ class FileListTest extends TestCase
         $this->expectExceptionMessage('No files specified for filelist.');
 
         $f = new FileList();
-        $f->setDir(new PhingFile("."));
+        $f->setDir(new File("."));
         $f->getFiles($this->project);
     }
     public function testSetRefidWithDirSet()
@@ -57,7 +58,7 @@ class FileListTest extends TestCase
         $this->expectExceptionMessage("You must not specify more than one attribute when using refid");
 
         $f = new FileList();
-        $f->setDir(new PhingFile("."));
+        $f->setDir(new File("."));
         $project = new Project();
         $project->setBasedir(__DIR__);
         $f->setRefid(new Reference($this->project, "dummy"));

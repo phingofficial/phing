@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * "Inner" class used for nested xml command line definitions.
  *
@@ -84,10 +86,10 @@ class CommandlineArgument
      * Sets a single commandline argument to the absolute filename
      * of the given file.
      *
-     * @param    PhingFile $value
+     * @param    File $value
      * @internal param a $value single commandline argument.
      */
-    public function setFile(PhingFile $value): void
+    public function setFile(File $value): void
     {
         $this->parts = [$value->getAbsolutePath()];
     }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * This abstract class describes classes that format the results of a PHPCPD run.
  *
@@ -31,7 +33,7 @@ abstract class PHPCPDResultFormatter
      * @param object         $clones
      * @param Project        $project
      * @param boolean        $useFile
-     * @param PhingFile|null $outFile
+     * @param File|null $outFile
      */
     abstract public function processClones($clones, Project $project, $useFile = false, $outFile = null);
 }

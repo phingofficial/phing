@@ -21,8 +21,9 @@ namespace Phing\Filter;
 
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
+use Phing\Io\FilterReader;
 use Phing\Util\StringHelper;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Attaches a suffix to every line.

@@ -18,6 +18,10 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileReader;
+use Phing\Io\FileUtils;
+use Phing\Io\FileWriter;
+use Phing\Io\File;
 
 /**
  * This task is for using filter chains to make changes to files and overwrite the original files.
@@ -57,9 +61,9 @@ class ReflexiveTask extends Task
     /**
      * Alias for setFrom()
      *
-     * @param PhingFile $f
+     * @param File $f
      */
-    public function setFile(PhingFile $f)
+    public function setFile(File $f)
     {
         $this->file = $f;
     }
@@ -89,7 +93,7 @@ class ReflexiveTask extends Task
                     $filenames = $ds->getIncludedFiles(); // get included filenames
                     $dir = $fs->getDir($this->project);
                     foreach ($filenames as $fname) {
-                        $files[] = new PhingFile($dir, $fname);
+                        $files[] = new File($dir, $fname);
                     }
                 } catch (BuildException $be) {
                     $this->log($be->getMessage(), Project::MSG_WARN);

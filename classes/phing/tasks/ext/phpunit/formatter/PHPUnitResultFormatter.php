@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\Writer;
+
 /**
  * This abstract class describes classes that format the results of a PHPUnit testrun.
  *

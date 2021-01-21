@@ -18,6 +18,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\File;
 use Phing\Util\Properties;
 
 /**
@@ -57,7 +60,7 @@ class VersionTask extends Task
     /**
      * Property for File
      *
-     * @var PhingFile file
+     * @var File file
      */
     private $file;
 
@@ -96,9 +99,9 @@ class VersionTask extends Task
     /**
      * Set Property for File containing versioninformation
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }

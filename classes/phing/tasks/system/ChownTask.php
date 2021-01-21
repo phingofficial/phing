@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Task that changes the permissions on a file/directory.
@@ -79,9 +80,9 @@ class ChownTask extends Task
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -175,13 +176,13 @@ class ChownTask extends Task
             $filecount = count($srcFiles);
             $total_files += $filecount;
             for ($j = 0; $j < $filecount; $j++) {
-                $this->chownFile(new PhingFile($fromDir, $srcFiles[$j]), $user, $group);
+                $this->chownFile(new File($fromDir, $srcFiles[$j]), $user, $group);
             }
 
             $dircount = count($srcDirs);
             $total_dirs += $dircount;
             for ($j = 0; $j < $dircount; $j++) {
-                $this->chownFile(new PhingFile($fromDir, $srcDirs[$j]), $user, $group);
+                $this->chownFile(new File($fromDir, $srcDirs[$j]), $user, $group);
             }
         }
 
@@ -194,13 +195,13 @@ class ChownTask extends Task
     /**
      * Actually change the mode for the file.
      *
-     * @param  PhingFile $file
+     * @param  File $file
      * @param  string $user
      * @param  string $group
      * @throws BuildException
      * @throws Exception
      */
-    private function chownFile(PhingFile $file, $user, $group = "")
+    private function chownFile(File $file, $user, $group = "")
     {
         if (!$file->exists()) {
             throw new BuildException("The file " . $file->__toString() . " does not exist");

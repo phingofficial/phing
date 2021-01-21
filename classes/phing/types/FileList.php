@@ -19,6 +19,10 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Io\BufferedReader;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * FileList represents an explicitly named list of files. FileLists
@@ -57,7 +61,7 @@ class FileList extends DataType implements IteratorAggregate
     public $dir;
 
     /**
-     * @var PhingFile that contains a list of files (one per line).
+     * @var File that contains a list of files (one per line).
      */
     public $listfile;
 
@@ -100,11 +104,11 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Base directory for files in list.
      *
-     * @param PhingFile $dir
+     * @param File $dir
      * @throws IOException
      * @throws NullPointerException
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(File $dir)
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -116,8 +120,8 @@ class FileList extends DataType implements IteratorAggregate
      * Get the basedir for files in list.
      *
      * @param  Project $p
-     * @throws BuildException
-     * @return PhingFile
+     * @return File
+     *@throws BuildException
      */
     public function getDir(Project $p)
     {
@@ -165,8 +169,8 @@ class FileList extends DataType implements IteratorAggregate
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if (!($file instanceof PhingFile)) {
-            $file = new PhingFile($file);
+        if (!($file instanceof File)) {
+            $file = new File($file);
         }
         $this->listfile = $file;
     }
@@ -175,7 +179,7 @@ class FileList extends DataType implements IteratorAggregate
      * Get the source "list" file that contains file names.
      *
      * @param  Project $p
-     * @return PhingFile
+     * @return File
      */
     public function getListFile(Project $p)
     {

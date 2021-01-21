@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
 use Phing\Util\Properties;
 
 /**
@@ -41,9 +42,9 @@ class PropertiesfileCache implements Cache
 
     /**
      * Constructor.
-     * @param PhingFile $cachefile set the cachefile
+     * @param File $cachefile set the cachefile
      */
-    public function __construct(PhingFile $cachefile = null)
+    public function __construct(File $cachefile = null)
     {
         $this->cache = new Properties();
         $this->cachefile = $cachefile;
@@ -51,18 +52,18 @@ class PropertiesfileCache implements Cache
 
     /**
      * Getter.
-     * @return PhingFile|null the cachefile
+     * @return File|null the cachefile
      */
-    public function getCachefile(): ?PhingFile
+    public function getCachefile(): ?File
     {
         return $this->cachefile;
     }
 
     /**
      * Setter.
-     * @param PhingFile $file new value
+     * @param File $file new value
      */
-    public function setCachefile(PhingFile $file): void
+    public function setCachefile(File $file): void
     {
         $this->cachefile = $file;
     }

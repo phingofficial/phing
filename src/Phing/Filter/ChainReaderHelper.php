@@ -20,14 +20,14 @@
 namespace Phing\Filter;
 
 use Exception;
-use FilterReader;
+use Phing\Io\FilterReader;
 use Parameterizable;
 use Phing\Filter\BaseFilterReader;
 use Phing\Filter\ChainableReader;
 use Phing\Phing;
 use PhingFilterReader;
 use Project;
-use Reader;
+use Phing\Io\Reader;
 
 /**
  * Process a FilterReader chain.

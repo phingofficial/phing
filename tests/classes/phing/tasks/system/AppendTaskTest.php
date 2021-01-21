@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Tests the Append / Concat Task
@@ -58,7 +59,7 @@ class AppendTaskTest extends BuildFileTest
 
     public function test3()
     {
-        $file = new PhingFile($this->getProject()->getBasedir(), $this->tempFile);
+        $file = new File($this->getProject()->getBasedir(), $this->tempFile);
         if ($file->exists()) {
             $file->delete();
         }
@@ -82,12 +83,12 @@ class AppendTaskTest extends BuildFileTest
     {
         $this->test3();
 
-        $file = new PhingFile($this->getProject()->getBasedir(), $this->tempFile);
+        $file = new File($this->getProject()->getBasedir(), $this->tempFile);
         $origSize = $file->length();
 
         $this->executeTarget("testPath");
 
-        $file2 = new PhingFile($this->getProject()->getBasedir(), $this->tempFile2);
+        $file2 = new File($this->getProject()->getBasedir(), $this->tempFile2);
         $newSize = $file2->length();
 
         $this->assertEquals($origSize, $newSize);
@@ -97,12 +98,12 @@ class AppendTaskTest extends BuildFileTest
     {
         $this->test3();
 
-        $file = new PhingFile($this->getProject()->getBasedir(), $this->tempFile);
+        $file = new File($this->getProject()->getBasedir(), $this->tempFile);
         $origSize = $file->length();
 
         $this->executeTarget("testAppend");
 
-        $file2 = new PhingFile($this->getProject()->getBasedir(), $this->tempFile2);
+        $file2 = new File($this->getProject()->getBasedir(), $this->tempFile2);
         $newSize = $file2->length();
 
         $this->assertEquals($origSize * 2, $newSize);
@@ -116,7 +117,7 @@ class AppendTaskTest extends BuildFileTest
     public function testNoOverwrite()
     {
         $this->executeTarget("testnooverwrite");
-        $file2 = new PhingFile($this->getProject()->getBasedir(), $this->tempFile2);
+        $file2 = new File($this->getProject()->getBasedir(), $this->tempFile2);
         $size = $file2->length();
         $this->assertEquals($size, 0);
     }

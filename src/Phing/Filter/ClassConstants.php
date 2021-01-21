@@ -19,11 +19,11 @@
 
 namespace Phing\Filter;
 
-use IOException;
+use Phing\Io\IOException;
 use Phing\Filter\BaseFilterReader;
 use Phing\Filter\ChainableReader;
 use Phing\Filter\ExpandProperties;
-use Reader;
+use Phing\Io\Reader;
 use ReflectionClass;
 
 /**

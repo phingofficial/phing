@@ -17,6 +17,11 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileOutputStream;
+use Phing\Io\FileSystem;
+use Phing\Io\IOException;
+use Phing\Io\File;
+
 /**
  * Unit test for FileOutputStream.
  *
@@ -33,7 +38,7 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
 
     public function setUp(): void
     {
-        $this->tmpFile = new PhingFile(PHING_TEST_BASE . "/tmp/" . get_class($this) . ".txt");
+        $this->tmpFile = new File(PHING_TEST_BASE . "/tmp/" . get_class($this) . ".txt");
         $this->outStream = new FileOutputStream($this->tmpFile);
     }
 

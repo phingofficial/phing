@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Io\File;
 
 /**
  * Compares two files for equality based on size and
@@ -37,9 +39,9 @@ class FilesMatch implements Condition
     /**
      * Sets the File1 attribute
      *
-     * @param PhingFile $file1 The new File1 value
+     * @param File $file1 The new File1 value
      */
-    public function setFile1(PhingFile $file1)
+    public function setFile1(File $file1)
     {
         $this->file1 = $file1;
     }
@@ -47,9 +49,9 @@ class FilesMatch implements Condition
     /**
      * Sets the File2 attribute
      *
-     * @param PhingFile $file2 The new File2 value
+     * @param File $file2 The new File2 value
      */
-    public function setFile2(PhingFile $file2)
+    public function setFile2(File $file2)
     {
         $this->file2 = $file2;
     }

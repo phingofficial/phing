@@ -18,6 +18,10 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\DirectoryScanner;
+use Phing\Io\FileSystem;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * <foreach> task
@@ -205,7 +209,7 @@ class ForeachTask extends Task
                 $ds = new DirectoryScanner();
                 $ds->setBasedir($pathElement);
                 $ds->scan();
-                $this->process($callee, new PhingFile($pathElement), $ds->getIncludedFiles(), array());
+                $this->process($callee, new File($pathElement), $ds->getIncludedFiles(), array());
             }
         }
 
@@ -249,11 +253,11 @@ class ForeachTask extends Task
      * Processes a list of files & directories
      *
      * @param PhingCallTask $callee
-     * @param PhingFile $fromDir
+     * @param File $fromDir
      * @param array $srcFiles
      * @param array $srcDirs
      */
-    protected function process(Task $callee, PhingFile $fromDir, $srcFiles, $srcDirs)
+    protected function process(Task $callee, File $fromDir, $srcFiles, $srcDirs)
     {
         $mapper = null;
 

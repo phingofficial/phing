@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\IniFileParser;
+use Phing\Io\IOException;
+use Phing\Io\File;
+
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @package phing.system.io
@@ -43,7 +47,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
         $file = $this->root->url() . '/test';
         file_put_contents($file, $data);
 
-        $phingFile = new PhingFile($file);
+        $phingFile = new File($file);
         $this->assertSame($expected, $this->parser->parseFile($phingFile));
     }
 
@@ -52,7 +56,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParseFileCouldntOpenFile()
     {
-        $phingFile = new PhingFile(uniqid('', true));
+        $phingFile = new File(uniqid('', true));
 
         $this->expectException(IOException::class);
 

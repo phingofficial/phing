@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * Extracts one or several tar archives using PEAR Archive_Tar
@@ -54,11 +56,11 @@ class UntarTask extends ExtractBaseTask
     }
 
     /**
-     * @param PhingFile $tarfile
+     * @param File $tarfile
      * @return mixed|void
      * @throws BuildException
      */
-    protected function extractArchive(PhingFile $tarfile)
+    protected function extractArchive(File $tarfile)
     {
         $this->log(
             "Extracting tar file: " . $tarfile->__toString() . ' to ' . $this->todir->__toString(),
@@ -77,10 +79,10 @@ class UntarTask extends ExtractBaseTask
     }
 
     /**
-     * @param PhingFile $tarfile
+     * @param File $tarfile
      * @return array|int
      */
-    protected function listArchiveContent(PhingFile $tarfile)
+    protected function listArchiveContent(File $tarfile)
     {
         $tar = $this->initTar($tarfile);
 
@@ -90,10 +92,10 @@ class UntarTask extends ExtractBaseTask
     /**
      * Init a Archive_Tar class with correct compression for the given file.
      *
-     * @param  PhingFile $tarfile
+     * @param  File $tarfile
      * @return Archive_Tar the tar class instance
      */
-    private function initTar(PhingFile $tarfile)
+    private function initTar(File $tarfile)
     {
         $compression = null;
         $tarfileName = $tarfile->getName();
