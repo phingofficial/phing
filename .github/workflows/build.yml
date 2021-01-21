@@ -34,7 +34,7 @@ jobs:
           dependency-versions: 'locked'
 
       - name: Static Code Analysis
-        run: bin/phpcs -s -n --standard=./ruleset.xml classes test/classes
+        run: bin/phpcs -s -n --standard=./ruleset.xml classes tests/classes
 
   test:
     needs:
