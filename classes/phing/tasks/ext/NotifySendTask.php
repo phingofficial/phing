@@ -12,6 +12,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\StringHelper;
 
 /**
  * NotifySendTask

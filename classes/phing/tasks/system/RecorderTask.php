@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\SubBuildListener;
+use Phing\Util\StringHelper;
 
 /**
  * Adds a listener to the current build process that records the

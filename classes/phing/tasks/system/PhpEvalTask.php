@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Phing;
+use Phing\Util\StringHelper;
 
 /**
  * Executes PHP function or evaluates expression and sets return value to a property.

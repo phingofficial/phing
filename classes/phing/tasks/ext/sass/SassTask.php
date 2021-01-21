@@ -24,6 +24,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\StringHelper;
 
 /**
  * Executes Sass for a particular fileset.

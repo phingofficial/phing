@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Util\StringHelper;
+
 /**
  * Handler class for the <project> XML element This class handles all elements
  * under the <project> element.

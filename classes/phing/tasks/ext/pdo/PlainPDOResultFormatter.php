@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Util\StringHelper;
+
 /**
  * Plain text formatter for PDO results.
  *

@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\SizeHelper;
 use PHPUnit\Framework\TestCase;
 
 class SizeHelperTest extends TestCase

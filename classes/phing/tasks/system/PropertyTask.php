@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Util\StringHelper;
 
 /**
  * Task for setting properties in buildfiles.

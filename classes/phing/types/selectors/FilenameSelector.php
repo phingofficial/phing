@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Util\StringHelper;
+
 /**
  * Selector that filters files based on the filename.
  *

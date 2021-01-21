@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Phing;
+use Phing\Util\StringHelper;
 
 /**
  * A regular expression datatype.  Keeps an instance of the

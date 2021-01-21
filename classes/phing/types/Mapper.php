@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Phing;
+use Phing\Util\StringHelper;
 
 /**
  * Filename Mapper maps source file name(s) to target file name(s).

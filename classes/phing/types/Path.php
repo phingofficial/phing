@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Util\PathTokenizer;
 
 /**
  * This object represents a path as used by include_path or PATH

@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\StringHelper;
 
 /**
  * Task that changes the permissions on a file/directory.

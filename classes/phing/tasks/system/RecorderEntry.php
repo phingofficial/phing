@@ -23,6 +23,7 @@ use Phing\Listener\BuildLogger;
 use Phing\Listener\DefaultLogger;
 use Phing\Listener\SubBuildListener;
 use Phing\Phing;
+use Phing\Util\StringHelper;
 
 /**
  * This is a class that represents a recorder. This is the listener to the

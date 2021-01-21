@@ -17,28 +17,15 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
-class ProjectTimerMap extends TimerMap
+interface Clock
 {
-    public function get($project)
-    {
-        $name = $project instanceof Project ? $project->getName() : '';
-
-        return parent::get($name);
-    }
-
-    public function find($project, Clock $clock)
-    {
-        $name = $project instanceof Project ? $project->getName() : '';
-
-        return parent::find($name, $clock);
-    }
-
-    protected function createTimer($name, Clock $clock)
-    {
-        return new ProjectTimer($name, $clock);
-    }
+    /**
+     * @return int
+     */
+    public function getCurrentTime();
 }

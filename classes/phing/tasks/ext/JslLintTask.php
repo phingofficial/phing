@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\DataStore;
+use Phing\Util\StringHelper;
 
 /**
  * A Javascript lint task. Checks syntax of Javascript files.

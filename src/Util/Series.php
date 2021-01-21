@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
+use SplStack;
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics

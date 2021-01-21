@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\StringHelper;
 
 /**
  * Runs phploc a tool for quickly measuring the size of PHP projects.

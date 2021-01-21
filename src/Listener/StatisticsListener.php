@@ -20,12 +20,12 @@
 namespace Phing\Listener;
 
 use Phing\Listener\BuildEvent;
-use Clock;
-use DefaultClock;
-use ProjectTimer;
-use ProjectTimerMap;
-use SeriesTimer;
-use StatisticsReport;
+use Phing\Util\Clock;
+use Phing\Util\DefaultClock;
+use Phing\Util\ProjectTimer;
+use Phing\Util\ProjectTimerMap;
+use Phing\Util\SeriesTimer;
+use Phing\Util\StatisticsReport;
 
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>

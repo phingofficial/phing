@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
 /**
  * String helper utility class.
  *
@@ -73,7 +74,7 @@ class StringHelper
         // otherwise assume it's something like "true" or "t"
         $trimmed = strtolower(trim($s));
 
-        return (bool) in_array($trimmed, self::$TRUE_VALUES);
+        return (bool)in_array($trimmed, self::$TRUE_VALUES);
     }
 
     /**
@@ -145,7 +146,7 @@ class StringHelper
     public static function substring($string, $startpos, $endpos = -1)
     {
         $len = strlen($string);
-        $endpos = (int) (($endpos === -1) ? $len - 1 : $endpos);
+        $endpos = (int)(($endpos === -1) ? $len - 1 : $endpos);
         if ($startpos > $len - 1 || $startpos < 0) {
             trigger_error("substring(), Startindex out of bounds must be 0<n<$len", E_USER_ERROR);
         }
@@ -153,7 +154,7 @@ class StringHelper
             trigger_error("substring(), Endindex out of bounds must be $startpos<n<" . ($len - 1), E_USER_ERROR);
         }
         if ($startpos === $endpos) {
-            return (string) $string[$startpos];
+            return (string)$string[$startpos];
         }
 
         $len = $endpos - $startpos;

@@ -17,15 +17,29 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
-class TimeFormatter
+class Duration
 {
-    public function format($time)
+    private $startTime;
+
+    private $finishTime;
+
+    public function setFinishTime($finishTime)
     {
-        $format = "%0.5f";
-        return sprintf($format, $time) . ' sec';
+        $this->finishTime = $finishTime;
+    }
+
+    public function setStartTime($startTime)
+    {
+        $this->startTime = $startTime;
+    }
+
+    public function getTime()
+    {
+        return $this->finishTime - $this->startTime;
     }
 }

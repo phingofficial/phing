@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\StringHelper;
 
 /**
  * Uses glob patterns to perform filename transformations.

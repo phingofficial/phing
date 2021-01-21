@@ -17,42 +17,19 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
-class TimerMap
+class DefaultClock implements Clock
 {
-    protected $map = [];
-
-    public function get($name)
+    /**
+     * @return int
+     */
+    public function getCurrentTime()
     {
-        return $this->map[$name];
-    }
-
-    public function find($name, Clock $clock)
-    {
-        $timer = $this->map[$name] ?? null;
-        if ($timer === null) {
-            $timer = $this->createTimer($name, $clock);
-            $this->map[$name] = $timer;
-        }
-
-        return $timer;
-    }
-
-    protected function createTimer($name, Clock $clock)
-    {
-        return new SeriesTimer($name, $clock);
-    }
-
-    public function toSeriesMap()
-    {
-        $seriesMap = new SeriesMap();
-        foreach ($this->map as $key => $timer) {
-            $seriesMap->put($key, $timer->getSeries());
-        }
-
-        return $seriesMap;
+        return microtime(true);
     }
 }

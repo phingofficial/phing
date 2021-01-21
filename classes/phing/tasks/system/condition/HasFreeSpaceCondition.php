@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\SizeHelper;
 
 /**
  * Condition returns true if selected partition has the requested space, false otherwise.

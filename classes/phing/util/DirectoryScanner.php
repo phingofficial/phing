@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Util\StringHelper;
 
 /**
  * Class for scanning a directory for files/directories that match a certain

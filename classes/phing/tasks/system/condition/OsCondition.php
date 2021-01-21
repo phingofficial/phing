@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Phing;
+use Phing\Util\StringHelper;
 
 /**
  * Condition that tests the OS type.

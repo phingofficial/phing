@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Phing;
+use Phing\Util\Diagnostics;
 
 /**
  * This is a task that hands off work to the Diagnostics module.

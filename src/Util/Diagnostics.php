@@ -17,7 +17,14 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
+use FileUtils;
+use FileWriter;
 use Phing\Phing;
+use PhingFile;
+use PrintStream;
+use Project;
 
 /**
  * A little diagnostic helper that output some information that may help

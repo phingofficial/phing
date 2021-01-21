@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\SizeHelper;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>

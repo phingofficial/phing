@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\NullPointerException;
+use Phing\Util\StringHelper;
 
 /**
  * An abstract representation of file and directory pathnames.

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Util\StringHelper;
+
 /**
  * This filter strips line comments.
  *

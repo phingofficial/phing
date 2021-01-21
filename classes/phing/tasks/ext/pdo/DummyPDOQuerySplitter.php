@@ -19,6 +19,8 @@
  * @package phing.tasks.ext.pdo
  */
 
+use Phing\Util\StringHelper;
+
 /**
  * Dummy query splitter: converts entire input into single
  * SQL string

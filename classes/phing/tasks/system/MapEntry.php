@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\StringHelper;
 
 /**
  * Helper class, holds the nested &lt;map&gt; values. Elements will look like

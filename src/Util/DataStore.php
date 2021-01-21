@@ -17,7 +17,11 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
+use FileWriter;
 use Phing\Exception\BuildException;
+use PhingFile;
 
 /**
  * An abstract representation of file and directory pathnames.
@@ -116,8 +120,8 @@ class DataStore
     /**
      * Internal function to read data store from file
      *
-     * @throws BuildException
      * @return void
+     * @throws BuildException
      */
     private function read()
     {
@@ -136,8 +140,8 @@ class DataStore
     /**
      * Internal function to write data store to file
      *
-     * @throws BuildException
      * @return void
+     * @throws BuildException
      */
     private function write()
     {

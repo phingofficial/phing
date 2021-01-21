@@ -17,49 +17,44 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
-class StatsTimer
+class TimerMap
 {
-    protected $name;
+    protected $map = [];
 
-    protected $series;
-
-    protected $clock;
-
-    public function __construct($name, Clock $clock)
+    public function get($name)
     {
-        $this->name = $name;
-        $this->clock = $clock;
-        $this->series = new Series();
+        return $this->map[$name];
     }
 
-    public function start()
+    public function find($name, Clock $clock)
     {
-        $duration = new Duration();
-        $duration->setStartTime($this->clock->getCurrentTime());
-        $this->series->add($duration);
+        $timer = $this->map[$name] ?? null;
+        if ($timer === null) {
+            $timer = $this->createTimer($name, $clock);
+            $this->map[$name] = $timer;
+        }
+
+        return $timer;
     }
 
-    public function finish()
+    protected function createTimer($name, Clock $clock)
     {
-        $this->series->setFinishTime($this->clock->getCurrentTime());
+        return new SeriesTimer($name, $clock);
     }
 
-    public function getName()
+    public function toSeriesMap()
     {
-        return $this->name;
-    }
+        $seriesMap = new SeriesMap();
+        foreach ($this->map as $key => $timer) {
+            $seriesMap->put($key, $timer->getSeries());
+        }
 
-    public function getTime()
-    {
-        return $this->series->getTotalTime();
-    }
-
-    public function getSeries()
-    {
-        return $this->series;
+        return $seriesMap;
     }
 }

@@ -29,7 +29,7 @@ use Phing\Phing;
 use PhingFile;
 use Project;
 use Properties;
-use StringHelper;
+use Phing\Util\StringHelper;
 
 /**
  * Uses PEAR Mail package to send the build log to one or

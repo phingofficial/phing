@@ -18,6 +18,7 @@
  */
 
 use Phing\Phing;
+use Phing\Util\StringHelper;
 
 /**
  * UnixFileSystem class. This class encapsulates the basic file system functions

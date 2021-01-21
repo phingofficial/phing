@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Phing;
+use Phing\Util\StringHelper;
 
 /**
  * Helper class that collects the methods that a task or nested element

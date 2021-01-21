@@ -18,6 +18,7 @@
  */
 
 use Phing\Phing;
+use Phing\Util\StringHelper;
 
 /**
  * @package   phing.system.io

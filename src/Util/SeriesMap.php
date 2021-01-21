@@ -17,17 +17,32 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
-class DefaultClock implements Clock
+class SeriesMap
 {
-    /**
-     * @return int
-     */
-    public function getCurrentTime()
+    protected $map = [];
+
+    public function getNames()
     {
-        return microtime(true);
+        return array_keys($this->map);
+    }
+
+    /**
+     * @param string $name
+     * @return Series
+     */
+    public function get($name)
+    {
+        return $this->map[$name];
+    }
+
+    public function put($key, Series $series)
+    {
+        $this->map[$key] = $series;
     }
 }

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
 /**
  * A logger which logs nothing but build failure and what task might output.
  *

@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\DataStore;
 
 /**
  * Runs PHP Mess Detector. Checking PHP files for several potential problems

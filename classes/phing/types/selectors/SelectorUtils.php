@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Util\StringHelper;
+
 /**
  * <p>This is a utility class used by selectors and DirectoryScanner. The
  * functionality more properly belongs just to selectors, but unfortunately

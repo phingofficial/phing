@@ -18,6 +18,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Util\DataStore;
 use PHPMD\AbstractRenderer;
 use PHPMD\Report;
 

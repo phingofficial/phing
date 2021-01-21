@@ -17,28 +17,40 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
-class Duration
+class StringFormatter
 {
-    private $startTime;
-
-    private $finishTime;
-
-    public function setFinishTime($finishTime)
+    public function center($value, $fixedLength)
     {
-        $this->finishTime = $finishTime;
+        $spacesBeforeValue = $this->calculateSpaceBeforeValue($value, $fixedLength);
+        return $this->toSpaces($spacesBeforeValue) . $value;
     }
 
-    public function setStartTime($startTime)
+    public function left($value, $fixedLength)
     {
-        $this->startTime = $startTime;
+        return $value . $this->toSpaces($fixedLength - strlen($value) + 4);
     }
 
-    public function getTime()
+    private function calculateSpaceBeforeValue($value, $fixedLength)
     {
-        return $this->finishTime - $this->startTime;
+        return $fixedLength / 2 - strlen($value) / 2;
+    }
+
+    public function toSpaces($size)
+    {
+        return $this->toChars(' ', $size);
+    }
+
+    public function toChars($ch, $size)
+    {
+        $sb = '';
+        for ($i = 0; $i < $size; $i++) {
+            $sb .= $ch;
+        }
+        return $sb;
     }
 }

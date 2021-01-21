@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\SizeHelper;
 
 /**
  * Selector that filters files based on their size.

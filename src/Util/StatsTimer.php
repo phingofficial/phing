@@ -17,11 +17,13 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
-class SeriesTimer
+class StatsTimer
 {
     protected $name;
 

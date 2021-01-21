@@ -19,6 +19,8 @@
  * @package phing.tasks.ext.pdo
  */
 
+use Phing\Util\StringHelper;
+
 /**
  * Splits SQL source into queries using simple regular expressions
  *

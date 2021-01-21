@@ -18,6 +18,8 @@ declare(strict_types=1);
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
 use Phing\Exception\BuildException;
 
 /**
@@ -27,18 +29,18 @@ use Phing\Exception\BuildException;
  */
 class SizeHelper
 {
-    const B    = 'B';
+    const B = 'B';
     const KILO = 1000;
     const KIBI = 1024;
-    const SI   = [1 => ['kB', 'kilo', 'kilobyte',],
-                  2 => ['MB', 'mega', 'megabyte',],
-                  3 => ['GB', 'giga', 'gigabyte',],
-                  4 => ['TB', 'tera', 'terabyte',],];
-    const IEC  = [0 => [self::B,],
-                  1 => ['k', 'Ki', 'KiB', 'kibi', 'kibibyte',],
-                  2 => ['M', 'Mi', 'MiB', 'mebi', 'mebibyte',],
-                  3 => ['G', 'Gi', 'GiB', 'gibi', 'gibibyte',],
-                  4 => ['T', 'Ti', 'TiB', 'tebi', 'tebibyte',],];
+    const SI = [1 => ['kB', 'kilo', 'kilobyte',],
+        2 => ['MB', 'mega', 'megabyte',],
+        3 => ['GB', 'giga', 'gigabyte',],
+        4 => ['TB', 'tera', 'terabyte',],];
+    const IEC = [0 => [self::B,],
+        1 => ['k', 'Ki', 'KiB', 'kibi', 'kibibyte',],
+        2 => ['M', 'Mi', 'MiB', 'mebi', 'mebibyte',],
+        3 => ['G', 'Gi', 'GiB', 'gibi', 'gibibyte',],
+        4 => ['T', 'Ti', 'TiB', 'tebi', 'tebibyte',],];
 
     /**
      * Converts strings like '512K', '0.5G', '50M' to bytes.

@@ -17,6 +17,11 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
+use Character;
+use Exception;
+
 /**
  * A Path tokenizer takes a path and returns the components that make up
  * that path.

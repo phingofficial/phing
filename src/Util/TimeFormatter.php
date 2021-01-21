@@ -17,30 +17,16 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
-class SeriesMap
+class TimeFormatter
 {
-    protected $map = [];
-
-    public function getNames()
+    public function format($time)
     {
-        return array_keys($this->map);
-    }
-
-    /**
-     * @param string $name
-     * @return Series
-     */
-    public function get($name)
-    {
-        return $this->map[$name];
-    }
-
-    public function put($key, Series $series)
-    {
-        $this->map[$key] = $series;
+        $format = "%0.5f";
+        return sprintf($format, $time) . ' sec';
     }
 }

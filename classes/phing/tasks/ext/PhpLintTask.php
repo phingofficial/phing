@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Util\DataStore;
 
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.

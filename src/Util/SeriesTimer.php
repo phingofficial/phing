@@ -17,39 +17,51 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.listener.statistics
  */
-class StringFormatter
+class SeriesTimer
 {
-    public function center($value, $fixedLength)
+    protected $name;
+
+    protected $series;
+
+    protected $clock;
+
+    public function __construct($name, Clock $clock)
     {
-        $spacesBeforeValue = $this->calculateSpaceBeforeValue($value, $fixedLength);
-        return $this->toSpaces($spacesBeforeValue) .  $value;
+        $this->name = $name;
+        $this->clock = $clock;
+        $this->series = new Series();
     }
 
-    public function left($value, $fixedLength)
+    public function start()
     {
-        return $value . $this->toSpaces($fixedLength - strlen($value) + 4);
+        $duration = new Duration();
+        $duration->setStartTime($this->clock->getCurrentTime());
+        $this->series->add($duration);
     }
 
-    private function calculateSpaceBeforeValue($value, $fixedLength)
+    public function finish()
     {
-        return $fixedLength / 2 - strlen($value) / 2;
+        $this->series->setFinishTime($this->clock->getCurrentTime());
     }
 
-    public function toSpaces($size)
+    public function getName()
     {
-        return $this->toChars(' ', $size);
+        return $this->name;
     }
 
-    public function toChars($ch, $size)
+    public function getTime()
     {
-        $sb = '';
-        for ($i = 0; $i < $size; $i++) {
-            $sb .= $ch;
-        }
-        return $sb;
+        return $this->series->getTotalTime();
+    }
+
+    public function getSeries()
+    {
+        return $this->series;
     }
 }

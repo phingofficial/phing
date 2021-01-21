@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Phing;
+use Phing\Util\StringHelper;
 
 /**
  * Executes a command on the shell.

@@ -25,7 +25,7 @@ use OutputStream;
 use Phing\Exception\BuildException;
 use Phing\Phing;
 use Project;
-use StringHelper;
+use Phing\Util\StringHelper;
 
 /**
  * Writes a build event to the console.
