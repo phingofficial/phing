@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Listener\DefaultLogger;
+use Phing\Parser\ProjectConfigurator;
 use Phing\Phing;
 
 /**

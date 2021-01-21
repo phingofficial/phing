@@ -17,13 +17,17 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Parser;
+use Project;
+use Target;
+
 /**
  * Track the current state of the Xml parse operation.
  *
  * @author  Bryan Davis <bpd@keynetics.com>
  * @package phing.parser
  */
-class PhingXMLContext
+class XmlContext
 {
 
     /**

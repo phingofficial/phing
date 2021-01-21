@@ -17,6 +17,11 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Parser;
+
+use Exception;
+use Phing\Parser\AbstractHandler;
+
 /**
  * The abstract SAX parser class.
  *
@@ -65,9 +70,9 @@ abstract class AbstractSAXParser
      * It gives control to the current active handler object by calling the
      * <code>startElement()</code> method.
      *
-     * @param  object $parser the php's internal parser handle
-     * @param  string $name the open tag name
-     * @param  array $attribs the tag's attributes if any
+     * @param object $parser the php's internal parser handle
+     * @param string $name the open tag name
+     * @param array $attribs the tag's attributes if any
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     public function startElement($parser, $name, $attribs)
@@ -84,8 +89,8 @@ abstract class AbstractSAXParser
      * It gives control to the current active handler object by calling the
      * <code>endElement()</code> method.
      *
-     * @param  object $parser the php's internal parser handle
-     * @param  string $name the closing tag name
+     * @param object $parser the php's internal parser handle
+     * @param string $name the closing tag name
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     public function endElement($parser, $name)
@@ -102,8 +107,8 @@ abstract class AbstractSAXParser
      * It gives control to the current active handler object by calling the
      * <code>characters()</code> method. That processes the given CDATA.
      *
-     * @param  resource $parser php's internal parser handle.
-     * @param  string $data the CDATA
+     * @param resource $parser php's internal parser handle.
+     * @param string $data the CDATA
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     public function characters($parser, $data)

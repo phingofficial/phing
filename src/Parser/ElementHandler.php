@@ -17,7 +17,16 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Parser;
+
 use Phing\Exception\BuildException;
+use Phing\Parser\AbstractHandler;
+use Phing\Parser\AbstractSAXParser;
+use Phing\Parser\ExpatParseException;
+use Phing\Parser\ProjectConfigurator;
+use RuntimeConfigurable;
+use Target;
+use UnknownElement;
 
 /**
  * The generic element handler class.
@@ -92,7 +101,8 @@ class ElementHandler extends AbstractHandler
         UnknownElement $parent = null,
         RuntimeConfigurable $parentWrapper = null,
         Target $target = null
-    ) {
+    )
+    {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;
         if ($parentWrapper != null) {
@@ -116,8 +126,8 @@ class ElementHandler extends AbstractHandler
      * <li>adding a reference to the element (if id attribute is given)</li>
      * </ul>
      *
-     * @param  string $tag the tag that comes in
-     * @param  array $attrs attributes the tag carries
+     * @param string $tag the tag that comes in
+     * @param array $attrs attributes the tag carries
      * @throws ExpatParseException if the setup process fails
      */
     public function init($tag, $attrs)
@@ -162,7 +172,7 @@ class ElementHandler extends AbstractHandler
     /**
      * Handles character data.
      *
-     * @param  string $data the CDATA that comes in
+     * @param string $data the CDATA that comes in
      * @throws ExpatParseException if the CDATA could not be set-up properly
      */
     public function characters($data)

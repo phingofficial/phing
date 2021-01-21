@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Parser\Location;
 
 /**
  * The Target component. Carries all required target data. Implements the

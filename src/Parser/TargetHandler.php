@@ -17,8 +17,19 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Parser;
+
+use Phing\Parser\ElementHandler;
+use Phing\Parser\ExpatParseException;
+use ExtensionPoint;
 use Phing\Exception\BuildException;
+use Phing\Parser\AbstractHandler;
+use Phing\Parser\AbstractSAXParser;
 use Phing\Util\StringHelper;
+use Phing\Parser\XmlContext;
+use Project;
+use Phing\Parser\ProjectConfigurator;
+use Target;
 
 /**
  * The target handler class.
@@ -49,17 +60,17 @@ class TargetHandler extends AbstractHandler
     private $configurator;
 
     /**
-     * @var PhingXMLContext
+     * @var XmlContext
      */
     private $context;
 
     /**
      * Constructs a new TargetHandler
      *
-     * @param    AbstractSAXParser $parser
-     * @param    AbstractHandler $parentHandler
-     * @param    ProjectConfigurator $configurator
-     * @param    PhingXMLContext $context
+     * @param AbstractSAXParser $parser
+     * @param AbstractHandler $parentHandler
+     * @param ProjectConfigurator $configurator
+     * @param XmlContext $context
      * @internal param the $object ExpatParser object
      * @internal param the $object parent handler that invoked this handler
      * @internal param the $object ProjectConfigurator object
@@ -68,8 +79,9 @@ class TargetHandler extends AbstractHandler
         AbstractSAXParser $parser,
         AbstractHandler $parentHandler,
         ProjectConfigurator $configurator,
-        PhingXMLContext $context
-    ) {
+        XmlContext $context
+    )
+    {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;
         $this->context = $context;
@@ -110,25 +122,25 @@ class TargetHandler extends AbstractHandler
         foreach ($attrs as $key => $value) {
             switch ($key) {
                 case "name":
-                    $name = (string) $value;
+                    $name = (string)$value;
                     break;
                 case "depends":
-                    $depends = (string) $value;
+                    $depends = (string)$value;
                     break;
                 case "if":
-                    $ifCond = (string) $value;
+                    $ifCond = (string)$value;
                     break;
                 case "unless":
-                    $unlessCond = (string) $value;
+                    $unlessCond = (string)$value;
                     break;
                 case "id":
-                    $id = (string) $value;
+                    $id = (string)$value;
                     break;
                 case "hidden":
                     $isHidden = ($value === 'true' || $value === '1');
                     break;
                 case "description":
-                    $description = (string) $value;
+                    $description = (string)$value;
                     break;
                 case "logskipped":
                     $logskipped = $value;

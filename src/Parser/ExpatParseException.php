@@ -17,22 +17,16 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Parser;
+
 use Phing\Exception\BuildException;
 
 /**
- * Enables a task to control unknown attributes.
+ * This class throws errors for Expat, the XML processor.
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Andreas Aderhold, andi@binarycloud.com
  * @package phing.parser
  */
-interface DynamicAttribute
+class ExpatParseException extends BuildException
 {
-    /**
-     * Set a named attribute to the given value.
-     *
-     * @param string $name the name of the attribute
-     * @param string $value the new value of the attribute
-     * @throws BuildException when any error occurs
-     */
-    public function setDynamicAttribute(string $name, string $value): void;
 }

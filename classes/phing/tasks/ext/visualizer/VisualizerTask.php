@@ -104,7 +104,7 @@ class VisualizerTask extends HttpTask
     protected function generatePumlDiagram(): string
     {
         /**
-         * @var \PhingXMLContext $xmlContext
+         * @var \Phing\Parser\XmlContext $xmlContext
          */
         $xmlContext = $this->getProject()
             ->getReference("phing.parsing.context");

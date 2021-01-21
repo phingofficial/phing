@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Parser;
+use Phing\Parser\CustomChildCreator;
+use Phing\Parser\DynamicAttribute;
+
 /**
  * Enables a task to control unknown attributes and elements.
  *

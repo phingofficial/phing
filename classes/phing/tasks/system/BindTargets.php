@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Parser\XmlContext;
+use Phing\Parser\ProjectConfigurator;
 
 /**
  * Simple task which bind some targets to some defined extension point
@@ -63,7 +65,7 @@ class BindTargets extends Task
             throw new BuildException('bindtargets only allowed as a top-level task');
         }
 
-        /** @var PhingXMLContext $ctx */
+        /** @var XmlContext $ctx */
         $ctx = $this->getProject()->getReference(ProjectConfigurator::PARSING_CONTEXT_REFERENCE);
 
         foreach ($this->targets as $target) {

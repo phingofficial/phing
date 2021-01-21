@@ -17,6 +17,16 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Parser;
+
+use Exception;
+use Phing\Parser\ExpatParseException;
+use IOException;
+use Phing\Parser\AbstractSAXParser;
+use Phing\Parser\Location;
+use Reader;
+use SplFileObject;
+
 /**
  * This class is a wrapper for the PHP's internal expat parser.
  *
@@ -63,8 +73,8 @@ class ExpatParser extends AbstractSAXParser
      * for the file to be parsed. It sets up php's internal expat parser
      * and options.
      *
-     * @param  Reader $reader The Reader Object that is to be read from.
-     * @param  string $filename Filename to read.
+     * @param Reader $reader The Reader Object that is to be read from.
+     * @param string $filename Filename to read.
      * @throws Exception if the given argument is not a PhingFile object
      */
     public function __construct(Reader $reader, $filename = null)
@@ -86,8 +96,8 @@ class ExpatParser extends AbstractSAXParser
      *
      * @param    $opt
      * @param    $val
-     * @internal param the $string option to set
      * @return   boolean true if the option could be set, otherwise false
+     * @internal param the $string option to set
      */
     public function parserSetOption($opt, $val)
     {

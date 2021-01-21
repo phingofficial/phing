@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Parser\DynamicConfigurator;
+
 /**
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>

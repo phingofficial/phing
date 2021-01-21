@@ -19,7 +19,7 @@
 
 namespace Phing\Exception;
 use Exception;
-use Location;
+use Phing\Parser\Location;
 use RuntimeException;
 use Throwable;
 

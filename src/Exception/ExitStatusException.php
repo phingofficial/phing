@@ -19,7 +19,7 @@
 
 namespace Phing\Exception;
 
-use Location;
+use Phing\Parser\Location;
 
 /**
  * BuildException + exit status.

@@ -17,7 +17,17 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Parser;
+
+use Phing\Parser\ElementHandler;
+use Phing\Parser\ExpatParseException;
+use Phing\Parser\ExpatParser;
+use Phing\Parser\AbstractHandler;
+use Phing\Parser\TargetHandler;
 use Phing\Util\StringHelper;
+use PhingFile;
+use Phing\Parser\XmlContext;
+use Phing\Parser\ProjectConfigurator;
 
 /**
  * Handler class for the <project> XML element This class handles all elements
@@ -38,7 +48,7 @@ class ProjectHandler extends AbstractHandler
     private $configurator;
 
     /**
-     * @var PhingXMLContext
+     * @var XmlContext
      */
     private $context;
 
@@ -48,14 +58,15 @@ class ProjectHandler extends AbstractHandler
      * @param ExpatParser $parser the ExpatParser object
      * @param AbstractHandler $parentHandler the parent handler that invoked this handler
      * @param ProjectConfigurator $configurator the ProjectConfigurator object
-     * @param PhingXMLContext $context
+     * @param XmlContext $context
      */
     public function __construct(
         ExpatParser $parser,
         AbstractHandler $parentHandler,
         ProjectConfigurator $configurator,
-        PhingXMLContext $context
-    ) {
+        XmlContext $context
+    )
+    {
         parent::__construct($parser, $parentHandler);
 
         $this->configurator = $configurator;
@@ -66,8 +77,8 @@ class ProjectHandler extends AbstractHandler
      * Executes initialization actions required to setup the project. Usually
      * this method handles the attributes of a tag.
      *
-     * @param  string $tag the tag that comes in
-     * @param  array $attrs attributes the tag carries
+     * @param string $tag the tag that comes in
+     * @param array $attrs attributes the tag carries
      * @throws ExpatParseException if attributes are incomplete or invalid
      */
     public function init($tag, $attrs)
@@ -110,7 +121,7 @@ class ProjectHandler extends AbstractHandler
 
         $canonicalName = self::canonicalName($name);
         $this->configurator->setCurrentProjectName($canonicalName);
-        $path = (string) $this->configurator->getBuildFile();
+        $path = (string)$this->configurator->getBuildFile();
         $project->setUserProperty("phing.file.{$canonicalName}", $path);
         $project->setUserProperty("phing.dir.{$canonicalName}", dirname($path));
 
@@ -170,8 +181,8 @@ class ProjectHandler extends AbstractHandler
      * Handles start elements within the <project> tag by creating and
      * calling the required handlers for the detected element.
      *
-     * @param  string $name the tag that comes in
-     * @param  array $attrs attributes the tag carries
+     * @param string $name the tag that comes in
+     * @param array $attrs attributes the tag carries
      * @throws ExpatParseException if a unxepected element occurs
      */
     public function startElement($name, $attrs)

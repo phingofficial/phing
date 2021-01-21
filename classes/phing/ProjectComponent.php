@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Parser\Location;
+
 /**
  *  Abstract class providing properties and methods common to all
  *  the project components

@@ -37,7 +37,7 @@ use OutputStream;
 use PhingFile;
 use PrintStream;
 use Project;
-use ProjectConfigurator;
+use Phing\Parser\ProjectConfigurator;
 use Properties;
 use SebastianBergmann\Version;
 use Phing\Listener\SilentLogger;

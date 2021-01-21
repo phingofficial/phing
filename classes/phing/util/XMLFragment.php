@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Parser\CustomChildCreator;
+
 /**
  * Use this class as a nested element if you want to get a literal DOM
  * fragment of something nested into your task/type.

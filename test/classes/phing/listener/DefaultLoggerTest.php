@@ -20,6 +20,8 @@
 use Phing\Exception\BuildException;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\DefaultLogger;
+use Phing\Parser\Location;
+use Phing\Parser\ProjectConfigurator;
 use PHPUnit\Framework\TestCase;
 
 class DefaultLoggerTest extends TestCase

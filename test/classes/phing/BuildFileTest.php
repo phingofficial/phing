@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Parser\ProjectConfigurator;
 use PHPUnit\Framework\TestCase;
 
 /**

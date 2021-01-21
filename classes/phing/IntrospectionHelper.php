@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Parser\CustomChildCreator;
+use Phing\Parser\DynamicAttribute;
 use Phing\Phing;
 use Phing\Util\StringHelper;
 
@@ -447,7 +449,7 @@ class IntrospectionHelper
             } catch (Exception $exc) {
                 throw new BuildException($exc->getMessage(), $exc);
             }
-        } elseif ($this->bean->implementsInterface("CustomChildCreator")) {
+        } elseif ($this->bean->implementsInterface(CustomChildCreator::class)) {
             $method = $this->bean->getMethod('customChildCreator');
 
             try {

@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Parser\XmlContext;
+use Phing\Parser\ProjectConfigurator;
 
 /**
  * Imports another build file into the current project.
@@ -192,7 +194,7 @@ class ImportTask extends Task
      */
     protected function importFile(PhingFile $file)
     {
-        /** @var PhingXMLContext $ctx */
+        /** @var XmlContext $ctx */
         $ctx = $this->project->getReference(ProjectConfigurator::PARSING_CONTEXT_REFERENCE);
         $cfg = $ctx->getConfigurator();
         // Import xml file into current project scope

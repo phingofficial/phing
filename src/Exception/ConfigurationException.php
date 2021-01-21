@@ -19,7 +19,7 @@
 
 namespace Phing\Exception;
 use Exception;
-use Location;
+use Phing\Parser\Location;
 
 /**
  * ConfigurationException is thrown by Phing during the configuration and setup phase of the project.

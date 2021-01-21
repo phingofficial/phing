@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Parser\ProjectConfigurator;
 
 /**
  *  Wrapper class that holds the attributes of a Task (or elements

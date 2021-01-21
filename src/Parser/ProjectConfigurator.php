@@ -17,9 +17,28 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Parser;
+
+use BufferedReader;
+use Exception;
+use Phing\Parser\ExpatParseException;
+use Phing\Parser\ExpatParser;
+use ExtensionPoint;
+use FileReader;
+use IntrospectionHelper;
+use IOException;
+use Phing\Parser\Location;
 use Phing\Exception\BuildException;
 use Phing\Exception\ExitStatusException;
 use Phing\Exception\NullPointerException;
+use Phing\Parser\RootHandler;
+use PhingFile;
+use Phing\Parser\XmlContext;
+use Project;
+use Target;
+use Task;
+use TypeAdapter;
+use UnknownElement;
 
 /**
  * The datatype handler class.
@@ -83,8 +102,8 @@ class ProjectConfigurator
      * This constructor is private. Use a static call to
      * <code>configureProject</code> to configure a project.
      *
-     * @param  Project $project the Project instance this configurator should use
-     * @param  PhingFile $buildFile the buildfile object the parser should use
+     * @param Project $project the Project instance this configurator should use
+     * @param PhingFile $buildFile the buildfile object the parser should use
      * @throws IOException
      * @throws NullPointerException
      */
@@ -178,7 +197,7 @@ class ProjectConfigurator
             $ctx = $this->project->getReference(self::PARSING_CONTEXT_REFERENCE);
             if (null == $ctx) {
                 // make a new context and register it with project
-                $ctx = new PhingXMLContext($this->project);
+                $ctx = new XmlContext($this->project);
                 $this->project->addReference(self::PARSING_CONTEXT_REFERENCE, $ctx);
             }
 
@@ -217,10 +236,10 @@ class ProjectConfigurator
     }
 
     /**
-     * @param PhingXMLContext $ctx
+     * @param XmlContext $ctx
      * @throws ExpatParseException
      */
-    protected function _parse(PhingXMLContext $ctx)
+    protected function _parse(XmlContext $ctx)
     {
         // push action onto global stack
         $ctx->startConfigure($this);
@@ -255,9 +274,9 @@ class ProjectConfigurator
     /**
      * Configures an element and resolves eventually given properties.
      *
-     * @param  mixed $target element to configure
-     * @param  array $attrs element's attributes
-     * @param  Project $project project this element belongs to
+     * @param mixed $target element to configure
+     * @param array $attrs element's attributes
+     * @param Project $project project this element belongs to
      * @throws BuildException
      * @throws Exception
      */
@@ -350,9 +369,9 @@ class ProjectConfigurator
     /**
      * Add location to build exception.
      *
-     * @param  BuildException $ex the build exception, if the build exception
+     * @param BuildException $ex the build exception, if the build exception
      *                                    does not include
-     * @param  Location $newLocation the location of the calling task (may be null)
+     * @param Location $newLocation the location of the calling task (may be null)
      * @return BuildException a new build exception based in the build exception with
      *         location set to newLocation. If the original exception
      *         did not have a location, just return the build exception
@@ -398,9 +417,9 @@ class ProjectConfigurator
      *                extensionPoint does not exist
      * @see OnMissingExtensionPoint
      */
-    public function resolveExtensionOfAttributes(Project $project, PhingXMLContext $ctx)
+    public function resolveExtensionOfAttributes(Project $project, XmlContext $ctx)
     {
-        /** @var PhingXMLContext $ctx */
+        /** @var XmlContext $ctx */
         foreach ($ctx->getExtensionPointStack() as [$extPointName, $targetName, $missingBehaviour, $prefixAndSep]) {
             // find the target we're extending
             $projectTargets = $project->getTargets();
