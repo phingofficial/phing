@@ -31,6 +31,7 @@
     },
     "require": {
         "php": "^7.3 || ^7.4",
+        "ext-dom": "*",
         "mehr-als-nix/parallel": "^v1.0",
         "phing/phing-composer-configurator": "dev-master",
         "phing/task-apigen": "dev-master",
@@ -99,6 +100,7 @@
         }
     },
     "suggest": {
+        "ext-posix": "*",
         "phpdocumentor/phpdocumentor": "Documentation Generator for PHP",
         "sebastian/phpcpd": "Copy/Paste Detector (CPD) for PHP code",
         "phpmd/phpmd": "PHP version of PMD tool",
