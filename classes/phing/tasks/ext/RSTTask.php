@@ -11,6 +11,8 @@
  * @link     http://www.phing.info/
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
  *

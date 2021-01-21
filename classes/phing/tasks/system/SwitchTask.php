@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Task definition for the phing task to switch on a particular value.
  *

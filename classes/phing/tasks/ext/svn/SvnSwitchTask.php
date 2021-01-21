@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Switches a repository at a given local directory to a different location
  *

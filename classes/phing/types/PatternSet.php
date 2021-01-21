@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * The patternset storage component. Carries all necessary data and methods
  * for the patternset stuff.

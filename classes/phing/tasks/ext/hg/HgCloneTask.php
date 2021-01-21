@@ -11,6 +11,8 @@
  * @link     https://github.com/kenguest/Phing-HG
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Integration/Wrapper for hg clone
  *

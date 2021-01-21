@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Abstract baseclass for the <condition> task as well as several
  * conditions - ensures that the types of conditions inside the task

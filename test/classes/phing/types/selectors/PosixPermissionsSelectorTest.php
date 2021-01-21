@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
 use PHPUnit\Framework\TestCase;
 use OsCondition as Os;
 

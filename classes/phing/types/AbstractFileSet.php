@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
+
 /**
  * The FileSet class provides methods and properties for accessing
  * and managing filesets. It extends ProjectComponent and thus inherits

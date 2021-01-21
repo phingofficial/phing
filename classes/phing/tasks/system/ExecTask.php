@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
 use Phing\Phing;
 
 /**
@@ -135,7 +137,7 @@ class ExecTask extends Task
     private $env;
 
     /**
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function __construct()
     {
@@ -147,7 +149,7 @@ class ExecTask extends Task
     /**
      * Main method: wraps execute() command.
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -288,7 +290,7 @@ class ExecTask extends Task
      * Executes the command and returns return code and output.
      *
      * @return array array(return code, array with output)
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function executeCommand()
     {
@@ -377,7 +379,7 @@ class ExecTask extends Task
      * @param string $command String or string-compatible (e.g. w/ __toString()).
      *
      * @return void
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setCommand($command): void
     {
@@ -675,7 +677,7 @@ class ExecTask extends Task
      *                               is returned.
      *
      * @return string the executable as a full path if it can be determined.
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws IOException
      * @throws NullPointerException
      */

@@ -22,6 +22,8 @@
  *  limitations under the License.
  */
 
+use Phing\Exception\BuildException;
+
 
 /**
  * Patches a file by applying a 'diff' file to it

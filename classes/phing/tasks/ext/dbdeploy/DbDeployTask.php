@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Generate SQL script for db using dbdeploy schema version table
  * and delta scripts

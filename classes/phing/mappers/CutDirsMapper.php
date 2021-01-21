@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * A mapper that strips of the a configurable number of leading
  * directories from a file name.

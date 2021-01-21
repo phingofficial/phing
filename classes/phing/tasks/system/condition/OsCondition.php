@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
 use Phing\Phing;
 
 /**
@@ -64,7 +65,7 @@ class OsCondition implements Condition
     /**
      * @param string $family
      * @return bool
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public static function isOS($family)
     {

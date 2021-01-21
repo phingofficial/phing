@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
+
 /**
  * Class that allows reading tokens from INI files.
  *

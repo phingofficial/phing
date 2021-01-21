@@ -19,6 +19,7 @@
 
 declare(strict_types=1);
 
+use Phing\Exception\BuildException;
 use PHPUnit\Framework\TestCase;
 
 class ScssPhpCompilerTest extends TestCase

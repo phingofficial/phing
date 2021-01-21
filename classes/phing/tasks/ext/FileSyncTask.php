@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * The FileSyncTask class copies files either to or from a remote host, or locally
  * on the current host. It allows rsync to transfer the differences between two

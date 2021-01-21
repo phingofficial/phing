@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\ConfigurationException;
+
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)

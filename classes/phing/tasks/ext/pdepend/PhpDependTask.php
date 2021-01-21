@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Runs the PHP_Depend software analyzer and metric tool.
  * Performs static code analysis on a given source base.

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Stores an object on S3
  *
@@ -205,7 +207,7 @@ class S3PutTask extends S3
     /**
      * @return string
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function getObject()
     {
@@ -435,7 +437,7 @@ class S3PutTask extends S3
     /**
      * @param string $key
      * @param string $sourceFile
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function saveObject($key, $sourceFile)
     {

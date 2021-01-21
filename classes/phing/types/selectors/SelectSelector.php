@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * This selector just holds one other selector and forwards all
  * requests to it. It exists so that there is a single selector

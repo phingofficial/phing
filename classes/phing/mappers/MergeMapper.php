@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * For merging files into a single file.  In practice just returns whatever value
  * was set for "to".

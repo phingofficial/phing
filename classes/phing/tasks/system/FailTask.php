@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\ExitStatusException;
+
 /**
  * Exits the active build, giving an additional message
  * if available.

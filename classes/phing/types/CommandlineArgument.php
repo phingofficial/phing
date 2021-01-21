@@ -58,7 +58,7 @@ class CommandlineArgument
      * Line to split into several commandline arguments.
      *
      * @param  string $line line to split into several commandline arguments
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setLine($line)
     {

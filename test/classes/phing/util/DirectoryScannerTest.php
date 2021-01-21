@@ -19,6 +19,8 @@
  * @package phing.util
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Testcases for phing.util.DirectoryScanner
  *

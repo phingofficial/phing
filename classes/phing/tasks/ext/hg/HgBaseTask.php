@@ -11,6 +11,8 @@
  * @link     https://github.com/kenguest/Phing-HG
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Base task for integrating phing and mercurial.
  *

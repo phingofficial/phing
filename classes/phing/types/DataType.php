@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Base class for those classes that can appear inside the build file
  * as stand alone data types.

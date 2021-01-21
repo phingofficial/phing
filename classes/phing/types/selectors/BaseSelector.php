@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * A convenience base class that you can subclass Selectors from. It
  * provides some helpful common behaviour. Note that there is no need
@@ -73,7 +75,7 @@ abstract class BaseSelector extends DataType implements FileSelector
      * <p>Implementations should check for incorrect settings and call
      * setError() as necessary.</p>
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function verifySettings()
     {

@@ -19,6 +19,7 @@
 
 declare(strict_types=1);
 
+use Phing\Exception\BuildException;
 use function Jawira\PlantUml\encodep;
 
 /**
@@ -84,7 +85,7 @@ class VisualizerTask extends HttpTask
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \IOException
-     * @throws \NullPointerException
+     * @throws \Phing\Exception\NullPointerException
      */
     public function main(): void
     {
@@ -185,7 +186,7 @@ class VisualizerTask extends HttpTask
      *
      * @return \PhingFile
      * @throws \IOException
-     * @throws \NullPointerException
+     * @throws \Phing\Exception\NullPointerException
      */
     protected function resolveImageDestination(): PhingFile
     {

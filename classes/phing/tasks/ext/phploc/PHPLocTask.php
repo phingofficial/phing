@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Runs phploc a tool for quickly measuring the size of PHP projects.
  *

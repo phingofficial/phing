@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * This task sets a property to the name of a temporary file.
  * Unlike {@link PhingFile::createTempFile()}, this task does not (by default) actually create the

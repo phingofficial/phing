@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Commandline objects help handling command lines specifying processes to
  * execute.
@@ -261,7 +263,7 @@ class Commandline implements Countable
      * @return string[] the command line broken into strings.
      *                  An empty or null toProcess parameter results in a zero sized array.
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public static function translateCommandline(string $toProcess = null): array
     {
@@ -337,7 +339,7 @@ class Commandline implements Countable
     }
 
     /**
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function __clone()
     {

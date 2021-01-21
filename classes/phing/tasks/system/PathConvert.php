@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Converts path and classpath information to a specific target OS
  * format. The resulting formatted path is placed into the specified property.

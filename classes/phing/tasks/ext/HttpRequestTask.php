@@ -18,6 +18,7 @@
  */
 
 use GuzzleHttp\Middleware;
+use Phing\Exception\BuildException;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\ConsoleOutput;

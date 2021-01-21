@@ -17,6 +17,12 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Exception;
+use Exception;
+use Location;
+use RuntimeException;
+use Throwable;
+
 /**
  * BuildException is for when things go wrong in a build execution.
  *
@@ -75,7 +81,7 @@ class BuildException extends RuntimeException
             $cause = $p1;
             $msg = $p1->getMessage();
         } else {
-            $msg = (string) $p1;
+            $msg = (string)$p1;
         }
 
         if ($loc !== null) {
@@ -107,6 +113,6 @@ class BuildException extends RuntimeException
 
     public function __toString()
     {
-        return (string) $this->location . ' ' . $this->getMessage();
+        return (string)$this->location . ' ' . $this->getMessage();
     }
 }

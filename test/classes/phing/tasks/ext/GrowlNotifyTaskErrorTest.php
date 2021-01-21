@@ -38,6 +38,8 @@
  * @link       https://github.com/llaville/phing-GrowlNotifyTask
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Tests for GrowlNotifyTask that raised error
  *

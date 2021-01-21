@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * A XML lint task. Checking syntax of one or more XML files against an XML Schema using the DOM extension.
  *

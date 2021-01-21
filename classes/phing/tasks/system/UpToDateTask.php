@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Sets the given property if the specified target has a timestamp
  * greater than all of the source files.

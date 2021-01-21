@@ -1,5 +1,7 @@
 <?php
 
+use Phing\Exception\BuildException;
+
 /**
  * Tests the Relentless Task
  *

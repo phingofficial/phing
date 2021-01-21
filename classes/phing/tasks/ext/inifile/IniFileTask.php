@@ -13,6 +13,8 @@
  * @link     http://www.phing.info/
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * InifileTask
  *

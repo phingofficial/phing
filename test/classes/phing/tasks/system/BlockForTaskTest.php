@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildTimeoutException;
+
 /**
  * Tests the BlockFor Task
  *

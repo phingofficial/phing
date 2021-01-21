@@ -19,6 +19,8 @@
 
 declare(strict_types=1);
 
+use Phing\Exception\BuildException;
+
 class SassCompiler implements SassTaskCompiler
 {
 

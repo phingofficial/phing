@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * The base class for all Tasks.
  *
@@ -184,7 +186,7 @@ abstract class Task extends ProjectComponent
                 $this->project->fireTaskStarted($this);
                 $this->maybeConfigure();
                 DispatchUtils::main($this);
-            } catch (\BuildException $ex) {
+            } catch (\Phing\Exception\BuildException $ex) {
                 $loc = $ex->getLocation();
                 if ($loc === null || (string) $loc === '') {
                     $ex->setLocation($this->getLocation());
@@ -193,7 +195,7 @@ abstract class Task extends ProjectComponent
                 throw $ex;
             } catch (\Exception $ex) {
                 $reason = $ex;
-                $be = new \BuildException($ex);
+                $be = new \Phing\Exception\BuildException($ex);
                 $be->setLocation($this->getLocation());
                 throw $be;
             } catch (\Error $ex) {

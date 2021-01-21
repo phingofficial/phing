@@ -20,6 +20,7 @@
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use Phing\Exception\BuildException;
 
 /**
  * @author Alexey Borzov <avb@php.net>

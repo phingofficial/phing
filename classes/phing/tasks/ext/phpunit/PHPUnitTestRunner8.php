@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *
@@ -126,7 +128,7 @@ class PHPUnitTestRunner8 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * Run a test
      *
      * @param  PHPUnit\Framework\TestSuite $suite
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws ReflectionException
      */
     public function run(PHPUnit\Framework\TestSuite $suite)

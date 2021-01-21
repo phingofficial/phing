@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Condition returns true if selected partition has the requested space, false otherwise.
  *

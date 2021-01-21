@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\ConfigurationException;
+
 /**
  * @package phing.tasks.system
  */

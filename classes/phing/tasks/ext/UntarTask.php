@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Extracts one or several tar archives using PEAR Archive_Tar
  *

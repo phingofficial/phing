@@ -19,6 +19,8 @@
  * @package phing.tasks.ext
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Uses the DocBlox_Parallel library to run nested Phing tasks concurrently.
  *

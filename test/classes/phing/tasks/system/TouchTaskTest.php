@@ -18,6 +18,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Tests the Touch Task
  *

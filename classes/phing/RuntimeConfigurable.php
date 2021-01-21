@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  *  Wrapper class that holds the attributes of a Task (or elements
  *  nested below that level) and takes care of configuring that element

@@ -17,38 +17,14 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Exception;
+
 /**
- * BuildException + exit status.
+ * This exception is used to indicate timeouts.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing
  */
-class ExitStatusException extends BuildException
+class BuildTimeoutException extends BuildException
 {
-    /**
-     * Status code
-     */
-    protected $code;
-
-    /**
-     * Constructs an <code>ExitStatusException</code>.
-     *
-     * @param null|int|string $arg1
-     * @param int $arg2
-     * @param Location $arg3
-     */
-    public function __construct($arg1 = null, $arg2 = 0, Location $arg3 = null)
-    {
-        $methodArgsNum = func_num_args();
-        if ($methodArgsNum === 1) {
-            parent::__construct();
-            $this->code = (int) $arg1;
-        } elseif ($methodArgsNum === 2 && is_string($arg1) && is_int($arg2)) {
-            parent::__construct($arg1);
-            $this->code = $arg2;
-        } elseif ($methodArgsNum === 3 && is_string($arg1) && is_int($arg2)) {
-            parent::__construct($arg1, $arg3);
-            $this->code = $arg2;
-        }
-    }
 }

@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
+
 /**
  * FileList represents an explicitly named list of files. FileLists
  * are useful when you want to capture a list of files regardless of

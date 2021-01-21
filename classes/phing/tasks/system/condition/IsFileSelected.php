@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * This is a condition that checks to see if a file passes an embedded selector.
  */

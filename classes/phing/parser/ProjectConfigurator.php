@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\ExitStatusException;
+use Phing\Exception\NullPointerException;
+
 /**
  * The datatype handler class.
  *
@@ -66,7 +70,7 @@ class ProjectConfigurator
      * @param PhingFile $buildFile the buildfile object the parser should use
      *
      * @throws \IOException
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws NullPointerException
      */
     public static function configureProject(Project $project, PhingFile $buildFile): void

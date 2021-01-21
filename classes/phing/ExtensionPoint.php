@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * An extension point build files can provide as a place where other
  * build files can add new dependencies.
@@ -31,7 +33,7 @@ class ExtensionPoint extends Target
     /**
      * Throws an exception.
      * @param Task $task
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function addTask(Task $task)
     {
@@ -41,7 +43,7 @@ class ExtensionPoint extends Target
     /**
      * Throws an exception.
      * @param RuntimeConfigurable $r
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function addDataType($r)
     {

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)

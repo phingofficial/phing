@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Helper class, holds the nested &lt;map&gt; values. Elements will look like
  * this: &lt;map from=&quot;d:&quot; to=&quot;/foo&quot;/&gt;

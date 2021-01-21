@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Use introspection to "adapt" an arbitrary ( not extending Task, but with
  * similar patterns).

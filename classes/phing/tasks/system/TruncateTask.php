@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
@@ -35,7 +37,7 @@ class TruncateTask extends Task
      *
      * @param  PhingFile $f the single File
      * @throws \IOException
-     * @throws \NullPointerException
+     * @throws \Phing\Exception\NullPointerException
      */
     public function setFile(PhingFile $f): void
     {
@@ -59,7 +61,7 @@ class TruncateTask extends Task
      *
      * @param string $length (positive) adjustment amount.
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setLength(string $length)
     {
@@ -93,7 +95,7 @@ class TruncateTask extends Task
     /**
      * {@inheritDoc}.
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -117,7 +119,7 @@ class TruncateTask extends Task
     /**
      * @param PhingFile $f
      * @return bool
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function shouldProcess(PhingFile $f)
     {

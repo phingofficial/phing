@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
+
 /**
  * This object represents a path as used by include_path or PATH
  * environment variable.

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Examines and removes out of date target files.  If any of the target files
  * are out of date with respect to any of the source files, all target

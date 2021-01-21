@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
 use SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy;
 use Composer\Autoload\ClassLoader;
 

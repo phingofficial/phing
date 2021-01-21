@@ -17,12 +17,13 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Exception;
+use Exception;
+
 /**
- * This exception is used to indicate timeouts.
- *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing
+ * @package phing.system.lang
+ * @deprecated
  */
-class BuildTimeoutException extends BuildException
+class NullPointerException extends Exception
 {
 }

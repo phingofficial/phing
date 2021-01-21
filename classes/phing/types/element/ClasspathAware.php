@@ -1,4 +1,7 @@
 <?php
+
+use Phing\Exception\BuildException;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -42,7 +45,7 @@ trait ClasspathAware
     /**
      * @param Path $classpath
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setClasspath(Path $classpath): void
     {
@@ -56,7 +59,7 @@ trait ClasspathAware
     /**
      * @return Path
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createClasspath(): \Path
     {

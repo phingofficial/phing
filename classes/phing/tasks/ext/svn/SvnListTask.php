@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Stores the output of a list command on a workingcopy or repositoryurl in a property.
  * This stems from the SvnLastRevisionTask.

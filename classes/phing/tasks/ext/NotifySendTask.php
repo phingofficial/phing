@@ -11,6 +11,8 @@
  * @link     https://github.com/kenguest/Phing-NotifySendTask
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * NotifySendTask
  *

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * WikiPublish task test
  * @author  Piotr Lewandowski <piotr@cassis.pl>

@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
+
 /**
  * Class for scanning a directory for files/directories that match a certain
  * criteria.
@@ -928,7 +931,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * @param  string $file The full file path.
      * @return boolean False when the selectors says that the file
      *                      should not be selected, True otherwise.
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws \IOException
      * @throws NullPointerException
      */

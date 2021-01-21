@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
+
 /**
  *  Appends text, contents of a file or set of files defined by a filelist to a destination file.
  *

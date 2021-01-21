@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.
  *

@@ -18,6 +18,8 @@ declare(strict_types=1);
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * SizeHelper class
  *

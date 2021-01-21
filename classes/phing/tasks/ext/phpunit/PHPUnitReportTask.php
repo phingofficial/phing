@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
 use Phing\Phing;
 
 /**
@@ -276,7 +278,7 @@ class PHPUnitReportTask extends Task
     /**
      * Initialize the task
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function init()
     {

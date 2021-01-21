@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * A simple string comparator.  Compares two strings for eqiality in a
  * binary safe manner. Implements the condition interface specification.

@@ -20,6 +20,7 @@
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
+use Phing\Exception\BuildException;
 use Psr\Http\Message\ResponseInterface;
 
 /**

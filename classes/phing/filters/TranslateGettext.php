@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Replaces gettext("message id") and _("message id") with the translated string.
  *

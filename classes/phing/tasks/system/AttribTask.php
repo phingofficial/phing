@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Changes the attributes of a file or all files inside specified directories.
  * Right now it has effect only under Windows. Each of the 4 possible

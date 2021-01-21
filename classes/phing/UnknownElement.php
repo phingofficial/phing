@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Wrapper class that holds all information necessary to create a task
  * that did not exist when Phing started.

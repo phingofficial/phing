@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * The Target component. Carries all required target data. Implements the
  * abstract class {@link TaskContainer}
@@ -482,7 +484,7 @@ class Target implements TaskContainer
      * @param string $targetName
      * @param string $attributeName
      * @return string[]
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public static function parseDepends($depends, $targetName, $attributeName)
     {

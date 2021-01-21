@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * A mapping selector is an abstract class adding mapping support to the
  * base selector

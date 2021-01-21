@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * A phing copy task.  Copies a file or directory to a new file
  * or directory.  Files are only copied if the source file is newer

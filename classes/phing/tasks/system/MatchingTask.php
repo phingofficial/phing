@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * This is an abstract task that should be used by all those tasks that
  * require to include or exclude files based on pattern matching.

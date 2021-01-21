@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * A Javascript lint task. Checks syntax of Javascript files.
  * Javascript lint (http://www.javascriptlint.com) must be in the system path.

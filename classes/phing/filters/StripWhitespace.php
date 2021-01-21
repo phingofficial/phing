@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\NullPointerException;
+
 /**
  * Strips whitespace from [php] files using PHP stripwhitespace() method.
  *

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Simple regular expression condition.
  *
@@ -70,7 +72,7 @@ class Matches extends ProjectComponent implements Condition
 
     /**
      * @param string $pattern
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setPattern($pattern)
     {

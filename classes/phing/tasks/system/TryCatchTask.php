@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * A wrapper task that lets you run tasks(s) when another set
  * of tasks fails.

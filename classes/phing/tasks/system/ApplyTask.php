@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
 use Phing\Phing;
 
 /**
@@ -246,7 +248,7 @@ class ApplyTask extends ExecTask
      * Supports embedded <targetfile> element.
      *
      * @return CommandlineMarker
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createTargetfile()
     {
@@ -268,7 +270,7 @@ class ApplyTask extends ExecTask
      * Supports embedded <srcfile> element.
      *
      * @return CommandlineMarker
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createSrcfile()
     {
@@ -286,7 +288,7 @@ class ApplyTask extends ExecTask
 
     /**
      * @return Mapper
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createMapper()
     {
@@ -307,7 +309,7 @@ class ApplyTask extends ExecTask
     /**
      * Do work
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -441,7 +443,7 @@ class ApplyTask extends ExecTask
      * - Working directory
      *
      * @return void
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws IOException
      */
     protected function prepare()
@@ -535,7 +537,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function buildCommand()
     {
@@ -602,7 +604,7 @@ class ApplyTask extends ExecTask
      * @param string $basedir Base directory of the file list
      *
      * @return void
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws IOException
      * @throws NullPointerException
      */

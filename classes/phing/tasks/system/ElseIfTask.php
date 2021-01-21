@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * "Inner" class for IfTask.
  * This class has same basic structure as the IfTask, although of course it doesn't support <else> tags.

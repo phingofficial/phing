@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Runs PHP Mess Detector. Checking PHP files for several potential problems
  * based on rulesets.

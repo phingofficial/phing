@@ -18,6 +18,7 @@
  */
 
 use GuzzleHttp\Psr7\Response;
+use Phing\Exception\BuildException;
 
 /**
  * @author Alexey Borzov <avb@php.net>

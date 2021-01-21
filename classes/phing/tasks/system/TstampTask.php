@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Sets properties to the current time, or offsets from the current time.
  * The default properties are TSTAMP, DSTAMP and TODAY;

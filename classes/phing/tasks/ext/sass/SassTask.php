@@ -23,6 +23,8 @@
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Executes Sass for a particular fileset.
  *

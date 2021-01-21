@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Generates symlinks based on a target / link combination.
  * Can also symlink contents of a directory, individually

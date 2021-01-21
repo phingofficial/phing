@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.
  *

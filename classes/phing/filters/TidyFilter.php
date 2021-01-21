@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * This filter uses the bundled-with-PHP Tidy extension to filter input.
  *

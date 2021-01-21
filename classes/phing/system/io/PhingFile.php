@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\NullPointerException;
+
 /**
  * An abstract representation of file and directory pathnames.
  *

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Coverts a path to a fileset.
  * This is useful if you have a path but need to use a fileset as input in a phing task.

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * This task is for using filter chains to make changes to files and overwrite the original files.
  *

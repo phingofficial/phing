@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Relentless is an Ant task that will relentlessly execute other tasks,
  * ignoring any failures until all tasks have completed. If any of the executed
@@ -40,7 +42,7 @@ class Relentless extends Task implements TaskContainer
     /**
      * This method will be called when it is time to execute the task.
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

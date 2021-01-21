@@ -19,14 +19,14 @@
 
 namespace Phing;
 
-use BuildException;
+use Phing\Exception\BuildException;
 use BuildLogger;
-use ConfigurationException;
+use Phing\Exception\ConfigurationException;
 use ConsoleInputHandler;
 use DefaultLogger;
 use Diagnostics;
 use Exception;
-use ExitStatusException;
+use Phing\Exception\ExitStatusException;
 use FileOutputStream;
 use FileParserFactory;
 use FileReader;

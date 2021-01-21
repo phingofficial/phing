@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
  *

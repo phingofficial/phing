@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * This selector selects files against a mapped set of target files, selecting
  * all those files which are different.
