@@ -21,6 +21,7 @@ use Phing\Io\FileReader;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Io\StringReader;
+use Phing\Project;
 
 /**
  * "Inner" class that contains the definition of a new transaction element.

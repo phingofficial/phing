@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\ExitStatusException;
+use Phing\Project;
 
 /**
  * Exits the active build, giving an additional message

@@ -17,8 +17,14 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
 use Phing\Exception\BuildException;
 use Phing\Parser\Location;
+use Phing\TaskContainer;
+use Phing\Project;
+use Phing\RuntimeConfigurable;
+use Task;
 
 /**
  * The Target component. Carries all required target data. Implements the
@@ -154,7 +160,7 @@ class Target implements TaskContainer
     /**
      * Sets the target dependencies from xml
      *
-     * @param  string $depends Comma separated list of targetnames that depend on
+     * @param string $depends Comma separated list of targetnames that depend on
      *                         this target
      * @throws BuildException
      */
@@ -180,7 +186,7 @@ class Target implements TaskContainer
      */
     public function addDependency($dependency)
     {
-        $this->dependencies[] = (string) $dependency;
+        $this->dependencies[] = (string)$dependency;
     }
 
     /**
@@ -209,7 +215,7 @@ class Target implements TaskContainer
      */
     public function setName($name)
     {
-        $this->name = (string) $name;
+        $this->name = (string)$name;
     }
 
     /**
@@ -219,18 +225,18 @@ class Target implements TaskContainer
      */
     public function getName()
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     /**
      * Set target status. If true, target does not come in phing -list
      *
-     * @param  boolean $flag
+     * @param boolean $flag
      * @return Target
      */
     public function setHidden($flag)
     {
-        $this->hidden = (bool) $flag;
+        $this->hidden = (bool)$flag;
 
         return $this;
     }
@@ -366,7 +372,7 @@ class Target implements TaskContainer
      */
     public function __toString()
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     /**

@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Phing;
+use Phing\Project;
 use Phing\Util\Regexp;
 use Phing\Util\StringHelper;
 

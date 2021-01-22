@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Project;
+
 /**
  * "Internal" class for holding an include/exclude pattern.
  *

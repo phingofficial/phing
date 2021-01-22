@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\TaskContainer;
 
 /**
  * Retries the nested task a set number of times.

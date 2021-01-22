@@ -23,7 +23,7 @@ use Phing\Io\OutputStream;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\TimestampedLogger;
 use PHPUnit\Framework\TestCase;
-use Project;
+use Phing\Project;
 
 class TimestampedLoggerTest extends TestCase
 {

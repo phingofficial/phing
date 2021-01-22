@@ -22,8 +22,8 @@ namespace Phing;
 use Phing\Io\OutputStream;
 use Phing\Phing;
 use Phing\Util\Timer;
-use Project;
-use Target;
+use Phing\Project;
+use Phing\Target;
 
 /**
  * Core Phing class test

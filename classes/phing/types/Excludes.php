@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\DirectoryScanner;
+use Phing\Project;
 
 /**
  * Datatype which handles excluded files, classes and methods.

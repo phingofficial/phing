@@ -17,36 +17,25 @@
  * <http://phing.info>.
  */
 
-use Phing\Exception\BuildException;
+namespace Phing;
+use Task;
 
 /**
- * An extension point build files can provide as a place where other
- * build files can add new dependencies.
+ *  Abstract interface for objects which can contain tasks (targets)
+ *  Used to check if a class can contain tasks (via instanceof)
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ *
+ * @package phing
  */
-class ExtensionPoint extends Target
+interface TaskContainer
 {
-    private const NO_CHILDREN_ALLOWED = "you must not nest child elements into an extension-point";
-
     /**
-     * Throws an exception.
-     * @param Task $task
-     * @throws \Phing\Exception\BuildException
+     * Adds a task to this task container. Must be implemented
+     * by derived class
+     *
+     * @param Task $task The task to be added to the container.
      */
-    public function addTask(Task $task)
-    {
-        throw new BuildException(self::NO_CHILDREN_ALLOWED);
-    }
-
-    /**
-     * Throws an exception.
-     * @param RuntimeConfigurable $r
-     * @throws \Phing\Exception\BuildException
-     */
-    public function addDataType($r)
-    {
-        throw new BuildException(self::NO_CHILDREN_ALLOWED);
-    }
+    public function addTask(Task $task);
 }

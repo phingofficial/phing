@@ -26,6 +26,7 @@ use Phing\Listener\BuildLogger;
 use Phing\Listener\DefaultLogger;
 use Phing\Listener\SubBuildListener;
 use Phing\Phing;
+use Phing\Project;
 use Phing\Util\StringHelper;
 
 /**

@@ -18,10 +18,12 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\IntrospectionHelper;
 use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 use Phing\Phing;
+use Phing\Project;
 use Phing\Util\StringHelper;
 
 /**

@@ -23,7 +23,7 @@ use Exception;
 use Phing\Io\IOException;
 use Phing\Filter\BaseFilterReader;
 use Phing\Filter\ChainableReader;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 use RegularExpression;
 

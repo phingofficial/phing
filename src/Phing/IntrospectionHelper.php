@@ -17,12 +17,22 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use Exception;
+use Path;
 use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreator;
 use Phing\Parser\DynamicAttribute;
 use Phing\Phing;
+use Phing\Project;
+use Phing\ProjectComponent;
+use Phing\TaskContainer;
 use Phing\Util\Register;
 use Phing\Util\StringHelper;
+use Reference;
+use ReflectionClass;
+use Task;
 
 /**
  * Helper class that collects the methods that a task or nested element
@@ -105,7 +115,7 @@ class IntrospectionHelper
     /**
      * Factory method for helper objects.
      *
-     * @param  string $class The class to create a Helper for
+     * @param string $class The class to create a Helper for
      * @return IntrospectionHelper
      */
     public static function getHelper($class)
@@ -125,7 +135,7 @@ class IntrospectionHelper
      * need to perform any introspection -- either the requested attribute setter/creator
      * exists or it does not & a BuildException is thrown.
      *
-     * @param  string $class The classname for this IH.
+     * @param string $class The classname for this IH.
      * @throws BuildException
      */
     public function __construct($class)
@@ -148,8 +158,8 @@ class IntrospectionHelper
                     $name === "setlocation"
                     || $name === "settasktype"
                     || ('addtask' === $name
-                    && $this->isContainer()
-                    && count($method->getParameters()) === 1
+                        && $this->isContainer()
+                        && count($method->getParameters()) === 1
                         && Task::class === $method->getParameters()[0])
                 ) {
                     continue;
@@ -273,10 +283,10 @@ class IntrospectionHelper
     /**
      * Sets the named attribute.
      *
-     * @param  Project $project
-     * @param  object $element
-     * @param  string $attributeName
-     * @param  mixed $value
+     * @param Project $project
+     * @param object $element
+     * @param string $attributeName
+     * @param mixed $value
      * @throws BuildException
      */
     public function setAttribute(Project $project, $element, $attributeName, &$value)
@@ -295,9 +305,9 @@ class IntrospectionHelper
 
             if (!isset($this->slotListeners[$as])) {
                 $msg = $this->getElementName(
-                    $project,
-                    $element
-                ) . " doesn't support a slot-listening '$attributeName' attribute.";
+                        $project,
+                        $element
+                    ) . " doesn't support a slot-listening '$attributeName' attribute.";
                 throw new BuildException($msg);
             }
 
@@ -314,7 +324,7 @@ class IntrospectionHelper
 
             if (!isset($this->attributeSetters[$as])) {
                 if ($element instanceof DynamicAttribute) {
-                    $element->setDynamicAttribute($attributeName, (string) $value);
+                    $element->setDynamicAttribute($attributeName, (string)$value);
                     return;
                 }
                 $msg = $this->getElementName($project, $element) . " doesn't support the '$attributeName' attribute.";
@@ -369,9 +379,9 @@ class IntrospectionHelper
     /**
      * Adds PCDATA areas.
      *
-     * @param  Project $project
-     * @param  string $element
-     * @param  string $text
+     * @param Project $project
+     * @param string $element
+     * @param string $text
      * @throws BuildException
      */
     public function addText(Project $project, $element, $text)
@@ -393,10 +403,10 @@ class IntrospectionHelper
      *
      * Valid creators can be in the form createFoo() or addFoo(Bar).
      *
-     * @param  Project $project
-     * @param  object $element Object the XML tag is child of.
+     * @param Project $project
+     * @param object $element Object the XML tag is child of.
      *                              Often a task object.
-     * @param  string $elementName XML tag name
+     * @param string $elementName XML tag name
      * @return object         Returns the nested element.
      * @throws BuildException
      */
@@ -497,10 +507,10 @@ class IntrospectionHelper
     /**
      * Creates a named nested element.
      *
-     * @param  Project $project
-     * @param  string $element
-     * @param  string $child
-     * @param  string|null $elementName
+     * @param Project $project
+     * @param string $element
+     * @param string $child
+     * @param string|null $elementName
      * @return void
      * @throws BuildException
      */
@@ -568,8 +578,8 @@ class IntrospectionHelper
      * be returned.  If not available (loaded in taskdefs or typedefs) then the
      * XML element name will be returned.
      *
-     * @param  Project $project
-     * @param  object $element The Task or type element.
+     * @param Project $project
+     * @param object $element The Task or type element.
      * @return string  Fully qualified class name of element when possible.
      */
     public function getElementName(Project $project, $element)
@@ -609,8 +619,8 @@ class IntrospectionHelper
     /**
      * Extract the name of a property from a method name - subtracting  a given prefix.
      *
-     * @param  string $methodName
-     * @param  string $prefix
+     * @param string $methodName
+     * @param string $prefix
      * @return string
      */
     public function getPropertyName($methodName, $prefix)

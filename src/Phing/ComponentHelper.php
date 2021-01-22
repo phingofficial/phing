@@ -17,12 +17,22 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use Condition;
+use DataType;
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
+use Phing\Project;
+use Phing\ProjectComponent;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
+use ReflectionClass;
+use Task;
+use TaskAdapter;
 
 /**
  * Component creation and configuration
@@ -184,7 +194,7 @@ class ComponentHelper
     /**
      * Create a new task instance and return reference to it.
      *
-     * @param  string $taskType Task name
+     * @param string $taskType Task name
      * @return Task           A task object
      * @throws BuildException
      */
@@ -230,7 +240,7 @@ class ComponentHelper
     /**
      * Creates a new condition and returns the reference to it
      *
-     * @param  string $conditionType
+     * @param string $conditionType
      * @return Condition
      * @throws BuildException
      */
@@ -283,7 +293,7 @@ class ComponentHelper
      * Create a datatype instance and return reference to it
      * See createTask() for explanation how this works
      *
-     * @param  string $typeName Type name
+     * @param string $typeName Type name
      * @return object         A datatype object
      * @throws BuildException
      *                                 Exception
@@ -331,7 +341,7 @@ class ComponentHelper
 
         try { // try to load taskdefs
             $props = new Properties();
-            $in = new File((string) $taskdefs);
+            $in = new File((string)$taskdefs);
 
             if ($in === null) {
                 throw new BuildException("Can't load default task list");
@@ -354,7 +364,7 @@ class ComponentHelper
 
         try { // try to load typedefs
             $props = new Properties();
-            $in = new File((string) $typedefs);
+            $in = new File((string)$typedefs);
             if ($in === null) {
                 throw new BuildException("Can't load default datatype list");
             }
@@ -375,7 +385,7 @@ class ComponentHelper
         $taskdefs = Phing::getResourcePath("custom.task.properties");
         try { // try to load typedefs
             $props = new Properties();
-            $in = new File((string) $taskdefs);
+            $in = new File((string)$taskdefs);
             if (!$in->exists()) {
                 return;
             }
@@ -395,7 +405,7 @@ class ComponentHelper
         $typedefs = Phing::getResourcePath("custom.type.properties");
         try { // try to load typedefs
             $props = new Properties();
-            $in = new File((string) $typedefs);
+            $in = new File((string)$typedefs);
             if (!$in->exists()) {
                 return;
             }

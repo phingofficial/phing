@@ -29,7 +29,7 @@ use Phing\Io\OutputStream;
 use Phing\Io\OutputStreamWriter;
 use Phing\Exception\BuildException;
 use Phing\Phing;
-use Project;
+use Phing\Project;
 
 /**
  * Generates a file in the current directory with

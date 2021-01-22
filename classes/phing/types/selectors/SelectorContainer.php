@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Project;
+
 /**
  * This is the interface for selectors that can contain other selectors.
  *

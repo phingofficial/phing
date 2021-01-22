@@ -24,9 +24,9 @@ use Phing\Parser\AbstractHandler;
 use Phing\Parser\AbstractSAXParser;
 use Phing\Parser\ExpatParseException;
 use Phing\Parser\ProjectConfigurator;
-use RuntimeConfigurable;
-use Target;
-use UnknownElement;
+use Phing\RuntimeConfigurable;
+use Phing\Target;
+use Phing\UnknownElement;
 
 /**
  * The generic element handler class.

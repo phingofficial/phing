@@ -18,8 +18,8 @@
  */
 
 namespace Phing\Parser;
-use Project;
-use Target;
+use Phing\Project;
+use Phing\Target;
 
 /**
  * Track the current state of the Xml parse operation.

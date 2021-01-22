@@ -26,6 +26,8 @@ use Phing\Io\FileUtils;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Io\StringReader;
+use Phing\Project;
+use Phing\PropertyHelper;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
 

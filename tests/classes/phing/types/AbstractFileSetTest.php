@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * Unit tests for AbstractFileSet.

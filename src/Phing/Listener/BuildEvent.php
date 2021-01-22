@@ -21,8 +21,8 @@ namespace Phing\Listener;
 
 use Phing\Listener\EventObject;
 use Exception;
-use Project;
-use Target;
+use Phing\Project;
+use Phing\Target;
 use Task;
 
 /**

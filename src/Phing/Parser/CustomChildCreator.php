@@ -18,7 +18,7 @@
  */
 
 namespace Phing\Parser;
-use Project;
+use Phing\Project;
 
 /**
  * Interface for elements that want to be able to create custom child elements

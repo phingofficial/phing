@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
 
 /**
  * Generate SQL script for db using dbdeploy schema version table

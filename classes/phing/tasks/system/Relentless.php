@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\TaskContainer;
 
 /**
  * Relentless is an Ant task that will relentlessly execute other tasks,

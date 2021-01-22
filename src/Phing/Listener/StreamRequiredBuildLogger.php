@@ -19,6 +19,8 @@
 
 namespace Phing\Listener;
 
+use Phing\Project;
+
 /**
  * Interface for build loggers that require that out/err streams be set in order to function.
  *

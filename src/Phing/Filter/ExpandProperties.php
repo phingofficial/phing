@@ -22,7 +22,7 @@ namespace Phing\Filter;
 use Phing\Filter\BaseFilterReader;
 use Phing\Io\IOException;
 use Phing\Filter\ChainableReader;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 
 /**

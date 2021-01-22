@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\TaskContainer;
 
 /**
  * Sequential is a container task that contains other Phing Task objects.

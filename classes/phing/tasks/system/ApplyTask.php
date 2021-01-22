@@ -25,6 +25,7 @@ use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Io\SourceFileScanner;
 use Phing\Phing;
+use Phing\Project;
 
 /**
  * Executes a command on the (filtered) file list/set.

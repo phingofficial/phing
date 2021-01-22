@@ -22,6 +22,7 @@ use Phing\Io\DirectoryScanner;
 use Phing\Io\FileSystem;
 use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * <foreach> task

@@ -21,6 +21,8 @@ use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Io\FileUtils;
 use Phing\Io\File;
+use Phing\Project;
+use Phing\UnknownElement;
 
 /**
  * Tests the Exec Task

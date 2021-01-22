@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\IOException;
 use Phing\Io\TokenReader;
 use Phing\Phing;
+use Phing\Project;
 
 /**
  * A parameter is composed of a name, type and value.

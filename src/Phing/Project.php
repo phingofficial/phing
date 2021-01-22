@@ -17,6 +17,12 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use Phing\ComponentHelper;
+use Condition;
+use Description;
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Input\InputHandler;
 use Phing\Io\FileSystem;
@@ -27,6 +33,14 @@ use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Phing;
+use Phing\Target;
+use Phing\UnknownElement;
+use Phing\PropertyHelper;
+use PropertyValue;
+use quot;
+use ReflectionException;
+use ReflectionObject;
+use Task;
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.
@@ -175,7 +189,7 @@ class Project
      * <code>Project</code> class will be used.
      * @return Project instance configured as a subproject of this Project.
      */
-    public function createSubProject(): \Project
+    public function createSubProject(): Project
     {
         try {
             $ref = new ReflectionObject($this);
@@ -290,7 +304,7 @@ class Project
     /**
      * Returns the value of a property, if it is set.
      *
-     * @param  string $name The name of the property.
+     * @param string $name The name of the property.
      *                      May be <code>null</code>, in which case
      *                      the return value is also <code>null</code>.
      * @return string The property value, or <code>null</code> for no match
@@ -323,7 +337,7 @@ class Project
     /**
      * Returns the value of a user property, if it is set.
      *
-     * @param  string $name The name of the property.
+     * @param string $name The name of the property.
      *                      May be <code>null</code>, in which case
      *                      the return value is also <code>null</code>.
      * @return string The property value, or <code>null</code> for no match
@@ -368,7 +382,7 @@ class Project
      * <p>To copy all "user" properties, you will also have to call
      * {@link #copyInheritedProperties copyInheritedProperties}.</p>
      *
-     * @param  Project $other the project to copy the properties to.  Must not be null.
+     * @param Project $other the project to copy the properties to.  Must not be null.
      * @return void
      * @since  phing 2.0
      */
@@ -405,7 +419,7 @@ class Project
      */
     public function setDefaultTarget($targetName)
     {
-        $this->defaultTarget = (string) trim($targetName);
+        $this->defaultTarget = (string)trim($targetName);
     }
 
     /**
@@ -415,19 +429,19 @@ class Project
      */
     public function getDefaultTarget()
     {
-        return (string) $this->defaultTarget;
+        return (string)$this->defaultTarget;
     }
 
     /**
      * Sets the name of the current project
      *
-     * @param  string $name name of project
+     * @param string $name name of project
      * @return void
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function setName($name)
     {
-        $this->name = (string) trim($name);
+        $this->name = (string)trim($name);
         $this->setUserProperty("phing.project.name", $this->name);
     }
 
@@ -439,7 +453,7 @@ class Project
      */
     public function getName()
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     /**
@@ -473,7 +487,7 @@ class Project
     public function setPhingVersion($version)
     {
         $version = str_replace('phing', '', strtolower($version));
-        $this->phingVersion = (string) trim($version);
+        $this->phingVersion = (string)trim($version);
     }
 
     /**
@@ -519,7 +533,7 @@ class Project
     /**
      * Set basedir object from xm
      *
-     * @param  File|string $dir
+     * @param File|string $dir
      * @throws BuildException
      */
     public function setBasedir($dir)
@@ -531,7 +545,7 @@ class Project
         $dir = $this->fileUtils->normalize($dir);
         $dir = FileSystem::getFileSystem()->canonicalize($dir);
 
-        $dir = new File((string) $dir);
+        $dir = new File((string)$dir);
         if (!$dir->exists()) {
             throw new BuildException("Basedir " . $dir->getAbsolutePath() . " does not exist");
         }
@@ -665,8 +679,8 @@ class Project
     /**
      * Add a new target to the project
      *
-     * @param  string $targetName
-     * @param  Target $target
+     * @param string $targetName
+     * @param Target $target
      * @throws BuildException
      */
     public function addTarget($targetName, $target)
@@ -727,7 +741,7 @@ class Project
     /**
      * Creates a new condition and returns the reference to it
      *
-     * @param  string $conditionType
+     * @param string $conditionType
      * @return Condition
      * @throws BuildException
      */
@@ -740,7 +754,7 @@ class Project
      * Create a datatype instance and return reference to it
      * See createTask() for explanation how this works
      *
-     * @param  string $typeName Type name
+     * @param string $typeName Type name
      * @return object         A datatype object
      * @throws BuildException
      *                                 Exception
@@ -753,7 +767,7 @@ class Project
     /**
      * Executes a list of targets
      *
-     * @param  array $targetNames List of target names to execute
+     * @param array $targetNames List of target names to execute
      * @return void
      * @throws BuildException
      */
@@ -769,7 +783,7 @@ class Project
     /**
      * Executes a target
      *
-     * @param  string $targetName Name of Target to execute
+     * @param string $targetName Name of Target to execute
      * @return void
      * @throws BuildException
      */
@@ -785,7 +799,7 @@ class Project
         // until targetName occurs.
         $sortedTargets = $this->topoSort($targetName);
 
-        $curIndex = (int) 0;
+        $curIndex = (int)0;
         $curTarget = null;
         $thrownException = null;
         $buildException = null;
@@ -834,8 +848,8 @@ class Project
     /**
      * Helper function
      *
-     * @param  string $fileName
-     * @param  File $rootDir
+     * @param string $fileName
+     * @param File $rootDir
      * @return \Phing\Io\File
      * @throws IOException
      */
@@ -872,7 +886,7 @@ class Project
     /**
      * Topologically sort a set of Targets.
      *
-     * @param  string $rootTarget is the (String) name of the root Target. The sort is
+     * @param string $rootTarget is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
      *                         target is the minimum possible such sequence.
      * @return Target[] targets in sorted order
@@ -881,7 +895,7 @@ class Project
      */
     public function topoSort($rootTarget)
     {
-        $rootTarget = (string) $rootTarget;
+        $rootTarget = (string)$rootTarget;
         $ret = [];
         $state = [];
         $visiting = [];
@@ -898,17 +912,17 @@ class Project
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= (string) $ret[$i] . " ";
+            $retHuman .= (string)$ret[$i] . " ";
         }
         $this->log("Build sequence for target '$rootTarget' is: $retHuman", Project::MSG_VERBOSE);
 
         $keys = array_keys($this->targets);
         while ($keys) {
-            $curTargetName = (string) array_shift($keys);
+            $curTargetName = (string)array_shift($keys);
             if (!isset($state[$curTargetName])) {
                 $st = null;
             } else {
-                $st = (string) $state[$curTargetName];
+                $st = (string)$state[$curTargetName];
             }
 
             if ($st === null) {
@@ -920,7 +934,7 @@ class Project
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= (string) $ret[$i] . " ";
+            $retHuman .= (string)$ret[$i] . " ";
         }
         $this->log("Complete build sequence is: $retHuman", Project::MSG_VERBOSE);
 
@@ -968,7 +982,7 @@ class Project
             $sb = "Target '$root' does not exist in this project.";
             array_pop($visiting);
             if (!empty($visiting)) {
-                $parent = (string) $visiting[count($visiting) - 1];
+                $parent = (string)$visiting[count($visiting) - 1];
                 $sb .= " It is a dependency of target '$parent'.";
             }
             if ($suggestion = $this->findSuggestion($root)) {
@@ -980,11 +994,11 @@ class Project
         $deps = $target->getDependencies();
 
         while ($deps) {
-            $cur = (string) array_shift($deps);
+            $cur = (string)array_shift($deps);
             if (!isset($state[$cur])) {
                 $m = null;
             } else {
-                $m = (string) $state[$cur];
+                $m = (string)$state[$cur];
             }
             if ($m === null) {
                 // not been visited
@@ -995,7 +1009,7 @@ class Project
             }
         }
 
-        $p = (string) array_pop($visiting);
+        $p = (string)array_pop($visiting);
         if ($root !== $p) {
             throw new Exception("Unexpected internal error: expected to pop $root but got $p");
         }
@@ -1013,7 +1027,7 @@ class Project
     {
         $sb = "Circular dependency: $end";
         do {
-            $c = (string) array_pop($stk);
+            $c = (string)array_pop($stk);
             $sb .= " <- " . $c;
         } while ($c != $end);
 
@@ -1037,7 +1051,7 @@ class Project
         if ($ref !== null && !$ref instanceof UnknownElement) {
             $this->log("Overriding previous definition of reference to $name", Project::MSG_VERBOSE);
         }
-        $refName = (is_scalar($object) || $object instanceof PropertyValue) ? (string) $object : get_class($object);
+        $refName = (is_scalar($object) || $object instanceof PropertyValue) ? (string)$object : get_class($object);
         $this->log("Adding reference: $name -> " . $refName, Project::MSG_DEBUG);
         $this->references[$name] = $object;
     }
@@ -1055,7 +1069,7 @@ class Project
     /**
      * Returns a specific reference.
      *
-     * @param  string $key The reference id/key.
+     * @param string $key The reference id/key.
      * @return object Reference or null if not defined
      */
     public function getReference($key)
@@ -1066,7 +1080,7 @@ class Project
     /**
      * Does the project know this reference?
      *
-     * @param  string $key The reference id/key.
+     * @param string $key The reference id/key.
      * @return bool
      */
     public function hasReference(string $key): bool
@@ -1139,7 +1153,7 @@ class Project
             $listener->buildStarted($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string)$event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1153,7 +1167,7 @@ class Project
             $listener->buildFinished($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string)$event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1166,7 +1180,7 @@ class Project
             $listener->targetStarted($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string)$event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1181,7 +1195,7 @@ class Project
             $listener->targetFinished($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string)$event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1194,7 +1208,7 @@ class Project
             $listener->taskStarted($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string)$event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1209,7 +1223,7 @@ class Project
             $listener->taskFinished($event);
         }
 
-        $this->log((string) $event, Project::MSG_DEBUG);
+        $this->log((string)$event, Project::MSG_DEBUG);
     }
 
     /**

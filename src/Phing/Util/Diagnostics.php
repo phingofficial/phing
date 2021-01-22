@@ -24,7 +24,7 @@ use Phing\Io\FileWriter;
 use Phing\Phing;
 use Phing\Io\File;
 use Phing\Io\PrintStream;
-use Project;
+use Phing\Project;
 
 /**
  * A little diagnostic helper that output some information that may help

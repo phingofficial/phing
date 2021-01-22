@@ -17,7 +17,11 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use BuildFileTest;
 use Phing\Exception\BuildException;
+use Phing\Project;
 
 /**
  * UTs for ExtensionPoint component

@@ -26,7 +26,7 @@ use Phing\Filter\BaseFilterReader;
 use Phing\Filter\ChainableReader;
 use Phing\Phing;
 use PhingFilterReader;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 
 /**

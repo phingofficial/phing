@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
 
 /**
  * Call another target in the same project.

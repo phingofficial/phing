@@ -23,6 +23,7 @@ use Phing\Io\FileReader;
 use Phing\Io\FileUtils;
 use Phing\Io\FileWriter;
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * ReplaceRegExp is a directory based task for replacing the occurrence of a

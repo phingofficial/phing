@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Project;
+
 /**
  * Scans a list of files given by the fileset attribute, extracts valid test cases
  *

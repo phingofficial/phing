@@ -21,8 +21,8 @@ namespace Phing\Listener;
 
 use Phing\Listener\BuildEvent;
 use Monolog\Logger;
-use Project;
-use Target;
+use Phing\Project;
+use Phing\Target;
 
 /**
  * Listener which sends events to Monolog.

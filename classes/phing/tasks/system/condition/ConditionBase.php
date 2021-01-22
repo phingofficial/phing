@@ -19,6 +19,8 @@
 
 use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreator;
+use Phing\Project;
+use Phing\ProjectComponent;
 
 /**
  * Abstract baseclass for the <condition> task as well as several

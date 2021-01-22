@@ -25,6 +25,9 @@ use Phing\Io\File;
 use Phing\Listener\DefaultLogger;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Phing;
+use Phing\Project;
+use Phing\ProjectComponent;
+use Phing\Target;
 
 /**
  * Task that invokes phing on another build file.
@@ -421,7 +424,7 @@ class PhingTask extends Task
      *
      * @return Project
      */
-    protected function getNewProject(): \Project
+    protected function getNewProject(): \Phing\Project
     {
         if ($this->newProject === null) {
             $this->reinit();

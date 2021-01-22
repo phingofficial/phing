@@ -26,7 +26,7 @@ use Phing\Listener\DefaultLogger;
 use Phing\Parser\Location;
 use Phing\Parser\ProjectConfigurator;
 use PHPUnit\Framework\TestCase;
-use Project;
+use Phing\Project;
 use Throwable;
 
 class DefaultLoggerTest extends TestCase

@@ -20,7 +20,7 @@
 namespace Phing\Io;
 
 use Phing\Io\IOException;
-use Project;
+use Phing\Project;
 
 /**
  * Abstract class for TokenReaders.

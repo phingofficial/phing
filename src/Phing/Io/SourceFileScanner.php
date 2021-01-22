@@ -24,7 +24,7 @@ use Phing\Io\FileUtils;
 use Phing\Mapper\FileNameMapper;
 use Phing\Phing;
 use Phing\Io\File;
-use Project;
+use Phing\Project;
 use Task;
 
 /**

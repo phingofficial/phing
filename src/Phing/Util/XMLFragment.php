@@ -23,8 +23,8 @@ use DOMDocument;
 use DOMDocumentFragment;
 use Phing\Parser\CustomChildCreator;
 use Phing\Util\XMLChild;
-use Project;
-use ProjectComponent;
+use Phing\Project;
+use Phing\ProjectComponent;
 
 /**
  * Use this class as a nested element if you want to get a literal DOM

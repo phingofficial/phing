@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * Generates symlinks based on a target / link combination.

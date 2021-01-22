@@ -23,7 +23,7 @@ use Phing\Exception\BuildException;
 use ReflectionClass;
 use ReflectionException;
 use Task;
-use UnknownElement;
+use Phing\UnknownElement;
 
 /**
  * Determines and Executes the action method for the task.

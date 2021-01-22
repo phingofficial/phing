@@ -21,7 +21,7 @@ namespace Phing\Filter;
 
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 
 /**

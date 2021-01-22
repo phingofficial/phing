@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Project;
+
 /**
  * Echos a message to the logging system or to a file
  *

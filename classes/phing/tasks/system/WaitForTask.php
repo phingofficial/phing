@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
 
 /**
  *  Based on Apache Ant Wait For:

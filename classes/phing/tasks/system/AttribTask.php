@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * Changes the attributes of a file or all files inside specified directories.

@@ -25,6 +25,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
+use Phing\Project;
 use Phing\Util\StringHelper;
 
 /**

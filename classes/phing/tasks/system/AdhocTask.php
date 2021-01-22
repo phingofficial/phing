@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
 
 /**
  * Abstract class for creating adhoc Phing components in buildfile.

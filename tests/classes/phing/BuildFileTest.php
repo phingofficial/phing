@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Parser\ProjectConfigurator;
+use Phing\Project;
 use PHPUnit\Framework\TestCase;
 
 /**

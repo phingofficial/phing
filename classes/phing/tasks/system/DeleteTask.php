@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * Deletes a file or directory, or set of files defined by a fileset.

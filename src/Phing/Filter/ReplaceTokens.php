@@ -23,7 +23,7 @@ use Exception;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
 use Phing\Filter\Token;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 use TokenSource;
 

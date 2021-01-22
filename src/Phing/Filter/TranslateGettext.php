@@ -23,7 +23,7 @@ use Phing\Filter\BaseParamFilterReader;
 use Phing\Exception\BuildException;
 use Phing\Filter\ChainableReader;
 use Phing\Io\File;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 
 /**

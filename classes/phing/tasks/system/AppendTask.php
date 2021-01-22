@@ -28,6 +28,7 @@ use Phing\Io\File;
 use Phing\Io\Reader;
 use Phing\Io\StringReader;
 use Phing\Io\Writer;
+use Phing\Project;
 use Phing\Util\Register;
 
 /**

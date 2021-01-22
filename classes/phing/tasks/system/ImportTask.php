@@ -22,6 +22,7 @@ use Phing\Io\FileSystem;
 use Phing\Io\File;
 use Phing\Parser\XmlContext;
 use Phing\Parser\ProjectConfigurator;
+use Phing\Project;
 
 /**
  * Imports another build file into the current project.

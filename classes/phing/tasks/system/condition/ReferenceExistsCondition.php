@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\ProjectComponent;
+use Phing\UnknownElement;
 
 /**
  * Condition that tests whether a given reference exists.

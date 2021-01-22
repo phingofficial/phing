@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Io\SourceFileScanner;
 use Phing\Mapper\MergeMapper;
+use Phing\Project;
 
 /**
  * Sets the given property if the specified target has a timestamp

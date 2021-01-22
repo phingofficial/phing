@@ -24,7 +24,7 @@ use Phing\Io\OutputStream;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\SilentLogger;
 use PHPUnit\Framework\TestCase;
-use Project;
+use Phing\Project;
 
 class SilentLoggerTest extends TestCase
 {

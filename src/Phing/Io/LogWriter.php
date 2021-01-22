@@ -18,7 +18,7 @@
  */
 
 namespace Phing\Io;
-use Project;
+use Phing\Project;
 use Task;
 use Phing\Io\Writer;
 

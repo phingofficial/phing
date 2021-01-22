@@ -26,7 +26,7 @@ use Phing\Exception\BuildException;
 use Phing\Filter\ChainableReader;
 use Phing\Io\FilterReader;
 use Phing\Io\File;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 
 /**

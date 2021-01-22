@@ -1,5 +1,7 @@
 <?php
 
+use Phing\Project;
+
 /**
  * Tests FileSizeTask
  *

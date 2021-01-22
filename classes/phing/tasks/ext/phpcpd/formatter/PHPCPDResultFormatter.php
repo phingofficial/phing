@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * This abstract class describes classes that format the results of a PHPCPD run.

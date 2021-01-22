@@ -17,8 +17,13 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Parser\ProjectConfigurator;
+use Phing\Project;
+use Task;
 
 /**
  *  Wrapper class that holds the attributes of a Task (or elements
@@ -136,7 +141,7 @@ class RuntimeConfigurable
      */
     public function getChild($index)
     {
-        return $this->children[(int) $index];
+        return $this->children[(int)$index];
     }
 
     public function getChildren()
@@ -153,7 +158,7 @@ class RuntimeConfigurable
      */
     public function addText($data)
     {
-        $this->characters .= (string) $data;
+        $this->characters .= (string)$data;
     }
 
     /**
@@ -165,7 +170,7 @@ class RuntimeConfigurable
      */
     public function getText()
     {
-        return (string) $this->characters;
+        return (string)$this->characters;
     }
 
     public function getElementTag()

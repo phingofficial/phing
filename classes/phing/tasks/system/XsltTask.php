@@ -20,6 +20,7 @@
 use Phing\Filter\XsltFilter;
 use Phing\Filter\XsltParam;
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * Implements an XSLT processing filter while copying files.

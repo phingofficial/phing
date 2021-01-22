@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\Writer;
+use Phing\Project;
 
 /**
  * This abstract class describes classes that format the results of a PHPUnit testrun.

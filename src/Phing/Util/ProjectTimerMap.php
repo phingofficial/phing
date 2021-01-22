@@ -19,7 +19,7 @@
 
 namespace Phing\Util;
 
-use Project;
+use Phing\Project;
 
 /**
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>

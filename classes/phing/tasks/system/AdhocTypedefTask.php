@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\ProjectComponent;
 
 /**
  * A class for creating adhoc datatypes in build file.

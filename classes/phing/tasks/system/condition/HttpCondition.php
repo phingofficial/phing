@@ -18,6 +18,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\ProjectComponent;
 
 /**
  * Condition to wait for a HTTP request to succeed.

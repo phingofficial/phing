@@ -23,6 +23,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\FileReader;
 use Phing\Io\FileWriter;
 use Phing\Io\File;
+use Phing\Project;
 use function Jawira\PlantUml\encodep;
 
 /**

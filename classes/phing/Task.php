@@ -21,6 +21,11 @@ use Phing\Dispatch\DispatchUtils;
 use Phing\Exception\BuildException;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
+use Phing\Project;
+use Phing\ProjectComponent;
+use Phing\RuntimeConfigurable;
+use Phing\Target;
+use Phing\UnknownElement;
 use Phing\Util\Register;
 
 /**
@@ -233,7 +238,7 @@ abstract class Task extends ProjectComponent
         }
     }
 
-    private function getReplacement(): \UnknownElement
+    private function getReplacement(): Phing\UnknownElement
     {
         if ($this->replacement === null) {
             $this->replacement = new UnknownElement($this->taskType);

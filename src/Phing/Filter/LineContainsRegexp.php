@@ -24,7 +24,7 @@ use Phing\Io\IOException;
 use Phing\Filter\BaseParamFilterReader;
 use Phing\Filter\ChainableReader;
 use Phing\Io\FilterReader;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 use Phing\Util\RegexpException;
 use RegularExpression;

@@ -14,6 +14,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
 use Phing\Util\StringHelper;
 
 /**

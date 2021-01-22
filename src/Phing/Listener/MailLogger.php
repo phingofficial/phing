@@ -27,7 +27,7 @@ use Phing\Io\OutputStream;
 use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Io\File;
-use Project;
+use Phing\Project;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
 

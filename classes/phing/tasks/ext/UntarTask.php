@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * Extracts one or several tar archives using PEAR Archive_Tar

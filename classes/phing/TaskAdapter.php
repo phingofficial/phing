@@ -19,6 +19,8 @@
 
 use Phing\Dispatch\DispatchUtils;
 use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\TypeAdapter;
 
 /**
  * Use introspection to "adapt" an arbitrary ( not extending Task, but with

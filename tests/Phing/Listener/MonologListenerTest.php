@@ -22,7 +22,7 @@ namespace Phing\Listener;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\MonologListener;
 use PHPUnit\Framework\TestCase;
-use Project;
+use Phing\Project;
 
 class MonologListenerTest extends TestCase
 {

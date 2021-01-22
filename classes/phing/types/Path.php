@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Project;
 use Phing\Util\PathTokenizer;
 
 /**

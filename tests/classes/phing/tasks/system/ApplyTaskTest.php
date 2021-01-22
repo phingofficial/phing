@@ -19,6 +19,8 @@
 
 use Phing\Io\FileUtils;
 use Phing\Io\File;
+use Phing\Target;
+use Phing\UnknownElement;
 
 /**
  * Tests the Apply Task

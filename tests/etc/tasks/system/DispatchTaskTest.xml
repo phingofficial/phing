@@ -3,6 +3,7 @@
 
     <target name="testDispatch">
         <adhoc-task name="dispatch"><![CDATA[
+            use Phing\Project;
             use Phing\Dispatch\DispatchTask;
 
             class CustomDispatchTask extends DispatchTask

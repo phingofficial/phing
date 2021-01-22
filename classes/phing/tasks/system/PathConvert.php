@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
 use Phing\Mapper\IdentityMapper;
+use Phing\Project;
 
 /**
  * Converts path and classpath information to a specific target OS

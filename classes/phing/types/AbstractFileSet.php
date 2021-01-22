@@ -22,6 +22,8 @@ use Phing\Exception\NullPointerException;
 use Phing\Io\DirectoryScanner;
 use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Project;
+use Phing\ProjectComponent;
 
 /**
  * The FileSet class provides methods and properties for accessing

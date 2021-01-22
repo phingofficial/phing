@@ -32,7 +32,7 @@ use Phing\Phing;
 use Phing\Util\Character;
 use Phing\Util\StringHelper;
 use Phing\Io\File;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 
 /**

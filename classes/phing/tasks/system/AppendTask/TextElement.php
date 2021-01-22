@@ -24,6 +24,7 @@ use Phing\Io\FileReader;
 use Phing\Io\InputStreamReader;
 use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\ProjectComponent;
 
 /**
  * Text element points to a file or contains text.

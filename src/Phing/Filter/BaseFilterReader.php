@@ -20,7 +20,7 @@
 namespace Phing\Filter;
 use Phing\Io\FilterReader;
 use Phing\Io\IOException;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 use Phing\Io\StringReader;
 

@@ -2,6 +2,8 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Project;
+use Phing\Target;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

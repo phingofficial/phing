@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\ProjectComponent;
+
 /**
  * "Inner" class for handling enumerations.
  * Uses build-in PHP5 iterator support.

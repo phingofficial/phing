@@ -21,7 +21,7 @@ namespace Phing\Listener;
 
 use Phing\Listener\BuildEvent;
 use Phing\Phing;
-use Project;
+use Phing\Project;
 
 /**
  * Extends AnsiColorLogger to display times for each target

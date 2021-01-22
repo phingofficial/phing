@@ -17,7 +17,13 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use BuildFileTest;
+use EchoTask;
 use Phing\Exception\BuildException;
+use Phing\RuntimeConfigurable;
+use Phing\Target;
 
 /**
  * UTs for Target component
@@ -120,7 +126,7 @@ class TargetTest extends BuildFileTest
 
     public function testMainAppliesConfigurables()
     {
-        $configurable = $this->getMockBuilder('RuntimeConfigurable')
+        $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
             ->getMock();
         $configurable->expects($this->once())->method('maybeConfigure')->with($this->project);
@@ -134,7 +140,7 @@ class TargetTest extends BuildFileTest
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
 
-        $configurable = $this->getMockBuilder('RuntimeConfigurable')
+        $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
             ->getMock();
         $configurable->expects($this->never())->method('maybeConfigure');
@@ -148,7 +154,7 @@ class TargetTest extends BuildFileTest
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');
 
-        $configurable = $this->getMockBuilder('RuntimeConfigurable')
+        $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
             ->getMock();
         $configurable->expects($this->never())->method('maybeConfigure');

@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\FileSystem;
+use Phing\Project;
 
 /**
  * Test class for the ComposerTask.

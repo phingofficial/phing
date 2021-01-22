@@ -23,7 +23,7 @@ use DOMDocument;
 use DOMDocumentFragment;
 use DOMElement;
 use Phing\Parser\DynamicConfigurator;
-use Project;
+use Phing\Project;
 
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>

@@ -17,7 +17,14 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use Exception;
+use FileSet;
+use IHProjectComponent;
 use Phing\Exception\BuildException;
+use Phing\IntrospectionHelper;
+use Phing\Project;
 
 /**
  * testcases for phing.IntrospectionHelper.

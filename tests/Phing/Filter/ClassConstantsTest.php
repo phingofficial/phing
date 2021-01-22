@@ -19,7 +19,7 @@
 
 namespace Phing\Filter;
 use BuildFileTest;
-use Project;
+use Phing\Project;
 
 /**
  * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>

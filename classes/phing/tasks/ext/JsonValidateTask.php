@@ -35,6 +35,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Project;
+
 /**
  * Checks if a given file is valid JSON
  * <jsonvalidate file="path/file.json" />

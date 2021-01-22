@@ -23,6 +23,7 @@ use Phing\Io\BufferedReader;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * FileList represents an explicitly named list of files. FileLists

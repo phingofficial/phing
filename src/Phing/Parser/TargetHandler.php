@@ -21,15 +21,15 @@ namespace Phing\Parser;
 
 use Phing\Parser\ElementHandler;
 use Phing\Parser\ExpatParseException;
-use ExtensionPoint;
+use Phing\ExtensionPoint;
 use Phing\Exception\BuildException;
 use Phing\Parser\AbstractHandler;
 use Phing\Parser\AbstractSAXParser;
 use Phing\Util\StringHelper;
 use Phing\Parser\XmlContext;
-use Project;
+use Phing\Project;
 use Phing\Parser\ProjectConfigurator;
-use Target;
+use Phing\Target;
 
 /**
  * The target handler class.

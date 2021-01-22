@@ -22,6 +22,7 @@ use Phing\Io\FileSystem;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
+use Phing\Project;
 
 /**
  * <available> task.

@@ -17,27 +17,41 @@
  * <http://phing.info>.
  */
 
-use PHPUnit\Framework\TestCase;
+namespace Phing;
 
-class PropertyHelperTest extends TestCase
+use Phing\Exception\BuildException;
+use Phing\RuntimeConfigurable;
+use Phing\Target;
+use Task;
+
+/**
+ * An extension point build files can provide as a place where other
+ * build files can add new dependencies.
+ *
+ * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package   phing
+ */
+class ExtensionPoint extends Target
 {
-    public function testUndefinedPropertyShouldNotBeReplaced()
+    private const NO_CHILDREN_ALLOWED = "you must not nest child elements into an extension-point";
+
+    /**
+     * Throws an exception.
+     * @param Task $task
+     * @throws \Phing\Exception\BuildException
+     */
+    public function addTask(Task $task)
     {
-        $project = new Project();
-        $helper = PropertyHelper::getPropertyHelper($project);
-
-        $value = $helper->replaceProperties('${undefined.property}', []);
-
-        $this->assertEquals('${undefined.property}', $value);
+        throw new BuildException(self::NO_CHILDREN_ALLOWED);
     }
 
-    public function testDefinedPropertyShouldBeReplacedWithPropertyValue()
+    /**
+     * Throws an exception.
+     * @param RuntimeConfigurable $r
+     * @throws \Phing\Exception\BuildException
+     */
+    public function addDataType($r)
     {
-        $project = new Project();
-        $helper = PropertyHelper::getPropertyHelper($project);
-
-        $value = $helper->replaceProperties('${defined.property}', ['defined.property' => 'abc123']);
-
-        $this->assertEquals('abc123', $value);
+        throw new BuildException(self::NO_CHILDREN_ALLOWED);
     }
 }

@@ -22,7 +22,7 @@ namespace Phing\Listener;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\StatisticsListener;
 use PHPUnit\Framework\TestCase;
-use Project;
+use Phing\Project;
 
 class StatisticsListenerTest extends TestCase
 {

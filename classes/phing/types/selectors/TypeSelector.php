@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * Selector that selects a certain kind of file: directory or regular file.

@@ -22,6 +22,7 @@ use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Io\SourceFileScanner;
 use Phing\Mapper\MergeMapper;
+use Phing\Project;
 
 /**
  * Creates a tar archive using PEAR Archive_Tar.

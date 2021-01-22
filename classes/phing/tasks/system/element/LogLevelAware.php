@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
 
 /**
  * @author   Siad Ardroumli <siad.ardroumli@gmail.com>

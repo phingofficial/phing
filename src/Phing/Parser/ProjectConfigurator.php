@@ -23,9 +23,9 @@ use Phing\Io\BufferedReader;
 use Exception;
 use Phing\Parser\ExpatParseException;
 use Phing\Parser\ExpatParser;
-use ExtensionPoint;
+use Phing\ExtensionPoint;
 use Phing\Io\FileReader;
-use IntrospectionHelper;
+use Phing\IntrospectionHelper;
 use Phing\Io\IOException;
 use Phing\Parser\Location;
 use Phing\Exception\BuildException;
@@ -34,11 +34,11 @@ use Phing\Exception\NullPointerException;
 use Phing\Parser\RootHandler;
 use Phing\Io\File;
 use Phing\Parser\XmlContext;
-use Project;
-use Target;
+use Phing\Project;
+use Phing\Target;
 use Task;
-use TypeAdapter;
-use UnknownElement;
+use Phing\TypeAdapter;
+use Phing\UnknownElement;
 
 /**
  * The datatype handler class.

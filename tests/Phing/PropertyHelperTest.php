@@ -17,22 +17,31 @@
  * <http://phing.info>.
  */
 
-/**
- *  Abstract interface for objects which can contain tasks (targets)
- *  Used to check if a class can contain tasks (via instanceof)
- *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @copyright 2001,2002 THYRELL. All rights reserved
- *
- * @package phing
- */
-interface TaskContainer
+namespace Phing;
+
+use Phing\Project;
+use Phing\PropertyHelper;
+use PHPUnit\Framework\TestCase;
+
+class PropertyHelperTest extends TestCase
 {
-    /**
-     * Adds a task to this task container. Must be implemented
-     * by derived class
-     *
-     * @param Task $task The task to be added to the container.
-     */
-    public function addTask(Task $task);
+    public function testUndefinedPropertyShouldNotBeReplaced()
+    {
+        $project = new Project();
+        $helper = PropertyHelper::getPropertyHelper($project);
+
+        $value = $helper->replaceProperties('${undefined.property}', []);
+
+        $this->assertEquals('${undefined.property}', $value);
+    }
+
+    public function testDefinedPropertyShouldBeReplacedWithPropertyValue()
+    {
+        $project = new Project();
+        $helper = PropertyHelper::getPropertyHelper($project);
+
+        $value = $helper->replaceProperties('${defined.property}', ['defined.property' => 'abc123']);
+
+        $this->assertEquals('abc123', $value);
+    }
 }

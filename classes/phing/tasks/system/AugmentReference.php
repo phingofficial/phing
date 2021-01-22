@@ -18,6 +18,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\TypeAdapter;
+use Phing\UnknownElement;
 
 /**
  * Phing task to dynamically augment a previously declared reference.

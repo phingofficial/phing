@@ -12,6 +12,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
 
 /**
  * Integration/Wrapper for hg log

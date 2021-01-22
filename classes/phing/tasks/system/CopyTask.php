@@ -25,6 +25,7 @@ use Phing\Io\SourceFileScanner;
 use Phing\Mapper\FileNameMapper;
 use Phing\Mapper\FlattenMapper;
 use Phing\Mapper\IdentityMapper;
+use Phing\Project;
 use Phing\Util\RegisterSlot;
 
 /**

@@ -30,6 +30,7 @@ use Phing\Mapper\IdentityMapper;
 use Phing\Mapper\MergeMapper;
 use Phing\Mapper\RegexpMapper;
 use Phing\Phing;
+use Phing\Project;
 use Phing\Util\StringHelper;
 
 /**

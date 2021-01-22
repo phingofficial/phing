@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.

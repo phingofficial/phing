@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\ProjectComponent;
 
 /**
  * Condition that tests whether a given string evals to true.

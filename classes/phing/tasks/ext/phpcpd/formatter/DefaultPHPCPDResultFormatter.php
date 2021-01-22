@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\File;
+use Phing\Project;
 use SebastianBergmann\PHPCPD\CodeCloneMap;
 
 /**

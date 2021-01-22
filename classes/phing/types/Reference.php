@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Project;
 
 /**
  * Class to hold a reference to another object in the project.
@@ -71,7 +72,7 @@ class Reference
      *
      * @return Project the associated project
      */
-    public function getProject(): \Project
+    public function getProject(): Phing\Project
     {
         return $this->project;
     }

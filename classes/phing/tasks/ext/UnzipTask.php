@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\File;
+use Phing\Project;
 
 /**
  * Extracts one or several zip archives using ZipArchive class.

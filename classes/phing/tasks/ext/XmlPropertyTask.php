@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Io\XmlFileParser;
+use Phing\Project;
 use Phing\Util\Properties;
 
 /**

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Project;
+
 /**
  * Simple task to echo a warning message (Project::MSG_WARN) to all output devices.
  *

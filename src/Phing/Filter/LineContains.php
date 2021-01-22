@@ -24,7 +24,7 @@ use Phing\Filter\Contains;
 use Exception;
 use Phing\Io\IOException;
 use Phing\Filter\ChainableReader;
-use Project;
+use Phing\Project;
 use Phing\Io\Reader;
 
 /**

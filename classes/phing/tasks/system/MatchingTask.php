@@ -20,6 +20,8 @@
 use Phing\Exception\BuildException;
 use Phing\Io\DirectoryScanner;
 use Phing\Io\File;
+use Phing\Project;
+use Phing\ProjectComponent;
 
 /**
  * This is an abstract task that should be used by all those tasks that
