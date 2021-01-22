@@ -19,12 +19,14 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Type\DataType;
+
 /**
  * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
  * @since 2.4.10
  * @package phing.tasks.ext.liquibase
  */
-class LiquibaseProperty extends \DataType
+class LiquibaseProperty extends DataType
 {
     private $name;
     private $value;
