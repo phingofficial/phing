@@ -46,7 +46,7 @@ use Phing\Util\Properties;
  *
  * The default colors used for differentiating
  * the message levels can be changed by editing the
- * phing/listener/defaults.properties file.
+ * etc/default.listeners.properties file.
  *
  * This file contains 5 key/value pairs:
  * AnsiColorLogger.ERROR_COLOR=2;31
@@ -162,7 +162,7 @@ class AnsiColorLogger extends DefaultLogger
     private function setColors()
     {
         $userColorFile = Phing::getProperty("phing.logger.defaults");
-        $systemColorFile = new File(Phing::getResourcePath("phing/listener/defaults.properties"));
+        $systemColorFile = new File(Phing::getResourcePath("etc/default.listeners.properties"));
 
         $in = null;
 

@@ -337,7 +337,7 @@ class ComponentHelper
 
     private function initDefaultTasks()
     {
-        $taskdefs = Phing::getResourcePath("phing/tasks/defaults.properties");
+        $taskdefs = Phing::getResourcePath("etc/default.tasks.properties");
 
         try { // try to load taskdefs
             $props = new Properties();
@@ -360,7 +360,7 @@ class ComponentHelper
 
     private function initDefaultDataTypes()
     {
-        $typedefs = Phing::getResourcePath("phing/types/defaults.properties");
+        $typedefs = Phing::getResourcePath("etc/default.types.properties");
 
         try { // try to load typedefs
             $props = new Properties();

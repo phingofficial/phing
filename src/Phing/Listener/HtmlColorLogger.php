@@ -36,7 +36,7 @@ use Phing\Util\Properties;
  *
  * The default classes used for differentiating
  * the message levels can be changed by editing the
- * phing/listener/defaults.properties file.
+ * etc/default.listeners.properties file.
  *
  * This file can contain 5 key/value pairs:
  * HtmlColorLogger.ERROR_CLASS=_your_css_class_name_
@@ -88,11 +88,11 @@ class HtmlColorLogger extends DefaultLogger
 
     /**
      * Set the colors to use from a property file specified in the
-     * special phing property file "phing/listener/defaults.properties".
+     * special phing property file "etc/default.listeners.properties".
      */
     private function setColors()
     {
-        $systemColorFile = new File(Phing::getResourcePath("phing/listener/defaults.properties"));
+        $systemColorFile = new File(Phing::getResourcePath("etc/default.listeners.properties"));
 
         try {
             $prop = new Properties();
