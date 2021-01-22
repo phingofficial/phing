@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Type\FileSet;
+
 /**
  * This is a FileSet with the to specify permissions.
  *

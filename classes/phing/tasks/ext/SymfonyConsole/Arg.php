@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Type\DataType;
+
 /**
  * Implementation of console argument
  *

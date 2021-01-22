@@ -20,6 +20,7 @@
 use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
+use Phing\Type\Path;
 
 /**
  * Testcase for the Phing task/condition.

@@ -25,7 +25,7 @@ use Phing\Filter\ChainableReader;
 use Phing\Filter\Token;
 use Phing\Project;
 use Phing\Io\Reader;
-use TokenSource;
+use Phing\Type\TokenSource;
 
 /**
  * Replaces tokens in the original input with user-supplied values.

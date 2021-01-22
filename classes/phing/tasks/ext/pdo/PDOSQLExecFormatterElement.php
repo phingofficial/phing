@@ -25,6 +25,7 @@ use Phing\Io\Writer;
 use Phing\Parser\Location;
 use Phing\Phing;
 use Phing\Project;
+use Phing\Type\Parameter;
 
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.

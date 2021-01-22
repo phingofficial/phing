@@ -25,7 +25,7 @@ use Phing\Filter\BaseFilterReader;
 use Phing\Filter\ChainableReader;
 use Phing\Project;
 use Phing\Io\Reader;
-use RegularExpression;
+use Phing\Type\RegularExpression;
 
 /**
  * Performs a regexp find/replace on stream.

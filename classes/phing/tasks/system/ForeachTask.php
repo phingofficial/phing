@@ -23,6 +23,8 @@ use Phing\Io\FileSystem;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Project;
+use Phing\Type\Mapper;
+use Phing\Type\Path;
 
 /**
  * <foreach> task

@@ -19,6 +19,7 @@
 
 use Phing\Io\File;
 use Phing\Project;
+use Phing\Type\RegularExpression;
 use Phing\Util\StringHelper;
 
 /**

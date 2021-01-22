@@ -19,6 +19,7 @@
 
 use Phing\Io\FileSystem;
 use Phing\Project;
+use Phing\Type\CommandlineArgument;
 
 /**
  * Test class for the ComposerTask.
@@ -141,7 +142,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $arg = $o->createArg();
-        $this->assertTrue(get_class($arg) == 'CommandlineArgument');
+        $this->assertInstanceOf(CommandlineArgument::class, $arg);
     }
 
     public function testMultipleCalls()

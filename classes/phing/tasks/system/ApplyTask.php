@@ -26,6 +26,11 @@ use Phing\Io\File;
 use Phing\Io\SourceFileScanner;
 use Phing\Phing;
 use Phing\Project;
+use Phing\Type\Commandline;
+use Phing\Type\CommandlineMarker;
+use Phing\Type\DirSet;
+use Phing\Type\FileList;
+use Phing\Type\Mapper;
 
 /**
  * Executes a command on the (filtered) file list/set.

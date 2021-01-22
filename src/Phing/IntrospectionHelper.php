@@ -20,7 +20,8 @@
 namespace Phing;
 
 use Exception;
-use Path;
+use Phing\Io\File;
+use Phing\Type\Path;
 use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreator;
 use Phing\Parser\DynamicAttribute;
@@ -30,7 +31,7 @@ use Phing\ProjectComponent;
 use Phing\TaskContainer;
 use Phing\Util\Register;
 use Phing\Util\StringHelper;
-use Reference;
+use Phing\Type\Reference;
 use ReflectionClass;
 use Task;
 
@@ -349,14 +350,14 @@ class IntrospectionHelper
 
                 // there should only be one param; we'll just assume ....
                 if ($reflectedAttr !== null) {
-                    switch (strtolower($reflectedAttr)) {
-                        case strtolower(\Phing\Io\File::class):
+                    switch ($reflectedAttr) {
+                        case File::class:
                             $value = $project->resolveFile($value);
                             break;
-                        case "path":
+                        case Path::class:
                             $value = new Path($project, $value);
                             break;
-                        case "reference":
+                        case Reference::class:
                             $value = new Reference($project, $value);
                             break;
                         // any other object params we want to support should go here ...

@@ -21,6 +21,8 @@ use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Io\IOException;
 use Phing\Project;
+use Phing\Type\Commandline;
+use Phing\Type\CommandlineArgument;
 
 /**
  * Composer Task

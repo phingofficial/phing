@@ -23,6 +23,7 @@ use Phing\Io\File;
 use Phing\Io\SourceFileScanner;
 use Phing\Mapper\MergeMapper;
 use Phing\Project;
+use Phing\Type\FileSet;
 
 /**
  * Creates a zip archive using PHP ZipArchive extension/

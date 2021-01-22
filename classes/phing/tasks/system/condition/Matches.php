@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\ProjectComponent;
+use Phing\Type\RegularExpression;
 
 /**
  * Simple regular expression condition.

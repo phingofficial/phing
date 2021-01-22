@@ -1,6 +1,8 @@
 <?php
 
 use Phing\Exception\BuildException;
+use Phing\Type\Path;
+use Phing\Type\Reference;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -37,7 +39,7 @@ trait ClasspathAware
      *
      * @return Path|null
      */
-    public function getClasspath(): ?\Path
+    public function getClasspath(): ?Path
     {
         return $this->classpath;
     }
@@ -61,7 +63,7 @@ trait ClasspathAware
      *
      * @throws \Phing\Exception\BuildException
      */
-    public function createClasspath(): \Path
+    public function createClasspath(): Path
     {
         if ($this->classpath === null) {
             $this->classpath = new Path();

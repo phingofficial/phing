@@ -20,12 +20,12 @@
 namespace Phing\Filter;
 
 use Exception;
-use Phing\Io\FilterReader;
-use Parameterizable;
+use Phing\Io\FilterReader as IoFilterReader;
+use Phing\Type\Parameterizable;
 use Phing\Filter\BaseFilterReader;
 use Phing\Filter\ChainableReader;
 use Phing\Phing;
-use PhingFilterReader;
+use Phing\Type\FilterReader;
 use Phing\Project;
 use Phing\Io\Reader;
 
@@ -169,7 +169,7 @@ class ChainReaderHelper
             for ($i = 0; $i < $filtersCount; $i++) {
                 $filter = $finalFilters[$i];
 
-                if ($filter instanceof PhingFilterReader) {
+                if ($filter instanceof FilterReader) {
                     // This filter reader is an external class.
                     $className = $filter->getClassName();
                     $classpath = $filter->getClasspath();
@@ -180,8 +180,8 @@ class ChainReaderHelper
                         $impl = new $cls();
                     }
 
-                    if (!($impl instanceof FilterReader)) {
-                        throw new Exception($className . " does not extend phing.system.io.FilterReader");
+                    if (!($impl instanceof IoFilterReader)) {
+                        throw new Exception($className . " does not extend " . IoFilterReader::class);
                     }
 
                     $impl->setReader($instream); // chain

@@ -27,7 +27,7 @@ use Phing\Io\FilterReader;
 use Phing\Project;
 use Phing\Io\Reader;
 use Phing\Util\RegexpException;
-use RegularExpression;
+use Phing\Type\RegularExpression;
 
 /**
  * Filter which includes only those lines that contain the user-specified

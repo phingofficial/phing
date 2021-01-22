@@ -20,7 +20,7 @@
 namespace Phing;
 
 use Exception;
-use FileSet;
+use Phing\Type\FileSet;
 use IHProjectComponent;
 use Phing\Exception\BuildException;
 use Phing\IntrospectionHelper;

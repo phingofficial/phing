@@ -22,7 +22,7 @@ namespace Phing;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Util\StringHelper;
-use PropertyValue;
+use Phing\Type\PropertyValue;
 
 /**
  * Component creation and configuration

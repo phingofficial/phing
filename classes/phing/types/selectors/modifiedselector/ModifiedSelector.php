@@ -24,6 +24,7 @@ use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 use Phing\Phing;
 use Phing\Project;
+use Phing\Type\Parameter;
 use Phing\Util\StringHelper;
 
 /**

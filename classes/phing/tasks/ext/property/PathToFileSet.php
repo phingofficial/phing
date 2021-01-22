@@ -21,6 +21,8 @@ use Phing\Exception\BuildException;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Type\FileSet;
+use Phing\Type\Path;
 
 /**
  * Coverts a path to a fileset.

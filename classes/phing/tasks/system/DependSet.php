@@ -20,6 +20,8 @@
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
+use Phing\Type\FileList;
+use Phing\Type\FileSet;
 
 /**
  * Examines and removes out of date target files.  If any of the target files

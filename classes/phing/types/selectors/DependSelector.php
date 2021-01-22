@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Mapper\IdentityMapper;
+use Phing\Type\Mapper;
 
 /**
  * Selector that filters files based on whether they are newer than

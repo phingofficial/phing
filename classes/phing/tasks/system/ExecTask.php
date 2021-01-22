@@ -24,6 +24,10 @@ use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
 use Phing\Project;
+use Phing\Type\Commandline;
+use Phing\Type\CommandlineArgument;
+use Phing\Type\Environment;
+use Phing\Type\Path;
 use Phing\Util\StringHelper;
 
 /**

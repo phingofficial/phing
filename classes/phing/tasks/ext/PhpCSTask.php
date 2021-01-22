@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Type\Commandline;
 
 /**
  * A PHP code sniffer task. Checking the style of one or more PHP source files.

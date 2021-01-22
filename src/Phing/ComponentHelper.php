@@ -20,7 +20,7 @@
 namespace Phing;
 
 use Condition;
-use DataType;
+use Phing\Type\DataType;
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Io\IOException;

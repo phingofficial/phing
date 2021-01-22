@@ -22,7 +22,7 @@ namespace Phing\Filter;
 use Phing\Io\BufferedReader;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
-use Parameter;
+use Phing\Type\Parameter;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Filter\BaseParamFilterReader;

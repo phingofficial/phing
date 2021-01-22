@@ -23,6 +23,7 @@ use Phing\Io\FileReader;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Project;
+use Phing\Type\RegularExpression;
 use Phing\Util\Regexp;
 use Phing\Util\RegexpException;
 

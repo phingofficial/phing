@@ -16,6 +16,7 @@ use Phing\Io\FileSystem;
 use Phing\Io\FileUtils;
 use Phing\Io\File;
 use Phing\Project;
+use Phing\Type\Mapper;
 
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.

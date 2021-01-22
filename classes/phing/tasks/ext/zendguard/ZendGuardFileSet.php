@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Type\FileSet;
 
 /**
  * This is a FileSet with the to specify permissions.

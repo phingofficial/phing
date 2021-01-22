@@ -1,5 +1,7 @@
 <?php
 
+use Phing\Type\FileSet;
+
 /**
  * Tests the AugmentReference Task
  *
@@ -59,7 +61,7 @@ class AugmentTest extends BuildFileTest
         $this->expectSpecificBuildException(
             __FUNCTION__,
             'it does support unsupported attribute',
-            "phing.types.FileSet doesn't support the 'filesetwillmostlikelyneversupportthisattribute' attribute."
+            FileSet::class . " doesn't support the 'filesetwillmostlikelyneversupportthisattribute' attribute."
         );
     }
 
@@ -68,7 +70,7 @@ class AugmentTest extends BuildFileTest
         $this->expectSpecificBuildException(
             __FUNCTION__,
             'it does support unsupported element',
-            "phing.types.FileSet doesn't support the 'filesetwillmostlikelyneversupportthiselement' creator/adder."
+            FileSet::class . " doesn't support the 'filesetwillmostlikelyneversupportthiselement' creator/adder."
         );
     }
 }

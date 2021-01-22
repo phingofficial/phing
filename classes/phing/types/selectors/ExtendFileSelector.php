@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Type\Parameterizable;
+
 /**
  * This is the interface to be used by all custom selectors, those that are
  * called through the &lt;custom&gt; tag. It is the amalgamation of two

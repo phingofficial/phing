@@ -26,6 +26,7 @@ use Phing\Io\IOException;
 use Phing\Filter\ChainableReader;
 use Phing\Project;
 use Phing\Io\Reader;
+use Phing\Type\FilterReader;
 
 /**
  * Filter which includes only those lines that contain all the user-specified
@@ -50,7 +51,7 @@ use Phing\Io\Reader;
  *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@velum.net>
- * @see     PhingFilterReader
+ * @see     FilterReader
  * @package phing.filters
  */
 class LineContains extends BaseParamFilterReader implements ChainableReader

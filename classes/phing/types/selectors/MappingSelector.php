@@ -22,6 +22,7 @@ use Phing\Io\FileUtils;
 use Phing\Io\File;
 use Phing\Mapper\FileNameMapper;
 use Phing\Mapper\IdentityMapper;
+use Phing\Type\Mapper;
 
 /**
  * A mapping selector is an abstract class adding mapping support to the

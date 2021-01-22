@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Type\FileSet;
+
 /**
  * testcases for phing.IntrospectionHelper.
  *

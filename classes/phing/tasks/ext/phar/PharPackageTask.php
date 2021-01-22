@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
+use Phing\Type\FileSet;
 
 /**
  * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.

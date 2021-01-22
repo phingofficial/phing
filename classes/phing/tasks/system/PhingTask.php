@@ -28,6 +28,7 @@ use Phing\Phing;
 use Phing\Project;
 use Phing\ProjectComponent;
 use Phing\Target;
+use Phing\Type\Reference;
 
 /**
  * Task that invokes phing on another build file.

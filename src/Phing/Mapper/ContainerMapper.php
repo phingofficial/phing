@@ -20,7 +20,7 @@
 namespace Phing\Mapper;
 use ArrayIterator;
 use BadMethodCallException;
-use Mapper;
+use Phing\Type\Mapper;
 
 /**
  * A <code>FileNameMapper</code> that contains

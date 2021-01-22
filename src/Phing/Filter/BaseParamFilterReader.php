@@ -20,8 +20,8 @@
 namespace Phing\Filter;
 
 use Exception;
-use Parameter;
-use Parameterizable;
+use Phing\Type\Parameter;
+use Phing\Type\Parameterizable;
 use Phing\Filter\BaseFilterReader;
 use Phing\Io\FilterReader;
 

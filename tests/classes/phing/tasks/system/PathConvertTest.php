@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Type\Path;
+
 /**
  * Tests the Apply Task
  *

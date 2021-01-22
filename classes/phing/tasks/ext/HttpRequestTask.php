@@ -19,6 +19,7 @@
 
 use GuzzleHttp\Middleware;
 use Phing\Exception\BuildException;
+use Phing\Type\Parameter;
 use Phing\Util\Regexp;
 use Phing\Util\RegexpException;
 use Phing\Util\StringHelper;

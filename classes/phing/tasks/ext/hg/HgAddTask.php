@@ -13,6 +13,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Type\FileSet;
 
 /**
  * Integration/Wrapper for hg add

@@ -19,6 +19,8 @@
 
 declare(strict_types=1);
 
+use Phing\Type\Commandline;
+
 class PHPStanTask extends Task
 {
     use FileSetAware;

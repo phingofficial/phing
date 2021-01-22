@@ -23,6 +23,7 @@ use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
 use Phing\Project;
+use Phing\Type\Mapper;
 
 /**
  * Touch a file and/or fileset(s); corresponds to the Unix touch command.

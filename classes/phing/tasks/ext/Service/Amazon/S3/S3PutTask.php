@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Type\FileSet;
 
 /**
  * Stores an object on S3
