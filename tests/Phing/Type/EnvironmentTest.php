@@ -2,7 +2,7 @@
 
 namespace Phing\Type;
 
-use EnvVariable;
+use Phing\Type\EnvVariable;
 use Phing\Exception\BuildException;
 use Phing\Type\Environment;
 

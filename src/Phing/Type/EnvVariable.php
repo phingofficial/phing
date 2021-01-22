@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Type;
+
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Type\Path;
@@ -85,7 +87,7 @@ class EnvVariable
      */
     public function setPath(Path $path)
     {
-        $this->value = (string) $path;
+        $this->value = (string)$path;
     }
 
     /**
