@@ -19,15 +19,15 @@
 
 namespace Phing\Io;
 
-use FileSelector;
+use Phing\Type\Selector\FileSelector;
 use Phing\Io\FileUtils;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Io\FileScanner;
 use Phing\Util\StringHelper;
 use Phing\Io\File;
-use SelectorScanner;
-use SelectorUtils;
+use Phing\Type\Selector\SelectorScanner;
+use Phing\Type\Selector\SelectorUtils;
 use UnexpectedValueException;
 
 /**

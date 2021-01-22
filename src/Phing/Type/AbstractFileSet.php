@@ -21,7 +21,7 @@ namespace Phing\Type;
 
 use ArrayIterator;
 use Exception;
-use FileSelector;
+use Phing\Type\Selector\FileSelector;
 use Phing\Type\FileSet;
 use IteratorAggregate;
 use Phing\Type\PatternSet;
@@ -34,9 +34,9 @@ use Phing\Project;
 use Phing\ProjectComponent;
 use Phing\Type\DataType;
 use Phing\Type\Reference;
-use SelectorAware;
-use SelectorContainer;
-use SelectorScanner;
+use Phing\Type\Selector\SelectorAware;
+use Phing\Type\Selector\SelectorContainer;
+use Phing\Type\Selector\SelectorScanner;
 
 /**
  * The FileSet class provides methods and properties for accessing

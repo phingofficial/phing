@@ -25,6 +25,30 @@ use Phing\ProjectComponent;
 use Phing\Type\FileSet;
 use Phing\Type\PatternSet;
 use Phing\Type\PatternSetNameEntry;
+use Phing\Type\Selector\AndSelector;
+use Phing\Type\Selector\ContainsRegexpSelector;
+use Phing\Type\Selector\ContainsSelector;
+use Phing\Type\Selector\DateSelector;
+use Phing\Type\Selector\DependSelector;
+use Phing\Type\Selector\DepthSelector;
+use Phing\Type\Selector\DifferentSelector;
+use Phing\Type\Selector\ExecutableSelector;
+use Phing\Type\Selector\ExtendSelector;
+use Phing\Type\Selector\FilenameSelector;
+use Phing\Type\Selector\FileSelector;
+use Phing\Type\Selector\MajoritySelector;
+use Phing\Type\Selector\ModifiedSelector;
+use Phing\Type\Selector\NoneSelector;
+use Phing\Type\Selector\NotSelector;
+use Phing\Type\Selector\OrSelector;
+use Phing\Type\Selector\PresentSelector;
+use Phing\Type\Selector\ReadableSelector;
+use Phing\Type\Selector\SelectorContainer;
+use Phing\Type\Selector\SelectSelector;
+use Phing\Type\Selector\SizeSelector;
+use Phing\Type\Selector\SymlinkSelector;
+use Phing\Type\Selector\TypeSelector;
+use Phing\Type\Selector\WritableSelector;
 
 /**
  * This is an abstract task that should be used by all those tasks that

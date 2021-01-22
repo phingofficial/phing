@@ -19,6 +19,8 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Type\Selector\AbstractSelectorContainer;
+use Phing\Type\Selector\FileSelector;
 
 /**
  * This is a condition that checks to see if a file passes an embedded selector.
