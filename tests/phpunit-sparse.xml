@@ -7,6 +7,7 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="true"
+         stopOnError="true"
          syntaxCheck="false"
          verbose="false"
          strict="false">
