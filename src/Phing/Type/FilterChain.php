@@ -46,9 +46,6 @@ use Phing\Filter\TidyFilter;
 use Phing\Filter\TranslateGettext;
 use Phing\Filter\XincludeFilter;
 use Phing\Filter\XsltFilter;
-use Phing\Type\DataType;
-use Phing\Type\FilterReader;
-use Phing\Type\Reference;
 
 /**
  * FilterChain may contain a chained set of filter readers.

@@ -20,12 +20,11 @@
 namespace Phing\Type\Selector;
 
 use Phing\Exception\BuildException;
-use Phing\Io\FileUtils;
 use Phing\Io\File;
+use Phing\Io\FileUtils;
 use Phing\Mapper\FileNameMapper;
 use Phing\Mapper\IdentityMapper;
 use Phing\Type\Mapper;
-use Phing\Type\Selector\BaseSelector;
 
 /**
  * A mapping selector is an abstract class adding mapping support to the

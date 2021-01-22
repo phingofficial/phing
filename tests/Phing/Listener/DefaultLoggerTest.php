@@ -21,12 +21,10 @@ namespace Phing\Listener;
 
 use Phing\Exception\BuildException;
 use Phing\Io\OutputStream;
-use Phing\Listener\BuildEvent;
-use Phing\Listener\DefaultLogger;
 use Phing\Parser\Location;
 use Phing\Parser\ProjectConfigurator;
-use PHPUnit\Framework\TestCase;
 use Phing\Project;
+use PHPUnit\Framework\TestCase;
 use Throwable;
 
 class DefaultLoggerTest extends TestCase

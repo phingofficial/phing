@@ -21,7 +21,6 @@ namespace Phing;
 
 use BuildFileTest;
 use Phing\Exception\BuildException;
-use Phing\Project;
 
 /**
  * UTs for ExtensionPoint component

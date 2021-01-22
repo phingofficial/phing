@@ -20,11 +20,8 @@
 namespace Phing\Io;
 
 use InvalidArgumentException;
-use Phing\Io\FileSystem;
-use Phing\Io\IOException;
 use Phing\Phing;
 use Phing\Util\StringHelper;
-use Phing\Io\File;
 
 /**
  * @package   phing.system.io

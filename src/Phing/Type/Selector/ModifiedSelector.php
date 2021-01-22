@@ -19,12 +19,6 @@
 
 namespace Phing\Type\Selector;
 
-use Phing\Type\Selector\Modified\Algorithm;
-use Phing\Type\Selector\Modified\Cache;
-use Phing\Type\Selector\Modified\Comparator;
-use Phing\Type\Selector\Modified\EqualComparator;
-use Phing\Type\Selector\Modified\HashfileAlgorithm;
-use Phing\Type\Selector\Modified\LastModifiedAlgorithm;
 use Phing\Exception\BuildException;
 use Phing\IntrospectionHelper;
 use Phing\Io\File;
@@ -33,9 +27,14 @@ use Phing\Listener\BuildListener;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Type\Parameter;
-use Phing\Type\Selector\BaseExtendSelector;
-use Phing\Util\StringHelper;
+use Phing\Type\Selector\Modified\Algorithm;
+use Phing\Type\Selector\Modified\Cache;
+use Phing\Type\Selector\Modified\Comparator;
+use Phing\Type\Selector\Modified\EqualComparator;
+use Phing\Type\Selector\Modified\HashfileAlgorithm;
+use Phing\Type\Selector\Modified\LastModifiedAlgorithm;
 use Phing\Type\Selector\Modified\PropertiesCache;
+use Phing\Util\StringHelper;
 use Throwable;
 
 /**

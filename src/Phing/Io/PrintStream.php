@@ -2,10 +2,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\BufferedWriter;
-use Phing\Io\OutputStream;
-use Phing\Io\OutputStreamWriter;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT

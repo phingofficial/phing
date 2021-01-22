@@ -2,8 +2,6 @@
 
 namespace Phing;
 
-use Phing\Project;
-use Phing\RuntimeConfigurable;
 use Proxy;
 
 /**

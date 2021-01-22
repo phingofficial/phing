@@ -19,10 +19,7 @@
 
 namespace Phing\Io;
 
-use Phing\Io\FileSystem;
-use Phing\Io\IOException;
 use Phing\Exception\BuildException;
-use Phing\Io\File;
 
 /**
  * Extended file stream wrapper class which auto-creates directories

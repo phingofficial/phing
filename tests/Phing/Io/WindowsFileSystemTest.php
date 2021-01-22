@@ -19,9 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\AbstractWinFileSystemTestCase;
-use Phing\Io\WindowsFileSystem;
-
 /**
  * Unit test for Win32FileSystem
  *

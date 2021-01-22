@@ -18,8 +18,6 @@
  */
 
 namespace Phing\Io;
-use Phing\Io\InputStreamReader;
-use Phing\Io\Reader;
 
 /**
  * Convenience class for reading files.

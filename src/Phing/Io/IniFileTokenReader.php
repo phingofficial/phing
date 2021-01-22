@@ -22,9 +22,6 @@ namespace Phing\Io;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Filter\Token;
-use Phing\Io\IOException;
-use Phing\Io\File;
-use Phing\Io\TokenReader;
 
 /**
  * Class that allows reading tokens from INI files.

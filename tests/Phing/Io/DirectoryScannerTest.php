@@ -23,8 +23,6 @@ namespace Phing\Io;
 
 use BuildFileTest;
 use Phing\Exception\BuildException;
-use Phing\Io\DirectoryScanner;
-use Phing\Io\FileSystem;
 
 /**
  * Testcases for phing.util.DirectoryScanner

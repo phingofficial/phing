@@ -19,8 +19,6 @@
 
 namespace Phing\Util;
 
-use Phing\Util\Timer;
-
 /**
  * Unit test for Timer
  *

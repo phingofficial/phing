@@ -19,8 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\FileSystem;
-
 /**
  * @author Daniel Holmes
  * @package phing.system.io

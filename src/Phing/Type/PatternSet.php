@@ -19,16 +19,13 @@
 
 namespace Phing\Type;
 
-use Phing\Type\PatternSetNameEntry;
 use Phing\Exception\BuildException;
 use Phing\Io\BufferedReader;
+use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
-use Phing\Io\File;
 use Phing\Project;
-use Phing\Type\DataType;
 use Phing\Util\StringHelper;
-use Phing\Type\Reference;
 
 /**
  * The patternset storage component. Carries all necessary data and methods

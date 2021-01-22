@@ -19,9 +19,6 @@
 
 namespace Phing\Type;
 
-use Phing\Type\AbstractFileSetTest;
-use Phing\Type\FileSet;
-
 /**
  * Unit tests for FileSet -- including Selectors.
  *

@@ -21,8 +21,6 @@
 
 namespace Phing\Util;
 
-use Phing\Util\PregEngine;
-
 /**
  * Class PregEngineTest
  *

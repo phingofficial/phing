@@ -18,7 +18,6 @@
  */
 
 namespace Phing\Io;
-use Phing\Io\IOException;
 
 /**
  * Wrapper class for PHP stream that supports read operations.

@@ -20,7 +20,6 @@
 namespace Phing\Listener;
 
 use Exception;
-use Phing\Listener\EventObject;
 use stdClass;
 
 /**

@@ -23,7 +23,6 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Mapper\IdentityMapper;
 use Phing\Type\Mapper;
-use Phing\Type\Selector\BaseSelector;
 
 /**
  * Selector that filters files based on whether they appear in another

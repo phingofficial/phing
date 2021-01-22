@@ -21,8 +21,6 @@ namespace Phing\Type\Selector;
 
 use Phing\Exception\BuildException;
 use Phing\Project;
-use Phing\Type\Selector\AndSelector;
-use Phing\Type\Selector\FileSelector;
 
 /**
  * This selector just holds one other selector and forwards all

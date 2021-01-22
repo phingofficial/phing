@@ -21,11 +21,7 @@ namespace Phing\Io;
 
 use Exception;
 use FilesystemIterator;
-use Phing\Io\IOException;
 use Phing\Phing;
-use Phing\Io\File;
-use Phing\Io\UnixFileSystem;
-use Phing\Io\WindowsFileSystem;
 
 /**
  * This is an abstract class for platform specific filesystem implementations

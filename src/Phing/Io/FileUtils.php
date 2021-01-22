@@ -19,21 +19,13 @@
 
 namespace Phing\Io;
 
-use Phing\Io\BufferedReader;
-use Phing\Io\BufferedWriter;
 use Exception;
-use Phing\Io\FileReader;
-use Phing\Io\FileSystem;
-use Phing\Io\FileWriter;
-use Phing\Io\IOException;
 use Phing\Exception\BuildException;
 use Phing\Filter\ChainReaderHelper;
 use Phing\Phing;
+use Phing\Project;
 use Phing\Util\Character;
 use Phing\Util\StringHelper;
-use Phing\Io\File;
-use Phing\Project;
-use Phing\Io\Reader;
 
 /**
  * File utility class.

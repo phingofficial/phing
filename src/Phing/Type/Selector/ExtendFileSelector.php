@@ -20,7 +20,6 @@
 namespace Phing\Type\Selector;
 
 use Phing\Type\Parameterizable;
-use Phing\Type\Selector\FileSelector;
 
 /**
  * This is the interface to be used by all custom selectors, those that are

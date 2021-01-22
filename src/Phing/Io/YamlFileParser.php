@@ -21,9 +21,6 @@ namespace Phing\Io;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Io\FileParserInterface;
-use Phing\Io\IOException;
-use Phing\Io\File;
 
 /**
  * Implements a YamlFileParser to parse yaml-files as array.

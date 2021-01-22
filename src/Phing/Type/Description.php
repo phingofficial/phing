@@ -21,7 +21,6 @@ namespace Phing\Type;
 
 use Phing\Project;
 use Phing\Target;
-use Phing\Type\DataType;
 use Phing\UnknownElement;
 use Task;
 

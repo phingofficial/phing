@@ -21,9 +21,6 @@ namespace Phing\Type\Selector;
 
 use Countable;
 use Phing\Exception\BuildException;
-use Phing\Type\Selector\BaseSelector;
-use Phing\Type\Selector\SelectorAware;
-use Phing\Type\Selector\SelectorContainer;
 
 /**
  * This is the base class for selectors that can contain other selectors.

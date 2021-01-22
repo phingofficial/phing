@@ -20,7 +20,6 @@
 namespace Phing\Type\Selector;
 
 use BuildFileTest;
-use Phing\Type\Selector\ModifiedSelector;
 use Phing\Exception\BuildException;
 
 /**

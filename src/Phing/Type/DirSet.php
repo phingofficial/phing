@@ -19,8 +19,6 @@
 
 namespace Phing\Type;
 
-use Phing\Type\AbstractFileSet;
-
 /**
  * Subclass as hint for supporting tasks that the included directories
  * instead of files should be used.

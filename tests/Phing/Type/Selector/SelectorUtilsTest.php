@@ -19,9 +19,8 @@
 
 namespace Phing\Type\Selector;
 
-use Phing\Io\FileUtils;
 use Phing\Io\File;
-use Phing\Type\Selector\SelectorUtils;
+use Phing\Io\FileUtils;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,7 +2,6 @@
 
 namespace Phing\Type;
 
-use Phing\Type\Parameter;
 use Phing\Util\RegisterSlot;
 
 /**

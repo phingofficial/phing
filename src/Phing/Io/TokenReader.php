@@ -19,7 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\IOException;
 use Phing\Project;
 
 /**

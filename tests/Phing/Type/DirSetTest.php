@@ -20,7 +20,6 @@
 namespace Phing\Type;
 
 use Phing\Project;
-use Phing\Type\DirSet;
 
 /**
  * Unit tests for DirSet -- including Selectors.

@@ -20,7 +20,6 @@
 namespace Phing\Type;
 
 use Phing\Exception\BuildException;
-use Phing\Type\DataType;
 
 /**
  * Unit test for DataType

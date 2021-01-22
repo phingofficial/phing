@@ -20,7 +20,6 @@
 namespace Phing\Util;
 
 use Phing\Io\File;
-use Phing\Util\Properties;
 
 /**
  * Unit test for Properties class

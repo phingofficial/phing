@@ -19,11 +19,10 @@
 
 namespace Phing\Type\Selector;
 
+use OsCondition as Os;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
-use Phing\Type\Selector\PosixPermissionsSelector;
 use PHPUnit\Framework\TestCase;
-use OsCondition as Os;
 
 /**
  * Class PosixPermissionsSelectorTest

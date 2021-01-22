@@ -22,8 +22,6 @@ namespace Phing;
 use BuildFileTest;
 use EchoTask;
 use Phing\Exception\BuildException;
-use Phing\RuntimeConfigurable;
-use Phing\Target;
 
 /**
  * UTs for Target component

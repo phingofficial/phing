@@ -23,7 +23,6 @@ use Phing\ComponentHelper;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\ProjectComponent;
-use Phing\Type\Reference;
 
 /**
  * Base class for those classes that can appear inside the build file

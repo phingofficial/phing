@@ -21,10 +21,8 @@ namespace Phing\Io;
 
 use Exception;
 use Phar;
-use Phing\Io\FileSystem;
 use Phing\Phing;
 use Phing\Util\StringHelper;
-use Phing\Io\File;
 
 /**
  * UnixFileSystem class. This class encapsulates the basic file system functions

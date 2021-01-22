@@ -20,9 +20,6 @@
 namespace Phing\Util;
 
 use Phing\Exception\BuildException;
-use Phing\Util\PregEngine;
-use Phing\Util\RegexpEngine;
-use Phing\Util\RegexpException;
 
 /**
  * A factory class for regex functions.

@@ -18,8 +18,6 @@
  */
 
 namespace Phing\Io;
-use Phing\Io\IOException;
-use Phing\Io\Reader;
 
 /**
  * Wrapper class for readers, which can be used to apply filters.

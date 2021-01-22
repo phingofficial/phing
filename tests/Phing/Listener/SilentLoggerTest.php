@@ -21,10 +21,8 @@ namespace Phing\Listener;
 
 use Exception;
 use Phing\Io\OutputStream;
-use Phing\Listener\BuildEvent;
-use Phing\Listener\SilentLogger;
-use PHPUnit\Framework\TestCase;
 use Phing\Project;
+use PHPUnit\Framework\TestCase;
 
 class SilentLoggerTest extends TestCase
 {

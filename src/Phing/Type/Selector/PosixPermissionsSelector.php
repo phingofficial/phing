@@ -21,7 +21,6 @@ namespace Phing\Type\Selector;
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
-use Phing\Type\Selector\FileSelector;
 
 /**
  * A selector that selects files based on their POSIX permissions.

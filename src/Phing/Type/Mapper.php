@@ -19,7 +19,6 @@
 
 namespace Phing\Type;
 
-use Phing\Type\Path;
 use Phing\Exception\BuildException;
 use Phing\Mapper\ChainedMapper;
 use Phing\Mapper\CompositeMapper;
@@ -34,9 +33,7 @@ use Phing\Mapper\MergeMapper;
 use Phing\Mapper\RegexpMapper;
 use Phing\Phing;
 use Phing\Project;
-use Phing\Type\DataType;
 use Phing\Util\StringHelper;
-use Phing\Type\Reference;
 
 /**
  * Filename Mapper maps source file name(s) to target file name(s).

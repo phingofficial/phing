@@ -19,9 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\OutputStreamWriter;
-use Phing\Io\FileOutputStream;
-
 /**
  * Convenience class for performing file write operations.
  *

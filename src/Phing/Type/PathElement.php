@@ -20,7 +20,6 @@
 namespace Phing\Type;
 
 use Phing\Io\File;
-use Phing\Type\Path;
 
 /**
  * Helper class, holds the nested <code>&lt;pathelement&gt;</code> values.

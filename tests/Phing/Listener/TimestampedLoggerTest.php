@@ -20,10 +20,8 @@
 namespace Phing\Listener;
 
 use Phing\Io\OutputStream;
-use Phing\Listener\BuildEvent;
-use Phing\Listener\TimestampedLogger;
-use PHPUnit\Framework\TestCase;
 use Phing\Project;
+use PHPUnit\Framework\TestCase;
 
 class TimestampedLoggerTest extends TestCase
 {

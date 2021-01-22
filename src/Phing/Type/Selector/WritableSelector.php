@@ -20,7 +20,6 @@
 namespace Phing\Type\Selector;
 
 use Phing\Io\File;
-use Phing\Type\Selector\FileSelector;
 
 /**
  * A selector that selects writable files.

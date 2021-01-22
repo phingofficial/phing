@@ -19,8 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\InputStreamReader;
-
 /**
  * Dummy class for reading from string of characters.
  *

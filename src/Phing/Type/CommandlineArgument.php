@@ -19,9 +19,7 @@
 
 namespace Phing\Type;
 
-use Phing\Type\Path;
 use Phing\Io\File;
-use Phing\Type\Commandline;
 
 /**
  * "Inner" class used for nested xml command line definitions.

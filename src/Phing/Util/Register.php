@@ -19,8 +19,6 @@
 
 namespace Phing\Util;
 
-use Phing\Util\RegisterSlot;
-
 /**
  * Static class to handle a slot-listening system.
  *

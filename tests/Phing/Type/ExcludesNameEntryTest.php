@@ -19,7 +19,6 @@
 
 namespace Phing\Type;
 
-use Phing\Type\ExcludesNameEntry;
 use PHPUnit\Framework\TestCase;
 
 class ExcludesNameEntryTest extends TestCase

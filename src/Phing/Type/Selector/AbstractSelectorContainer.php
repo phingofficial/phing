@@ -24,11 +24,7 @@ use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Type\DataType;
 use Phing\Type\FileSet;
-use Phing\Type\Selector\BaseSelector;
-use Phing\Type\Selector\FileSelector;
-use Phing\Type\Selector\SelectorContainer;
 use Phing\Util\StringHelper;
-use Phing\Type\Selector\SelectorAware;
 
 /**
  * This is the base class for selectors that can contain other selectors.

@@ -21,7 +21,6 @@ namespace Phing\Type\Selector\Modified;
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
-use Phing\Type\Selector\Modified\Algorithm;
 
 /**
  * Class ChecksumAlgorithm

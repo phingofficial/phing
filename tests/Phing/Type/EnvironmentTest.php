@@ -2,9 +2,7 @@
 
 namespace Phing\Type;
 
-use Phing\Type\EnvVariable;
 use Phing\Exception\BuildException;
-use Phing\Type\Environment;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

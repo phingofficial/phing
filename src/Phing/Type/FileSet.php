@@ -20,7 +20,6 @@
 namespace Phing\Type;
 
 use Exception;
-use Phing\Type\AbstractFileSet;
 
 /**
  * Moved out of MatchingTask to make it a standalone object that could

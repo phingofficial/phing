@@ -19,10 +19,8 @@
 
 namespace Phing\Listener;
 
-use Phing\Listener\BuildEvent;
-use Phing\Listener\MonologListener;
-use PHPUnit\Framework\TestCase;
 use Phing\Project;
+use PHPUnit\Framework\TestCase;
 
 class MonologListenerTest extends TestCase
 {

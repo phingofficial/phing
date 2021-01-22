@@ -19,9 +19,6 @@
 
 namespace Phing\Type\Selector;
 
-use Phing\Type\Selector\BaseSelector;
-use Phing\Type\Selector\ExtendFileSelector;
-
 /**
  * Convenience base class for all selectors accessed through ExtendSelector.
  * It provides support for gathering the parameters together as well as for

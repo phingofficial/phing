@@ -19,11 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\IniFileParser;
-use Phing\Io\FileParserFactoryInterface;
-use Phing\Io\XmlFileParser;
-use Phing\Io\YamlFileParser;
-
 /**
  * The factory to create fileParsers based on extension name from
  * PhingFile->getFileExtension()

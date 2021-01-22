@@ -18,8 +18,6 @@
  */
 
 namespace Phing\Io;
-use Phing\Io\IOException;
-use Phing\Io\File;
 
 /**
  * This interface can be used to implement a fileParser for property files.

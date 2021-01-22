@@ -19,11 +19,9 @@
 
 namespace Phing\Type\Selector;
 
-use Phing\Type\Selector\BaseExtendSelector;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Type\RegularExpression;
-use Phing\Type\Selector\SelectorUtils;
 use Phing\Util\StringHelper;
 
 /**

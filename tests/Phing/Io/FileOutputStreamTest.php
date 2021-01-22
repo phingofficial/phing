@@ -19,11 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\FileOutputStream;
-use Phing\Io\FileSystem;
-use Phing\Io\IOException;
-use Phing\Io\File;
-
 /**
  * Unit test for FileOutputStream.
  *

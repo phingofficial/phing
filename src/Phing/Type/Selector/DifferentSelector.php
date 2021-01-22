@@ -19,11 +19,10 @@
 
 namespace Phing\Type\Selector;
 
-use Phing\Type\Selector\MappingSelector;
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
-use Phing\Io\File;
 
 /**
  * This selector selects files against a mapped set of target files, selecting

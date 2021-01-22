@@ -24,8 +24,6 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Phing;
 use Phing\Type\Parameter;
-use Phing\Type\Selector\BaseSelector;
-use Phing\Type\Selector\ExtendFileSelector;
 
 /**
  * Selector that selects files by forwarding the request on to other classes.

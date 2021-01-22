@@ -20,7 +20,6 @@
 namespace Phing\Type\Selector;
 
 use Phing\Io\File;
-use Phing\Type\Selector\BaseSelectorContainer;
 
 /**
  * This selector is here just to shake up your thinking a bit. Don't get

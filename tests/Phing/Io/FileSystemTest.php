@@ -19,10 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\FileSystem;
-use Phing\Io\IOException;
-use Phing\Io\UnixFileSystem;
-use Phing\Io\WindowsFileSystem;
 use Phing\Phing;
 use ReflectionClass;
 

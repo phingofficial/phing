@@ -23,10 +23,6 @@ use Exception;
 use Phing\Exception\BuildException;
 use Phing\Mapper\GlobMapper;
 use Phing\Project;
-use Phing\Type\Mapper;
-use Phing\Type\Path;
-use Phing\Type\Reference;
-use Phing\Type\TaskdefForCopyTest;
 
 /**
  * Unit test for mappers.

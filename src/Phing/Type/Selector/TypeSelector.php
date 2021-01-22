@@ -21,7 +21,6 @@ namespace Phing\Type\Selector;
 
 use Phing\Io\File;
 use Phing\Project;
-use Phing\Type\Selector\BaseExtendSelector;
 
 /**
  * Selector that selects a certain kind of file: directory or regular file.

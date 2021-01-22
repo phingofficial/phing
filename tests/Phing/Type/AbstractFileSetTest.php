@@ -22,8 +22,6 @@ namespace Phing\Type;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
-use Phing\Type\FileSet;
-use Phing\Type\Reference;
 
 /**
  * Unit tests for AbstractFileSet.

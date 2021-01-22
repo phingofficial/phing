@@ -20,7 +20,6 @@
 namespace Phing\Type;
 
 use ArrayObject;
-use Phing\Type\EnvVariable;
 use Phing\Exception\BuildException;
 
 /**

@@ -18,7 +18,6 @@
  */
 
 namespace Phing\Io;
-use Phing\Io\Writer;
 
 /**
  * Convenience class for writing files.

@@ -19,10 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\IOException;
-use Phing\Io\InputStream;
-use Phing\Io\Reader;
-
 /**
  * Writer class for OutputStream objects.
  *

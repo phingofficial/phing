@@ -19,8 +19,6 @@
 
 namespace Phing\Util;
 
-use Phing\Util\Character;
-
 /**
  * Unit test for Character
  *

@@ -19,8 +19,6 @@
 
 namespace Phing;
 
-use Phing\Project;
-use Phing\PropertyHelper;
 use PHPUnit\Framework\TestCase;
 
 class PropertyHelperTest extends TestCase

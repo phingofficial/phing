@@ -19,8 +19,6 @@
 
 namespace Phing\Util;
 
-use Phing\Util\RegisterSlot;
-
 /**
  * Unit test for RegisterSlot
  *

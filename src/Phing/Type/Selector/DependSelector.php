@@ -23,8 +23,6 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Mapper\IdentityMapper;
 use Phing\Type\Mapper;
-use Phing\Type\Selector\BaseSelector;
-use Phing\Type\Selector\SelectorUtils;
 use the;
 
 /**

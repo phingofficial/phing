@@ -20,7 +20,6 @@
 namespace Phing\Type\Selector\Modified;
 
 use ArrayIterator;
-use Phing\Type\Selector\Modified\Cache;
 use Exception;
 use Iterator;
 use Phing\Io\File;

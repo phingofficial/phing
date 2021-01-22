@@ -21,10 +21,6 @@ namespace Phing\Type;
 
 use Phing\Exception\BuildException;
 use Phing\Io\FilterReader as IoFilterReader;
-use Phing\Type\DataType;
-use Phing\Type\Parameter;
-use Phing\Type\Path;
-use Phing\Type\Reference;
 
 /**
  * A PhingFilterReader is a wrapper class that encloses the className

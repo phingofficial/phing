@@ -18,7 +18,6 @@
  */
 
 namespace Phing\Type\Selector;
-use Phing\Type\Selector\NoneSelector;
 
 /**
  * This selector has one other selectors whose meaning it inverts. It

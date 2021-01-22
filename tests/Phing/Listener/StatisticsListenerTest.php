@@ -19,10 +19,8 @@
 
 namespace Phing\Listener;
 
-use Phing\Listener\BuildEvent;
-use Phing\Listener\StatisticsListener;
-use PHPUnit\Framework\TestCase;
 use Phing\Project;
+use PHPUnit\Framework\TestCase;
 
 class StatisticsListenerTest extends TestCase
 {

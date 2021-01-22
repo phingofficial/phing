@@ -22,7 +22,6 @@ namespace Phing\Type\Selector;
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Type\DataType;
-use Phing\Type\Selector\FileSelector;
 use Phing\Util\StringHelper;
 
 /**

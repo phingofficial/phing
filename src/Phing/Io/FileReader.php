@@ -19,10 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\InputStreamReader;
-use Phing\Io\IOException;
-use Phing\Io\FileInputStream;
-
 /**
  * Convenience class for reading files.
  *

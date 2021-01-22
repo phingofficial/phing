@@ -19,10 +19,8 @@
 
 namespace Phing\Type;
 
-use Phing\Type\ExcludesNameEntry;
 use Phing\Io\DirectoryScanner;
 use Phing\Project;
-use Phing\Type\DataType;
 
 /**
  * Datatype which handles excluded files, classes and methods.

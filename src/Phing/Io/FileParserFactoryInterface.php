@@ -19,8 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\FileParserInterface;
-
 /**
  * This interface can be used to implement a fileParserFactory to create FileParsers based on config.
  * Currently it is used in the PropertyTask to deliver the correct parser based on filetype.

@@ -19,10 +19,6 @@
 
 namespace Phing\Input;
 
-use Phing\Input\ConsoleInputHandler;
-use Phing\Input\InputRequest;
-use Phing\Input\MultipleChoiceInputRequest;
-use Phing\Input\YesNoInputRequest;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\NullOutput;
 

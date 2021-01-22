@@ -22,7 +22,6 @@ namespace Phing\Type;
 use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Project;
-use Phing\Type\DataType;
 use Phing\Util\Regexp;
 use Phing\Util\StringHelper;
 

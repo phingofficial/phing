@@ -19,11 +19,8 @@
 
 namespace Phing\Io;
 
-use Phing\Io\IOException;
-use Phing\Io\FileUtils;
 use Phing\Mapper\FileNameMapper;
 use Phing\Phing;
-use Phing\Io\File;
 use Phing\Project;
 use Task;
 

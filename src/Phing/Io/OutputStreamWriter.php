@@ -19,9 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\OutputStream;
-use Phing\Io\Writer;
-
 /**
  * Writer class for OutputStream objects.
  *

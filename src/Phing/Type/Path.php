@@ -19,18 +19,12 @@
 
 namespace Phing\Type;
 
-use Phing\Type\PathElement;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
-use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Io\IOException;
 use Phing\Project;
-use Phing\Type\DataType;
-use Phing\Type\DirSet;
-use Phing\Type\FileList;
-use Phing\Type\FileSet;
 use Phing\Util\PathTokenizer;
-use Phing\Type\Reference;
 use the;
 
 /**

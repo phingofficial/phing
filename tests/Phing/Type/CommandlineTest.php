@@ -20,8 +20,6 @@
 namespace Phing\Type;
 
 use Phing\Exception\BuildException;
-use Phing\Type\Commandline;
-use Phing\Type\CommandlineMarker;
 
 /**
  * Unit test for mappers.

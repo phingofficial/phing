@@ -19,11 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\FileParserFactory;
-use Phing\Io\FileParserInterface;
-use Phing\Io\IniFileParser;
-use Phing\Io\YamlFileParser;
-
 /**
  * Unit test for FileParserFactory
  *

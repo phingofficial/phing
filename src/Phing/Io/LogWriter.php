@@ -20,7 +20,6 @@
 namespace Phing\Io;
 use Phing\Project;
 use Task;
-use Phing\Io\Writer;
 
 /**
  * Extends the Writer class to output messages to Phing's log

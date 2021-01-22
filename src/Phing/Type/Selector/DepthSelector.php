@@ -19,7 +19,6 @@
 
 namespace Phing\Type\Selector;
 
-use Phing\Type\Selector\BaseExtendSelector;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 

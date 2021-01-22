@@ -19,8 +19,6 @@
 
 namespace Phing\Type;
 
-use Phing\Type\CommandlineArgument;
-use Phing\Type\CommandlineMarker;
 use Countable;
 use OsCondition;
 use Phing\Exception\BuildException;

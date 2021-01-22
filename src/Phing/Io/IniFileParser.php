@@ -19,10 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\IOException;
-use Phing\Io\FileParserInterface;
-use Phing\Io\File;
-
 /**
  * Implements an IniFileParser. The logic is coming from th Properties.php, but I don't know who's the author.
  *

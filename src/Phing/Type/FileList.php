@@ -25,12 +25,10 @@ use IteratorAggregate;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Io\BufferedReader;
+use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
-use Phing\Io\File;
 use Phing\Project;
-use Phing\Type\DataType;
-use Phing\Type\Reference;
 
 /**
  * FileList represents an explicitly named list of files. FileLists

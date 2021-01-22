@@ -19,10 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\FileSystem;
-use Phing\Io\File;
-use Phing\Io\UnixFileSystem;
-
 /**
  * Unit test for UnixFileSystem
  *

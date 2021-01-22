@@ -19,10 +19,7 @@
 
 namespace Phing\Io;
 
-use Phing\Io\FileParserInterface;
-use Phing\Io\IOException;
 use Phing\Util\Properties;
-use Phing\Io\File;
 use SimpleXMLElement;
 
 /**

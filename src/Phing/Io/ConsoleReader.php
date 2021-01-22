@@ -18,7 +18,6 @@
  */
 
 namespace Phing\Io;
-use Phing\Io\Reader;
 
 /**
  * Convenience class for reading console input.

@@ -21,9 +21,6 @@ namespace Phing\Io;
 
 use Exception;
 use Phing\Exception\NullPointerException;
-use Phing\Io\FileSystem;
-use Phing\Io\FileUtils;
-use Phing\Io\IOException;
 use Phing\Util\StringHelper;
 
 /**

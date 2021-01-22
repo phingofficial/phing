@@ -19,10 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\IniFileParser;
-use Phing\Io\IOException;
-use Phing\Io\File;
-
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @package phing.system.io

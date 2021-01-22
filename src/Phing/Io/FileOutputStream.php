@@ -19,9 +19,6 @@
 
 namespace Phing\Io;
 use Exception;
-use Phing\Io\IOException;
-use Phing\Io\OutputStream;
-use Phing\Io\File;
 
 /**
  * Output stream subclass for file streams.

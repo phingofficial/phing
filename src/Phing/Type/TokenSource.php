@@ -24,8 +24,6 @@ use Phing\Io\IOException;
 use Phing\Io\TokenReader;
 use Phing\Phing;
 use Phing\Project;
-use Phing\Type\DataType;
-use Phing\Type\Parameter;
 
 /**
  * A parameter is composed of a name, type and value.

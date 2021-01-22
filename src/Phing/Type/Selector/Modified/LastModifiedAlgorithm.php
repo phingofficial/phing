@@ -3,7 +3,6 @@
 namespace Phing\Type\Selector\Modified;
 
 use Phing\Io\File;
-use Phing\Type\Selector\Modified\Algorithm;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

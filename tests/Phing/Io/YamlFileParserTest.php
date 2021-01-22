@@ -19,13 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\FileParserInterface;
-use Phing\Io\FileUtils;
-use Phing\Io\IniFileParser;
-use Phing\Io\IOException;
-use Phing\Io\File;
-use Phing\Io\YamlFileParser;
-
 /**
  * Unit test for YamlFileParser
  *

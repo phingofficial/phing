@@ -19,8 +19,6 @@
 
 namespace Phing\Io;
 
-use Phing\Io\IOException;
-
 /**
  * Abstract class for reading character streams.
  *

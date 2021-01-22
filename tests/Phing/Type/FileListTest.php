@@ -22,8 +22,6 @@ namespace Phing\Type;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
-use Phing\Type\FileList;
-use Phing\Type\Reference;
 use PHPUnit\Framework\TestCase;
 
 class FileListTest extends TestCase

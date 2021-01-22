@@ -19,7 +19,6 @@
 
 namespace Phing\Type;
 
-use Phing\Type\DataType;
 use Phing\Util\RegisterSlot;
 
 /**

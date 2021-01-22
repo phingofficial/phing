@@ -19,8 +19,6 @@
 
 namespace Phing\Type\Selector\Modified;
 
-use Phing\Type\Selector\Modified\Comparator;
-
 /**
  * Class EqualComparator
  */

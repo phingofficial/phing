@@ -19,8 +19,6 @@
 
 namespace Phing\Type;
 
-use Phing\Type\Commandline;
-
 /**
  * Class to keep track of the position of an Argument.
  *

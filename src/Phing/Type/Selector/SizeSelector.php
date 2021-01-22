@@ -21,10 +21,9 @@ namespace Phing\Type\Selector;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Io\IOException;
 use Phing\Type\Parameter;
-use Phing\Type\Selector\BaseExtendSelector;
 use Phing\Util\SizeHelper;
 
 /**
