@@ -27,6 +27,7 @@ use Phing\Project;
 use Phing\Type\Commandline;
 use Phing\Type\CommandlineArgument;
 use Phing\Type\Environment;
+use Phing\Type\EnvVariable;
 use Phing\Type\Path;
 use Phing\Util\StringHelper;
 
