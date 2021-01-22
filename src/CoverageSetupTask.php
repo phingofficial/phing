@@ -19,6 +19,10 @@
 
 namespace Phing\Tasks\Ext\Coverage;
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Util\Properties;
+
 /**
  * Initializes a code coverage database
  *
@@ -60,10 +64,10 @@ class CoverageSetupTask extends \Task
             try {
                 $list = $fl->getFiles($this->project);
                 foreach ($list as $file) {
-                    $fs = new \PhingFile((string) $fl->getDir($this->project), $file);
+                    $fs = new File((string) $fl->getDir($this->project), $file);
                     $files[] = ['key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath()];
                 }
-            } catch (\BuildException $be) {
+            } catch (BuildException $be) {
                 $this->log($be->getMessage(), \Project::MSG_WARN);
             }
         }
@@ -75,7 +79,7 @@ class CoverageSetupTask extends \Task
             $includedFiles = $ds->getIncludedFiles();
 
             foreach ($includedFiles as $file) {
-                $fs = new \PhingFile(realpath($ds->getBaseDir()), $file);
+                $fs = new File(realpath($ds->getBaseDir()), $file);
 
                 $files[] = ['key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath()];
             }
@@ -90,7 +94,7 @@ class CoverageSetupTask extends \Task
 
         $this->log("Setting up coverage database for " . count($files) . " files");
 
-        $props = new \Properties();
+        $props = new \Phing\Util\Properties();
 
         foreach ($files as $file) {
             $fullname = $file['fullname'];
@@ -99,7 +103,7 @@ class CoverageSetupTask extends \Task
             $props->setProperty($filename, serialize(['fullname' => $fullname, 'coverage' => []]));
         }
 
-        $dbfile = new \PhingFile($this->database);
+        $dbfile = new \Phing\Io\File($this->database);
 
         $props->store($dbfile);
 

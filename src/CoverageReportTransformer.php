@@ -19,6 +19,11 @@
 
 namespace Phing\Tasks\Ext\Coverage;
 
+use Phing\Exception\BuildException;
+use Phing\Io\ExtendedFileStream;
+use Phing\Io\File;
+use Phing\Phing;
+
 /**
  * Transform a Phing/Xdebug code coverage xml report.
  * The default transformation generates an html report in framed style.
@@ -33,7 +38,7 @@ class CoverageReportTransformer
     private $styleDir = "";
 
     /**
-     * @var \PhingFile
+     * @var File
      */
     private $toDir = "";
 
@@ -69,9 +74,9 @@ class CoverageReportTransformer
     }
 
     /**
-     * @param \PhingFile $toDir
+     * @param File $toDir
      */
-    public function setToDir(\PhingFile $toDir)
+    public function setToDir(File $toDir)
     {
         $this->toDir = $toDir;
     }
@@ -124,7 +129,7 @@ class CoverageReportTransformer
         $proc->registerPHPFunctions('nl2br');
         $proc->importStylesheet($xsl);
 
-        \ExtendedFileStream::registerStream();
+        ExtendedFileStream::registerStream();
 
         $toDir = (string) $this->toDir;
 
@@ -141,35 +146,35 @@ class CoverageReportTransformer
         $proc->setParameter('', 'document.title', $this->title);
         $proc->transformToXML($this->document);
 
-        \ExtendedFileStream::unregisterStream();
+        ExtendedFileStream::unregisterStream();
     }
 
     /**
-     * @return \PhingFile
-     * @throws \BuildException
+     * @return File
+     * @throws BuildException
      */
     private function getStyleSheet()
     {
         $xslname = "coverage-frames.xsl";
 
         if ($this->styleDir) {
-            $file = new \PhingFile($this->styleDir, $xslname);
+            $file = new File($this->styleDir, $xslname);
         } else {
-            $path = \Phing::getResourcePath("phing/etc/$xslname");
+            $path = Phing::getResourcePath("phing/etc/$xslname");
 
             if ($path === null) {
-                $path = \Phing::getResourcePath("etc/$xslname");
+                $path = Phing::getResourcePath("etc/$xslname");
 
                 if ($path === null) {
-                    throw new \BuildException("Could not find $xslname in resource path");
+                    throw new BuildException("Could not find $xslname in resource path");
                 }
             }
 
-            $file = new \PhingFile($path);
+            $file = new File($path);
         }
 
         if (!$file->exists()) {
-            throw new \BuildException("Could not find file " . $file->getPath());
+            throw new BuildException("Could not find file " . $file->getPath());
         }
 
         return $file;

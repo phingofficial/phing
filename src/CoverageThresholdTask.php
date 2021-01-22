@@ -19,6 +19,11 @@
 
 namespace Phing\Tasks\Ext\Coverage;
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Type\Excludes;
+use Phing\Util\Properties;
+
 /**
  * Stops the build if any of the specified coverage threshold was not reached
  *
@@ -33,14 +38,14 @@ class CoverageThresholdTask extends \Task
     /**
      * Holds the exclusions
      *
-     * @var \Excludes
+     * @var Excludes
      */
     private $excludes = null;
 
     /**
      * Holds an optional database file
      *
-     * @var \PhingFile
+     * @var File
      */
     private $database = null;
 
@@ -103,9 +108,9 @@ class CoverageThresholdTask extends \Task
     /**
      * Sets the optional coverage database to use
      *
-     * @param \PhingFile The database file
+     * @param File The database file
      */
-    public function setDatabase(\PhingFile $database)
+    public function setDatabase(File $database)
     {
         $this->database = $database;
     }
@@ -164,11 +169,11 @@ class CoverageThresholdTask extends \Task
     /**
      * Create excludes object
      *
-     * @return \Excludes
+     * @return Excludes
      */
     public function createExcludes()
     {
-        $this->excludes = new \Excludes($this->project);
+        $this->excludes = new Excludes($this->project);
 
         return $this->excludes;
     }
@@ -279,7 +284,7 @@ class CoverageThresholdTask extends \Task
                     }
 
                     if ($methodCoverage < $this->perMethod && !$method->isAbstract()) {
-                        throw new \BuildException(
+                        throw new BuildException(
                             'The coverage (' . round($methodCoverage, 2) . '%) '
                             . 'for method "' . $method->getName() . '" is lower'
                             . ' than the specified threshold ('
@@ -325,7 +330,7 @@ class CoverageThresholdTask extends \Task
                 }
 
                 if ($classCoverage < $this->perClass && !$reflection->isAbstract()) {
-                    throw new \BuildException(
+                    throw new BuildException(
                         'The coverage (' . round($classCoverage, 2) . '%) for class "'
                         . $reflection->getName() . '" is lower than the '
                         . 'specified threshold (' . $this->perClass . '%), '
@@ -372,7 +377,7 @@ class CoverageThresholdTask extends \Task
                 );
             }
 
-            $database = new \PhingFile($coverageDatabase);
+            $database = new File($coverageDatabase);
         } else {
             $database = $this->database;
         }
@@ -384,7 +389,7 @@ class CoverageThresholdTask extends \Task
             . $this->perMethod . '% per method is required'
         );
 
-        $props = new \Properties();
+        $props = new Properties();
         $props->load($database);
 
         foreach ($props->keys() as $filename) {
@@ -411,7 +416,7 @@ class CoverageThresholdTask extends \Task
         }
 
         if ($coverage < $this->perProject) {
-            throw new \BuildException(
+            throw new BuildException(
                 'The coverage (' . round($coverage, 2) . '%) for the entire project '
                 . 'is lower than the specified threshold ('
                 . $this->perProject . '%)'

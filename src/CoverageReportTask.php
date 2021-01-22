@@ -19,6 +19,10 @@
 
 namespace Phing\Tasks\Ext\Coverage;
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Util\Properties;
+
 /**
  * Transforms information in a code coverage database to XML
  *
@@ -470,6 +474,7 @@ class CoverageReportTask extends \Task
         $totalstatementcount = 0;
         $totalstatementscovered = 0;
 
+        /** @var \DOMNode $package */
         foreach ($packages as $package) {
             $methodcount = 0;
             $methodscovered = 0;
@@ -479,6 +484,7 @@ class CoverageReportTask extends \Task
 
             $subpackages = $package->getElementsByTagName('subpackage');
 
+            /** @var \DOMNode $subpackage */
             foreach ($subpackages as $subpackage) {
                 $subpackageMethodCount = 0;
                 $subpackageMethodsCovered = 0;
@@ -488,6 +494,7 @@ class CoverageReportTask extends \Task
 
                 $subpackageClasses = $subpackage->getElementsByTagName('class');
 
+                /** @var \DOMNode $subpackageClass */
                 foreach ($subpackageClasses as $subpackageClass) {
                     $subpackageMethodCount += $subpackageClass->getAttribute('methodcount');
                     $subpackageMethodsCovered += $subpackageClass->getAttribute('methodscovered');
@@ -508,6 +515,7 @@ class CoverageReportTask extends \Task
 
             $classes = $package->getElementsByTagName('class');
 
+            /** @var \DOMNode $class */
             foreach ($classes as $class) {
                 $methodcount += $class->getAttribute('methodcount');
                 $methodscovered += $class->getAttribute('methodscovered');
@@ -547,14 +555,14 @@ class CoverageReportTask extends \Task
         $coverageDatabase = $this->project->getProperty('coverage.database');
 
         if (!$coverageDatabase) {
-            throw new \BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
+            throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
         }
 
-        $database = new \PhingFile($coverageDatabase);
+        $database = new File($coverageDatabase);
 
         $this->log("Transforming coverage report");
 
-        $props = new \Properties();
+        $props = new Properties();
         $props->load($database);
 
         foreach ($props->keys() as $filename) {

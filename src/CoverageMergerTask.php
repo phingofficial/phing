@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext\Coverage;
 
+use Phing\Io\File;
+
 /**
  * Merges code coverage snippets into a code coverage database
  *
@@ -46,7 +48,7 @@ class CoverageMergerTask extends \Task
             $includedFiles = $ds->getIncludedFiles();
 
             foreach ($includedFiles as $file) {
-                $fs = new \PhingFile(basename($ds->getBaseDir()), $file);
+                $fs = new File(basename($ds->getBaseDir()), $file);
 
                 $files[] = $fs->getAbsolutePath();
             }

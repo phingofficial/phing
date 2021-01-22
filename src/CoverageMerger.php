@@ -19,6 +19,12 @@
 
 namespace Phing\Tasks\Ext\Coverage;
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Util\Properties;
+use Phing\Project;
+
 /**
  * Saves coverage output of the test to a specified database
  *
@@ -76,9 +82,9 @@ class CoverageMerger
     }
 
     /**
-     * @param  \Project $project
-     * @return \Properties
-     * @throws \BuildException
+     * @param  Project $project
+     * @return Properties
+     * @throws BuildException
      */
     protected static function _getDatabase($project)
     {
@@ -88,9 +94,9 @@ class CoverageMerger
             throw new \BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
         }
 
-        $database = new \PhingFile($coverageDatabase);
+        $database = new File($coverageDatabase);
 
-        $props = new \Properties();
+        $props = new Properties();
         $props->load($database);
 
         return $props;
@@ -99,7 +105,7 @@ class CoverageMerger
     /**
      * @param $project
      * @return array
-     * @throws \BuildException
+     * @throws BuildException
      */
     public static function getWhiteList($project)
     {
@@ -117,8 +123,8 @@ class CoverageMerger
     /**
      * @param $project
      * @param $codeCoverageInformation
-     * @throws \BuildException
-     * @throws \IOException
+     * @throws BuildException
+     * @throws IOException
      */
     public static function merge($project, $codeCoverageInformation)
     {
