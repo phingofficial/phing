@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Type\DataType;
+
 /**
  * Class that holds parameters for an ssh2_connect $methods parameter
  * This corresponds to the optional $methods parameter
@@ -30,7 +32,7 @@ namespace Phing\Tasks\Ext;
  *
  * @package phing.tasks.ext
  */
-class Ssh2MethodParam extends \DataType
+class Ssh2MethodParam extends DataType
 {
     /**
      * @var string
