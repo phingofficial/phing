@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90c8730a608cb87415f532997057e2ed",
+    "content-hash": "1190021e00fc8bd27fdabcf16c45f148",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -181,12 +181,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-coverage.git",
-                "reference": "49e65532a5e2b89650a09c057d9e01b007e47fae"
+                "reference": "3149e5eb275a2a376e5c9855a527aa3baf31270e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/49e65532a5e2b89650a09c057d9e01b007e47fae",
-                "reference": "49e65532a5e2b89650a09c057d9e01b007e47fae",
+                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/3149e5eb275a2a376e5c9855a527aa3baf31270e",
+                "reference": "3149e5eb275a2a376e5c9855a527aa3baf31270e",
                 "shasum": ""
             },
             "require": {
@@ -225,7 +225,7 @@
                 "issues": "https://github.com/phingofficial/task-coverage/issues",
                 "source": "https://github.com/phingofficial/task-coverage/tree/master"
             },
-            "time": "2020-11-15T10:33:15+00:00"
+            "time": "2021-01-22T20:32:06+00:00"
         },
         {
             "name": "phing/task-ftpdeploy",
@@ -433,12 +433,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-liquibase.git",
-                "reference": "e9060a0ae1ac5d011c3e0d6ddeea8abc8fdb5bda"
+                "reference": "feb9a1d54f846a22da9ad8aeaa27c5c15a92d7db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-liquibase/zipball/e9060a0ae1ac5d011c3e0d6ddeea8abc8fdb5bda",
-                "reference": "e9060a0ae1ac5d011c3e0d6ddeea8abc8fdb5bda",
+                "url": "https://api.github.com/repos/phingofficial/task-liquibase/zipball/feb9a1d54f846a22da9ad8aeaa27c5c15a92d7db",
+                "reference": "feb9a1d54f846a22da9ad8aeaa27c5c15a92d7db",
                 "shasum": ""
             },
             "require": {
@@ -480,7 +480,7 @@
                 "issues": "https://github.com/phingofficial/task-liquibase/issues",
                 "source": "https://github.com/phingofficial/task-liquibase/tree/master"
             },
-            "time": "2020-01-01T14:29:40+00:00"
+            "time": "2021-01-22T19:56:39+00:00"
         },
         {
             "name": "phing/task-phkpackage",
@@ -638,12 +638,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-ssh.git",
-                "reference": "54ac9284da3e0de2d57a14b14b65ba9dd372d3a7"
+                "reference": "cf0bd63cf499e28ed78af709b74c27c7ee90c621"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-ssh/zipball/54ac9284da3e0de2d57a14b14b65ba9dd372d3a7",
-                "reference": "54ac9284da3e0de2d57a14b14b65ba9dd372d3a7",
+                "url": "https://api.github.com/repos/phingofficial/task-ssh/zipball/cf0bd63cf499e28ed78af709b74c27c7ee90c621",
+                "reference": "cf0bd63cf499e28ed78af709b74c27c7ee90c621",
                 "shasum": ""
             },
             "require": {
@@ -683,7 +683,7 @@
                 "issues": "https://github.com/phingofficial/task-ssh/issues",
                 "source": "https://github.com/phingofficial/task-ssh/tree/master"
             },
-            "time": "2020-02-16T00:25:13+00:00"
+            "time": "2021-01-22T19:56:26+00:00"
         },
         {
             "name": "phing/task-zendcodeanalyser",
@@ -1782,16 +1782,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.171.19",
+            "version": "3.172.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e786e4a8b2ec85b258833d0570ff6b61348cbdb6"
+                "reference": "5a5e66c4d54c392042820703eeb8a6bd3d222924"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e786e4a8b2ec85b258833d0570ff6b61348cbdb6",
-                "reference": "e786e4a8b2ec85b258833d0570ff6b61348cbdb6",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5a5e66c4d54c392042820703eeb8a6bd3d222924",
+                "reference": "5a5e66c4d54c392042820703eeb8a6bd3d222924",
                 "shasum": ""
             },
             "require": {
@@ -1866,9 +1866,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.171.19"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.172.0"
             },
-            "time": "2021-01-15T19:26:11+00:00"
+            "time": "2021-01-22T19:21:38+00:00"
         },
         {
             "name": "composer/xdebug-handler",
@@ -5315,16 +5315,16 @@
         },
         {
             "name": "siad007/versioncontrol_hg",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/siad007/versioncontrol_hg.git",
-                "reference": "e02ec9f1e88efae48f0e3296f65b1d99718b27cd"
+                "reference": "bdeb5515f14a6ccd1abdc69e8d0c9e8e0bb75ec3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/siad007/versioncontrol_hg/zipball/e02ec9f1e88efae48f0e3296f65b1d99718b27cd",
-                "reference": "e02ec9f1e88efae48f0e3296f65b1d99718b27cd",
+                "url": "https://api.github.com/repos/siad007/versioncontrol_hg/zipball/bdeb5515f14a6ccd1abdc69e8d0c9e8e0bb75ec3",
+                "reference": "bdeb5515f14a6ccd1abdc69e8d0c9e8e0bb75ec3",
                 "shasum": ""
             },
             "require": {
@@ -5361,9 +5361,9 @@
             "description": "VersionControl_HG is a library that provides an OO interface to handle Mercurial repositories.",
             "support": {
                 "issues": "https://github.com/siad007/versioncontrol_hg/issues",
-                "source": "https://github.com/siad007/versioncontrol_hg/tree/develop"
+                "source": "https://github.com/siad007/versioncontrol_hg/tree/v1.0.3"
             },
-            "time": "2016-07-10T15:44:59+00:00"
+            "time": "2021-01-22T20:43:06+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -5765,12 +5765,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
@@ -5808,8 +5808,8 @@
                 "validate"
             ],
             "support": {
-                "issues": "https://github.com/webmozart/assert/issues",
-                "source": "https://github.com/webmozart/assert/tree/master"
+                "issues": "https://github.com/webmozarts/assert/issues",
+                "source": "https://github.com/webmozarts/assert/tree/1.9.1"
             },
             "time": "2020-07-08T17:02:28+00:00"
         }
@@ -5837,7 +5837,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3 || ^7.4"
+        "php": "^7.3 || ^7.4",
+        "ext-dom": "*"
     },
     "platform-dev": {
         "ext-pdo_sqlite": "*"
