@@ -58,7 +58,7 @@ class CoverageReportTransformer
     private $useSortTable = false;
 
     /**
-     * @param \Task $task
+     * @param Task $task
      */
     public function __construct(\Task $task)
     {

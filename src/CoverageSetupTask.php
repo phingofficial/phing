@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\Ext\Coverage;
 
+use Phing\Task;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Util\Properties;
@@ -30,7 +31,7 @@ use Phing\Util\Properties;
  * @package phing.tasks.ext.coverage
  * @since   2.1.0
  */
-class CoverageSetupTask extends \Task
+class CoverageSetupTask extends Task
 {
     use \ClasspathAware;
     use \FileListAware;

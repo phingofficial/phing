@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\Ext\Coverage;
 
+use Phing\Task;
 use Phing\Io\File;
 
 /**
@@ -28,7 +29,7 @@ use Phing\Io\File;
  * @package phing.tasks.ext.coverage
  * @since   2.1.0
  */
-class CoverageMergerTask extends \Task
+class CoverageMergerTask extends Task
 {
     use \FileSetAware;
 
