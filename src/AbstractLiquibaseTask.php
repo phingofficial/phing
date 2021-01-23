@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * Abstract Liquibase task. Base class for all Liquibase Phing tasks.
  *
@@ -26,7 +28,7 @@ namespace Phing\Tasks\Ext;
  * @since   2.4.10
  * @package phing.tasks.ext.liquibase
  */
-abstract class AbstractLiquibaseTask extends \Task
+abstract class AbstractLiquibaseTask extends Task
 {
 
     /**
