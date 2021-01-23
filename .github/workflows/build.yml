@@ -52,7 +52,7 @@ jobs:
         experimental: [ false ]
         include:
           - php: 8.1
-            os: ubuntu-latest
+            operating-system: ubuntu-latest
             experimental: true
 
     name: PHP ${{ matrix.php }} on ${{ matrix.operating-system }} with ${{ matrix.dependencies }} dependencies
