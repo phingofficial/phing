@@ -58,7 +58,7 @@ class Parameter extends DataType
      */
     public function setName($name)
     {
-        $this->name = (string)$name;
+        $this->name = (string) $name;
     }
 
     /**
@@ -66,7 +66,7 @@ class Parameter extends DataType
      */
     public function setType($type)
     {
-        $this->type = (string)$type;
+        $this->type = (string) $type;
     }
 
     /**
@@ -84,7 +84,7 @@ class Parameter extends DataType
      */
     public function setValue($value)
     {
-        $this->value = (string)$value;
+        $this->value = (string) $value;
     }
 
     /**

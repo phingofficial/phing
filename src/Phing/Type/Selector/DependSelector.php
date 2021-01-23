@@ -57,10 +57,10 @@ class DependSelector extends BaseSelector
         $buf .= $this->granularity;
         if ($this->map !== null) {
             $buf .= " mapper: ";
-            $buf .= (string)$this->map;
+            $buf .= (string) $this->map;
         } elseif ($this->mapperElement !== null) {
             $buf .= " mapper: ";
-            $buf .= (string)$this->mapperElement;
+            $buf .= (string) $this->mapperElement;
         }
         $buf .= "}";
 
@@ -87,7 +87,7 @@ class DependSelector extends BaseSelector
      */
     public function setGranularity($granularity)
     {
-        $this->granularity = (int)$granularity;
+        $this->granularity = (int) $granularity;
     }
 
     /**

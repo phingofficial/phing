@@ -28,8 +28,8 @@ use Phing\Util\SeriesTimer;
 use Phing\Util\StatisticsReport;
 
 /**
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.listener
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.listener
  */
 class StatisticsListener implements SubBuildListener
 {
@@ -123,7 +123,7 @@ class StatisticsListener implements SubBuildListener
     }
 
     /**
-     * @param BuildEvent $buildEvent
+     * @param  BuildEvent $buildEvent
      * @return SeriesTimer
      */
     private function findTargetTimer(BuildEvent $buildEvent)
@@ -135,7 +135,7 @@ class StatisticsListener implements SubBuildListener
     }
 
     /**
-     * @param BuildEvent $buildEvent
+     * @param  BuildEvent $buildEvent
      * @return SeriesTimer
      */
     private function findTaskTimer(BuildEvent $buildEvent)

@@ -186,7 +186,7 @@ class Target implements TaskContainer
      */
     public function addDependency($dependency)
     {
-        $this->dependencies[] = (string)$dependency;
+        $this->dependencies[] = (string) $dependency;
     }
 
     /**
@@ -215,7 +215,7 @@ class Target implements TaskContainer
      */
     public function setName($name)
     {
-        $this->name = (string)$name;
+        $this->name = (string) $name;
     }
 
     /**
@@ -225,7 +225,7 @@ class Target implements TaskContainer
      */
     public function getName()
     {
-        return (string)$this->name;
+        return (string) $this->name;
     }
 
     /**
@@ -236,7 +236,7 @@ class Target implements TaskContainer
      */
     public function setHidden($flag)
     {
-        $this->hidden = (bool)$flag;
+        $this->hidden = (bool) $flag;
 
         return $this;
     }
@@ -372,7 +372,7 @@ class Target implements TaskContainer
      */
     public function __toString()
     {
-        return (string)$this->name;
+        return (string) $this->name;
     }
 
     /**

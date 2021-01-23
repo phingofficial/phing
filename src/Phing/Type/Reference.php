@@ -54,7 +54,7 @@ class Reference
      */
     public function setRefId($id)
     {
-        $this->refid = (string)$id;
+        $this->refid = (string) $id;
     }
 
     /**

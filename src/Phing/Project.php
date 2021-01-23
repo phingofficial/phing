@@ -419,7 +419,7 @@ class Project
      */
     public function setDefaultTarget($targetName)
     {
-        $this->defaultTarget = (string)trim($targetName);
+        $this->defaultTarget = (string) trim($targetName);
     }
 
     /**
@@ -429,7 +429,7 @@ class Project
      */
     public function getDefaultTarget()
     {
-        return (string)$this->defaultTarget;
+        return (string) $this->defaultTarget;
     }
 
     /**
@@ -441,7 +441,7 @@ class Project
      */
     public function setName($name)
     {
-        $this->name = (string)trim($name);
+        $this->name = (string) trim($name);
         $this->setUserProperty("phing.project.name", $this->name);
     }
 
@@ -453,7 +453,7 @@ class Project
      */
     public function getName()
     {
-        return (string)$this->name;
+        return (string) $this->name;
     }
 
     /**
@@ -487,7 +487,7 @@ class Project
     public function setPhingVersion($version)
     {
         $version = str_replace('phing', '', strtolower($version));
-        $this->phingVersion = (string)trim($version);
+        $this->phingVersion = (string) trim($version);
     }
 
     /**
@@ -545,7 +545,7 @@ class Project
         $dir = $this->fileUtils->normalize($dir);
         $dir = FileSystem::getFileSystem()->canonicalize($dir);
 
-        $dir = new File((string)$dir);
+        $dir = new File((string) $dir);
         if (!$dir->exists()) {
             throw new BuildException("Basedir " . $dir->getAbsolutePath() . " does not exist");
         }
@@ -799,7 +799,7 @@ class Project
         // until targetName occurs.
         $sortedTargets = $this->topoSort($targetName);
 
-        $curIndex = (int)0;
+        $curIndex = (int) 0;
         $curTarget = null;
         $thrownException = null;
         $buildException = null;
@@ -895,7 +895,7 @@ class Project
      */
     public function topoSort($rootTarget)
     {
-        $rootTarget = (string)$rootTarget;
+        $rootTarget = (string) $rootTarget;
         $ret = [];
         $state = [];
         $visiting = [];
@@ -912,17 +912,17 @@ class Project
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= (string)$ret[$i] . " ";
+            $retHuman .= (string) $ret[$i] . " ";
         }
         $this->log("Build sequence for target '$rootTarget' is: $retHuman", Project::MSG_VERBOSE);
 
         $keys = array_keys($this->targets);
         while ($keys) {
-            $curTargetName = (string)array_shift($keys);
+            $curTargetName = (string) array_shift($keys);
             if (!isset($state[$curTargetName])) {
                 $st = null;
             } else {
-                $st = (string)$state[$curTargetName];
+                $st = (string) $state[$curTargetName];
             }
 
             if ($st === null) {
@@ -934,7 +934,7 @@ class Project
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= (string)$ret[$i] . " ";
+            $retHuman .= (string) $ret[$i] . " ";
         }
         $this->log("Complete build sequence is: $retHuman", Project::MSG_VERBOSE);
 
@@ -982,7 +982,7 @@ class Project
             $sb = "Target '$root' does not exist in this project.";
             array_pop($visiting);
             if (!empty($visiting)) {
-                $parent = (string)$visiting[count($visiting) - 1];
+                $parent = (string) $visiting[count($visiting) - 1];
                 $sb .= " It is a dependency of target '$parent'.";
             }
             if ($suggestion = $this->findSuggestion($root)) {
@@ -994,11 +994,11 @@ class Project
         $deps = $target->getDependencies();
 
         while ($deps) {
-            $cur = (string)array_shift($deps);
+            $cur = (string) array_shift($deps);
             if (!isset($state[$cur])) {
                 $m = null;
             } else {
-                $m = (string)$state[$cur];
+                $m = (string) $state[$cur];
             }
             if ($m === null) {
                 // not been visited
@@ -1009,7 +1009,7 @@ class Project
             }
         }
 
-        $p = (string)array_pop($visiting);
+        $p = (string) array_pop($visiting);
         if ($root !== $p) {
             throw new Exception("Unexpected internal error: expected to pop $root but got $p");
         }
@@ -1027,7 +1027,7 @@ class Project
     {
         $sb = "Circular dependency: $end";
         do {
-            $c = (string)array_pop($stk);
+            $c = (string) array_pop($stk);
             $sb .= " <- " . $c;
         } while ($c != $end);
 
@@ -1051,7 +1051,7 @@ class Project
         if ($ref !== null && !$ref instanceof UnknownElement) {
             $this->log("Overriding previous definition of reference to $name", Project::MSG_VERBOSE);
         }
-        $refName = (is_scalar($object) || $object instanceof PropertyValue) ? (string)$object : get_class($object);
+        $refName = (is_scalar($object) || $object instanceof PropertyValue) ? (string) $object : get_class($object);
         $this->log("Adding reference: $name -> " . $refName, Project::MSG_DEBUG);
         $this->references[$name] = $object;
     }
@@ -1153,7 +1153,7 @@ class Project
             $listener->buildStarted($event);
         }
 
-        $this->log((string)$event, Project::MSG_DEBUG);
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1167,7 +1167,7 @@ class Project
             $listener->buildFinished($event);
         }
 
-        $this->log((string)$event, Project::MSG_DEBUG);
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1180,7 +1180,7 @@ class Project
             $listener->targetStarted($event);
         }
 
-        $this->log((string)$event, Project::MSG_DEBUG);
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1195,7 +1195,7 @@ class Project
             $listener->targetFinished($event);
         }
 
-        $this->log((string)$event, Project::MSG_DEBUG);
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1208,7 +1208,7 @@ class Project
             $listener->taskStarted($event);
         }
 
-        $this->log((string)$event, Project::MSG_DEBUG);
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**
@@ -1223,7 +1223,7 @@ class Project
             $listener->taskFinished($event);
         }
 
-        $this->log((string)$event, Project::MSG_DEBUG);
+        $this->log((string) $event, Project::MSG_DEBUG);
     }
 
     /**

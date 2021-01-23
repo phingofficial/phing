@@ -127,7 +127,7 @@ class UnixFileSystem extends FileSystem
         if ($len === 0) {
             return $pathname;
         }
-        $n = (int)$len;
+        $n = (int) $len;
         while (($n > 0) && ($pathname[$n - 1] === '/')) {
             $n--;
         }
@@ -264,7 +264,7 @@ class UnixFileSystem extends FileSystem
         $f1Path = $f1->getPath();
         $f2Path = $f2->getPath();
 
-        return strcmp((string)$f1Path, (string)$f2Path);
+        return strcmp((string) $f1Path, (string) $f2Path);
     }
 
     /**

@@ -68,7 +68,7 @@ class PatternSetNameEntry
      */
     public function setName($name)
     {
-        $this->name = (string)$name;
+        $this->name = (string) $name;
     }
 
     /**
@@ -78,7 +78,7 @@ class PatternSetNameEntry
      */
     public function setIf($cond)
     {
-        $this->ifCond = (string)$cond;
+        $this->ifCond = (string) $cond;
     }
 
     /**
@@ -88,7 +88,7 @@ class PatternSetNameEntry
      */
     public function setUnless($cond)
     {
-        $this->unlessCond = (string)$cond;
+        $this->unlessCond = (string) $cond;
     }
 
     /**

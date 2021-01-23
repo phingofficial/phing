@@ -66,7 +66,7 @@ class PrintStream
             $value = $value === true ? 'true' : 'false';
         }
 
-        $this->write((string)$value);
+        $this->write((string) $value);
     }
 
     /**

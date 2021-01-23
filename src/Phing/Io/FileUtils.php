@@ -88,7 +88,7 @@ class FileUtils
         $permission = ($dirmode === true) ? 0777 : 0666;
 
         // Default mask information
-        $defaultmask = sprintf('%03o', ($permission & ($permission - (int)sprintf('%04o', umask()))));
+        $defaultmask = sprintf('%03o', ($permission & ($permission - (int) sprintf('%04o', umask()))));
 
         return octdec($defaultmask);
     }
@@ -144,8 +144,7 @@ class FileUtils
         $mode = 0755,
         $preservePermissions = true,
         int $granularity = 0
-    )
-    {
+    ) {
         if (
             $overwrite
             || !$destFile->exists()
@@ -315,7 +314,7 @@ class FileUtils
      */
     public function normalize($path)
     {
-        $path = (string)$path;
+        $path = (string) $path;
         $orig = $path;
 
         $path = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
@@ -407,11 +406,11 @@ class FileUtils
                 // already contains one
                 $sb .= DIRECTORY_SEPARATOR;
             }
-            $sb .= (string)$s[$i];
+            $sb .= (string) $s[$i];
         }
 
 
-        $path = (string)$sb;
+        $path = (string) $sb;
         if ($dosWithDrive === true) {
             $path = str_replace('/', '\\', $path);
         }
@@ -446,8 +445,7 @@ class FileUtils
         File $parentDir = null,
         $deleteOnExit = false,
         $createFile = false
-    )
-    {
+    ) {
         $result = null;
         $parent = ($parentDir === null) ? self::getTempDir() : $parentDir->getPath();
 
@@ -468,7 +466,7 @@ class FileUtils
             }
         } else {
             do {
-                $result = new File($parent, $prefix . substr(md5((string)time()), 0, 8) . $suffix);
+                $result = new File($parent, $prefix . substr(md5((string) time()), 0, 8) . $suffix);
             } while ($result->exists());
         }
 

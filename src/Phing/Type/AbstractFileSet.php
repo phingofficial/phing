@@ -151,7 +151,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($dir instanceof File) {
             $dir = $dir->getPath();
         }
-        $this->dir = new File((string)$dir);
+        $this->dir = new File((string) $dir);
         $this->directoryScanner = null;
     }
 
@@ -404,14 +404,14 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $ds->setExcludes($this->defaultPatterns->getExcludePatterns($p));
 
         $p->log(
-            $this->getDataTypeName() . ": Setup file scanner in dir " . (string)$this->dir . " with " . (string)$this->defaultPatterns,
+            $this->getDataTypeName() . ": Setup file scanner in dir " . (string) $this->dir . " with " . (string) $this->defaultPatterns,
             Project::MSG_DEBUG
         );
 
         if ($ds instanceof SelectorScanner) {
             $selectors = $this->getSelectors($p);
             foreach ($selectors as $selector) {
-                $p->log((string)$selector . PHP_EOL, Project::MSG_DEBUG);
+                $p->log((string) $selector . PHP_EOL, Project::MSG_DEBUG);
             }
             $ds->setSelectors($selectors);
         }
@@ -594,7 +594,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     {
         try {
             if ($this->isReference()) {
-                return (string)$this->getRef($this->getProject());
+                return (string) $this->getRef($this->getProject());
             }
             $stk[] = $this;
             $this->dieOnCircularReference($stk, $this->getProject());

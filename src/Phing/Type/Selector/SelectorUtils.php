@@ -156,7 +156,7 @@ class SelectorUtils
         $rePattern = str_replace(array_keys($patternReplacements), array_values($patternReplacements), $rePattern);
         $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
 
-        return (bool)preg_match($rePattern, $str);
+        return (bool) preg_match($rePattern, $str);
     }
 
     /**
@@ -182,7 +182,7 @@ class SelectorUtils
         $rePattern = str_replace(["\*", "\?"], ['.*', '.'], $rePattern);
         $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
 
-        return (bool)preg_match($rePattern, $str);
+        return (bool) preg_match($rePattern, $str);
     }
 
     /**

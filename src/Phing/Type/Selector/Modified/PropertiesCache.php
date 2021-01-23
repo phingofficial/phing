@@ -120,7 +120,7 @@ class PropertiesCache implements Cache
             $this->load();
         }
 
-        return $this->cache->getProperty((string)$key);
+        return $this->cache->getProperty((string) $key);
     }
 
     /**
@@ -147,7 +147,7 @@ class PropertiesCache implements Cache
      */
     public function put($key, $value): void
     {
-        $this->cache->put((string)$key, (string)$value);
+        $this->cache->put((string) $key, (string) $value);
         $this->cacheDirty = true;
     }
 

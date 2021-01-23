@@ -26,7 +26,7 @@ use Phing\Parser\DynamicConfigurator;
 use Phing\Project;
 
 /**
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.system.util
  */
 class XMLChild implements DynamicConfigurator
@@ -50,10 +50,11 @@ class XMLChild implements DynamicConfigurator
 
     /**
      * XMLChild constructor.
-     * @param Project $p
-     * @param DOMDocument $d
+     *
+     * @param Project             $p
+     * @param DOMDocument         $d
      * @param DOMDocumentFragment $f
-     * @param DOMElement $e
+     * @param DOMElement          $e
      */
     public function __construct(Project $p, \DOMDocument $d, \DOMDocumentFragment $f, \DOMElement $e)
     {
@@ -65,6 +66,7 @@ class XMLChild implements DynamicConfigurator
 
     /**
      * Add nested text.
+     *
      * @param string $s the text to add
      */
     public function addText(string $s): void

@@ -31,8 +31,8 @@ abstract class Writer
      * Writes data to output stream.
      *
      * @param string $buf
-     * @param int $off
-     * @param int $len
+     * @param int    $off
+     * @param int    $len
      */
     abstract public function write($buf, $off = null, $len = null);
 

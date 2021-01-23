@@ -56,7 +56,7 @@ class InputRequest
     protected $hidden = false;
 
     /**
-     * @param string $prompt The prompt to show to the user.  Must not be null.
+     * @param  string $prompt The prompt to show to the user.  Must not be null.
      * @throws BuildException
      */
     public function __construct($prompt)

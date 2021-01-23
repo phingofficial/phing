@@ -20,8 +20,8 @@
 namespace Phing\Util;
 
 /**
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.listener.statistics
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.listener.statistics
  */
 class StatsTimer
 {

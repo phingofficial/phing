@@ -84,7 +84,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
 
         if ($this->queuedData !== null) {
             $ch = $this->queuedData[0];
-            $this->queuedData = (string)substr($this->queuedData, 1);
+            $this->queuedData = (string) substr($this->queuedData, 1);
             if ($this->queuedData === '') {
                 $this->queuedData = null;
             }
@@ -112,7 +112,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      */
     public function setPrefix($prefix)
     {
-        $this->prefix = (string)$prefix;
+        $this->prefix = (string) $prefix;
     }
 
     /**
@@ -154,7 +154,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
         if ($params !== null) {
             for ($i = 0, $_i = count($params); $i < $_i; $i++) {
                 if (self::PREFIX_KEY == $params[$i]->getName()) {
-                    $this->prefix = (string)$params[$i]->getValue();
+                    $this->prefix = (string) $params[$i]->getValue();
                     break;
                 }
             }

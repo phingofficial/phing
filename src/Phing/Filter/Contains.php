@@ -38,7 +38,7 @@ class Contains
      */
     public function setValue($contains)
     {
-        $this->value = (string)$contains;
+        $this->value = (string) $contains;
     }
 
     /**

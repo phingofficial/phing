@@ -114,7 +114,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      */
     public function setSuffix($suffix)
     {
-        $this->suffix = (string)$suffix;
+        $this->suffix = (string) $suffix;
     }
 
     /**
@@ -156,7 +156,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
         if ($params !== null) {
             for ($i = 0, $_i = count($params); $i < $_i; $i++) {
                 if (self::SUFFIX_KEY == $params[$i]->getName()) {
-                    $this->suffix = (string)$params[$i]->getValue();
+                    $this->suffix = (string) $params[$i]->getValue();
                     break;
                 }
             }

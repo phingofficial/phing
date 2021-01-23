@@ -86,7 +86,7 @@ class EnvVariable
      */
     public function setPath(Path $path)
     {
-        $this->value = (string)$path;
+        $this->value = (string) $path;
     }
 
     /**

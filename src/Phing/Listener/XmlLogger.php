@@ -165,8 +165,8 @@ class XmlLogger implements BuildLogger
      * Fired when the build finishes, this adds the time taken and any
      * error stacktrace to the build element and writes the document to disk.
      *
-     * @param BuildEvent $event An event with any relevant extra information.
-     *                          Will not be <code>null</code>.
+     * @param  BuildEvent $event An event with any relevant extra information.
+     *                           Will not be <code>null</code>.
      * @throws BuildException
      */
     public function buildFinished(BuildEvent $event)
@@ -274,7 +274,7 @@ class XmlLogger implements BuildLogger
 
         $taskElement = $this->doc->createElement(XmlLogger::TASK_TAG);
         $taskElement->setAttribute(XmlLogger::NAME_ATTR, $task->getTaskName());
-        $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, (string)$task->getLocation());
+        $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, (string) $task->getLocation());
 
         $this->timesStack[] = Phing::currentTimeMillis();
         $this->elementStack[] = $taskElement;
@@ -373,7 +373,7 @@ class XmlLogger implements BuildLogger
      */
     public function setMessageOutputLevel($level)
     {
-        $this->msgOutputLevel = (int)$level;
+        $this->msgOutputLevel = (int) $level;
     }
 
     /**
@@ -402,7 +402,7 @@ class XmlLogger implements BuildLogger
      * Sets this logger to produce emacs (and other editor) friendly output.
      *
      * @param bool $emacsMode true if output is to be unadorned so that emacs and other editors
-     *                             can parse files names, etc.
+     *                        can parse files names, etc.
      */
     public function setEmacsMode($emacsMode)
     {

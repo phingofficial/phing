@@ -907,7 +907,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
         foreach ($defaultExcludesTemp as $temp) {
             $newExcludes[] = str_replace(['\\', '/'], FileUtils::getSeparator(), $temp);
         }
-        $this->excludes = array_merge((array)$this->excludes, $newExcludes);
+        $this->excludes = array_merge((array) $this->excludes, $newExcludes);
     }
 
     /**

@@ -54,7 +54,7 @@ class ExcludesNameEntry
      */
     public function setName($name)
     {
-        $this->name = (string)$name;
+        $this->name = (string) $name;
     }
 
     /**

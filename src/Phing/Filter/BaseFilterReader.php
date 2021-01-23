@@ -82,7 +82,7 @@ class BaseFilterReader extends FilterReader
      */
     public function setInitialized($initialized)
     {
-        $this->initialized = (bool)$initialized;
+        $this->initialized = (bool) $initialized;
     }
 
     /**
