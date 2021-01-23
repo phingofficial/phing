@@ -95,7 +95,7 @@ class CoverageReportTask extends Task
      */
     public function createReport()
     {
-        $transformer = new CoverageReportTransformer($this);
+        $transformer = new CoverageReportTransformer();
         $this->transformers[] = $transformer;
 
         return $transformer;

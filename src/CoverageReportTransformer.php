@@ -34,7 +34,6 @@ use Phing\Phing;
  */
 class CoverageReportTransformer
 {
-    private $task = null;
     private $styleDir = "";
 
     /**
@@ -56,14 +55,6 @@ class CoverageReportTransformer
      * @var boolean
      */
     private $useSortTable = false;
-
-    /**
-     * @param Task $task
-     */
-    public function __construct(\Task $task)
-    {
-        $this->task = $task;
-    }
 
     /**
      * @param $styleDir
