@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "098d8dc9896e22460ec00e2b00d6fc95",
+    "content-hash": "c2b83e0071072f8b24a7ca705823317b",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -277,6 +277,66 @@
                 "source": "https://github.com/phingofficial/task-ftpdeploy/tree/master"
             },
             "time": "2020-10-03T12:38:59+00:00"
+        },
+        {
+            "name": "phing/task-hg",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-hg.git",
+                "reference": "a7c6844f343fc268050388b28ee5b8e9adf7e8f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-hg/zipball/a7c6844f343fc268050388b28ee5b8e9adf7e8f1",
+                "reference": "a7c6844f343fc268050388b28ee5b8e9adf7e8f1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev",
+                "siad007/versioncontrol_hg": "v1.0.3"
+            },
+            "default-branch": true,
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "hgadd": "Phing\\Tasks\\Ext\\HgAddTask",
+                    "hgarchive": "Phing\\Tasks\\Ext\\HgArchiveTask",
+                    "hgclone": "Phing\\Tasks\\Ext\\HgCloneTask",
+                    "hgcommit": "Phing\\Tasks\\Ext\\HgCommitTask",
+                    "hginit": "Phing\\Tasks\\Ext\\HgInitTask",
+                    "hglog": "Phing\\Tasks\\Ext\\HgLogTask",
+                    "hgpull": "Phing\\Tasks\\Ext\\HgPullTask",
+                    "hgpush": "Phing\\Tasks\\Ext\\HgPushTask",
+                    "hgrevert": "Phing\\Tasks\\Ext\\HgRevertTask",
+                    "hgtag": "Phing\\Tasks\\Ext\\HgTagTask",
+                    "hgupdate": "Phing\\Tasks\\Ext\\HgUpdateTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "Mercurial related phing tasks.",
+            "support": {
+                "issues": "https://github.com/phingofficial/task-hg/issues",
+                "source": "https://github.com/phingofficial/task-hg/tree/main"
+            },
+            "time": "2021-01-22T21:54:03+00:00"
         },
         {
             "name": "phing/task-ioncube",
@@ -5821,6 +5881,7 @@
         "phing/task-apigen": 20,
         "phing/task-coverage": 20,
         "phing/task-ftpdeploy": 20,
+        "phing/task-hg": 20,
         "phing/task-ioncube": 20,
         "phing/task-jshint": 20,
         "phing/task-jsmin": 20,
