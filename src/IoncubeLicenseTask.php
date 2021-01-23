@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * Invokes the ionCube "make_license" program
  *
@@ -26,7 +28,7 @@ namespace Phing\Tasks\Ext;
  * @package phing.tasks.ext.ioncube
  * @since   2.2.0
  */
-class IoncubeLicenseTask extends \Task
+class IoncubeLicenseTask extends Task
 {
     private $ioncubePath = "/usr/local/ioncube";
 

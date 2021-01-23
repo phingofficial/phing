@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * Invokes the ionCube Encoder (PHP4 or PHP5)
  *
@@ -28,7 +30,7 @@ namespace Phing\Tasks\Ext;
  * @package phing.tasks.ext.ioncube
  * @since   2.2.0
  */
-class IoncubeEncoderTask extends \Task
+class IoncubeEncoderTask extends Task
 {
     private $ionSwitches = [];
 
