@@ -59,6 +59,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+          extensions: pdo_sqlite
 
       - uses: ramsey/composer-install@v1
         with:
