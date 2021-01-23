@@ -284,12 +284,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-git.git",
-                "reference": "893e5e635a6121ba49db1d37a174fc9a4df4e119"
+                "reference": "698bc7cf478e021a59068594cb1f97e9cf7ef398"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-git/zipball/893e5e635a6121ba49db1d37a174fc9a4df4e119",
-                "reference": "893e5e635a6121ba49db1d37a174fc9a4df4e119",
+                "url": "https://api.github.com/repos/phingofficial/task-git/zipball/698bc7cf478e021a59068594cb1f97e9cf7ef398",
+                "reference": "698bc7cf478e021a59068594cb1f97e9cf7ef398",
                 "shasum": ""
             },
             "require": {
@@ -339,7 +339,7 @@
                 "issues": "https://github.com/phingofficial/task-git/issues",
                 "source": "https://github.com/phingofficial/task-git/tree/main"
             },
-            "time": "2021-01-23T11:03:28+00:00"
+            "time": "2021-01-23T13:08:10+00:00"
         },
         {
             "name": "phing/task-hg",
