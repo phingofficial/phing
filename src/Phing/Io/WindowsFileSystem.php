@@ -191,7 +191,7 @@ class WindowsFileSystem extends FileSystem
                 }
                 if ($src === $len) {
                     /* Check for trailing separator */
-                    $sn = (int)strlen($sb);
+                    $sn = (int) strlen($sb);
                     if (($sn == 2) && ($sb[1] === ':')) {
                         // "z:\\"
                         $sb .= $slash;
@@ -223,7 +223,7 @@ class WindowsFileSystem extends FileSystem
                 $sb .= $c;
             }
         }
-        $rv = (string)$sb;
+        $rv = (string) $sb;
 
         return $rv;
     }
@@ -278,9 +278,9 @@ class WindowsFileSystem extends FileSystem
             return 0;
         }
 
-        $path = (string)$strPath;
-        $slash = (string)$this->slash;
-        $n = (int)strlen($path);
+        $path = (string) $strPath;
+        $slash = (string) $this->slash;
+        $n = (int) strlen($path);
         if ($n === 0) {
             return 0;
         }
@@ -313,15 +313,15 @@ class WindowsFileSystem extends FileSystem
      */
     public function resolve($parent, $child)
     {
-        $parent = (string)$parent;
-        $child = (string)$child;
-        $slash = (string)$this->slash;
+        $parent = (string) $parent;
+        $child = (string) $child;
+        $slash = (string) $this->slash;
 
-        $pn = (int)strlen($parent);
+        $pn = (int) strlen($parent);
         if ($pn === 0) {
             return $child;
         }
-        $cn = (int)strlen($child);
+        $cn = (int) strlen($child);
         if ($cn === 0) {
             return $parent;
         }
@@ -350,7 +350,7 @@ class WindowsFileSystem extends FileSystem
      */
     public function getDefaultParent()
     {
-        return (string)("" . $this->slash);
+        return (string) ("" . $this->slash);
     }
 
     /**
@@ -359,7 +359,7 @@ class WindowsFileSystem extends FileSystem
      */
     public function fromURIPath($strPath)
     {
-        $p = (string)$strPath;
+        $p = (string) $strPath;
         if ((strlen($p) > 2) && ($p[2] === ':')) {
             // "/c:/foo" --> "c:/foo"
             $p = substr($p, 1);
@@ -373,7 +373,7 @@ class WindowsFileSystem extends FileSystem
             $p = substr($p, 0, strlen($p) - 1);
         }
 
-        return (string)$p;
+        return (string) $p;
     }
 
     /* -- Path operations -- */
@@ -384,8 +384,8 @@ class WindowsFileSystem extends FileSystem
      */
     public function isAbsolute(File $f)
     {
-        $pl = (int)$f->getPrefixLength();
-        $p = (string)$f->getPath();
+        $pl = (int) $f->getPrefixLength();
+        $p = (string) $f->getPath();
 
         return ((($pl === 2) && ($p[0] === $this->slash)) || ($pl === 3) || ($pl === 1 && $p[0] === $this->slash));
     }
@@ -398,7 +398,7 @@ class WindowsFileSystem extends FileSystem
      */
     public function _driveIndex($d)
     {
-        $d = (string)$d[0];
+        $d = (string) $d[0];
         if ((ord($d) >= ord('a')) && (ord($d) <= ord('z'))) {
             return ord($d) - ord('a');
         }
@@ -426,8 +426,8 @@ class WindowsFileSystem extends FileSystem
      */
     public function _getDriveDirectory($drive)
     {
-        $drive = (string)$drive[0];
-        $i = (int)$this->_driveIndex($drive);
+        $drive = (string) $drive[0];
+        $i = (int) $this->_driveIndex($drive);
         if ($i < 0) {
             return null;
         }
@@ -450,7 +450,7 @@ class WindowsFileSystem extends FileSystem
     public function _getUserPath()
     {
         //For both compatibility and security, we must look this up every time
-        return (string)$this->normalize(Phing::getProperty("user.dir"));
+        return (string) $this->normalize(Phing::getProperty("user.dir"));
     }
 
     /**
@@ -459,7 +459,7 @@ class WindowsFileSystem extends FileSystem
      */
     public function _getDrive($path)
     {
-        $path = (string)$path;
+        $path = (string) $path;
         $pl = $this->prefixLength($path);
 
         return ($pl === 3) ? substr($path, 0, 2) : null;
@@ -471,7 +471,7 @@ class WindowsFileSystem extends FileSystem
     public function resolveFile(File $f)
     {
         $path = $f->getPath();
-        $pl = (int)$f->getPrefixLength();
+        $pl = (int) $f->getPrefixLength();
 
         if (($pl === 2) && ($path[0] === $this->slash)) {
             return $path; // UNC
@@ -486,33 +486,33 @@ class WindowsFileSystem extends FileSystem
                 return $path;
             }
 
-            return (string)($this->_getUserPath() . $this->slashify($path)); //Completely relative
+            return (string) ($this->_getUserPath() . $this->slashify($path)); //Completely relative
         }
 
         if ($pl === 1) { // Drive-relative
-            $up = (string)$this->_getUserPath();
-            $ud = (string)$this->_getDrive($up);
+            $up = (string) $this->_getUserPath();
+            $ud = (string) $this->_getDrive($up);
             if ($ud !== null) {
-                return (string)$ud . $path;
+                return (string) $ud . $path;
             }
 
-            return (string)$up . $path; //User dir is a UNC path
+            return (string) $up . $path; //User dir is a UNC path
         }
 
         if ($pl === 2) { // Directory-relative
-            $up = (string)$this->_getUserPath();
-            $ud = (string)$this->_getDrive($up);
+            $up = (string) $this->_getUserPath();
+            $ud = (string) $this->_getDrive($up);
             if (($ud !== null) && StringHelper::startsWith($ud, $path)) {
-                return (string)($up . $this->slashify(substr($path, 2)));
+                return (string) ($up . $this->slashify(substr($path, 2)));
             }
-            $drive = (string)$path[0];
-            $dir = (string)$this->_getDriveDirectory($drive);
+            $drive = (string) $path[0];
+            $dir = (string) $this->_getDriveDirectory($drive);
 
             if ($dir !== null) {
                 /* When resolving a directory-relative path that refers to a
                 drive other than the current drive, insist that the caller
                 have read permission on the result */
-                $p = (string)$drive . (':' . $dir . $this->slashify(substr($path, 2)));
+                $p = (string) $drive . (':' . $dir . $this->slashify(substr($path, 2)));
 
                 if (!$this->checkAccess(new File($p), false)) {
                     throw new IOException("Can't resolve path $p");
@@ -521,7 +521,7 @@ class WindowsFileSystem extends FileSystem
                 return $p;
             }
 
-            return (string)$drive . ':' . $this->slashify(substr($path, 2)); //fake it
+            return (string) $drive . ':' . $this->slashify(substr($path, 2)); //fake it
         }
 
         throw new InvalidArgumentException("Unresolvable path: " . $path);
@@ -543,7 +543,7 @@ class WindowsFileSystem extends FileSystem
         $f1Path = $f1->getPath();
         $f2Path = $f2->getPath();
 
-        return strcasecmp((string)$f1Path, (string)$f2Path);
+        return strcasecmp((string) $f1Path, (string) $f2Path);
     }
 
     /**

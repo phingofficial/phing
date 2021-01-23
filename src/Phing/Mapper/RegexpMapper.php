@@ -139,7 +139,7 @@ class RegexpMapper implements FileNameMapper
                 $sourceFileName = str_replace('\\', '/', $sourceFileName);
             }
         }
-        if ($this->reg === null || $this->to === null || !$this->reg->matches((string)$sourceFileName)) {
+        if ($this->reg === null || $this->to === null || !$this->reg->matches((string) $sourceFileName)) {
             return null;
         }
 
@@ -174,6 +174,6 @@ class RegexpMapper implements FileNameMapper
      */
     private function replaceReferencesCallback($matches)
     {
-        return (string)$this->reg->getGroup($matches[1]);
+        return (string) $this->reg->getGroup($matches[1]);
     }
 }

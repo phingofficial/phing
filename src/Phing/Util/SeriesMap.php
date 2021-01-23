@@ -20,8 +20,8 @@
 namespace Phing\Util;
 
 /**
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.listener.statistics
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.listener.statistics
  */
 class SeriesMap
 {
@@ -33,7 +33,7 @@ class SeriesMap
     }
 
     /**
-     * @param string $name
+     * @param  string $name
      * @return Series
      */
     public function get($name)

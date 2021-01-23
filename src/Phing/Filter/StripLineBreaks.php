@@ -100,7 +100,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      */
     public function setLineBreaks($lineBreaks)
     {
-        $this->lineBreaks = (string)$lineBreaks;
+        $this->lineBreaks = (string) $lineBreaks;
     }
 
     /**

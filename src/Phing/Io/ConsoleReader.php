@@ -42,7 +42,7 @@ class ConsoleReader extends Reader
 
     /**
      *
-     * @param int $len Num chars to read.
+     * @param  int $len Num chars to read.
      * @return string chars read or -1 if eof.
      */
     public function read($len = null)

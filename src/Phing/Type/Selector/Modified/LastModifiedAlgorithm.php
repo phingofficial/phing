@@ -45,7 +45,7 @@ class LastModifiedAlgorithm implements Algorithm
             return null;
         }
 
-        return (string)$lastModified;
+        return (string) $lastModified;
     }
 
     /**

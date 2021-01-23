@@ -42,7 +42,7 @@ class Comment
      */
     public function setValue($value)
     {
-        $this->value = (string)$value;
+        $this->value = (string) $value;
     }
 
     /*

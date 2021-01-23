@@ -306,9 +306,9 @@ class IntrospectionHelper
 
             if (!isset($this->slotListeners[$as])) {
                 $msg = $this->getElementName(
-                        $project,
-                        $element
-                    ) . " doesn't support a slot-listening '$attributeName' attribute.";
+                    $project,
+                    $element
+                ) . " doesn't support a slot-listening '$attributeName' attribute.";
                 throw new BuildException($msg);
             }
 
@@ -325,7 +325,7 @@ class IntrospectionHelper
 
             if (!isset($this->attributeSetters[$as])) {
                 if ($element instanceof DynamicAttribute) {
-                    $element->setDynamicAttribute($attributeName, (string)$value);
+                    $element->setDynamicAttribute($attributeName, (string) $value);
                     return;
                 }
                 $msg = $this->getElementName($project, $element) . " doesn't support the '$attributeName' attribute.";

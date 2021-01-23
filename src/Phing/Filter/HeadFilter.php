@@ -124,7 +124,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setLines($lines)
     {
-        $this->lines = (int)$lines;
+        $this->lines = (int) $lines;
     }
 
     /**
@@ -144,7 +144,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setSkip($skip)
     {
-        $this->skip = (int)$skip;
+        $this->skip = (int) $skip;
     }
 
     /**
@@ -190,11 +190,11 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
         if ($params !== null) {
             foreach ($params as $param) {
                 if (self::LINES_KEY === $param->getName()) {
-                    $this->lines = (int)$param->getValue();
+                    $this->lines = (int) $param->getValue();
                     continue;
                 }
                 if (self::SKIP_KEY === $param->getName()) {
-                    $this->lines = (int)$param->getValue();
+                    $this->lines = (int) $param->getValue();
                     continue;
                 }
             }

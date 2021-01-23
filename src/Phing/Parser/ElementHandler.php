@@ -101,8 +101,7 @@ class ElementHandler extends AbstractHandler
         UnknownElement $parent = null,
         RuntimeConfigurable $parentWrapper = null,
         Target $target = null
-    )
-    {
+    ) {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;
         if ($parentWrapper != null) {

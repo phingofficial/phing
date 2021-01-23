@@ -156,7 +156,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setHtml($b)
     {
-        $this->html = (bool)$b;
+        $this->html = (bool) $b;
     }
 
     /**

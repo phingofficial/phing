@@ -124,8 +124,8 @@ class BuildEvent extends EventObject
      */
     public function setMessage($message, $priority)
     {
-        $this->message = (string)$message;
-        $this->priority = (int)$priority;
+        $this->message = (string) $message;
+        $this->priority = (int) $priority;
     }
 
     /**

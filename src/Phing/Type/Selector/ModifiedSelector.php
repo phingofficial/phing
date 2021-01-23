@@ -476,7 +476,7 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
         }
 
         // Get the values and do the comparison
-        $cachedValue = (string)$this->cache->get($f->getAbsolutePath());
+        $cachedValue = (string) $this->cache->get($f->getAbsolutePath());
         $newValue = $this->algorithm->getValue($f);
 
         $rv = $this->comparator->compare($cachedValue, $newValue) !== 0;

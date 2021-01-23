@@ -108,9 +108,9 @@ class XmlFileParser implements FileParserInterface
             // Check for attributes
             foreach ($xml->attributes() as $attribute => $val) {
                 if ($this->collapseAttr) {
-                    $prop->setProperty($prefix . (string)$attribute, (string)$val);
+                    $prop->setProperty($prefix . (string) $attribute, (string) $val);
                 } else {
-                    $prop->setProperty($prefix . "($attribute)", (string)$val);
+                    $prop->setProperty($prefix . "($attribute)", (string) $val);
                 }
             }
         }
@@ -141,9 +141,9 @@ class XmlFileParser implements FileParserInterface
             // Check for attributes
             foreach ($value->attributes() as $attribute => $val) {
                 if ($this->collapseAttr) {
-                    $prop->setProperty($prefix . "$tag.$attribute", (string)$val);
+                    $prop->setProperty($prefix . "$tag.$attribute", (string) $val);
                 } else {
-                    $prop->setProperty($prefix . "$tag($attribute)", (string)$val);
+                    $prop->setProperty($prefix . "$tag($attribute)", (string) $val);
                 }
             }
 
@@ -151,7 +151,7 @@ class XmlFileParser implements FileParserInterface
             if (count($value->children())) {
                 $this->addNode($value, array_merge($path, [$tag]), $prop);
             } else {
-                $val = (string)$value;
+                $val = (string) $value;
 
                 /* Check for * and ** on 'exclude' and 'include' tag / ant seems to do this? could use FileSet here
                 if ($tag == 'exclude') {
@@ -165,7 +165,7 @@ class XmlFileParser implements FileParserInterface
                 //
                 // Would be come project.exclude = file/a.php,file/a.php
                 $p = empty($prefix) ? $tag : $prefix . $tag;
-                $prop->append($p, (string)$val, $this->delimiter);
+                $prop->append($p, (string) $val, $this->delimiter);
             }
         }
     }

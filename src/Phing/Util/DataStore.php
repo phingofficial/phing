@@ -75,8 +75,8 @@ class DataStore
     /**
      * Adds a value to the data store
      *
-     * @param string $key the key
-     * @param mixed $value the value
+     * @param string  $key        the key
+     * @param mixed   $value      the value
      * @param boolean $autocommit whether to auto-commit (write)
      *                            the data store to disk
      *
@@ -94,7 +94,7 @@ class DataStore
     /**
      * Remove a value from the data store
      *
-     * @param string $key the key
+     * @param string  $key        the key
      * @param boolean $autocommit whether to auto-commit (write)
      *                            the data store to disk
      */

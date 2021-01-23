@@ -24,7 +24,7 @@ namespace Phing\Util;
 class Character
 {
     /**
-     * @param $char
+     * @param  $char
      * @return bool
      */
     public static function isLetter($char)

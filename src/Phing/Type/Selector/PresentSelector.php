@@ -61,9 +61,9 @@ class PresentSelector extends BaseSelector
             $buf .= "srconly";
         }
         if ($this->map !== null) {
-            $buf .= (string)$this->map;
+            $buf .= (string) $this->map;
         } elseif ($this->mapperElement !== null) {
-            $buf .= (string)$this->mapperElement;
+            $buf .= (string) $this->mapperElement;
         }
         $buf .= "}";
 

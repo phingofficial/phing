@@ -80,8 +80,7 @@ class TargetHandler extends AbstractHandler
         AbstractHandler $parentHandler,
         ProjectConfigurator $configurator,
         XmlContext $context
-    )
-    {
+    ) {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;
         $this->context = $context;
@@ -122,25 +121,25 @@ class TargetHandler extends AbstractHandler
         foreach ($attrs as $key => $value) {
             switch ($key) {
                 case "name":
-                    $name = (string)$value;
+                    $name = (string) $value;
                     break;
                 case "depends":
-                    $depends = (string)$value;
+                    $depends = (string) $value;
                     break;
                 case "if":
-                    $ifCond = (string)$value;
+                    $ifCond = (string) $value;
                     break;
                 case "unless":
-                    $unlessCond = (string)$value;
+                    $unlessCond = (string) $value;
                     break;
                 case "id":
-                    $id = (string)$value;
+                    $id = (string) $value;
                     break;
                 case "hidden":
                     $isHidden = ($value === 'true' || $value === '1');
                     break;
                 case "description":
-                    $description = (string)$value;
+                    $description = (string) $value;
                     break;
                 case "logskipped":
                     $logskipped = $value;

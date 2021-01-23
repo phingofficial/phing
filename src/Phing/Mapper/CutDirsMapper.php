@@ -49,7 +49,7 @@ class CutDirsMapper implements FileNameMapper
      */
     public function setTo($dirs)
     {
-        $this->dirs = (int)$dirs;
+        $this->dirs = (int) $dirs;
     }
 
     /**

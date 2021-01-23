@@ -106,7 +106,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function setMessageOutputLevel($level)
     {
-        $this->msgOutputLevel = (int)$level;
+        $this->msgOutputLevel = (int) $level;
     }
 
     /**
@@ -135,7 +135,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * Sets this logger to produce emacs (and other editor) friendly output.
      *
      * @param bool $emacsMode <code>true</code> if output is to be unadorned so that
-     *                  emacs and other editors can parse files names, etc.
+     *                        emacs and other editors can parse files names, etc.
      */
     public function setEmacsMode($emacsMode)
     {
@@ -319,13 +319,13 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Formats a time micro integer to human readable format.
      *
-     * @param integer The time stamp
+     * @param  integer The time stamp
      * @return string
      */
     public static function formatTime($micros)
     {
         $seconds = $micros;
-        $minutes = (int)floor($seconds / 60);
+        $minutes = (int) floor($seconds / 60);
         if ($minutes >= 1) {
             return sprintf(
                 "%1.0f minute%s %0.2f second%s",
@@ -342,11 +342,11 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      * Prints a message to console.
      *
-     * @param string $message The message to print.
+     * @param  string                $message  The message to print.
      *                                         Should not be
      *                                         <code>null</code>.
-     * @param OutputStream|resource $stream The stream to use for message printing.
-     * @param int $priority The priority of the message.
+     * @param  OutputStream|resource $stream   The stream to use for message printing.
+     * @param  int                   $priority The priority of the message.
      *                                         (Ignored in this
      *                                         implementation.)
      * @return void

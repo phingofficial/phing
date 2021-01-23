@@ -19,8 +19,8 @@
 
 namespace Phing\Util;
 /**
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.listener.statistics
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.listener.statistics
  */
 class Table
 {
@@ -51,7 +51,7 @@ class Table
 
     public function put($x, $y, $value)
     {
-        $this->maxLengths[$y] = $this->max($y, strlen((string)$value));
+        $this->maxLengths[$y] = $this->max($y, strlen((string) $value));
         $this->output[$x][$y] = $value;
     }
 

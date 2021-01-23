@@ -101,7 +101,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      */
     public function setTablength($tabLength)
     {
-        $this->tabLength = (int)$tabLength;
+        $this->tabLength = (int) $tabLength;
     }
 
     /**

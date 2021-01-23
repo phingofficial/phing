@@ -22,8 +22,8 @@ namespace Phing\Util;
 use SplStack;
 
 /**
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.listener.statistics
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.listener.statistics
  */
 class Series
 {

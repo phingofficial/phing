@@ -36,8 +36,8 @@ class FileOutputStream extends OutputStream
     /**
      * Construct a new FileOutputStream.
      *
-     * @param mixed $file
-     * @param boolean $append Whether to append bytes to end of file rather than beginning.
+     * @param  mixed   $file
+     * @param  boolean $append Whether to append bytes to end of file rather than beginning.
      * @throws Exception   - if invalid argument specified.
      * @throws IOException - if unable to open file.
      */

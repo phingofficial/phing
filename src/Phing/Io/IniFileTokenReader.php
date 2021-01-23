@@ -140,7 +140,7 @@ class IniFileTokenReader extends TokenReader
             return;
         }
 
-        throw new BuildException("Unsupported value " . (string)$file);
+        throw new BuildException("Unsupported value " . (string) $file);
     }
 
     /**
@@ -148,6 +148,6 @@ class IniFileTokenReader extends TokenReader
      */
     public function setSection($str)
     {
-        $this->section = (string)$str;
+        $this->section = (string) $str;
     }
 }

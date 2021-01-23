@@ -341,7 +341,7 @@ class ComponentHelper
 
         try { // try to load taskdefs
             $props = new Properties();
-            $in = new File((string)$taskdefs);
+            $in = new File((string) $taskdefs);
 
             if ($in === null) {
                 throw new BuildException("Can't load default task list");
@@ -364,7 +364,7 @@ class ComponentHelper
 
         try { // try to load typedefs
             $props = new Properties();
-            $in = new File((string)$typedefs);
+            $in = new File((string) $typedefs);
             if ($in === null) {
                 throw new BuildException("Can't load default datatype list");
             }
@@ -385,7 +385,7 @@ class ComponentHelper
         $taskdefs = Phing::getResourcePath("custom.task.properties");
         try { // try to load typedefs
             $props = new Properties();
-            $in = new File((string)$taskdefs);
+            $in = new File((string) $taskdefs);
             if (!$in->exists()) {
                 return;
             }
@@ -405,7 +405,7 @@ class ComponentHelper
         $typedefs = Phing::getResourcePath("custom.type.properties");
         try { // try to load typedefs
             $props = new Properties();
-            $in = new File((string)$typedefs);
+            $in = new File((string) $typedefs);
             if (!$in->exists()) {
                 return;
             }
