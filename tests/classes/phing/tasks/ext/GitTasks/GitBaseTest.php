@@ -18,6 +18,7 @@
  */
 
 use Phing\Support\BuildFileTest;
+use Phing\Tasks\Ext\GitBaseTask;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -34,12 +35,12 @@ class GitBaseTest extends BuildFileTest
             PHING_TEST_BASE
             . "/etc/tasks/ext/git/GitBaseTest.xml"
         );
-        $this->mock = $this->getMockForAbstractClass('GitBaseTask');
+        $this->mock = $this->getMockForAbstractClass(GitBaseTask::class);
     }
 
     public function testInitialization()
     {
-        $this->assertInstanceOf('GitBaseTask', $this->mock);
+        $this->assertInstanceOf(GitBaseTask::class, $this->mock);
     }
 
     /**

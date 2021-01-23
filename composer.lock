@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2b83e0071072f8b24a7ca705823317b",
+    "content-hash": "ed93c6bd52233d9c49d55fc65403e870",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -279,17 +279,80 @@
             "time": "2020-10-03T12:38:59+00:00"
         },
         {
+            "name": "phing/task-git",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-git.git",
+                "reference": "698bc7cf478e021a59068594cb1f97e9cf7ef398"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-git/zipball/698bc7cf478e021a59068594cb1f97e9cf7ef398",
+                "reference": "698bc7cf478e021a59068594cb1f97e9cf7ef398",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "pear/versioncontrol_git": "dev-master",
+                "phing/phing": "3.0.x-dev"
+            },
+            "default-branch": true,
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "gitarchive": "Phing\\Tasks\\Ext\\GitArchiveTask",
+                    "gitinit": "Phing\\Tasks\\Ext\\GitInitTask",
+                    "gitclone": "Phing\\Tasks\\Ext\\GitCloneTask",
+                    "gitgc": "Phing\\Tasks\\Ext\\GitGcTask",
+                    "gitbranch": "Phing\\Tasks\\Ext\\GitBranchTask",
+                    "gitfetch": "Phing\\Tasks\\Ext\\GitFetchTask",
+                    "gitmerge": "Phing\\Tasks\\Ext\\GitMergeTask",
+                    "gitcheckout": "Phing\\Tasks\\Ext\\GitCheckoutTask",
+                    "gitpull": "Phing\\Tasks\\Ext\\GitPullTask",
+                    "gitpush": "Phing\\Tasks\\Ext\\GitPushTask",
+                    "gitlog": "Phing\\Tasks\\Ext\\GitLogTask",
+                    "gittag": "Phing\\Tasks\\Ext\\GitTagTask",
+                    "gitcommit": "Phing\\Tasks\\Ext\\GitCommitTask",
+                    "gitdescribe": "Phing\\Tasks\\Ext\\GitDescribeTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "Git related phing tasks.",
+            "support": {
+                "issues": "https://github.com/phingofficial/task-git/issues",
+                "source": "https://github.com/phingofficial/task-git/tree/main"
+            },
+            "time": "2021-01-23T13:08:10+00:00"
+        },
+        {
             "name": "phing/task-hg",
             "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-hg.git",
-                "reference": "a7c6844f343fc268050388b28ee5b8e9adf7e8f1"
+                "reference": "9cbf386a41445a011f68d282b6dac619ab88fa8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-hg/zipball/a7c6844f343fc268050388b28ee5b8e9adf7e8f1",
-                "reference": "a7c6844f343fc268050388b28ee5b8e9adf7e8f1",
+                "url": "https://api.github.com/repos/phingofficial/task-hg/zipball/9cbf386a41445a011f68d282b6dac619ab88fa8e",
+                "reference": "9cbf386a41445a011f68d282b6dac619ab88fa8e",
                 "shasum": ""
             },
             "require": {
@@ -336,7 +399,7 @@
                 "issues": "https://github.com/phingofficial/task-hg/issues",
                 "source": "https://github.com/phingofficial/task-hg/tree/main"
             },
-            "time": "2021-01-22T21:54:03+00:00"
+            "time": "2021-01-23T12:03:57+00:00"
         },
         {
             "name": "phing/task-ioncube",
@@ -5881,6 +5944,7 @@
         "phing/task-apigen": 20,
         "phing/task-coverage": 20,
         "phing/task-ftpdeploy": 20,
+        "phing/task-git": 20,
         "phing/task-hg": 20,
         "phing/task-ioncube": 20,
         "phing/task-jshint": 20,
