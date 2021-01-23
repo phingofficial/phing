@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Task;
+use Phing\Type\Element\ClasspathAware;
 
 /**
  * Register a datatype for use within a buildfile.

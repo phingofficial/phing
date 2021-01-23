@@ -23,6 +23,8 @@ use Phing\Io\SourceFileScanner;
 use Phing\Mapper\MergeMapper;
 use Phing\Project;
 use Phing\Task;
+use Phing\Type\Element\FileListAware;
+use Phing\Type\Element\FileSetAware;
 use Phing\Type\Mapper;
 
 /**

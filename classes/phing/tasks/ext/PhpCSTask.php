@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Task;
 use Phing\Type\Commandline;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * A PHP code sniffer task. Checking the style of one or more PHP source files.

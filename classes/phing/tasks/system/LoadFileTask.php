@@ -24,6 +24,7 @@ use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
+use Phing\Type\Element\FilterChainAware;
 
 /**
  * LoadFileTask

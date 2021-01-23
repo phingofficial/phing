@@ -1,7 +1,4 @@
 <?php
-
-use Phing\Type\FileSet;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,20 +17,30 @@ use Phing\Type\FileSet;
  * <http://phing.info>.
  */
 
-trait FileSetAware
+namespace Phing\Type\Element;
+
+use Phing\Type\FilterChain;
+
+trait FilterChainAware
 {
     /**
-     * @var FileSet[] $filesets
+     * @var FilterChain[] $filterChains
      */
-    protected $filesets = [];
+    protected $filterChains = [];
 
-    public function addFileSet(FileSet $fileSet)
+    /**
+     * @param FilterChain $filterChain
+     */
+    public function addFilterChain(FilterChain $filterChain)
     {
-        $this->filesets[] = $fileSet;
+        $this->filterChains[] = $filterChain;
     }
 
-    public function getFileSets()
+    /**
+     * @return FilterChain[]
+     */
+    public function getFilterChains()
     {
-        return $this->filesets;
+        return $this->filterChains;
     }
 }

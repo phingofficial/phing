@@ -29,6 +29,7 @@ use Phing\Project;
 use Phing\ProjectComponent;
 use Phing\Target;
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 use Phing\Type\Reference;
 
 /**

@@ -17,6 +17,8 @@ use Phing\Io\FileUtils;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
+use Phing\Type\Element\FilterChainAware;
 use Phing\Type\Mapper;
 
 /**

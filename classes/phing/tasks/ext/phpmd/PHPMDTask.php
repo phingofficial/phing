@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 use Phing\Util\DataStore;
 
 /**

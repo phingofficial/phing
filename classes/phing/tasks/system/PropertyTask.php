@@ -29,6 +29,7 @@ use Phing\Io\StringReader;
 use Phing\Project;
 use Phing\PropertyHelper;
 use Phing\Task;
+use Phing\Type\Element\FilterChainAware;
 use Phing\Type\Reference;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;

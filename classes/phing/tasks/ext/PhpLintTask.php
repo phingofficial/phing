@@ -22,6 +22,7 @@ use Phing\Io\FileWriter;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 use Phing\Util\DataStore;
 
 /**

@@ -18,6 +18,8 @@
  */
 
 use Phing\Project;
+use Phing\Type\Element\ClasspathAware;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * Scans a list of files given by the fileset attribute, extracts valid test cases

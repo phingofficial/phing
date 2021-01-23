@@ -19,6 +19,8 @@
 
 use Phing\Project;
 use Phing\Task;
+use Phing\Type\Element\DirSetAware;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * Echos a message to the logging system or to a file

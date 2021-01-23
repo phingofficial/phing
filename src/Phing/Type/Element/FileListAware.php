@@ -17,12 +17,24 @@
  * <http://phing.info>.
  */
 
-/**
- * Trait ResourceAware
- */
-trait ResourceAware
+namespace Phing\Type\Element;
+
+use Phing\Type\FileList;
+
+trait FileListAware
 {
-    use DirSetAware;
-    use FileListAware;
-    use FileSetAware;
+    /**
+     * @var FileList[] $filelists
+     */
+    protected $filelists = [];
+
+    public function addFileList(FileList $fileList)
+    {
+        $this->filelists[] = $fileList;
+    }
+
+    public function getFileLists()
+    {
+        return $this->filelists;
+    }
 }
