@@ -19,13 +19,15 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * Class ZendServerDeploymentToolTask
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.zendserverdevelopmenttools
  */
-abstract class ZsdtBaseTask extends \Task
+abstract class ZsdtBaseTask extends Task
 {
     protected $action;
 
