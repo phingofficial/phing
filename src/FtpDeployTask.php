@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * FtpDeployTask
  *
@@ -42,7 +44,7 @@ namespace Phing\Tasks\Ext;
  * @since       2.3.1
  * @package     phing.tasks.ext
  */
-class FtpDeployTask extends \Task
+class FtpDeployTask extends Task
 {
     use \FileSetAware;
     use \LogLevelAware;
