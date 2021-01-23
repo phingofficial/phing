@@ -57,9 +57,9 @@
         "guzzlehttp/guzzle": "^7.1",
         "jawira/plantuml-encoding": "^1.0",
         "mikey179/vfsstream": "^1.6.8",
-        "monolog/monolog": "^1.25 || ^2.0",
+        "monolog/monolog": "^2.2",
         "pdepend/pdepend": "^2.8",
-        "pear/archive_tar": "~1.4.7",
+        "pear/archive_tar": "^1.4.12",
         "pear/console_getopt": "^v1.4.3",
         "pear/mail": "^1.4",
         "pear/mail_mime": "^1.10",
@@ -75,7 +75,7 @@
         "siad007/versioncontrol_hg": "^1.0",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/dependency-injection": "^5.2",
-        "symfony/stopwatch": "~2.8 || ^3.1 || ^4.0 || ^5.0"
+        "symfony/stopwatch": "^5.2"
     },
     "autoload": {
         "classmap": [
