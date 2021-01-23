@@ -17,6 +17,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Support\BuildFileTest;
 use Phing\Type\Path;
 
 /**

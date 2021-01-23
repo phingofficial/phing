@@ -20,6 +20,7 @@
 use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
+use Phing\Support\BuildFileTest;
 use Phing\Type\Path;
 
 /**

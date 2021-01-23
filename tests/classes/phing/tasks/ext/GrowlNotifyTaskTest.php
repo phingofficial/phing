@@ -40,6 +40,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Support\BuildFileTest;
 
 /**
  * Tests for GrowlNotifyTask

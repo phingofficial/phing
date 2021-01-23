@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Support\BuildFileTest;
+
 /**
  * @package phing.tasks.ext
  * @requires OS ^(?:(?!Win).)*$

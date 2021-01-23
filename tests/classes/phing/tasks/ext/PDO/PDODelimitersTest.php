@@ -20,6 +20,7 @@
  */
 
 use Phing\Io\File;
+use Phing\Support\BuildFileTest;
 
 /**
  * @author Alexey Borzov <avb@php.net>

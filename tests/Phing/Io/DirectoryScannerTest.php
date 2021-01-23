@@ -21,8 +21,8 @@
 
 namespace Phing\Io;
 
-use BuildFileTest;
 use Phing\Exception\BuildException;
+use Phing\Support\BuildFileTest;
 
 /**
  * Testcases for phing.util.DirectoryScanner

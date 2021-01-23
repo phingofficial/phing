@@ -19,8 +19,8 @@
 
 namespace Phing\Filter;
 
-use BuildFileTest;
 use Phing\Io\FileUtils;
+use Phing\Support\BuildFileTest;
 
 /**
  * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>

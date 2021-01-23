@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Support\BuildFileTest;
+
 /**
  * Tests the FileSync Task
  *

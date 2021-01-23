@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Support\BuildFileTest;
+
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>
  * @package phing.tasks.ext

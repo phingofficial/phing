@@ -21,7 +21,7 @@
 
 namespace Phing\Io;
 
-use BuildFileTest;
+use Phing\Support\BuildFileTest;
 
 /**
  * Testcases for phing.util.FileUtils

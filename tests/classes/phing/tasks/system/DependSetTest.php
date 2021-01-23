@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\File;
+use Phing\Support\BuildFileTest;
 
 /**
  * Tests the DependSet Task

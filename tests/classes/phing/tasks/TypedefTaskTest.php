@@ -19,6 +19,8 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\ConfigurationException;
+use Phing\Support\BuildFileTest;
+use Phing\Support\TypedefTestType;
 
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
@@ -63,19 +65,19 @@ class TypedefTaskTest extends BuildFileTest
 
     public function testGlobal()
     {
-        $this->expectLog("testGlobal", "Adding reference: global -> TypedefTestType");
+        $this->expectLog("testGlobal", "Adding reference: global -> " . TypedefTestType::class);
         $refs = $this->project->getReferences();
         $ref = $refs["global"];
         $this->assertNotNull("ref is not null", $ref);
-        $this->assertEquals("TypedefTestType", get_class($ref));
+        $this->assertInstanceOf(TypedefTestType::class, $ref);
     }
 
     public function testLocal()
     {
-        $this->expectLog("testLocal", "Adding reference: local -> TypedefTestType");
+        $this->expectLog("testLocal", "Adding reference: local -> " . TypedefTestType::class);
         $refs = $this->project->getReferences();
         $ref = $refs["local"];
         $this->assertNotNull("ref is not null", $ref);
-        $this->assertEquals("TypedefTestType", get_class($ref));
+        $this->assertInstanceOf(TypedefTestType::class, $ref);
     }
 }

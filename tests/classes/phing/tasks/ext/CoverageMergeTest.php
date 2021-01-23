@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Support\BuildFileTest;
+
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext

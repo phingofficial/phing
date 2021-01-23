@@ -19,6 +19,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Support\BuildFileTest;
 
 /**
  * Tests the Touch Task

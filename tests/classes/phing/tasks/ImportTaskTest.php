@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\File;
+use Phing\Support\BuildFileTest;
 
 /**
  * @author Bryan Davis <bpd@keynetics.com>

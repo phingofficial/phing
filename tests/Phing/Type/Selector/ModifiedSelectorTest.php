@@ -19,8 +19,8 @@
 
 namespace Phing\Type\Selector;
 
-use BuildFileTest;
 use Phing\Exception\BuildException;
+use Phing\Support\BuildFileTest;
 
 /**
  * Class ModifiedSelectorTest

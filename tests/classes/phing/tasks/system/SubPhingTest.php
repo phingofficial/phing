@@ -19,6 +19,7 @@
 
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
+use Phing\Support\BuildFileTest;
 
 /**
  * Tests the SubPhing Task

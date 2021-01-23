@@ -2,7 +2,7 @@
 
 namespace Phing;
 
-use Proxy;
+use Phing\Support\Proxy;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

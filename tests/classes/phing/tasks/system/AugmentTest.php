@@ -1,5 +1,6 @@
 <?php
 
+use Phing\Support\BuildFileTest;
 use Phing\Type\FileSet;
 
 /**

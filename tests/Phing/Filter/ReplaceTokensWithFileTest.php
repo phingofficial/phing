@@ -18,7 +18,7 @@
  */
 
 namespace Phing\Filter;
-use BuildFileTest;
+use Phing\Support\BuildFileTest;
 
 /**
  * @author Michiel Rook <mrook@php.net>

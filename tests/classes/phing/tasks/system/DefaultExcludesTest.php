@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\DirectoryScanner;
+use Phing\Support\BuildFileTest;
 
 /**
  * Tests the DefaultExcludes Task

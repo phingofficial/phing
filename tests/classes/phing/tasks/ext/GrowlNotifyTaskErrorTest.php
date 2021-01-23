@@ -39,6 +39,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Support\BuildFileTest;
 
 /**
  * Tests for GrowlNotifyTask that raised error

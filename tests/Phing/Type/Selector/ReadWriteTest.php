@@ -18,7 +18,7 @@
  */
 
 namespace Phing\Type\Selector;
-use BuildFileTest;
+use Phing\Support\BuildFileTest;
 
 /**
  * Class ReadWriteTest

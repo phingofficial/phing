@@ -3,6 +3,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Project;
+use Phing\Support\BuildFileTest;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

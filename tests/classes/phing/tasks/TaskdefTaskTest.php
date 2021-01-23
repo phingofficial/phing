@@ -19,6 +19,8 @@
 
 use Phing\Exception\BuildException;
 use Phing\Exception\ConfigurationException;
+use Phing\Support\BuildFileTest;
+use Phing\Support\TaskdefTestSimpleTask;
 
 /**
  * @package phing.tasks.system
@@ -66,16 +68,16 @@ class TaskdefTaskTest extends BuildFileTest
         $refs = $this->project->getReferences();
         $ref = $refs["global"];
         $this->assertNotNull("ref is not null");
-        $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
+        $this->assertInstanceOf(TaskdefTestSimpleTask::class, $ref);
     }
 
     public function testLocal()
     {
-        $this->expectLog("testLocal", "Task local will be handled by class example.tasks.TaskdefTestSimpleTask");
+        $this->expectLog("testLocal", "Task local will be handled by class " . TaskdefTestSimpleTask::class);
         $refs = $this->project->getReferences();
         $ref = $refs["local"];
         $this->assertNotNull("ref is not null");
-        $this->assertInstanceOf('TaskdefTestSimpleTask', $ref);
+        $this->assertInstanceOf(TaskdefTestSimpleTask::class, $ref);
     }
 
     public function tesFile()
@@ -84,9 +86,9 @@ class TaskdefTaskTest extends BuildFileTest
         $refs = $this->project->getReferences();
         $ref = $refs["tdfile"];
         $this->assertNotNull("ref is not null");
-        $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
+        $this->assertInstanceOf(TaskdefTestSimpleTask::class, $ref);
         $ref = $refs["tdfile2"];
         $this->assertNotNull("ref is not null");
-        $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
+        $this->assertInstanceOf(TaskdefTestSimpleTask::class, $ref);
     }
 }

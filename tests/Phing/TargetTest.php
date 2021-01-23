@@ -19,9 +19,9 @@
 
 namespace Phing;
 
-use BuildFileTest;
 use EchoTask;
 use Phing\Exception\BuildException;
+use Phing\Support\BuildFileTest;
 
 /**
  * UTs for Target component

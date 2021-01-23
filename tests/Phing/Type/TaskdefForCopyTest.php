@@ -18,7 +18,7 @@
  */
 
 namespace Phing\Type;
-use BuildFileTest;
+use Phing\Support\BuildFileTest;
 
 /**
  * @package phing.mappers

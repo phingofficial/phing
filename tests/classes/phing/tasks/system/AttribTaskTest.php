@@ -18,6 +18,7 @@
  */
 
 use Phing\Project;
+use Phing\Support\BuildFileTest;
 
 /**
  * Tests the Attrib Task

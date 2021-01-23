@@ -19,8 +19,8 @@
 
 namespace Phing;
 
-use BuildFileTest;
 use Phing\Exception\BuildException;
+use Phing\Support\BuildFileTest;
 
 /**
  * UTs for ExtensionPoint component

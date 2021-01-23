@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Support\BuildFileTest;
+
 /**
  * Testcase for the PhingVersion task/condition.
  *

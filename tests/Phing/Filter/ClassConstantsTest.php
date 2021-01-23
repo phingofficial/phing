@@ -18,8 +18,8 @@
  */
 
 namespace Phing\Filter;
-use BuildFileTest;
 use Phing\Project;
+use Phing\Support\BuildFileTest;
 
 /**
  * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>

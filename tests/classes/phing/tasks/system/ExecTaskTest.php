@@ -22,6 +22,7 @@ use Phing\Io\FileSystem;
 use Phing\Io\FileUtils;
 use Phing\Io\File;
 use Phing\Project;
+use Phing\Support\BuildFileTest;
 use Phing\Type\Commandline;
 use Phing\UnknownElement;
 

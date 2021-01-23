@@ -21,6 +21,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use Phing\Exception\BuildException;
+use Phing\Support\BuildFileTest;
 
 /**
  * @author Alexey Borzov <avb@php.net>

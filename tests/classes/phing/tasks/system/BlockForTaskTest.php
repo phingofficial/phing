@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildTimeoutException;
+use Phing\Support\BuildFileTest;
 
 /**
  * Tests the BlockFor Task

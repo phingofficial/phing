@@ -21,6 +21,7 @@ declare(strict_types=1);
 
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Support\BuildFileTest;
 
 class PHPStanTaskTest extends BuildFileTest
 {

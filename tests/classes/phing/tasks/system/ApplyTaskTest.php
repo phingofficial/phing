@@ -19,6 +19,7 @@
 
 use Phing\Io\FileUtils;
 use Phing\Io\File;
+use Phing\Support\BuildFileTest;
 use Phing\Target;
 use Phing\UnknownElement;
 

@@ -1,6 +1,7 @@
 <?php
 
 use Phing\Project;
+use Phing\Support\BuildFileTest;
 
 /**
  * Tests PDOSQLExecTask as condition

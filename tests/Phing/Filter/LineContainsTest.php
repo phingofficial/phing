@@ -19,8 +19,8 @@
 
 namespace Phing\Filter;
 
-use BuildFileTest;
 use Phing\Io\FileUtils;
+use Phing\Support\BuildFileTest;
 
 /**
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>

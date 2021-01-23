@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Support\BuildFileTest;
 use Phing\Util\Timer;
 
 /**
