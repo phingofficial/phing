@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * Copy files to and from a remote host using scp.
  *
@@ -26,7 +28,7 @@ namespace Phing\Tasks\Ext;
  * @author  Johan Van den Brande <johan@vandenbrande.com>
  * @package phing.tasks.ext
  */
-class ScpTask extends \Task
+class ScpTask extends Task
 {
     use \FileSetAware;
     use \LogLevelAware;

@@ -19,13 +19,15 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * Execute commands on a remote host using ssh.
  *
  * @author  Johan Van den Brande <johan@vandenbrande.com>
  * @package phing.tasks.ext
  */
-class SshTask extends \Task
+class SshTask extends Task
 {
     /**
      * @var string
