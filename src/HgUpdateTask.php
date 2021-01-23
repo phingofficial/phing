@@ -99,7 +99,7 @@ class HgUpdateTask extends HgBaseTask
         $pull = $this->getFactoryInstance('update');
         try {
             $pull->setBranch($this->getBranch());
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->log("Caught: " . $ex->getMessage(), Project::MSG_DEBUG);
         }
         $pull->setClean($this->getClean());
@@ -122,7 +122,7 @@ class HgUpdateTask extends HgBaseTask
             if ($output !== '') {
                 $this->log($output);
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $msg = $ex->getMessage();
             $p = strpos($msg, 'hg returned:');
             if ($p !== false) {

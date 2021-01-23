@@ -169,7 +169,7 @@ class HgLogTask extends HgBaseTask
                     $this->log(PHP_EOL . $output);
                 }
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $msg = $ex->getMessage();
             $p = strpos($msg, 'hg returned:');
             if ($p !== false) {

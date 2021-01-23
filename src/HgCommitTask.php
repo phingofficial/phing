@@ -103,7 +103,7 @@ class HgCommitTask extends HgBaseTask
             if ($output !== '') {
                 $this->log($output);
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $msg = $ex->getMessage();
             $this->log("Exception: $msg", Project::MSG_INFO);
             $p = strpos($msg, 'hg returned:');
