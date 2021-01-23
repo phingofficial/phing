@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\FileUtils;
 use Phing\Project;
+use Phing\Task;
 
 /**
  * Produce license files using Zeng Guard.

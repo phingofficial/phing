@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\FileUtils;
 use Phing\Io\File;
+use Phing\Task;
 
 /**
  * This task sets a property to the name of a temporary file.

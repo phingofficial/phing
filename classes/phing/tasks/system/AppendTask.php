@@ -29,6 +29,7 @@ use Phing\Io\Reader;
 use Phing\Io\StringReader;
 use Phing\Io\Writer;
 use Phing\Project;
+use Phing\Task;
 use Phing\Type\FileSet;
 use Phing\Type\Path;
 use Phing\Util\Register;

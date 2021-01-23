@@ -23,6 +23,7 @@ use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
 use Phing\Project;
+use Phing\Task;
 use Phing\Type\Mapper;
 
 /**

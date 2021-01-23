@@ -23,7 +23,7 @@ use Phing\Listener\EventObject;
 use Exception;
 use Phing\Project;
 use Phing\Target;
-use Task;
+use Phing\Task;
 
 /**
  * Encapsulates a build specific event.

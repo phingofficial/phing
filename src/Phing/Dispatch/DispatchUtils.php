@@ -22,7 +22,7 @@ namespace Phing\Dispatch;
 use Phing\Exception\BuildException;
 use ReflectionClass;
 use ReflectionException;
-use Task;
+use Phing\Task;
 use Phing\UnknownElement;
 
 /**

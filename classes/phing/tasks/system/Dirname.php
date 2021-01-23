@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Task;
 
 /**
  * Determines the directory name of the specified file.

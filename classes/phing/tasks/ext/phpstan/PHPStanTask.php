@@ -19,6 +19,7 @@
 
 declare(strict_types=1);
 
+use Phing\Task;
 use Phing\Type\Commandline;
 
 class PHPStanTask extends Task

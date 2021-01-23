@@ -22,6 +22,7 @@ use Phing\Exception\NullPointerException;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
+use Phing\Task;
 
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.

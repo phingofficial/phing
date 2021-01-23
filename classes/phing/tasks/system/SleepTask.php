@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Task;
 
 /**
  * A phing sleep task.

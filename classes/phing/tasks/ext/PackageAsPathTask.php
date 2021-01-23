@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Task;
+
 /**
  * Convert dot-notation packages to relative paths.
  *

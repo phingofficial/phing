@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Task;
 use SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy;
 use Composer\Autoload\ClassLoader;
 

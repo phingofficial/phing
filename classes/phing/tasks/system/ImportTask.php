@@ -23,6 +23,7 @@ use Phing\Io\File;
 use Phing\Parser\XmlContext;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Project;
+use Phing\Task;
 use Phing\Type\FileSet;
 
 /**

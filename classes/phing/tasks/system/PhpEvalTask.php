@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Project;
+use Phing\Task;
 use Phing\Type\Parameter;
 use Phing\Util\StringHelper;
 

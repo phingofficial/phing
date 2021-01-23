@@ -4,6 +4,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Target;
+use Phing\Task;
 use Phing\Type\Path;
 use Phing\Type\PathElement;
 use Phing\Type\Reference;

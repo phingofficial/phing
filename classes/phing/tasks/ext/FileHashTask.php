@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\FileOutputStream;
 use Phing\Io\File;
+use Phing\Task;
 
 /**
  * fileHash

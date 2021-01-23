@@ -3,20 +3,22 @@
 
 <target name="main" description="Check project dependencies">
 	<adhoc-task name="parameter"><![CDATA[
-			class ParameterTest extends Task {
-				private $value;
-				
-				function setName($name) {
-				}
-				
-				function setValue($value) {
-					$this->log($value);
-					$this->value = $value;
-				}
-				
-				function main() {
-				}
-			}
+	    use Phing\Task;
+
+        class ParameterTest extends Task {
+            private $value;
+
+            function setName($name) {
+            }
+
+            function setValue($value) {
+                $this->log($value);
+                $this->value = $value;
+            }
+
+            function main() {
+            }
+        }
 	]]></adhoc-task>
 	<parameter name="allow_call_time_pass_reference" value="Off" />
 	<parameter name="arg_separator.input" value="&amp;" />

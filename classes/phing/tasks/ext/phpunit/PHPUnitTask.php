@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\FileWriter;
 use Phing\Io\LogWriter;
 use Phing\Io\File;
+use Phing\Task;
 
 /**
  * Runs PHPUnit tests.

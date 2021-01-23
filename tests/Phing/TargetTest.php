@@ -163,7 +163,7 @@ class TargetTest extends BuildFileTest
 
     public function testMainPerformsTasks()
     {
-        $task = $this->createMock('Task');
+        $task = $this->createMock(Task::class);
         $task->expects($this->once())->method('perform');
         $this->target->addTask($task);
 
@@ -175,7 +175,7 @@ class TargetTest extends BuildFileTest
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
 
-        $task = $this->createMock('Task');
+        $task = $this->createMock(Task::class);
         $task->expects($this->never())->method('perform');
         $this->target->addTask($task);
 
@@ -187,7 +187,7 @@ class TargetTest extends BuildFileTest
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');
 
-        $task = $this->createMock('Task');
+        $task = $this->createMock(Task::class);
         $task->expects($this->never())->method('perform');
         $this->target->addTask($task);
 

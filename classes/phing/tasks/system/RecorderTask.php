@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\SubBuildListener;
 use Phing\Project;
+use Phing\Task;
 use Phing\Util\StringHelper;
 
 /**

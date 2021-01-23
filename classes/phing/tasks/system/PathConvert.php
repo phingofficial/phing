@@ -22,6 +22,7 @@ use Phing\Io\FileUtils;
 use Phing\Io\IOException;
 use Phing\Mapper\IdentityMapper;
 use Phing\Project;
+use Phing\Task;
 use Phing\Type\DirSet;
 use Phing\Type\FileList;
 use Phing\Type\FileSet;

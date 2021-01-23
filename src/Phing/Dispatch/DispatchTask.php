@@ -19,7 +19,7 @@
 
 namespace Phing\Dispatch;
 
-use Task;
+use Phing\Task;
 
 /**
  * Tasks extending this class may contain multiple actions.

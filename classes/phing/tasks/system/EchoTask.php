@@ -18,6 +18,7 @@
  */
 
 use Phing\Project;
+use Phing\Task;
 
 /**
  * Echos a message to the logging system or to a file

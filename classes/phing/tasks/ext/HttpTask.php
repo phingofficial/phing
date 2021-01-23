@@ -21,6 +21,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use Phing\Exception\BuildException;
+use Phing\Task;
 use Phing\Type\Parameter;
 use Psr\Http\Message\ResponseInterface;
 

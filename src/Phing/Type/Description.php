@@ -22,7 +22,7 @@ namespace Phing\Type;
 use Phing\Project;
 use Phing\Target;
 use Phing\UnknownElement;
-use Task;
+use Phing\Task;
 
 /**
  * Description is used to provide a project-wide description element

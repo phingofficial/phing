@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\PrintStream;
 use Phing\Phing;
+use Phing\Task;
 use Phing\Util\Diagnostics;
 
 /**

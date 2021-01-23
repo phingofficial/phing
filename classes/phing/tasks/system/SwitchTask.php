@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Task;
 
 /**
  * Task definition for the phing task to switch on a particular value.

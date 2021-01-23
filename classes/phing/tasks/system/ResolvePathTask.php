@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Io\File;
+use Phing\Task;
 
 /**
  * Task for resolving relative paths and setting absolute path in property value.

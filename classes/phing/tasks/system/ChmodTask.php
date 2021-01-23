@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
+use Phing\Task;
 
 /**
  * Task that changes the permissions on a file/directory.

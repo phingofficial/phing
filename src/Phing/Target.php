@@ -24,7 +24,7 @@ use Phing\Parser\Location;
 use Phing\TaskContainer;
 use Phing\Project;
 use Phing\RuntimeConfigurable;
-use Task;
+use Phing\Task;
 
 /**
  * The Target component. Carries all required target data. Implements the

@@ -22,6 +22,7 @@ use Phing\Input\InputRequest;
 use Phing\Input\MultipleChoiceInputRequest;
 use Phing\Input\YesNoInputRequest;
 use Phing\Project;
+use Phing\Task;
 use Phing\Util\StringHelper;
 
 /**

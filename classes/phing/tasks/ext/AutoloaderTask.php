@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Task;
 
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>

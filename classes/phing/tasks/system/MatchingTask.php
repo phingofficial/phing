@@ -22,6 +22,7 @@ use Phing\Io\DirectoryScanner;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\ProjectComponent;
+use Phing\Task;
 use Phing\Type\FileSet;
 use Phing\Type\PatternSet;
 use Phing\Type\PatternSetNameEntry;

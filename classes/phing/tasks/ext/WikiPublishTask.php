@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\FileUtils;
+use Phing\Task;
 
 /**
  * Publish Wiki document using Wiki API.

@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Task;
 
 /**
  * Handles PDO configuration needed by SQL type tasks.

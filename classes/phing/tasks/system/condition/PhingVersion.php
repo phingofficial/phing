@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Task;
 
 /**
  * An phing version condition/task.

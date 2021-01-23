@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Task;
 
 /**
  * The FileSyncTask class copies files either to or from a remote host, or locally

@@ -33,7 +33,7 @@ use Phing\Util\Register;
 use Phing\Util\StringHelper;
 use Phing\Type\Reference;
 use ReflectionClass;
-use Task;
+use Phing\Task;
 
 /**
  * Helper class that collects the methods that a task or nested element

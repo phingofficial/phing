@@ -40,7 +40,7 @@ use Phing\Type\PropertyValue;
 use quot;
 use ReflectionException;
 use ReflectionObject;
-use Task;
+use Phing\Task;
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.

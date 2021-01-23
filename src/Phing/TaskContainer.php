@@ -18,7 +18,7 @@
  */
 
 namespace Phing;
-use Task;
+use Phing\Task;
 
 /**
  *  Abstract interface for objects which can contain tasks (targets)

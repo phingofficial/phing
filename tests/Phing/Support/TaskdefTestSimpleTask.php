@@ -3,7 +3,7 @@
 namespace Phing\Support;
 
 use Phing\Project;
-use Task;
+use Phing\Task;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

@@ -18,6 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Task;
 
 /**
  * Sets properties to the current time, or offsets from the current time.

@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Project;
+use Phing\Task;
 
 /**
  * Adds a normalized path to the PHP include_path.

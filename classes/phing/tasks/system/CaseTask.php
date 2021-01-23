@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Task;
+
 /**
  * "Inner" class for SwitchTask.
  *

@@ -1,6 +1,7 @@
 <?php
 
 use Phing\Exception\BuildException;
+use Phing\Task;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

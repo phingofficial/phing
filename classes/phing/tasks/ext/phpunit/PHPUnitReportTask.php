@@ -24,6 +24,7 @@ use Phing\Io\FileWriter;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
+use Phing\Task;
 
 /**
  * Transform a PHPUnit xml report using XSLT.

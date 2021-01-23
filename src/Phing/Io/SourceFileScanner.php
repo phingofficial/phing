@@ -22,7 +22,7 @@ namespace Phing\Io;
 use Phing\Mapper\FileNameMapper;
 use Phing\Phing;
 use Phing\Project;
-use Task;
+use Phing\Task;
 
 /**
  *  Utility class that collects the functionality of the various

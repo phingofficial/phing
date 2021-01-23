@@ -25,7 +25,7 @@ use Phing\RuntimeConfigurable;
 use Phing\TaskContainer;
 use Phing\TypeAdapter;
 use Phing\ProjectComponent;
-use Task;
+use Phing\Task;
 
 /**
  * Wrapper class that holds all information necessary to create a task

@@ -23,6 +23,7 @@ use Phing\Io\FileUtils;
 use Phing\Io\FileWriter;
 use Phing\Io\File;
 use Phing\Project;
+use Phing\Task;
 
 /**
  * This task is for using filter chains to make changes to files and overwrite the original files.

@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\DirectoryScanner;
 use Phing\Phing;
 use Phing\Project;
+use Phing\Task;
 
 /**
  * Alters the default excludes for the <strong>entire</strong> build.

@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Parser\XmlContext;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Target;
+use Phing\Task;
 
 /**
  * Simple task which bind some targets to some defined extension point

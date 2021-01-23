@@ -22,7 +22,7 @@ namespace Phing;
 use Exception;
 use Phing\Dispatch\DispatchUtils;
 use Phing\Exception\BuildException;
-use Task;
+use Phing\Task;
 
 /**
  * Use introspection to "adapt" an arbitrary ( not extending Task, but with

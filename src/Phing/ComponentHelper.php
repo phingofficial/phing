@@ -31,7 +31,7 @@ use Phing\ProjectComponent;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
 use ReflectionClass;
-use Task;
+use Phing\Task;
 use Phing\TaskAdapter;
 
 /**

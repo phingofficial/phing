@@ -19,6 +19,7 @@
 
 use Phing\Parser\DynamicConfigurator;
 use Phing\Project;
+use Phing\Task;
 
 /**
  *

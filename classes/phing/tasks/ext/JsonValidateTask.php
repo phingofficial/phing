@@ -36,6 +36,7 @@
  */
 
 use Phing\Project;
+use Phing\Task;
 
 /**
  * Checks if a given file is valid JSON

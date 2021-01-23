@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use Exception;
 use Phing\Dispatch\DispatchUtils;
 use Phing\Exception\BuildException;
 use Phing\Listener\BuildEvent;
