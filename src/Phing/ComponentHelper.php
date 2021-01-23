@@ -32,7 +32,7 @@ use Phing\Util\Properties;
 use Phing\Util\StringHelper;
 use ReflectionClass;
 use Task;
-use TaskAdapter;
+use Phing\TaskAdapter;
 
 /**
  * Component creation and configuration

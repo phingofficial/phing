@@ -17,10 +17,12 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use Exception;
 use Phing\Dispatch\DispatchUtils;
 use Phing\Exception\BuildException;
-use Phing\Project;
-use Phing\TypeAdapter;
+use Task;
 
 /**
  * Use introspection to "adapt" an arbitrary ( not extending Task, but with
@@ -41,9 +43,9 @@ class TaskAdapter extends Task implements TypeAdapter
     /**
      * Main entry point.
      *
-     * @throws BuildException
-     * @throws Exception
      * @return void
+     * @throws Exception
+     * @throws BuildException
      */
     public function main()
     {
@@ -82,7 +84,7 @@ class TaskAdapter extends Task implements TypeAdapter
     /**
      * Set the target object.
      *
-     * @param  object $o
+     * @param object $o
      * @return void
      */
     public function setProxy($o)
