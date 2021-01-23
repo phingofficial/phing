@@ -13,6 +13,7 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
 use Phing\Exception\BuildException;
 use Phing\Util\StringHelper;
 use Siad007\VersionControl\HG\Factory;
@@ -26,7 +27,7 @@ use Siad007\VersionControl\HG\Factory;
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  * @link     HgBaseTask.php
  */
-abstract class HgBaseTask extends \Task
+abstract class HgBaseTask extends Task
 {
     /**
      * Insecure argument
