@@ -19,19 +19,21 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * See {@link http://phk.tekwire.net/} for more information about PHK.
  *
  * @author  Alexey Shockov <alexey@shockov.com>
  * @package phing.tasks.ext.phk
  */
-class PhkPackageTask extends \Task
+class PhkPackageTask extends Task
 {
     /**
      * @var string
      */
     private $outputFile;
-    
+
     /**
      * @var string
      */
