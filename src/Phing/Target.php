@@ -478,7 +478,7 @@ class Target implements TaskContainer
      * @param Task $task
      * @param RuntimeConfigurable|Task $o
      */
-    public function replaceChild(Task $task, $o)
+    public function replaceChild($task, $o)
     {
         $keys = array_keys($this->children, $task);
         foreach ($keys as $index) {
