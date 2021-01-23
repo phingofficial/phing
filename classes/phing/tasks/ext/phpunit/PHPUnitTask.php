@@ -98,6 +98,13 @@ class PHPUnitTask extends Task
         if (!class_exists('PHPUnit\Runner\Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
         }
+
+        if (
+            class_exists('\PHPUnit\Runner\Version', false) &&
+            version_compare(\PHPUnit\Runner\Version::id(), '9.0.0', '<')
+        ) {
+            throw new BuildException("Phing only supports PHPUnit 9+");
+        }
     }
 
     /**
