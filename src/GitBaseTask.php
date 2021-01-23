@@ -56,8 +56,7 @@ abstract class GitBaseTask extends \Task
      */
     public function init()
     {
-        @include_once 'VersionControl/Git.php';
-        if (false == class_exists('VersionControl_Git')) {
+        if (!class_exists('VersionControl_Git')) {
             throw new BuildException(
                 "The Git tasks depend on the pear/versioncontrol_git package being installed.",
                 $this->getLocation()
