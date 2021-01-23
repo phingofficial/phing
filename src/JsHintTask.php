@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * JsHintTask
  *
@@ -29,7 +31,7 @@ namespace Phing\Tasks\Ext;
  * @package phing.tasks.ext
  * @since   2.6.2
  */
-class JsHintTask extends \Task
+class JsHintTask extends Task
 {
     use \FileSetAware;
 
