@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * PhpDocumentor2 Task (http://www.phpdoc.org)
  * Based on the DocBlox Task
@@ -27,7 +29,7 @@ namespace Phing\Tasks\Ext;
  * @since   2.4.10
  * @package phing.tasks.ext.phpdoc
  */
-class PhpDocumentor2Task extends \Task
+class PhpDocumentor2Task extends Task
 {
     use \FileSetAware;
 
