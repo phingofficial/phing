@@ -37,6 +37,7 @@
         "phing/task-apigen": "dev-master",
         "phing/task-coverage": "dev-master",
         "phing/task-ftpdeploy": "dev-master",
+        "phing/task-git": "dev-main",
         "phing/task-ioncube": "dev-master",
         "phing/task-jshint": "dev-master",
         "phing/task-jsmin": "dev-master",
