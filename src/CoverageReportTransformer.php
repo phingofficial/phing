@@ -104,7 +104,7 @@ class CoverageReportTransformer
     public function transform()
     {
         if (!$this->toDir->exists()) {
-            throw new \BuildException("Directory '" . $this->toDir . "' does not exist");
+            throw new BuildException("Directory '" . $this->toDir . "' does not exist");
         }
 
         $xslfile = $this->getStyleSheet();

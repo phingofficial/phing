@@ -24,6 +24,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Type\Excludes;
 use Phing\Util\Properties;
+use Phing\Util\StringHelper;
 
 /**
  * Stops the build if any of the specified coverage threshold was not reached
@@ -153,7 +154,7 @@ class CoverageThresholdTask extends Task
      */
     public function setVerbose($verbose)
     {
-        $this->verbose = \StringHelper::booleanValue($verbose);
+        $this->verbose = StringHelper::booleanValue($verbose);
     }
 
     /**
@@ -184,7 +185,7 @@ class CoverageThresholdTask extends Task
      *
      * @param  string $filename The filename to analyse
      * @param  array $coverageInformation Array with coverage information
-     * @throws \BuildException
+     * @throws BuildException
      */
     protected function calculateCoverageThreshold($filename, $coverageInformation)
     {
@@ -372,7 +373,7 @@ class CoverageThresholdTask extends Task
                 ->getProperty('coverage.database');
 
             if (!$coverageDatabase) {
-                throw new \BuildException(
+                throw new BuildException(
                     'Either include coverage-setup in your build file or set '
                     . 'the "database" attribute'
                 );

@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\Ext\Coverage;
 
+use Phing\Project;
 use Phing\Task;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
@@ -69,7 +70,7 @@ class CoverageSetupTask extends Task
                     $files[] = ['key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath()];
                 }
             } catch (BuildException $be) {
-                $this->log($be->getMessage(), \Project::MSG_WARN);
+                $this->log($be->getMessage(), Project::MSG_WARN);
             }
         }
 
@@ -95,7 +96,7 @@ class CoverageSetupTask extends Task
 
         $this->log("Setting up coverage database for " . count($files) . " files");
 
-        $props = new \Phing\Util\Properties();
+        $props = new Properties();
 
         foreach ($files as $file) {
             $fullname = $file['fullname'];
@@ -104,7 +105,7 @@ class CoverageSetupTask extends Task
             $props->setProperty($filename, serialize(['fullname' => $fullname, 'coverage' => []]));
         }
 
-        $dbfile = new \Phing\Io\File($this->database);
+        $dbfile = new File($this->database);
 
         $props->store($dbfile);
 
