@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * A phing task for generating output by using Smarty.
  *
@@ -34,7 +36,7 @@ namespace Phing\Tasks\Ext;
  * @author  Robert Burrell Donkin <robertdonkin@mac.com>
  * @package phing.tasks.ext
  */
-class SmartyTask extends \Task
+class SmartyTask extends Task
 {
 
     /**
