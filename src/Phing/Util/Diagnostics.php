@@ -158,8 +158,8 @@ class Diagnostics
     /**
      * list the libraries
      *
-     * @param array $libs array of libraries (can be null)
-     * @param PrintStream $out output stream
+     * @param array       $libs array of libraries (can be null)
+     * @param PrintStream $out  output stream
      */
     private static function printLibraries($libs, PrintStream $out)
     {

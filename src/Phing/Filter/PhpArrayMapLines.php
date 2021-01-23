@@ -91,7 +91,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
      */
     public function setFunction($function)
     {
-        $this->function = (string)$function;
+        $this->function = (string) $function;
     }
 
     /**
@@ -145,7 +145,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
         if ($params !== null) {
             for ($i = 0, $_i = count($params); $i < $_i; $i++) {
                 if (self::FUNCTION_KEY == $params[$i]->getName()) {
-                    $this->function = (string)$params[$i]->getValue();
+                    $this->function = (string) $params[$i]->getValue();
                     break;
                 }
             }

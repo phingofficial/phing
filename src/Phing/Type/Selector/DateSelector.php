@@ -86,7 +86,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function setSeconds($seconds)
     {
-        $this->seconds = (int)$seconds;
+        $this->seconds = (int) $seconds;
     }
 
     /**
@@ -102,7 +102,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function setMillis($millis)
     {
-        $this->setSeconds((int)$millis / 1000);
+        $this->setSeconds((int) $millis / 1000);
     }
 
     /**
@@ -133,7 +133,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function setCheckdirs($includeDirs)
     {
-        $this->includeDirs = (bool)$includeDirs;
+        $this->includeDirs = (bool) $includeDirs;
     }
 
     /**
@@ -144,7 +144,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function setGranularity($granularity)
     {
-        $this->granularity = (int)$granularity;
+        $this->granularity = (int) $granularity;
     }
 
     /**

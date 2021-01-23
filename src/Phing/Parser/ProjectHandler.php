@@ -65,8 +65,7 @@ class ProjectHandler extends AbstractHandler
         AbstractHandler $parentHandler,
         ProjectConfigurator $configurator,
         XmlContext $context
-    )
-    {
+    ) {
         parent::__construct($parser, $parentHandler);
 
         $this->configurator = $configurator;
@@ -121,7 +120,7 @@ class ProjectHandler extends AbstractHandler
 
         $canonicalName = self::canonicalName($name);
         $this->configurator->setCurrentProjectName($canonicalName);
-        $path = (string)$this->configurator->getBuildFile();
+        $path = (string) $this->configurator->getBuildFile();
         $project->setUserProperty("phing.file.{$canonicalName}", $path);
         $project->setUserProperty("phing.dir.{$canonicalName}", dirname($path));
 

@@ -28,8 +28,8 @@ use Task;
  * An extension point build files can provide as a place where other
  * build files can add new dependencies.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing
  */
 class ExtensionPoint extends Target
 {
@@ -37,7 +37,8 @@ class ExtensionPoint extends Target
 
     /**
      * Throws an exception.
-     * @param Task $task
+     *
+     * @param  Task $task
      * @throws \Phing\Exception\BuildException
      */
     public function addTask(Task $task)
@@ -47,7 +48,8 @@ class ExtensionPoint extends Target
 
     /**
      * Throws an exception.
-     * @param RuntimeConfigurable $r
+     *
+     * @param  RuntimeConfigurable $r
      * @throws \Phing\Exception\BuildException
      */
     public function addDataType($r)

@@ -34,7 +34,7 @@ jobs:
           dependency-versions: 'locked'
 
       - name: Static Code Analysis
-        run: bin/phpcs -s -n --standard=./ruleset.xml classes tests/classes
+        run: bin/phpcs -s -n --standard=./ruleset.xml classes src tests/classes tests/Phing
 
   test:
     needs:
@@ -42,12 +42,18 @@ jobs:
       - static_code_analysis
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ${{ matrix.operating-system }}
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         operating-system: [ ubuntu-latest, macos-latest, windows-latest ]
         php: [ '7.3', '7.4', '8.0' ]
         dependencies: [ 'lowest', 'locked' ]
+        experimental: [ false ]
+        include:
+          - php: 8.1
+            operating-system: ubuntu-latest
+            experimental: true
 
     name: PHP ${{ matrix.php }} on ${{ matrix.operating-system }} with ${{ matrix.dependencies }} dependencies
 
@@ -59,7 +65,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: pdo_sqlite
+          extensions: pdo_sqlite,pdo_mysql
 
       - uses: ramsey/composer-install@v1
         with:

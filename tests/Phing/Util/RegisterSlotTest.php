@@ -43,20 +43,20 @@ class RegisterSlotTest extends \PHPUnit\Framework\TestCase
     {
         $this->slot->setValue('test123');
 
-        $this->assertEquals((string)$this->slot, 'test123');
+        $this->assertEquals((string) $this->slot, 'test123');
     }
 
     public function testArrayToString()
     {
         $this->slot->setValue(['test1', 'test2', 'test3']);
 
-        $this->assertEquals((string)$this->slot, '{test1,test2,test3}');
+        $this->assertEquals((string) $this->slot, '{test1,test2,test3}');
     }
 
     public function testMultiArrayToString()
     {
         $this->slot->setValue(['test1', 'test2', ['test4', 'test5', ['test6', 'test7']], 'test3']);
 
-        $this->assertEquals((string)$this->slot, '{test1,test2,{test4,test5,{test6,test7}},test3}');
+        $this->assertEquals((string) $this->slot, '{test1,test2,{test4,test5,{test6,test7}},test3}');
     }
 }

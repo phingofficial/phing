@@ -334,7 +334,7 @@ class PatternSet extends DataType
      */
     public function hasPatterns()
     {
-        return (bool)count($this->includesFileList) > 0 || count($this->excludesFileList) > 0
+        return (bool) count($this->includesFileList) > 0 || count($this->excludesFileList) > 0
             || count($this->includeList) > 0 || count($this->excludeList) > 0;
     }
 
@@ -370,7 +370,7 @@ class PatternSet extends DataType
 
         $tmpNames = [];
         foreach ($list as $ne) {
-            $pattern = (string)$ne->evalName($p);
+            $pattern = (string) $ne->evalName($p);
             if ($pattern !== null && strlen($pattern) > 0) {
                 $tmpNames[] = $pattern;
             }
@@ -390,7 +390,7 @@ class PatternSet extends DataType
     {
         if (!empty($this->includesFileList)) {
             foreach ($this->includesFileList as $ne) {
-                $fileName = (string)$ne->evalName($p);
+                $fileName = (string) $ne->evalName($p);
                 if ($fileName !== null) {
                     $inclFile = $p->resolveFile($fileName);
                     if (!$inclFile->exists()) {
@@ -404,7 +404,7 @@ class PatternSet extends DataType
 
         if (!empty($this->excludesFileList)) {
             foreach ($this->excludesFileList as $ne) {
-                $fileName = (string)$ne->evalName($p);
+                $fileName = (string) $ne->evalName($p);
                 if ($fileName !== null) {
                     $exclFile = $p->resolveFile($fileName);
                     if (!$exclFile->exists()) {

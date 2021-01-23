@@ -61,7 +61,7 @@ class FilterReader extends Reader
      * FIXME: Clean up this function signature, as it a) params aren't being used
      * and b) it doesn't make much sense.
      *
-     * @param int $len
+     * @param  int $len
      * @return string
      * @throws IOException
      */

@@ -51,7 +51,7 @@ class PropertyValue
      */
     public function setValue($value)
     {
-        $this->value = (string)$value;
+        $this->value = (string) $value;
     }
 
     /**
@@ -67,6 +67,6 @@ class PropertyValue
      */
     public function __toString()
     {
-        return (string)$this->getValue();
+        return (string) $this->getValue();
     }
 }

@@ -92,8 +92,7 @@ abstract class BuildFileTest extends TestCase
         $expected,
         $priority = null,
         $errormsg = "Expected to find a log line that starts with '%s': %s"
-    )
-    {
+    ) {
         $found = false;
         foreach ($this->logBuffer as $log) {
             if (false !== strpos($log['message'], $expected)) {
@@ -127,8 +126,7 @@ abstract class BuildFileTest extends TestCase
         $message,
         $priority = null,
         $errormsg = "Unexpected string '%s' found in logs: %s"
-    )
-    {
+    ) {
         foreach ($this->logBuffer as $log) {
             if (false !== stripos($log['message'], $message)) {
                 $representation = [];

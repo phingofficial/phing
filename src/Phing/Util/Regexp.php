@@ -61,7 +61,7 @@ class Regexp
     /**
      * Constructor sets the regex engine to use (preg by default).
      *
-     * @param string $engineType
+     * @param  string $engineType
      * @throws BuildException
      */
     public function __construct($engineType = 'preg')
@@ -76,12 +76,12 @@ class Regexp
     /**
      * Sets pattern to use for matching.
      *
-     * @param string $pat The pattern to match on.
+     * @param  string $pat The pattern to match on.
      * @return void
      */
     public function setPattern($pat)
     {
-        $this->pattern = (string)$pat;
+        $this->pattern = (string) $pat;
     }
 
     /**
@@ -97,12 +97,12 @@ class Regexp
     /**
      * Sets replacement string.
      *
-     * @param string $rep The pattern to replace matches with.
+     * @param  string $rep The pattern to replace matches with.
      * @return void
      */
     public function setReplace($rep)
     {
-        $this->replace = (string)$rep;
+        $this->replace = (string) $rep;
     }
 
     /**
@@ -118,7 +118,7 @@ class Regexp
     /**
      * Performs match of specified pattern against $subject.
      *
-     * @param string $subject The subject, on which to perform matches.
+     * @param  string $subject The subject, on which to perform matches.
      * @return boolean Whether or not pattern matches subject string passed.
      * @throws RegexpException
      */
@@ -134,7 +134,7 @@ class Regexp
     /**
      * Performs replacement of specified pattern and replacement strings.
      *
-     * @param string $subject Text on which to perform replacement.
+     * @param  string $subject Text on which to perform replacement.
      * @return string subject after replacement has been performed.
      * @throws RegexpException
      */
@@ -160,7 +160,7 @@ class Regexp
     /**
      * Get specific matched group.
      *
-     * @param integer $idx
+     * @param  integer $idx
      * @return string  specified group or NULL if group is not set.
      */
     public function getGroup($idx)
@@ -175,7 +175,7 @@ class Regexp
     /**
      * Sets pattern modifiers for regex engine
      *
-     * @param string $mods Modifiers to be applied to a given regex
+     * @param  string $mods Modifiers to be applied to a given regex
      * @return void
      */
     public function setModifiers($mods)

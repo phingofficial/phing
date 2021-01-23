@@ -47,7 +47,7 @@ class Token
      */
     public function setKey($key)
     {
-        $this->key = (string)$key;
+        $this->key = (string) $key;
     }
 
     /**
@@ -65,7 +65,7 @@ class Token
                 $this->value = "false";
             }
         } else {
-            $this->value = (string)$value;
+            $this->value = (string) $value;
         }
     }
 

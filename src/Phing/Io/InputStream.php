@@ -184,6 +184,6 @@ class InputStream
      */
     public function __toString()
     {
-        return (string)$this->stream;
+        return (string) $this->stream;
     }
 }

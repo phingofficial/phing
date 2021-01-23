@@ -78,24 +78,37 @@ class AdhocTaskdefTask extends AdhocTask
         if (!isset($taskdefs[$this->name])) {
             $this->execute();
 
-            $classes = $this->getNewClasses();
+            $classes = $this->filterValidTasks($this->getNewClasses());
 
             if (count($classes) < 1) {
-                throw new BuildException("You must define at least one class for AdhocTaskdefTask.");
-            }
-
-            $classname = array_shift($classes);
-
-            $t = new ReflectionClass($classname);
-            if (!$t->isSubclassOf('Task')) {
                 throw new BuildException(
-                    "The adhoc class you defined must be an instance of phing.Task",
+                    "You must define at least one class that is a sub-class of " . Task::class,
                     $this->getLocation()
                 );
             }
 
+            $classname = array_shift($classes);
+
             $this->log("Task " . $this->name . " will be handled by class " . $classname, Project::MSG_VERBOSE);
             $this->project->addTaskDefinition($this->name, $classname);
         }
+    }
+
+    /**
+     * @param string[] $classes
+     * @return string[]
+     * @throws ReflectionException
+     */
+    private function filterValidTasks(array $classes): array
+    {
+        return array_filter($classes, function ($classname) {
+            $t = new ReflectionClass($classname);
+
+            if (!$t->isSubclassOf(Task::class) || !$t->isInstantiable()) {
+                return false;
+            }
+
+            return true;
+        });
     }
 }

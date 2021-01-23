@@ -191,7 +191,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      */
     public function setBeginToken($beginToken)
     {
-        $this->beginToken = (string)$beginToken;
+        $this->beginToken = (string) $beginToken;
     }
 
     /**
@@ -211,7 +211,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      */
     public function setEndToken($endToken)
     {
-        $this->endToken = (string)$endToken;
+        $this->endToken = (string) $endToken;
     }
 
     /**

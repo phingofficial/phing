@@ -81,7 +81,7 @@ class CommandlineArgument
      */
     public function setPath(Path $value): void
     {
-        $this->parts = [(string)$value];
+        $this->parts = [(string) $value];
     }
 
     /**

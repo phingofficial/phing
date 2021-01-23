@@ -44,7 +44,7 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
         $buf = "";
         $arr = $this->selectorElements();
         for ($i = 0, $size = count($arr); $i < $size; $i++) {
-            $buf .= (string)$arr[$i] . (isset($arr[$i + 1]) ? ', ' : '');
+            $buf .= (string) $arr[$i] . (isset($arr[$i + 1]) ? ', ' : '');
         }
 
         return $buf;

@@ -133,7 +133,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setLines($lines)
     {
-        $this->lines = (int)$lines;
+        $this->lines = (int) $lines;
     }
 
     /**
@@ -153,7 +153,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setSkip($skip)
     {
-        $this->skip = (int)$skip;
+        $this->skip = (int) $skip;
     }
 
     /**
@@ -197,11 +197,11 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
         if ($params !== null) {
             for ($i = 0, $_i = count($params); $i < $_i; $i++) {
                 if (self::LINES_KEY == $params[$i]->getName()) {
-                    $this->lines = (int)$params[$i]->getValue();
+                    $this->lines = (int) $params[$i]->getValue();
                     continue;
                 }
                 if (self::SKIP_KEY == $params[$i]->getName()) {
-                    $this->skip = (int)$params[$i]->getValue();
+                    $this->skip = (int) $params[$i]->getValue();
                     continue;
                 }
             }

@@ -19,7 +19,7 @@
 
 namespace Phing\Util;
 /**
- * @package  phing.util.regexp
+ * @package phing.util.regexp
  */
 class RegexpException extends \Exception
 {

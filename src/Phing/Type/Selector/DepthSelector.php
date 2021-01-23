@@ -69,7 +69,7 @@ class DepthSelector extends BaseExtendSelector
      */
     public function setMin($min)
     {
-        $this->min = (int)$min;
+        $this->min = (int) $min;
     }
 
     /**
@@ -81,7 +81,7 @@ class DepthSelector extends BaseExtendSelector
      */
     public function setMax($max)
     {
-        $this->max = (int)$max;
+        $this->max = (int) $max;
     }
 
     /**

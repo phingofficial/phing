@@ -99,6 +99,6 @@ class Location
             $buf .= ":" . $this->columnNumber;
         }
 
-        return (string)$buf;
+        return (string) $buf;
     }
 }

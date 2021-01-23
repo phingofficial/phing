@@ -52,7 +52,7 @@ class Properties
     /**
      * Constructor
      *
-     * @param array $properties
+     * @param array               $properties
      * @param FileParserInterface $fileParser
      */
     public function __construct($properties = null, FileParserInterface $fileParser = null)
@@ -69,7 +69,7 @@ class Properties
     /**
      * Load properties from a file.
      *
-     * @param File $file
+     * @param  File $file
      * @return void
      * @throws IOException - if unable to read file.
      */
@@ -98,7 +98,7 @@ class Properties
      * Process values when being written out to properties file.
      * does things like convert true => "true"
      *
-     * @param mixed $val The property value (may be boolean, etc.)
+     * @param  mixed $val The property value (may be boolean, etc.)
      * @return string
      */
     protected function outVal($val)
@@ -133,8 +133,8 @@ class Properties
     /**
      * Stores current properties to specified file.
      *
-     * @param File $file File to create/overwrite with properties.
-     * @param string $header Header text that will be placed (within comments) at the top of properties file.
+     * @param  File   $file   File to create/overwrite with properties.
+     * @param  string $header Header text that will be placed (within comments) at the top of properties file.
      * @return void
      * @throws IOException - on error writing properties file.
      */
@@ -156,7 +156,7 @@ class Properties
             if ($header !== null) {
                 $fw->write("# " . $header . PHP_EOL);
             }
-            $fw->write((string)$this);
+            $fw->write((string) $this);
             $fw->close();
         } catch (IOException $e) {
             throw new IOException("Error writing property file: " . $e->getMessage());
@@ -209,7 +209,7 @@ class Properties
      * Get value for specified property.
      * This is the same as get() method.
      *
-     * @param string $prop The property name (key).
+     * @param  string $prop The property name (key).
      * @return mixed
      * @see    get()
      */
@@ -227,7 +227,7 @@ class Properties
      * This function exists to provide a hashtable-like interface for
      * properties.
      *
-     * @param string $prop The property name (key).
+     * @param  string $prop The property name (key).
      * @return mixed
      * @see    getProperty()
      */
@@ -243,8 +243,8 @@ class Properties
     /**
      * Set the value for a property.
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string $key
+     * @param  mixed  $value
      * @return mixed  Old property value or null if none was set.
      */
     public function setProperty($key, $value)
@@ -260,8 +260,8 @@ class Properties
      * This function exists to provide hashtable-lie
      * interface for properties.
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string $key
+     * @param  mixed  $value
      * @return mixed
      */
     public function put($key, $value)
@@ -275,7 +275,7 @@ class Properties
      * If the property does not, it just adds it.
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      * @param string $delimiter
      */
     public function append($key, $value, $delimiter = ',')

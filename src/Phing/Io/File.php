@@ -66,8 +66,8 @@ class File
             if ($arg1 === null) {
                 throw new NullPointerException("Argument1 to function must not be null");
             }
-            $this->path = (string)$arg1;
-            $this->prefixLength = (int)$arg2;
+            $this->path = (string) $arg1;
+            $this->prefixLength = (int) $arg2;
         }
     }
 
@@ -78,7 +78,7 @@ class File
      */
     public function getPrefixLength()
     {
-        return (int)$this->prefixLength;
+        return (int) $this->prefixLength;
     }
 
     /* -- constructors not called by signature match, so we need some helpers --*/
@@ -92,8 +92,8 @@ class File
     {
         $fs = FileSystem::getFileSystem();
 
-        $this->path = (string)$fs->normalize($pathname);
-        $this->prefixLength = (int)$fs->prefixLength($this->path);
+        $this->path = (string) $fs->normalize($pathname);
+        $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
 
     /**
@@ -111,7 +111,7 @@ class File
             $this->path = $fs->resolve($fs->normalize($parent), $fs->normalize($child));
         }
 
-        $this->prefixLength = (int)$fs->prefixLength($this->path);
+        $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
 
     /**
@@ -202,7 +202,7 @@ class File
             return null;
         }
 
-        return new File((string)$p, (int)$this->prefixLength);
+        return new File((string) $p, (int) $this->prefixLength);
     }
 
     /**
@@ -214,7 +214,7 @@ class File
      */
     public function getPath()
     {
-        return (string)$this->path;
+        return (string) $this->path;
     }
 
     /**
@@ -261,7 +261,7 @@ class File
      */
     public function getFileExtension()
     {
-        return pathinfo((string)$this->getAbsolutePath(), PATHINFO_EXTENSION);
+        return pathinfo((string) $this->getAbsolutePath(), PATHINFO_EXTENSION);
     }
 
     /**
@@ -299,7 +299,7 @@ class File
      */
     public function getAbsoluteFile()
     {
-        return new File((string)$this->getAbsolutePath());
+        return new File((string) $this->getAbsolutePath());
     }
 
 
@@ -362,7 +362,7 @@ class File
         $fs = FileSystem::getFileSystem();
 
         if ($fs->checkAccess($this)) {
-            return (bool)@is_link($this->getAbsolutePath()) || @is_readable($this->getAbsolutePath());
+            return (bool) @is_link($this->getAbsolutePath()) || @is_readable($this->getAbsolutePath());
         }
 
         return false;
@@ -741,7 +741,7 @@ class File
      */
     public function setLastModified($time)
     {
-        $time = (int)$time;
+        $time = (int) $time;
         if ($time < 0) {
             throw new Exception("IllegalArgumentException, Negative $time\n");
         }

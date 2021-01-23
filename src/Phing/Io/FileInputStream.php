@@ -61,9 +61,9 @@ class FileInputStream extends InputStream
         $stream = @fopen($this->file->getAbsolutePath(), "rb");
         if ($stream === false) {
             throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . print_r(
-                    error_get_last(),
-                    true
-                ));
+                error_get_last(),
+                true
+            ));
         }
 
         parent::__construct($stream);

@@ -33,7 +33,7 @@ use Phing\ProjectComponent;
  * <p>This is useful for tasks that want to deal with the "real" XML
  * from the build file instead of objects.</p>
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.system.util
  */
 class XMLFragment extends ProjectComponent implements CustomChildCreator
@@ -68,6 +68,7 @@ class XMLFragment extends ProjectComponent implements CustomChildCreator
 
     /**
      * Add nested text, expanding properties as we go
+     *
      * @param string $s the text to add
      */
     public function addText(string $s)

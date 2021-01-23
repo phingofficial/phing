@@ -152,7 +152,7 @@ class ExtendedFileStream
     // @codingStandardsIgnoreEnd
 
     /**
-     * @param $path
+     * @param  $path
      * @return bool
      */
     public function unlink($path)
@@ -161,8 +161,8 @@ class ExtendedFileStream
     }
 
     /**
-     * @param $path_from
-     * @param $path_to
+     * @param  $path_from
+     * @param  $path_to
      * @return bool
      */
     public function rename($path_from, $path_to)
@@ -171,9 +171,9 @@ class ExtendedFileStream
     }
 
     /**
-     * @param $path
-     * @param $mode
-     * @param $options
+     * @param  $path
+     * @param  $mode
+     * @param  $options
      * @return bool
      */
     public function mkdir($path, $mode, $options)
@@ -182,8 +182,8 @@ class ExtendedFileStream
     }
 
     /**
-     * @param $path
-     * @param $options
+     * @param  $path
+     * @param  $options
      * @return bool
      */
     public function rmdir($path, $options)

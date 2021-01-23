@@ -144,7 +144,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setDir($dir)
     {
-        $this->dir = (string)$dir;
+        $this->dir = (string) $dir;
     }
 
     /**
@@ -164,7 +164,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setPrefix($prefix)
     {
-        $this->prefix = (string)$prefix;
+        $this->prefix = (string) $prefix;
     }
 
     /*
@@ -189,7 +189,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setPostfix($postfix)
     {
-        $this->postfix = (string)$postfix;
+        $this->postfix = (string) $postfix;
     }
 
     /**
@@ -209,7 +209,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setBeginToken($beginToken)
     {
-        $this->beginToken = (string)$beginToken;
+        $this->beginToken = (string) $beginToken;
     }
 
     /**
@@ -229,7 +229,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setEndToken($endToken)
     {
-        $this->endToken = (string)$endToken;
+        $this->endToken = (string) $endToken;
     }
 
     /**

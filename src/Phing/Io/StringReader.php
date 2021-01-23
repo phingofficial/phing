@@ -58,7 +58,7 @@ class StringReader extends InputStreamReader
     }
 
     /**
-     * @param null $len
+     * @param  null $len
      * @return int|string
      */
     public function read($len = null)

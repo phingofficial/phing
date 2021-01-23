@@ -53,7 +53,7 @@ class UnknownElement extends Task
     public function __construct($elementName)
     {
         parent::__construct();
-        $this->elementName = (string)$elementName;
+        $this->elementName = (string) $elementName;
     }
 
     /**
@@ -64,7 +64,7 @@ class UnknownElement extends Task
      */
     public function getTag()
     {
-        return (string)$this->elementName;
+        return (string) $this->elementName;
     }
 
     /**

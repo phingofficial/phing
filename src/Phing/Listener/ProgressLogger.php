@@ -152,7 +152,7 @@ class ProgressLogger extends AnsiColorLogger
     }
 
     /**
-     * @param BuildEvent $event
+     * @param  BuildEvent $event
      * @throws Exception
      */
     protected function determineDepth(BuildEvent $event)

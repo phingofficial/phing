@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,6 +16,7 @@ declare(strict_types=1);
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+declare(strict_types=1);
 
 namespace Phing\Util;
 
