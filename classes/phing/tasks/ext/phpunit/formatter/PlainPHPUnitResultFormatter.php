@@ -168,14 +168,16 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
 
         if ($e !== null) {
             if ($e instanceof PHPUnit\Framework\ExceptionWrapper) {
-                $this->inner .= $e->getPreviousWrapped() ? $e->getPreviousWrapped()->getMessage() : $e->getMessage() . "\n";
+                $this->inner .= $e->getPreviousWrapped() ? $e->getPreviousWrapped()->getMessage() : $e->getMessage();
             } else {
-                $this->inner .= $e->getMessage() . "\n";
+                $this->inner .= $e->getMessage();
             }
 
             if ($e instanceof ExpectationFailedException && $e->getComparisonFailure()) {
                 $this->inner .= $e->getComparisonFailure()->getDiff();
             }
+
+            $this->inner .= "\n";
         }
     }
 

@@ -480,7 +480,7 @@ class PHPUnitTask extends Task
         $this->execute($suite);
 
         if ($this->testfailed) {
-            throw new BuildException($this->testfailuremessage);
+            throw new BuildException("Test(s) failed: " . $this->testfailuremessage);
         }
 
         $autoloadNew = spl_autoload_functions();

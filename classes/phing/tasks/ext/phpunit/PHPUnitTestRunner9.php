@@ -44,11 +44,6 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     private $formatters = [];
 
     /**
-     * @var \PHPUnit\Framework\TestListener[]
-     */
-    private $listeners = [];
-
-    /**
      * @var \SebastianBergmann\CodeCoverage\CodeCoverage
      */
     private $codecoverage;
@@ -104,13 +99,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     public function addFormatter(\PHPUnit\Framework\TestListener $formatter): void
     {
-        $this->addListener($formatter);
         $this->formatters[] = $formatter;
-    }
-
-    public function addListener(\PHPUnit\Framework\TestListener $listener): void
-    {
-        $this->listeners[] = $listener;
     }
 
     /**
@@ -153,7 +142,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
             $res->setCodeCoverage($this->codecoverage);
         }
 
-        // $res->addListener($this);
+        $res->addListener($this);
 
         foreach ($this->formatters as $formatter) {
             $res->addListener($formatter);
