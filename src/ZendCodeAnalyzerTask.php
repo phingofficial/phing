@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * ZendCodeAnalyzerTask analyze PHP source code using the ZendCodeAnalyzer included in Zend Studio 5.1
  *
@@ -59,7 +61,7 @@ namespace Phing\Tasks\Ext;
  * @author  Knut Urdalen <knut.urdalen@gmail.com>
  * @package phing.tasks.ext
  */
-class ZendCodeAnalyzerTask extends \Task
+class ZendCodeAnalyzerTask extends Task
 {
     use \FileSetAware;
 
