@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
+
 /**
  * ApiGen task (http://apigen.org).
  *
@@ -27,7 +29,7 @@ namespace Phing\Tasks\Ext;
  * @author  Jaroslav Hanslík <kukulich@kukulich.cz>
  * @author  Lukáš Homza <lukashomza@gmail.com>
  */
-class ApiGenTask extends \Task
+class ApiGenTask extends Task
 {
     /**
      * Default ApiGen executable name.
