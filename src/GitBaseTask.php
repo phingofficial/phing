@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Task;
 use Phing\Exception\BuildException;
 
 /**
@@ -29,7 +30,7 @@ use Phing\Exception\BuildException;
  * @see     VersionControl_Git
  * @since   2.4.3
  */
-abstract class GitBaseTask extends \Task
+abstract class GitBaseTask extends Task
 {
     /**
      * Bath to git binary
