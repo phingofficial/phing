@@ -457,12 +457,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-jshint.git",
-                "reference": "fd094ea917865bf6f3aa62c4f2c511653feb7861"
+                "reference": "cc1848b5782dacf2c7de12d6e71aee102da10aa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-jshint/zipball/fd094ea917865bf6f3aa62c4f2c511653feb7861",
-                "reference": "fd094ea917865bf6f3aa62c4f2c511653feb7861",
+                "url": "https://api.github.com/repos/phingofficial/task-jshint/zipball/cc1848b5782dacf2c7de12d6e71aee102da10aa0",
+                "reference": "cc1848b5782dacf2c7de12d6e71aee102da10aa0",
                 "shasum": ""
             },
             "require": {
@@ -498,7 +498,7 @@
                 "issues": "https://github.com/phingofficial/task-jshint/issues",
                 "source": "https://github.com/phingofficial/task-jshint/tree/master"
             },
-            "time": "2020-04-10T19:40:26+00:00"
+            "time": "2021-01-23T20:35:56+00:00"
         },
         {
             "name": "phing/task-jsmin",
@@ -506,12 +506,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-jsmin.git",
-                "reference": "d9587b328577c303cdfe7ed4fedf598593363791"
+                "reference": "f79c00c60212662e6a2ecfca73d584f81beb189d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-jsmin/zipball/d9587b328577c303cdfe7ed4fedf598593363791",
-                "reference": "d9587b328577c303cdfe7ed4fedf598593363791",
+                "url": "https://api.github.com/repos/phingofficial/task-jsmin/zipball/f79c00c60212662e6a2ecfca73d584f81beb189d",
+                "reference": "f79c00c60212662e6a2ecfca73d584f81beb189d",
                 "shasum": ""
             },
             "require": {
@@ -548,7 +548,7 @@
                 "issues": "https://github.com/phingofficial/task-jsmin/issues",
                 "source": "https://github.com/phingofficial/task-jsmin/tree/master"
             },
-            "time": "2020-04-10T12:31:36+00:00"
+            "time": "2021-01-23T20:36:05+00:00"
         },
         {
             "name": "phing/task-liquibase",
@@ -556,12 +556,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-liquibase.git",
-                "reference": "feb9a1d54f846a22da9ad8aeaa27c5c15a92d7db"
+                "reference": "14e0c601f59a266cb5423b765b8182b2e1e5b702"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-liquibase/zipball/feb9a1d54f846a22da9ad8aeaa27c5c15a92d7db",
-                "reference": "feb9a1d54f846a22da9ad8aeaa27c5c15a92d7db",
+                "url": "https://api.github.com/repos/phingofficial/task-liquibase/zipball/14e0c601f59a266cb5423b765b8182b2e1e5b702",
+                "reference": "14e0c601f59a266cb5423b765b8182b2e1e5b702",
                 "shasum": ""
             },
             "require": {
@@ -603,7 +603,7 @@
                 "issues": "https://github.com/phingofficial/task-liquibase/issues",
                 "source": "https://github.com/phingofficial/task-liquibase/tree/master"
             },
-            "time": "2021-01-22T19:56:39+00:00"
+            "time": "2021-01-23T20:36:13+00:00"
         },
         {
             "name": "phing/task-phkpackage",
@@ -611,12 +611,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-phkpackage.git",
-                "reference": "d873f2c337e863353e93723f88c64fe611787d21"
+                "reference": "61ce449f4bbda5b329c27d39f59c0006551c3b29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-phkpackage/zipball/d873f2c337e863353e93723f88c64fe611787d21",
-                "reference": "d873f2c337e863353e93723f88c64fe611787d21",
+                "url": "https://api.github.com/repos/phingofficial/task-phkpackage/zipball/61ce449f4bbda5b329c27d39f59c0006551c3b29",
+                "reference": "61ce449f4bbda5b329c27d39f59c0006551c3b29",
                 "shasum": ""
             },
             "require": {
@@ -652,7 +652,7 @@
                 "issues": "https://github.com/phingofficial/task-phkpackage/issues",
                 "source": "https://github.com/phingofficial/task-phkpackage/tree/master"
             },
-            "time": "2020-01-31T22:14:03+00:00"
+            "time": "2021-01-23T20:36:21+00:00"
         },
         {
             "name": "phing/task-phpdoc",
@@ -660,12 +660,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-phpdoc.git",
-                "reference": "912c0438f68d33d04a1fcf237d4d3334ea55e7f8"
+                "reference": "4af76dda76ab8f25992275bc835006d7b0aeb72a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-phpdoc/zipball/912c0438f68d33d04a1fcf237d4d3334ea55e7f8",
-                "reference": "912c0438f68d33d04a1fcf237d4d3334ea55e7f8",
+                "url": "https://api.github.com/repos/phingofficial/task-phpdoc/zipball/4af76dda76ab8f25992275bc835006d7b0aeb72a",
+                "reference": "4af76dda76ab8f25992275bc835006d7b0aeb72a",
                 "shasum": ""
             },
             "require": {
@@ -703,7 +703,7 @@
                 "issues": "https://github.com/phingofficial/task-phpdoc/issues",
                 "source": "https://github.com/phingofficial/task-phpdoc/tree/master"
             },
-            "time": "2020-03-01T21:48:23+00:00"
+            "time": "2021-01-23T20:36:47+00:00"
         },
         {
             "name": "phing/task-smarty",
@@ -711,12 +711,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-smarty.git",
-                "reference": "1f466028e5b7ef0c57f2b34bf3c1e97b39832b0d"
+                "reference": "2843e9fa8960718e6b4bfe2e642a32ee9dcf2599"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-smarty/zipball/1f466028e5b7ef0c57f2b34bf3c1e97b39832b0d",
-                "reference": "1f466028e5b7ef0c57f2b34bf3c1e97b39832b0d",
+                "url": "https://api.github.com/repos/phingofficial/task-smarty/zipball/2843e9fa8960718e6b4bfe2e642a32ee9dcf2599",
+                "reference": "2843e9fa8960718e6b4bfe2e642a32ee9dcf2599",
                 "shasum": ""
             },
             "require": {
@@ -753,7 +753,7 @@
                 "issues": "https://github.com/phingofficial/task-smarty/issues",
                 "source": "https://github.com/phingofficial/task-smarty/tree/master"
             },
-            "time": "2020-02-15T21:30:17+00:00"
+            "time": "2021-01-23T20:36:56+00:00"
         },
         {
             "name": "phing/task-ssh",
@@ -761,12 +761,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-ssh.git",
-                "reference": "cf0bd63cf499e28ed78af709b74c27c7ee90c621"
+                "reference": "963c4134ee117a6c6e69fbb4e178af0986c77c0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-ssh/zipball/cf0bd63cf499e28ed78af709b74c27c7ee90c621",
-                "reference": "cf0bd63cf499e28ed78af709b74c27c7ee90c621",
+                "url": "https://api.github.com/repos/phingofficial/task-ssh/zipball/963c4134ee117a6c6e69fbb4e178af0986c77c0a",
+                "reference": "963c4134ee117a6c6e69fbb4e178af0986c77c0a",
                 "shasum": ""
             },
             "require": {
@@ -806,7 +806,7 @@
                 "issues": "https://github.com/phingofficial/task-ssh/issues",
                 "source": "https://github.com/phingofficial/task-ssh/tree/master"
             },
-            "time": "2021-01-22T19:56:26+00:00"
+            "time": "2021-01-23T20:37:04+00:00"
         },
         {
             "name": "phing/task-zendcodeanalyser",
@@ -814,12 +814,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-zendcodeanalyser.git",
-                "reference": "8cb7596f0f544ad1f9a9bcee7415c95783c47326"
+                "reference": "e7fe7f40ddd1c53b4ba15775dff84f26c4510510"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-zendcodeanalyser/zipball/8cb7596f0f544ad1f9a9bcee7415c95783c47326",
-                "reference": "8cb7596f0f544ad1f9a9bcee7415c95783c47326",
+                "url": "https://api.github.com/repos/phingofficial/task-zendcodeanalyser/zipball/e7fe7f40ddd1c53b4ba15775dff84f26c4510510",
+                "reference": "e7fe7f40ddd1c53b4ba15775dff84f26c4510510",
                 "shasum": ""
             },
             "require": {
@@ -856,7 +856,7 @@
                 "issues": "https://github.com/phingofficial/task-zendcodeanalyser/issues",
                 "source": "https://github.com/phingofficial/task-zendcodeanalyser/tree/master"
             },
-            "time": "2020-02-15T23:00:06+00:00"
+            "time": "2021-01-23T20:37:14+00:00"
         },
         {
             "name": "phing/task-zendserverdevelopmenttools",
@@ -864,12 +864,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-zendserverdeploymenttool.git",
-                "reference": "8d350c6a3f71e6dafcc1f56916912ed439c2b407"
+                "reference": "e8efe8c499cfdd15b630627fbdd47aa2e14815c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-zendserverdeploymenttool/zipball/8d350c6a3f71e6dafcc1f56916912ed439c2b407",
-                "reference": "8d350c6a3f71e6dafcc1f56916912ed439c2b407",
+                "url": "https://api.github.com/repos/phingofficial/task-zendserverdeploymenttool/zipball/e8efe8c499cfdd15b630627fbdd47aa2e14815c5",
+                "reference": "e8efe8c499cfdd15b630627fbdd47aa2e14815c5",
                 "shasum": ""
             },
             "require": {
@@ -906,7 +906,7 @@
                 "issues": "https://github.com/phingofficial/task-zendserverdeploymenttool/issues",
                 "source": "https://github.com/phingofficial/task-zendserverdeploymenttool/tree/master"
             },
-            "time": "2020-04-18T17:06:19+00:00"
+            "time": "2021-01-23T20:37:28+00:00"
         },
         {
             "name": "psr/container",
