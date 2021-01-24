@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext;
 
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * JsHintTask
@@ -33,7 +34,7 @@ use Phing\Task;
  */
 class JsHintTask extends Task
 {
-    use \FileSetAware;
+    use FileSetAware;
 
     /**
      * The source file (from xml attribute)
