@@ -20,6 +20,7 @@
 namespace Phing\Tasks\System;
 
 use Phing\Exception\BuildException;
+use Phing\Tasks\System\Condition\ConditionBase;
 
 /**
  * "Inner" class for IfTask.

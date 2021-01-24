@@ -20,6 +20,7 @@
 namespace Phing\Tasks\System;
 
 use Phing\Exception\BuildException;
+use Phing\Tasks\System\Condition\ConditionBase;
 
 /**
  * Perform some tasks based on whether a given condition holds true or

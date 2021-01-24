@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\AppendTask;
+
 use Phing\Exception\BuildException;
 use Phing\Io\BufferedReader;
 use Phing\Io\FileInputStream;
