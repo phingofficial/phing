@@ -20,7 +20,7 @@
 namespace Phing;
 
 use Phing\ComponentHelper;
-use Condition;
+use Phing\Tasks\System\Condition\Condition;
 use Phing\Type\Description;
 use Exception;
 use Phing\Exception\BuildException;
@@ -37,7 +37,6 @@ use Phing\Target;
 use Phing\UnknownElement;
 use Phing\PropertyHelper;
 use Phing\Type\PropertyValue;
-use quot;
 use ReflectionException;
 use ReflectionObject;
 use Phing\Task;

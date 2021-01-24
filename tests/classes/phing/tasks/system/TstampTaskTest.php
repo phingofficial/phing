@@ -18,6 +18,7 @@
  */
 
 use Phing\Support\BuildFileTest;
+use Phing\Tasks\System\TstampTask;
 
 /**
  * Tests the Tstamp Task

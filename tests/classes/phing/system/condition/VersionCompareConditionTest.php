@@ -26,7 +26,7 @@ class VersionCompareConditionTest extends \PHPUnit\Framework\TestCase
 
     public function setUp(): void
     {
-        $this->condition = new VersionCompareCondition();
+        $this->condition = new \Phing\Tasks\System\Condition\VersionCompareCondition();
     }
 
     public function testDefaultCompareIsFalseForSmallerRevision()

@@ -19,7 +19,7 @@
 
 namespace Phing;
 
-use EchoTask;
+use Phing\Tasks\System\EchoTask;
 use Phing\Exception\BuildException;
 use Phing\Support\BuildFileTest;
 

@@ -36,7 +36,7 @@ use Phing\Io\File;
 use Phing\Parser\XmlContext;
 use Phing\Project;
 use Phing\Target;
-use Task;
+use Phing\Task;
 use Phing\TypeAdapter;
 use Phing\UnknownElement;
 

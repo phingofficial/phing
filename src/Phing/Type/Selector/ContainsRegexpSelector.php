@@ -19,7 +19,7 @@
 
 namespace Phing\Type\Selector;
 
-use OsCondition;
+use Phing\Tasks\System\Condition\OsCondition;
 use Phing\Exception\BuildException;
 use Phing\Io\BufferedReader;
 use Phing\Io\File;

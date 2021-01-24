@@ -20,7 +20,7 @@
 namespace Phing\Type;
 
 use Countable;
-use OsCondition;
+use Phing\Tasks\System\Condition\OsCondition;
 use Phing\Exception\BuildException;
 use Phing\Io\FileUtils;
 

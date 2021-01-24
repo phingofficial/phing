@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Tasks\System\Condition\SocketCondition;
+
 /**
  * Tests for the <socket> condition
  *

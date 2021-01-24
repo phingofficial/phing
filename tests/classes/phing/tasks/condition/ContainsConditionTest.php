@@ -28,7 +28,7 @@ class ContainsConditionTest extends \PHPUnit\Framework\TestCase
 {
     public function testCaseSensitive()
     {
-        $con = new ContainsCondition();
+        $con = new \Phing\Tasks\System\Condition\ContainsCondition();
         $con->setString("abc");
         $con->setSubstring("A");
         $this->assertFalse($con->evaluate());

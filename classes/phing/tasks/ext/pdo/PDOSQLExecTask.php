@@ -24,6 +24,7 @@ use Phing\Io\File;
 use Phing\Io\Reader;
 use Phing\Io\Writer;
 use Phing\Project;
+use Phing\Tasks\System\Condition\Condition;
 use Phing\Type\FileList;
 use Phing\Type\FileSet;
 

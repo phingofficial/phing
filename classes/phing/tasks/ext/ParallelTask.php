@@ -20,6 +20,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Tasks\System\SequentialTask;
 
 /**
  * Uses the DocBlox_Parallel library to run nested Phing tasks concurrently.

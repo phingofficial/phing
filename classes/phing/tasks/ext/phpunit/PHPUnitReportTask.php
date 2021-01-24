@@ -25,6 +25,7 @@ use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
 use Phing\Task;
+use Phing\Tasks\System\Condition\OsCondition;
 
 /**
  * Transform a PHPUnit xml report using XSLT.
@@ -159,7 +160,7 @@ class PHPUnitReportTask extends Task
      * @throws IOException
      * @throws NullPointerException
      */
-    protected function transform(DOMDocument $document)
+    protected function transform(\DOMDocument $document)
     {
         if (!$this->toDir->exists()) {
             throw new BuildException("Directory '" . $this->toDir . "' does not exist");
@@ -167,7 +168,7 @@ class PHPUnitReportTask extends Task
 
         $xslfile = $this->getStyleSheet();
 
-        $xsl = new DOMDocument();
+        $xsl = new \DOMDocument();
         $xsl->load($xslfile->getAbsolutePath());
 
         $proc = new XSLTProcessor();
@@ -207,13 +208,13 @@ class PHPUnitReportTask extends Task
      *     package attribute
      *   - removes outer 'testsuite' container(s)
      *
-     * @param DOMDocument $document
+     * @param \DOMDocument $document
      */
-    protected function fixDocument(DOMDocument $document)
+    protected function fixDocument(\DOMDocument $document)
     {
         $rootElement = $document->firstChild;
 
-        $xp = new DOMXPath($document);
+        $xp = new \DOMXPath($document);
 
         $nodes = $xp->query("/testsuites/testsuite/testsuite/testsuite");
 
@@ -245,7 +246,7 @@ class PHPUnitReportTask extends Task
     private function handleChildren($rootElement, $children)
     {
         /**
-         * @var $child DOMElement
+         * @var $child \DOMElement
          */
         foreach ($children as $child) {
             $rootElement->appendChild($child);
@@ -261,7 +262,7 @@ class PHPUnitReportTask extends Task
 
             $package = 'default';
             try {
-                $refClass = new ReflectionClass($child->getAttribute('name'));
+                $refClass = new \ReflectionClass($child->getAttribute('name'));
 
                 if (preg_match('/@package\s+(.*)\r?\n/m', $refClass->getDocComment(), $matches)) {
                     $package = end($matches);
@@ -300,7 +301,7 @@ class PHPUnitReportTask extends Task
      */
     public function main()
     {
-        $testSuitesDoc = new DOMDocument();
+        $testSuitesDoc = new \DOMDocument();
         $testSuitesDoc->load((string) $this->inFile);
 
         $this->fixDocument($testSuitesDoc);

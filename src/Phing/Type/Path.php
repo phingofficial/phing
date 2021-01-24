@@ -25,7 +25,6 @@ use Phing\Io\File;
 use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Util\PathTokenizer;
-use the;
 
 /**
  * This object represents a path as used by include_path or PATH
