@@ -24,6 +24,7 @@ use Phing\Parser\XmlContext;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Project;
 use Phing\Task;
+use Phing\Type\Element\ResourceAware;
 use Phing\Type\FileSet;
 
 /**

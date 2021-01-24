@@ -20,6 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * Generate SQL script for db using dbdeploy schema version table

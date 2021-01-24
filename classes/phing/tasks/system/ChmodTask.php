@@ -21,6 +21,8 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
+use Phing\Type\Element\DirSetAware;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * Task that changes the permissions on a file/directory.

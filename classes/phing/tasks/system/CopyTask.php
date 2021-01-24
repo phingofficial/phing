@@ -27,6 +27,8 @@ use Phing\Mapper\FlattenMapper;
 use Phing\Mapper\IdentityMapper;
 use Phing\Project;
 use Phing\Task;
+use Phing\Type\Element\FilterChainAware;
+use Phing\Type\Element\ResourceAware;
 use Phing\Type\Mapper;
 use Phing\Util\RegisterSlot;
 

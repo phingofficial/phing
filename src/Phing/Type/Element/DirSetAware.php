@@ -1,7 +1,4 @@
 <?php
-
-use Phing\Type\FileList;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,20 +17,27 @@ use Phing\Type\FileList;
  * <http://phing.info>.
  */
 
-trait FileListAware
+namespace Phing\Type\Element;
+
+use Phing\Type\DirSet;
+
+trait DirSetAware
 {
     /**
-     * @var FileList[] $filelists
+     * @var DirSet[] $dirsets
      */
-    protected $filelists = [];
+    protected $dirsets = [];
 
-    public function addFileList(FileList $fileList)
+    public function addDirSet(DirSet $dirSet)
     {
-        $this->filelists[] = $fileList;
+        $this->dirsets[] = $dirSet;
     }
 
-    public function getFileLists()
+    /**
+     * @return DirSet[]
+     */
+    public function getDirSets()
     {
-        return $this->filelists;
+        return $this->dirsets;
     }
 }

@@ -241,7 +241,7 @@ abstract class Task extends ProjectComponent
         }
     }
 
-    private function getReplacement(): Phing\UnknownElement
+    private function getReplacement(): UnknownElement
     {
         if ($this->replacement === null) {
             $this->replacement = new UnknownElement($this->taskType);

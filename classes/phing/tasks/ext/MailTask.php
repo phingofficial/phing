@@ -19,6 +19,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * Send an e-mail message

@@ -29,6 +29,7 @@ use Phing\Project;
 use Phing\Type\Commandline;
 use Phing\Type\CommandlineMarker;
 use Phing\Type\DirSet;
+use Phing\Type\Element\ResourceAware;
 use Phing\Type\FileList;
 use Phing\Type\Mapper;
 

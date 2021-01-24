@@ -1,7 +1,4 @@
 <?php
-
-use Phing\Type\DirSet;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,23 +17,14 @@ use Phing\Type\DirSet;
  * <http://phing.info>.
  */
 
-trait DirSetAware
+namespace Phing\Type\Element;
+
+/**
+ * Trait ResourceAware
+ */
+trait ResourceAware
 {
-    /**
-     * @var DirSet[] $dirsets
-     */
-    protected $dirsets = [];
-
-    public function addDirSet(DirSet $dirSet)
-    {
-        $this->dirsets[] = $dirSet;
-    }
-
-    /**
-     * @return DirSet[]
-     */
-    public function getDirSets()
-    {
-        return $this->dirsets;
-    }
+    use DirSetAware;
+    use FileListAware;
+    use FileSetAware;
 }

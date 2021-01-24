@@ -1,9 +1,4 @@
 <?php
-
-use Phing\Exception\BuildException;
-use Phing\Type\Path;
-use Phing\Type\Reference;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,6 +16,12 @@ use Phing\Type\Reference;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+namespace Phing\Type\Element;
+
+use Phing\Exception\BuildException;
+use Phing\Type\Path;
+use Phing\Type\Reference;
 
 trait ClasspathAware
 {
