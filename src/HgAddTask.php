@@ -16,6 +16,7 @@ namespace Phing\Tasks\Ext;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Type\FileSet;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * Integration/Wrapper for hg add
@@ -28,7 +29,7 @@ use Phing\Type\FileSet;
  */
 class HgAddTask extends HgBaseTask
 {
-    use \FileSetAware;
+    use FileSetAware;
 
     /**
      * Array of files to ignore
