@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext\Coverage;
 
 use Phing\Task;
+use Phing\Type\Element\ClasspathAware;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Util\Properties;
@@ -33,7 +34,7 @@ use Phing\Util\Properties;
  */
 class CoverageReportTask extends Task
 {
-    use \ClasspathAware;
+    use ClasspathAware;
 
     private $outfile = "coverage.xml";
 

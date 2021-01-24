@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext\Coverage;
 
 use Phing\Task;
+use Phing\Type\Element\ClasspathAware;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Type\Excludes;
@@ -35,7 +36,7 @@ use Phing\Util\StringHelper;
  */
 class CoverageThresholdTask extends Task
 {
-    use \ClasspathAware;
+    use ClasspathAware;
 
     /**
      * Holds the exclusions

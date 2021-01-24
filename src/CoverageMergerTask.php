@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext\Coverage;
 
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 use Phing\Io\File;
 
 /**
@@ -31,7 +32,7 @@ use Phing\Io\File;
  */
 class CoverageMergerTask extends Task
 {
-    use \FileSetAware;
+    use FileSetAware;
 
     /**
      * Iterate over all filesets and return all the filenames.

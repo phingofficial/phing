@@ -21,6 +21,9 @@ namespace Phing\Tasks\Ext\Coverage;
 
 use Phing\Project;
 use Phing\Task;
+use Phing\Type\Element\ClasspathAware;
+use Phing\Type\Element\FileListAware;
+use Phing\Type\Element\FileSetAware;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Util\Properties;
@@ -34,9 +37,9 @@ use Phing\Util\Properties;
  */
 class CoverageSetupTask extends Task
 {
-    use \ClasspathAware;
-    use \FileListAware;
-    use \FileSetAware;
+    use ClasspathAware;
+    use FileListAware;
+    use FileSetAware;
 
     /**
      * the filename of the coverage database
