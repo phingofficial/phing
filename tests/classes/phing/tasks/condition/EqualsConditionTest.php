@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Tasks\System\Condition\EqualsCondition;
+
 /**
  * Testcase for the &lt;equals&gt; condition.
  *
@@ -28,7 +30,7 @@ class EqualsConditionTest extends \PHPUnit\Framework\TestCase
 {
     public function testTrim()
     {
-        $eq = new \Phing\Tasks\System\Condition\EqualsCondition();
+        $eq = new EqualsCondition();
         $eq->setArg1("a");
         $eq->setArg2(" a");
         $this->assertFalse($eq->evaluate());
