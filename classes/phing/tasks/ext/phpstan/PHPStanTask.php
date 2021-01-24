@@ -20,6 +20,7 @@
 declare(strict_types=1);
 
 use Phing\Task;
+use Phing\Tasks\System\ExecTask;
 use Phing\Type\Commandline;
 use Phing\Type\Element\FileSetAware;
 
