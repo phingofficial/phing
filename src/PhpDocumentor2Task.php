@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext;
 
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * PhpDocumentor2 Task (http://www.phpdoc.org)
@@ -31,7 +32,7 @@ use Phing\Task;
  */
 class PhpDocumentor2Task extends Task
 {
-    use \FileSetAware;
+    use FileSetAware;
 
     /**
      * Destination/target directory
