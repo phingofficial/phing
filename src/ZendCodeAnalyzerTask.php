@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext;
 
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * ZendCodeAnalyzerTask analyze PHP source code using the ZendCodeAnalyzer included in Zend Studio 5.1
@@ -63,7 +64,7 @@ use Phing\Task;
  */
 class ZendCodeAnalyzerTask extends Task
 {
-    use \FileSetAware;
+    use FileSetAware;
 
     protected $analyzerPath = ""; // Path to ZendCodeAnalyzer binary
     protected $file = ""; // the source file (from xml attribute)
