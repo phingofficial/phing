@@ -110,7 +110,7 @@ class Retry extends Task implements TaskContainer
             try {
                 $this->nestedTask->perform();
                 break;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $errorMessages .= $e->getMessage();
                 if ($i >= $this->retryCount) {
                     $taskName = $this->nestedTask->getTaskName();
