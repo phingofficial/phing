@@ -21,6 +21,7 @@ namespace Phing\Tasks\System;
 
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Tasks\System\Condition\ConditionBase;
 
 /**
  * <condition> task as a generalization of <available>
