@@ -162,7 +162,7 @@ class TruncateTask extends Task
             return;
         }
 
-        $splFile = new SplFileObject($f->getPath(), 'a+');
+        $splFile = new \SplFileObject($f->getPath(), 'a+');
 
         if (!$splFile->ftruncate((int) $newLength)) {
             throw new BuildException("Exception working with " . (string) $splFile);
