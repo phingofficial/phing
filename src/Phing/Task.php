@@ -24,11 +24,6 @@ use Phing\Dispatch\DispatchUtils;
 use Phing\Exception\BuildException;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
-use Phing\Project;
-use Phing\ProjectComponent;
-use Phing\RuntimeConfigurable;
-use Phing\Target;
-use Phing\UnknownElement;
 use Phing\Util\Register;
 
 /**

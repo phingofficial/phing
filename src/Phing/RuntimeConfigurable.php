@@ -22,8 +22,6 @@ namespace Phing;
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Parser\ProjectConfigurator;
-use Phing\Project;
-use Phing\Task;
 
 /**
  *  Wrapper class that holds the attributes of a Task (or elements

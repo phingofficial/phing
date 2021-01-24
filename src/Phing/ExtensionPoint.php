@@ -20,9 +20,6 @@
 namespace Phing;
 
 use Phing\Exception\BuildException;
-use Phing\RuntimeConfigurable;
-use Phing\Target;
-use Phing\Task;
 
 /**
  * An extension point build files can provide as a place where other
