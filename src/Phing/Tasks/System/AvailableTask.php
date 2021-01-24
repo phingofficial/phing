@@ -26,6 +26,7 @@ use Phing\Io\File;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
+use Phing\Tasks\System\Condition\Condition;
 use Phing\Type\Path;
 
 /**
