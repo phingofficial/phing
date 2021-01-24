@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\System;
 
+use DateTime;
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Task;
 
