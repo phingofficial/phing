@@ -814,12 +814,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-zendcodeanalyser.git",
-                "reference": "e7fe7f40ddd1c53b4ba15775dff84f26c4510510"
+                "reference": "499db86a340d8be29ea9737870502c57f31aa68a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-zendcodeanalyser/zipball/e7fe7f40ddd1c53b4ba15775dff84f26c4510510",
-                "reference": "e7fe7f40ddd1c53b4ba15775dff84f26c4510510",
+                "url": "https://api.github.com/repos/phingofficial/task-zendcodeanalyser/zipball/499db86a340d8be29ea9737870502c57f31aa68a",
+                "reference": "499db86a340d8be29ea9737870502c57f31aa68a",
                 "shasum": ""
             },
             "require": {
@@ -856,7 +856,7 @@
                 "issues": "https://github.com/phingofficial/task-zendcodeanalyser/issues",
                 "source": "https://github.com/phingofficial/task-zendcodeanalyser/tree/master"
             },
-            "time": "2021-01-23T20:37:14+00:00"
+            "time": "2021-01-24T00:24:52+00:00"
         },
         {
             "name": "phing/task-zendserverdevelopmenttools",
