@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext;
 
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * Task to minify javascript files.
@@ -33,7 +34,7 @@ use Phing\Task;
  */
 class JsMinTask extends Task
 {
-    use \FileSetAware;
+    use FileSetAware;
 
     /**
      * Whether the build should fail, if
