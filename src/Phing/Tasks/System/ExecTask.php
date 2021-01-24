@@ -27,6 +27,7 @@ use Phing\Io\File;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
+use Phing\Tasks\System\Element\LogLevelAware;
 use Phing\Type\Commandline;
 use Phing\Type\CommandlineArgument;
 use Phing\Type\Environment;

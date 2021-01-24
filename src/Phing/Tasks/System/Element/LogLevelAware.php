@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Element;
+
 use Phing\Exception\BuildException;
 use Phing\Project;
 

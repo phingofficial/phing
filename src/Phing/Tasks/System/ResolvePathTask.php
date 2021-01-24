@@ -23,6 +23,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Io\File;
 use Phing\Task;
+use Phing\Tasks\System\Element\LogLevelAware;
 
 /**
  * Task for resolving relative paths and setting absolute path in property value.

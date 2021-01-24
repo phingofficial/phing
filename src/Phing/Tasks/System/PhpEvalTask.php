@@ -23,6 +23,7 @@ use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
+use Phing\Tasks\System\Element\LogLevelAware;
 use Phing\Type\Parameter;
 use Phing\Util\StringHelper;
 
