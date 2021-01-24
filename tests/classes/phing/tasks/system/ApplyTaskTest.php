@@ -22,6 +22,7 @@ use Phing\Io\File;
 use Phing\Support\BuildFileTest;
 use Phing\Target;
 use Phing\Task;
+use Phing\Tasks\System\ApplyTask;
 use Phing\UnknownElement;
 
 /**
@@ -525,10 +526,10 @@ class ApplyTaskTest extends BuildFileTest
      */
     protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
     {
-        $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), 'ApplyTask');
+        $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), ApplyTask::class);
 
         $propertyName = ($propertyName === null) ? $property : $propertyName;
-        $rprop = new ReflectionProperty('ApplyTask', $propertyName);
+        $rprop = new ReflectionProperty(ApplyTask::class, $propertyName);
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));
     }
