@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext;
 
 use Phing\Task;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * Copy files to and from a remote host using scp.
@@ -30,7 +31,7 @@ use Phing\Task;
  */
 class ScpTask extends Task
 {
-    use \FileSetAware;
+    use FileSetAware;
     use \LogLevelAware;
 
     protected $file = "";
