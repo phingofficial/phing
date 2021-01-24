@@ -27,6 +27,7 @@ use Phing\Io\File;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
+use Phing\Tasks\System\Condition\OsCondition;
 use Phing\Tasks\System\Element\LogLevelAware;
 use Phing\Type\Commandline;
 use Phing\Type\CommandlineArgument;
@@ -757,6 +758,6 @@ class ExecTask extends Task
             return $p ?? $value['Path'];
         }
 
-        throw new InvalidArgumentException('$value should be of type array or string.');
+        throw new \InvalidArgumentException('$value should be of type array or string.');
     }
 }
