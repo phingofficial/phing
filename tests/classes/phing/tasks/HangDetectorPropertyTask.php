@@ -18,6 +18,7 @@
  */
 
 use Phing\Io\File;
+use Phing\Tasks\System\PropertyTask;
 
 /**
  * @author Hans Lellelid (Phing)
