@@ -17,65 +17,47 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
+use Phing\ProjectComponent;
 
 /**
- * <socket> condition container.
+ * Condition that tests whether a given string evals to true.
  *
- * Tests for a (tcp) listener on a specified host and port
- *
- * @author  Michiel Rook <mrook@php.net>
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Steve Loughran (Ant)
  * @package phing.tasks.system.condition
  */
-class SocketCondition implements Condition
+class IsTrueCondition extends ProjectComponent implements Condition
 {
 
     /**
-     * @var string
+     * what we eval
      */
-    private $server;
+    private $value;
 
     /**
-     * @var int
+     * Set the value to be tested.
+     *
+     * @param mixed $value
      */
-    private $port;
-
-    /**
-     * @param string $server
-     */
-    public function setServer($server)
+    public function setValue($value)
     {
-        $this->server = $server;
+        $this->value = (bool) $value;
     }
 
     /**
-     * @param int $port
-     */
-    public function setPort($port)
-    {
-        $this->port = $port;
-    }
-
-    /**
-     * @return boolean
-     * @throws BuildException
+     * return the inverted value;
+     *
+     * @throws BuildException if someone forgot to spec a value
      */
     public function evaluate()
     {
-        if (empty($this->server)) {
-            throw new BuildException("No server specified");
+        if ($this->value === null) {
+            throw new BuildException("Nothing to test for falsehood");
         }
 
-        if (empty($this->port)) {
-            throw new BuildException("No port specified");
-        }
-
-        $socket = @socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-
-        if ($socket === false) {
-            throw new BuildException("Unable to create socket: " . socket_last_error($socket));
-        }
-
-        return @socket_connect($socket, $this->server, $this->port);
+        return $this->value;
     }
 }

@@ -17,21 +17,67 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
 
 /**
- * Condition interface specification:
+ * <socket> condition container.
  *
- * Each condition must implement a method applying to this prototye:
+ * Tests for a (tcp) listener on a specified host and port
  *
- * @author  Hans Lellelid <hans@xmpl.org>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.system.condition
  */
-interface Condition
+class SocketCondition implements Condition
 {
+
+    /**
+     * @var string
+     */
+    private $server;
+
+    /**
+     * @var int
+     */
+    private $port;
+
+    /**
+     * @param string $server
+     */
+    public function setServer($server)
+    {
+        $this->server = $server;
+    }
+
+    /**
+     * @param int $port
+     */
+    public function setPort($port)
+    {
+        $this->port = $port;
+    }
+
     /**
      * @return boolean
      * @throws BuildException
      */
-    public function evaluate();
+    public function evaluate()
+    {
+        if (empty($this->server)) {
+            throw new BuildException("No server specified");
+        }
+
+        if (empty($this->port)) {
+            throw new BuildException("No port specified");
+        }
+
+        $socket = @socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+
+        if ($socket === false) {
+            throw new BuildException("Unable to create socket: " . socket_last_error($socket));
+        }
+
+        return @socket_connect($socket, $this->server, $this->port);
+    }
 }

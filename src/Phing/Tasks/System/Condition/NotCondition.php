@@ -17,27 +17,37 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
+use Phing\Exception\BuildException;
+
 /**
- * The Xor condition type to exclusive or operations. This does not shortcut stuff.
+ * <not> condition.
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system.condition
+ * Evaluates to true if the single condition nested into it is false
+ * and vice versa.
+ *
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @package   phing.tasks.system.condition
  */
-class XorCondition extends ConditionBase implements Condition
+class NotCondition extends ConditionBase implements Condition
 {
+
     /**
-     * {@inheritdoc}
-     *
      * @return bool
+     * @throws BuildException
      */
     public function evaluate()
     {
-        $conditions = $this->getConditions();
-        $state = false;
-        foreach ($conditions as $condition) {
-            $state ^= $condition->evaluate();
+        if ($this->countConditions() > 1) {
+            throw new BuildException("You must not nest more than one condition into <not>");
         }
+        if ($this->countConditions() < 1) {
+            throw new BuildException("You must nest a condition into <not>");
+        }
+        $conds = $this->getIterator();
 
-        return $state;
+        return !$conds->current()->evaluate();
     }
 }

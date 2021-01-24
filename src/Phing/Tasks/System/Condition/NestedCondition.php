@@ -17,42 +17,27 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
-use Phing\ProjectComponent;
 
 /**
- * Condition that tests whether a given property has been set.
+ * Nested conditions.
  *
- * @author  Hans Lellelid <hans@xmpl.org> (Phing)
- * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system.condition
  */
-class IsSetCondition extends ProjectComponent implements Condition
+class NestedCondition extends ConditionBase implements Condition
 {
-    private $property;
-
-    /**
-     * @param $p
-     */
-    public function setProperty($p)
-    {
-        $this->property = $p;
-    }
-
-    /**
-     * Check whether property is set.
-     *
-     * @throws BuildException
-     */
     public function evaluate()
     {
-        if ($this->property === null) {
+        if ($this->countConditions() != 1) {
             throw new BuildException(
-                "No property specified for isset "
-                . "condition"
+                "A single nested condition is required."
             );
         }
+        $cond = $this->getConditions();
 
-        return $this->project->getProperty($this->property) !== null;
+        return $cond[0]->evaluate();
     }
 }

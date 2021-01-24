@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Type\Selector\AbstractSelectorContainer;

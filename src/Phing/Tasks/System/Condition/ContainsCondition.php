@@ -17,43 +17,69 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
-use Phing\ProjectComponent;
-use Phing\UnknownElement;
 
 /**
- * Condition that tests whether a given reference exists.
+ * Is one string part of another string?
  *
- * @author  Matthias Pigulla <mp@webfactory.de> (Phing)
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.tasks.system.condition
  */
-class ReferenceExistsCondition extends ProjectComponent implements Condition
+class ContainsCondition implements Condition
 {
-    private $refid;
+    private $string;
+    private $subString;
+    private $caseSensitive = true;
 
     /**
-     * @param $id
+     * The string to search in.
+     *
+     * @param string $a1
      */
-    public function setRef($id)
+    public function setString($a1)
     {
-        $this->refid = (string) $id;
+        $this->string = $a1;
     }
 
     /**
-     * Check whether the reference exists.
+     * The string to search for.
+     *
+     * @param string $a2
+     */
+    public function setSubstring($a2)
+    {
+        $this->subString = $a2;
+    }
+
+    /**
+     * Whether to search ignoring case or not.
+     *
+     * @param $b
+     */
+    public function setCaseSensitive($b)
+    {
+        $this->caseSensitive = (bool) $b;
+    }
+
+    /**
+     * Check whether string contains substring.
      *
      * @throws BuildException
      */
     public function evaluate()
     {
-        if ($this->refid === null) {
+        if ($this->string === null || $this->subString === null) {
             throw new BuildException(
-                "No ref attribute specified for reference-exists "
-                . "condition"
+                "both string and substring are required "
+                . "in contains"
             );
         }
-        $refs = $this->project->getReferences();
 
-        return !($refs[$this->refid] instanceof UnknownElement) && isset($refs[$this->refid]);
+        return $this->caseSensitive
+            ? strpos($this->string, $this->subString) !== false
+            : stripos($this->string, $this->subString) !== false;
     }
 }

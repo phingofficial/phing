@@ -17,46 +17,29 @@
  * <http://phing.info>.
  */
 
-use Phing\Exception\BuildException;
-use Phing\Project;
+namespace Phing\Tasks\System\Condition;
 
 /**
- * Checks the value of a specified property.
- *
- * Returns true if the property evaluates to true.
+ * The Xor condition type to exclusive or operations. This does not shortcut stuff.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system.condition
  */
-class IsPropertyFalseCondition extends ConditionBase implements Condition
+class XorCondition extends ConditionBase implements Condition
 {
     /**
-     * @var string|null $property
-     */
-    private $property = null;
-
-    /**
-     * @param string $property
+     * {@inheritdoc}
      *
-     * @return void
-     */
-    public function setProperty($property)
-    {
-        $this->property = $property;
-    }
-
-    /**
      * @return bool
-     *
-     * @throws BuildException
      */
     public function evaluate()
     {
-        if ($this->property === null) {
-            throw new BuildException('Property name must be set.');
+        $conditions = $this->getConditions();
+        $state = false;
+        foreach ($conditions as $condition) {
+            $state ^= $condition->evaluate();
         }
-        $value = $this->getProject()->getProperty($this->property);
 
-        return $value === null || !Project::toBoolean($value);
+        return $state;
     }
 }

@@ -17,45 +17,44 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
 use Phing\ProjectComponent;
 
 /**
- * Condition that tests whether a given string evals to true.
+ * Condition that tests whether a given property has been set.
  *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
- * @author  Steve Loughran (Ant)
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.tasks.system.condition
  */
-class IsTrueCondition extends ProjectComponent implements Condition
+class IsSetCondition extends ProjectComponent implements Condition
 {
+    private $property;
 
     /**
-     * what we eval
+     * @param $p
      */
-    private $value;
-
-    /**
-     * Set the value to be tested.
-     *
-     * @param mixed $value
-     */
-    public function setValue($value)
+    public function setProperty($p)
     {
-        $this->value = (bool) $value;
+        $this->property = $p;
     }
 
     /**
-     * return the inverted value;
+     * Check whether property is set.
      *
-     * @throws BuildException if someone forgot to spec a value
+     * @throws BuildException
      */
     public function evaluate()
     {
-        if ($this->value === null) {
-            throw new BuildException("Nothing to test for falsehood");
+        if ($this->property === null) {
+            throw new BuildException(
+                "No property specified for isset "
+                . "condition"
+            );
         }
 
-        return $this->value;
+        return $this->project->getProperty($this->property) !== null;
     }
 }

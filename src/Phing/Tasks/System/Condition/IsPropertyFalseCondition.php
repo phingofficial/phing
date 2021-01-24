@@ -17,45 +17,48 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
-use Phing\ProjectComponent;
+use Phing\Project;
 
 /**
- * Condition that tests whether a given string evals to false.
+ * Checks the value of a specified property.
  *
- * @author  Hans Lellelid (Phing)
- * @author  Steve Loughran (Ant)
+ * Returns true if the property evaluates to true.
+ *
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system.condition
  */
-class IsFalseCondition extends ProjectComponent implements Condition
+class IsPropertyFalseCondition extends ConditionBase implements Condition
 {
-
     /**
-     * what we eval
+     * @var string|null $property
      */
-    private $value;
+    private $property = null;
 
     /**
-     * Set the value to be tested.
+     * @param string $property
      *
-     * @param boolean $value
+     * @return void
      */
-    public function setValue(bool $value)
+    public function setProperty($property)
     {
-        $this->value = $value;
+        $this->property = $property;
     }
 
     /**
-     * return the inverted value;
+     * @return bool
      *
-     * @throws BuildException if someone forgot to spec a value
+     * @throws BuildException
      */
     public function evaluate()
     {
-        if ($this->value === null) {
-            throw new BuildException("Nothing to test for falsehood");
+        if ($this->property === null) {
+            throw new BuildException('Property name must be set.');
         }
+        $value = $this->getProject()->getProperty($this->property);
 
-        return !$this->value;
+        return $value === null || !Project::toBoolean($value);
     }
 }

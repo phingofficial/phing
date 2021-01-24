@@ -17,68 +17,61 @@
  * <http://phing.info>.
  */
 
-use Phing\ProjectComponent;
+namespace Phing\Tasks\System\Condition;
+
+use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Io\File;
 
 /**
- * "Inner" class for handling enumerations.
- * Uses build-in PHP5 iterator support.
+ * Compares two files for equality based on size and
+ * content. Timestamps are not at all looked at.
  *
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system.condition
  */
-class ConditionEnumeration implements Iterator
+class FilesMatch implements Condition
 {
+    /**
+     * files to compare
+     */
+    private $file1;
+    private $file2;
 
     /**
-     * Current element number
+     * Sets the File1 attribute
+     *
+     * @param File $file1 The new File1 value
      */
-    private $num = 0;
-
-    /**
-     * "Outer" ConditionBase class.
-     */
-    private $outer;
-
-    /**
-     * @param ConditionBase $outer
-     */
-    public function __construct(ConditionBase $outer)
+    public function setFile1(File $file1)
     {
-        $this->outer = $outer;
+        $this->file1 = $file1;
     }
 
     /**
-     * @return bool
+     * Sets the File2 attribute
+     *
+     * @param File $file2 The new File2 value
      */
-    public function valid()
+    public function setFile2(File $file2)
     {
-        return $this->outer->countConditions() > $this->num;
+        $this->file2 = $file2;
     }
 
-    public function current()
+    /**
+     * comparison method of the interface
+     *
+     * @return bool if the files are equal
+     * @throws BuildException if it all went pear-shaped
+     */
+    public function evaluate()
     {
-        $o = $this->outer->conditions[$this->num];
-        if ($o instanceof ProjectComponent) {
-            $o->setProject($this->outer->getProject());
+        if ($this->file1 == null || $this->file2 == null) {
+            throw new BuildException("both file1 and file2 are required in filesmatch");
         }
 
-        return $o;
-    }
+        $fu = new FileUtils();
 
-    public function next()
-    {
-        $this->num++;
-    }
-
-    /**
-     * @return int
-     */
-    public function key()
-    {
-        return $this->num;
-    }
-
-    public function rewind()
-    {
-        $this->num = 0;
+        return $fu->contentEquals($this->file1, $this->file2);
     }
 }

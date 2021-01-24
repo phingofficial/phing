@@ -17,76 +17,48 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
-use Phing\Util\SizeHelper;
+use Phing\Project;
 
 /**
- * Condition returns true if selected partition has the requested space, false otherwise.
+ * Checks the value of a specified property.
+ *
+ * Returns true if the property evaluates to true.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system.condition
  */
-class HasFreeSpaceCondition implements Condition
+class IsPropertyTrueCondition extends ConditionBase implements Condition
 {
     /**
-     * @var string $partition
+     * @var string|null $property
      */
-    private $partition;
+    private $property = null;
 
     /**
-     * @var string $needed
+     * @param $property
+     *
+     * @return void
      */
-    private $needed;
+    public function setProperty($property)
+    {
+        $this->property = $property;
+    }
 
     /**
-     * {@inheritdoc}
+     * @return bool
      *
      * @throws BuildException
-     *
-     * @return boolean
      */
     public function evaluate()
     {
-        $this->validate();
-
-        $free = disk_free_space($this->partition);
-        return $free >= SizeHelper::fromHumanToBytes($this->needed);
-    }
-
-    /**
-     * @return void
-     *
-     * @throws BuildException
-     */
-    private function validate()
-    {
-        if (null == $this->partition) {
-            throw new BuildException("Please set the partition attribute.");
+        if ($this->property === null) {
+            throw new BuildException('Property name must be set.');
         }
-        if (null == $this->needed) {
-            throw new BuildException("Please set the needed attribute.");
-        }
-    }
+        $value = $this->getProject()->getProperty($this->property);
 
-    /**
-     * Set the partition/device to check.
-     *
-     * @param $partition
-     *
-     * @return void
-     */
-    public function setPartition($partition)
-    {
-        $this->partition = $partition;
-    }
-
-    /**
-     * Set the amount of free space required.
-     *
-     * @return void
-     */
-    public function setNeeded($needed)
-    {
-        $this->needed = $needed;
+        return $value !== null && Project::toBoolean($value);
     }
 }

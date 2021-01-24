@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 /**
  * <and> condition container.
  *

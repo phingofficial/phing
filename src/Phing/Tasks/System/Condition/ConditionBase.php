@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreator;
 use Phing\Project;

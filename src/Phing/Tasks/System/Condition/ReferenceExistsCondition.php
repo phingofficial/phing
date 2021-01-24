@@ -17,46 +17,45 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
-use Phing\Project;
+use Phing\ProjectComponent;
+use Phing\UnknownElement;
 
 /**
- * Checks the value of a specified property.
+ * Condition that tests whether a given reference exists.
  *
- * Returns true if the property evaluates to true.
- *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Matthias Pigulla <mp@webfactory.de> (Phing)
  * @package phing.tasks.system.condition
  */
-class IsPropertyTrueCondition extends ConditionBase implements Condition
+class ReferenceExistsCondition extends ProjectComponent implements Condition
 {
-    /**
-     * @var string|null $property
-     */
-    private $property = null;
+    private $refid;
 
     /**
-     * @param $property
-     *
-     * @return void
+     * @param $id
      */
-    public function setProperty($property)
+    public function setRef($id)
     {
-        $this->property = $property;
+        $this->refid = (string) $id;
     }
 
     /**
-     * @return bool
+     * Check whether the reference exists.
      *
      * @throws BuildException
      */
     public function evaluate()
     {
-        if ($this->property === null) {
-            throw new BuildException('Property name must be set.');
+        if ($this->refid === null) {
+            throw new BuildException(
+                "No ref attribute specified for reference-exists "
+                . "condition"
+            );
         }
-        $value = $this->getProject()->getProperty($this->property);
+        $refs = $this->project->getReferences();
 
-        return $value !== null && Project::toBoolean($value);
+        return !($refs[$this->refid] instanceof UnknownElement) && isset($refs[$this->refid]);
     }
 }

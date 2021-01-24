@@ -17,25 +17,47 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
+use Phing\ProjectComponent;
 
 /**
- * Nested conditions.
+ * Condition that tests whether a given string evals to false.
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  Hans Lellelid (Phing)
+ * @author  Steve Loughran (Ant)
  * @package phing.tasks.system.condition
  */
-class NestedCondition extends ConditionBase implements Condition
+class IsFalseCondition extends ProjectComponent implements Condition
 {
+
+    /**
+     * what we eval
+     */
+    private $value;
+
+    /**
+     * Set the value to be tested.
+     *
+     * @param boolean $value
+     */
+    public function setValue(bool $value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * return the inverted value;
+     *
+     * @throws BuildException if someone forgot to spec a value
+     */
     public function evaluate()
     {
-        if ($this->countConditions() != 1) {
-            throw new BuildException(
-                "A single nested condition is required."
-            );
+        if ($this->value === null) {
+            throw new BuildException("Nothing to test for falsehood");
         }
-        $cond = $this->getConditions();
 
-        return $cond[0]->evaluate();
+        return !$this->value;
     }
 }
