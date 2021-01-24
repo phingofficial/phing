@@ -181,12 +181,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-coverage.git",
-                "reference": "a14b40731c63062c3c8d59f18188fbbce5a7eb6e"
+                "reference": "6b18bb2c97bd111008dbd863217f4a6281473f36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/a14b40731c63062c3c8d59f18188fbbce5a7eb6e",
-                "reference": "a14b40731c63062c3c8d59f18188fbbce5a7eb6e",
+                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/6b18bb2c97bd111008dbd863217f4a6281473f36",
+                "reference": "6b18bb2c97bd111008dbd863217f4a6281473f36",
                 "shasum": ""
             },
             "require": {
@@ -225,7 +225,7 @@
                 "issues": "https://github.com/phingofficial/task-coverage/issues",
                 "source": "https://github.com/phingofficial/task-coverage/tree/master"
             },
-            "time": "2021-01-24T00:09:20+00:00"
+            "time": "2021-01-24T19:38:03+00:00"
         },
         {
             "name": "phing/task-ftpdeploy",
