@@ -19,7 +19,7 @@
 
 namespace Phing;
 
-use Condition;
+use Phing\Tasks\System\Condition\Condition;
 use Phing\Type\DataType;
 use Exception;
 use Phing\Exception\BuildException;

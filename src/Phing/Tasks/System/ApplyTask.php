@@ -410,7 +410,7 @@ class ApplyTask extends ExecTask
             $this->cleanup();
             // Log
             $this->log('End ', $this->loglevel);
-        } catch (IOException | NullPointerException | UnexpectedValueException $e) {
+        } catch (IOException | NullPointerException | \UnexpectedValueException $e) {
             throw new BuildException('Execute failed: ' . $e, $e, $this->getLocation());
         }
     }

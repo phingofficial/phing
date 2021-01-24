@@ -56,13 +56,13 @@ class AugmentReference extends Task implements TypeAdapter
 
     public function setProxy($o)
     {
-        throw new LogicException(__METHOD__ . ' unsupported.');
+        throw new \LogicException(__METHOD__ . ' unsupported.');
     }
 
     public function getProxy()
     {
         if ($this->getProject() === null) {
-            throw new LogicException($this->getTaskName() . 'Project owner unset');
+            throw new \LogicException($this->getTaskName() . 'Project owner unset');
         }
         $this->hijackId();
         $ref = $this->getProject()->getReference($this->id);

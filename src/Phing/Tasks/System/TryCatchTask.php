@@ -96,7 +96,7 @@ class TryCatchTask extends Task
      * Sets the name of the reference that will
      * contain the exception.
      *
-     * @param Exception $reference
+     * @param \Exception $reference
      *
      * @return void
      */

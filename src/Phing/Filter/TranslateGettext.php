@@ -143,7 +143,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     /**
      * Make sure that required attributes are set.
      *
-     * @throws BuldException - if any required attribs aren't set.
+     * @throws BuildException - if any required attribs aren't set.
      */
     protected function checkAttributes()
     {

@@ -123,7 +123,7 @@ class SubPhing extends Task
                 if ($this->verbose && $subdirPath !== null) {
                     $this->log('Leaving directory: ' . $subdirPath . "\n", Project::MSG_INFO);
                 }
-            } catch (RuntimeException $ex) {
+            } catch (\RuntimeException $ex) {
                 if (!$this->getProject()->isKeepGoingMode()) {
                     if ($this->verbose && $subdirPath !== null) {
                         $this->log('Leaving directory: ' . $subdirPath . "\n", Project::MSG_INFO);
@@ -131,7 +131,7 @@ class SubPhing extends Task
                     throw $ex; // throw further
                 }
                 $thrownException = $ex;
-            } catch (Throwable $ex) {
+            } catch (\Throwable $ex) {
                 if (!$this->getProject()->isKeepGoingMode()) {
                     if ($this->verbose && $subdirPath !== null) {
                         $this->log('Leaving directory: ' . $subdirPath . "\n", Project::MSG_INFO);
@@ -209,7 +209,7 @@ class SubPhing extends Task
             $this->log("Failure for target '" . $this->subTarget
                 . "' of: " . $phingfilename . "\n"
                 . $e->getMessage(), Project::MSG_WARN);
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             if ($this->failOnError || $this->isHardError($e)) {
                 throw new BuildException($e);
             }
@@ -271,7 +271,7 @@ class SubPhing extends Task
     }
 
     /** whether we should even try to continue after this error */
-    private function isHardError(Throwable $t)
+    private function isHardError(\Throwable $t)
     {
         if ($t instanceof BuildException) {
             return $this->isHardError($t->getPrevious());
