@@ -23,6 +23,7 @@ use Phing\Exception\BuildException;
 use Phing\Exception\ExitStatusException;
 use Phing\Project;
 use Phing\Task;
+use Phing\Tasks\System\Condition\NestedCondition;
 
 /**
  * Exits the active build, giving an additional message
