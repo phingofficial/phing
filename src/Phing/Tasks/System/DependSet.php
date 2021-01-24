@@ -139,7 +139,7 @@ class DependSet extends MatchingTask
                 . ' <targetfilelist> element must be set'
             );
         }
-        $now = (new DateTime())->getTimestamp();
+        $now = (new \DateTime())->getTimestamp();
         /*
           We have to munge the time to allow for the filesystem time
           granularity.
