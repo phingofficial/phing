@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\Ext\Coverage;
 
+use Phing\Tasks\System\Condition\OsCondition;
 use Phing\Exception\BuildException;
 use Phing\Io\ExtendedFileStream;
 use Phing\Io\File;
@@ -125,7 +126,7 @@ class CoverageReportTransformer
         $toDir = (string) $this->toDir;
 
         // urlencode() the path if we're on Windows
-        if (\OsCondition::isOS(\OsCondition::FAMILY_WINDOWS)) {
+        if (OsCondition::isOS(OsCondition::FAMILY_WINDOWS)) {
             $toDir = urlencode($toDir);
         }
 
