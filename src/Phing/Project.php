@@ -19,7 +19,6 @@
 
 namespace Phing;
 
-use Phing\ComponentHelper;
 use Phing\Tasks\System\Condition\Condition;
 use Phing\Type\Description;
 use Exception;
@@ -32,14 +31,9 @@ use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 use Phing\Parser\ProjectConfigurator;
-use Phing\Phing;
-use Phing\Target;
-use Phing\UnknownElement;
-use Phing\PropertyHelper;
 use Phing\Type\PropertyValue;
 use ReflectionException;
 use ReflectionObject;
-use Phing\Task;
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.

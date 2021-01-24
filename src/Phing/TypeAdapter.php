@@ -1,7 +1,6 @@
 <?php
 
 namespace Phing;
-use Phing\Project;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

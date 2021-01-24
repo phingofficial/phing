@@ -25,14 +25,9 @@ use Exception;
 use Phing\Exception\BuildException;
 use Phing\Io\IOException;
 use Phing\Io\File;
-use Phing\Phing;
-use Phing\Project;
-use Phing\ProjectComponent;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
 use ReflectionClass;
-use Phing\Task;
-use Phing\TaskAdapter;
 
 /**
  * Component creation and configuration

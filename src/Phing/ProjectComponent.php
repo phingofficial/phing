@@ -20,7 +20,6 @@
 namespace Phing;
 
 use Phing\Parser\Location;
-use Phing\Project;
 
 /**
  *  Abstract class providing properties and methods common to all

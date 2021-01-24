@@ -36,7 +36,6 @@ use Phing\Io\IOException;
 use Phing\Io\OutputStream;
 use Phing\Io\File;
 use Phing\Io\PrintStream;
-use Phing\Project;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Util\Properties;
 use SebastianBergmann\Version;
@@ -45,7 +44,6 @@ use Phing\Util\SizeHelper;
 use Phing\Listener\StreamRequiredBuildLogger;
 use Phing\Util\StringHelper;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Phing\Target;
 use Throwable;
 use Phing\Util\Timer;
 

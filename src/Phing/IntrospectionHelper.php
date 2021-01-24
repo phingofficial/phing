@@ -25,15 +25,10 @@ use Phing\Type\Path;
 use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreator;
 use Phing\Parser\DynamicAttribute;
-use Phing\Phing;
-use Phing\Project;
-use Phing\ProjectComponent;
-use Phing\TaskContainer;
 use Phing\Util\Register;
 use Phing\Util\StringHelper;
 use Phing\Type\Reference;
 use ReflectionClass;
-use Phing\Task;
 
 /**
  * Helper class that collects the methods that a task or nested element
