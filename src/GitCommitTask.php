@@ -21,6 +21,7 @@ namespace Phing\Tasks\Ext;
 
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * Wrapper around git-commit
@@ -32,7 +33,7 @@ use Phing\Project;
  */
 class GitCommitTask extends GitBaseTask
 {
-    use \FileSetAware;
+    use FileSetAware;
 
     /**
      * @var boolean
