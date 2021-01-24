@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext;
 
 use Phing\Task;
+use Phing\Tasks\System\Element\LogLevelAware;
 use Phing\Type\Element\FileSetAware;
 
 /**
@@ -32,7 +33,7 @@ use Phing\Type\Element\FileSetAware;
 class ScpTask extends Task
 {
     use FileSetAware;
-    use \LogLevelAware;
+    use LogLevelAware;
 
     protected $file = "";
     protected $todir = "";
