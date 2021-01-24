@@ -24,6 +24,7 @@ use Phing\Io\File;
 use Phing\Project;
 use Phing\Support\BuildFileTest;
 use Phing\Task;
+use Phing\Tasks\System\ExecTask;
 use Phing\Type\Commandline;
 use Phing\UnknownElement;
 
@@ -98,7 +99,7 @@ class ExecTaskTest extends BuildFileTest
             $task = $task->getRuntimeConfigurableWrapper()->getProxy();
         }
 
-        $rprop = new ReflectionProperty('ExecTask', $propertyName);
+        $rprop = new ReflectionProperty(ExecTask::class, $propertyName);
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));
     }
