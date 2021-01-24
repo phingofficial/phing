@@ -2,6 +2,7 @@ FROM composer:1.9 AS composer
 
 ADD composer.* ./
 ADD classes/ classes
+ADD src/ src
 RUN mkdir -p tests/classes
 
 RUN composer global require hirak/prestissimo --no-plugins --no-scripts
@@ -15,6 +16,7 @@ WORKDIR /app
 
 ADD bin/phing* bin/
 ADD classes/ classes
+ADD src/ src
 ADD etc/ etc
 
 COPY --from=composer /app/vendor/ ./vendor
