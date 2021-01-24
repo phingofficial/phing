@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext;
 
 use Phing\Task;
+use Phing\Tasks\System\Element\LogLevelAware;
 use Phing\Type\Element\FileSetAware;
 
 /**
@@ -48,7 +49,7 @@ use Phing\Type\Element\FileSetAware;
 class FtpDeployTask extends Task
 {
     use FileSetAware;
-    use \LogLevelAware;
+    use LogLevelAware;
 
     private $host = null;
     private $port = 21;
