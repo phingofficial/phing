@@ -13,7 +13,7 @@
     </target>
     
     <target name="testCustomCondition">
-    	<typedef name="testcondition" classname="TestCondition"/>
+    	<typedef name="testcondition" classname="\TestCondition"/>
    	<condition property="isCustom">
 	    <testcondition foo="bar"/>
     	</condition>
