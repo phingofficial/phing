@@ -28,7 +28,7 @@ class EqualsConditionTest extends \PHPUnit\Framework\TestCase
 {
     public function testTrim()
     {
-        $eq = new EqualsCondition();
+        $eq = new \Phing\Tasks\System\Condition\EqualsCondition();
         $eq->setArg1("a");
         $eq->setArg2(" a");
         $this->assertFalse($eq->evaluate());

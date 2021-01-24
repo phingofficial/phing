@@ -23,6 +23,7 @@ use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreator;
 use Phing\Project;
 use Phing\ProjectComponent;
+use Phing\Tasks\System\AvailableTask;
 
 /**
  * Abstract baseclass for the <condition> task as well as several
@@ -34,7 +35,7 @@ use Phing\ProjectComponent;
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @package   phing.tasks.system.condition
  */
-abstract class ConditionBase extends ProjectComponent implements IteratorAggregate, CustomChildCreator
+abstract class ConditionBase extends ProjectComponent implements \IteratorAggregate, CustomChildCreator
 {
     public $conditions = []; // needs to be public for "inner" class access
 
@@ -79,7 +80,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     }
 
     /**
-     * Required for IteratorAggregate
+     * Required for \IteratorAggregate
      */
     public function getIterator()
     {
@@ -298,7 +299,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
 
     public function createPdoSqlExec()
     {
-        $num = array_push($this->conditions, new PDOSQLExecTask());
+        $num = array_push($this->conditions, new \PDOSQLExecTask());
 
         return $this->conditions[$num - 1];
     }

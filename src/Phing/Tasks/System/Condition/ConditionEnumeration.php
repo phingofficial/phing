@@ -27,7 +27,7 @@ use Phing\ProjectComponent;
  *
  * @package phing.tasks.system.condition
  */
-class ConditionEnumeration implements Iterator
+class ConditionEnumeration implements \Iterator
 {
 
     /**
