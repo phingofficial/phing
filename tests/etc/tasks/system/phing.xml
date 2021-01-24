@@ -98,7 +98,7 @@
     <target name="testInheritPath" description="try to pass a reference to a path, which refers itself to a second path">
         <resolvepath propertyName="rootdir" path="."/>
         <path id="project.classpath">
-            <pathelement dir="../classes"/>
+            <pathelement dir="../src"/>
         </path>
         <path id="test.classpath">
             <pathelement dir="${rootdir}/test/testframework.jar"/>

@@ -32,6 +32,7 @@ use Phing\Io\StringReader;
 use Phing\Io\Writer;
 use Phing\Project;
 use Phing\Task;
+use Phing\Tasks\System\AppendTask\TextElement;
 use Phing\Type\Element\FileListAware;
 use Phing\Type\Element\FileSetAware;
 use Phing\Type\Element\FilterChainAware;
@@ -270,7 +271,7 @@ class AppendTask extends Task
                 if ($this->file !== null) {
                     try {
                         $this->appendFile($writer, $this->file);
-                    } catch (Exception $ioe) {
+                    } catch (\Exception $ioe) {
                         $this->log(
                             "Unable to append contents of file " . $this->file->getAbsolutePath() . ": " . $ioe->getMessage(),
                             Project::MSG_WARN
@@ -307,7 +308,7 @@ class AppendTask extends Task
                     }
                 }
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new BuildException($e);
         }
 
