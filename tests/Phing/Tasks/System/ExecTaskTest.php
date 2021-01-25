@@ -264,7 +264,7 @@ class ExecTaskTest extends BuildFileTest
     }
 
     /**
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OS Linux|Darwin
      */
     public function testChangeToDir()
     {
