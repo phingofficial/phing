@@ -17,10 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Tasks\Ext;
+namespace Phing\Task\Ext;
 
 use Phing\Task;
-use Phing\Tasks\System\Element\LogLevelAware;
+use Phing\Task\System\Element\LogLevelAware;
 use Phing\Type\Element\FileSetAware;
 
 /**
