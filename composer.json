@@ -19,13 +19,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Tasks\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\": "src/"
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "zendcodeanalyzer": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask",
-      "analyze": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask"
+      "zendcodeanalyzer": "Phing\\Task\\Ext\\ZendCodeAnalyzerTask",
+      "analyze": "Phing\\Task\\Ext\\ZendCodeAnalyzerTask"
     }
   }
 }
