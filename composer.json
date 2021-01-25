@@ -19,12 +19,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Tasks\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\": "src/"
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "apigen": "Phing\\Tasks\\Ext\\ApiGenTask"
+      "apigen": "Phing\\Task\\Ext\\ApiGenTask"
     }
   }
 }
