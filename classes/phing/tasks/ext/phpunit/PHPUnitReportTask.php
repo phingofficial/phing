@@ -25,7 +25,7 @@ use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
 use Phing\Task;
-use Task\System\Condition\OsCondition;
+use Phing\Task\System\Condition\OsCondition;
 
 /**
  * Transform a PHPUnit xml report using XSLT.
