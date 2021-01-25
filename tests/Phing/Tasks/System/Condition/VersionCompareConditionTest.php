@@ -1,5 +1,7 @@
 <?php
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Exception\BuildException;
 
 /**
@@ -19,7 +21,6 @@ use Phing\Exception\BuildException;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
 class VersionCompareConditionTest extends \PHPUnit\Framework\TestCase
 {
     protected $condition;

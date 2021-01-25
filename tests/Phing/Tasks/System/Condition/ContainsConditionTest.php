@@ -17,32 +17,24 @@
  * <http://phing.info>.
  */
 
-use Phing\Support\BuildFileTest;
-
+namespace Phing\Tasks\System\Condition;
 /**
- * Tests the IsFileSelected Condition
+ * Testcase for the &lt;contains&gt; condition.
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
+ * @author Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @package phing.tasks.system.condition
  */
-class IsFileSelectedTest extends BuildFileTest
+class ContainsConditionTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp(): void
+    public function testCaseSensitive()
     {
-        $this->configureProject(
-            PHING_TEST_BASE . '/etc/tasks/system/IsFileSelectedTest.xml'
-        );
-    }
+        $con = new \Phing\Tasks\System\Condition\ContainsCondition();
+        $con->setString("abc");
+        $con->setSubstring("A");
+        $this->assertFalse($con->evaluate());
 
-    public function testIsFileSelected()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertySet('selected');
-    }
-
-    public function testNonFileSelected()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyUnset('unset');
+        $con->setCaseSensitive(false);
+        $this->assertTrue($con->evaluate());
     }
 }

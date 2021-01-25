@@ -17,52 +17,34 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Support\BuildFileTest;
 
 /**
- * Testcase for the PhingVersion task/condition.
+ * Tests the IsPropertyTrue/-False Tasks
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system.condition
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
-class PhingVersionTest extends BuildFileTest
+class IsPropertyTrueConditionTest extends BuildFileTest
 {
     public function setUp(): void
     {
         $this->configureProject(
-            PHING_TEST_BASE . '/etc/tasks/system/PhingVersionTest.xml'
+            PHING_TEST_BASE . '/etc/tasks/system/IsPropertyTrueFalseTest.xml'
         );
     }
 
-    public function testPhingVersion()
+    public function testIsPropertyTrue()
     {
         $this->executeTarget(__FUNCTION__);
-        $expectedVersion = $this->getProject()->getProperty('version1');
-        $this->assertPropertyEquals('version1', $expectedVersion);
+        $this->assertPropertySet('IsTrue');
     }
 
-    public function testPhingVersionAtLeastPos()
+    public function testIsPropertyNotTrue()
     {
         $this->executeTarget(__FUNCTION__);
-        $expectedVersion = $this->getProject()->getProperty('version2');
-        $this->assertPropertyEquals('version2', $expectedVersion);
-    }
-
-    public function testPhingVersionAtLeastNeg()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyUnset('version3');
-    }
-
-    public function testPhingVersionIsNotExact()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyUnset('version4');
-    }
-
-    public function testPhingVersionAsCondition()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertySet('isTrue');
+        $this->assertPropertyUnset('IsNotTrue');
     }
 }

@@ -17,32 +17,24 @@
  * <http://phing.info>.
  */
 
-use Phing\Support\BuildFileTest;
+namespace Phing\Tasks\System\Condition;
+
+use Phing\Tasks\System\Condition\SocketCondition;
 
 /**
- * Tests the IsPropertyTrue/-False Tasks
+ * Tests for the <socket> condition
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
+ * @package phing.tasks.system.condition
+ *
+ * @requires extension sockets
  */
-class IsPropertyTrueConditionTest extends BuildFileTest
+class SocketConditionTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp(): void
+    public function testShouldReturnFalseForNonExistingListener()
     {
-        $this->configureProject(
-            PHING_TEST_BASE . '/etc/tasks/system/IsPropertyTrueFalseTest.xml'
-        );
-    }
-
-    public function testIsPropertyTrue()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertySet('IsTrue');
-    }
-
-    public function testIsPropertyNotTrue()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyUnset('IsNotTrue');
+        $condition = new SocketCondition();
+        $condition->setServer('localhost');
+        $condition->setPort(1337);
+        $this->assertFalse($condition->evaluate());
     }
 }

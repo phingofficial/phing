@@ -17,38 +17,34 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System\Condition;
+
 use Phing\Support\BuildFileTest;
 
 /**
- * Tests the FilesMatch Condition
+ * Testcase for the IsFailure condition.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
+ * @package phing.tasks.system.condition
  */
-class FilesMatchTest extends BuildFileTest
+class IsFailureTest extends BuildFileTest
 {
     public function setUp(): void
     {
         $this->configureProject(
-            PHING_TEST_BASE . '/etc/tasks/system/FilesMatchTest.xml'
+            PHING_TEST_BASE . '/etc/tasks/system/IsFailureTest.xml'
         );
     }
 
-    public function testFileMatches()
+    public function testFailureAfterNonExistingCommand()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertySet('matches');
+        $this->assertInLogs('Command failed with return code 1');
     }
 
-    public function testNoFileMatches()
+    public function testNoFailureWithZeroValue()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyUnset('unset');
-    }
-
-    public function testDirectoryMatches()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyUnset('directory');
+        $this->assertNotInLogs('Command failed with return code 0');
     }
 }

@@ -17,23 +17,40 @@
  * <http://phing.info>.
  */
 
-/**
- * Testcase for the &lt;contains&gt; condition.
- *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @package phing.tasks.system.condition
- */
-class ContainsConditionTest extends \PHPUnit\Framework\TestCase
-{
-    public function testCaseSensitive()
-    {
-        $con = new \Phing\Tasks\System\Condition\ContainsCondition();
-        $con->setString("abc");
-        $con->setSubstring("A");
-        $this->assertFalse($con->evaluate());
+namespace Phing\Tasks\System\Condition;
 
-        $con->setCaseSensitive(false);
-        $this->assertTrue($con->evaluate());
+use Phing\Support\BuildFileTest;
+
+/**
+ * Tests the FilesMatch Condition
+ *
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
+ */
+class FilesMatchTest extends BuildFileTest
+{
+    public function setUp(): void
+    {
+        $this->configureProject(
+            PHING_TEST_BASE . '/etc/tasks/system/FilesMatchTest.xml'
+        );
+    }
+
+    public function testFileMatches()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertySet('matches');
+    }
+
+    public function testNoFileMatches()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyUnset('unset');
+    }
+
+    public function testDirectoryMatches()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyUnset('directory');
     }
 }

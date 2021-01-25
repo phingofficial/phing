@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tasks\System;
+
+use AssertionError;
 use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;

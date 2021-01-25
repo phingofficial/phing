@@ -17,22 +17,34 @@
  * <http://phing.info>.
  */
 
-use Phing\Tasks\System\Condition\SocketCondition;
+namespace Phing\Tasks\System\Condition;
+
+use Phing\Support\BuildFileTest;
 
 /**
- * Tests for the <socket> condition
+ * Tests the IsFileSelected Condition
  *
- * @package phing.tasks.system.condition
- *
- * @requires extension sockets
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @package phing.tasks.system
  */
-class SocketConditionTest extends \PHPUnit\Framework\TestCase
+class IsFileSelectedTest extends BuildFileTest
 {
-    public function testShouldReturnFalseForNonExistingListener()
+    public function setUp(): void
     {
-        $condition = new SocketCondition();
-        $condition->setServer('localhost');
-        $condition->setPort(1337);
-        $this->assertFalse($condition->evaluate());
+        $this->configureProject(
+            PHING_TEST_BASE . '/etc/tasks/system/IsFileSelectedTest.xml'
+        );
+    }
+
+    public function testIsFileSelected()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertySet('selected');
+    }
+
+    public function testNonFileSelected()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyUnset('unset');
     }
 }
