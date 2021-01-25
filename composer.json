@@ -32,6 +32,7 @@
     "require": {
         "php": "^7.3 || ^7.4 || ^8.0",
         "ext-dom": "*",
+        "ext-xml": "*",
         "mehr-als-nix/parallel": "^v1.0",
         "phing/phing-composer-configurator": "dev-master",
         "phing/task-apigen": "dev-master",
@@ -54,7 +55,14 @@
         "symfony/yaml": "^5.0"
     },
     "require-dev": {
+        "ext-curl": "*",
+        "ext-gettext": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
         "ext-pdo_sqlite": "*",
+        "ext-posix": "*",
+        "ext-simplexml": "*",
+        "ext-sockets": "*",
         "aws/aws-sdk-php": "^3.112",
         "guzzlehttp/guzzle": "^7.1",
         "jawira/plantuml-encoding": "^1.0",
@@ -106,7 +114,7 @@
         }
     },
     "suggest": {
-        "ext-posix": "*",
+        "ext-tidy": "*",
         "phpdocumentor/phpdocumentor": "Documentation Generator for PHP",
         "sebastian/phpcpd": "Copy/Paste Detector (CPD) for PHP code",
         "phpmd/phpmd": "PHP version of PMD tool",
