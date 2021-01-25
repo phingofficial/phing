@@ -56,13 +56,10 @@
     },
     "require-dev": {
         "ext-curl": "*",
-        "ext-gettext": "*",
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-pdo_sqlite": "*",
-        "ext-posix": "*",
         "ext-simplexml": "*",
-        "ext-sockets": "*",
         "aws/aws-sdk-php": "^3.112",
         "guzzlehttp/guzzle": "^7.1",
         "jawira/plantuml-encoding": "^1.0",
@@ -114,6 +111,9 @@
         }
     },
     "suggest": {
+        "ext-gettext": "*",
+        "ext-posix": "*",
+        "ext-sockets": "*",
         "ext-tidy": "*",
         "phpdocumentor/phpdocumentor": "Documentation Generator for PHP",
         "sebastian/phpcpd": "Copy/Paste Detector (CPD) for PHP code",

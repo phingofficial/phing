@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e63fb5afea89d6fa920bb68ef20c5de",
+    "content-hash": "eb120bed772ce82f3ec06a581afd1bd8",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -5968,13 +5968,10 @@
     },
     "platform-dev": {
         "ext-curl": "*",
-        "ext-gettext": "*",
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-pdo_sqlite": "*",
-        "ext-posix": "*",
-        "ext-simplexml": "*",
-        "ext-sockets": "*"
+        "ext-simplexml": "*"
     },
     "platform-overrides": {
         "php": "7.3.15"
