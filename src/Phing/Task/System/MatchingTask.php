@@ -373,12 +373,10 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add an extended selector entry on the selector list
-     *
-     * @return ExtendSelector
      */
     public function addCustom(ExtendSelector $selector)
     {
-        return $this->fileset->addCustom($selector);
+        $this->fileset->addCustom($selector);
     }
 
     /**

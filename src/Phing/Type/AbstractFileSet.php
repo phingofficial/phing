@@ -72,9 +72,12 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * @var PatternSet
      */
-    public $defaultPatterns;
+    public $defaultPatternSet;
 
-    public $additionalPatterns = [];
+    /**
+     * @var PatternSet[]
+     */
+    public $additionalPatternSets = [];
     public $dir;
     public $isCaseSensitive = true;
     private $errorOnMissingDir = false;
@@ -89,7 +92,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
         if ($fileset !== null && ($fileset instanceof FileSet)) {
             $this->dir = $fileset->dir;
-            $this->additionalPatterns = $fileset->additionalPatterns;
+            $this->additionalPatternSets = $fileset->additionalPatternSets;
             $this->useDefaultExcludes = $fileset->useDefaultExcludes;
             $this->isCaseSensitive = $fileset->isCaseSensitive;
             $this->selectorsList = $fileset->selectorsList;
@@ -98,7 +101,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             $this->setProject($fileset->getProject());
         }
 
-        $this->defaultPatterns = new PatternSet();
+        $this->defaultPatternSet = new PatternSet();
     }
 
     /**
@@ -125,10 +128,10 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function setRefid(Reference $r)
     {
-        if ((isset($this->dir) && null !== $this->dir) || $this->defaultPatterns->hasPatterns()) {
+        if ((isset($this->dir) && null !== $this->dir) || $this->defaultPatternSet->hasPatterns()) {
             throw $this->tooManyAttributes();
         }
-        if (!empty($this->additionalPatterns)) {
+        if (!empty($this->additionalPatternSets)) {
             throw $this->noChildrenAllowed();
         }
         if (!empty($this->selectorsList)) {
@@ -181,9 +184,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
         }
-        $num = array_push($this->additionalPatterns, new PatternSet());
+        $num = array_push($this->additionalPatternSets, new PatternSet());
 
-        return $this->additionalPatterns[$num - 1];
+        return $this->additionalPatternSets[$num - 1];
     }
 
     /**
@@ -195,7 +198,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             throw $this->noChildrenAllowed();
         }
 
-        return $this->defaultPatterns->createInclude();
+        return $this->defaultPatternSet->createInclude();
     }
 
     /**
@@ -207,7 +210,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             throw $this->noChildrenAllowed();
         }
 
-        return $this->defaultPatterns->createIncludesFile();
+        return $this->defaultPatternSet->createIncludesFile();
     }
 
     /**
@@ -219,7 +222,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             throw $this->noChildrenAllowed();
         }
 
-        return $this->defaultPatterns->createExclude();
+        return $this->defaultPatternSet->createExclude();
     }
 
     /**
@@ -231,7 +234,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             throw $this->noChildrenAllowed();
         }
 
-        return $this->defaultPatterns->createExcludesFile();
+        return $this->defaultPatternSet->createExcludesFile();
     }
 
     public function setFile(File $file)
@@ -255,7 +258,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        $this->defaultPatterns->setIncludes($includes);
+        $this->defaultPatternSet->setIncludes($includes);
     }
 
     /**
@@ -270,7 +273,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        $this->defaultPatterns->setExcludes($excludes);
+        $this->defaultPatternSet->setExcludes($excludes);
     }
 
     /**
@@ -284,7 +287,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        $this->defaultPatterns->setIncludesFile($incl);
+        $this->defaultPatternSet->setIncludesFile($incl);
     }
 
     /**
@@ -298,7 +301,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        $this->defaultPatterns->setExcludesFile($excl);
+        $this->defaultPatternSet->setExcludesFile($excl);
     }
 
     /**
@@ -395,15 +398,15 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         // FIXME - pass dir directly when dirscanner supports File
         $ds->setBasedir($this->dir->getPath());
 
-        foreach ($this->additionalPatterns as $addPattern) {
-            $this->defaultPatterns->append($addPattern, $p);
+        foreach ($this->additionalPatternSets as $addPattern) {
+            $this->defaultPatternSet->append($addPattern, $p);
         }
 
-        $ds->setIncludes($this->defaultPatterns->getIncludePatterns($p));
-        $ds->setExcludes($this->defaultPatterns->getExcludePatterns($p));
+        $ds->setIncludes($this->defaultPatternSet->getIncludePatterns($p));
+        $ds->setExcludes($this->defaultPatternSet->getExcludePatterns($p));
 
         $p->log(
-            $this->getDataTypeName() . ": Setup file scanner in dir " . (string) $this->dir . " with " . (string) $this->defaultPatterns,
+            $this->getDataTypeName() . ": Setup file scanner in dir " . (string) $this->dir . " with " . (string) $this->defaultPatternSet,
             Project::MSG_DEBUG
         );
 
@@ -434,7 +437,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
                     static::pushAndInvokeCircularReferenceCheck($fileSelector, $stk, $p);
                 }
             }
-            foreach ($this->additionalPatterns as $ps) {
+            foreach ($this->additionalPatternSets as $ps) {
                 static::pushAndInvokeCircularReferenceCheck($ps, $stk, $p);
             }
             $this->setChecked(true);
@@ -487,12 +490,12 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $stk[] = $this;
         $this->dieOnCircularReference($stk, $this->getProject());
 
-        if ($this->defaultPatterns->hasPatterns()) {
+        if ($this->defaultPatternSet->hasPatterns()) {
             return true;
         }
 
-        for ($i = 0, $size = count($this->additionalPatterns); $i < $size; $i++) {
-            $ps = $this->additionalPatterns[$i];
+        for ($i = 0, $size = count($this->additionalPatternSets); $i < $size; $i++) {
+            $ps = $this->additionalPatternSets[$i];
             if ($ps->hasPatterns()) {
                 return true;
             }

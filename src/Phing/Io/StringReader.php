@@ -23,7 +23,7 @@ namespace Phing\Io;
  * Dummy class for reading from string of characters.
  *
  */
-class StringReader extends InputStreamReader
+class StringReader extends Reader
 {
 
     /**

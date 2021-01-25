@@ -422,7 +422,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public function setIncludes($includes = [])
     {
-        if (empty($includes) || null === $includes) {
+        if (empty($includes)) {
             $this->includes = null;
         } else {
             $numIncludes = count($includes);
@@ -447,7 +447,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public function setExcludes($excludes = [])
     {
-        if (empty($excludes) || null === $excludes) {
+        if (empty($excludes)) {
             $this->excludes = null;
         } else {
             $numExcludes = count($excludes);

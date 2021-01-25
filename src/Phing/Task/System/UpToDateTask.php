@@ -219,10 +219,11 @@ class UpToDateTask extends Task implements Condition
                     ($this->targetFile->lastModified() >= $this->sourceFile->lastModified());
             } else {
                 $sfs = new SourceFileScanner($this);
+                $files = [$this->sourceFile->getAbsolutePath()];
                 $upToDate = $upToDate &&
                     count(
                         $sfs->restrict(
-                            $this->sourceFile->getAbsolutePath(),
+                            $files,
                             null,
                             null,
                             $this->mapperElement->getImplementation()

@@ -254,12 +254,12 @@ class PatternSet extends DataType
     /**
      * Adds the patterns of the other instance to this set.
      *
-     * @param $other
+     * @param PatternSet $other
      * @param Project $p
      *
      * @throws BuildException
      */
-    public function append($other, $p)
+    public function append(PatternSet $other, Project $p)
     {
         if ($this->isReference()) {
             throw new BuildException("Cannot append to a reference");
@@ -296,7 +296,11 @@ class PatternSet extends DataType
         if ($this->isReference()) {
             $o = $this->getRef($p);
 
-            return $o->getIncludePatterns($p);
+            if ($o instanceof PatternSet) {
+                return $o->getIncludePatterns($p);
+            } else {
+                return [];
+            }
         }
 
         $this->readFiles($p);
@@ -318,7 +322,11 @@ class PatternSet extends DataType
         if ($this->isReference()) {
             $o = $this->getRef($p);
 
-            return $o->getExcludePatterns($p);
+            if ($o instanceof PatternSet) {
+                return $o->getExcludePatterns($p);
+            } else {
+                return [];
+            }
         }
 
         $this->readFiles($p);

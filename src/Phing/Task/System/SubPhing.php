@@ -278,6 +278,8 @@ class SubPhing extends Task
         if ($t instanceof BuildException) {
             return $this->isHardError($t->getPrevious());
         }
+
+        return false;
     }
 
     /**

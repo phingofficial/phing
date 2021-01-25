@@ -419,7 +419,7 @@ class WindowsFileSystem extends FileSystem
 
     /**
      * @param $drive
-     * @return null
+     * @return mixed|null
      */
     public function _getDriveDirectory($drive)
     {

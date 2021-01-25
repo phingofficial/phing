@@ -318,7 +318,6 @@ class CopyTask extends Task
     /**
      * The main entry point where everything gets in motion.
      *
-     * @return true           on success
      * @throws BuildException
      */
     public function main()

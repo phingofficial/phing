@@ -61,12 +61,10 @@ class OutputStreamWriter extends Writer
      * @param string $buf
      * @param int $off
      * @param int $len
-     *
-     * @return void
      */
     public function write($buf, $off = null, $len = null)
     {
-        return $this->outStream->write($buf, $off, $len);
+        $this->outStream->write($buf, $off, $len);
     }
 
     /**

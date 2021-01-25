@@ -84,9 +84,7 @@ class PhpEvalTask extends Task
     }
 
     /**
-     * Calls function and returns results.
-     *
-     * @return mixed
+     * Calls function and stores results in property
      */
     protected function callFunction()
     {

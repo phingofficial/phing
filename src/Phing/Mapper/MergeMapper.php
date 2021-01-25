@@ -56,7 +56,6 @@ class MergeMapper implements FileNameMapper
      * Accessor. Sets the to property
      *
      * @param string     To what this mapper should convert the from string
-     * @return boolean True
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function setTo($to)
