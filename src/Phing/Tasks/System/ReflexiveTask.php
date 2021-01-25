@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\System;
 
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Io\FileReader;
 use Phing\Io\FileUtils;
@@ -128,7 +129,7 @@ class ReflexiveTask extends Task
                     $contents .= $buffer;
                 }
                 $in->close();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 if ($in) {
                     $in->close();
                 }
@@ -141,7 +142,7 @@ class ReflexiveTask extends Task
                 $out->write($contents);
                 $out->close();
                 $this->log("Applying reflexive processing to " . $file->getPath(), Project::MSG_VERBOSE);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 if ($out) {
                     $out->close();
                 }

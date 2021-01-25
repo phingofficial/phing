@@ -29,6 +29,7 @@ use Phing\Util\Register;
 use Phing\Util\StringHelper;
 use Phing\Type\Reference;
 use ReflectionClass;
+use ReflectionType;
 
 /**
  * Helper class that collects the methods that a task or nested element
@@ -220,7 +221,7 @@ class IntrospectionHelper
                         );
                     }
 
-                    /** @var \ReflectionType $hint */
+                    /** @var ReflectionType $hint */
                     $classname = (($hint = $params[0]->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
 
                     if ($classname === null) {
@@ -249,7 +250,7 @@ class IntrospectionHelper
                         );
                     }
 
-                    /** @var \ReflectionType $hint */
+                    /** @var ReflectionType $hint */
                     $classname = (($hint = $params[0]->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
 
                     // we don't use the classname here, but we need to make sure it exists before
@@ -334,7 +335,7 @@ class IntrospectionHelper
             } else {
                 $params = $method->getParameters();
 
-                /** @var \ReflectionType $hint */
+                /** @var ReflectionType $hint */
                 $reflectedAttr = ($hint = $params[0]->getType()) ? $hint->getName() : null;
 
                 // value is a string representation of a boolean type,
@@ -437,7 +438,7 @@ class IntrospectionHelper
                 // exist and that method is using class hints
                 $params = $method->getParameters();
 
-                /** @var \ReflectionType $hint */
+                /** @var ReflectionType $hint */
                 $classname = (($hint = $params[0]->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
 
                 // create a new instance of the object and add it via $addMethod

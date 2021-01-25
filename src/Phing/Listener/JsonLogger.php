@@ -19,7 +19,6 @@
 
 namespace Phing\Listener;
 
-use Phing\Listener\BuildEvent;
 use Exception;
 use Phing\Io\FileOutputStream;
 use Phing\Io\IOException;

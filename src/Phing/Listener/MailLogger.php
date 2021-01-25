@@ -20,7 +20,6 @@
 namespace Phing\Listener;
 
 use BadMethodCallException;
-use Phing\Listener\BuildEvent;
 use Phing\Io\IOException;
 use Mail;
 use Phing\Io\OutputStream;

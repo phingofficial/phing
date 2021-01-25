@@ -18,7 +18,6 @@
  */
 
 namespace Phing\Util;
-use Phing\Util\RegexpEngine;
 
 /**
  * PREG Regexp Engine.

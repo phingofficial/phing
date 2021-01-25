@@ -20,10 +20,7 @@
 namespace Phing\Parser;
 
 use Exception;
-use Phing\Parser\ExpatParseException;
 use Phing\Io\IOException;
-use Phing\Parser\AbstractSAXParser;
-use Phing\Parser\Location;
 use Phing\Io\Reader;
 use SplFileObject;
 

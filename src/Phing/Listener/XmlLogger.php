@@ -19,7 +19,6 @@
 
 namespace Phing\Listener;
 
-use Phing\Listener\BuildEvent;
 use DOMDocument;
 use DOMElement;
 use Exception;

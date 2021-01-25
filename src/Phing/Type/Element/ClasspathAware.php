@@ -48,7 +48,7 @@ trait ClasspathAware
     /**
      * @param Path $classpath
      *
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function setClasspath(Path $classpath): void
     {
@@ -62,7 +62,7 @@ trait ClasspathAware
     /**
      * @return Path
      *
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function createClasspath(): Path
     {

@@ -68,7 +68,7 @@ class OsCondition implements Condition
     /**
      * @param string $family
      * @return bool
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public static function isOS($family)
     {

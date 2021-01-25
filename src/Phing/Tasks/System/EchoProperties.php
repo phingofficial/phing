@@ -19,6 +19,9 @@
 
 namespace Phing\Tasks\System;
 
+use ArrayIterator;
+use DOMDocument;
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Io\FileOutputStream;
 use Phing\Io\IOException;
@@ -28,6 +31,7 @@ use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\Properties;
+use RegexIterator;
 
 /**
  *  Displays all the current properties in the build. The output can be sent to
@@ -263,7 +267,7 @@ class EchoProperties extends Task
             if ($this->destfile == null) {
                 $os = Phing::getOutputStream();
                 $this->saveProperties($allProps, $os);
-                $this->log($os, Project::MSG_INFO);
+                $this->log($os);
             } else {
                 if ($this->destfile->exists() && $this->destfile->isDirectory()) {
                     $message = "destfile is a directory!";
@@ -285,12 +289,12 @@ class EchoProperties extends Task
     }
 
     /**
-     * @param \Exception $exception
+     * @param Exception $exception
      * @param string $message
      * @param int $level
      * @throws BuildException
      */
-    private function failOnErrorAction(\Exception $exception = null, $message = '', $level = Project::MSG_INFO)
+    private function failOnErrorAction(Exception $exception = null, $message = '', $level = Project::MSG_INFO)
     {
         if ($this->failonerror) {
             throw new BuildException(
@@ -324,17 +328,17 @@ class EchoProperties extends Task
         $props = new Properties();
 
         if ($this->regex !== '') {
-            $a = new \ArrayIterator($allProps);
-            $i = new \RegexIterator($a, $this->regex, \RegexIterator::MATCH, \RegexIterator::USE_KEY);
+            $a = new ArrayIterator($allProps);
+            $i = new RegexIterator($a, $this->regex, RegexIterator::MATCH, RegexIterator::USE_KEY);
             $allProps = iterator_to_array($i);
         }
         if ($this->prefix !== '') {
-            $a = new \ArrayIterator($allProps);
-            $i = new \RegexIterator(
+            $a = new ArrayIterator($allProps);
+            $i = new RegexIterator(
                 $a,
                 '~^' . preg_quote($this->prefix, '~') . '.*~',
-                \RegexIterator::MATCH,
-                \RegexIterator::USE_KEY
+                RegexIterator::MATCH,
+                RegexIterator::USE_KEY
             );
             $allProps = iterator_to_array($i);
         }
@@ -359,7 +363,7 @@ class EchoProperties extends Task
      */
     protected function xmlSaveProperties(Properties $props, OutputStream $os)
     {
-        $doc = new \DOMDocument('1.0', 'UTF-8');
+        $doc = new DOMDocument('1.0', 'UTF-8');
         $doc->formatOutput = true;
         $rootElement = $doc->createElement(self::$PROPERTIES);
 

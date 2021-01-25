@@ -56,7 +56,7 @@ class XMLChild implements DynamicConfigurator
      * @param DOMDocumentFragment $f
      * @param DOMElement          $e
      */
-    public function __construct(Project $p, \DOMDocument $d, \DOMDocumentFragment $f, \DOMElement $e)
+    public function __construct(Project $p, DOMDocument $d, DOMDocumentFragment $f, DOMElement $e)
     {
         $this->p = $p;
         $this->d = $d;

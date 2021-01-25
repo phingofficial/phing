@@ -18,9 +18,11 @@
  */
 
 namespace Phing\Util;
+use Exception;
+
 /**
  * @package phing.util.regexp
  */
-class RegexpException extends \Exception
+class RegexpException extends Exception
 {
 }

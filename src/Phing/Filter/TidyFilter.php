@@ -19,10 +19,8 @@
 
 namespace Phing\Filter;
 
-use Phing\Filter\BaseParamFilterReader;
 use Phing\Type\Parameter;
 use Phing\Exception\BuildException;
-use Phing\Filter\ChainableReader;
 use Phing\Io\Reader;
 use tidy;
 

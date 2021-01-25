@@ -36,7 +36,7 @@ class ExtensionPoint extends Target
      * Throws an exception.
      *
      * @param  Task $task
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function addTask(Task $task)
     {
@@ -47,7 +47,7 @@ class ExtensionPoint extends Target
      * Throws an exception.
      *
      * @param  RuntimeConfigurable $r
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function addDataType($r)
     {

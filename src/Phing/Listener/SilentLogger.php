@@ -19,8 +19,6 @@
 
 namespace Phing\Listener;
 
-use Phing\Listener\BuildEvent;
-
 /**
  * A logger which logs nothing but build failure and what task might output.
  *

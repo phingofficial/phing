@@ -21,6 +21,7 @@ namespace Phing\Tasks\System;
 
 use Phing\Exception\BuildException;
 use Phing\Task;
+use Throwable;
 
 /**
  * A phing sleep task.
@@ -175,7 +176,7 @@ class SleepTask extends Task
             $this->validateAttributes();
             $sleepTime = $this->getSleepTime();
             usleep($sleepTime * 1000);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             if ($this->failOnError) {
                 throw new BuildException($e);
             }

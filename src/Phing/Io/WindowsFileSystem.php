@@ -223,9 +223,7 @@ class WindowsFileSystem extends FileSystem
                 $sb .= $c;
             }
         }
-        $rv = (string) $sb;
-
-        return $rv;
+        return (string) $sb;
     }
 
     /**
@@ -514,7 +512,7 @@ class WindowsFileSystem extends FileSystem
                 have read permission on the result */
                 $p = (string) $drive . (':' . $dir . $this->slashify(substr($path, 2)));
 
-                if (!$this->checkAccess(new File($p), false)) {
+                if (!$this->checkAccess(new File($p))) {
                     throw new IOException("Can't resolve path $p");
                 }
 

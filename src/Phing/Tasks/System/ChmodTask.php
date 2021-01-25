@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\System;
 
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
@@ -196,7 +197,7 @@ class ChmodTask extends Task
      * @param  File $file
      * @param  int $mode
      * @throws BuildException
-     * @throws \Exception
+     * @throws Exception
      */
     private function chmodFile(File $file, $mode)
     {
@@ -209,7 +210,7 @@ class ChmodTask extends Task
             if ($this->verbose) {
                 $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf("%o", [$mode]));
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if ($this->failonerror) {
                 throw $e;
             }

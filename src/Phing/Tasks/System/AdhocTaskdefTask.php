@@ -22,6 +22,8 @@ namespace Phing\Tasks\System;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
+use ReflectionClass;
+use ReflectionException;
 
 /**
  * A class for creating adhoc tasks in build file.
@@ -100,12 +102,12 @@ class AdhocTaskdefTask extends AdhocTask
     /**
      * @param string[] $classes
      * @return string[]
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function filterValidTasks(array $classes): array
     {
         return array_filter($classes, function ($classname) {
-            $t = new \ReflectionClass($classname);
+            $t = new ReflectionClass($classname);
 
             if (!$t->isSubclassOf(Task::class) || !$t->isInstantiable()) {
                 return false;

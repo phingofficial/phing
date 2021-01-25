@@ -80,7 +80,7 @@ abstract class BaseSelector extends DataType implements FileSelector
      * <p>Implementations should check for incorrect settings and call
      * setError() as necessary.</p>
      *
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function verifySettings()
     {

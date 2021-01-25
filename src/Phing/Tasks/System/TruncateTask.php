@@ -20,11 +20,13 @@
 namespace Phing\Tasks\System;
 
 use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\SizeHelper;
+use SplFileObject;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
@@ -43,8 +45,8 @@ class TruncateTask extends Task
      * Set a single target File.
      *
      * @param  File $f the single File
-     * @throws \Phing\Io\IOException
-     * @throws \Phing\Exception\NullPointerException
+     * @throws IOException
+     * @throws NullPointerException
      */
     public function setFile(File $f): void
     {
@@ -68,7 +70,7 @@ class TruncateTask extends Task
      *
      * @param string $length (positive) adjustment amount.
      *
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function setLength(string $length)
     {
@@ -102,7 +104,7 @@ class TruncateTask extends Task
     /**
      * {@inheritDoc}.
      *
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -126,7 +128,7 @@ class TruncateTask extends Task
     /**
      * @param File $f
      * @return bool
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     private function shouldProcess(File $f)
     {
@@ -162,7 +164,7 @@ class TruncateTask extends Task
             return;
         }
 
-        $splFile = new \SplFileObject($f->getPath(), 'a+');
+        $splFile = new SplFileObject($f->getPath(), 'a+');
 
         if (!$splFile->ftruncate((int) $newLength)) {
             throw new BuildException("Exception working with " . (string) $splFile);

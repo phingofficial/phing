@@ -18,7 +18,6 @@
  */
 
 namespace Phing\Listener;
-use Phing\Listener\BuildEvent;
 use Phing\Project;
 
 /**

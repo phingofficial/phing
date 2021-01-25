@@ -22,7 +22,6 @@ namespace Phing\Util;
 use DOMDocument;
 use DOMDocumentFragment;
 use Phing\Parser\CustomChildCreator;
-use Phing\Util\XMLChild;
 use Phing\Project;
 use Phing\ProjectComponent;
 

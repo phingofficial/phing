@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\System;
 
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Io\FileReader;
@@ -271,7 +272,7 @@ class AppendTask extends Task
                 if ($this->file !== null) {
                     try {
                         $this->appendFile($writer, $this->file);
-                    } catch (\Exception $ioe) {
+                    } catch (Exception $ioe) {
                         $this->log(
                             "Unable to append contents of file " . $this->file->getAbsolutePath() . ": " . $ioe->getMessage(),
                             Project::MSG_WARN
@@ -308,7 +309,7 @@ class AppendTask extends Task
                     }
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new BuildException($e);
         }
 
@@ -372,8 +373,7 @@ class AppendTask extends Task
 
     private function getFilteredReader(Reader $r)
     {
-        $helper = FileUtils::getChainedReader($r, $this->filterChains, $this->getProject());
-        return $helper;
+        return FileUtils::getChainedReader($r, $this->filterChains, $this->getProject());
     }
 
     /**

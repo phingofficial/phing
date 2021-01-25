@@ -21,19 +21,14 @@ namespace Phing\Parser;
 
 use Phing\Io\BufferedReader;
 use Exception;
-use Phing\Parser\ExpatParseException;
-use Phing\Parser\ExpatParser;
 use Phing\ExtensionPoint;
 use Phing\Io\FileReader;
 use Phing\IntrospectionHelper;
 use Phing\Io\IOException;
-use Phing\Parser\Location;
 use Phing\Exception\BuildException;
 use Phing\Exception\ExitStatusException;
 use Phing\Exception\NullPointerException;
-use Phing\Parser\RootHandler;
 use Phing\Io\File;
-use Phing\Parser\XmlContext;
 use Phing\Project;
 use Phing\Target;
 use Phing\Task;
@@ -88,8 +83,8 @@ class ProjectConfigurator
      * @param Project $project the Project instance this configurator should use
      * @param File $buildFile the buildfile object the parser should use
      *
-     * @throws \Phing\Io\IOException
-     * @throws \Phing\Exception\BuildException
+     * @throws IOException
+     * @throws BuildException
      * @throws NullPointerException
      */
     public static function configureProject(Project $project, File $buildFile): void

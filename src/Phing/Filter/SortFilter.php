@@ -21,8 +21,6 @@ namespace Phing\Filter;
 
 use Phing\Io\IOException;
 use Phing\Exception\BuildException;
-use Phing\Filter\BaseParamFilterReader;
-use Phing\Filter\ChainableReader;
 use Phing\Util\StringHelper;
 use Phing\Io\Reader;
 
@@ -135,9 +133,7 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
 
         $this->sort();
 
-        $filtered_buffer = implode("\n", $this->lines);
-
-        return $filtered_buffer;
+        return implode("\n", $this->lines);
     }
 
     /**

@@ -18,9 +18,6 @@
  */
 
 namespace Phing\Parser;
-use Phing\Parser\AbstractSAXParser;
-use Phing\Parser\ExpatParseException;
-use Phing\Parser\ExpatParser;
 
 /**
  * This is an abstract class all SAX handler classes must extend

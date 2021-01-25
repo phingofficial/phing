@@ -34,6 +34,7 @@ use Phing\Type\DirSet;
 use Phing\Type\Element\ResourceAware;
 use Phing\Type\FileList;
 use Phing\Type\Mapper;
+use UnexpectedValueException;
 
 /**
  * Executes a command on the (filtered) file list/set.
@@ -262,7 +263,7 @@ class ApplyTask extends ExecTask
      * Supports embedded <targetfile> element.
      *
      * @return CommandlineMarker
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function createTargetfile()
     {
@@ -284,7 +285,7 @@ class ApplyTask extends ExecTask
      * Supports embedded <srcfile> element.
      *
      * @return CommandlineMarker
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function createSrcfile()
     {
@@ -302,7 +303,7 @@ class ApplyTask extends ExecTask
 
     /**
      * @return Mapper
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function createMapper()
     {
@@ -323,7 +324,7 @@ class ApplyTask extends ExecTask
     /**
      * Do work
      *
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -410,7 +411,7 @@ class ApplyTask extends ExecTask
             $this->cleanup();
             // Log
             $this->log('End ', $this->loglevel);
-        } catch (IOException | NullPointerException | \UnexpectedValueException $e) {
+        } catch (IOException | NullPointerException | UnexpectedValueException $e) {
             throw new BuildException('Execute failed: ' . $e, $e, $this->getLocation());
         }
     }
@@ -457,7 +458,7 @@ class ApplyTask extends ExecTask
      * - Working directory
      *
      * @return void
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      * @throws IOException
      */
     protected function prepare()
@@ -551,7 +552,7 @@ class ApplyTask extends ExecTask
      *
      * @return void
      *
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     protected function buildCommand()
     {
@@ -618,7 +619,7 @@ class ApplyTask extends ExecTask
      * @param string $basedir Base directory of the file list
      *
      * @return void
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      * @throws IOException
      * @throws NullPointerException
      */

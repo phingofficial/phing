@@ -569,9 +569,7 @@ class File
             $parent->mkdirs();
         }
 
-        $file = FileSystem::getFileSystem()->createNewFile($this->path);
-
-        return $file;
+        return FileSystem::getFileSystem()->createNewFile($this->path);
     }
 
     /**

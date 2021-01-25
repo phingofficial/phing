@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\System;
 
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Io\FileParserFactory;
@@ -396,7 +397,7 @@ class PropertyTask extends Task
             try {
                 $referencedObject = $this->reference->getReferencedObject($this->project);
 
-                if ($referencedObject instanceof \Exception) {
+                if ($referencedObject instanceof Exception) {
                     $reference = $referencedObject->getMessage();
                 } else {
                     $reference = (string) $referencedObject;
@@ -407,7 +408,7 @@ class PropertyTask extends Task
                 if ($this->fallback !== null) {
                     $referencedObject = $this->reference->getReferencedObject($this->fallback);
 
-                    if ($referencedObject instanceof \Exception) {
+                    if ($referencedObject instanceof Exception) {
                         $reference = $referencedObject->getMessage();
                     } else {
                         $reference = (string) $referencedObject;

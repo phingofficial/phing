@@ -19,7 +19,6 @@
 
 namespace Phing\Listener;
 
-use Phing\Listener\BuildEvent;
 use Phing\Phing;
 use Phing\Project;
 

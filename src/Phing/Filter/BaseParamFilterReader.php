@@ -22,7 +22,6 @@ namespace Phing\Filter;
 use Exception;
 use Phing\Type\Parameter;
 use Phing\Type\Parameterizable;
-use Phing\Filter\BaseFilterReader;
 use Phing\Io\FilterReader;
 
 /**

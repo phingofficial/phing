@@ -19,8 +19,6 @@
 
 namespace Phing\Filter;
 
-use Phing\Filter\BaseParamFilterReader;
-use Phing\Filter\ChainableReader;
 use Phing\Project;
 use Phing\Io\Reader;
 

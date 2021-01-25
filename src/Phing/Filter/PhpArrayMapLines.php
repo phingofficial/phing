@@ -20,8 +20,6 @@
 namespace Phing\Filter;
 
 use Phing\Exception\BuildException;
-use Phing\Filter\BaseParamFilterReader;
-use Phing\Filter\ChainableReader;
 use Phing\Io\Reader;
 
 /**
@@ -79,9 +77,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
 
         $filtered = array_map($this->function, $lines);
 
-        $filtered_buffer = implode("\n", $filtered);
-
-        return $filtered_buffer;
+        return implode("\n", $filtered);
     }
 
     /**

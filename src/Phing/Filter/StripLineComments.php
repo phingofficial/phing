@@ -20,9 +20,6 @@
 namespace Phing\Filter;
 
 use Exception;
-use Phing\Filter\BaseParamFilterReader;
-use Phing\Filter\ChainableReader;
-use Phing\Filter\Comment;
 use Phing\Util\StringHelper;
 use Phing\Io\Reader;
 
@@ -107,9 +104,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
             }
         }
 
-        $filtered_buffer = implode("\n", $filtered);
-
-        return $filtered_buffer;
+        return implode("\n", $filtered);
     }
 
     /*

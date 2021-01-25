@@ -20,10 +20,6 @@
 namespace Phing\Parser;
 
 use Phing\Exception\BuildException;
-use Phing\Parser\AbstractHandler;
-use Phing\Parser\AbstractSAXParser;
-use Phing\Parser\ExpatParseException;
-use Phing\Parser\ProjectConfigurator;
 use Phing\RuntimeConfigurable;
 use Phing\Target;
 use Phing\UnknownElement;

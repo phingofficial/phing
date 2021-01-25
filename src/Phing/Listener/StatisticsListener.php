@@ -19,7 +19,6 @@
 
 namespace Phing\Listener;
 
-use Phing\Listener\BuildEvent;
 use Phing\Util\Clock;
 use Phing\Util\DefaultClock;
 use Phing\Util\ProjectTimer;

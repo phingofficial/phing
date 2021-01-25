@@ -19,7 +19,6 @@
 
 namespace Phing\Listener;
 
-use Phing\Listener\BuildEvent;
 use Monolog\Logger;
 use Phing\Project;
 use Phing\Target;

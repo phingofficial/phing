@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\System;
 
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Task;
 
@@ -96,7 +97,7 @@ class TryCatchTask extends Task
      * Sets the name of the reference that will
      * contain the exception.
      *
-     * @param \Exception $reference
+     * @param Exception $reference
      *
      * @return void
      */

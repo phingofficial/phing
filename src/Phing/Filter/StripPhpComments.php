@@ -20,8 +20,6 @@
 namespace Phing\Filter;
 
 use Phing\Io\IOException;
-use Phing\Filter\BaseFilterReader;
-use Phing\Filter\ChainableReader;
 use Phing\Io\FilterReader;
 use Phing\Io\Reader;
 

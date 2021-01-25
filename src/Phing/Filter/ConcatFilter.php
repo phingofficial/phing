@@ -25,8 +25,6 @@ use Phing\Io\IOException;
 use Phing\Type\Parameter;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
-use Phing\Filter\BaseParamFilterReader;
-use Phing\Filter\ChainableReader;
 use Phing\Io\File;
 use Phing\Io\Reader;
 

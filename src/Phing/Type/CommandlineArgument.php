@@ -19,6 +19,7 @@
 
 namespace Phing\Type;
 
+use Phing\Exception\BuildException;
 use Phing\Io\File;
 
 /**
@@ -62,7 +63,7 @@ class CommandlineArgument
      * Line to split into several commandline arguments.
      *
      * @param string $line line to split into several commandline arguments
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function setLine($line)
     {

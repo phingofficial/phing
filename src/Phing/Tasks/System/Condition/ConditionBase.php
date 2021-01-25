@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\System\Condition;
 
+use IteratorAggregate;
+use PDOSQLExecTask;
 use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreator;
 use Phing\Project;
@@ -35,7 +37,7 @@ use Phing\Tasks\System\AvailableTask;
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @package   phing.tasks.system.condition
  */
-abstract class ConditionBase extends ProjectComponent implements \IteratorAggregate, CustomChildCreator
+abstract class ConditionBase extends ProjectComponent implements IteratorAggregate, CustomChildCreator
 {
     public $conditions = []; // needs to be public for "inner" class access
 
@@ -299,7 +301,7 @@ abstract class ConditionBase extends ProjectComponent implements \IteratorAggreg
 
     public function createPdoSqlExec()
     {
-        $num = array_push($this->conditions, new \PDOSQLExecTask());
+        $num = array_push($this->conditions, new PDOSQLExecTask());
 
         return $this->conditions[$num - 1];
     }

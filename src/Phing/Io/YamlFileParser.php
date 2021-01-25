@@ -21,6 +21,7 @@ namespace Phing\Io;
 
 use Exception;
 use Phing\Exception\BuildException;
+use Symfony\Component\Yaml\Parser;
 
 /**
  * Implements a YamlFileParser to parse yaml-files as array.
@@ -48,7 +49,7 @@ class YamlFileParser implements FileParserInterface
                 );
             }
 
-            $parser = new \Symfony\Component\Yaml\Parser();
+            $parser = new Parser();
             // Cast properties to array in case parse() returns null.
             $properties = (array) $parser->parse(file_get_contents($file->getAbsolutePath()));
         } catch (Exception $e) {

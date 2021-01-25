@@ -294,7 +294,6 @@ class Mapper extends DataType
                     break;
                 default:
                     throw new BuildException("Mapper type {$this->type} not known");
-                    break;
             }
         }
 

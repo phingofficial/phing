@@ -23,7 +23,6 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Mapper\IdentityMapper;
 use Phing\Type\Mapper;
-use the;
 
 /**
  * Selector that filters files based on whether they are newer than
@@ -71,7 +70,7 @@ class DependSelector extends BaseSelector
      * The name of the file or directory which is checked for out-of-date
      * files.
      *
-     * @param File|the $targetdir
+     * @param File the $targetdir
      * @internal param the $targetdir directory to scan looking for files.
      */
     public function setTargetdir(File $targetdir)

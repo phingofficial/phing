@@ -843,7 +843,7 @@ class Project
      *
      * @param string $fileName
      * @param File $rootDir
-     * @return \Phing\Io\File
+     * @return File
      * @throws IOException
      */
     public function resolveFile(string $fileName, File $rootDir = null): File
@@ -1237,7 +1237,7 @@ class Project
      * @param string $message
      * @param int $priority
      * @param Exception $t
-     * @throws \Exception
+     * @throws Exception
      */
     public function fireMessageLogged($object, $message, $priority, Exception $t = null)
     {

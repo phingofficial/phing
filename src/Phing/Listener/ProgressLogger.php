@@ -19,7 +19,6 @@
 
 namespace Phing\Listener;
 
-use Phing\Listener\BuildEvent;
 use Exception;
 use Phing\Phing;
 use Symfony\Component\Console\Helper\ProgressBar;

@@ -392,7 +392,7 @@ class Phing
      */
     public static function fire($args)
     {
-        self::start($args, null);
+        self::start($args);
     }
 
     /**

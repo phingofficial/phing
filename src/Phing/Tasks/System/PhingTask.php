@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\System;
 
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Io\FileOutputStream;
 use Phing\Io\FileUtils;
@@ -387,7 +388,7 @@ class PhingTask extends Task
 
             $this->addReferences();
             $this->newProject->executeTarget($this->newTarget);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $buildFailed = true;
             $this->log($e->getMessage(), Project::MSG_ERR);
             if (Phing::getMsgOutputLevel() <= Project::MSG_DEBUG) {
@@ -429,7 +430,7 @@ class PhingTask extends Task
      *
      * @return Project
      */
-    protected function getNewProject(): \Phing\Project
+    protected function getNewProject(): Project
     {
         if ($this->newProject === null) {
             $this->reinit();
@@ -486,7 +487,7 @@ class PhingTask extends Task
                 $logger->setOutputStream($this->out);
                 $logger->setErrorStream($this->out);
                 $this->newProject->addBuildListener($logger);
-            } catch (\Exception $ex) {
+            } catch (Exception $ex) {
                 $this->log("Phing: Can't set output to " . $this->output);
             }
         }

@@ -336,7 +336,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * returns a reference to the dirscanner object belonging to this fileset
      *
      * @param Project $p
-     * @return \Phing\Io\DirectoryScanner
+     * @return DirectoryScanner
      * @throws BuildException
      */
     public function getDirectoryScanner(Project $p = null)
@@ -580,7 +580,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * @param array ...$options
      * @return ArrayIterator
      */
-    public function getIterator(...$options): \ArrayIterator
+    public function getIterator(...$options): ArrayIterator
     {
         if ($this->isReference()) {
             return $this->getRef($this->getProject())->getIterator($options);

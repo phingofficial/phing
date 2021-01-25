@@ -21,8 +21,6 @@ namespace Phing\Filter;
 
 use Exception;
 use Phing\Io\IOException;
-use Phing\Filter\BaseParamFilterReader;
-use Phing\Filter\ChainableReader;
 use Phing\Io\FilterReader;
 use Phing\Project;
 use Phing\Io\Reader;

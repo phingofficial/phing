@@ -47,9 +47,7 @@ class ConsoleReader extends Reader
      */
     public function read($len = null)
     {
-        $out = fread(STDIN, $len);
-
-        return $out;
+        return fread(STDIN, $len);
         // FIXME
         // read by chars doesn't work (yet?) with PHP stdin.  Maybe
         // this is just a language feature, maybe there's a way to get

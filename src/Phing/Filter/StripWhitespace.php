@@ -23,8 +23,6 @@ use A;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
 use Phing\Exception\NullPointerException;
-use Phing\Filter\BaseFilterReader;
-use Phing\Filter\ChainableReader;
 use Phing\Io\FilterReader;
 use Phing\Project;
 use Phing\Io\Reader;

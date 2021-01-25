@@ -19,12 +19,14 @@
 
 namespace Phing;
 
+use Error;
 use Exception;
 use Phing\Dispatch\DispatchUtils;
 use Phing\Exception\BuildException;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 use Phing\Util\Register;
+use Phing\Util\RegisterSlot;
 
 /**
  * The base class for all Tasks.
@@ -193,19 +195,19 @@ abstract class Task extends ProjectComponent
                 $this->project->fireTaskStarted($this);
                 $this->maybeConfigure();
                 DispatchUtils::main($this);
-            } catch (\Phing\Exception\BuildException $ex) {
+            } catch (BuildException $ex) {
                 $loc = $ex->getLocation();
                 if ($loc === null || (string) $loc === '') {
                     $ex->setLocation($this->getLocation());
                 }
                 $reason = $ex;
                 throw $ex;
-            } catch (\Exception $ex) {
+            } catch (Exception $ex) {
                 $reason = $ex;
-                $be = new \Phing\Exception\BuildException($ex);
+                $be = new BuildException($ex);
                 $be->setLocation($this->getLocation());
                 throw $be;
-            } catch (\Error $ex) {
+            } catch (Error $ex) {
                 $reason = $ex;
                 throw $ex;
             } finally {
@@ -349,7 +351,7 @@ abstract class Task extends ProjectComponent
      * Returns a name
      *
      * @param string $slotName
-     * @return \Phing\Util\RegisterSlot
+     * @return RegisterSlot
      */
     protected function getRegisterSlot($slotName)
     {

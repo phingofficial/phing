@@ -19,15 +19,8 @@
 
 namespace Phing\Parser;
 
-use Phing\Parser\ElementHandler;
-use Phing\Parser\ExpatParseException;
-use Phing\Parser\ExpatParser;
-use Phing\Parser\AbstractHandler;
-use Phing\Parser\TargetHandler;
 use Phing\Util\StringHelper;
 use Phing\Io\File;
-use Phing\Parser\XmlContext;
-use Phing\Parser\ProjectConfigurator;
 
 /**
  * Handler class for the <project> XML element This class handles all elements

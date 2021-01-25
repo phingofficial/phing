@@ -19,13 +19,6 @@
 
 namespace Phing\Parser;
 
-use Phing\Parser\ExpatParseException;
-use Phing\Parser\AbstractHandler;
-use Phing\Parser\AbstractSAXParser;
-use Phing\Parser\XmlContext;
-use Phing\Parser\ProjectConfigurator;
-use Phing\Parser\ProjectHandler;
-
 /**
  * Root filter class for a phing buildfile.
  *

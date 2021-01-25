@@ -152,9 +152,7 @@ class PhpEvalTask extends Task
     }
 
     /**
-     * Evaluates expression and returns resulting value.
-     *
-     * @return mixed
+     * Evaluates expression and sets property to resulting value.
      */
     protected function evalExpression()
     {

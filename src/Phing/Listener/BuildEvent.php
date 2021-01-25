@@ -19,7 +19,6 @@
 
 namespace Phing\Listener;
 
-use Phing\Listener\EventObject;
 use Exception;
 use Phing\Project;
 use Phing\Target;

@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\System;
 
+use InvalidArgumentException;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
 use Phing\Io\FileUtils;
@@ -152,7 +153,7 @@ class ExecTask extends Task
     private $env;
 
     /**
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function __construct()
     {
@@ -164,7 +165,7 @@ class ExecTask extends Task
     /**
      * Main method: wraps execute() command.
      *
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -305,7 +306,7 @@ class ExecTask extends Task
      * Executes the command and returns return code and output.
      *
      * @return array array(return code, array with output)
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     protected function executeCommand()
     {
@@ -394,7 +395,7 @@ class ExecTask extends Task
      * @param string $command String or string-compatible (e.g. w/ __toString()).
      *
      * @return void
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function setCommand($command): void
     {
@@ -692,7 +693,7 @@ class ExecTask extends Task
      *                               is returned.
      *
      * @return string the executable as a full path if it can be determined.
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      * @throws IOException
      * @throws NullPointerException
      */
@@ -758,6 +759,6 @@ class ExecTask extends Task
             return $p ?? $value['Path'];
         }
 
-        throw new \InvalidArgumentException('$value should be of type array or string.');
+        throw new InvalidArgumentException('$value should be of type array or string.');
     }
 }

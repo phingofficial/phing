@@ -19,11 +19,9 @@
 
 namespace Phing\Filter;
 
-use Phing\Filter\BaseParamFilterReader;
 use DOMDocument;
 use Phing\Io\IOException;
 use Phing\Exception\BuildException;
-use Phing\Filter\ChainableReader;
 use Phing\Io\FilterReader;
 use Phing\Io\File;
 use Phing\Project;

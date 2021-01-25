@@ -19,18 +19,15 @@
 
 namespace Phing\Filter;
 
-use Phing\Filter\BaseParamFilterReader;
 use Phing\Io\BufferedReader;
 use DOMDocument;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
 use Phing\Exception\BuildException;
-use Phing\Filter\ChainableReader;
 use Phing\Io\FilterReader;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Io\Reader;
-use Phing\Filter\XsltParam;
 use XSLTProcessor;
 
 /**

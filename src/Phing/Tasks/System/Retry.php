@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\System;
 
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
@@ -110,7 +111,7 @@ class Retry extends Task implements TaskContainer
             try {
                 $this->nestedTask->perform();
                 break;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $errorMessages .= $e->getMessage();
                 if ($i >= $this->retryCount) {
                     $taskName = $this->nestedTask->getTaskName();
@@ -138,7 +139,7 @@ EXCEPTION_MESSAGE;
                     );
                 }
 
-                $this->log($msg, Project::MSG_INFO);
+                $this->log($msg);
                 $errorMessages .= PHP_EOL;
 
                 if ($this->retryDelay > 0) {

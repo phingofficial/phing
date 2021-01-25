@@ -21,6 +21,7 @@ namespace Phing;
 
 use Phing\Exception\BuildException;
 use Phing\Parser\Location;
+use function array_search;
 
 /**
  * The Target component. Carries all required target data. Implements the
@@ -201,7 +202,7 @@ class Target implements TaskContainer
      */
     public function dependsOn($targetName)
     {
-        return \array_search($targetName, $this->dependencies);
+        return array_search($targetName, $this->dependencies);
     }
 
     /**
@@ -487,7 +488,7 @@ class Target implements TaskContainer
      * @param string $targetName
      * @param string $attributeName
      * @return string[]
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public static function parseDepends($depends, $targetName, $attributeName)
     {

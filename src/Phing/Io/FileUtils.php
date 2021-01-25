@@ -110,9 +110,7 @@ class FileUtils
             $crh->setPrimaryReader($in);
             $crh->setFilterChains($filterChains);
             $crh->setProject($project);
-            $rdr = $crh->getAssembledReader();
-
-            return $rdr;
+            return $crh->getAssembledReader();
         }
 
         return $in;
@@ -193,7 +191,7 @@ class FileUtils
                 // By default, PHP::Copy also copies the file permissions. Therefore,
                 // re-setting the mode with the "user file-creation mask" information.
                 if ($preservePermissions === false) {
-                    $destFile->setMode(FileUtils::getDefaultFileCreationMask(false));
+                    $destFile->setMode(FileUtils::getDefaultFileCreationMask());
                 }
             }
 

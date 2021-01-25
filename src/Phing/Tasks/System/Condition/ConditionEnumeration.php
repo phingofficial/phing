@@ -19,6 +19,7 @@
 
 namespace Phing\Tasks\System\Condition;
 
+use Iterator;
 use Phing\ProjectComponent;
 
 /**
@@ -27,7 +28,7 @@ use Phing\ProjectComponent;
  *
  * @package phing.tasks.system.condition
  */
-class ConditionEnumeration implements \Iterator
+class ConditionEnumeration implements Iterator
 {
 
     /**

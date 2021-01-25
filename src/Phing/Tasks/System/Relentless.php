@@ -46,7 +46,7 @@ class Relentless extends Task implements TaskContainer
     /**
      * This method will be called when it is time to execute the task.
      *
-     * @throws \Phing\Exception\BuildException
+     * @throws BuildException
      */
     public function main()
     {

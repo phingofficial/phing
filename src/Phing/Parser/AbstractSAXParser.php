@@ -20,7 +20,6 @@
 namespace Phing\Parser;
 
 use Exception;
-use Phing\Parser\AbstractHandler;
 
 /**
  * The abstract SAX parser class.

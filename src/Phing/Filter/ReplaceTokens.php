@@ -20,9 +20,6 @@
 namespace Phing\Filter;
 
 use Exception;
-use Phing\Filter\BaseParamFilterReader;
-use Phing\Filter\ChainableReader;
-use Phing\Filter\Token;
 use Phing\Project;
 use Phing\Io\Reader;
 use Phing\Type\TokenSource;

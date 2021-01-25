@@ -19,9 +19,7 @@
 
 namespace Phing\Filter;
 
-use Phing\Filter\BaseParamFilterReader;
 use Phing\Exception\BuildException;
-use Phing\Filter\ChainableReader;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Io\Reader;
