@@ -21,7 +21,7 @@
     <property file="property3.properties"/>
     <echo message="http.url is ${http.url}"/>
   </target>
-  
+
   <target name="prefix.success">
     <property file="property3.properties" prefix="server1"/>
   </target>
@@ -29,7 +29,7 @@
   <target name="prefix.fail">
     <property name="someprop" value="value" prefix="prefix"/>
   </target>
-  
+
   <target name="testFilterChain">
     <property name="filterchain.test" value="Hello">
       <filterchain>
@@ -40,12 +40,12 @@
     </property>
   </target>
 
-  <taskdef name="hangdetectorproperty" classname="HangDetectorPropertyTask" />
+  <taskdef name="hangdetectorproperty" classname="Phing\Support\HangDetectorPropertyTask" />
   <target name="testCircularDefinition1">
     <property name="testprop2" value="${testprop1}"  />
     <hangdetectorproperty file="property2.properties"/>
   </target>
-  
+
   <target name="testCircularDefinition2">
       <hangdetectorproperty file="property_hang.properties"/>
   </target>
