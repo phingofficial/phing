@@ -20,25 +20,25 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Tasks\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\": "src/"
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "gitarchive": "Phing\\Tasks\\Ext\\GitArchiveTask",
-      "gitinit": "Phing\\Tasks\\Ext\\GitInitTask",
-      "gitclone": "Phing\\Tasks\\Ext\\GitCloneTask",
-      "gitgc": "Phing\\Tasks\\Ext\\GitGcTask",
-      "gitbranch": "Phing\\Tasks\\Ext\\GitBranchTask",
-      "gitfetch": "Phing\\Tasks\\Ext\\GitFetchTask",
-      "gitmerge": "Phing\\Tasks\\Ext\\GitMergeTask",
-      "gitcheckout": "Phing\\Tasks\\Ext\\GitCheckoutTask",
-      "gitpull": "Phing\\Tasks\\Ext\\GitPullTask",
-      "gitpush": "Phing\\Tasks\\Ext\\GitPushTask",
-      "gitlog": "Phing\\Tasks\\Ext\\GitLogTask",
-      "gittag": "Phing\\Tasks\\Ext\\GitTagTask",
-      "gitcommit": "Phing\\Tasks\\Ext\\GitCommitTask",
-      "gitdescribe": "Phing\\Tasks\\Ext\\GitDescribeTask"
+      "gitarchive": "Phing\\Task\\Ext\\GitArchiveTask",
+      "gitinit": "Phing\\Task\\Ext\\GitInitTask",
+      "gitclone": "Phing\\Task\\Ext\\GitCloneTask",
+      "gitgc": "Phing\\Task\\Ext\\GitGcTask",
+      "gitbranch": "Phing\\Task\\Ext\\GitBranchTask",
+      "gitfetch": "Phing\\Task\\Ext\\GitFetchTask",
+      "gitmerge": "Phing\\Task\\Ext\\GitMergeTask",
+      "gitcheckout": "Phing\\Task\\Ext\\GitCheckoutTask",
+      "gitpull": "Phing\\Task\\Ext\\GitPullTask",
+      "gitpush": "Phing\\Task\\Ext\\GitPushTask",
+      "gitlog": "Phing\\Task\\Ext\\GitLogTask",
+      "gittag": "Phing\\Task\\Ext\\GitTagTask",
+      "gitcommit": "Phing\\Task\\Ext\\GitCommitTask",
+      "gitdescribe": "Phing\\Task\\Ext\\GitDescribeTask"
     }
   }
 }
