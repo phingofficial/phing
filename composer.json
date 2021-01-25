@@ -19,18 +19,18 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Tasks\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\": "src/"
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "liquibase-changelog": "Phing\\Tasks\\Ext\\LiquibaseChangeLogTask",
-      "liquibase-dbdoc": "Phing\\Tasks\\Ext\\LiquibaseDbDocTask",
-      "liquibase-diff": "Phing\\Tasks\\Ext\\LiquibaseDiffTask",
-      "liquibase-rollback": "Phing\\Tasks\\Ext\\LiquibaseRollbackTask",
-      "liquibase-tag": "Phing\\Tasks\\Ext\\LiquibaseTagTask",
-      "liquibase-update": "Phing\\Tasks\\Ext\\LiquibaseUpdateTask",
-      "liquibase": "Phing\\Tasks\\Ext\\LiquibaseTask"
+      "liquibase-changelog": "Phing\\Task\\Ext\\LiquibaseChangeLogTask",
+      "liquibase-dbdoc": "Phing\\Task\\Ext\\LiquibaseDbDocTask",
+      "liquibase-diff": "Phing\\Task\\Ext\\LiquibaseDiffTask",
+      "liquibase-rollback": "Phing\\Task\\Ext\\LiquibaseRollbackTask",
+      "liquibase-tag": "Phing\\Task\\Ext\\LiquibaseTagTask",
+      "liquibase-update": "Phing\\Task\\Ext\\LiquibaseUpdateTask",
+      "liquibase": "Phing\\Task\\Ext\\LiquibaseTask"
     }
   }
 }

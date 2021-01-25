@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Tasks\Ext;
+namespace Phing\Task\Ext;
 
 /**
  * Task to create the diff between two databases. Will output the changes needed
