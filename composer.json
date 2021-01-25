@@ -20,22 +20,22 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Tasks\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\": "src/"
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "hgadd": "Phing\\Tasks\\Ext\\HgAddTask",
-      "hgarchive": "Phing\\Tasks\\Ext\\HgArchiveTask",
-      "hgclone": "Phing\\Tasks\\Ext\\HgCloneTask",
-      "hgcommit": "Phing\\Tasks\\Ext\\HgCommitTask",
-      "hginit": "Phing\\Tasks\\Ext\\HgInitTask",
-      "hglog": "Phing\\Tasks\\Ext\\HgLogTask",
-      "hgpull": "Phing\\Tasks\\Ext\\HgPullTask",
-      "hgpush": "Phing\\Tasks\\Ext\\HgPushTask",
-      "hgrevert": "Phing\\Tasks\\Ext\\HgRevertTask",
-      "hgtag": "Phing\\Tasks\\Ext\\HgTagTask",
-      "hgupdate": "Phing\\Tasks\\Ext\\HgUpdateTask"
+      "hgadd": "Phing\\Task\\Ext\\HgAddTask",
+      "hgarchive": "Phing\\Task\\Ext\\HgArchiveTask",
+      "hgclone": "Phing\\Task\\Ext\\HgCloneTask",
+      "hgcommit": "Phing\\Task\\Ext\\HgCommitTask",
+      "hginit": "Phing\\Task\\Ext\\HgInitTask",
+      "hglog": "Phing\\Task\\Ext\\HgLogTask",
+      "hgpull": "Phing\\Task\\Ext\\HgPullTask",
+      "hgpush": "Phing\\Task\\Ext\\HgPushTask",
+      "hgrevert": "Phing\\Task\\Ext\\HgRevertTask",
+      "hgtag": "Phing\\Task\\Ext\\HgTagTask",
+      "hgupdate": "Phing\\Task\\Ext\\HgUpdateTask"
     }
   }
 }

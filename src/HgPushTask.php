@@ -11,7 +11,7 @@
  * @link     https://github.com/kenguest/Phing-HG
  */
 
-namespace Phing\Tasks\Ext;
+namespace Phing\Task\Ext;
 
 use Phing\Exception\BuildException;
 use Phing\Project;
