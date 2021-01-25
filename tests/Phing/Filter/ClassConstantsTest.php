@@ -23,7 +23,6 @@ use Phing\Support\BuildFileTest;
 
 /**
  * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>
- * @package phing.filters
  */
 class ClassConstantsTest extends BuildFileTest
 {

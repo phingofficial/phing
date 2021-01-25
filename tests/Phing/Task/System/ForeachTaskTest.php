@@ -27,7 +27,6 @@ use Phing\Support\BuildFileTest;
  * Unit test for ForeachTask.
  *
  * @author  Laurent Laville <pear@laurent-laville.org>
- * @package phing.tasks.system
  */
 class ForeachTaskTest extends BuildFileTest
 {

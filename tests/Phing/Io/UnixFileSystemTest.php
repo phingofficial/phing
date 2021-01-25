@@ -23,7 +23,6 @@ namespace Phing\Io;
  * Unit test for UnixFileSystem
  *
  * @author Michiel Rook <mrook@php.net>
- * @package phing.system.io
  */
 class UnixFileSystemTest extends \PHPUnit\Framework\TestCase
 {

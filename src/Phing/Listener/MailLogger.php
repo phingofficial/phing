@@ -35,7 +35,6 @@ use Phing\Util\StringHelper;
  * more recipients.
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.listener
  */
 class MailLogger extends DefaultLogger
 {

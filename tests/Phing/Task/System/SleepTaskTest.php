@@ -27,7 +27,6 @@ use Phing\Util\Timer;
  * Tests the SleepTask
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class SleepTaskTest extends BuildFileTest
 {

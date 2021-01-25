@@ -23,7 +23,6 @@ use Exception;
 /**
  * Output stream subclass for file streams.
  *
- * @package phing.system.io
  */
 class FileOutputStream extends OutputStream
 {

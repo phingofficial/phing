@@ -50,7 +50,6 @@ use Phing\Util\Properties;
  * @author  Anton Stöckl <anton@stoeckl.de> (Phing HTML Color Logger)
  * @author  Hans Lellelid <hans@xmpl.org> (Phing Ansi Color Logger)
  * @author  Magesh Umasankar (Ant)
- * @package phing.listener
  */
 class HtmlColorLogger extends DefaultLogger
 {

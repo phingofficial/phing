@@ -32,7 +32,6 @@ use Phing\Parser\ProjectConfigurator;
  *
  * @author  Andreas Aderhold <andi@binarycloud.com>
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing
  */
 class RuntimeConfigurable
 {

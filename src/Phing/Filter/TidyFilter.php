@@ -37,7 +37,6 @@ use tidy;
  * </pre>
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.filters
  */
 class TidyFilter extends BaseParamFilterReader implements ChainableReader
 {

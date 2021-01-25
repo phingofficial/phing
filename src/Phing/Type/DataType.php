@@ -35,7 +35,6 @@ use Phing\ProjectComponent;
  *
  * {@inheritdoc}
  *
- * @package phing.types
  */
 class DataType extends ProjectComponent
 {

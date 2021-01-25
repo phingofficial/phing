@@ -34,7 +34,6 @@ use Phing\Util\StringHelper;
  *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @see     phing.util.regex.RegexMatcher
- * @package phing.types
  */
 class RegularExpression extends DataType
 {

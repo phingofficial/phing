@@ -43,7 +43,6 @@ use Phing\Util\StringHelper;
  *
  * @author Andreas Aderhold, andi@binarycloud.com
  *
- * @package phing.system.io
  */
 class UnixFileSystem extends FileSystem
 {

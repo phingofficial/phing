@@ -31,7 +31,6 @@ use Phing\Type\Parameterizable;
  * @copyright 2003 seasonfive. All rights reserved
  *
  * @see     FilterReader
- * @package phing.filters
  */
 class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
 {

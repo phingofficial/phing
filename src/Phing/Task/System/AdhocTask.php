@@ -33,7 +33,6 @@ use Phing\Task;
  * Subclasses exist for conveniently declaring and registering tasks and types.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class AdhocTask extends Task
 {

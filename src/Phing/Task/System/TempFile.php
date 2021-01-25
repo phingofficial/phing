@@ -45,7 +45,6 @@ use Phing\Task;
  * create a temp file in the build subdir
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class TempFile extends Task
 {

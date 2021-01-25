@@ -38,7 +38,6 @@ use Phing\Io\Reader;
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@xmpl.org>
  * @see     BaseParamFilterReader
- * @package phing.filters
  */
 class TabToSpaces extends BaseParamFilterReader implements ChainableReader
 {

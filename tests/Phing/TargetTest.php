@@ -28,7 +28,6 @@ use Phing\Task\System\EchoTask;
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @author Daniel Holmes
- * @package phing.system
  */
 class TargetTest extends BuildFileTest
 {

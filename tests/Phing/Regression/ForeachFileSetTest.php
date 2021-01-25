@@ -26,7 +26,6 @@ use Phing\Support\BuildFileTest;
  * Regression test for ticket http://www.phing.info/trac/ticket/252
  * - foreach on a fileset
  *
- * @package phing.regression
  */
 class ForeachFileSetTest extends BuildFileTest
 {

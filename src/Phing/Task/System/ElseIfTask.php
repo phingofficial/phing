@@ -26,7 +26,6 @@ use Phing\Task\System\Condition\ConditionBase;
  * "Inner" class for IfTask.
  * This class has same basic structure as the IfTask, although of course it doesn't support <else> tags.
  *
- * @package phing.tasks.system
  */
 class ElseIfTask extends ConditionBase
 {

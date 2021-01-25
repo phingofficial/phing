@@ -30,7 +30,6 @@ use function array_search;
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @see       TaskContainer
- * @package   phing
  */
 class Target implements TaskContainer
 {

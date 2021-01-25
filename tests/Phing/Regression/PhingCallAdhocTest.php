@@ -24,7 +24,6 @@ use Phing\Support\BuildFileTest;
  * Regression test for ticket http://www.phing.info/trac/ticket/299
  * - PhingCall crashes if an AdhocTask is defined
  *
- * @package phing.regression
  */
 class PhingCallAdhocTest extends BuildFileTest
 {

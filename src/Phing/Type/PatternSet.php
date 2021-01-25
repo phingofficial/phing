@@ -32,7 +32,6 @@ use Phing\Util\StringHelper;
  * for the patternset stuff.
  *
  * @author  Andreas Aderhold, andi@binarycloud.com
- * @package phing.types
  */
 class PatternSet extends DataType
 {

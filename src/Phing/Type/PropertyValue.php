@@ -22,7 +22,6 @@ namespace Phing\Type;
  * Class to hold a property value
  *  Class only required to make it possible to add a property as reference
  *
- * @package phing.types
  */
 class PropertyValue
 {

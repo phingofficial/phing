@@ -24,7 +24,6 @@ namespace Phing\Task\System\Condition;
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @package phing.tasks.system.condition
  */
 class EqualsConditionTest extends \PHPUnit\Framework\TestCase
 {

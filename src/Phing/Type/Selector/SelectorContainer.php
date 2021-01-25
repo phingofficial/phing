@@ -26,7 +26,6 @@ use Phing\Project;
  *
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
  *
- * @package phing.types.selectors
  */
 interface SelectorContainer
 {

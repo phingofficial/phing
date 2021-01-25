@@ -36,7 +36,6 @@ use Phing\Util\StringHelper;
  * build process.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class RecorderEntry implements BuildLogger, SubBuildListener
 {

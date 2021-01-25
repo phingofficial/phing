@@ -28,7 +28,6 @@ use Phing\Util\StatisticsReport;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.listener
  */
 class StatisticsListener implements SubBuildListener
 {

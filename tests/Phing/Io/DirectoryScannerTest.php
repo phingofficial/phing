@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @package phing.util
  */
 
 namespace Phing\Io;
@@ -31,7 +30,6 @@ use Phing\Support\BuildFileTest;
  *
  * @see     http://svn.apache.org/viewvc/ant/core/trunk/src/tests/junit/org/apache/tools/ant/DirectoryScannerTest.java
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.util
  */
 class DirectoryScannerTest extends BuildFileTest
 {

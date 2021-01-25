@@ -22,7 +22,6 @@ use Phing\Support\BuildFileTest;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.filters
  */
 class PrefixLinesTest extends BuildFileTest
 {

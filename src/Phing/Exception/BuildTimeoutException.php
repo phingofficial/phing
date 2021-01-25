@@ -23,7 +23,6 @@ namespace Phing\Exception;
  * This exception is used to indicate timeouts.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing
  */
 class BuildTimeoutException extends BuildException
 {

@@ -32,7 +32,6 @@ use Exception;
  * @author Conor MacNeill (Ant)
  * @author Jeff Tulley <jtulley@novell.com>  (Ant)
  *
- * @package phing.util
  */
 class PathTokenizer
 {

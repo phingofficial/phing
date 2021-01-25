@@ -26,7 +26,6 @@ namespace Phing\Type;
  * elements of &lt;execon&gt; and &lt;transform&gt; - don't know
  * whether there might be additional use cases.</p> --SB
  *
- * @package phing.types
  */
 class CommandlineMarker
 {

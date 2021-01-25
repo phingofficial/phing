@@ -34,7 +34,6 @@ use Phing\Util\StringHelper;
  *
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
  *
- * @package phing.types.selectors
  */
 abstract class BaseSelector extends DataType implements FileSelector
 {

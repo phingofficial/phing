@@ -33,7 +33,6 @@ use Phing\Task;
  * the main() method will be called.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.dispatch
  */
 abstract class DispatchTask extends Task implements Dispatchable
 {

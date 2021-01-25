@@ -26,7 +26,6 @@ namespace Phing\Io;
  *
  * @see FilterReader
  *
- * @package phing.system.io
  */
 class BufferedReader extends Reader
 {

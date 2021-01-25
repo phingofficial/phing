@@ -33,7 +33,6 @@ use Phing\UnknownElement;
  *
  * @author    Michiel Rook <mrook@php.net>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @package   phing.parser
  */
 class ElementHandler extends AbstractHandler
 {

@@ -24,7 +24,6 @@ use Phing\Support\BuildFileTest;
  * Regression test for ticket http://www.phing.info/trac/ticket/269
  * - Allow properties to be recursively named
  *
- * @package phing.regression
  */
 class RecursivePropertyTest extends BuildFileTest
 {

@@ -21,7 +21,6 @@ namespace Phing\Filter;
 /**
  * Holds a token.
  *
- * @package phing.filters
  */
 class Token
 {

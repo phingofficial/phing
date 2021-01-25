@@ -27,7 +27,6 @@ use Phing\Exception\BuildException;
  * Tests for a (tcp) listener on a specified host and port
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system.condition
  */
 class SocketCondition implements Condition
 {

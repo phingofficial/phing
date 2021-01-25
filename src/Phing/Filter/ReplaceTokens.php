@@ -44,7 +44,6 @@ use Phing\Type\TokenSource;
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
  * @see     BaseParamFilterReader
- * @package phing.filters
  */
 class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 {

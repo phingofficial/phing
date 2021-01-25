@@ -27,7 +27,6 @@ use Phing\Task;
  * An phing version condition/task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class PhingVersion extends Task implements Condition
 {

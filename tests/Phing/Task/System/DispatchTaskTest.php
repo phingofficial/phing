@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Dispatch Task
  *
  * @author  Siad Ardroumli
- * @package phing.tasks.system
  */
 class DispatchTaskTest extends BuildFileTest
 {

@@ -36,7 +36,6 @@ use Phing\Util\RegisterSlot;
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @see       Project#createTask()
- * @package   phing
  */
 abstract class Task extends ProjectComponent
 {

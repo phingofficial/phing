@@ -25,7 +25,6 @@ use Phing\Task\System\PropertyTask;
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
- * @package phing.tasks.system
  */
 class HangDetectorPropertyTask extends PropertyTask
 {

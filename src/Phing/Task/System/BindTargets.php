@@ -29,7 +29,6 @@ use Phing\Task;
  * Simple task which bind some targets to some defined extension point
  *
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package   phing.tasks.system
  */
 class BindTargets extends Task
 {

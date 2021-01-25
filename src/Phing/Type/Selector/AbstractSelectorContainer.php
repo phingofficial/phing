@@ -30,7 +30,6 @@ use Phing\Util\StringHelper;
  * This is the base class for selectors that can contain other selectors.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.types.selectors
  */
 abstract class AbstractSelectorContainer extends DataType implements SelectorContainer
 {

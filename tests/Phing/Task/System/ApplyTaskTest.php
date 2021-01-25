@@ -32,7 +32,6 @@ use ReflectionProperty;
  * Tests the Apply Task
  *
  * @author  Utsav Handa <handautsav at hotmail dot com>
- * @package phing.tasks.system
  */
 class ApplyTaskTest extends BuildFileTest
 {

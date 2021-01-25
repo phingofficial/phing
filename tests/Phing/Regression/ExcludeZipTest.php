@@ -24,7 +24,6 @@ use Phing\Support\BuildFileTest;
  * Regression test for ticket http://www.phing.info/trac/ticket/137
  * - Excluded files may be included in Zip/Tar tasks
  *
- * @package phing.regression
  *
  * @requires extension zip
  */

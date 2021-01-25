@@ -21,7 +21,6 @@ namespace Phing\Exception;
 use Exception;
 
 /**
- * @package   phing.system.lang
  */
 class FileNotFoundException extends Exception
 {

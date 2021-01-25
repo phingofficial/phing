@@ -25,7 +25,6 @@ use Phing\Type\Reference;
  * Helper class that implements the nested <reference>
  * element of <phing> and <phingcall>.
  *
- * @package phing.tasks.system
  */
 class PhingReference extends Reference
 {

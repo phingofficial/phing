@@ -35,7 +35,6 @@ use Phing\Io\Reader;
  * </filterreader></pre>
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.filters
  */
 class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
 {

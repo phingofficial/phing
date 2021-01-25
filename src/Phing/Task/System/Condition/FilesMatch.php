@@ -28,7 +28,6 @@ use Phing\Io\FileUtils;
  * content. Timestamps are not at all looked at.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system.condition
  */
 class FilesMatch implements Condition
 {

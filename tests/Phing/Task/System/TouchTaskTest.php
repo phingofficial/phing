@@ -28,7 +28,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Touch Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
  */
 class TouchTaskTest extends BuildFileTest
 {

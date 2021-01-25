@@ -35,7 +35,6 @@ use Phing\Util\StringHelper;
  *        modify internal Phing classes unless you know what you are doing.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  *
  * @todo Add support for evaluating expressions
  */

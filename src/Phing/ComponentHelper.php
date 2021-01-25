@@ -34,7 +34,6 @@ use ReflectionClass;
  *
  * @author Michiel Rook <mrook@php.net>
  *
- * @package phing
  */
 class ComponentHelper
 {

@@ -66,7 +66,6 @@ use Phing\Type\Selector\WritableSelector;
  * @author  Jon S. Stevens <jon@clearink.com> (Ant
  * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @author  Bruce Atherton <bruce@callenish.com> (Ant)
- * @package phing.tasks.system
  */
 abstract class MatchingTask extends Task implements SelectorContainer
 {

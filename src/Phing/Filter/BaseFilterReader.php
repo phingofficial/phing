@@ -29,7 +29,6 @@ use Phing\Project;
  *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @see     FilterReader
- * @package phing.filters
  */
 class BaseFilterReader extends FilterReader
 {

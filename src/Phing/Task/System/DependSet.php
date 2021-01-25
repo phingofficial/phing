@@ -56,7 +56,6 @@ use Phing\Type\FileSet;
  * than exhaustively checking every source vs target combination unnecessarily.
  * </p>
  *
- * @package phing.tasks.system
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
 class DependSet extends MatchingTask

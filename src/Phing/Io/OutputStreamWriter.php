@@ -26,7 +26,6 @@ namespace Phing\Io;
  * character set transformations.  This will be an important function
  * of this class with move to supporting PHP6.
  *
- * @package phing.system.io
  */
 class OutputStreamWriter extends Writer
 {

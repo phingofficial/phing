@@ -27,7 +27,6 @@ use Phing\Project;
  *
  * @author    Patrick McAndrew <patrick@urg.name>
  * @copyright 2013. All rights reserved
- * @package   phing.listener
  */
 class TargetLogger extends AnsiColorLogger
 {

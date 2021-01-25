@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Dirname Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class DirnameTest extends BuildFileTest
 {

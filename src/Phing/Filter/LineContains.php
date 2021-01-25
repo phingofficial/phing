@@ -49,7 +49,6 @@ use Phing\Type\FilterReader;
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@velum.net>
  * @see     FilterReader
- * @package phing.filters
  */
 class LineContains extends BaseParamFilterReader implements ChainableReader
 {

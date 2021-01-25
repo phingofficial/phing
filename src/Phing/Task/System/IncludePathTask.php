@@ -36,7 +36,6 @@ use Phing\Type\Element\ClasspathAware;
  * </code>
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class IncludePathTask extends Task
 {

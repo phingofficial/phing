@@ -27,7 +27,6 @@ use Phing\Io\File;
  *
  * @author  Hans Lellelid, hans@xmpl.org (Phing)
  * @author  <a href="mailto:bruce@callenish.com">Bruce Atherton</a> (Ant)
- * @package phing.types.selectors
  */
 class AndSelector extends BaseSelectorContainer
 {

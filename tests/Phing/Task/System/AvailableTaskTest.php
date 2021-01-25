@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Available Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
  *
  * TODO: fix these tests on windows. Windows symlink command is mklink. I am not sure why these tests
  *       are throwing errors.

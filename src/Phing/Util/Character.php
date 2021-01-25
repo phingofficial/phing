@@ -19,7 +19,6 @@
 
 namespace Phing\Util;
 /**
- * @package phing.system.lang
  */
 class Character
 {

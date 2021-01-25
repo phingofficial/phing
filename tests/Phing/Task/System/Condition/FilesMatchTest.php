@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the FilesMatch Condition
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class FilesMatchTest extends BuildFileTest
 {

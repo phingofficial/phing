@@ -23,7 +23,6 @@ namespace Phing\Io;
  * Unit test for YamlFileParser
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
- * @package phing.system.io
  */
 class YamlFileParserTest extends \PHPUnit\Framework\TestCase
 {

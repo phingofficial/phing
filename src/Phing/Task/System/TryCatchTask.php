@@ -30,7 +30,6 @@ use Phing\Task;
  * Inspired by {@link http://ant-contrib.sourceforge.net/tasks/tasks/trycatch.html}
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
  */
 class TryCatchTask extends Task
 {

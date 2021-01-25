@@ -9,7 +9,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Relentless Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class RelentlessTest extends BuildFileTest
 {

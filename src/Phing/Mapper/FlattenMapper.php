@@ -24,7 +24,6 @@ use Phing\Io\File;
  * Removes any directory information from the passed path.
  *
  * @author  Andreas Aderhold <andi@binarycloud.com>
- * @package phing.mappers
  */
 class FlattenMapper implements FileNameMapper
 {

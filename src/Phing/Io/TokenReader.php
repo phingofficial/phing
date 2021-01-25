@@ -26,7 +26,6 @@ use Phing\Project;
  *
  * @author Manuel Holtgewe
  *
- * @package phing.filters.util
  */
 abstract class TokenReader
 {

@@ -25,7 +25,6 @@ use Phing\Io\File;
  * Unit test for Properties class
  *
  * @author Michiel Rook <mrook@php.net>
- * @package phing.system.util
  */
 class PropertiesTest extends \PHPUnit\Framework\TestCase
 {

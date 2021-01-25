@@ -26,7 +26,6 @@ use Phing\Io\File;
  * Representation of a single env value.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.types.environment
  */
 class EnvVariable
 {

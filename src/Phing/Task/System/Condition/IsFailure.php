@@ -23,7 +23,6 @@ namespace Phing\Task\System\Condition;
  * Condition to test a return-code for failure.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class IsFailure implements Condition
 {

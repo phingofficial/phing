@@ -24,7 +24,6 @@ namespace Phing\Io;
  *
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Yannick Lecaillez <yl@seasonfive.com>
- * @package phing.system.io
  */
 abstract class Reader
 {

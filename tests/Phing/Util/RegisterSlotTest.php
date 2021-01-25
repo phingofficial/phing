@@ -23,7 +23,6 @@ namespace Phing\Util;
  * Unit test for RegisterSlot
  *
  * @author Michiel Rook <mrook@php.net>
- * @package phing.system.util
  */
 class RegisterSlotTest extends \PHPUnit\Framework\TestCase
 {

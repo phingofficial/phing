@@ -25,7 +25,6 @@ use ReflectionClass;
 /**
  * Unit test for FileSystem
  *
- * @package phing.system.io
  */
 class FileSystemTest extends \PHPUnit\Framework\TestCase
 {

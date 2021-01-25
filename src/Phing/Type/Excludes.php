@@ -25,7 +25,6 @@ use Phing\Project;
 /**
  * Datatype which handles excluded files, classes and methods.
  *
- * @package phing.types
  * @author  Benjamin Schultz <bschultz@proqrent.de>
  * @since   2.4.6
  */

@@ -29,7 +29,6 @@ use Phing\TaskContainer;
  * tasks fail, then Relentless will fail; otherwise it will succeed.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class Relentless extends Task implements TaskContainer
 {

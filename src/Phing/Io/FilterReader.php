@@ -22,7 +22,6 @@ namespace Phing\Io;
 /**
  * Wrapper class for readers, which can be used to apply filters.
  *
- * @package phing.system.io
  */
 class FilterReader extends Reader
 {

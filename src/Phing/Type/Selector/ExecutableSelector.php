@@ -25,7 +25,6 @@ use Phing\Io\File;
  * A selector that selects executable files.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.types.selectors
  */
 class ExecutableSelector implements FileSelector
 {

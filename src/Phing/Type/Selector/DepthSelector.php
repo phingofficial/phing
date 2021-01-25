@@ -29,7 +29,6 @@ use Phing\Io\File;
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
  *
- * @package phing.types.selectors
  */
 class DepthSelector extends BaseExtendSelector
 {

@@ -22,7 +22,6 @@ namespace Phing\Io;
 /**
  * Convenience class for performing file write operations.
  *
- * @package phing.system.io
  */
 class FileWriter extends OutputStreamWriter
 {

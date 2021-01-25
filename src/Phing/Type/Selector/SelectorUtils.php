@@ -34,7 +34,6 @@ use Phing\Util\StringHelper;
  * @author  Arnout J. Kuiper, ajkuiper@wxs.nl (Ant)
  * @author  Magesh Umasankar
  * @author  Bruce Atherton, bruce@callenish.com (Ant)
- * @package phing.types.selectors
  */
 class SelectorUtils
 {

@@ -34,7 +34,6 @@ use Phing\Project;
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@xmpl.org>
  * @see     BaseFilterReader
- * @package phing.filters
  */
 class ExpandProperties extends BaseFilterReader implements ChainableReader
 {

@@ -22,7 +22,6 @@ namespace Phing\Task\System\Condition;
 /**
  * Tests for the <socket> condition
  *
- * @package phing.tasks.system.condition
  *
  * @requires extension sockets
  */

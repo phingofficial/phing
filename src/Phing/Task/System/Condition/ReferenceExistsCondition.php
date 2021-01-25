@@ -27,7 +27,6 @@ use Phing\UnknownElement;
  * Condition that tests whether a given reference exists.
  *
  * @author  Matthias Pigulla <mp@webfactory.de> (Phing)
- * @package phing.tasks.system.condition
  */
 class ReferenceExistsCondition extends ProjectComponent implements Condition
 {

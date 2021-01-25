@@ -33,7 +33,6 @@ use Phing\Util\StringHelper;
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @package   phing.parser
  */
 class TargetHandler extends AbstractHandler
 {

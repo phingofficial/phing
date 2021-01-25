@@ -25,7 +25,6 @@ use Phing\Project;
  * at runtime.
  *
  * @author  keith.rogers@unit4.com
- * @package phing.parser
  */
 interface CustomChildCreator
 {

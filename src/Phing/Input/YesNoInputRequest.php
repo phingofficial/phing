@@ -25,7 +25,6 @@ use Phing\Util\StringHelper;
  * Encapsulates an input request that returns a boolean (yes/no).
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.input
  */
 class YesNoInputRequest extends MultipleChoiceInputRequest
 {

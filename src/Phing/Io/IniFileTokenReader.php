@@ -27,7 +27,6 @@ use Phing\Filter\Token;
  * Class that allows reading tokens from INI files.
  *
  * @author  Manuel Holtgewe
- * @package phing.filters.util
  */
 class IniFileTokenReader extends TokenReader
 {

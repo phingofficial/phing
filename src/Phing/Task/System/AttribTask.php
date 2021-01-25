@@ -36,7 +36,6 @@ use Phing\Type\FileSet;
  * ```
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class AttribTask extends ApplyTask
 {

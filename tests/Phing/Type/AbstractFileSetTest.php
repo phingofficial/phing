@@ -27,7 +27,6 @@ use Phing\Project;
  * Unit tests for AbstractFileSet.
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @package phing.types
  */
 abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
 {

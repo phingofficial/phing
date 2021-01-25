@@ -27,7 +27,6 @@ namespace Phing\Util;
  *
  * @author Hans Lellelid <hans@xmpl.org>
  *
- * @package phing.system.util
  */
 class StringHelper
 {

@@ -26,7 +26,6 @@ use Phing\Support\BuildFileTest;
  * Tests dynamics
  *
  * @author  Siad Ardroumli
- * @package phing.tasks.system
  */
 class DynamicTest extends BuildFileTest
 {

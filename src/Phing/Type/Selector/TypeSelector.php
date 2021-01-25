@@ -27,7 +27,6 @@ use Phing\Project;
  *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Jeff Turner <jefft@apache.org> (Ant)
- * @package phing.types.selectors
  */
 class TypeSelector extends BaseExtendSelector
 {

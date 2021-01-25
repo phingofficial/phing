@@ -31,7 +31,6 @@ use Phing\Type\Mapper;
  * base selector
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.types.selectors
  */
 abstract class MappingSelector extends BaseSelector
 {

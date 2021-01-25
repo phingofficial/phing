@@ -32,7 +32,6 @@ use Phing\Task\System\Condition\NestedCondition;
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Nico Seessle <nico@seessle.de> (Ant)
  *
- * @package phing.tasks.system
  */
 class FailTask extends Task
 {

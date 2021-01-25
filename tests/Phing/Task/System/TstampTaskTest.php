@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Tstamp Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class TstampTaskTest extends BuildFileTest
 {

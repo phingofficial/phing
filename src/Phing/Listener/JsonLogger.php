@@ -34,7 +34,6 @@ use SimpleXMLElement;
  * with the property <code>JsonLogger.file</code>.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.listener
  */
 class JsonLogger extends XmlLogger
 {

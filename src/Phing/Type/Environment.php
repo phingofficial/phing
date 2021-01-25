@@ -26,7 +26,6 @@ use Phing\Exception\BuildException;
  * Wrapper for environment variables.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.types
  */
 class Environment
 {

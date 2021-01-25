@@ -60,7 +60,6 @@ use Phing\Type\Parameterizable;
  * TODO: Implement the classPath feature.
  *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @package phing.filters.util
  */
 class ChainReaderHelper
 {

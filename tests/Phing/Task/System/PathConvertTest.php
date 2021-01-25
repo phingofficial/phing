@@ -26,7 +26,6 @@ use Phing\Type\Path;
  * Tests the Apply Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class PathConvertTest extends BuildFileTest
 {

@@ -28,7 +28,6 @@ use Phing\TaskContainer;
  * Retries the nested task a set number of times.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class Retry extends Task implements TaskContainer
 {

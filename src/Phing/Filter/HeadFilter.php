@@ -38,7 +38,6 @@ use Phing\Io\Reader;
  *
  * @see FilterReader
  *
- * @package phing.filters
  */
 class HeadFilter extends BaseParamFilterReader implements ChainableReader
 {

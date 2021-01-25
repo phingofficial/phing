@@ -38,7 +38,6 @@ use Phing\Io\Reader;
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
  * @see     FilterReader
- * @package phing.filters
  */
 class PrefixLines extends BaseParamFilterReader implements ChainableReader
 {

@@ -9,7 +9,6 @@ use Phing\Type\FileSet;
  * Tests the AugmentReference Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class AugmentTest extends BuildFileTest
 {

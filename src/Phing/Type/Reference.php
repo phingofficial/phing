@@ -26,7 +26,6 @@ use Phing\Project;
 /**
  * Class to hold a reference to another object in the project.
  *
- * @package phing.types
  */
 class Reference
 {

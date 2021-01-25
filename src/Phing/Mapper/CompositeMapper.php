@@ -24,7 +24,6 @@ namespace Phing\Mapper;
  * <code>FileNameMapper</code>s into a single set of result filenames.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.mappers
  */
 class CompositeMapper extends ContainerMapper
 {

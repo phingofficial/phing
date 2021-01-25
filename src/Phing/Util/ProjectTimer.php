@@ -23,7 +23,6 @@ namespace Phing\Util;
  * A logger which logs nothing but build failure and what task might output.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.listener.statistics
  */
 class ProjectTimer extends StatsTimer
 {

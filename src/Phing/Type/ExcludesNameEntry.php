@@ -21,7 +21,6 @@ namespace Phing\Type;
 /**
  * Class for holding nested excludes elements (file, class, method).
  *
- * @package phing.types
  * @author  Benjamin Schultz <bschultz@proqrent.de>
  * @since   2.4.6
  */

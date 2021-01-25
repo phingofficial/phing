@@ -25,7 +25,6 @@ use Phing\Target;
  * Track the current state of the Xml parse operation.
  *
  * @author  Bryan Davis <bpd@keynetics.com>
- * @package phing.parser
  */
 class XmlContext
 {

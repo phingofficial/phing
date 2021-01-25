@@ -65,7 +65,6 @@ use RegexIterator;
  *  written to, but will still allow the build to continue.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class EchoProperties extends Task
 {

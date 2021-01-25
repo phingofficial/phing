@@ -24,7 +24,6 @@ namespace Phing\Io;
  * For example: You can implement a .ini-Fileparser or .yaml/.xml/.php.
  *
  * @author  Mike Lohmann <mike.lohmann@deck36.de>
- * @package phing.system.io
  */
 interface FileParserInterface
 {

@@ -24,7 +24,6 @@ namespace Phing\Mapper;
  * first constituent <code>FileNameMapper</code>s that matches.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.mappers
  */
 class FirstMatchMapper extends ContainerMapper
 {

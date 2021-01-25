@@ -39,7 +39,6 @@ use Phing\Phing;
  * @author Charlie Killian <charlie@tizac.com>
  * @author Hans Lellelid <hans@xmpl.org>
  *
- * @package phing.system.io
  */
 abstract class FileSystem
 {

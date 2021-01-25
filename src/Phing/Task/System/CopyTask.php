@@ -42,7 +42,6 @@ use Phing\Util\RegisterSlot;
  *
  * @author Andreas Aderhold, andi@binarycloud.com
  *
- * @package phing.tasks.system
  */
 class CopyTask extends Task
 {

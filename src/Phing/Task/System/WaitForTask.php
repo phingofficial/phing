@@ -42,7 +42,6 @@ use Phing\Task\System\Condition\ConditionBase;
  *  limitations under the License.
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
  */
 class WaitForTask extends ConditionBase
 {

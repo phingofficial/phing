@@ -22,7 +22,6 @@ namespace Phing\Io;
 /**
  * Convenience class for reading files.
  *
- * @package phing.system.io
  */
 class FileReader extends InputStreamReader
 {

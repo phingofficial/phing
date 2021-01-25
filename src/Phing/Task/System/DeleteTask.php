@@ -29,7 +29,6 @@ use Phing\Type\Element\ResourceAware;
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
  *
- * @package phing.tasks.system
  */
 class DeleteTask extends Task
 {

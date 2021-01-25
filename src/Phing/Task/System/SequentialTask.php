@@ -31,7 +31,6 @@ use Phing\TaskContainer;
  * sequential task.
  *
  * @since   2.1.2
- * @package phing.tasks.system
  */
 class SequentialTask extends Task implements TaskContainer
 {

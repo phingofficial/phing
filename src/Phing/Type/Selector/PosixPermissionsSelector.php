@@ -26,7 +26,6 @@ use Phing\Io\File;
  * A selector that selects files based on their POSIX permissions.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.types.selectors
  */
 class PosixPermissionsSelector implements FileSelector
 {

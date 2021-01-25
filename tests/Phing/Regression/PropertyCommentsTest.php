@@ -24,7 +24,6 @@ use Phing\Support\BuildFileTest;
  * Regression test for ticket http://www.phing.info/trac/ticket/585
  * - Same line comments in property files are included in the property value
  *
- * @package phing.regression
  */
 class PropertyCommentsTest extends BuildFileTest
 {

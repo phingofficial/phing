@@ -22,7 +22,6 @@ namespace Phing\Input;
 /**
  * Plugin to Phing to disable user input.
  *
- * @package phing.input
  */
 class NoInteractionInputHandler implements InputHandler
 {

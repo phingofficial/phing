@@ -49,7 +49,6 @@ use ReflectionException;
  * </target>
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class AdhocTaskdefTask extends AdhocTask
 {

@@ -51,7 +51,6 @@ use Phing\Type\Path;
  *
  * @author  Jason Hines <jason@greenhell.com>
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class ForeachTask extends Task
 {

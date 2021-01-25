@@ -38,7 +38,6 @@ use Phing\Type\Mapper;
  * @author  William Ferguson <williamf@mincom.com> (Ant)
  * @author  Hiroaki Nakamura <hnakamur@mc.neweb.ne.jp> (Ant)
  * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @package phing.tasks.system
  */
 class UpToDateTask extends Task implements Condition
 {

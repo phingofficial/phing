@@ -26,7 +26,6 @@ use Phing\Exception\BuildException;
  * was set for "to".
  *
  * @author  Andreas Aderhold <andi@binarycloud.com>
- * @package phing.mappers
  */
 class MergeMapper implements FileNameMapper
 {

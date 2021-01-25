@@ -35,7 +35,6 @@ use Phing\Task\System\AvailableTask;
  * @author    Hans Lellelid <hans@xmpl.org>
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @package   phing.tasks.system.condition
  */
 abstract class ConditionBase extends ProjectComponent implements IteratorAggregate, CustomChildCreator
 {

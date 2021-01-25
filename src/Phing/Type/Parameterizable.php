@@ -23,7 +23,6 @@ namespace Phing\Type;
  *
  * @author  Hans Lellelid, hans@xmpl.org (Phing)
  * @author  Magesh Umasankar (Ant)
- * @package phing.types
  */
 interface Parameterizable
 {

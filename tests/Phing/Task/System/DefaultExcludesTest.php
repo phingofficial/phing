@@ -26,7 +26,6 @@ use Phing\Support\BuildFileTest;
  * Tests the DefaultExcludes Task
  *
  * @author  Siad Ardroumli
- * @package phing.tasks.system
  */
 class DefaultExcludesTest extends BuildFileTest
 {

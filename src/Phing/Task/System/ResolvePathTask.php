@@ -43,7 +43,6 @@ use Phing\Task\System\Element\LogLevelAware;
  *      - Possibly integrate this with PackageAsPath, for handling/resolving dot-path paths.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class ResolvePathTask extends Task
 {

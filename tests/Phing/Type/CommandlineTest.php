@@ -26,7 +26,6 @@ use Phing\Exception\BuildException;
  *
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @package phing.types
  */
 class CommandlineTest extends \PHPUnit\Framework\TestCase
 {

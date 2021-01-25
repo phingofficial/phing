@@ -46,7 +46,6 @@ use Phing\Type\Parameter;
  * file.
  *
  * @author  Siad.ardroumli <siad.ardroumli@gmail.com>
- * @package phing.filters
  */
 class ConcatFilter extends BaseParamFilterReader implements ChainableReader
 {

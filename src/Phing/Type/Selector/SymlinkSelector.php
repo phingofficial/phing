@@ -25,7 +25,6 @@ use Phing\Io\File;
  * A selector that selects symbolic links.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.types.selectors
  */
 class SymlinkSelector implements FileSelector
 {

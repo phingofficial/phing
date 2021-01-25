@@ -39,7 +39,6 @@ use Throwable;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.types.selectors
  */
 class ModifiedSelector extends BaseExtendSelector implements BuildListener
 {

@@ -26,7 +26,6 @@ use Phing\Exception\BuildException;
  * build files can add new dependencies.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing
  */
 class ExtensionPoint extends Target
 {

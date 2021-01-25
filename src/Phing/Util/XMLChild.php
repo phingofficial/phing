@@ -27,7 +27,6 @@ use Phing\Project;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.system.util
  */
 class XMLChild implements DynamicConfigurator
 {

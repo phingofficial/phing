@@ -24,7 +24,6 @@ namespace Phing\Io;
  * directory scanner.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing
  */
 interface FileScanner
 {

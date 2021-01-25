@@ -21,7 +21,6 @@ namespace Phing\Filter;
 /**
  * Holds a contains element.
  *
- * @package phing.filters
  */
 class Contains
 {

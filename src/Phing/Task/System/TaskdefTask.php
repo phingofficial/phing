@@ -47,7 +47,6 @@ use Phing\Util\Properties;
  *      (right now these are just too simple to really justify creating an abstract class)
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class TaskdefTask extends Task
 {

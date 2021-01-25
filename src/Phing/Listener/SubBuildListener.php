@@ -31,7 +31,6 @@ namespace Phing\Listener;
  * never invoke one of the methods of this interface.</p>
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing
  */
 interface SubBuildListener extends BuildListener
 {

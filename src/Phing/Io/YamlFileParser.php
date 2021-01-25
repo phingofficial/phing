@@ -27,7 +27,6 @@ use Symfony\Component\Yaml\Parser;
  * Implements a YamlFileParser to parse yaml-files as array.
  *
  * @author  Mike Lohmann <mike.lohmann@deck36.de>
- * @package phing.system.io
  */
 class YamlFileParser implements FileParserInterface
 {

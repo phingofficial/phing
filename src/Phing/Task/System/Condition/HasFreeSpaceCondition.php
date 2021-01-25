@@ -26,7 +26,6 @@ use Phing\Util\SizeHelper;
  * Condition returns true if selected partition has the requested space, false otherwise.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system.condition
  */
 class HasFreeSpaceCondition implements Condition
 {

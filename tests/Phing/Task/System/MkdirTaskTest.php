@@ -24,7 +24,6 @@ use Phing\Support\BuildFileTest;
 /**
  * Tests the Mkdir Task
  *
- * @package phing.tasks.system
  */
 class MkdirTaskTest extends BuildFileTest
 {

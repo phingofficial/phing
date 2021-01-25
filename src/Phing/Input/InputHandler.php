@@ -23,7 +23,6 @@ namespace Phing\Input;
  * Plugin to Phing to handle requests for user input.
  *
  * @author  Stefan Bodewig <stefan.bodewig@epost.de>
- * @package phing.input
  */
 interface InputHandler
 {

@@ -25,7 +25,6 @@ use Phing\Exception\BuildException;
  * This class throws errors for Expat, the XML processor.
  *
  * @author  Andreas Aderhold, andi@binarycloud.com
- * @package phing.parser
  */
 class ExpatParseException extends BuildException
 {

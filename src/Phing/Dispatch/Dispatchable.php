@@ -24,7 +24,6 @@ namespace Phing\Dispatch;
  * of the task's method to execute.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.dispatch
  */
 interface Dispatchable
 {

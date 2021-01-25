@@ -24,7 +24,6 @@ namespace Phing\Parser;
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @package   phing.parser
  */
 abstract class AbstractHandler
 {

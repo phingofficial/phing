@@ -25,7 +25,6 @@ use Phing\Util\Properties;
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
- * @package phing.tasks.system
  */
 class HangDetectorProperties extends Properties
 {

@@ -50,7 +50,6 @@ use Phing\Type\Selector\SelectorScanner;
  * @author  Andreas Aderhold <andi@binarycloud.com>
  * @author  Hans Lellelid <hans@xmpl.org>
  * @see     ProjectComponent
- * @package phing.types
  */
 abstract class AbstractFileSet extends DataType implements SelectorContainer, IteratorAggregate
 {

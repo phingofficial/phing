@@ -24,7 +24,6 @@ use Phing\Support\BuildFileTest;
  * Regression test for ticket http://www.phing.info/trac/ticket/610
  * - AdhocTaskdefTask fails when creating a task that extends from an existing task
  *
- * @package phing.regression
  */
 class AdhocTaskdefTaskTest extends BuildFileTest
 {

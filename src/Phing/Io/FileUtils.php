@@ -33,7 +33,6 @@ use Phing\Util\StringHelper;
  * - mapper stuff
  * - filter stuff
  *
- * @package phing.util
  */
 class FileUtils
 {

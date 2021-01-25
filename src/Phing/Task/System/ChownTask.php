@@ -31,7 +31,6 @@ use Phing\Type\Element\FileSetAware;
  * Task that changes the permissions on a file/directory.
  *
  * @author  Mehmet Emre Yilmaz <mehmety@gmail.com>
- * @package phing.tasks.system
  */
 class ChownTask extends Task
 {

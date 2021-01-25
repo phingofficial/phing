@@ -26,7 +26,6 @@ use Phing\Support\BuildFileTest;
  * UTs for ExtensionPoint component
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.system
  */
 class ExtensionPointTest extends BuildFileTest
 {

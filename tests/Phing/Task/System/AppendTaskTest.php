@@ -26,7 +26,6 @@ use Phing\Support\BuildFileTest;
 /**
  * Tests the Append / Concat Task
  *
- * @package phing.tasks.system
  */
 class AppendTaskTest extends BuildFileTest
 {

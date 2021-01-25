@@ -30,7 +30,6 @@ use Phing\UnknownElement;
  * Phing task to dynamically augment a previously declared reference.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class AugmentReference extends Task implements TypeAdapter
 {

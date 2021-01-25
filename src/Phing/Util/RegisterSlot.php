@@ -21,7 +21,6 @@ namespace Phing\Util;
 /**
  * Represents a slot in the register.
  *
- * @package phing.system.util
  */
 class RegisterSlot
 {

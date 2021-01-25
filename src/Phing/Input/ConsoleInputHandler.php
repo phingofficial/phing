@@ -30,7 +30,6 @@ use Symfony\Component\Console\Question\Question;
  * Uses Symfony Console to present questions
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.input
  */
 class ConsoleInputHandler implements InputHandler
 {

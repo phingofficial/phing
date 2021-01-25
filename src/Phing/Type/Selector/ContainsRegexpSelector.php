@@ -36,7 +36,6 @@ use Phing\Util\RegexpException;
  *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Bruce Atherton <bruce@callenish.com> (Ant)
- * @package phing.types.selectors
  */
 class ContainsRegexpSelector extends BaseExtendSelector
 {

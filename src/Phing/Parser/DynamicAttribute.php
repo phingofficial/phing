@@ -25,7 +25,6 @@ use Phing\Exception\BuildException;
  * Enables a task to control unknown attributes.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.parser
  */
 interface DynamicAttribute
 {

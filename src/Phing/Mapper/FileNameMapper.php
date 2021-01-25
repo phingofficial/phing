@@ -23,7 +23,6 @@ namespace Phing\Mapper;
  *
  * @author  Andreas Aderhold, andi@binarycloud.com
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.mappers
  */
 interface FileNameMapper
 {

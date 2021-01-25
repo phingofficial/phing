@@ -23,7 +23,6 @@ namespace Phing\Task\System\Condition;
  * The Xor condition type to exclusive or operations. This does not shortcut stuff.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system.condition
  */
 class XorCondition extends ConditionBase implements Condition
 {

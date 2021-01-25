@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Echo Task
  *
  * @author  Christian Weiske <cweiske@cweiske.de>
- * @package phing.tasks.system
  */
 class EchoTaskTest extends BuildFileTest
 {

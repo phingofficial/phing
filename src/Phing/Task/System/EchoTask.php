@@ -29,7 +29,6 @@ use Phing\Type\Element\FileSetAware;
  *
  * @author  Michiel Rook <mrook@php.net>
  * @author  Andreas Aderhold, andi@binarycloud.com
- * @package phing.tasks.system
  */
 class EchoTask extends Task
 {

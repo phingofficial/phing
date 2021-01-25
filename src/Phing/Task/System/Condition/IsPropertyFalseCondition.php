@@ -28,7 +28,6 @@ use Phing\Project;
  * Returns true if the property evaluates to true.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system.condition
  */
 class IsPropertyFalseCondition extends ConditionBase implements Condition
 {

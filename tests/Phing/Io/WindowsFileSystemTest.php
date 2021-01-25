@@ -23,7 +23,6 @@ namespace Phing\Io;
  * Unit test for Win32FileSystem
  *
  * @author Daniel Holmes
- * @package phing.system.io
  *
  * @requires OS WIN32|WINNT
  */

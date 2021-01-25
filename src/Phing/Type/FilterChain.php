@@ -51,7 +51,6 @@ use Phing\Filter\XsltFilter;
  * FilterChain may contain a chained set of filter readers.
  *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
- * @package phing.types
  */
 class FilterChain extends DataType
 {

@@ -31,7 +31,6 @@ use Phing\Project;
  * @author  Hans Lellelid <hans@xmpl.org>
  * @see     BuildEvent
  * @see     Project::addBuildListener()
- * @package phing
  */
 interface StreamRequiredBuildLogger extends BuildLogger
 {

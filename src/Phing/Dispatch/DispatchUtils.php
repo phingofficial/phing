@@ -29,7 +29,6 @@ use ReflectionException;
  * Determines and Executes the action method for the task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.dispatch
  */
 class DispatchUtils
 {

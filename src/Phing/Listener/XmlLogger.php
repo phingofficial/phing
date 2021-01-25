@@ -37,7 +37,6 @@ use Phing\Project;
  * with the property <code>XmlLogger.file</code>.
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.listener
  */
 class XmlLogger implements BuildLogger
 {

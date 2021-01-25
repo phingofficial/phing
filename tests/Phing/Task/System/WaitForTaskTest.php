@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the WaitFor Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
  */
 class WaitForTaskTest extends BuildFileTest
 {

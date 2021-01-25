@@ -23,7 +23,6 @@ namespace Phing\Util;
  * engine-specific implementations that sub-classes must override.
  *
  * @author  Hans Lellelid <hans@velum.net>
- * @package phing.util.regexp
  */
 interface RegexpEngine
 {

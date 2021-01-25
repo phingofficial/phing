@@ -37,7 +37,6 @@ use Phing\Util\StringHelper;
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @see     FilterReader
- * @package phing.filters
  */
 class SuffixLines extends BaseParamFilterReader implements ChainableReader
 {

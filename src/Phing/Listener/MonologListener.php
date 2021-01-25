@@ -27,7 +27,6 @@ use Phing\Target;
  * Listener which sends events to Monolog.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.listener
  */
 class MonologListener implements BuildListener
 {

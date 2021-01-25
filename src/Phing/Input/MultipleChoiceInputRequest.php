@@ -24,7 +24,6 @@ namespace Phing\Input;
  *
  * @author Stefan Bodewig <stefan.bodewig@epost.de>
  *
- * @package phing.input
  */
 class MultipleChoiceInputRequest extends InputRequest
 {

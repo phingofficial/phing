@@ -21,7 +21,6 @@ namespace Phing\Io;
 
 /**
  * @author Daniel Holmes
- * @package phing.system.io
  */
 abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 {

@@ -41,7 +41,6 @@ use Phing\Util\StringHelper;
  * a buildFinished event.</p>
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class RecorderTask extends Task implements SubBuildListener
 {

@@ -27,7 +27,6 @@ use Phing\Io\FileUtils;
  * directories from a file name.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.mappers
  */
 class CutDirsMapper implements FileNameMapper
 {

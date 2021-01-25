@@ -28,7 +28,6 @@ use Phing\Util\StringHelper;
  * Task that changes the permissions on a file/directory.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class Basename extends Task
 {

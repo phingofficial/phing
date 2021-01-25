@@ -22,7 +22,6 @@ namespace Phing\Task\System;
 use Phing\Exception\BuildException;
 
 /**
- * @package  phing.tasks.system
  */
 class TstampCustomFormat
 {

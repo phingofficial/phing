@@ -26,7 +26,6 @@ use stdClass;
  * Unit test for EventObject
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.system.lang
  */
 class EventObjectTest extends \PHPUnit\Framework\TestCase
 {

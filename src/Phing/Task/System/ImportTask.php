@@ -44,7 +44,6 @@ use Phing\Type\FileSet;
  * dependencies or via the <phing> or <phingcall> task mechanisms.
  *
  * @author  Bryan Davis <bpd@keynetics.com>
- * @package phing.tasks.system
  */
 class ImportTask extends Task
 {

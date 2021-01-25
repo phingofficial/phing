@@ -29,7 +29,6 @@ use Phing\Task;
  * Alters the default excludes for the <strong>entire</strong> build.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class DefaultExcludes extends Task
 {

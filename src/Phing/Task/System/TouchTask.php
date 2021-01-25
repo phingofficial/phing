@@ -35,7 +35,6 @@ use Phing\Type\Mapper;
  *
  * If the file to touch doesn't exist, an empty one is created.
  *
- * @package phing.tasks.system
  */
 class TouchTask extends Task
 {

@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Regression test for tickets
  * http://www.phing.info/trac/ticket/524
  *
- * @package phing.regression
  * TODO: skip when user doesn't have pear installed (you cannot check for the class name, because
  *       it is included via composer)
  */

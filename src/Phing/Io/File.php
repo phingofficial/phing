@@ -26,7 +26,6 @@ use Phing\Util\StringHelper;
 /**
  * An abstract representation of file and directory pathnames.
  *
- * @package phing.system.io
  */
 class File
 {

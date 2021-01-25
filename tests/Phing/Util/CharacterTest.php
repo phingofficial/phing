@@ -23,7 +23,6 @@ namespace Phing\Util;
  * Unit test for Character
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.system.lang
  */
 class CharacterTest extends \PHPUnit\Framework\TestCase
 {

@@ -34,7 +34,6 @@ use Phing\Project;
  *
  * @author  Bill Karwin <bill@karwin.com>
  * @see     FilterReader
- * @package phing.filters
  */
 class XincludeFilter extends BaseParamFilterReader implements ChainableReader
 {

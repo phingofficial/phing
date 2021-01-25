@@ -28,7 +28,6 @@ use Phing\Parser\Location;
  * @author Andreas Aderhold <andi@binarycloud.com>
  * @author Hans Lellelid <hans@xmpl.org>
  *
- * @package phing
  */
 abstract class ProjectComponent
 {

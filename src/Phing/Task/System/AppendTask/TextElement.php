@@ -31,7 +31,6 @@ use Phing\ProjectComponent;
 /**
  * Text element points to a file or contains text.
  *
- * @package phing.tasks.system.AppendTask
  */
 class TextElement extends ProjectComponent
 {

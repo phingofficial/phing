@@ -24,7 +24,6 @@ namespace Phing\Util;
  * Implements a regexp engine using PHP's preg_match(), preg_match_all(), and preg_replace() functions.
  *
  * @author  hans lellelid, hans@velum.net
- * @package phing.util.regexp
  */
 class PregEngine implements RegexpEngine
 {

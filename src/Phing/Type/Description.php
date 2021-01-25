@@ -36,7 +36,6 @@ use Phing\UnknownElement;
  *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Craeg Strong <cstrong@arielpartners.com> (Ant)
- * @package phing.types
  */
 class Description extends DataType
 {

@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
 
 /**
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.filters
  */
 class StripPhpCommentsTest extends BuildFileTest
 {

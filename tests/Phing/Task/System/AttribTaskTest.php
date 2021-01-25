@@ -26,7 +26,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Attrib Task
  *
  * @author  Siad Ardroumli
- * @package phing.tasks.system
  *
  * @requires OS WIN32|WINNT
  */

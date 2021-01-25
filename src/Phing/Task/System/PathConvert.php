@@ -38,7 +38,6 @@ use Phing\Type\Reference;
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  *
- * @package phing.tasks.system
  */
 class PathConvert extends Task
 {

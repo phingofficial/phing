@@ -28,7 +28,6 @@ use Phing\Io\FilterReader as IoFilterReader;
  *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @see     IoFilterReader
- * @package phing.types
  */
 class FilterReader extends DataType
 {

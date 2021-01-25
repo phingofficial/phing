@@ -66,7 +66,6 @@ use Phing\Util\Register;
  * </append>
  * </code>
  *
- * @package phing.tasks.system
  */
 class AppendTask extends Task
 {

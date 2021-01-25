@@ -24,7 +24,6 @@ use Phing\Task;
 /**
  * "Inner" class for SwitchTask.
  *
- * @package phing.tasks.system
  */
 class CaseTask extends SequentialTask
 {

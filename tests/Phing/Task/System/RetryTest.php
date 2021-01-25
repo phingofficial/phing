@@ -26,7 +26,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Retry Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class RetryTest extends BuildFileTest
 {

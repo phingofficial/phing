@@ -27,7 +27,6 @@ use Phing\ProjectComponent;
  *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @package phing.tasks.system.condition
  */
 class IsSetCondition extends ProjectComponent implements Condition
 {

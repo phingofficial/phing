@@ -37,7 +37,6 @@ use Phing\Type\RegularExpression;
  * </pre>
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.filters
  */
 class ReplaceRegexp extends BaseFilterReader implements ChainableReader
 {

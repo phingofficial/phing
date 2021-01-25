@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the XorCondition
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.condition
  */
 class XorConditionTest extends BuildFileTest
 {

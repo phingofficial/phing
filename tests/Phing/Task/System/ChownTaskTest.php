@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Chown Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
  *
  * @requires OS ^(?:(?!Win).)*$
  */

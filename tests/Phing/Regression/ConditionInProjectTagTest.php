@@ -24,7 +24,6 @@ use Phing\Support\BuildFileTest;
  * Regression test for ticket http://www.phing.info/trac/ticket/943
  * - If task with "equals" directly in "project" tag does not work
  *
- * @package phing.regression
  */
 class ConditionInProjectTagTest extends BuildFileTest
 {

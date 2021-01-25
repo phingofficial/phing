@@ -98,7 +98,6 @@ use Phing\Util\Properties;
  *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Magesh Umasankar (Ant)
- * @package phing.listener
  */
 class AnsiColorLogger extends DefaultLogger
 {

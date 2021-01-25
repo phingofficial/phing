@@ -29,7 +29,6 @@ use Phing\Util\Timer;
  * // TODO implement all methods
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
- * @package phing
  */
 class PhingTest extends \PHPUnit\Framework\TestCase
 {

@@ -25,7 +25,6 @@ use Phing\Project;
  * Unit tests for DirSet -- including Selectors.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.types
  */
 class DirSetTest extends \PHPUnit\Framework\TestCase
 {

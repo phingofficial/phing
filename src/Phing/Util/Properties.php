@@ -33,7 +33,6 @@ use Phing\Io\OutputStreamWriter;
  * FIXME
  *        - Add support for arrays (separated by ',')
  *
- * @package phing.system.util
  */
 class Properties
 {

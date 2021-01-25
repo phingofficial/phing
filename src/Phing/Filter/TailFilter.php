@@ -40,7 +40,6 @@ use Phing\Io\Reader;
  *
  * @see BaseParamFilterReader
  *
- * @package phing.filters
  */
 class TailFilter extends BaseParamFilterReader implements ChainableReader
 {

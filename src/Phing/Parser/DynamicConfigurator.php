@@ -23,7 +23,6 @@ namespace Phing\Parser;
  * Enables a task to control unknown attributes and elements.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.parser
  */
 interface DynamicConfigurator extends DynamicAttribute, CustomChildCreator
 {

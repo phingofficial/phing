@@ -24,7 +24,6 @@ namespace Phing\Io;
  * PhingFile->getFileExtension()
  *
  * @author  Mike Lohmann <mike.lohmann@deck36.de>
- * @package phing.system.io
  */
 class FileParserFactory implements FileParserFactoryInterface
 {

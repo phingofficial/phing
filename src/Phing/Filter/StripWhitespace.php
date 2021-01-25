@@ -33,7 +33,6 @@ use SplFileObject;
  *
  * @author  Hans Lellelid, hans@velum.net
  * @see     FilterReader
- * @package phing.filters
  */
 class StripWhitespace extends BaseFilterReader implements ChainableReader
 {

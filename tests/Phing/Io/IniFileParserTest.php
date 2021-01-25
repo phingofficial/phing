@@ -21,7 +21,6 @@ namespace Phing\Io;
 
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
- * @package phing.system.io
  * @requires OS ^(?:(?!Win).)*$
  */
 class IniFileParserTest extends \PHPUnit\Framework\TestCase

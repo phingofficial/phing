@@ -51,7 +51,6 @@ use Phing\Type\Reference;
  * </pre>
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class PhingTask extends Task
 {

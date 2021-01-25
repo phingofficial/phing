@@ -24,7 +24,6 @@ use Phing\Exception\BuildException;
 /**
  * Unit test for DataType
  *
- * @package phing.types
  */
 class DataTypeTest extends \PHPUnit\Framework\TestCase
 {

@@ -25,7 +25,6 @@ use Exception;
  * Moved out of MatchingTask to make it a standalone object that could
  * be referenced (by scripts for example).
  *
- * @package phing.types
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Arnout J. Kuiper <ajkuiper@wxs.nl> (Ant)
  * @author  Stefano Mazzocchi <stefano@apache.org> (Ant)

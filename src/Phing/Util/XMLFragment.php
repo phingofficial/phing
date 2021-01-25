@@ -33,7 +33,6 @@ use Phing\ProjectComponent;
  * from the build file instead of objects.</p>
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.system.util
  */
 class XMLFragment extends ProjectComponent implements CustomChildCreator
 {

@@ -39,7 +39,6 @@ use Phing\Task;
  * directory.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class Dirname extends Task
 {

@@ -35,7 +35,6 @@ use Phing\Util\StringHelper;
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @see       BuildEvent
- * @package   phing.listener
  */
 class DefaultLogger implements StreamRequiredBuildLogger
 {

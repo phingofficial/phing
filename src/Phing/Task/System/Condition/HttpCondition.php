@@ -31,7 +31,6 @@ use Phing\ProjectComponent;
  * - errorsBeginAt - number at which errors begin at; default=400.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system.condition
  */
 class HttpCondition extends ProjectComponent implements Condition
 {

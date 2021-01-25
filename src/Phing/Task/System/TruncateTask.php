@@ -30,7 +30,6 @@ use SplFileObject;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class TruncateTask extends Task
 {

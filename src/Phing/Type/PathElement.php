@@ -24,7 +24,6 @@ use Phing\Io\File;
 /**
  * Helper class, holds the nested <code>&lt;pathelement&gt;</code> values.
  *
- * @package phing.types
  */
 class PathElement
 {

@@ -27,7 +27,6 @@ use Phing\ProjectComponent;
  * A class for creating adhoc datatypes in build file.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class AdhocTypedefTask extends AdhocTask
 {

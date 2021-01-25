@@ -47,7 +47,6 @@ use Phing\Util\RegexpException;
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@xmpl.org>
  * @see     FilterReader
- * @package phing.filters
  */
 class LineContainsRegexp extends BaseParamFilterReader implements ChainableReader
 {

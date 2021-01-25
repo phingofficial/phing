@@ -68,7 +68,6 @@ use Phing\Util\StringHelper;
  *
  * @see BaseParamFilterReader
  *
- * @package phing.filters
  */
 class SortFilter extends BaseParamFilterReader implements ChainableReader
 {

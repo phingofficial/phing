@@ -28,7 +28,6 @@ use Phing\Util\Regexp;
  * @author Andreas Aderhold <andi@binarycloud.com>
  * @author Hans Lellelid <hans@velum.net>
  *
- * @package phing.mappers
  */
 class RegexpMapper implements FileNameMapper
 {

@@ -38,7 +38,6 @@ use Throwable;
  * measuring how long a sleep actually took.</p>
  *
  * @author  Daniel Kutik, daniel@kutik.eu
- * @package phing.tasks.system
  */
 class SleepTask extends Task
 {

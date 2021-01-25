@@ -24,7 +24,6 @@ namespace Phing\Io;
  * Currently it is used in the PropertyTask to deliver the correct parser based on filetype.
  *
  * @author  Mike Lohmann <mike.lohmann@deck36.de>
- * @package phing.system.io
  */
 interface FileParserFactoryInterface
 {

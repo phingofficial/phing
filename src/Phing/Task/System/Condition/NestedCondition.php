@@ -25,7 +25,6 @@ use Phing\Exception\BuildException;
  * Nested conditions.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system.condition
  */
 class NestedCondition extends ConditionBase implements Condition
 {

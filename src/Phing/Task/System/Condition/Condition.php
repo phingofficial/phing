@@ -27,7 +27,6 @@ use Phing\Exception\BuildException;
  * Each condition must implement a method applying to this prototye:
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system.condition
  */
 interface Condition
 {

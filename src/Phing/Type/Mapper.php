@@ -50,7 +50,6 @@ use Phing\Util\StringHelper;
  * </code>
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.types
  */
 class Mapper extends DataType
 {

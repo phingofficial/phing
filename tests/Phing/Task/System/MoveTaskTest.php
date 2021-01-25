@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Move Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
  */
 class MoveTaskTest extends BuildFileTest
 {

@@ -23,7 +23,6 @@ namespace Phing\Io;
  * Unit test for FileOutputStream.
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @package phing.system
  */
 class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
 {

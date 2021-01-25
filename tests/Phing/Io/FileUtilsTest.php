@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @package phing.util
  */
 
 namespace Phing\Io;
@@ -27,7 +26,6 @@ use Phing\Support\BuildFileTest;
  * Testcases for phing.util.FileUtils
  *
  * @author  Siad Ardroumli |siad.ardroumli@gmail.com>
- * @package phing.util
  */
 class FileUtilsTest extends BuildFileTest
 {

@@ -23,7 +23,6 @@ namespace Phing\Util;
  * Unit test for Timer
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.system.util
  */
 class TimerTest extends \PHPUnit\Framework\TestCase
 {

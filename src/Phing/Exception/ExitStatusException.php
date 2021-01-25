@@ -25,7 +25,6 @@ use Phing\Parser\Location;
  * BuildException + exit status.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing
  */
 class ExitStatusException extends BuildException
 {

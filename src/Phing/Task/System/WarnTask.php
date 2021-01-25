@@ -25,7 +25,6 @@ use Phing\Project;
  * Simple task to echo a warning message (Project::MSG_WARN) to all output devices.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class WarnTask extends EchoTask
 {

@@ -26,7 +26,6 @@ use Phing\Util\StringHelper;
  * Uses glob patterns to perform filename transformations.
  *
  * @author  Andreas Aderhold, andi@binarycloud.com
- * @package phing.mappers
  */
 class GlobMapper implements FileNameMapper
 {

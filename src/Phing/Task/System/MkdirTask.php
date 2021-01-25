@@ -28,7 +28,6 @@ use Phing\Task;
  * Task to create a directory.
  *
  * @author  Andreas Aderhold, andi@binarycloud.com
- * @package phing.tasks.system
  */
 class MkdirTask extends Task
 {

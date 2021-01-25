@@ -25,7 +25,6 @@ use Phing\Exception\BuildException;
  * Condition that compare versions
  *
  * @author  Tomáš Fejfar (tomas.fejfar@gmail.com)
- * @package phing.tasks.system.condition
  */
 class VersionCompareCondition implements Condition
 {

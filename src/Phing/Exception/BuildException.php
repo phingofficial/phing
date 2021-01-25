@@ -27,7 +27,6 @@ use Throwable;
  * BuildException is for when things go wrong in a build execution.
  *
  * @author  Andreas Aderhold <andi@binarycloud.com>
- * @package phing
  */
 class BuildException extends RuntimeException
 {

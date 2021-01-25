@@ -23,7 +23,6 @@ use Exception;
 /**
  * Extends Exception to take advantage of methods therein.
  *
- * @package phing.system.io
  */
 class IOException extends Exception
 {

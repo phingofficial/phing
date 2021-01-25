@@ -41,7 +41,6 @@ use UnexpectedValueException;
  * (Loosely based on the "Ant Apply" task - http://ant.apache.org/manual/Tasks/apply.html)
  *
  * @author  Utsav Handa <handautsav at hotmail dot com>
- * @package phing.tasks.system
  *
  * @todo Add support for mapper, targetfile expressions
  */

@@ -26,7 +26,6 @@ use Phing\Io\FileWriter;
 /**
  * An abstract representation of file and directory pathnames.
  *
- * @package phing.util
  * @author  Michiel Rook <mrook@php.net>
  */
 class DataStore

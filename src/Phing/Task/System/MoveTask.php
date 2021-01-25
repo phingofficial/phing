@@ -36,7 +36,6 @@ use Phing\Io\IOException;
  * Source files and directories are only deleted when the file or
  * directory has been copied to the destination successfully.
  *
- * @package phing.tasks.system
  */
 class MoveTask extends CopyTask
 {

@@ -34,7 +34,6 @@ use Phing\Util\StringHelper;
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Ulrich Schmidt <usch@usch.net> (Ant)
  * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @package phing.tasks.system
  */
 class InputTask extends Task
 {

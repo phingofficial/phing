@@ -29,7 +29,6 @@ use ReflectionClass;
  * format.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.filters
  */
 class ClassConstants extends BaseFilterReader implements ChainableReader
 {

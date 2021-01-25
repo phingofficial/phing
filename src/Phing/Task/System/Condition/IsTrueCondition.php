@@ -27,7 +27,6 @@ use Phing\ProjectComponent;
  *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Steve Loughran (Ant)
- * @package phing.tasks.system.condition
  */
 class IsTrueCondition extends ProjectComponent implements Condition
 {

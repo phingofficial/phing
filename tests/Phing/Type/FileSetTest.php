@@ -23,7 +23,6 @@ namespace Phing\Type;
  * Unit tests for FileSet -- including Selectors.
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @package phing.types
  */
 class FileSetTest extends AbstractFileSetTest
 {

@@ -24,7 +24,6 @@ namespace Phing\Io;
  *
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Matthew Hershberger <matthewh@lightsp.com>
- * @package phing.system.io
  */
 class ConsoleReader extends Reader
 {

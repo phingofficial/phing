@@ -40,7 +40,6 @@ use XSLTProcessor;
  * @author Andreas Aderhold <andi@binarycloud.com>
  *
  * @see     FilterReader
- * @package phing.filters
  */
 class XsltFilter extends BaseParamFilterReader implements ChainableReader
 {

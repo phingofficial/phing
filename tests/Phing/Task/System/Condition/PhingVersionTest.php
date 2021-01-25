@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Testcase for the PhingVersion task/condition.
  *
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system.condition
  */
 class PhingVersionTest extends BuildFileTest
 {

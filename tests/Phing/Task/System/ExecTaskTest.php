@@ -35,7 +35,6 @@ use ReflectionProperty;
  * Tests the Exec Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
  */
 class ExecTaskTest extends BuildFileTest
 {

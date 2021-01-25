@@ -114,7 +114,6 @@ use UnexpectedValueException;
  * @author Magesh Umasankar, umagesh@rediffmail.com
  * @author Andreas Aderhold, andi@binarycloud.com
  *
- * @package phing.util
  */
 class DirectoryScanner implements FileScanner, SelectorScanner
 {

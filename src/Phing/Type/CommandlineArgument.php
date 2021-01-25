@@ -25,7 +25,6 @@ use Phing\Io\File;
 /**
  * "Inner" class used for nested xml command line definitions.
  *
- * @package phing.types
  */
 class CommandlineArgument
 {

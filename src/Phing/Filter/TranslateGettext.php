@@ -41,7 +41,6 @@ use Phing\Project;
  *
  * @author  Hans Lellelid <hans@xmpl.org>
  * @see     BaseFilterReader
- * @package phing.filters
  */
 class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 {

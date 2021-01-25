@@ -38,7 +38,6 @@ use Phing\Project;
  * `<filterreader classname="phing.filters.EscapeUnicode"/>`
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.filters
  */
 class EscapeUnicode extends BaseFilterReader implements ChainableReader
 {

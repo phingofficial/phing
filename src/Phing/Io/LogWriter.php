@@ -25,7 +25,6 @@ use Phing\Task;
  * Extends the Writer class to output messages to Phing's log
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.util
  */
 class LogWriter extends Writer
 {

@@ -45,7 +45,6 @@ use Phing\Task\System\Condition\OsCondition;
  *
  * @author  thomas.haas@softwired-inc.com
  * @author  <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
- * @package phing.types
  */
 class Commandline implements Countable
 {

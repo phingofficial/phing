@@ -32,7 +32,6 @@ use Phing\Type\Element\FileSetAware;
  *
  * @author  Manuel Holtgrewe <grin@gmx.net>
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class ChmodTask extends Task
 {

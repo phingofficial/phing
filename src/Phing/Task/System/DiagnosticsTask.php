@@ -30,7 +30,6 @@ use Phing\Util\Diagnostics;
  * It lets you run diagnostics in an IDE.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class DiagnosticsTask extends Task
 {

@@ -21,7 +21,6 @@ namespace Phing\Filter;
 /**
  * The class that holds a comment representation.
  *
- * @package phing.filters
  */
 class Comment
 {

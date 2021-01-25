@@ -40,7 +40,6 @@ use Phing\Exception\BuildTimeoutException;
  *  limitations under the License.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.system
  */
 class BlockForTask extends WaitForTask
 {

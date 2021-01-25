@@ -39,7 +39,6 @@ use Phing\Project;
  * </pre>
  *
  * @author  Alexey Shockov, <alexey@shockov.com>
- * @package phing.filters
  */
 class IconvFilter extends BaseParamFilterReader implements ChainableReader
 {

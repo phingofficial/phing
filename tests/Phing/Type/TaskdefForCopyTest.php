@@ -21,7 +21,6 @@ namespace Phing\Type;
 use Phing\Support\BuildFileTest;
 
 /**
- * @package phing.mappers
  */
 class TaskdefForCopyTest extends BuildFileTest
 {

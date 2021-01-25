@@ -26,7 +26,6 @@ namespace Phing\Io;
  *  - Add support for arrays (separated by ',')
  *
  * @author  Mike Lohmann <mike.lohmann@deck36.de>
- * @package phing.system.io
  */
 class IniFileParser implements FileParserInterface
 {

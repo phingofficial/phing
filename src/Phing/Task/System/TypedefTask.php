@@ -45,7 +45,6 @@ use Phing\Type\Element\ClasspathAware;
  *      (right now these are just too simple to really justify creating an abstract class)
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.system
  */
 class TypedefTask extends Task
 {

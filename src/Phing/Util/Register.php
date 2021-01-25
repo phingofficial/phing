@@ -54,7 +54,6 @@ namespace Phing\Util;
  * </code>
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.system.util
  */
 class Register
 {

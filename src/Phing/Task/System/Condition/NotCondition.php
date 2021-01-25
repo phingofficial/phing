@@ -29,7 +29,6 @@ use Phing\Exception\BuildException;
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @package   phing.tasks.system.condition
  */
 class NotCondition extends ConditionBase implements Condition
 {

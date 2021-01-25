@@ -36,7 +36,6 @@ use Phing\Type\Path;
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @package   phing.tasks.system
  */
 class AvailableTask extends Task implements Condition
 {

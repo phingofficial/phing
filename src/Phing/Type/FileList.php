@@ -49,7 +49,6 @@ use Phing\Project;
  * (or a mixture of files="" and listfile="" can be used)
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.types
  */
 class FileList extends DataType implements IteratorAggregate
 {

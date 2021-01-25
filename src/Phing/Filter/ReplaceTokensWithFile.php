@@ -48,7 +48,6 @@ use Phing\Project;
  *
  * @author  johan persson, johanp@aditus.nu
  * @see     ReplaceTokensWithFile
- * @package phing.filters
  */
 class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableReader
 {

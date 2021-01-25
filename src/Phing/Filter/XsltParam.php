@@ -23,7 +23,6 @@ use Phing\Util\RegisterSlot;
 /**
  * Class that holds an XSLT parameter.
  *
- * @package phing.filters
  */
 class XsltParam
 {
