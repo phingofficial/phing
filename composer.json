@@ -19,15 +19,15 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Tasks\\Ext\\Coverage\\": "src/"
+      "Phing\\Task\\Ext\\Coverage\\": "src/"
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "coverage-setup": "Phing\\Tasks\\Ext\\Coverage\\CoverageSetupTask",
-      "coverage-merger": "Phing\\Tasks\\Ext\\Coverage\\CoverageMergerTask",
-      "coverage-report": "Phing\\Tasks\\Ext\\Coverage\\CoverageReportTask",
-      "coverage-threshold": "Phing\\Tasks\\Ext\\Coverage\\CoverageThresholdTask"
+      "coverage-setup": "Phing\\Task\\Ext\\Coverage\\CoverageSetupTask",
+      "coverage-merger": "Phing\\Task\\Ext\\Coverage\\CoverageMergerTask",
+      "coverage-report": "Phing\\Task\\Ext\\Coverage\\CoverageReportTask",
+      "coverage-threshold": "Phing\\Task\\Ext\\Coverage\\CoverageThresholdTask"
     }
   }
 }
