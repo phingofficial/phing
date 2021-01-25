@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Tasks\Ext;
+namespace Phing\Task\Ext;
 
 /**
  * Class that holds parameters for an ssh2_connect $methods parameter

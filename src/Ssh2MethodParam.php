@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Tasks\Ext;
+namespace Phing\Task\Ext;
 
 use Phing\Type\DataType;
 
