@@ -2,6 +2,21 @@ P     H     I     N     G
 =========================
 
 
+We're forever indebted to the folks turning their (free) time into valuable Phing contributions.
+If you've done work on Phing and you are not listed here, please feel free to add yourself.
+
+
+Phing 3.x Development
+---------------------
+
+  - Michiel Rook <mrook@php.net>
+  - Ken Guest <ken@linux.ie>
+  - Siad Ardroumli <siad.ardroumli@gmail.com>
+  - Jawira Portugal
+  - Thomas Müller
+  - Blair Cooper
+
+
 Phing 2.x Development
 ---------------------
 
@@ -34,8 +49,6 @@ Phing 2.x Development
   - Ken Guest <ken@linux.ie>
   - Siad Ardroumli <siad.ardroumli@gmail.com>
 
-  If you've done work on Phing and you are not listed here, please feel free
-  to add yourself.
 
 Original Phing 1.x Development
 ------------------------------
