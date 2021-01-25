@@ -19,12 +19,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Tasks\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\": "src/"
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "jshint": "Phing\\Tasks\\Ext\\JsHintTask"
+      "jshint": "Phing\\Task\\Ext\\JsHintTask"
     }
   }
 }
