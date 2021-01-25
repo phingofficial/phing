@@ -19,10 +19,10 @@
 
 namespace Phing\Listener;
 
+use Phing\Io\File;
 use Phing\Io\IOException;
 use Phing\Io\OutputStream;
 use Phing\Phing;
-use Phing\Io\File;
 use Phing\Project;
 use Phing\Util\Properties;
 

@@ -21,11 +21,11 @@ namespace Phing\Filter;
 
 use Exception;
 use Phing\Io\FilterReader as IoFilterReader;
-use Phing\Type\Parameterizable;
-use Phing\Phing;
-use Phing\Type\FilterReader;
-use Phing\Project;
 use Phing\Io\Reader;
+use Phing\Phing;
+use Phing\Project;
+use Phing\Type\FilterReader;
+use Phing\Type\Parameterizable;
 
 /**
  * Process a FilterReader chain.

@@ -19,12 +19,12 @@
 
 namespace Phing;
 
-use Phing\Tasks\System\Condition\Condition;
-use Phing\Type\DataType;
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Task\System\Condition\Condition;
+use Phing\Type\DataType;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
 use ReflectionClass;

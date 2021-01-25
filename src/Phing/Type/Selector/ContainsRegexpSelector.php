@@ -19,13 +19,13 @@
 
 namespace Phing\Type\Selector;
 
-use Phing\Tasks\System\Condition\OsCondition;
 use Phing\Exception\BuildException;
 use Phing\Io\BufferedReader;
 use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
 use Phing\Project;
+use Phing\Task\System\Condition\OsCondition;
 use Phing\Type\RegularExpression;
 use Phing\Util\Regexp;
 use Phing\Util\RegexpException;

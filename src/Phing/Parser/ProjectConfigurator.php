@@ -19,16 +19,16 @@
 
 namespace Phing\Parser;
 
-use Phing\Io\BufferedReader;
 use Exception;
-use Phing\ExtensionPoint;
-use Phing\Io\FileReader;
-use Phing\IntrospectionHelper;
-use Phing\Io\IOException;
 use Phing\Exception\BuildException;
 use Phing\Exception\ExitStatusException;
 use Phing\Exception\NullPointerException;
+use Phing\ExtensionPoint;
+use Phing\IntrospectionHelper;
+use Phing\Io\BufferedReader;
 use Phing\Io\File;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Target;
 use Phing\Task;

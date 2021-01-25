@@ -20,12 +20,12 @@
 namespace Phing\Filter;
 
 use Exception;
-use Phing\Io\IOException;
 use Phing\Io\FilterReader;
-use Phing\Project;
+use Phing\Io\IOException;
 use Phing\Io\Reader;
-use Phing\Util\RegexpException;
+use Phing\Project;
 use Phing\Type\RegularExpression;
+use Phing\Util\RegexpException;
 
 /**
  * Filter which includes only those lines that contain the user-specified

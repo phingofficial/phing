@@ -19,18 +19,18 @@
 
 namespace Phing;
 
-use Phing\Tasks\System\Condition\Condition;
-use Phing\Type\Description;
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Input\InputHandler;
+use Phing\Io\File;
 use Phing\Io\FileSystem;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
-use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 use Phing\Parser\ProjectConfigurator;
+use Phing\Task\System\Condition\Condition;
+use Phing\Type\Description;
 use Phing\Type\PropertyValue;
 use ReflectionException;
 use ReflectionObject;

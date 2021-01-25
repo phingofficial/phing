@@ -21,8 +21,8 @@ namespace Phing\Filter;
 
 use Exception;
 use Phing\Io\IOException;
-use Phing\Project;
 use Phing\Io\Reader;
+use Phing\Project;
 use Phing\Type\RegularExpression;
 
 /**

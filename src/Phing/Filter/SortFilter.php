@@ -19,10 +19,10 @@
 
 namespace Phing\Filter;
 
-use Phing\Io\IOException;
 use Phing\Exception\BuildException;
-use Phing\Util\StringHelper;
+use Phing\Io\IOException;
 use Phing\Io\Reader;
+use Phing\Util\StringHelper;
 
 /**
  * <p>

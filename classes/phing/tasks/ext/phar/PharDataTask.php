@@ -20,7 +20,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
-use Phing\Tasks\System\MatchingTask;
+use Phing\Task\System\MatchingTask;
 use Phing\Type\FileSet;
 
 /**

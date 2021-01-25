@@ -19,11 +19,11 @@
 
 namespace Phing\Parser;
 
-use Phing\ExtensionPoint;
 use Phing\Exception\BuildException;
-use Phing\Util\StringHelper;
+use Phing\ExtensionPoint;
 use Phing\Project;
 use Phing\Target;
+use Phing\Util\StringHelper;
 
 /**
  * The target handler class.

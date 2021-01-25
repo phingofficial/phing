@@ -21,8 +21,8 @@ namespace Phing\Filter;
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
-use Phing\Project;
 use Phing\Io\Reader;
+use Phing\Project;
 
 /**
  * Replaces gettext("message id") and _("message id") with the translated string.

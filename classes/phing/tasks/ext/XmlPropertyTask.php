@@ -22,7 +22,7 @@ use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Io\XmlFileParser;
 use Phing\Project;
-use Phing\Tasks\System\PropertyTask;
+use Phing\Task\System\PropertyTask;
 use Phing\Util\Properties;
 
 /**

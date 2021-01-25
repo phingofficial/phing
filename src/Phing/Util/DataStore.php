@@ -19,9 +19,9 @@
 
 namespace Phing\Util;
 
-use Phing\Io\FileWriter;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\FileWriter;
 
 /**
  * An abstract representation of file and directory pathnames.

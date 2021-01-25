@@ -22,11 +22,11 @@ namespace Phing\Listener;
 use DOMDocument;
 use DOMElement;
 use Exception;
+use Phing\Exception\BuildException;
 use Phing\Io\FileOutputStream;
 use Phing\Io\IOException;
 use Phing\Io\OutputStream;
 use Phing\Io\OutputStreamWriter;
-use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Project;
 

@@ -20,12 +20,12 @@
 namespace Phing\Listener;
 
 use BadMethodCallException;
-use Phing\Io\IOException;
 use Mail;
-use Phing\Io\OutputStream;
 use Phing\Exception\BuildException;
-use Phing\Phing;
 use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
+use Phing\Phing;
 use Phing\Project;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;

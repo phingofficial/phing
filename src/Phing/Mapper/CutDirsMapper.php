@@ -19,8 +19,8 @@
 
 namespace Phing\Mapper;
 
-use Phing\Io\FileUtils;
 use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
 
 /**
  * A mapper that strips of the a configurable number of leading

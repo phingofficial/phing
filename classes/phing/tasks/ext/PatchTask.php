@@ -27,7 +27,7 @@ use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
-use Phing\Tasks\System\ExecTask;
+use Phing\Task\System\ExecTask;
 use Phing\Type\Commandline;
 
 /**

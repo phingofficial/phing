@@ -19,14 +19,14 @@
 
 namespace Phing\Filter;
 
-use Phing\Io\BufferedReader;
-use Phing\Io\FileReader;
-use Phing\Io\IOException;
-use Phing\Type\Parameter;
 use Phing\Exception\BuildException;
 use Phing\Exception\NullPointerException;
+use Phing\Io\BufferedReader;
 use Phing\Io\File;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
 use Phing\Io\Reader;
+use Phing\Type\Parameter;
 
 /**
  * Concats a file before and/or after the file.

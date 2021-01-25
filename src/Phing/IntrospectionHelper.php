@@ -20,14 +20,14 @@
 namespace Phing;
 
 use Exception;
-use Phing\Io\File;
-use Phing\Type\Path;
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Parser\CustomChildCreator;
 use Phing\Parser\DynamicAttribute;
+use Phing\Type\Path;
+use Phing\Type\Reference;
 use Phing\Util\Register;
 use Phing\Util\StringHelper;
-use Phing\Type\Reference;
 use ReflectionClass;
 use ReflectionType;
 

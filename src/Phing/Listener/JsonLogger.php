@@ -20,10 +20,10 @@
 namespace Phing\Listener;
 
 use Exception;
+use Phing\Exception\BuildException;
 use Phing\Io\FileOutputStream;
 use Phing\Io\IOException;
 use Phing\Io\OutputStreamWriter;
-use Phing\Exception\BuildException;
 use Phing\Phing;
 use SimpleXMLElement;
 

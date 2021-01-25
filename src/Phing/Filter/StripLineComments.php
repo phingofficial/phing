@@ -20,8 +20,8 @@
 namespace Phing\Filter;
 
 use Exception;
-use Phing\Util\StringHelper;
 use Phing\Io\Reader;
+use Phing\Util\StringHelper;
 
 /**
  * This filter strips line comments.

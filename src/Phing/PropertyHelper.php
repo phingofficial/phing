@@ -20,8 +20,8 @@
 namespace Phing;
 
 use Phing\Exception\BuildException;
-use Phing\Util\StringHelper;
 use Phing\Type\PropertyValue;
+use Phing\Util\StringHelper;
 
 /**
  * Component creation and configuration

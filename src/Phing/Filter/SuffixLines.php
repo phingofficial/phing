@@ -20,8 +20,8 @@
 namespace Phing\Filter;
 
 use Phing\Io\FilterReader;
-use Phing\Util\StringHelper;
 use Phing\Io\Reader;
+use Phing\Util\StringHelper;
 
 /**
  * Attaches a suffix to every line.

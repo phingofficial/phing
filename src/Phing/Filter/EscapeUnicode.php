@@ -20,8 +20,8 @@
 namespace Phing\Filter;
 
 use Phing\Io\IOException;
-use Phing\Project;
 use Phing\Io\Reader;
+use Phing\Project;
 
 /**
  * UTF-8 to Unicode Code Points

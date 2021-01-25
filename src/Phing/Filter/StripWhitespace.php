@@ -20,12 +20,12 @@
 namespace Phing\Filter;
 
 use A;
-use Phing\Io\FileUtils;
-use Phing\Io\IOException;
 use Phing\Exception\NullPointerException;
+use Phing\Io\FileUtils;
 use Phing\Io\FilterReader;
-use Phing\Project;
+use Phing\Io\IOException;
 use Phing\Io\Reader;
+use Phing\Project;
 use SplFileObject;
 
 /**

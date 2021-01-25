@@ -19,9 +19,8 @@
 
 namespace Phing\Support;
 
-use Phing\Support\HangDetectorProperties;
 use Phing\Io\File;
-use Phing\Tasks\System\PropertyTask;
+use Phing\Task\System\PropertyTask;
 
 /**
  * @author Hans Lellelid (Phing)

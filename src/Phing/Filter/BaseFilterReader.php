@@ -20,9 +20,9 @@
 namespace Phing\Filter;
 use Phing\Io\FilterReader;
 use Phing\Io\IOException;
-use Phing\Project;
 use Phing\Io\Reader;
 use Phing\Io\StringReader;
+use Phing\Project;
 
 /**
  * Base class for core filter readers.

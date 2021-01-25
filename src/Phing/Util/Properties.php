@@ -19,13 +19,13 @@
 
 namespace Phing\Util;
 use Phing\Io\BufferedWriter;
+use Phing\Io\File;
 use Phing\Io\FileParserInterface;
 use Phing\Io\FileWriter;
 use Phing\Io\IniFileParser;
 use Phing\Io\IOException;
 use Phing\Io\OutputStream;
 use Phing\Io\OutputStreamWriter;
-use Phing\Io\File;
 
 /**
  * Convenience class for reading and writing property files.

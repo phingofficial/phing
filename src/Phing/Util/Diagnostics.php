@@ -19,11 +19,11 @@
 
 namespace Phing\Util;
 
+use Phing\Io\File;
 use Phing\Io\FileUtils;
 use Phing\Io\FileWriter;
-use Phing\Phing;
-use Phing\Io\File;
 use Phing\Io\PrintStream;
+use Phing\Phing;
 use Phing\Project;
 
 /**

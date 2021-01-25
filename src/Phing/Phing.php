@@ -19,14 +19,12 @@
 
 namespace Phing;
 
-use Phing\Exception\BuildException;
-use Phing\Listener\BuildLogger;
-use Phing\Exception\ConfigurationException;
-use Phing\Input\ConsoleInputHandler;
-use Phing\Listener\DefaultLogger;
-use Phing\Util\Diagnostics;
 use Exception;
+use Phing\Exception\BuildException;
+use Phing\Exception\ConfigurationException;
 use Phing\Exception\ExitStatusException;
+use Phing\Input\ConsoleInputHandler;
+use Phing\Io\File;
 use Phing\Io\FileOutputStream;
 use Phing\Io\FileParserFactory;
 use Phing\Io\FileReader;
@@ -34,18 +32,20 @@ use Phing\Io\FileSystem;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
 use Phing\Io\OutputStream;
-use Phing\Io\File;
 use Phing\Io\PrintStream;
-use Phing\Parser\ProjectConfigurator;
-use Phing\Util\Properties;
-use SebastianBergmann\Version;
+use Phing\Listener\BuildLogger;
+use Phing\Listener\DefaultLogger;
 use Phing\Listener\SilentLogger;
-use Phing\Util\SizeHelper;
 use Phing\Listener\StreamRequiredBuildLogger;
+use Phing\Parser\ProjectConfigurator;
+use Phing\Util\Diagnostics;
+use Phing\Util\Properties;
+use Phing\Util\SizeHelper;
 use Phing\Util\StringHelper;
+use Phing\Util\Timer;
+use SebastianBergmann\Version;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Throwable;
-use Phing\Util\Timer;
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from

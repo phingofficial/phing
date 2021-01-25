@@ -20,10 +20,10 @@
 namespace Phing\Dispatch;
 
 use Phing\Exception\BuildException;
-use ReflectionClass;
-use ReflectionException;
 use Phing\Task;
 use Phing\UnknownElement;
+use ReflectionClass;
+use ReflectionException;
 
 /**
  * Determines and Executes the action method for the task.

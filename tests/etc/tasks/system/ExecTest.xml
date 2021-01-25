@@ -130,7 +130,7 @@
      <!-- this file is in phing/tests/etc/tasks/system/,
           and that we're on unix with "ls" available -->
      <exec command="ls"
-           dir="../../../Phing/Tasks/System/"/>
+           dir="../../../Phing/Task/System/"/>
     </target>
 
     <target name="testCheckreturnTrue">

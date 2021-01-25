@@ -19,8 +19,8 @@
 
 namespace Phing\Parser;
 
-use Phing\Util\StringHelper;
 use Phing\Io\File;
+use Phing\Util\StringHelper;
 
 /**
  * Handler class for the <project> XML element This class handles all elements

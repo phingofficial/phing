@@ -19,12 +19,12 @@
 
 namespace Phing\Type\Selector;
 
-use Phing\Tasks\System\Condition\OsCondition;
 use Phing\Exception\BuildException;
 use Phing\Io\BufferedReader;
 use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
+use Phing\Task\System\Condition\OsCondition;
 
 /**
  * Selector that filters files based on whether they contain a

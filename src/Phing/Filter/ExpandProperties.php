@@ -20,8 +20,8 @@
 namespace Phing\Filter;
 
 use Phing\Io\IOException;
-use Phing\Project;
 use Phing\Io\Reader;
+use Phing\Project;
 
 /**
  * Expands Phing Properties, if any, in the data.

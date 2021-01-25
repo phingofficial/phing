@@ -20,8 +20,8 @@
 namespace Phing\Filter;
 
 use Exception;
-use Phing\Project;
 use Phing\Io\Reader;
+use Phing\Project;
 use Phing\Type\TokenSource;
 
 /**

@@ -19,9 +19,9 @@
 
 namespace Phing\Type\Selector;
 
-use Phing\Tasks\System\Condition\OsCondition as Os;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Task\System\Condition\OsCondition as Os;
 use PHPUnit\Framework\TestCase;
 
 /**

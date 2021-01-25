@@ -22,7 +22,7 @@ use Phing\Io\FileWriter;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
-use Phing\Tasks\System\Element\LogLevelAware;
+use Phing\Task\System\Element\LogLevelAware;
 use Phing\Type\Element\FileSetAware;
 use Phing\Util\DataStore;
 

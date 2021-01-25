@@ -19,9 +19,9 @@
 
 namespace Phing\Filter;
 
-use Phing\Type\Parameter;
 use Phing\Exception\BuildException;
 use Phing\Io\Reader;
+use Phing\Type\Parameter;
 use tidy;
 
 /**

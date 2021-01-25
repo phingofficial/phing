@@ -19,8 +19,8 @@
 
 namespace Phing\Filter;
 
-use Phing\Io\IOException;
 use Phing\Io\FilterReader;
+use Phing\Io\IOException;
 use Phing\Io\Reader;
 
 /**

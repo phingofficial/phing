@@ -18,7 +18,7 @@
  */
 
 use Phing\Exception\BuildException;
-use Phing\Tasks\System\FailTask;
+use Phing\Task\System\FailTask;
 use Phing\Type\Reference;
 
 /**

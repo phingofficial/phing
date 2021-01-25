@@ -20,9 +20,9 @@
 namespace Phing\Type;
 
 use Countable;
-use Phing\Tasks\System\Condition\OsCondition;
 use Phing\Exception\BuildException;
 use Phing\Io\FileUtils;
+use Phing\Task\System\Condition\OsCondition;
 
 /**
  * Commandline objects help handling command lines specifying processes to

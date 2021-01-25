@@ -1,6 +1,6 @@
 <?php
 
-use Phing\Tasks\System\Condition\Condition;
+use Phing\Task\System\Condition\Condition;
 
 class TestCondition implements Condition
 {

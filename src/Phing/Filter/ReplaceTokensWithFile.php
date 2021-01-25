@@ -19,8 +19,8 @@
 
 namespace Phing\Filter;
 
-use Phing\Project;
 use Phing\Io\Reader;
+use Phing\Project;
 
 /**
  * Replaces tokens in the original input with the contents of a file.
