@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Tasks\Ext\Coverage;
+namespace Phing\Task\Ext\Coverage;
 
 use Phing\Project;
 use Phing\Task;

@@ -17,9 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Tasks\Ext\Coverage;
+namespace Phing\Task\Ext\Coverage;
 
-use Phing\Tasks\System\Condition\OsCondition;
+use Phing\Task\System\Condition\OsCondition;
 use Phing\Exception\BuildException;
 use Phing\Io\ExtendedFileStream;
 use Phing\Io\File;
