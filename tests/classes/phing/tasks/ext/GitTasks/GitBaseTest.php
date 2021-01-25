@@ -18,7 +18,7 @@
  */
 
 use Phing\Support\BuildFileTest;
-use Phing\Tasks\Ext\GitBaseTask;
+use Phing\Task\Ext\GitBaseTask;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>

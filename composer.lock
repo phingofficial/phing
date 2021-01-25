@@ -132,12 +132,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-apigen.git",
-                "reference": "efb8764485c72b5011d2b26268ed36e8925be1e5"
+                "reference": "df34b0d85ae681335d1911b5ebab0a6653e59946"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-apigen/zipball/efb8764485c72b5011d2b26268ed36e8925be1e5",
-                "reference": "efb8764485c72b5011d2b26268ed36e8925be1e5",
+                "url": "https://api.github.com/repos/phingofficial/task-apigen/zipball/df34b0d85ae681335d1911b5ebab0a6653e59946",
+                "reference": "df34b0d85ae681335d1911b5ebab0a6653e59946",
                 "shasum": ""
             },
             "require": {
@@ -150,12 +150,12 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "apigen": "Phing\\Tasks\\Ext\\ApiGenTask"
+                    "apigen": "Phing\\Task\\Ext\\ApiGenTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -173,7 +173,7 @@
                 "issues": "https://github.com/phingofficial/task-apigen/issues",
                 "source": "https://github.com/phingofficial/task-apigen/tree/master"
             },
-            "time": "2021-01-23T20:34:48+00:00"
+            "time": "2021-01-25T14:55:48+00:00"
         },
         {
             "name": "phing/task-coverage",
@@ -181,12 +181,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-coverage.git",
-                "reference": "6b18bb2c97bd111008dbd863217f4a6281473f36"
+                "reference": "0219548972bf3a60e1a71a2d27fcbc3a3977e8a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/6b18bb2c97bd111008dbd863217f4a6281473f36",
-                "reference": "6b18bb2c97bd111008dbd863217f4a6281473f36",
+                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/0219548972bf3a60e1a71a2d27fcbc3a3977e8a4",
+                "reference": "0219548972bf3a60e1a71a2d27fcbc3a3977e8a4",
                 "shasum": ""
             },
             "require": {
@@ -199,15 +199,15 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "coverage-setup": "Phing\\Tasks\\Ext\\Coverage\\CoverageSetupTask",
-                    "coverage-merger": "Phing\\Tasks\\Ext\\Coverage\\CoverageMergerTask",
-                    "coverage-report": "Phing\\Tasks\\Ext\\Coverage\\CoverageReportTask",
-                    "coverage-threshold": "Phing\\Tasks\\Ext\\Coverage\\CoverageThresholdTask"
+                    "coverage-setup": "Phing\\Task\\Ext\\Coverage\\CoverageSetupTask",
+                    "coverage-merger": "Phing\\Task\\Ext\\Coverage\\CoverageMergerTask",
+                    "coverage-report": "Phing\\Task\\Ext\\Coverage\\CoverageReportTask",
+                    "coverage-threshold": "Phing\\Task\\Ext\\Coverage\\CoverageThresholdTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\Coverage\\": "src/"
+                    "Phing\\Task\\Ext\\Coverage\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -225,7 +225,7 @@
                 "issues": "https://github.com/phingofficial/task-coverage/issues",
                 "source": "https://github.com/phingofficial/task-coverage/tree/master"
             },
-            "time": "2021-01-24T19:38:03+00:00"
+            "time": "2021-01-25T14:55:58+00:00"
         },
         {
             "name": "phing/task-ftpdeploy",
@@ -233,12 +233,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-ftpdeploy.git",
-                "reference": "454fd5d39243efc39ba978424c5786df9c081991"
+                "reference": "4837b11e5033d49a3faf03bff53ab00f22685c9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-ftpdeploy/zipball/454fd5d39243efc39ba978424c5786df9c081991",
-                "reference": "454fd5d39243efc39ba978424c5786df9c081991",
+                "url": "https://api.github.com/repos/phingofficial/task-ftpdeploy/zipball/4837b11e5033d49a3faf03bff53ab00f22685c9a",
+                "reference": "4837b11e5033d49a3faf03bff53ab00f22685c9a",
                 "shasum": ""
             },
             "require": {
@@ -253,12 +253,12 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "ftpdeploy": "Phing\\Tasks\\Ext\\FtpDeployTask"
+                    "ftpdeploy": "Phing\\Task\\Ext\\FtpDeployTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -276,7 +276,7 @@
                 "issues": "https://github.com/phingofficial/task-ftpdeploy/issues",
                 "source": "https://github.com/phingofficial/task-ftpdeploy/tree/master"
             },
-            "time": "2021-01-24T15:34:42+00:00"
+            "time": "2021-01-25T14:56:06+00:00"
         },
         {
             "name": "phing/task-git",
@@ -284,12 +284,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-git.git",
-                "reference": "304f1fe8a8b48e9c2a344ec7a44768a2474fcab2"
+                "reference": "e79102fbe7a7f14696e675f3b2691a2cbc6e144a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-git/zipball/304f1fe8a8b48e9c2a344ec7a44768a2474fcab2",
-                "reference": "304f1fe8a8b48e9c2a344ec7a44768a2474fcab2",
+                "url": "https://api.github.com/repos/phingofficial/task-git/zipball/e79102fbe7a7f14696e675f3b2691a2cbc6e144a",
+                "reference": "e79102fbe7a7f14696e675f3b2691a2cbc6e144a",
                 "shasum": ""
             },
             "require": {
@@ -303,25 +303,25 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "gitarchive": "Phing\\Tasks\\Ext\\GitArchiveTask",
-                    "gitinit": "Phing\\Tasks\\Ext\\GitInitTask",
-                    "gitclone": "Phing\\Tasks\\Ext\\GitCloneTask",
-                    "gitgc": "Phing\\Tasks\\Ext\\GitGcTask",
-                    "gitbranch": "Phing\\Tasks\\Ext\\GitBranchTask",
-                    "gitfetch": "Phing\\Tasks\\Ext\\GitFetchTask",
-                    "gitmerge": "Phing\\Tasks\\Ext\\GitMergeTask",
-                    "gitcheckout": "Phing\\Tasks\\Ext\\GitCheckoutTask",
-                    "gitpull": "Phing\\Tasks\\Ext\\GitPullTask",
-                    "gitpush": "Phing\\Tasks\\Ext\\GitPushTask",
-                    "gitlog": "Phing\\Tasks\\Ext\\GitLogTask",
-                    "gittag": "Phing\\Tasks\\Ext\\GitTagTask",
-                    "gitcommit": "Phing\\Tasks\\Ext\\GitCommitTask",
-                    "gitdescribe": "Phing\\Tasks\\Ext\\GitDescribeTask"
+                    "gitarchive": "Phing\\Task\\Ext\\GitArchiveTask",
+                    "gitinit": "Phing\\Task\\Ext\\GitInitTask",
+                    "gitclone": "Phing\\Task\\Ext\\GitCloneTask",
+                    "gitgc": "Phing\\Task\\Ext\\GitGcTask",
+                    "gitbranch": "Phing\\Task\\Ext\\GitBranchTask",
+                    "gitfetch": "Phing\\Task\\Ext\\GitFetchTask",
+                    "gitmerge": "Phing\\Task\\Ext\\GitMergeTask",
+                    "gitcheckout": "Phing\\Task\\Ext\\GitCheckoutTask",
+                    "gitpull": "Phing\\Task\\Ext\\GitPullTask",
+                    "gitpush": "Phing\\Task\\Ext\\GitPushTask",
+                    "gitlog": "Phing\\Task\\Ext\\GitLogTask",
+                    "gittag": "Phing\\Task\\Ext\\GitTagTask",
+                    "gitcommit": "Phing\\Task\\Ext\\GitCommitTask",
+                    "gitdescribe": "Phing\\Task\\Ext\\GitDescribeTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -339,7 +339,7 @@
                 "issues": "https://github.com/phingofficial/task-git/issues",
                 "source": "https://github.com/phingofficial/task-git/tree/main"
             },
-            "time": "2021-01-24T00:14:31+00:00"
+            "time": "2021-01-25T14:56:14+00:00"
         },
         {
             "name": "phing/task-hg",
@@ -347,12 +347,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-hg.git",
-                "reference": "7f4ab6e8a6ab8d8156cec153add75cbc8145a91c"
+                "reference": "b70c50db1d541ec4d41e7d6256c5bc60cdbc2490"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-hg/zipball/7f4ab6e8a6ab8d8156cec153add75cbc8145a91c",
-                "reference": "7f4ab6e8a6ab8d8156cec153add75cbc8145a91c",
+                "url": "https://api.github.com/repos/phingofficial/task-hg/zipball/b70c50db1d541ec4d41e7d6256c5bc60cdbc2490",
+                "reference": "b70c50db1d541ec4d41e7d6256c5bc60cdbc2490",
                 "shasum": ""
             },
             "require": {
@@ -366,22 +366,22 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "hgadd": "Phing\\Tasks\\Ext\\HgAddTask",
-                    "hgarchive": "Phing\\Tasks\\Ext\\HgArchiveTask",
-                    "hgclone": "Phing\\Tasks\\Ext\\HgCloneTask",
-                    "hgcommit": "Phing\\Tasks\\Ext\\HgCommitTask",
-                    "hginit": "Phing\\Tasks\\Ext\\HgInitTask",
-                    "hglog": "Phing\\Tasks\\Ext\\HgLogTask",
-                    "hgpull": "Phing\\Tasks\\Ext\\HgPullTask",
-                    "hgpush": "Phing\\Tasks\\Ext\\HgPushTask",
-                    "hgrevert": "Phing\\Tasks\\Ext\\HgRevertTask",
-                    "hgtag": "Phing\\Tasks\\Ext\\HgTagTask",
-                    "hgupdate": "Phing\\Tasks\\Ext\\HgUpdateTask"
+                    "hgadd": "Phing\\Task\\Ext\\HgAddTask",
+                    "hgarchive": "Phing\\Task\\Ext\\HgArchiveTask",
+                    "hgclone": "Phing\\Task\\Ext\\HgCloneTask",
+                    "hgcommit": "Phing\\Task\\Ext\\HgCommitTask",
+                    "hginit": "Phing\\Task\\Ext\\HgInitTask",
+                    "hglog": "Phing\\Task\\Ext\\HgLogTask",
+                    "hgpull": "Phing\\Task\\Ext\\HgPullTask",
+                    "hgpush": "Phing\\Task\\Ext\\HgPushTask",
+                    "hgrevert": "Phing\\Task\\Ext\\HgRevertTask",
+                    "hgtag": "Phing\\Task\\Ext\\HgTagTask",
+                    "hgupdate": "Phing\\Task\\Ext\\HgUpdateTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -399,7 +399,7 @@
                 "issues": "https://github.com/phingofficial/task-hg/issues",
                 "source": "https://github.com/phingofficial/task-hg/tree/main"
             },
-            "time": "2021-01-24T00:16:10+00:00"
+            "time": "2021-01-25T14:56:24+00:00"
         },
         {
             "name": "phing/task-ioncube",
@@ -407,12 +407,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-ioncube.git",
-                "reference": "4bbbc5e48f827239569b15dd353d44807e6b0199"
+                "reference": "ce92e5b960828e55a561be9aa5aece00290d1fee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-ioncube/zipball/4bbbc5e48f827239569b15dd353d44807e6b0199",
-                "reference": "4bbbc5e48f827239569b15dd353d44807e6b0199",
+                "url": "https://api.github.com/repos/phingofficial/task-ioncube/zipball/ce92e5b960828e55a561be9aa5aece00290d1fee",
+                "reference": "ce92e5b960828e55a561be9aa5aece00290d1fee",
                 "shasum": ""
             },
             "require": {
@@ -425,13 +425,13 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "ioncubeencoder": "Phing\\Tasks\\Ext\\IoncubeEncoderTask",
-                    "ioncubelicense": "Phing\\Tasks\\Ext\\IoncubeLicenseTask"
+                    "ioncubeencoder": "Phing\\Task\\Ext\\IoncubeEncoderTask",
+                    "ioncubelicense": "Phing\\Task\\Ext\\IoncubeLicenseTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -449,7 +449,7 @@
                 "issues": "https://github.com/phingofficial/task-ioncube/issues",
                 "source": "https://github.com/phingofficial/task-ioncube/tree/master"
             },
-            "time": "2021-01-23T20:35:45+00:00"
+            "time": "2021-01-25T14:56:58+00:00"
         },
         {
             "name": "phing/task-jshint",
@@ -457,12 +457,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-jshint.git",
-                "reference": "ad30e0fd5b2ab562b0f2db7d9d9af8c3084f85d4"
+                "reference": "dce416f475842a35748f77edf77f7c0266324e5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-jshint/zipball/ad30e0fd5b2ab562b0f2db7d9d9af8c3084f85d4",
-                "reference": "ad30e0fd5b2ab562b0f2db7d9d9af8c3084f85d4",
+                "url": "https://api.github.com/repos/phingofficial/task-jshint/zipball/dce416f475842a35748f77edf77f7c0266324e5e",
+                "reference": "dce416f475842a35748f77edf77f7c0266324e5e",
                 "shasum": ""
             },
             "require": {
@@ -475,12 +475,12 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "jshint": "Phing\\Tasks\\Ext\\JsHintTask"
+                    "jshint": "Phing\\Task\\Ext\\JsHintTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -498,7 +498,7 @@
                 "issues": "https://github.com/phingofficial/task-jshint/issues",
                 "source": "https://github.com/phingofficial/task-jshint/tree/master"
             },
-            "time": "2021-01-24T00:17:54+00:00"
+            "time": "2021-01-25T14:57:05+00:00"
         },
         {
             "name": "phing/task-jsmin",
@@ -506,12 +506,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-jsmin.git",
-                "reference": "6448b42ad6ba521e0f828d612ce9fe2e59e967d4"
+                "reference": "437d87992f3a80e18260336340aa4b48955bbbf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-jsmin/zipball/6448b42ad6ba521e0f828d612ce9fe2e59e967d4",
-                "reference": "6448b42ad6ba521e0f828d612ce9fe2e59e967d4",
+                "url": "https://api.github.com/repos/phingofficial/task-jsmin/zipball/437d87992f3a80e18260336340aa4b48955bbbf7",
+                "reference": "437d87992f3a80e18260336340aa4b48955bbbf7",
                 "shasum": ""
             },
             "require": {
@@ -525,12 +525,12 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "jsmin": "Phing\\Tasks\\Ext\\JsMinTask"
+                    "jsmin": "Phing\\Task\\Ext\\JsMinTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -548,7 +548,7 @@
                 "issues": "https://github.com/phingofficial/task-jsmin/issues",
                 "source": "https://github.com/phingofficial/task-jsmin/tree/master"
             },
-            "time": "2021-01-24T00:19:23+00:00"
+            "time": "2021-01-25T14:57:14+00:00"
         },
         {
             "name": "phing/task-liquibase",
@@ -556,12 +556,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-liquibase.git",
-                "reference": "14e0c601f59a266cb5423b765b8182b2e1e5b702"
+                "reference": "91cfa93680e0bcff32aeb0d91262ebbce90b04e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-liquibase/zipball/14e0c601f59a266cb5423b765b8182b2e1e5b702",
-                "reference": "14e0c601f59a266cb5423b765b8182b2e1e5b702",
+                "url": "https://api.github.com/repos/phingofficial/task-liquibase/zipball/91cfa93680e0bcff32aeb0d91262ebbce90b04e4",
+                "reference": "91cfa93680e0bcff32aeb0d91262ebbce90b04e4",
                 "shasum": ""
             },
             "require": {
@@ -574,18 +574,18 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "liquibase-changelog": "Phing\\Tasks\\Ext\\LiquibaseChangeLogTask",
-                    "liquibase-dbdoc": "Phing\\Tasks\\Ext\\LiquibaseDbDocTask",
-                    "liquibase-diff": "Phing\\Tasks\\Ext\\LiquibaseDiffTask",
-                    "liquibase-rollback": "Phing\\Tasks\\Ext\\LiquibaseRollbackTask",
-                    "liquibase-tag": "Phing\\Tasks\\Ext\\LiquibaseTagTask",
-                    "liquibase-update": "Phing\\Tasks\\Ext\\LiquibaseUpdateTask",
-                    "liquibase": "Phing\\Tasks\\Ext\\LiquibaseTask"
+                    "liquibase-changelog": "Phing\\Task\\Ext\\LiquibaseChangeLogTask",
+                    "liquibase-dbdoc": "Phing\\Task\\Ext\\LiquibaseDbDocTask",
+                    "liquibase-diff": "Phing\\Task\\Ext\\LiquibaseDiffTask",
+                    "liquibase-rollback": "Phing\\Task\\Ext\\LiquibaseRollbackTask",
+                    "liquibase-tag": "Phing\\Task\\Ext\\LiquibaseTagTask",
+                    "liquibase-update": "Phing\\Task\\Ext\\LiquibaseUpdateTask",
+                    "liquibase": "Phing\\Task\\Ext\\LiquibaseTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -603,7 +603,7 @@
                 "issues": "https://github.com/phingofficial/task-liquibase/issues",
                 "source": "https://github.com/phingofficial/task-liquibase/tree/master"
             },
-            "time": "2021-01-23T20:36:13+00:00"
+            "time": "2021-01-25T14:57:23+00:00"
         },
         {
             "name": "phing/task-phkpackage",
@@ -611,12 +611,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-phkpackage.git",
-                "reference": "61ce449f4bbda5b329c27d39f59c0006551c3b29"
+                "reference": "f753840d8bc7c2542a24c05466316de249208fac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-phkpackage/zipball/61ce449f4bbda5b329c27d39f59c0006551c3b29",
-                "reference": "61ce449f4bbda5b329c27d39f59c0006551c3b29",
+                "url": "https://api.github.com/repos/phingofficial/task-phkpackage/zipball/f753840d8bc7c2542a24c05466316de249208fac",
+                "reference": "f753840d8bc7c2542a24c05466316de249208fac",
                 "shasum": ""
             },
             "require": {
@@ -629,12 +629,12 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "phkpackage": "Phing\\Tasks\\Ext\\PhkPackageTask"
+                    "phkpackage": "Phing\\Task\\Ext\\PhkPackageTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -652,7 +652,7 @@
                 "issues": "https://github.com/phingofficial/task-phkpackage/issues",
                 "source": "https://github.com/phingofficial/task-phkpackage/tree/master"
             },
-            "time": "2021-01-23T20:36:21+00:00"
+            "time": "2021-01-25T14:57:38+00:00"
         },
         {
             "name": "phing/task-phpdoc",
@@ -660,12 +660,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-phpdoc.git",
-                "reference": "67b37bd8dc58414f1e05a618bf5e7e05945a509f"
+                "reference": "87db308a415622244f3bf7f87f62e7f80b48752d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-phpdoc/zipball/67b37bd8dc58414f1e05a618bf5e7e05945a509f",
-                "reference": "67b37bd8dc58414f1e05a618bf5e7e05945a509f",
+                "url": "https://api.github.com/repos/phingofficial/task-phpdoc/zipball/87db308a415622244f3bf7f87f62e7f80b48752d",
+                "reference": "87db308a415622244f3bf7f87f62e7f80b48752d",
                 "shasum": ""
             },
             "require": {
@@ -679,13 +679,13 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "phpdoc": "Phing\\Tasks\\Ext\\PhpDocumentor2Task",
-                    "phpdoc2": "Phing\\Tasks\\Ext\\PhpDocumentor2Task"
+                    "phpdoc": "Phing\\Task\\Ext\\PhpDocumentor2Task",
+                    "phpdoc2": "Phing\\Task\\Ext\\PhpDocumentor2Task"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -703,7 +703,7 @@
                 "issues": "https://github.com/phingofficial/task-phpdoc/issues",
                 "source": "https://github.com/phingofficial/task-phpdoc/tree/master"
             },
-            "time": "2021-01-24T00:21:05+00:00"
+            "time": "2021-01-25T14:57:46+00:00"
         },
         {
             "name": "phing/task-smarty",
@@ -711,12 +711,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-smarty.git",
-                "reference": "2843e9fa8960718e6b4bfe2e642a32ee9dcf2599"
+                "reference": "ad36b52d43af7f2ce365006c458852ce2c2b3245"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-smarty/zipball/2843e9fa8960718e6b4bfe2e642a32ee9dcf2599",
-                "reference": "2843e9fa8960718e6b4bfe2e642a32ee9dcf2599",
+                "url": "https://api.github.com/repos/phingofficial/task-smarty/zipball/ad36b52d43af7f2ce365006c458852ce2c2b3245",
+                "reference": "ad36b52d43af7f2ce365006c458852ce2c2b3245",
                 "shasum": ""
             },
             "require": {
@@ -730,12 +730,12 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "smarty": "Phing\\Tasks\\Ext\\SmartyTask"
+                    "smarty": "Phing\\Task\\Ext\\SmartyTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -753,7 +753,7 @@
                 "issues": "https://github.com/phingofficial/task-smarty/issues",
                 "source": "https://github.com/phingofficial/task-smarty/tree/master"
             },
-            "time": "2021-01-23T20:36:56+00:00"
+            "time": "2021-01-25T14:57:57+00:00"
         },
         {
             "name": "phing/task-ssh",
@@ -761,12 +761,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-ssh.git",
-                "reference": "6181209e9a6b9c0289593089df940ae8fdc372ea"
+                "reference": "0f51283118ba987efd5c78ea2933f453cff8ab4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-ssh/zipball/6181209e9a6b9c0289593089df940ae8fdc372ea",
-                "reference": "6181209e9a6b9c0289593089df940ae8fdc372ea",
+                "url": "https://api.github.com/repos/phingofficial/task-ssh/zipball/0f51283118ba987efd5c78ea2933f453cff8ab4a",
+                "reference": "0f51283118ba987efd5c78ea2933f453cff8ab4a",
                 "shasum": ""
             },
             "require": {
@@ -779,16 +779,16 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "ssh": "Phing\\Tasks\\Ext\\SshTask",
-                    "scp": "Phing\\Tasks\\Ext\\ScpTask"
+                    "ssh": "Phing\\Task\\Ext\\SshTask",
+                    "scp": "Phing\\Task\\Ext\\ScpTask"
                 },
                 "phing-custom-typedefs": {
-                    "sshconfig": "Phing\\Tasks\\Ext\\Ssh2MethodParam"
+                    "sshconfig": "Phing\\Task\\Ext\\Ssh2MethodParam"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -806,7 +806,7 @@
                 "issues": "https://github.com/phingofficial/task-ssh/issues",
                 "source": "https://github.com/phingofficial/task-ssh/tree/master"
             },
-            "time": "2021-01-24T15:44:46+00:00"
+            "time": "2021-01-25T14:58:07+00:00"
         },
         {
             "name": "phing/task-zendcodeanalyser",
@@ -814,12 +814,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-zendcodeanalyser.git",
-                "reference": "499db86a340d8be29ea9737870502c57f31aa68a"
+                "reference": "c794fd80afd6b363076fa8acb55fb5cc25218938"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-zendcodeanalyser/zipball/499db86a340d8be29ea9737870502c57f31aa68a",
-                "reference": "499db86a340d8be29ea9737870502c57f31aa68a",
+                "url": "https://api.github.com/repos/phingofficial/task-zendcodeanalyser/zipball/c794fd80afd6b363076fa8acb55fb5cc25218938",
+                "reference": "c794fd80afd6b363076fa8acb55fb5cc25218938",
                 "shasum": ""
             },
             "require": {
@@ -832,13 +832,13 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "zendcodeanalyzer": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask",
-                    "analyze": "Phing\\Tasks\\Ext\\ZendCodeAnalyzerTask"
+                    "zendcodeanalyzer": "Phing\\Task\\Ext\\ZendCodeAnalyzerTask",
+                    "analyze": "Phing\\Task\\Ext\\ZendCodeAnalyzerTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -856,7 +856,7 @@
                 "issues": "https://github.com/phingofficial/task-zendcodeanalyser/issues",
                 "source": "https://github.com/phingofficial/task-zendcodeanalyser/tree/master"
             },
-            "time": "2021-01-24T00:24:52+00:00"
+            "time": "2021-01-25T14:58:16+00:00"
         },
         {
             "name": "phing/task-zendserverdevelopmenttools",
@@ -864,12 +864,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-zendserverdeploymenttool.git",
-                "reference": "e8efe8c499cfdd15b630627fbdd47aa2e14815c5"
+                "reference": "a5f8b0ef4f373d1bbdc54dfbdbb1fe05bfc09893"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-zendserverdeploymenttool/zipball/e8efe8c499cfdd15b630627fbdd47aa2e14815c5",
-                "reference": "e8efe8c499cfdd15b630627fbdd47aa2e14815c5",
+                "url": "https://api.github.com/repos/phingofficial/task-zendserverdeploymenttool/zipball/a5f8b0ef4f373d1bbdc54dfbdbb1fe05bfc09893",
+                "reference": "a5f8b0ef4f373d1bbdc54dfbdbb1fe05bfc09893",
                 "shasum": ""
             },
             "require": {
@@ -882,13 +882,13 @@
             "type": "phing-extension",
             "extra": {
                 "phing-custom-taskdefs": {
-                    "zsdtvalidate": "Phing\\Tasks\\Ext\\ZsdtValidateTask",
-                    "zsdtpack": "Phing\\Tasks\\Ext\\ZsdtPackTask"
+                    "zsdtvalidate": "Phing\\Task\\Ext\\ZsdtValidateTask",
+                    "zsdtpack": "Phing\\Task\\Ext\\ZsdtPackTask"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phing\\Tasks\\Ext\\": "src/"
+                    "Phing\\Task\\Ext\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -906,7 +906,7 @@
                 "issues": "https://github.com/phingofficial/task-zendserverdeploymenttool/issues",
                 "source": "https://github.com/phingofficial/task-zendserverdeploymenttool/tree/master"
             },
-            "time": "2021-01-23T20:37:28+00:00"
+            "time": "2021-01-25T14:58:31+00:00"
         },
         {
             "name": "psr/container",
