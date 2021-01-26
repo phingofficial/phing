@@ -1,9 +1,4 @@
 <?php
-
-use Phing\Exception\BuildException;
-use Phing\Project;
-use Phing\Support\BuildFileTest;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,6 +16,10 @@ use Phing\Support\BuildFileTest;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Support\BuildFileTest;
 
 class IniFileTaskTest extends BuildFileTest
 {

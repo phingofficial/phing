@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65adde39d457316aa5734b6a1d453a21",
+    "content-hash": "83badd37f6165c0c712e341f35c0f5d9",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -400,6 +400,55 @@
                 "source": "https://github.com/phingofficial/task-hg/tree/main"
             },
             "time": "2021-01-25T14:56:24+00:00"
+        },
+        {
+            "name": "phing/task-inifile",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-inifile.git",
+                "reference": "54b9e2c75b1c2fdef85ede464fc6cde4b071e136"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-inifile/zipball/54b9e2c75b1c2fdef85ede464fc6cde4b071e136",
+                "reference": "54b9e2c75b1c2fdef85ede464fc6cde4b071e136",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev"
+            },
+            "default-branch": true,
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "inifile": "Phing\\Task\\Ext\\IniFileTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Task\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "Tasks related to ini files.",
+            "support": {
+                "issues": "https://github.com/phingofficial/task-inifile/issues",
+                "source": "https://github.com/phingofficial/task-inifile/tree/main"
+            },
+            "time": "2021-01-26T22:04:11+00:00"
         },
         {
             "name": "phing/task-ioncube",
@@ -1905,16 +1954,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.172.0",
+            "version": "3.172.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5a5e66c4d54c392042820703eeb8a6bd3d222924"
+                "reference": "28a0929598be6e9e0b652091712068d37acd9d0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5a5e66c4d54c392042820703eeb8a6bd3d222924",
-                "reference": "5a5e66c4d54c392042820703eeb8a6bd3d222924",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/28a0929598be6e9e0b652091712068d37acd9d0a",
+                "reference": "28a0929598be6e9e0b652091712068d37acd9d0a",
                 "shasum": ""
             },
             "require": {
@@ -1989,9 +2038,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.172.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.172.1"
             },
-            "time": "2021-01-22T19:21:38+00:00"
+            "time": "2021-01-26T19:11:49+00:00"
         },
         {
             "name": "composer/xdebug-handler",
@@ -6006,6 +6055,7 @@
         "phing/task-ftpdeploy": 20,
         "phing/task-git": 20,
         "phing/task-hg": 20,
+        "phing/task-inifile": 20,
         "phing/task-ioncube": 20,
         "phing/task-jshint": 20,
         "phing/task-jsmin": 20,
