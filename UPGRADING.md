@@ -51,5 +51,6 @@ that you might stumble across when upgrading from Phing 2 to 3.
   * PhpDoc
   * Smarty
   * SSH
+  * Visualizer
   * ZendCodeAnalyser
   * ZendServerDevelopmentTools
