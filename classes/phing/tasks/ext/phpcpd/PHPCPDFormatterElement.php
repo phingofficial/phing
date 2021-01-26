@@ -91,14 +91,10 @@ class PHPCPDFormatterElement
                     throw new BuildException('Formatter "' . $this->type . '" can only print the result to an file');
                 }
 
-                include_once 'phing/tasks/ext/phpcpd/formatter/PMDPHPCPDResultFormatter.php';
-
                 $this->formatter = new PMDPHPCPDResultFormatter();
                 break;
 
             case 'default':
-                include_once 'phing/tasks/ext/phpcpd/formatter/DefaultPHPCPDResultFormatter.php';
-
                 $this->formatter = new DefaultPHPCPDResultFormatter();
                 break;
 

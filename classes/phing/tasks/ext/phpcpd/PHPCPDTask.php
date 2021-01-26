@@ -21,6 +21,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
+use SebastianBergmann\PHPCPD\Detector\Detector;
 use SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy;
 use Composer\Autoload\ClassLoader;
 
@@ -91,11 +92,6 @@ class PHPCPDTask extends Task
      * @var PHPCPDFormatterElement[]
      */
     protected $formatters = [];
-
-    /**
-     * @var bool
-     */
-    protected $oldVersion = false;
 
     /**
      * @var string
@@ -239,22 +235,6 @@ class Application
             return;
         }
 
-        if ($handler = @fopen('SebastianBergmann/PHPCPD/autoload.php', 'r', true)) {
-            fclose($handler);
-            @include_once 'SebastianBergmann/PHPCPD/autoload.php';
-
-            return;
-        }
-
-        if ($handler = @fopen('PHPCPD/Autoload.php', 'r', true)) {
-            fclose($handler);
-            @include_once 'PHPCPD/Autoload.php';
-
-            $this->oldVersion = true;
-
-            return;
-        }
-
         throw new BuildException(
             'PHPCPDTask depends on PHPCPD being installed and on include_path.',
             $this->getLocation()
@@ -303,15 +283,7 @@ class Application
 
         $this->log('Processing files...');
 
-        if ($this->oldVersion) {
-            $detectorClass = 'PHPCPD_Detector';
-            $strategyClass = 'PHPCPD_Detector_Strategy_Default';
-        } else {
-            $detectorClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Detector';
-            $strategyClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy';
-        }
-
-        $detector = new $detectorClass(new $strategyClass());
+        $detector = new Detector(new DefaultStrategy());
         $clones = $detector->copyPasteDetection(
             $filesToParse,
             $this->minLines,

@@ -5,5 +5,5 @@ parameters:
         - src/Phing
         - tests/classes
         - tests/Phing
-    autoload_files:
+    bootstrapFiles:
         - tests/bootstrap.php
