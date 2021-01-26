@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83badd37f6165c0c712e341f35c0f5d9",
+    "content-hash": "32d95e676a48903f6f1dde9b150943b9",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -856,6 +856,58 @@
                 "source": "https://github.com/phingofficial/task-ssh/tree/master"
             },
             "time": "2021-01-25T14:58:07+00:00"
+        },
+        {
+            "name": "phing/task-visualizer",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-visualizer.git",
+                "reference": "64e9ff2f9eaaf625db6d715064860d2cbf1cebd7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-visualizer/zipball/64e9ff2f9eaaf625db6d715064860d2cbf1cebd7",
+                "reference": "64e9ff2f9eaaf625db6d715064860d2cbf1cebd7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "guzzle/http": "^v3.9",
+                "jawira/plantuml-encoding": "^v1.0",
+                "phing/phing": "3.0.x-dev",
+                "psr/http-message": "^1.0"
+            },
+            "default-branch": true,
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "visualizer": "Phing\\Task\\Ext\\VisualizerTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Task\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "VisualizerTask creates diagrams using buildfiles, these diagrams represents calls and depends among targets.",
+            "support": {
+                "issues": "https://github.com/phingofficial/task-visualizer/issues",
+                "source": "https://github.com/phingofficial/task-visualizer/tree/main"
+            },
+            "time": "2021-01-26T22:59:02+00:00"
         },
         {
             "name": "phing/task-zendcodeanalyser",
@@ -6064,6 +6116,7 @@
         "phing/task-phpdoc": 20,
         "phing/task-smarty": 20,
         "phing/task-ssh": 20,
+        "phing/task-visualizer": 20,
         "phing/task-zendcodeanalyser": 20,
         "phing/task-zendserverdevelopmenttools": 20,
         "pear/net_growl": 20,
