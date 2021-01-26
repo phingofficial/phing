@@ -104,7 +104,8 @@ class Timer
     /**
      * @return bool
      */
-    public function isRunning() {
+    public function isRunning()
+    {
         return $this->running;
     }
 }
