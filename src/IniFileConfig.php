@@ -138,9 +138,9 @@ class IniFileConfig
      * If key is not specified, then the entire section will be removed.
      *
      * @param string $section Section to manipulate/remove
-     * @param string $key Name of key to remove, might be null/empty
+     * @param string|null $key Name of key to remove, might be null/empty
      */
-    public function remove(string $section, string $key): void
+    public function remove(string $section, ?string $key): void
     {
         if ($section === '') {
             throw new RuntimeException("Section not set.");
