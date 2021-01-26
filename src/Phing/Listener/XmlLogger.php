@@ -198,8 +198,9 @@ class XmlLogger implements BuildLogger
             $outFilename = "log.xml";
         }
 
+        $stream = $this->getOut();
+
         try {
-            $stream = $this->out;
             if ($stream === null) {
                 $stream = new FileOutputStream($outFilename);
             }

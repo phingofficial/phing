@@ -205,8 +205,10 @@ class ReplaceRegexpTask extends Task
 
             // 1) read contents of file, pulling through any filters
             $in = null;
+            $out = null;
+            $contents = "";
+
             try {
-                $contents = "";
                 $in = FileUtils::getChainedReader(new FileReader($file), $filters, $this->project);
                 while (-1 !== ($buffer = $in->read())) {
                     $contents .= $buffer;

@@ -249,7 +249,7 @@ class SonarTask extends Task
         }
 
         $this->log($message, Project::MSG_VERBOSE);
-        unset($output);
+        $output = "";
         exec($command, $output, $returnCode);
 
         if ($returnCode !== self::EXIT_SUCCESS) {

@@ -76,8 +76,8 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider prefixLengthDataPRovider
-     * @param type $expected
-     * @param type $pathname
+     * @param integer $expected
+     * @param string $pathname
      */
     public function testPrefixLength($expected, $pathname)
     {
@@ -186,8 +186,8 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider fromURIPathDataProvider
-     * @param type $expected
-     * @param type $path
+     * @param string $expected
+     * @param string $path
      */
     public function testFromURIPath($expected, $path)
     {
@@ -201,7 +201,6 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
         return [
             'singleLetter' => ['f', 'f'],
             'slashStart' => ['/foo', '/foo/'],
-            'driveLetter' => ['c:/foo', '/c:/foo'],
             'driveLetter' => ['c:/foo', '/c:/foo'],
             'slashPath' => ['c:/foo', 'c:/foo/'],
             'slashPathRootDrive' => ['c:/', '/c:/']

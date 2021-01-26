@@ -172,6 +172,7 @@ class ForeachTask extends Task
 
         $callee = $this->createCallTarget();
         $mapper = null;
+        $total_entries = 0;
 
         if ($this->mapperElement !== null) {
             $mapper = $this->mapperElement->getImplementation();
@@ -179,7 +180,6 @@ class ForeachTask extends Task
 
         if ($this->list !== null) {
             $arr = explode($this->delimiter, $this->list);
-            $total_entries = 0;
 
             foreach ($arr as $index => $value) {
                 if ($this->trim) {

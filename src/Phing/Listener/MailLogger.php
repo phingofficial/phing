@@ -107,6 +107,7 @@ class MailLogger extends DefaultLogger
 
         $success = $event->getException() === null;
         $prefix = $success ? 'success' : 'failure';
+        $headers = [];
 
         try {
             $notify = StringHelper::booleanValue($this->getValue($properties, $prefix . '.notify', 'on'));
@@ -119,13 +120,12 @@ class MailLogger extends DefaultLogger
             } else {
                 $defaultSubject = ($success) ? 'Build Success' : 'Build Failure';
             }
-            $hdrs = [];
-            $hdrs['From'] = $this->getValue($properties, 'from', $this->from);
-            $hdrs['Reply-To'] = $this->getValue($properties, 'replyto', '');
-            $hdrs['Cc'] = $this->getValue($properties, $prefix . '.cc', '');
-            $hdrs['Bcc'] = $this->getValue($properties, $prefix . '.bcc', '');
-            $hdrs['Body'] = $this->getValue($properties, $prefix . '.body', '');
-            $hdrs['Subject'] = $this->getValue($properties, $prefix . '.subject', $defaultSubject);
+            $headers['From'] = $this->getValue($properties, 'from', $this->from);
+            $headers['Reply-To'] = $this->getValue($properties, 'replyto', '');
+            $headers['Cc'] = $this->getValue($properties, $prefix . '.cc', '');
+            $headers['Bcc'] = $this->getValue($properties, $prefix . '.bcc', '');
+            $headers['Body'] = $this->getValue($properties, $prefix . '.body', '');
+            $headers['Subject'] = $this->getValue($properties, $prefix . '.subject', $defaultSubject);
             $tolist = $this->getValue($properties, $prefix . '.to', $this->tolist);
         } catch (BadMethodCallException $e) {
             $project->log($e->getMessage(), Project::MSG_WARN);
@@ -136,7 +136,7 @@ class MailLogger extends DefaultLogger
         }
 
         $mail = Mail::factory('mail');
-        $mail->send($tolist, $hdrs, $this->mailMessage);
+        $mail->send($tolist, $headers, $this->mailMessage);
     }
 
     /**

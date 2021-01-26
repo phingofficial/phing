@@ -22,6 +22,7 @@ use Phing\Io\FileWriter;
 use Phing\Io\LogWriter;
 use Phing\Io\File;
 use Phing\Task;
+use PHPUnit\TextUI\XmlConfiguration\Loader;
 
 /**
  * Runs PHPUnit tests.
@@ -382,13 +383,7 @@ class PHPUnitTask extends Task
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
         }
 
-        if (class_exists('\PHPUnit\TextUI\Configuration\Registry')) {
-            $config = \PHPUnit\TextUI\Configuration\Registry::getInstance()->get($configuration->getAbsolutePath());
-        } elseif (class_exists('\PHPUnit\TextUI\XmlConfiguration\Loader')) {
-            $config = (new \PHPUnit\TextUI\XmlConfiguration\Loader())->load($configuration->getAbsolutePath());
-        } else {
-            throw new BuildException("Can't parse PHPUnit configuration file '" . (string) $configuration . "'");
-        }
+        $config = (new Loader())->load($configuration->getAbsolutePath());
 
         if (empty($config)) {
             return [];
@@ -512,24 +507,12 @@ class PHPUnitTask extends Task
      */
     protected function execute($suite)
     {
-        if (
-            class_exists('\PHPUnit\Runner\Version', false) &&
-            version_compare(\PHPUnit\Runner\Version::id(), '9.0.0', '<')
-        ) {
-            $runner = new PHPUnitTestRunner8(
-                $this->project,
-                $this->groups,
-                $this->excludeGroups,
-                $this->processIsolation
-            );
-        } else {
-            $runner = new PHPUnitTestRunner9(
-                $this->project,
-                $this->groups,
-                $this->excludeGroups,
-                $this->processIsolation
-            );
-        }
+        $runner = new PHPUnitTestRunner9(
+            $this->project,
+            $this->groups,
+            $this->excludeGroups,
+            $this->processIsolation
+        );
 
         if ($this->codecoverage) {
             /**

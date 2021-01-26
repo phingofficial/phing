@@ -195,6 +195,8 @@ class ManifestTask extends Task
             $this->log("Using " . implode(', ', $this->checksum) . " for checksuming.", Project::MSG_INFO);
         }
 
+        $manifest = [];
+
         foreach ($this->filesets as $fs) {
             $dir = $fs->getDir($this->project)->getPath();
 

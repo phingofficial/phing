@@ -1,0 +1,9 @@
+parameters:
+    level: 1
+    paths:
+        - classes
+        - src/Phing
+        - tests/classes
+        - tests/Phing
+    autoload_files:
+        - tests/bootstrap.php

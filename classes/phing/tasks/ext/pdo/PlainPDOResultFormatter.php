@@ -96,6 +96,8 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      */
     public function processRow($row)
     {
+        $line = "";
+
         if (!$this->colsprinted && $this->showheaders) {
             $first = true;
             foreach ($row as $fieldName => $ignore) {

@@ -46,9 +46,6 @@ class DefaultExcludesTest extends BuildFileTest
         $this->executeTarget("cleanup-excludes");
     }
 
-    /**
-     * @requires PHPUnit < 8
-     */
     public function test1()
     {
         $expected = [
@@ -83,13 +80,16 @@ class DefaultExcludesTest extends BuildFileTest
             "**/.bzr/**",
             "**/.bzrignore",
         ];
+
         $this->executeTarget(__FUNCTION__);
-        $this->assertArraySubset($expected, DirectoryScanner::getDefaultExcludes());
+
+        $actualArray = DirectoryScanner::getDefaultExcludes();
+        foreach ($expected as $key => $value) {
+            $this->assertArrayHasKey($key, $actualArray);
+            $this->assertSame($value, $actualArray[$key]);
+        }
     }
 
-    /**
-     * @requires PHPUnit < 8
-     */
     public function test2()
     {
         $expected = [
@@ -125,13 +125,16 @@ class DefaultExcludesTest extends BuildFileTest
             "**/.bzrignore",
             "foo"
         ];
+
         $this->executeTarget(__FUNCTION__);
-        $this->assertArraySubset($expected, DirectoryScanner::getDefaultExcludes());
+
+        $actualArray = DirectoryScanner::getDefaultExcludes();
+        foreach ($expected as $key => $value) {
+            $this->assertArrayHasKey($key, $actualArray);
+            $this->assertSame($value, $actualArray[$key]);
+        }
     }
 
-    /**
-     * @requires PHPUnit < 8
-     */
     public function test3()
     {
         $expected = [
@@ -166,8 +169,14 @@ class DefaultExcludesTest extends BuildFileTest
             "**/.bzr/**",
             "**/.bzrignore",
         ];
+
         $this->executeTarget(__FUNCTION__);
-        $this->assertArraySubset($expected, DirectoryScanner::getDefaultExcludes());
+
+        $actualArray = DirectoryScanner::getDefaultExcludes();
+        foreach ($expected as $key => $value) {
+            $this->assertArrayHasKey($key, $actualArray);
+            $this->assertSame($value, $actualArray[$key]);
+        }
     }
 
     public function testCopyNoExplicitExcludes()

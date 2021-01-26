@@ -320,7 +320,7 @@ class ComponentHelper
                 $type->setProject($this->project);
             }
             if (!($type instanceof DataType)) {
-                throw new Exception("$class is not an instance of phing.types.DataType");
+                throw new Exception("$cls is not an instance of phing.types.DataType");
             }
         } catch (Exception $t) {
             throw new BuildException("Could not create type: $typeName", $t);

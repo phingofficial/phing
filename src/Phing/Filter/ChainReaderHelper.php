@@ -20,6 +20,7 @@
 namespace Phing\Filter;
 
 use Exception;
+use Phing\Exception\BuildException;
 use Phing\Io\FilterReader as IoFilterReader;
 use Phing\Io\Reader;
 use Phing\Phing;
@@ -170,12 +171,13 @@ class ChainReaderHelper
                     // This filter reader is an external class.
                     $className = $filter->getClassName();
                     $classpath = $filter->getClasspath();
-                    $project = $filter->getProject();
 
-                    if ($className !== null) {
-                        $cls = Phing::import($className, $classpath);
-                        $impl = new $cls();
+                    if ($className === null) {
+                        throw new BuildException("No class name set on filter", $filter->getLocation());
                     }
+
+                    $cls = Phing::import($className, $classpath);
+                    $impl = new $cls();
 
                     if (!($impl instanceof IoFilterReader)) {
                         throw new Exception($className . " does not extend " . IoFilterReader::class);

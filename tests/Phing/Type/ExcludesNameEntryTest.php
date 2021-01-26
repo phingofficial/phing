@@ -23,6 +23,11 @@ use PHPUnit\Framework\TestCase;
 
 class ExcludesNameEntryTest extends TestCase
 {
+    /**
+     * @var ExcludesNameEntry
+     */
+    private $entry;
+
     public function setUp(): void
     {
         $this->entry = new ExcludesNameEntry();

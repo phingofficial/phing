@@ -26,7 +26,7 @@ use Phing\Support\BuildFileTest;
  *
  * @author  Christian Weiske <cweiske@cweiske.de>
  */
-class TryCatchTaskTest extends BuildFileTest
+class TryCatchTest extends BuildFileTest
 {
     public function setUp(): void
     {

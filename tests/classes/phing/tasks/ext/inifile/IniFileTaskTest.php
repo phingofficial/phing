@@ -24,6 +24,11 @@ use Phing\Support\BuildFileTest;
 
 class IniFileTaskTest extends BuildFileTest
 {
+    /**
+     * @var string
+     */
+    private $inifiletestdir;
+
     public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/inifile/inifile.xml");

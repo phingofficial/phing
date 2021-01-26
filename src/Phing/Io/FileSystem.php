@@ -560,8 +560,7 @@ abstract class FileSystem
         if (false === @chown($pathname, $user)) { // FAILED.
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            $msg = "FileSystem::chown() FAILED. Cannot chown $pathname. User $user." . (isset($errormsg) ? ' ' . $errormsg : "");
-            throw new IOException($msg);
+            throw new IOException("FileSystem::chown() FAILED. Cannot chown $pathname. User $user $errormsg");
         }
     }
 
@@ -580,8 +579,7 @@ abstract class FileSystem
         if (false === @chgrp($pathname, $group)) { // FAILED.
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            $msg = "FileSystem::chgrp() FAILED. Cannot chown $pathname. Group $group." . (isset($errormsg) ? ' ' . $errormsg : "");
-            throw new IOException($msg);
+            throw new IOException("FileSystem::chgrp() FAILED. Cannot chown $pathname. Group $group $errormsg");
         }
     }
 
@@ -604,8 +602,7 @@ abstract class FileSystem
         if (false === @chmod($pathname, $mode)) { // FAILED.
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            $msg = "FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode." . (isset($errormsg) ? ' ' . $errormsg : "");
-            throw new IOException($msg);
+            throw new IOException("FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode $errormsg");
         }
     }
 
@@ -820,7 +817,7 @@ abstract class FileSystem
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
             // Add error from php to end of log message.
-            $msg = "FileSystem::Umask() FAILED. Value $mode. $errormsg";
+            $msg = "FileSystem::Umask() FAILED. Value $str_mode. $errormsg";
             throw new Exception($msg);
         }
     }

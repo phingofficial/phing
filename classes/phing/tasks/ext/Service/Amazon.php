@@ -45,6 +45,16 @@ abstract class Amazon extends Task
     protected $options = [];
 
     /**
+     * @var string
+     */
+    protected $key;
+
+    /**
+     * @var string
+     */
+    protected $secret;
+
+    /**
      * @param string $var
      * @param mixed $val
      */

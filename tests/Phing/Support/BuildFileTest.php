@@ -47,8 +47,19 @@ abstract class BuildFileTest extends TestCase
      */
     public $logBuffer = [];
 
+    /**
+     * @var array
+     */
     private $outBuffer;
+
+    /**
+     * @var array
+     */
     private $errBuffer;
+
+    /**
+     * @var BuildException
+     */
     private $buildException;
 
     /**
@@ -260,7 +271,6 @@ abstract class BuildFileTest extends TestCase
     protected function configureProject($filename)
     {
         $this->logBuffer = [];
-        $this->fullLogBuffer = "";
         $this->project = new Project();
         $this->project->init();
         $f = new File($filename);
@@ -284,7 +294,6 @@ abstract class BuildFileTest extends TestCase
         $this->outBuffer = "";
         $this->errBuffer = "";
         $this->logBuffer = [];
-        $this->fullLogBuffer = "";
         $this->buildException = null;
         $this->project->executeTarget($targetName);
     }

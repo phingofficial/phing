@@ -66,8 +66,9 @@ class JsonLogger extends XmlLogger
             $outFilename = "log.json";
         }
 
+        $stream = $this->getOut();
+
         try {
-            $stream = $this->getOut();
             if ($stream === null) {
                 $stream = new FileOutputStream($outFilename);
             }

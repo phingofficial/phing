@@ -788,7 +788,7 @@ class Phing
                         self::$err->write('There has been an error prior to that:' . PHP_EOL);
                         self::$err->write($error->getTraceAsString());
                     }
-                    throw new BuildException($t);
+                    throw new BuildException($error);
                 }
             } elseif ($error !== null) {
                 $project->log($error->getMessage(), Project::MSG_ERR);

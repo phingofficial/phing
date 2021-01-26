@@ -73,11 +73,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
 
     public function testFloatOnCurrentTimeMillis()
     {
-        if (method_exists($this, 'assertIsFloat')) {
-            $this->assertIsFloat(Phing::currentTimeMillis());
-        } else {
-            $this->assertInternalType('float', Phing::currentTimeMillis());
-        }
+        $this->assertIsFloat(Phing::currentTimeMillis());
     }
 
     public function testGetPhingVersion()
@@ -97,7 +93,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $phing = new Phing();
         $phing::setOutputStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
-        $this->assertNull($phing->printTargets($project));
+        $phing->printTargets($project);
     }
 
     /**
@@ -108,13 +104,13 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $phing = new Phing();
         $phing::setErrorStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
-        $this->assertNull($phing::printUsage());
+        $phing::printUsage();
     }
 
     public function testCallStartupShutdown()
     {
-        $this->assertNull(Phing::startup());
-        $this->assertNull(Phing::shutdown());
+        Phing::startup();
+        Phing::shutdown();
     }
 
     public function testCurrentProject()

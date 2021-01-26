@@ -21,7 +21,7 @@ use Phing\Util\RegisterSlot;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-class ParameterUnitTest extends \PHPUnit\Framework\TestCase
+class ParameterTest extends \PHPUnit\Framework\TestCase
 {
     private $parameter;
 

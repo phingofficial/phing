@@ -333,14 +333,15 @@ class ApplyTask extends ExecTask
             // Initialize //
             $this->prepare();
             $haveExecuted = false;
+            $totalFiles = 0;
+            $totalDirs = 0;
+            $fileNames = [];
+
             // Validate O.S. applicability
             if ($this->isValidOs()) {
                 // Build the command //
                 $this->buildCommand();
                 // Process //
-                $totalFiles = 0;
-                $totalDirs = 0;
-                $fileNames = [];
                 // - FileSets
                 foreach ($this->filesets as $fs) {
                     $currentType = $this->type;

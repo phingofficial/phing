@@ -40,6 +40,11 @@ abstract class S3 extends Amazon
     protected $client = null;
 
     /**
+     * @var string
+     */
+    protected $bucket;
+
+    /**
      * We only instantiate the client once per task call
      *
      * @return Aws\S3\S3Client

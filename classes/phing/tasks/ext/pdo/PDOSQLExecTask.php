@@ -581,11 +581,11 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     protected function processResults()
     {
+        $this->log("Processing new result set.", Project::MSG_VERBOSE);
+
+        $formatters = $this->getConfiguredFormatters();
+
         try {
-            $this->log("Processing new result set.", Project::MSG_VERBOSE);
-
-            $formatters = $this->getConfiguredFormatters();
-
             while ($row = $this->statement->fetch($this->fetchMode)) {
                 foreach ($formatters as $formatter) {
                     $formatter->processRow($row);

@@ -26,11 +26,15 @@ namespace Phing\Io;
  */
 class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @var FileOutputStream
      */
     private $outStream;
+
+    /**
+     * @var File
+     */
+    private $tmpFile;
 
     public function setUp(): void
     {

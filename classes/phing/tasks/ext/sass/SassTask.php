@@ -935,6 +935,7 @@ class SassTask extends Task
         $this->log("Process file", Project::MSG_INFO);
         if (null === $this->output) {
             $specifiedOutputPath = (strlen($this->outputpath) > 0);
+            $info = [];
             if ($specifiedOutputPath === false) {
                 $info = pathinfo($this->file);
                 $path = $info['dirname'];
@@ -942,7 +943,7 @@ class SassTask extends Task
             } else {
                 $path = $this->outputpath;
             }
-            $output = $path . DIRECTORY_SEPARATOR . $info['filename'];
+            $output = $path . DIRECTORY_SEPARATOR . isset($info['filename']) ?? $info['filename'];
             if (!$this->removeoldext) {
                 $output .= '.' . $this->pathInfo['extension'];
             }
