@@ -33,8 +33,11 @@ jobs:
         with:
           dependency-versions: 'locked'
 
-      - name: Static Code Analysis
+      - name: Code style
         run: bin/phpcs -s -n --standard=./ruleset.xml classes src tests/classes tests/Phing
+
+      - name: Static analysis (level 1)
+        run: bin/phpstan
 
   test:
     needs:
