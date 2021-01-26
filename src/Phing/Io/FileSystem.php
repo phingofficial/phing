@@ -869,14 +869,14 @@ abstract class FileSystem
      */
     public function listContents(File $f)
     {
-        return array_keys(
+        return array_map('strval', array_keys(
             iterator_to_array(
                 new FilesystemIterator(
                     $f->getAbsolutePath(),
                     FilesystemIterator::KEY_AS_FILENAME
                 )
             )
-        );
+        ));
     }
 
     /**
