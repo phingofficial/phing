@@ -40,6 +40,9 @@ that you might stumble across when upgrading from Phing 2 to 3.
   * ApiGen
   * Code coverage
   * FtpDeploy
+  * Git
+  * Hg
+  * IniFile
   * Ioncube
   * JsHint
   * JsMin
