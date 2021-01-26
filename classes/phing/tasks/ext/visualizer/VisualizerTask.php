@@ -67,7 +67,7 @@ class VisualizerTask extends HttpTask
     public function init(): void
     {
         parent::init();
-        if (!function_exists(\Jawira\PlantUml\encodep::class)) {
+        if (!function_exists('\Jawira\PlantUml\encodep')) {
             $exceptionMessage = get_class($this) . ' requires "jawira/plantuml-encoding" library';
         }
         if (!class_exists(XSLTProcessor::class)) {

@@ -135,6 +135,8 @@ class VersionTask extends Task
      */
     public function main()
     {
+        $properties = null;
+
         // check supplied attributes
         $this->checkReleasetype();
         $this->checkFile();

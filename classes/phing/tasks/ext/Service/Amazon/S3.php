@@ -113,17 +113,6 @@ abstract class S3 extends Amazon
     }
 
     /**
-     * Check if the object already exists in the current bucket
-     *
-     * @param  mixed $object
-     * @return bool
-     */
-    public function isObjectAvailable($object)
-    {
-        return (bool) $this->getObjectInstance($object)->load(Services_Amazon_S3_Resource_Object::LOAD_METADATA_ONLY);
-    }
-
-    /**
      * Returns an instance of Services_Amazon_S3_Resource_Bucket
      *
      * @return \Aws\S3\S3Client
