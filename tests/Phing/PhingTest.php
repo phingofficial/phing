@@ -93,6 +93,9 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $phing = new Phing();
         $phing::setOutputStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
+        $project->expects($this->atLeastOnce())
+            ->method('log');
+
         $phing->printTargets($project);
     }
 
@@ -102,7 +105,11 @@ class PhingTest extends \PHPUnit\Framework\TestCase
     public function testPrintUsage(): void
     {
         $phing = new Phing();
-        $phing::setErrorStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
+        $stream = $this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock();
+        $phing::setErrorStream($stream);
+
+        $stream->expects($this->once())
+            ->method('write');
 
         $phing::printUsage();
     }
@@ -110,7 +117,9 @@ class PhingTest extends \PHPUnit\Framework\TestCase
     public function testCallStartupShutdown()
     {
         Phing::startup();
+        self::assertTrue(Phing::getTimer()->isRunning());
         Phing::shutdown();
+        self::assertFalse(Phing::getTimer()->isRunning());
     }
 
     public function testCurrentProject()

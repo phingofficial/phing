@@ -54,25 +54,32 @@ class Timer
     protected $etime;
 
     /**
-     * This function sets the class variable $stime to the current time in
-     * microseconds.
+     * is the timer running
+     *
+     * @var bool
+     */
+    protected $running;
+
+    /**
+     * Starts the timer and sets the class variable $stime to the current time in microseconds.
      *
      * @return void
      */
     public function start()
     {
         $this->stime = microtime(true);
+        $this->running = true;
     }
 
     /**
-     * This function sets the class variable $etime to the current time in
-     * microseconds.
+     * Stops the timer and sets the class variable $etime to the current time in microseconds.
      *
      * @return void
      */
     public function stop()
     {
         $this->etime = microtime(true);
+        $this->running = false;
     }
 
     /**
@@ -92,5 +99,12 @@ class Timer
         $format = "%0." . $places . "f";
 
         return (sprintf($format, $etime));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRunning() {
+        return $this->running;
     }
 }

@@ -42,7 +42,9 @@ class TimerTest extends \PHPUnit\Framework\TestCase
     public function testTimer()
     {
         $this->timer->start();
+        $this->assertTrue($this->timer->isRunning());
         $this->timer->stop();
+        $this->assertFalse($this->timer->isRunning());
 
         $this->assertEqualsWithDelta(0.0, $this->timer->getElapsedTime(), 0.01);
     }
