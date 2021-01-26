@@ -102,4 +102,16 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
         $path = $fs->which('zx:\tasword.bin');
         $this->assertEquals($path, false);
     }
+
+    public function testListContentsWithNumericName()
+    {
+        $fs = FileSystem::getFileSystem();
+
+        $parentDir = new File(__DIR__ . '/../../etc/system/io/testdir');
+        $contents = $fs->listContents($parentDir);
+
+        foreach ($contents as $filename) {
+            self::assertIsString($filename);
+        }
+    }
 }
