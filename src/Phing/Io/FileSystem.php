@@ -869,7 +869,7 @@ abstract class FileSystem
      */
     public function listContents(File $f)
     {
-        return array_keys(
+        $filenames = array_keys(
             iterator_to_array(
                 new FilesystemIterator(
                     $f->getAbsolutePath(),
@@ -877,6 +877,9 @@ abstract class FileSystem
                 )
             )
         );
+
+        // make sure numeric filenames (e.g. 11) are properly treated as strings
+        return array_map('strval', $filenames);
     }
 
     /**
