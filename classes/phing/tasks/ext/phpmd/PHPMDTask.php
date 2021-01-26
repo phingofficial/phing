@@ -22,6 +22,8 @@ use Phing\Io\File;
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
 use Phing\Util\DataStore;
+use PHPMD\AbstractRule;
+use PHPMD\RuleSetFactory;
 
 /**
  * Runs PHP Mess Detector. Checking PHP files for several potential problems
@@ -83,11 +85,6 @@ class PHPMDTask extends Task
      * @var PHPMDFormatterElement[]
      */
     protected $formatters = [];
-
-    /**
-     * @var bool
-     */
-    protected $newVersion = true;
 
     /**
      * @var string
@@ -220,25 +217,13 @@ class PHPMDTask extends Task
         $className = '\PHPMD\PHPMD';
 
         if (!class_exists($className)) {
-            @include_once 'PHP/PMD.php';
-            $className = "PHP_PMD";
-            $this->newVersion = false;
-        }
-
-        if (!class_exists($className)) {
             throw new BuildException(
                 'PHPMDTask depends on PHPMD being installed and on include_path or listed in pharLocation.',
                 $this->getLocation()
             );
         }
 
-        if ($this->newVersion) {
-            $minPriority = \PHPMD\AbstractRule::LOWEST_PRIORITY;
-            include_once 'phing/tasks/ext/phpmd/PHPMDRendererRemoveFromCache.php';
-        } else {
-            include_once 'PHP/PMD/AbstractRule.php';
-            $minPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
-        }
+        $minPriority = AbstractRule::LOWEST_PRIORITY;
 
         if (!$this->minimumPriority) {
             $this->minimumPriority = $minPriority;
@@ -316,21 +301,14 @@ class PHPMDTask extends Task
             $reportRenderers[] = $fe->getRenderer();
         }
 
-        if ($this->newVersion && $this->cache) {
+        if ($this->cache) {
             $reportRenderers[] = new PHPMDRendererRemoveFromCache($this->cache);
         } else {
             $this->cache = null; // cache not compatible to old version
         }
 
         // Create a rule set factory
-        if ($this->newVersion) {
-            $ruleSetFactory = new \PHPMD\RuleSetFactory();
-        } else {
-            if (!class_exists("PHP_PMD_RuleSetFactory")) {
-                @include 'PHP/PMD/RuleSetFactory.php';
-            }
-            $ruleSetFactory = new PHP_PMD_RuleSetFactory();
-        }
+        $ruleSetFactory = new RuleSetFactory();
         $ruleSetFactory->setMinimumPriority($this->minimumPriority);
 
         /**
