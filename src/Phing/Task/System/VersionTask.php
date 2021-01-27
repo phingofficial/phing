@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System;
+
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
@@ -200,7 +203,7 @@ class VersionTask extends Task
     /**
      * Returns new version number corresponding to Release type
      *
-     * @param  string $oldVersion
+     * @param string $oldVersion
      * @return string
      */
     private function getVersion($oldVersion)

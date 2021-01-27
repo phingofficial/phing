@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System;
+
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Filter\ReplaceRegexp;
 use Phing\Io\FileReader;
@@ -88,11 +91,11 @@ class ReplaceRegexpTask extends Task
     }
 
     /**
-     * @see setMatch()
-     *
      * @param $regexp
      *
      * @return void
+     * @see setMatch()
+     *
      */
     public function setPattern($regexp)
     {

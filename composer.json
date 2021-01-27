@@ -33,6 +33,7 @@
         "php": "^7.3 || ^7.4 || ^8.0",
         "ext-dom": "*",
         "ext-xml": "*",
+        "ext-json": "*",
         "mehr-als-nix/parallel": "^v1.0",
         "phing/phing-composer-configurator": "dev-master",
         "phing/task-apigen": "dev-master",

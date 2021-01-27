@@ -35,6 +35,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System;
+
 use Phing\Project;
 use Phing\Task;
 

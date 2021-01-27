@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System;
+
 use Phing\Exception\BuildException;
 use Phing\Io\FileWriter;
 use Phing\Io\File;
@@ -63,9 +65,9 @@ class PhpLintTask extends Task
     /**
      * Override default php interpreter
      *
+     * @param string $sPhp
      * @todo  Do some sort of checking if the path is correct but would
      *          require traversing the systems executeable path too
-     * @param string $sPhp
      */
     public function setInterpreter($sPhp)
     {
@@ -118,7 +120,7 @@ class PhpLintTask extends Task
     /**
      * File to save error messages to
      *
-     * @param    File $tofile
+     * @param File $tofile
      * @internal param PhingFile $file
      */
     public function setToFile(File $tofile)
@@ -196,7 +198,7 @@ class PhpLintTask extends Task
     /**
      * Performs the actual syntax check
      *
-     * @param  string $file
+     * @param string $file
      * @throws BuildException
      */
     protected function lint($file)

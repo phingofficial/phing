@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System;
+
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Io\File;
@@ -100,7 +102,7 @@ class SymlinkTask extends Task
     /**
      * setter for linkTarget
      *
-     * @param  string $linkTarget
+     * @param string $linkTarget
      * @return void
      */
     public function setTarget($linkTarget)
@@ -111,7 +113,7 @@ class SymlinkTask extends Task
     /**
      * setter for _link
      *
-     * @param  string $link
+     * @param string $link
      * @return void
      */
     public function setLink($link)
@@ -134,7 +136,7 @@ class SymlinkTask extends Task
     /**
      * setter for _overwrite
      *
-     * @param  boolean $overwrite
+     * @param boolean $overwrite
      * @return void
      */
     public function setOverwrite($overwrite)
@@ -153,8 +155,8 @@ class SymlinkTask extends Task
     /**
      * getter for linkTarget
      *
-     * @throws BuildException
      * @return string
+     * @throws BuildException
      */
     public function getTarget()
     {
@@ -168,8 +170,8 @@ class SymlinkTask extends Task
     /**
      * getter for _link
      *
-     * @throws BuildException
      * @return string
+     * @throws BuildException
      */
     public function getLink()
     {
@@ -252,8 +254,8 @@ class SymlinkTask extends Task
      * Generates an array of directories / files to be linked
      * If _filesets is empty, returns getTarget()
      *
-     * @throws BuildException
      * @return array|string
+     * @throws BuildException
      */
     protected function getMap()
     {
@@ -330,8 +332,8 @@ class SymlinkTask extends Task
     /**
      * Create the actual link
      *
-     * @param  string $target
-     * @param  string $link
+     * @param string $target
+     * @param string $link
      * @return bool
      */
     protected function symlink($target, $link)

@@ -17,30 +17,38 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System;
+
 use Phing\Support\BuildFileTest;
 
 /**
- * @author Max Romanovsky <max.romanovsky@gmail.com>
- * @package phing.tasks.ext
+ * Tests the Manifest Task
+ *
+ * @author  Michiel Rook <mrook@php.net>
+ * @package phing.tasks.system
  */
-class AutoloaderTaskTest extends BuildFileTest
+class ManifestTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/autoloader/autoloader.xml");
-    }
-
-    public function testDefault()
-    {
-        $this->expectBuildException(
-            "testDefault",
-            sprintf('Provided autoloader file "%s" is not a readable file', AutoloaderTask::DEFAULT_AUTOLOAD_PATH)
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/ext/ManifestTaskTest.xml"
         );
+        $this->executeTarget("setup");
     }
 
-    public function testExisting()
+    public function tearDown(): void
     {
-        $this->expectLog("testExisting", 'Loading autoloader from autoload.php');
-        $this->assertTrue(class_exists('Phing_Autoload_Stub', false));
+        $this->executeTarget("clean");
+    }
+
+    public function testGenerateManifest()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $hash = md5("saltyFile1");
+        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/manifest");
+        $this->assertInLogs("Writing to " . $manifestFile);
+        $this->assertEquals("file1\t" . $hash . "\n", file_get_contents($manifestFile));
     }
 }
