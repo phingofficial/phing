@@ -17,38 +17,40 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Property;
+
 use Phing\Support\BuildFileTest;
 
 /**
- * Tests the SortList Task
+ * Tests the PropertyRegexTask Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.property
  */
-class SortListTest extends BuildFileTest
+class VariableTest extends BuildFileTest
 {
+
     public function setUp(): void
     {
         $this->configureProject(
-            PHING_TEST_BASE . '/etc/tasks/ext/property/SortListTest.xml'
+            PHING_TEST_BASE . '/etc/tasks/ext/property/VariableTest.xml'
         );
     }
 
-    public function testSortList()
+    /**
+     * @requires PHP > 5.3
+     */
+    public function testVariable()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('my.sorted.list', 't,u,v,w,x,y,z');
-    }
 
-    public function testDelimFlags()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('my.sorted.list', 't;U;v;w;X;y;z');
-    }
-
-    public function testRef()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('my.sorted.list', 'U;X;t;v;w;y;z');
+        $this->assertInLogs('1: aazz');
+        $this->assertInLogs('2: aazz');
+        $this->assertInLogs('3: x = 6');
+        $this->assertInLogs('4: x = 12');
+        $this->assertInLogs('5: x = 6 + 12');
+        $this->assertInLogs('6: I  am  a  string.');
+        $this->assertInLogs('7: x = 6');
+        $this->assertInLogs('8: x = 6');
     }
 }

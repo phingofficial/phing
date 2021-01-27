@@ -17,26 +17,40 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Property;
+
 use Phing\Support\BuildFileTest;
 
 /**
- * Tests the PropertySelector Task
+ * Tests the PropertyRegexTask Task
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author  SiadArdroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.property
  */
-class PropertySelectorTest extends BuildFileTest
+class RegexTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
         $this->configureProject(
-            PHING_TEST_BASE . '/etc/tasks/ext/property/PropertySelectorTest.xml'
+            PHING_TEST_BASE . '/etc/tasks/ext/property/RegExTaskTest.xml'
         );
     }
 
-    public function testPropertySelector()
+    public function testPropertyRegex()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyEquals('pack.list', 'ABC,DEF,GHI,JKL');
+        $this->assertPropertyEquals('test.name', 'ABC');
+    }
+
+    public function testPropertyRegexReplace()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('test.name', 'test.DEF.name');
+    }
+
+    public function testBackslash()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('pack.name', '123');
     }
 }

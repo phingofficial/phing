@@ -1,5 +1,7 @@
 <?php
 
+namespace Phing\Task\System\Property;
+
 use Phing\Exception\BuildException;
 use Phing\Task;
 
@@ -20,7 +22,6 @@ use Phing\Task;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
 abstract class AbstractPropertySetterTask extends Task
 {
     private $property;

@@ -17,7 +17,11 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Property;
+
 use Phing\Exception\BuildException;
+use Phing\Task\System\Property\AbstractPropertySetterTask;
+use Phing\Task\System\PropertyTask;
 use Phing\Type\Reference;
 
 /**

@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Property;
+
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Io\IOException;
 use Phing\Io\File;
@@ -24,6 +27,8 @@ use Phing\Project;
 use Phing\PropertyHelper;
 use Phing\Task\System\PropertyTask;
 use Phing\Util\Properties;
+use ReflectionObject;
+use ReflectionProperty;
 
 /**
  * Variable Task.
@@ -124,8 +129,8 @@ class Variable extends PropertyTask
     /**
      * Get a private property of a class
      *
-     * @param  mixed $thisClass The class
-     * @param  string $fieldName The property to get
+     * @param mixed $thisClass The class
+     * @param string $fieldName The property to get
      * @return ReflectionProperty               The property value
      * @throws Exception
      */
@@ -142,8 +147,8 @@ class Variable extends PropertyTask
     /**
      * Get a private property of an object
      *
-     * @param  mixed $instance the object instance
-     * @param  string $fieldName the name of the field
+     * @param mixed $instance the object instance
+     * @param string $fieldName the name of the field
      * @return mixed an object representing the value of the field
      * @throws Exception
      */
@@ -164,7 +169,7 @@ class Variable extends PropertyTask
     /**
      * load variables from a file
      *
-     * @param  File $file file to load
+     * @param File $file file to load
      * @throws BuildException
      */
     protected function loadFile(File $file)
@@ -202,7 +207,7 @@ class Variable extends PropertyTask
     /**
      * resolve properties inside a properties hashtable
      *
-     * @param  Properties $props properties object to resolve
+     * @param Properties $props properties object to resolve
      * @throws BuildException  Description of the Exception
      */
     protected function resolveAllProperties(Properties $props)

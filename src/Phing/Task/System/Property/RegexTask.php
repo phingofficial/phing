@@ -17,8 +17,12 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Property;
+
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Task\System\Property\AbstractPropertySetterTask;
 use Phing\Util\Regexp;
 
 /**
@@ -128,7 +132,7 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param  string $pattern
+     * @param string $pattern
      * @throws BuildException
      */
     public function setPattern($pattern)
