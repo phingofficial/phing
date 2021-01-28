@@ -6,7 +6,10 @@ Phing 3 is a significant update with some breaking changes compared to Phing 2.
 This document aims to summarize all those  breaking changes and noteworthy things
 that you might stumble across when upgrading from Phing 2 to 3.
 
-* Phing now requires at least PHP 7.3
+* Phing now requires at least PHP 7.3.
+* All Phing code is now namespaced. This means that existing references to classes
+  that existed in earlier Phing versions will no longer work. For example, the
+  class `PhingFile` has been moved to `Phing\Io\File`.
 * Omitting the `basedir` property in the root `project` tag now means "." instead
   of the current working directory. This effectively reverts the change made in 
   http://www.phing.info/trac/ticket/309 ([dfdb0bc](https://github.com/phingofficial/phing/commit/dfdb0bc8095db18284de364b421d320be3c1b6fb))
@@ -36,7 +39,8 @@ that you might stumble across when upgrading from Phing 2 to 3.
 * [MoveTask] The default behavior of `overwrite` attribute was changed to `true`
 * [PHPUnitTask] Support for PHPUnit 9.
 * [PhpCodeSnifferTask] was removed in favor of [PhpCSTask].
-* A number of tasks (or group of tasks) were moved to their own repositories:
+* A number of tasks (or group of tasks) were moved to their own repositories, but are automatically
+  pulled in / installed when you install Phing:
   * ApiGen
   * Code coverage
   * FtpDeploy
