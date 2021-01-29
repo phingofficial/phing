@@ -2,6 +2,11 @@ P     H     I     N     G
 =========================
 
 
+Jan. 29, 2021 - Phing 2.16.4
+----------------------------
+
+This patch release fixes some PHP 8.0 compatibility issues.
+
 Feb. 3, 2020 - Phing 2.16.3
 ---------------------------
 
