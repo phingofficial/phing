@@ -2,7 +2,7 @@ P     H     I     N     G
 =========================
 
 
-Jan. X, 2021 - Phing 3.0.0 rc1
+Feb. X, 2021 - Phing 3.0.0 rc1
 ------------------------------
 
 The following issues and pull requests were closed in this release:
@@ -82,6 +82,11 @@ The following issues and pull requests were closed in this release:
  * Cleanup test build script [\#1332](https://github.com/phingofficial/phing/pull/1332)
  * Added missing Target::dependsOn implementation [\#1303](https://github.com/phingofficial/phing/pull/1303)
  * Declaration of case-insensitive constants is deprecated - replace Net_FTP [\#1224](https://github.com/phingofficial/phing/issues/1224)
+
+Jan. 29, 2021 - Phing 2.16.4
+----------------------------
+
+This patch release fixes some PHP 8.0 compatibility issues.
 
 Jul. 4, 2020 - Phing 3.0.0 alpha 4
 ----------------------------------
@@ -224,6 +229,19 @@ The following issues and pull requests were closed in this release:
  * [WIP] DirectoryScanner and AbstractFileSet improvements. [\#1034](https://github.com/phingofficial/phing/pull/1034)
  * Auto-discover custom tasks when installed through Composer [\#654](https://github.com/phingofficial/phing/issues/654)
  * MkdirTask behaves the same as "mkdir" Linux command and respects POSIX ACL [\#591](https://github.com/phingofficial/phing/pull/591)
+
+Feb. 3, 2020 - Phing 2.16.3
+---------------------------
+
+This patch release fixes additional PHP 7.4 deprecation issues.
+
+Jan. 3, 2020 - Phing 2.16.2
+---------------------------
+
+This patch release fixes the following issue:
+
+* PHP-7.4: PHP Deprecated: Array and string offset access syntax with curly braces [\#1210](https://github.com/phingofficial/phing/issues/1210)
+* Add symfony/yaml ^2.8 to restore PHP 5.4 compatibility [\#919](https://github.com/phingofficial/phing/issues/919)
 
 Sep. 13, 2019 - Phing 3.0.0 alpha 3
 -----------------------------------
