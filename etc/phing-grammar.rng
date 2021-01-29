@@ -7035,8 +7035,20 @@
                         <value>Bugfix</value>
                     </choice>
                 </attribute>
-                <attribute name="file"/>
-                <attribute name="property"/>
+                <optional>
+                  <attribute name="file" a:default="build.version"/>
+                </optional>
+                <optional>
+                  <attribute name="property" a:default="build.version"/>
+                </optional>
+                <optional>
+                  <attribute name="propfile" a:default="false">
+                    <data type="boolean"/>
+                  </attribute>
+                </optional>
+                <optional>
+                  <attribute name="startingversion" a:default="0.0.0"/>
+                </optional>
             </interleave>
         </element>
     </define>
