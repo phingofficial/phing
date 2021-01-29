@@ -38,6 +38,7 @@
         "phing/phing-composer-configurator": "dev-master",
         "phing/task-apigen": "dev-master",
         "phing/task-coverage": "dev-master",
+        "phing/task-dbdeploy": "dev-main",
         "phing/task-ftpdeploy": "dev-master",
         "phing/task-git": "dev-main",
         "phing/task-hg": "dev-main",
