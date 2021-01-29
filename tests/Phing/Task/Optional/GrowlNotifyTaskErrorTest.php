@@ -38,6 +38,10 @@
  * @link       https://github.com/llaville/phing-GrowlNotifyTask
  */
 
+namespace Phing\Task\Optional;
+
+use GrowlNotifyTask;
+use Net_Growl;
 use Phing\Exception\BuildException;
 use Phing\Support\BuildFileTest;
 

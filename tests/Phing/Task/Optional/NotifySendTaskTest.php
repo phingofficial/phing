@@ -1,5 +1,8 @@
 <?php
 
+namespace Phing\Task\Optional;
+
+use NotifySendTask;
 use Phing\Project;
 use Phing\Support\BuildFileTest;
 
@@ -20,8 +23,8 @@ use Phing\Support\BuildFileTest;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-class NotifySendTaskTest extends BuildFileTest
+class
+NotifySendTaskTest extends BuildFileTest
 {
     protected $object;
 

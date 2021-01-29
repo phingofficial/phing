@@ -17,44 +17,42 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
+use Phing\Exception\BuildException;
 use Phing\Support\BuildFileTest;
 
 /**
- * Unit tests for PHPMD task
+ * Tests for PhpCSTask
  *
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext
  */
-class PHPMDTaskTest extends BuildFileTest
+class PhpCSTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpmd/build.xml");
+        if (class_exists('PHP_CodeSniffer')) {
+            $this->markTestSkipped('PHP CodeSniffer 2 package available.');
+        }
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
     }
 
-    public function testReportText()
+    public function testPhpCs(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
-            PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt'
-        );
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt');
+        $this->assertInLogs('Missing');
     }
 
-    public function testReportHtml()
+    public function testMissingFileSetAndFilePhpCs1(): void
     {
+        $this->expectException(BuildException::class);
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
-            PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.html'
-        );
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.html');
     }
 
-    public function testReportXml()
+    public function testFileSetInPhpCs1(): void
     {
+        $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
-            PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.xml'
-        );
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.xml');
     }
 }

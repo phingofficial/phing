@@ -17,25 +17,46 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
 use Phing\Support\BuildFileTest;
 
 /**
- * @author Michiel Rook <mrook@php.net>
- * @package phing.tasks.ext
+ * Unit tests for PHPMD task
  *
- * @requires extension sqlite
+ * @package phing.tasks.ext
  */
-class DbDeployTaskTest extends BuildFileTest
+class PHPMDTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/dbdeploy/build.xml");
-        $this->executeTarget("prepare");
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpmd/build.xml");
     }
 
-    public function testDeployAndUndo()
+    public function testReportText()
     {
-        $this->expectLog("testDeploy", "Current db revision: 1");
-        $this->expectLog("testUndo", "Current db revision: 0");
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt');
+    }
+
+    public function testReportHtml()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.html'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.html');
+    }
+
+    public function testReportXml()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.xml'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.xml');
     }
 }

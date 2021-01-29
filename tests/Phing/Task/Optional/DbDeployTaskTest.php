@@ -17,44 +17,27 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
 use Phing\Support\BuildFileTest;
 
 /**
- * Tests for PHPCPDTask
- *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
+ *
+ * @requires extension sqlite
  */
-class PHPCPDTaskTest extends BuildFileTest
+class DbDeployTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcpd/build.xml");
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/dbdeploy/build.xml");
+        $this->executeTarget("prepare");
     }
 
-    public function testFormatterOutfile()
+    public function testDeployAndUndo()
     {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
-            PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput'
-        );
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput');
-    }
-
-    public function testFormatterPMD()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(
-            PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml'
-        );
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml');
-    }
-
-    public function testFormatterNoFile()
-    {
-        ob_start();
-        $this->executeTarget(__FUNCTION__);
-        $output = ob_get_clean();
-        $this->assertStringContainsString("No clones found.", $output);
+        $this->expectLog("testDeploy", "Current db revision: 1");
+        $this->expectLog("testUndo", "Current db revision: 0");
     }
 }

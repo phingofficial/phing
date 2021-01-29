@@ -17,38 +17,46 @@
  * <http://phing.info>.
  */
 
-use Phing\Exception\BuildException;
+namespace Phing\Task\Optional;
+
 use Phing\Support\BuildFileTest;
 
 /**
- * Tests for PhpCSTask
+ * Tests for PHPCPDTask
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class PhpCSTaskTest extends BuildFileTest
+class PHPCPDTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (class_exists('PHP_CodeSniffer')) {
-            $this->markTestSkipped('PHP CodeSniffer 2 package available.');
-        }
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcpd/build.xml");
     }
 
-    public function testPhpCs(): void
+    public function testFormatterOutfile()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('Missing');
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput');
     }
-    public function testMissingFileSetAndFilePhpCs1(): void
+
+    public function testFormatterPMD()
     {
-        $this->expectException(BuildException::class);
         $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml');
     }
-    public function testFileSetInPhpCs1(): void
+
+    public function testFormatterNoFile()
     {
-        $this->expectNotToPerformAssertions();
+        ob_start();
         $this->executeTarget(__FUNCTION__);
+        $output = ob_get_clean();
+        $this->assertStringContainsString("No clones found.", $output);
     }
 }

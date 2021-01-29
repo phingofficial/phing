@@ -17,9 +17,14 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
+use ComposerTask;
 use Phing\Io\FileSystem;
 use Phing\Project;
 use Phing\Type\CommandlineArgument;
+use ReflectionMethod;
+use ReflectionProperty;
 
 /**
  * Test class for the ComposerTask.
