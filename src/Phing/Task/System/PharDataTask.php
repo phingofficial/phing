@@ -17,11 +17,17 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System;
+
+use Exception;
+use Phar;
+use PharData;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Task\System\MatchingTask;
 use Phing\Type\FileSet;
+use UnexpectedValueException;
 
 /**
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.

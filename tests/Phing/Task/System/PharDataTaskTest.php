@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System;
+
+use Phar;
 use Phing\Support\BuildFileTest;
 
 /**
