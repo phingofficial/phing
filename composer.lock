@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f8cf00478b79df18dc4a806b2acf311",
+    "content-hash": "1e18804cb8250a3202ae947aa14c4e66",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -174,6 +174,64 @@
                 "source": "https://github.com/phingofficial/task-apigen/tree/master"
             },
             "time": "2021-01-25T14:55:48+00:00"
+        },
+        {
+            "name": "phing/task-archives",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-archives.git",
+                "reference": "4d93b84523adbca3d141a299b003b099afbb4ca4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-archives/zipball/4d93b84523adbca3d141a299b003b099afbb4ca4",
+                "reference": "4d93b84523adbca3d141a299b003b099afbb4ca4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "pear/archive_tar": "^1.4.12",
+                "pear/pear-core-minimal": "^1.10.10",
+                "phing/phing": "3.0.x-dev"
+            },
+            "default-branch": true,
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "tar": "Phing\\Task\\Ext\\TarTask",
+                    "untar": "Phing\\Task\\Ext\\UntarTask",
+                    "zip": "Phing\\Task\\Ext\\ZipTask",
+                    "unzip": "Phing\\Task\\Ext\\UnzipTask"
+                },
+                "phing-custom-typedefs": {
+                    "tarfileset": "Phing\\Task\\Ext\\TarFileSet",
+                    "zipfileset": "Phing\\Task\\Ext\\ZipFileSet"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Task\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "Archive related phing tasks and types.",
+            "support": {
+                "issues": "https://github.com/phingofficial/task-archives/issues",
+                "source": "https://github.com/phingofficial/task-archives/tree/main"
+            },
+            "time": "2021-01-30T16:34:00+00:00"
         },
         {
             "name": "phing/task-coverage",
@@ -6151,6 +6209,7 @@
     "stability-flags": {
         "phing/phing-composer-configurator": 20,
         "phing/task-apigen": 20,
+        "phing/task-archives": 20,
         "phing/task-coverage": 20,
         "phing/task-dbdeploy": 20,
         "phing/task-ftpdeploy": 20,
