@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e18804cb8250a3202ae947aa14c4e66",
+    "content-hash": "d85a55d39951ab72093df1072203cd06",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -962,6 +962,69 @@
                 "source": "https://github.com/phingofficial/task-ssh/tree/master"
             },
             "time": "2021-01-25T14:58:07+00:00"
+        },
+        {
+            "name": "phing/task-svn",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-svn.git",
+                "reference": "78830e6421c999c69defe22d30c7a4b48a5fb586"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-svn/zipball/78830e6421c999c69defe22d30c7a4b48a5fb586",
+                "reference": "78830e6421c999c69defe22d30c7a4b48a5fb586",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "pear/versioncontrol_svn": "^0.5",
+                "phing/phing": "3.0.x-dev"
+            },
+            "default-branch": true,
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "svnlastrevision": "Phing\\Tasks\\Ext\\SvnLastRevisionTask",
+                    "svncheckout": "Phing\\Tasks\\Ext\\SvnCheckoutTask",
+                    "svnexport": "Phing\\Tasks\\Ext\\SvnExportTask",
+                    "svnupdate": "Phing\\Tasks\\Ext\\SvnUpdateTask",
+                    "svnswitch": "Phing\\Tasks\\Ext\\SvnSwitchTask",
+                    "svncopy": "Phing\\Tasks\\Ext\\SvnCopyTask",
+                    "svncommit": "Phing\\Tasks\\Ext\\SvnCommitTask",
+                    "svnlist": "Phing\\Tasks\\Ext\\SvnListTask",
+                    "svnlog": "Phing\\Tasks\\Ext\\SvnLogTask",
+                    "svninfo": "Phing\\Tasks\\Ext\\SvnInfoTask",
+                    "svnproplist": "Phing\\Tasks\\Ext\\SvnProplistTask",
+                    "svnpropget": "Phing\\Tasks\\Ext\\SvnPropgetTask",
+                    "svnpropset": "Phing\\Tasks\\Ext\\SvnPropsetTask",
+                    "svnrevert": "Phing\\Tasks\\Ext\\SvnRevertTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Tasks\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "Subversion related phing tasks.",
+            "support": {
+                "issues": "https://github.com/phingofficial/task-svn/issues",
+                "source": "https://github.com/phingofficial/task-svn/tree/master"
+            },
+            "time": "2021-01-30T23:34:18+00:00"
         },
         {
             "name": "phing/task-visualizer",
@@ -6224,6 +6287,7 @@
         "phing/task-phpdoc": 20,
         "phing/task-smarty": 20,
         "phing/task-ssh": 20,
+        "phing/task-svn": 20,
         "phing/task-visualizer": 20,
         "phing/task-zendcodeanalyser": 20,
         "phing/task-zendserverdevelopmenttools": 20,
