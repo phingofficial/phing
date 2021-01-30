@@ -48,8 +48,8 @@
         <if>
             <contains string="${version}" substring="RC"/>
             <then>
-                <property name="notes" value="This is the latest beta release of Phing." />
-                <property name="state" value="beta" />
+                <property name="notes" value="This is the latest release candidate of Phing." />
+                <property name="state" value="RC" />
             </then>
 
             <elseif>
