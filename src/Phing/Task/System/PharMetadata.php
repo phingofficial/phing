@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System;
+
 /**
  * @package phing.tasks.ext.phar
  * @author Alexey Shockov <alexey@shockov.com>
