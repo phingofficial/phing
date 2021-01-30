@@ -37,6 +37,7 @@
         "mehr-als-nix/parallel": "^v1.0",
         "phing/phing-composer-configurator": "dev-master",
         "phing/task-apigen": "dev-master",
+        "phing/task-archives": "dev-main",
         "phing/task-coverage": "dev-master",
         "phing/task-dbdeploy": "dev-main",
         "phing/task-ftpdeploy": "dev-master",
