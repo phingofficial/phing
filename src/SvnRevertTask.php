@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.svn
@@ -33,7 +35,7 @@ class SvnRevertTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {

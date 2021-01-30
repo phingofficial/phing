@@ -16,17 +16,11 @@
   },
   "require-dev": {
     "phing/phing": "3.0.x-dev",
-    "pear/versioncontrol_svn": "^0.5",
-    "phpunit/phpunit": "^8.5"
+    "pear/versioncontrol_svn": "^0.5"
   },
   "autoload": {
     "psr-4": {
       "Phing\\Tasks\\Ext\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Phing\\Test\\Tasks\\Ext\\": "tests/unit/"
     }
   },
   "extra": {

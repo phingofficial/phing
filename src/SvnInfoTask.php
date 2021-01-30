@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Parses the output of 'svn info --xml' and
  *
@@ -103,7 +105,7 @@ class SvnInfoTask extends SvnBaseTask
      *
      * @return void
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -113,7 +115,7 @@ class SvnInfoTask extends SvnBaseTask
             $output = $this->run(['--xml', '--incremental']);
 
             if (!($xmlObj = @simplexml_load_string($output))) {
-                throw new \BuildException("Failed to parse the output of 'svn info --xml'.");
+                throw new BuildException("Failed to parse the output of 'svn info --xml'.");
             }
 
             $object = $xmlObj->{$this->element};
@@ -125,7 +127,7 @@ class SvnInfoTask extends SvnBaseTask
             $output = $this->run();
 
             if (empty($output) || !isset($output['entry'][0])) {
-                throw new \BuildException("Failed to parse the output of 'svn info'.");
+                throw new BuildException("Failed to parse the output of 'svn info'.");
             }
 
             $object = $output['entry'][0][$this->element];

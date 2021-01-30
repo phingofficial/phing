@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Updates a repository in local directory
  *
@@ -40,14 +42,14 @@ class SvnUpdateTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
         $this->setup('update');
 
         $this->log(
-            "Updating SVN repository at '" . $this->getToDir() . "'" . ($this->revision == 'HEAD' ? '' : " (revision: {$this->revision})")
+            "Updating SVN repository at '" . $this->getToDir() . "'" . ($this->revision === 'HEAD' ? '' : " (revision: {$this->revision})")
         );
 
         // revision

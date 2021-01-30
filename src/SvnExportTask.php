@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Exports/checks out a repository to a local directory
  * with authentication
@@ -42,7 +44,7 @@ class SvnExportTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {

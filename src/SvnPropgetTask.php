@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * List all properties on files, dirs, or revisions from the working copy
  */
@@ -85,7 +87,7 @@ class SvnPropgetTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {

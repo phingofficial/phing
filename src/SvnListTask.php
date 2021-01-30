@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Stores the output of a list command on a workingcopy or repositoryurl in a property.
  * This stems from the SvnLastRevisionTask.
@@ -76,7 +78,7 @@ class SvnListTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -87,7 +89,7 @@ class SvnListTask extends SvnBaseTask
             $output = $this->run(['--xml']);
 
             if (!($xmlObj = @simplexml_load_string($output))) {
-                throw new \BuildException("Failed to parse the output of 'svn list --xml'.");
+                throw new BuildException("Failed to parse the output of 'svn list --xml'.");
             }
 
             $objects = $xmlObj->list->entry;
@@ -128,7 +130,7 @@ class SvnListTask extends SvnBaseTask
         if (!empty($result)) {
             $this->project->setProperty($this->getPropertyName(), $result);
         } else {
-            throw new \BuildException("Failed to parse the output of 'svn list'.");
+            throw new BuildException("Failed to parse the output of 'svn list'.");
         }
     }
 }

@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Stores the output of a log command on a workingcopy or repositoryurl in a property.
  * This stems from the SvnLastRevisionTask.
@@ -65,7 +67,7 @@ class SvnLogTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -94,7 +96,7 @@ class SvnLogTask extends SvnBaseTask
         if (!empty($result)) {
             $this->project->setProperty($this->getPropertyName(), $result);
         } else {
-            throw new \BuildException("Failed to parse the output of 'svn log'.");
+            throw new BuildException("Failed to parse the output of 'svn log'.");
         }
     }
 }

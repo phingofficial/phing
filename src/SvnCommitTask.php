@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Commits changes in a local working copy to the repository
  *
@@ -78,12 +80,12 @@ class SvnCommitTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
         if (trim($this->message) === '') {
-            throw new \BuildException('SVN Commit message can not be empty.');
+            throw new BuildException('SVN Commit message can not be empty.');
         }
 
         $this->setup('commit');

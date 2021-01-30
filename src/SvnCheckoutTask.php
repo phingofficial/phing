@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Checks out a repository to a local directory
  *
@@ -40,14 +42,14 @@ class SvnCheckoutTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
         $this->setup('checkout');
 
         $this->log(
-            "Checking out SVN repository to '" . $this->getToDir() . "'" . ($this->revision == 'HEAD' ? '' : " (revision: {$this->revision})")
+            "Checking out SVN repository to '" . $this->getToDir() . "'" . ($this->revision === 'HEAD' ? '' : " (revision: {$this->revision})")
         );
 
         // revision

@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Stores the number of the last revision of a workingcopy in a property
  *
@@ -65,7 +67,7 @@ class SvnLastRevisionTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -75,7 +77,7 @@ class SvnLastRevisionTask extends SvnBaseTask
             $output = $this->run(['--xml']);
 
             if (!($xmlObj = @simplexml_load_string($output))) {
-                throw new \BuildException("Failed to parse the output of 'svn info --xml'.");
+                throw new BuildException("Failed to parse the output of 'svn info --xml'.");
             }
 
             if ($this->lastChanged) {
@@ -87,7 +89,7 @@ class SvnLastRevisionTask extends SvnBaseTask
             $output = $this->run();
 
             if (empty($output) || !isset($output['entry'][0])) {
-                throw new \BuildException("Failed to parse the output of 'svn info'.");
+                throw new BuildException("Failed to parse the output of 'svn info'.");
             }
 
             if ($this->lastChanged) {

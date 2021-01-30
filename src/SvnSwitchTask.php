@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Switches a repository at a given local directory to a different location
  *
@@ -40,7 +42,7 @@ class SvnSwitchTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     public function main()
     {
@@ -48,7 +50,7 @@ class SvnSwitchTask extends SvnBaseTask
 
         $this->log(
             "Switching SVN repository at '" . $this->getToDir() . "' to '" . $this->getRepositoryUrl() . "' "
-            . ($this->getRevision() == 'HEAD' ? '' : " (revision: {$this->getRevision()})")
+            . ($this->getRevision() === 'HEAD' ? '' : " (revision: {$this->getRevision()})")
         );
 
         // revision
