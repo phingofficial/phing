@@ -26,7 +26,6 @@ use Phing\Support\BuildFileTest;
  * Tests for PharPackageTask
  *
  * @author François Poirotte <clicky@erebot.net>
- * @package phing.tasks.ext
  * @requires extension phar
  * @requires extension openssl
  */

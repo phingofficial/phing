@@ -24,7 +24,6 @@ use Phing\Support\BuildFileTest;
 /**
  * Unit tests for PHPMD task
  *
- * @package phing.tasks.ext
  */
 class PHPMDTaskTest extends BuildFileTest
 {

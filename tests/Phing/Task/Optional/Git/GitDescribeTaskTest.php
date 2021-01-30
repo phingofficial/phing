@@ -22,7 +22,6 @@ namespace Phing\Task\Optional\Git;
 use Phing\Support\BuildFileTest;
 
 /**
- * @package phing.tasks.ext
  * @requires OS ^(?:(?!Win).)*$
  */
 class GitDescribeTaskTest extends BuildFileTest

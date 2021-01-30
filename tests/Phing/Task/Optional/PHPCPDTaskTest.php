@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests for PHPCPDTask
  *
  * @author Michiel Rook <mrook@php.net>
- * @package phing.tasks.ext
  */
 class PHPCPDTaskTest extends BuildFileTest
 {

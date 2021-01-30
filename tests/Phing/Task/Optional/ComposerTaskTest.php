@@ -30,7 +30,6 @@ use ReflectionProperty;
  * Test class for the ComposerTask.
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
- * @package phing.tasks.ext
  */
 class ComposerTaskTest extends \PHPUnit\Framework\TestCase
 {

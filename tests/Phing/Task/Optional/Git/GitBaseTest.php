@@ -24,7 +24,6 @@ use Phing\Task\Ext\GitBaseTask;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @package phing.tasks.ext
  * @requires OS ^(?:(?!Win).)*$
  */
 class GitBaseTest extends BuildFileTest

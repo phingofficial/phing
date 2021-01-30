@@ -99,9 +99,6 @@
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/classes/"
-        ],
         "psr-4": {
             "Phing\\": "tests/Phing"
         }

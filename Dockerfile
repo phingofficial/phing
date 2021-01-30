@@ -3,7 +3,6 @@ FROM composer:1.9 AS composer
 ADD composer.* ./
 ADD classes/ classes
 ADD src/ src
-RUN mkdir -p tests/classes
 
 RUN composer global require hirak/prestissimo --no-plugins --no-scripts
 RUN composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction

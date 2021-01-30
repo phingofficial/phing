@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Symlink Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
  * @requires OS Linux
  */
 class SymlinkTaskTest extends BuildFileTest

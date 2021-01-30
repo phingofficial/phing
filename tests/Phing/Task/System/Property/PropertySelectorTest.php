@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the PropertySelector Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class PropertySelectorTest extends BuildFileTest
 {

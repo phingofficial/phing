@@ -43,7 +43,6 @@
         <mkdir dir="${tests.reports.dir.resolved}/coverage"/>
 
         <fileset dir="${tests.dir.resolved}" id="relevant-tests">
-            <include name="classes/**/*${test.class}.php"/>
             <include name="Phing/**/*${test.class}.php"/>
             <exclude name="**/Svn*TaskTest.php"/>
         </fileset>

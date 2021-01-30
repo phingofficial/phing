@@ -32,7 +32,6 @@
  * PHP version 5
  *
  * @category   Tasks
- * @package    phing.tasks.ext
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       https://github.com/llaville/phing-GrowlNotifyTask
@@ -49,7 +48,6 @@ use Phing\Support\BuildFileTest;
  * Tests for GrowlNotifyTask that raised error
  *
  * @category   Tasks
- * @package    phing.tasks.ext
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       https://github.com/llaville/phing-GrowlNotifyTask

@@ -26,7 +26,6 @@ use ZipArchive;
  * Tests the Zip and Unzip tasks
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.ext
  *
  * @requires extension zip
  */

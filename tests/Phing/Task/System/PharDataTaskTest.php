@@ -26,7 +26,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Manifest Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.system
  */
 class PharDataTaskTest extends BuildFileTest
 {

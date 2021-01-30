@@ -26,7 +26,6 @@ use Phing\Support\BuildFileTest;
  * Tests for PhpCSTask
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext
  */
 class PhpCSTaskTest extends BuildFileTest
 {

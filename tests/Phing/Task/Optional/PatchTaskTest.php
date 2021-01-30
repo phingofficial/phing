@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the Patch Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext
  */
 class PatchTaskTest extends BuildFileTest
 {

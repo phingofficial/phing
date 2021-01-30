@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests for PhpDependTask
  *
  * @author Michiel Rook <mrook@php.net>
- * @package phing.tasks.ext.pdepend
  */
 class PhpDependTaskTest extends BuildFileTest
 {

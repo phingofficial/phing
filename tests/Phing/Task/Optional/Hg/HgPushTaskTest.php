@@ -3,7 +3,6 @@
 namespace Phing\Task\Optional\Hg;
 
 use Phing\Support\BuildFileTest;
-use Phing\Task\Optional\Hg\HgTaskTestSkip;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

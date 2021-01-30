@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @package phing.tasks.ext
  */
 
 namespace Phing\Task\Optional;
@@ -27,7 +26,6 @@ use Phing\Support\BuildFileTest;
 
 /**
  * @author Alexey Borzov <avb@php.net>
- * @package phing.tasks.ext
  */
 class PDODelimitersTest extends BuildFileTest
 {

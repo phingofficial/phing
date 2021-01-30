@@ -20,11 +20,9 @@
 namespace Phing\Task\System;
 
 use Phing\Support\BuildFileTest;
-use Phing\Task\System\AutoloaderTask;
 
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>
- * @package phing.tasks.ext
  */
 class AutoloaderTaskTest extends BuildFileTest
 {

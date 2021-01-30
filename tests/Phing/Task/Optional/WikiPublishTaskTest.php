@@ -26,7 +26,6 @@ use WikiPublishTask;
 /**
  * WikiPublish task test
  * @author  Piotr Lewandowski <piotr@cassis.pl>
- * @package phing.tasks.ext
  */
 class WikiPublishTaskTest extends BuildFileTest
 {

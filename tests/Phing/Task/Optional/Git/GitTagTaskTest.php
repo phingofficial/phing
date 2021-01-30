@@ -23,7 +23,6 @@ use Phing\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @package phing.tasks.ext
  * @requires OS ^(?:(?!Win).)*$
  */
 class GitTagTaskTest extends BuildFileTest

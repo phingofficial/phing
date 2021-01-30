@@ -25,7 +25,6 @@ use Phing\Support\BuildFileTest;
  * Tests the PropertyRegexTask Task
  *
  * @author  SiadArdroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class RegexTaskTest extends BuildFileTest
 {

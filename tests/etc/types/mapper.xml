@@ -5,11 +5,8 @@
   <target name="test1">
     <mkdir dir="copytest" />
     <copy todir="copytest">
-      <fileset dir="../../../classes">
-        <include name="**/tasks/system/*.php" />
-      </fileset>
-      <fileset dir="../../classes">
-        <include name="**/tasks/*.php" />
+      <fileset dir="../../Phing">
+        <include name="Task/System/*.php" />
       </fileset>
       <mapper type="flatten" />
     </copy>
@@ -18,7 +15,7 @@
   <target name="test2">
       <mkdir dir="copytest" />
       <copy todir="copytest">
-          <fileset dir="../../../classes"/>
+          <fileset dir="../../Phing"/>
           <mapper type="composite">
               <mapper type="glob" from="*.xsl" to="*.from.xsl"/>
               <mapper type="glob" from="*.xml" to="*.from.xml"/>

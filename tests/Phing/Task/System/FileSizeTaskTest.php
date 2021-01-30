@@ -9,7 +9,6 @@ use Phing\Support\BuildFileTest;
  * Tests FileSizeTask
  *
  * @author  Jawira Portugal <dev@tugal.be>
- * @package phing.tasks.system
  * @license LGPL
  * @license https://github.com/phingofficial/phing/blob/master/LICENSE
  */
