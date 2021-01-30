@@ -3,7 +3,6 @@ parameters:
     paths:
         - classes
         - src/Phing
-        - tests/classes
         - tests/Phing
     bootstrapFiles:
         - tests/bootstrap.php
