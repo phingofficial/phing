@@ -3,7 +3,7 @@ tools:
     timeout: 1200
 
 filter:
-  paths: ["classes/*", "src/Phing/*", "tests/classes/*", "tests/bootstrap.php", "tests/Phing/*"]
+  paths: ["classes/*", "src/Phing/*", "tests/bootstrap.php", "tests/Phing/*"]
   dependency_paths:
     - "vendor/"
 
