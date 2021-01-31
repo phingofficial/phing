@@ -18,11 +18,10 @@
  */
 
 namespace Phing\Task\Optional;
-
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
-use HttpTask;
+use Phing\Task\Ext\HttpTask;
 use Phing\Exception\BuildException;
 use Phing\Support\BuildFileTest;
 
