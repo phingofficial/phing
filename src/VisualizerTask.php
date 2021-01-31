@@ -35,7 +35,7 @@ use function Jawira\PlantUml\encodep;
  *
  * @author Jawira Portugal
  */
-class VisualizerTask extends \HttpTask
+class VisualizerTask extends HttpTask
 {
     public const FORMAT_EPS = 'eps';
     public const FORMAT_PNG = 'png';
