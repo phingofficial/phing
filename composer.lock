@@ -1083,12 +1083,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-visualizer.git",
-                "reference": "64e9ff2f9eaaf625db6d715064860d2cbf1cebd7"
+                "reference": "d00c9e5e723a4d125b7c50771fa44565afd14ee2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-visualizer/zipball/64e9ff2f9eaaf625db6d715064860d2cbf1cebd7",
-                "reference": "64e9ff2f9eaaf625db6d715064860d2cbf1cebd7",
+                "url": "https://api.github.com/repos/phingofficial/task-visualizer/zipball/d00c9e5e723a4d125b7c50771fa44565afd14ee2",
+                "reference": "d00c9e5e723a4d125b7c50771fa44565afd14ee2",
                 "shasum": ""
             },
             "require": {
@@ -1127,7 +1127,7 @@
                 "issues": "https://github.com/phingofficial/task-visualizer/issues",
                 "source": "https://github.com/phingofficial/task-visualizer/tree/main"
             },
-            "time": "2021-01-26T22:59:02+00:00"
+            "time": "2021-01-31T23:43:31+00:00"
         },
         {
             "name": "phing/task-zendcodeanalyser",
