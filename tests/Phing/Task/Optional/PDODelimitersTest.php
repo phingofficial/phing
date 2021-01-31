@@ -20,7 +20,7 @@
 
 namespace Phing\Task\Optional;
 
-use PDOSQLExecTask;
+use Phing\Task\System\Pdo\PDOSQLExecTask;
 use Phing\Io\File;
 use Phing\Support\BuildFileTest;
 
