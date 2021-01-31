@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d85a55d39951ab72093df1072203cd06",
+    "content-hash": "23024647ec3707b600f04fc55b6f5e0b",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -506,6 +506,57 @@
                 "source": "https://github.com/phingofficial/task-hg/tree/main"
             },
             "time": "2021-01-25T14:56:24+00:00"
+        },
+        {
+            "name": "phing/task-http",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-http.git",
+                "reference": "fd5e1d9fea80a445349001cb76c8805ce1c0a9fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-http/zipball/fd5e1d9fea80a445349001cb76c8805ce1c0a9fe",
+                "reference": "fd5e1d9fea80a445349001cb76c8805ce1c0a9fe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.2",
+                "phing/phing": "3.0.x-dev"
+            },
+            "default-branch": true,
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "http-request": "Phing\\Task\\Ext\\HttpRequestTask",
+                    "httpget": "Phing\\Task\\Ext\\HttpGetTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Task\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "HTTP related tasks.",
+            "support": {
+                "issues": "https://github.com/phingofficial/task-http/issues",
+                "source": "https://github.com/phingofficial/task-http/tree/main"
+            },
+            "time": "2021-01-31T23:04:30+00:00"
         },
         {
             "name": "phing/task-inifile",
@@ -6278,6 +6329,7 @@
         "phing/task-ftpdeploy": 20,
         "phing/task-git": 20,
         "phing/task-hg": 20,
+        "phing/task-http": 20,
         "phing/task-inifile": 20,
         "phing/task-ioncube": 20,
         "phing/task-jshint": 20,

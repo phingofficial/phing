@@ -43,6 +43,7 @@
         "phing/task-ftpdeploy": "dev-master",
         "phing/task-git": "dev-main",
         "phing/task-hg": "dev-main",
+        "phing/task-http": "dev-main",
         "phing/task-inifile": "dev-main",
         "phing/task-ioncube": "dev-master",
         "phing/task-jshint": "dev-master",
