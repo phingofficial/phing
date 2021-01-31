@@ -17,6 +17,12 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Pdo;
+
+use Exception;
+use PDO;
+use PDOException;
+use PDOStatement;
 use Phing\Exception\BuildException;
 use Phing\Io\IOException;
 use Phing\Io\LogWriter;
@@ -420,7 +426,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                     throw $e;
                 }
             } catch (IOException $e) {
-                if (!$this->isAutocommit() && $this->conn !== null && $this->onError == "abort") {
+                if (!$this->isAutocommit() && $this->conn !== null && $this->onError === "abort") {
                     try {
                         $this->conn->rollback();
                     } catch (PDOException $ex) {
@@ -429,7 +435,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 $this->closeConnection();
                 throw new BuildException($e->getMessage(), $this->getLocation());
             } catch (PDOException $e) {
-                if (!$this->isAutocommit() && $this->conn !== null && $this->onError == "abort") {
+                if (!$this->isAutocommit() && $this->conn !== null && $this->onError === "abort") {
                     try {
                         $this->conn->rollback();
                     } catch (PDOException $ex) {

@@ -19,6 +19,8 @@
  * @package phing.tasks.ext.pdo
  */
 
+namespace Phing\Task\System\Pdo;
+
 use Phing\Util\StringHelper;
 
 /**

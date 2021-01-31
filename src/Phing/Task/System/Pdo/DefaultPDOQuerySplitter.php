@@ -19,6 +19,8 @@
  * @package phing.tasks.ext.pdo
  */
 
+namespace Phing\Task\System\Pdo;
+
 use Phing\Io\Reader;
 use Phing\Util\StringHelper;
 
@@ -90,7 +92,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
 
             if (
                 strlen($line) > 4
-                && strtoupper(substr($line, 0, 4)) == "REM "
+                && strtoupper(substr($line, 0, 4)) === "REM "
             ) {
                 continue;
             }

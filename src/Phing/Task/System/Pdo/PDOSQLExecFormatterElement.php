@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Pdo;
+
 use Phing\Exception\BuildException;
 use Phing\Io\FileWriter;
 use Phing\Io\LogWriter;
@@ -222,9 +224,9 @@ class PDOSQLExecFormatterElement
     public function setType($type)
     {
         $this->type = $type;
-        if ($this->type == "xml") {
+        if ($this->type === "xml") {
             $this->formatter = new XMLPDOResultFormatter();
-        } elseif ($this->type == "plain") {
+        } elseif ($this->type === "plain") {
             $this->formatter = new PlainPDOResultFormatter();
         } else {
             throw new BuildException("Formatter '" . $this->type . "' not implemented");

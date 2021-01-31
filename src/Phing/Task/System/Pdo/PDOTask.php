@@ -17,6 +17,11 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Pdo;
+
+use Exception;
+use PDO;
+use PDOException;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
@@ -116,7 +121,8 @@ abstract class PDOTask extends Task
      * The calling method is responsible for closing the connection.
      *
      * @return PDO     the newly created connection.
-     * @throws BuildException if the UserId/Password/Url is not set or there is no suitable driver or the driver fails to load.
+     * @throws BuildException if the UserId/Password/Url is not set or there is no suitable driver
+     *                        or the driver fails to load.
      */
     protected function getConnection()
     {

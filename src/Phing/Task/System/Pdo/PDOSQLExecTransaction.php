@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Pdo;
+
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
 use Phing\Io\File;

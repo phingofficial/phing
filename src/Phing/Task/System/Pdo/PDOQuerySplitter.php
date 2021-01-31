@@ -15,72 +15,53 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ *
+ * @package phing.tasks.ext.pdo
  */
 
-use Phing\Io\Writer;
+namespace Phing\Task\System\Pdo;
+
+use Phing\Io\BufferedReader;
+use Phing\Io\Reader;
 
 /**
- * Abstract
+ * Base class for classes that split SQL source into separate queries
  *
- * @author  Hans Lellelid <hans@xmpl.org>
+ * @author  Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext.pdo
- * @since   2.3.0
  */
-abstract class PDOResultFormatter
+abstract class PDOQuerySplitter
 {
     /**
-     * Output writer.
+     * Task that uses the splitter
      *
-     * @var Writer
+     * @var PDOSQLExecTask
      */
-    protected $out;
+    protected $parent;
 
     /**
-     * Sets the output writer.
+     * Reader with SQL source
      *
-     * @param Writer $out
+     * @var BufferedReader
      */
-    public function setOutput(Writer $out)
+    protected $sqlReader;
+
+    /**
+     * Constructor, sets the parent task and reader with SQL source
+     *
+     * @param PDOSQLExecTask $parent
+     * @param Reader $reader
+     */
+    public function __construct(PDOSQLExecTask $parent, Reader $reader)
     {
-        $this->out = $out;
+        $this->parent = $parent;
+        $this->sqlReader = new BufferedReader($reader);
     }
 
     /**
-     * Gets the output writer.
+     * Returns next query from SQL source, null if no more queries left
      *
-     * @return Writer
+     * @return string|null
      */
-    public function getOutput()
-    {
-        return $this->out;
-    }
-
-    /**
-     * Gets the preferred output filename for this formatter.
-     *
-     * @return string
-     */
-    abstract public function getPreferredOutfile();
-
-    /**
-     * Perform any initialization.
-     */
-    public function initialize()
-    {
-    }
-
-    /**
-     * Processes a specific row from PDO result set.
-     *
-     * @param array $row Row of PDO result set.
-     */
-    abstract public function processRow($row);
-
-    /**
-     * Perform any final tasks and Close the writer.
-     */
-    public function close()
-    {
-        $this->out->close();
-    }
+    abstract public function nextQuery();
 }
