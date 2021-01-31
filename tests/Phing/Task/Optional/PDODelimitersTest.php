@@ -38,7 +38,7 @@ class PDODelimitersTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pdo/empty.xml");
         $this->queries = [];
 
-        $this->mockTask = $this->getMockBuilder('PDOSQLExecTask')
+        $this->mockTask = $this->getMockBuilder(PDOSQLExecTask::class)
             ->setMethods(['getConnection', 'execSQL'])
             ->getMock();
         $this->mockTask->setProject($this->project);
