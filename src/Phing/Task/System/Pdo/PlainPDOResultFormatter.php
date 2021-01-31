@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Pdo;
+
 use Phing\Io\File;
 use Phing\Util\StringHelper;
 

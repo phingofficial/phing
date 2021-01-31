@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\System\Pdo;
+
+use DOMDocument;
+use DOMElement;
 use Phing\Io\File;
 
 /**

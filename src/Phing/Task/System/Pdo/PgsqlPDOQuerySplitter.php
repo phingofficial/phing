@@ -19,6 +19,8 @@
  * @package phing.tasks.ext.pdo
  */
 
+namespace Phing\Task\System\Pdo;
+
 /**
  * Splits PostgreSQL's dialect of SQL into separate queries
  *
@@ -125,12 +127,12 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
     protected function checkDollarQuote()
     {
         $ch = $this->getc();
-        if ('$' == $ch) {
+        if ('$' === $ch) {
             // empty tag
             return '';
         }
 
-        if (!ctype_alpha($ch) && '_' != $ch) {
+        if (!ctype_alpha($ch) && '_' !== $ch) {
             // not a delimiter
             $this->ungetc();
 
@@ -139,11 +141,11 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
 
         $tag = $ch;
         while (false !== ($ch = $this->getc())) {
-            if ('$' == $ch) {
+            if ('$' === $ch) {
                 return $tag;
             }
 
-            if (ctype_alnum($ch) || '_' == $ch) {
+            if (ctype_alnum($ch) || '_' === $ch) {
                 $tag .= $ch;
             } else {
                 for ($i = 0, $tagLength = strlen($tag); $i < $tagLength; $i++) {
@@ -182,7 +184,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                             $this->state = self::STATE_SINGLE_QUOTED;
                             break;
                         case '/':
-                            if ('*' == $this->getc()) {
+                            if ('*' === $this->getc()) {
                                 $this->state = self::STATE_COMMENT_MULTILINE;
                                 $this->commentDepth = 1;
                             } else {
@@ -207,7 +209,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                         case $delimiter[0]:
                             // special case to allow "create rule" statements
                             // http://www.postgresql.org/docs/current/interactive/sql-createrule.html
-                            if (';' == $delimiter && 0 < $openParens) {
+                            if (';' === $delimiter && 0 < $openParens) {
                                 break;
                             }
                             $hasQuery = true;
@@ -227,7 +229,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                     break;
 
                 case self::STATE_COMMENT_LINEEND:
-                    if ("\n" == $ch) {
+                    if ("\n" === $ch) {
                         $this->state = self::STATE_NORMAL;
                     }
                     break;

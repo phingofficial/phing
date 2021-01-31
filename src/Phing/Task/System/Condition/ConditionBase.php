@@ -20,7 +20,7 @@
 namespace Phing\Task\System\Condition;
 
 use IteratorAggregate;
-use PDOSQLExecTask;
+use Phing\Task\System\Pdo\PDOSQLExecTask;
 use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreator;
 use Phing\Project;
