@@ -23,7 +23,7 @@ use Phing\Exception\BuildException;
 use Phing\Support\BuildFileTest;
 use ReflectionClass;
 use ReflectionException;
-use RSTTask;
+use Phing\Task\Optional\RSTTask;
 
 /**
  * Unit test for reStructuredText rendering task.

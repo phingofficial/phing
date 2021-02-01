@@ -19,7 +19,7 @@
 
 namespace Phing\Task\Optional;
 
-use ComposerTask;
+use Phing\Task\Optional\ComposerTask;
 use Phing\Io\FileSystem;
 use Phing\Project;
 use Phing\Type\CommandlineArgument;
@@ -87,7 +87,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $o = $this->object;
         $o->setComposer($composer);
 
-        $prop = new ReflectionProperty('ComposerTask', 'composer');
+        $prop = new ReflectionProperty(ComposerTask::class, 'composer');
         $prop->setAccessible(true);
 
         $this->assertEquals($composer, $prop->getValue($o));
@@ -103,7 +103,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
 
         $orgPath = getenv("PATH");
 
-        $prop = new ReflectionProperty('ComposerTask', 'composer');
+        $prop = new ReflectionProperty(ComposerTask::class, 'composer');
         $prop->setAccessible(true);
         $prop->setValue($o, $composer);
 
@@ -156,7 +156,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $o->setCommand('install');
         $o->createArg()->setValue('--dry-run');
         $composer = $o->getComposer();
-        $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
+        $method = new ReflectionMethod(ComposerTask::class, 'prepareCommandLine');
         $method->setAccessible(true);
         $this->assertEquals('php ' . $composer . ' install --dry-run', (string) $method->invoke($o));
         $o->setCommand('update');

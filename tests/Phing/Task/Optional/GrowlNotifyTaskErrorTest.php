@@ -39,7 +39,7 @@
 
 namespace Phing\Task\Optional;
 
-use GrowlNotifyTask;
+use Phing\Task\Optional\GrowlNotifyTask;
 use Net_Growl;
 use Phing\Exception\BuildException;
 use Phing\Support\BuildFileTest;

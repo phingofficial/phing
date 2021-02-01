@@ -21,7 +21,7 @@ namespace Phing\Task\Optional;
 
 use Phing\Exception\BuildException;
 use Phing\Support\BuildFileTest;
-use WikiPublishTask;
+use Phing\Task\Optional\WikiPublishTask;
 
 /**
  * WikiPublish task test
@@ -89,7 +89,7 @@ class WikiPublishTaskTest extends BuildFileTest
      */
     private function getWikiPublishMock()
     {
-        $result = $this->getMockBuilder('WikiPublishTask');
+        $result = $this->getMockBuilder(WikiPublishTask::class);
 
         return $result->onlyMethods(['callApi'])->getMock();
     }

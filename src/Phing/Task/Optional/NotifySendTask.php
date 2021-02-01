@@ -11,6 +11,8 @@
  * @link     https://github.com/kenguest/Phing-NotifySendTask
  */
 
+namespace Phing\Task\Optional;
+
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Io\File;
@@ -122,8 +124,8 @@ class NotifySendTask extends Task
     /**
      * The main entry point method.
      *
-     * @throws BuildException
      * @return void
+     * @throws BuildException
      */
     public function main()
     {

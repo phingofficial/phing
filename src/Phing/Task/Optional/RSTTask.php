@@ -11,6 +11,8 @@
  * @link     http://www.phing.info/
  */
 
+namespace Phing\Task\Optional;
+
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Io\FileUtils;
@@ -145,8 +147,8 @@ class RSTTask extends Task
     /**
      * The main entry point method.
      *
-     * @throws BuildException
      * @return void
+     * @throws BuildException
      */
     public function main()
     {
@@ -398,10 +400,10 @@ class RSTTask extends Task
      * The setter for the attribute "toolpath"
      *
      * @param    $path
+     * @return void
      * @throws   BuildException
      * @internal param string $param Full path to tool path, i.e. /usr/local/bin/rst2html
      *
-     * @return void
      */
     public function setToolpath($path)
     {

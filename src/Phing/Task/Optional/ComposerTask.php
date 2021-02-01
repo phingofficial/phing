@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Io\IOException;
@@ -24,6 +26,7 @@ use Phing\Project;
 use Phing\Task;
 use Phing\Type\Commandline;
 use Phing\Type\CommandlineArgument;
+use SplFileInfo;
 
 /**
  * Composer Task

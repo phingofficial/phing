@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Task;

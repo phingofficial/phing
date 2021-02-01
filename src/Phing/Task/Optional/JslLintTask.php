@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
 use Phing\Exception\BuildException;
 use Phing\Io\FileWriter;
 use Phing\Io\File;
@@ -249,9 +251,9 @@ class JslLintTask extends Task
      *
      * @param string $file
      *
+     * @return bool|void
      * @throws BuildException
      *
-     * @return bool|void
      */
     protected function lint($file)
     {

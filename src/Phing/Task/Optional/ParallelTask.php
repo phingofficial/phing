@@ -19,6 +19,9 @@
  * @package phing.tasks.ext
  */
 
+namespace Phing\Task\Optional;
+
+use MehrAlsNix;
 use Phing\Exception\BuildException;
 use Phing\Task\System\SequentialTask;
 

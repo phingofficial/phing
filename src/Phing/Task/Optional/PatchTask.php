@@ -22,6 +22,8 @@
  *  limitations under the License.
  */
 
+namespace Phing\Task\Optional;
+
 use Phing\Exception\BuildException;
 use Phing\Io\IOException;
 use Phing\Io\File;
@@ -81,7 +83,7 @@ class PatchTask extends Task
      *
      * Required.
      *
-     * @param  File $file File containing the diff output
+     * @param File $file File containing the diff output
      * @return void
      * @throws BuildException if $file not exists
      */
@@ -124,7 +126,7 @@ class PatchTask extends Task
      *
      * Optional if it can be inferred from the diff file.
      *
-     * @param  File $file File to patch
+     * @param File $file File to patch
      * @return void
      */
     public function setOriginalFile(File $file)
@@ -138,7 +140,7 @@ class PatchTask extends Task
      *
      * Optional.
      *
-     * @param  File $file File to send the output to
+     * @param File $file File to send the output to
      * @return void
      */
     public function setDestFile(File $file)
@@ -153,7 +155,7 @@ class PatchTask extends Task
      *
      * patch's <i>--strip</i> option.
      *
-     * @param  int $num number of lines to strip
+     * @param int $num number of lines to strip
      * @return void
      * @throws BuildException if num is < 0, or other errors
      */
@@ -171,7 +173,7 @@ class PatchTask extends Task
      *
      * Optional, default - false
      *
-     * @param  bool $flag If true suppress set the -s option on the patch command
+     * @param bool $flag If true suppress set the -s option on the patch command
      * @return void
      */
     public function setQuiet($flag)
@@ -186,7 +188,7 @@ class PatchTask extends Task
      *
      * Optional, default - false
      *
-     * @param  bool $flag If true set the -R option on the patch command
+     * @param bool $flag If true set the -R option on the patch command
      * @return void
      */
     public function setReverse($flag)
@@ -201,7 +203,7 @@ class PatchTask extends Task
      *
      * Defaults to the project's base directory.
      *
-     * @param  File $directory Directory to run the patch command in
+     * @param File $directory Directory to run the patch command in
      * @return void
      */
     public function setDir(File $directory)
@@ -212,7 +214,7 @@ class PatchTask extends Task
     /**
      * Ignore patches that seem to be reversed or already applied
      *
-     * @param  bool $flag If true set the -N (--forward) option
+     * @param bool $flag If true set the -N (--forward) option
      * @return void
      */
     public function setForward($flag)
@@ -227,7 +229,7 @@ class PatchTask extends Task
      *
      * Defaults to 0
      *
-     * @param  string $value Value of a fuzz factor
+     * @param string $value Value of a fuzz factor
      * @return void
      */
     public function setFuzz($value)
@@ -241,7 +243,7 @@ class PatchTask extends Task
      *
      * The default is "false"
      *
-     * @param  bool $value "true" if it should halt, otherwise "false"
+     * @param bool $value "true" if it should halt, otherwise "false"
      * @return void
      */
     public function setFailOnError($value)

@@ -2,7 +2,7 @@
 
 namespace Phing\Task\Optional;
 
-use NotifySendTask;
+use Phing\Task\Optional\NotifySendTask;
 use Phing\Project;
 use Phing\Support\BuildFileTest;
 

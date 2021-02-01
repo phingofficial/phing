@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
+use DOMDocument;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
@@ -86,9 +89,9 @@ class XmlLintTask extends Task
      *
      * {@inheritdoc}
      *
+     * @return void
      * @throws BuildException
      *
-     * @return void
      */
     public function main()
     {

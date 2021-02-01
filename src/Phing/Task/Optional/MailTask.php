@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
 use Phing\Exception\BuildException;
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
