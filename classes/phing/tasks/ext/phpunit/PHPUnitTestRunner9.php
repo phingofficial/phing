@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Project;
+
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
  *
@@ -38,11 +42,6 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
     private $lastSkippedMessage = '';
     private $lastRiskyMessage = '';
     private $formatters = [];
-
-    /**
-     * @var \PHPUnit\Framework\TestListener[]
-     */
-    private $listeners = [];
 
     /**
      * @var \SebastianBergmann\CodeCoverage\CodeCoverage
@@ -100,13 +99,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      */
     public function addFormatter(\PHPUnit\Framework\TestListener $formatter): void
     {
-        $this->addListener($formatter);
         $this->formatters[] = $formatter;
-    }
-
-    public function addListener(\PHPUnit\Framework\TestListener $listener): void
-    {
-        $this->listeners[] = $listener;
     }
 
     /**
@@ -126,7 +119,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
      * Run a test
      *
      * @param  PHPUnit\Framework\TestSuite $suite
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws ReflectionException
      */
     public function run(PHPUnit\Framework\TestSuite $suite)
@@ -136,7 +129,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
         if ($this->codecoverage) {
             // Check if Phing coverage is being utlizied
             if ($this->project->getProperty('coverage.database')) {
-                $whitelist = \Phing\Tasks\Ext\Coverage\CoverageMerger::getWhiteList($this->project);
+                $whitelist = \Phing\Task\Ext\Coverage\CoverageMerger::getWhiteList($this->project);
                 $filter = $this->codecoverage->filter();
 
                 if (method_exists($filter, 'includeFiles')) {
@@ -149,7 +142,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
             $res->setCodeCoverage($this->codecoverage);
         }
 
-        // $res->addListener($this);
+        $res->addListener($this);
 
         foreach ($this->formatters as $formatter) {
             $res->addListener($formatter);
@@ -176,7 +169,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
         // Check if Phing coverage is being utlizied
         if ($this->codecoverage && $this->project->getProperty('coverage.database')) {
             try {
-                \Phing\Tasks\Ext\Coverage\CoverageMerger::merge($this->project, $this->codecoverage->getData());
+                \Phing\Task\Ext\Coverage\CoverageMerger::merge($this->project, $this->codecoverage->getData());
             } catch (IOException $e) {
                 throw new BuildException('Merging code coverage failed.', $e);
             }

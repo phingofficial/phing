@@ -17,6 +17,12 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
+use Phing\Type\Element\FileSetAware;
+use Phing\Util\StringHelper;
+
 /**
  * Runs phploc a tool for quickly measuring the size of PHP projects.
  *
@@ -58,7 +64,7 @@ class PHPLocTask extends Task
     protected $countTests = false;
 
     /**
-     * @var null|PhingFile
+     * @var null|File
      */
     protected $fileToCheck = null;
 
@@ -91,9 +97,9 @@ class PHPLocTask extends Task
     }
 
     /**
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->fileToCheck = trim($file);
     }
@@ -242,7 +248,7 @@ class Application
             }
 
             if ($this->reportDirectory !== null && !is_dir($this->reportDirectory)) {
-                $reportOutputDir = new PhingFile($this->reportDirectory);
+                $reportOutputDir = new File($this->reportDirectory);
 
                 $logMessage = "Report output directory doesn't exist, creating: "
                     . $reportOutputDir->getAbsolutePath() . '.';

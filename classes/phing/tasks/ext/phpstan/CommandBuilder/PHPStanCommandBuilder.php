@@ -19,6 +19,8 @@
 
 declare(strict_types=1);
 
+use Phing\Exception\BuildException;
+
 abstract class PHPStanCommandBuilder
 {
     private const ARG_HELP = '--help';

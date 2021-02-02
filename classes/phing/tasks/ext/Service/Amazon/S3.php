@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+
 /**
  * Abstract Service_Amazon_S3 class.
  *
@@ -38,11 +40,16 @@ abstract class S3 extends Amazon
     protected $client = null;
 
     /**
+     * @var string
+     */
+    protected $bucket;
+
+    /**
      * We only instantiate the client once per task call
      *
      * @return Aws\S3\S3Client
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function getClient()
     {
@@ -98,22 +105,11 @@ abstract class S3 extends Amazon
      *
      * @return Aws\Result
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function getObjectInstance($object)
     {
         return $this->getClientInstance()->getObject($object);
-    }
-
-    /**
-     * Check if the object already exists in the current bucket
-     *
-     * @param  mixed $object
-     * @return bool
-     */
-    public function isObjectAvailable($object)
-    {
-        return (bool) $this->getObjectInstance($object)->load(Services_Amazon_S3_Resource_Object::LOAD_METADATA_ONLY);
     }
 
     /**
@@ -131,7 +127,7 @@ abstract class S3 extends Amazon
      *
      * @return bool
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function isBucketAvailable()
     {
@@ -143,7 +139,7 @@ abstract class S3 extends Amazon
      *
      * @return bool
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createBucket()
     {

@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
+
 /**
  * Runs SonarQube Scanner.
  *
@@ -245,7 +249,7 @@ class SonarTask extends Task
         }
 
         $this->log($message, Project::MSG_VERBOSE);
-        unset($output);
+        $output = "";
         exec($command, $output, $returnCode);
 
         if ($returnCode !== self::EXIT_SUCCESS) {

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<project default="cleanup">
+
+  <target name="init">
+    <mkdir dir="result" />
+  </target>
+
+  <target name="cleanup">
+    <delete dir="result" />
+  </target>
+
+  <target name="testEscapeUnicode" depends="init">
+    <copy todir="result">
+      <fileset dir="input"/>
+      <filterchain>
+        <filterreader classname="Phing\Filter\EscapeUnicode"/>
+      </filterchain>
+    </copy>
+  </target>
+
+</project>

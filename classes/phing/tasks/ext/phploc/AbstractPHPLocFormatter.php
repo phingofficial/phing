@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.phploc
@@ -71,7 +73,7 @@ abstract class AbstractPHPLocFormatter
     public function setToDir($toDir)
     {
         if (!is_dir($toDir) && null !== $toDir) {
-            $toDir = new PhingFile($toDir);
+            $toDir = new File($toDir);
             $toDir->mkdirs();
         }
 

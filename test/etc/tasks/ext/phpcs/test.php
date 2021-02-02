@@ -1,5 +1,0 @@
-<?
-
-echo "Hello World";
-
-?>

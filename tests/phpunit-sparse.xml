@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="false"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="true"
+         stopOnError="true"
+         syntaxCheck="false"
+         verbose="false"
+         strict="false">
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="display_errors" value="On"/>
+        <ini name="memory_limit" value="-1"/>
+        <ini name="date.timezone" value="UTC"/>
+    </php>
+    <coverage cacheDirectory="./reports/cache"
+              processUncoveredFiles="true"
+              pathCoverage="false"
+              ignoreDeprecatedCodeUnits="true" >
+        <include>
+            <directory suffix=".php">../classes/phing</directory>
+            <directory suffix=".php">../src/Phing</directory>
+        </include>
+        <exclude>
+            <directory>../bin</directory>
+            <directory>.</directory>
+            <directory>../vendor</directory>
+        </exclude>
+    </coverage>
+</phpunit>

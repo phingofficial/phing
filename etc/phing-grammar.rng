@@ -383,6 +383,7 @@
                 <ref name="not_selector"/>
                 <ref name="or_selector"/>
                 <ref name="posixpermissions_selector"/>
+                <ref name="modified_selector"/>
             </choice>
         </zeroOrMore>
     </define>
@@ -517,6 +518,78 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="modified_selector" combine="interleave">
+        <element name="modified">
+            <interleave>
+                <optional>
+                    <attribute name="algorithm" a:default-value="filehash">
+                        <choice>
+                            <value>filehash</value>
+                            <value>lastmodified</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="cache" a:default-value="propertyfile">
+                        <choice>
+                            <value>propertyfile</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="comparator" a:default-value="equal">
+                        <choice>
+                            <value>equal</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="algorithmclass">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="cacheclass">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="comparatorclass">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="update" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="seldirs" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="delayupdate" a:default-value="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <zeroOrMore>
+                    <element name="param">
+                        <attribute name="name">
+                            <choice>
+                                <value>cache.cachefile</value>
+                                <value>algorithm.algorithm</value>
+                            </choice>
+                        </attribute>
+                        <attribute name="value">
+                            <data type="string"/>
+                        </attribute>
+                    </element>
+                </zeroOrMore>
             </interleave>
         </element>
     </define>
@@ -1126,7 +1199,7 @@
     </define>
 
     <define name="attrib">
-        <element name="available">
+        <element name="attrib">
             <interleave>
                 <choice>
                     <attribute name="file"/>
@@ -6962,8 +7035,20 @@
                         <value>Bugfix</value>
                     </choice>
                 </attribute>
-                <attribute name="file"/>
-                <attribute name="property"/>
+                <optional>
+                  <attribute name="file" a:default="build.version"/>
+                </optional>
+                <optional>
+                  <attribute name="property" a:default="build.version"/>
+                </optional>
+                <optional>
+                  <attribute name="propfile" a:default="false">
+                    <data type="boolean"/>
+                  </attribute>
+                </optional>
+                <optional>
+                  <attribute name="startingversion" a:default="0.0.0"/>
+                </optional>
             </interleave>
         </element>
     </define>
@@ -7616,7 +7701,6 @@
             <ref name="isset"/>
             <ref name="contains_cond"/>
             <ref name="referenceexists"/>
-            <ref name="available"/>
             <ref name="filesmatch"/>
             <ref name="hasfreespace"/>
             <ref name="isfailure"/>
@@ -7630,6 +7714,7 @@
             <ref name="pdosqlexec_cond"/>
             <ref name="matches_cond"/>
             <ref name="os_cond"/>
+            <ref name="uptodate_cond"/>
         </choice>
     </define>
 
@@ -7639,6 +7724,25 @@
         </element>
     </define>
 
+    <define name="uptodate_cond">
+        <element name="uptodate">
+            <interleave>
+                <choice>
+                    <attribute name="srcfile"/>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <choice>
+                    <attribute name="targetfile"/>
+                    <oneOrMore>
+                        <ref name="mapper"/>
+                    </oneOrMore>
+                </choice>
+            </interleave>
+        </element>
+    </define>
+    
     <define name="or">
         <element name="or">
             <oneOrMore>

@@ -3,7 +3,7 @@ tools:
     timeout: 1200
 
 filter:
-  paths: ["classes/*", "test/classes/*", "test/bootstrap.php"]
+  paths: ["classes/*", "src/Phing/*", "tests/bootstrap.php", "tests/Phing/*"]
   dependency_paths:
     - "vendor/"
 
@@ -23,4 +23,4 @@ build:
     tests:
       tests:
         override:
-          - 'git config --global user.email "scrutinizer@phing.info" && git config --global user.name "Phing Scrutinizer Builder" && cd test && ../bin/phing'
+          - 'git config --global user.email "scrutinizer@phing.info" && git config --global user.name "Phing Scrutinizer Builder" && cd tests && ../bin/phing'

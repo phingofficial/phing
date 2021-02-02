@@ -1,0 +1,49 @@
+<project name="PHPLOC" default="test">
+	<target name="testReportText">
+		<phploc reportType="txt"
+		reportDirectory="${project.basedir}">
+			<fileset dir=".">
+				<include name="*.php" />
+			</fileset>
+		</phploc>
+	</target>
+
+	<target name="testReportCSV">
+		<phploc reportType="csv"
+		reportDirectory="${project.basedir}">
+			<fileset dir=".">
+				<include name="*.php" />
+			</fileset>
+		</phploc>
+	</target>
+
+	<target name="testReportXML">
+		<phploc reportType="xml"
+		reportDirectory="${project.basedir}">
+			<fileset dir=".">
+				<include name="*.php" />
+			</fileset>
+		</phploc>
+	</target>
+
+	<target name="testReportJSON">
+		<phploc reportType="json"
+				reportDirectory="${project.basedir}">
+			<fileset dir=".">
+				<include name="*.php" />
+			</fileset>
+		</phploc>
+	</target>
+
+	<target name="testFormatters">
+		<phploc>
+			<formatter type="txt" toDir="${project.basedir}" outFile="phploc-report.txt" />
+			<formatter type="csv" toDir="${project.basedir}" outFile="phploc-report.csv" />
+			<formatter type="xml" toDir="${project.basedir}" outFile="phploc-report.xml" />
+			<formatter type="json" toDir="${project.basedir}" outFile="phploc-report.json" />
+			<fileset dir=".">
+				<include name="*.php" />
+			</fileset>
+		</phploc>
+	</target>
+</project>

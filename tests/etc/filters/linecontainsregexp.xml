@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<project name="test.linecontainsregexp" default="cleanup">
+
+  <target name="init">
+    <mkdir dir="result" />
+  </target>
+
+  <target name="cleanup">
+    <delete dir="result" />
+  </target>
+
+  <target name="testLineContainsRegexp" depends="init">
+    <copy todir="result">
+      <fileset dir="input"/>
+      <filterchain>
+        <filterreader classname="Phing\Filter\LineContainsRegexp">
+          <param type="regexp" value="beta*"/>
+        </filterreader>
+      </filterchain>
+    </copy>
+  </target>
+
+  <target name="testLineContainsRegexpNegate" depends="init">
+    <copy todir="result">
+      <fileset dir="input"/>
+      <filterchain>
+        <filterreader classname="Phing\Filter\LineContainsRegexp">
+          <param type="regexp" value="beta*"/>
+          <param type="negate" value="true"/>
+        </filterreader>
+      </filterchain>
+    </copy>
+  </target>
+
+  <target name="testLineContainsRegexpCaseInsensitive" depends="init">
+    <copy todir="result">
+      <fileset dir="input"/>
+      <filterchain>
+        <filterreader classname="Phing\Filter\LineContainsRegexp">
+          <param type="regexp" value="BETA*"/>
+          <param type="casesensitive" value="false"/>
+        </filterreader>
+      </filterchain>
+    </copy>
+  </target>
+
+</project>

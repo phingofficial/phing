@@ -17,6 +17,12 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Project;
+use SebastianBergmann\PHPCPD\CodeCloneMap;
+use SebastianBergmann\PHPCPD\Log\PMD;
+
 /**
  * Prints PMD-XML output of phpcpd run
  *
@@ -29,10 +35,10 @@ class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
     /**
      * Processes a list of clones.
      *
-     * @param PHPCPD_CloneMap|CodeCloneMap $clones
+     * @param CodeCloneMap $clones
      * @param Project $project
      * @param boolean $useFile
-     * @param PhingFile|null $outFile
+     * @param File|null $outFile
      *
      * @throws BuildException
      */
@@ -42,11 +48,7 @@ class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
             throw new BuildException('Output filename required for this formatter');
         }
 
-        if (get_class($clones) == 'PHPCPD_CloneMap') {
-            $logger = new PHPCPD_Log_XML_PMD($outFile);
-        } else {
-            $logger = new \SebastianBergmann\PHPCPD\Log\PMD($outFile);
-        }
+        $logger = new PMD($outFile);
 
         $logger->processClones($clones);
     }

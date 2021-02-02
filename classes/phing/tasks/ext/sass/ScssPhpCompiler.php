@@ -19,6 +19,8 @@
 
 declare(strict_types=1);
 
+use Phing\Exception\BuildException;
+use Phing\Project;
 use ScssPhp\ScssPhp\Compiler;
 
 class ScssPhpCompiler implements SassTaskCompiler

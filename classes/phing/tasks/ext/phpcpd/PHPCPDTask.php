@@ -17,26 +17,13 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
+use Phing\Type\Element\FileSetAware;
+use SebastianBergmann\PHPCPD\Detector\Detector;
 use SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy;
 use Composer\Autoload\ClassLoader;
-
-/**
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://phing.info>.
- */
 
 /**
  * Runs PHP Copy & Paste Detector. Checking PHP files for duplicated code.
@@ -53,7 +40,7 @@ class PHPCPDTask extends Task
     /**
      * A php source code filename or directory
      *
-     * @var PhingFile
+     * @var File
      */
     protected $file = null;
 
@@ -107,11 +94,6 @@ class PHPCPDTask extends Task
     protected $formatters = [];
 
     /**
-     * @var bool
-     */
-    protected $oldVersion = false;
-
-    /**
      * @var string
      */
     private $pharLocation = "";
@@ -119,9 +101,9 @@ class PHPCPDTask extends Task
     /**
      * Set the input source file or directory.
      *
-     * @param PhingFile $file The input source file or directory.
+     * @param File $file The input source file or directory.
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -253,22 +235,6 @@ class Application
             return;
         }
 
-        if ($handler = @fopen('SebastianBergmann/PHPCPD/autoload.php', 'r', true)) {
-            fclose($handler);
-            @include_once 'SebastianBergmann/PHPCPD/autoload.php';
-
-            return;
-        }
-
-        if ($handler = @fopen('PHPCPD/Autoload.php', 'r', true)) {
-            fclose($handler);
-            @include_once 'PHPCPD/Autoload.php';
-
-            $this->oldVersion = true;
-
-            return;
-        }
-
         throw new BuildException(
             'PHPCPDTask depends on PHPCPD being installed and on include_path.',
             $this->getLocation()
@@ -301,7 +267,7 @@ class Application
 
         $filesToParse = [];
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $filesToParse[] = $this->file->getPath();
         } else {
             // append any files in filesets
@@ -309,7 +275,7 @@ class Application
                 $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 
                 foreach ($files as $filename) {
-                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $f = new File($fs->getDir($this->project), $filename);
                     $filesToParse[] = $f->getAbsolutePath();
                 }
             }
@@ -317,15 +283,7 @@ class Application
 
         $this->log('Processing files...');
 
-        if ($this->oldVersion) {
-            $detectorClass = 'PHPCPD_Detector';
-            $strategyClass = 'PHPCPD_Detector_Strategy_Default';
-        } else {
-            $detectorClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Detector';
-            $strategyClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy';
-        }
-
-        $detector = new $detectorClass(new $strategyClass());
+        $detector = new Detector(new DefaultStrategy());
         $clones = $detector->copyPasteDetection(
             $filesToParse,
             $this->minLines,

@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Util\StringHelper;
+
 /**
  * A wrapper for the implementations of PHPCPDResultFormatter.
  *
@@ -49,7 +53,7 @@ class PHPCPDFormatterElement
     /**
      * Output file for formatter.
      *
-     * @var PhingFile
+     * @var File
      */
     protected $outfile = null;
 
@@ -87,14 +91,10 @@ class PHPCPDFormatterElement
                     throw new BuildException('Formatter "' . $this->type . '" can only print the result to an file');
                 }
 
-                include_once 'phing/tasks/ext/phpcpd/formatter/PMDPHPCPDResultFormatter.php';
-
                 $this->formatter = new PMDPHPCPDResultFormatter();
                 break;
 
             case 'default':
-                include_once 'phing/tasks/ext/phpcpd/formatter/DefaultPHPCPDResultFormatter.php';
-
                 $this->formatter = new DefaultPHPCPDResultFormatter();
                 break;
 
@@ -136,9 +136,9 @@ class PHPCPDFormatterElement
     /**
      * Sets the output file for the formatter results.
      *
-     * @param PhingFile $outfile The output file
+     * @param File $outfile The output file
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(File $outfile)
     {
         $this->outfile = $outfile;
     }
@@ -146,7 +146,7 @@ class PHPCPDFormatterElement
     /**
      * Get the output file.
      *
-     * @return PhingFile
+     * @return File
      */
     public function getOutfile()
     {

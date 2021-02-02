@@ -4,7 +4,6 @@
 .idea/
 build/full
 build/pear
-test/reports/
 docs/api/docs
 vendor/
 bin/*
@@ -12,6 +11,8 @@ bin/*
 !bin/phing*
 **/*.log
 **/*.log.txt
-test/etc/tasks/system/defaultexcludestestinput/
-test/etc/types/selectors/tmp/
-test/tmp/
+tests/.phpunit.result.cache
+tests/etc/tasks/system/defaultexcludestestinput/
+tests/etc/types/selectors/tmp/
+tests/reports/
+tests/tmp/

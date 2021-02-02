@@ -19,6 +19,9 @@
 
 declare(strict_types=1);
 
+use Phing\Exception\BuildException;
+use Phing\Io\FileSystem;
+
 class SassTaskCompilerFactory
 {
 

@@ -17,6 +17,11 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Io\FileUtils;
+use Phing\Project;
+use Phing\Task;
+
 /**
  * Produce license files using Zeng Guard.
  * The task can produce a license file from the given

@@ -17,6 +17,13 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
+use Phing\Io\IOException;
+use Phing\Io\File;
+use Phing\Phing;
+use Phing\Task;
+
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
@@ -101,7 +108,7 @@ class FormatterElement
     public function setToDir($toDir)
     {
         if (!is_dir($toDir)) {
-            $toDir = new PhingFile($toDir);
+            $toDir = new File($toDir);
             $toDir->mkdirs();
         }
 

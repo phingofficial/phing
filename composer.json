@@ -30,12 +30,21 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^7.3 || ^7.4",
+        "php": "^7.3 || ^7.4 || ^8.0",
+        "ext-dom": "*",
+        "ext-xml": "*",
+        "ext-json": "*",
         "mehr-als-nix/parallel": "^v1.0",
         "phing/phing-composer-configurator": "dev-master",
         "phing/task-apigen": "dev-master",
+        "phing/task-archives": "dev-main",
         "phing/task-coverage": "dev-master",
+        "phing/task-dbdeploy": "dev-main",
         "phing/task-ftpdeploy": "dev-master",
+        "phing/task-git": "dev-main",
+        "phing/task-hg": "dev-main",
+        "phing/task-http": "dev-main",
+        "phing/task-inifile": "dev-main",
         "phing/task-ioncube": "dev-master",
         "phing/task-jshint": "dev-master",
         "phing/task-jsmin": "dev-master",
@@ -44,6 +53,8 @@
         "phing/task-phpdoc": "dev-master",
         "phing/task-smarty": "dev-master",
         "phing/task-ssh": "dev-master",
+        "phing/task-svn": "dev-master",
+        "phing/task-visualizer": "dev-main",
         "phing/task-zendcodeanalyser": "dev-master",
         "phing/task-zendserverdevelopmenttools": "dev-master",
         "sebastian/version": "^3.0",
@@ -51,14 +62,18 @@
         "symfony/yaml": "^5.0"
     },
     "require-dev": {
+        "ext-curl": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
         "ext-pdo_sqlite": "*",
+        "ext-simplexml": "*",
         "aws/aws-sdk-php": "^3.112",
         "guzzlehttp/guzzle": "^7.1",
         "jawira/plantuml-encoding": "^1.0",
         "mikey179/vfsstream": "^1.6.8",
-        "monolog/monolog": "^1.25 || ^2.0",
-        "pdepend/pdepend": "^2.5.2",
-        "pear/archive_tar": "~1.4.7",
+        "monolog/monolog": "^2.2",
+        "pdepend/pdepend": "^2.8",
+        "pear/archive_tar": "^1.4.12",
         "pear/console_getopt": "^v1.4.3",
         "pear/mail": "^1.4",
         "pear/mail_mime": "^1.10",
@@ -68,23 +83,28 @@
         "pear/versioncontrol_svn": "^0.5.2",
         "phploc/phploc": "^7.0",
         "phpmd/phpmd": "~2.8",
+        "phpstan/phpstan": "^0.12.69",
         "phpunit/phpunit": "^9.4",
         "scssphp/scssphp": "~1.0",
         "sebastian/phpcpd": "^6.0",
         "siad007/versioncontrol_hg": "^1.0",
         "squizlabs/php_codesniffer": "^3.5",
-        "symfony/dependency-injection": "^2.8.50 || ^3.4.26 || ~4.1.12 || >4.2.7 <6.0.0",
-        "symfony/stopwatch": "~2.8 || ^3.1 || ^4.0 || ^5.0"
+        "symfony/config": "^5.2",
+        "symfony/dependency-injection": "^5.2",
+        "symfony/stopwatch": "^5.2"
     },
     "autoload": {
         "classmap": [
             "classes/phing/"
-        ]
+        ],
+        "psr-4": {
+            "Phing\\": "src/Phing"
+        }
     },
     "autoload-dev": {
-        "classmap": [
-            "test/classes/"
-        ]
+        "psr-4": {
+            "Phing\\": "tests/Phing"
+        }
     },
     "include-path": ["classes"],
     "bin": [
@@ -92,10 +112,14 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "3.0.x-dev"
+            "dev-main": "3.0.x-dev"
         }
     },
     "suggest": {
+        "ext-gettext": "*",
+        "ext-posix": "*",
+        "ext-sockets": "*",
+        "ext-tidy": "*",
         "phpdocumentor/phpdocumentor": "Documentation Generator for PHP",
         "sebastian/phpcpd": "Copy/Paste Detector (CPD) for PHP code",
         "phpmd/phpmd": "PHP version of PMD tool",

@@ -17,6 +17,16 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
+use Phing\Io\ExtendedFileStream;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
+use Phing\Io\File;
+use Phing\Phing;
+use Phing\Task;
+use Phing\Task\System\Condition\OsCondition;
+
 /**
  * Transform a PHPUnit xml report using XSLT.
  * This transformation generates an html report in either framed or non-framed
@@ -34,7 +44,7 @@ class PHPUnitReportTask extends Task
     private $styleDir = "";
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $toDir;
 
@@ -54,10 +64,10 @@ class PHPUnitReportTask extends Task
     /**
      * Set the filename of the XML results file to use.
      *
-     * @param  PhingFile $inFile
+     * @param  File $inFile
      * @return void
      */
-    public function setInFile(PhingFile $inFile)
+    public function setInFile(File $inFile)
     {
         $this->inFile = $inFile;
     }
@@ -88,10 +98,10 @@ class PHPUnitReportTask extends Task
      * Set the directory where the files resulting from the
      * transformation should be written to.
      *
-     * @param  PhingFile $toDir
+     * @param  File $toDir
      * @return void
      */
-    public function setToDir(PhingFile $toDir)
+    public function setToDir(File $toDir)
     {
         $this->toDir = $toDir;
     }
@@ -111,7 +121,7 @@ class PHPUnitReportTask extends Task
     /**
      * Returns the path to the XSL stylesheet
      *
-     * @return PhingFile
+     * @return File
      * @throws IOException
      * @throws NullPointerException
      */
@@ -120,7 +130,7 @@ class PHPUnitReportTask extends Task
         $xslname = "phpunit-" . $this->format . ".xsl";
 
         if ($this->styleDir) {
-            $file = new PhingFile($this->styleDir, $xslname);
+            $file = new File($this->styleDir, $xslname);
         } else {
             $path = Phing::getResourcePath("phing/etc/$xslname");
 
@@ -132,7 +142,7 @@ class PHPUnitReportTask extends Task
                 }
             }
 
-            $file = new PhingFile($path);
+            $file = new File($path);
         }
 
         if (!$file->exists()) {
@@ -150,7 +160,7 @@ class PHPUnitReportTask extends Task
      * @throws IOException
      * @throws NullPointerException
      */
-    protected function transform(DOMDocument $document)
+    protected function transform(\DOMDocument $document)
     {
         if (!$this->toDir->exists()) {
             throw new BuildException("Directory '" . $this->toDir . "' does not exist");
@@ -158,7 +168,7 @@ class PHPUnitReportTask extends Task
 
         $xslfile = $this->getStyleSheet();
 
-        $xsl = new DOMDocument();
+        $xsl = new \DOMDocument();
         $xsl->load($xslfile->getAbsolutePath());
 
         $proc = new XSLTProcessor();
@@ -170,7 +180,7 @@ class PHPUnitReportTask extends Task
         $proc->setParameter('', 'output.sorttable', (string) $this->useSortTable);
 
         if ($this->format === "noframes") {
-            $writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
+            $writer = new FileWriter(new File($this->toDir, "phpunit-noframes.html"));
             $writer->write($proc->transformToXml($document));
             $writer->close();
         } else {
@@ -198,13 +208,13 @@ class PHPUnitReportTask extends Task
      *     package attribute
      *   - removes outer 'testsuite' container(s)
      *
-     * @param DOMDocument $document
+     * @param \DOMDocument $document
      */
-    protected function fixDocument(DOMDocument $document)
+    protected function fixDocument(\DOMDocument $document)
     {
         $rootElement = $document->firstChild;
 
-        $xp = new DOMXPath($document);
+        $xp = new \DOMXPath($document);
 
         $nodes = $xp->query("/testsuites/testsuite/testsuite/testsuite");
 
@@ -236,7 +246,7 @@ class PHPUnitReportTask extends Task
     private function handleChildren($rootElement, $children)
     {
         /**
-         * @var $child DOMElement
+         * @var $child \DOMElement
          */
         foreach ($children as $child) {
             $rootElement->appendChild($child);
@@ -252,7 +262,7 @@ class PHPUnitReportTask extends Task
 
             $package = 'default';
             try {
-                $refClass = new ReflectionClass($child->getAttribute('name'));
+                $refClass = new \ReflectionClass($child->getAttribute('name'));
 
                 if (preg_match('/@package\s+(.*)\r?\n/m', $refClass->getDocComment(), $matches)) {
                     $package = end($matches);
@@ -274,7 +284,7 @@ class PHPUnitReportTask extends Task
     /**
      * Initialize the task
      *
-     * @throws \BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function init()
     {
@@ -291,7 +301,7 @@ class PHPUnitReportTask extends Task
      */
     public function main()
     {
-        $testSuitesDoc = new DOMDocument();
+        $testSuitesDoc = new \DOMDocument();
         $testSuitesDoc->load((string) $this->inFile);
 
         $this->fixDocument($testSuitesDoc);

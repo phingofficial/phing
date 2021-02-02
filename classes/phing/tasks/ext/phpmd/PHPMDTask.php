@@ -17,6 +17,14 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
+use Phing\Type\Element\FileSetAware;
+use Phing\Util\DataStore;
+use PHPMD\AbstractRule;
+use PHPMD\RuleSetFactory;
+
 /**
  * Runs PHP Mess Detector. Checking PHP files for several potential problems
  * based on rulesets.
@@ -32,7 +40,7 @@ class PHPMDTask extends Task
     /**
      * A php source code filename or directory
      *
-     * @var PhingFile
+     * @var File
      */
     protected $file = null;
 
@@ -79,11 +87,6 @@ class PHPMDTask extends Task
     protected $formatters = [];
 
     /**
-     * @var bool
-     */
-    protected $newVersion = true;
-
-    /**
      * @var string
      */
     protected $pharLocation = "";
@@ -98,9 +101,9 @@ class PHPMDTask extends Task
     /**
      * Set the input source file or directory.
      *
-     * @param PhingFile $file The input source file or directory.
+     * @param File $file The input source file or directory.
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -192,9 +195,9 @@ class PHPMDTask extends Task
     /**
      * Whether to store last-modified times in cache
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setCacheFile(PhingFile $file)
+    public function setCacheFile(File $file)
     {
         $this->cache = new DataStore($file);
     }
@@ -214,25 +217,13 @@ class PHPMDTask extends Task
         $className = '\PHPMD\PHPMD';
 
         if (!class_exists($className)) {
-            @include_once 'PHP/PMD.php';
-            $className = "PHP_PMD";
-            $this->newVersion = false;
-        }
-
-        if (!class_exists($className)) {
             throw new BuildException(
                 'PHPMDTask depends on PHPMD being installed and on include_path or listed in pharLocation.',
                 $this->getLocation()
             );
         }
 
-        if ($this->newVersion) {
-            $minPriority = \PHPMD\AbstractRule::LOWEST_PRIORITY;
-            include_once 'phing/tasks/ext/phpmd/PHPMDRendererRemoveFromCache.php';
-        } else {
-            include_once 'PHP/PMD/AbstractRule.php';
-            $minPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
-        }
+        $minPriority = AbstractRule::LOWEST_PRIORITY;
 
         if (!$this->minimumPriority) {
             $this->minimumPriority = $minPriority;
@@ -250,7 +241,7 @@ class PHPMDTask extends Task
     {
         $filesToParse = [];
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $filesToParse[] = $this->file->getPath();
         } else {
             // append any files in filesets
@@ -310,21 +301,14 @@ class PHPMDTask extends Task
             $reportRenderers[] = $fe->getRenderer();
         }
 
-        if ($this->newVersion && $this->cache) {
+        if ($this->cache) {
             $reportRenderers[] = new PHPMDRendererRemoveFromCache($this->cache);
         } else {
             $this->cache = null; // cache not compatible to old version
         }
 
         // Create a rule set factory
-        if ($this->newVersion) {
-            $ruleSetFactory = new \PHPMD\RuleSetFactory();
-        } else {
-            if (!class_exists("PHP_PMD_RuleSetFactory")) {
-                @include 'PHP/PMD/RuleSetFactory.php';
-            }
-            $ruleSetFactory = new PHP_PMD_RuleSetFactory();
-        }
+        $ruleSetFactory = new RuleSetFactory();
         $ruleSetFactory->setMinimumPriority($this->minimumPriority);
 
         /**

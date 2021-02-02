@@ -17,6 +17,10 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
+
 /**
  * HipchatTask
  * Sends a simple hipchat notification.

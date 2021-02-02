@@ -17,6 +17,11 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
+use Phing\Type\Commandline;
+
 /**
  * Symfony Console Task
  *

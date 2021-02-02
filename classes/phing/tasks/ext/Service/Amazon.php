@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Task;
+
 /**
  * Abstract Service_Amazon class.
  *
@@ -40,6 +43,16 @@ abstract class Amazon extends Task
      * @var array
      */
     protected $options = [];
+
+    /**
+     * @var string
+     */
+    protected $key;
+
+    /**
+     * @var string
+     */
+    protected $secret;
 
     /**
      * @param string $var

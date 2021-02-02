@@ -17,6 +17,13 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Io\FileWriter;
+use Phing\Io\LogWriter;
+use Phing\Io\File;
+use Phing\Task;
+use PHPUnit\TextUI\XmlConfiguration\Loader;
+
 /**
  * Runs PHPUnit tests.
  *
@@ -62,7 +69,7 @@ class PHPUnitTask extends Task
     private $pharLocation = "";
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $configuration = null;
 
@@ -92,6 +99,13 @@ class PHPUnitTask extends Task
 
         if (!class_exists('PHPUnit\Runner\Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
+        }
+
+        if (
+            class_exists('\PHPUnit\Runner\Version', false) &&
+            version_compare(\PHPUnit\Runner\Version::id(), '9.0.0', '<')
+        ) {
+            throw new BuildException("Phing only supports PHPUnit 9+");
         }
     }
 
@@ -340,9 +354,9 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param PhingFile $configuration
+     * @param File $configuration
      */
-    public function setConfiguration(PhingFile $configuration)
+    public function setConfiguration(File $configuration)
     {
         $this->configuration = $configuration;
     }
@@ -363,19 +377,13 @@ class PHPUnitTask extends Task
      * @throws ReflectionException
      * @throws BuildException
      */
-    protected function handlePHPUnitConfiguration(PhingFile $configuration)
+    protected function handlePHPUnitConfiguration(File $configuration)
     {
         if (!$configuration->exists()) {
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
         }
 
-        if (class_exists('\PHPUnit\TextUI\Configuration\Registry')) {
-            $config = \PHPUnit\TextUI\Configuration\Registry::getInstance()->get($configuration->getAbsolutePath());
-        } elseif (class_exists('\PHPUnit\TextUI\XmlConfiguration\Loader')) {
-            $config = (new \PHPUnit\TextUI\XmlConfiguration\Loader())->load($configuration->getAbsolutePath());
-        } else {
-            throw new BuildException("Can't parse PHPUnit configuration file '" . (string) $configuration . "'");
-        }
+        $config = (new Loader())->load($configuration->getAbsolutePath());
 
         if (empty($config)) {
             return [];
@@ -475,7 +483,7 @@ class PHPUnitTask extends Task
         $this->execute($suite);
 
         if ($this->testfailed) {
-            throw new BuildException($this->testfailuremessage);
+            throw new BuildException("Test(s) failed: " . $this->testfailuremessage);
         }
 
         $autoloadNew = spl_autoload_functions();
@@ -499,36 +507,12 @@ class PHPUnitTask extends Task
      */
     protected function execute($suite)
     {
-        if (
-            class_exists('\PHPUnit\Runner\Version', false) &&
-            version_compare(\PHPUnit\Runner\Version::id(), '8.0.0', '<')
-        ) {
-            $runner = new PHPUnitTestRunner7(
-                $this->project,
-                $this->groups,
-                $this->excludeGroups,
-                $this->processIsolation
-            );
-        } else {
-            if (
-                class_exists('\PHPUnit\Runner\Version', false) &&
-                version_compare(\PHPUnit\Runner\Version::id(), '9.0.0', '<')
-            ) {
-                $runner = new PHPUnitTestRunner8(
-                    $this->project,
-                    $this->groups,
-                    $this->excludeGroups,
-                    $this->processIsolation
-                );
-            } else {
-                $runner = new PHPUnitTestRunner9(
-                    $this->project,
-                    $this->groups,
-                    $this->excludeGroups,
-                    $this->processIsolation
-                );
-            }
-        }
+        $runner = new PHPUnitTestRunner9(
+            $this->project,
+            $this->groups,
+            $this->excludeGroups,
+            $this->processIsolation
+        );
 
         if ($this->codecoverage) {
             /**
@@ -601,7 +585,7 @@ class PHPUnitTask extends Task
 
             if ($fe->getUseFile()) {
                 try {
-                    $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                    $destFile = new File($fe->getToDir(), $fe->getOutfile());
                 } catch (Exception $e) {
                     throw new BuildException('Unable to create destination.', $e);
                 }

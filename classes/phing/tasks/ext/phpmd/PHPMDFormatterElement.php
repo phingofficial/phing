@@ -17,6 +17,15 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Util\StringHelper;
+use PHPMD\AbstractRenderer;
+use PHPMD\Renderer\HTMLRenderer;
+use PHPMD\Renderer\TextRenderer;
+use PHPMD\Renderer\XMLRenderer;
+use PHPMD\Writer\StreamWriter;
+
 /**
  * A wrapper for the implementations of PHPMDResultFormatter.
  *
@@ -26,11 +35,6 @@
  */
 class PHPMDFormatterElement
 {
-    /**
-     * @var PHPMDResultFormatter
-     */
-    protected $formatter = null;
-
     /**
      * The type of the formatter.
      *
@@ -53,7 +57,7 @@ class PHPMDFormatterElement
     /**
      * Output file for formatter.
      *
-     * @var PhingFile
+     * @var File
      */
     protected $outfile = null;
 
@@ -69,15 +73,15 @@ class PHPMDFormatterElement
         $this->type = $type;
         switch ($this->type) {
             case 'xml':
-                $this->className = 'XMLRenderer';
+                $this->className = XMLRenderer::class;
                 break;
 
             case 'html':
-                $this->className = 'HTMLRenderer';
+                $this->className = HTMLRenderer::class;
                 break;
 
             case 'text':
-                $this->className = 'TextRenderer';
+                $this->className = TextRenderer::class;
                 break;
 
             default:
@@ -118,9 +122,9 @@ class PHPMDFormatterElement
     /**
      * Sets the output file for the formatter results.
      *
-     * @param PhingFile $outfile The output file
+     * @param File $outfile The output file
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(File $outfile)
     {
         $this->outfile = $outfile;
     }
@@ -128,7 +132,7 @@ class PHPMDFormatterElement
     /**
      * Get the output file.
      *
-     * @return PhingFile
+     * @return File
      */
     public function getOutfile()
     {
@@ -138,22 +142,12 @@ class PHPMDFormatterElement
     /**
      * Creates a report renderer instance based on the formatter type.
      *
-     * @return PHP_PMD_AbstractRenderer
+     * @return AbstractRenderer
      * @throws BuildException           When the specified renderer does not exist.
      */
     public function getRenderer()
     {
-        if (!class_exists('\\PHPMD\\Writer\\StreamWriter')) {
-            $renderClass = 'PHP_PMD_RENDERER_' . $this->className;
-            $writerClass = 'PHP_PMD_Writer_Stream';
-            include_once 'PHP/PMD/Renderer/' . $this->className . '.php';
-            include_once 'PHP/PMD/Writer/Stream.php';
-        } else {
-            $renderClass = 'PHPMD\Renderer\\' . $this->className;
-            $writerClass = '\PHPMD\Writer\StreamWriter';
-        }
-
-        $renderer = new $renderClass();
+        $renderer = new $this->className();
 
         // Create a report stream
         if ($this->getUseFile() === false || $this->getOutfile() === null) {
@@ -162,7 +156,7 @@ class PHPMDFormatterElement
             $stream = fopen($this->getOutfile()->getAbsoluteFile(), 'wb');
         }
 
-        $renderer->setWriter(new $writerClass($stream));
+        $renderer->setWriter(new StreamWriter($stream));
 
         return $renderer;
     }

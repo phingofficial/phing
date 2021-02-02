@@ -7,6 +7,9 @@
  */
 
 // Use composers autoload.php if available
+use Phing\Exception\ConfigurationException;
+use Phing\Phing;
+
 if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     require_once __DIR__ . '/../vendor/autoload.php';
 } elseif (file_exists(__DIR__ . '/../../../autoload.php')) {
@@ -20,10 +23,10 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
 set_include_path(
             realpath(__DIR__ . '/../classes') .
             PATH_SEPARATOR .
+            realpath(__DIR__ . '/../src') .
+            PATH_SEPARATOR .
             get_include_path()
         );
-
-require_once 'phing/Phing.php';
 
 /**
 * Code from Symfony/Component/Console/Output/StreamOutput.php
@@ -41,7 +44,7 @@ function hasColorSupport()
 
 // default logger
 if (!in_array('-logger', $argv) && hasColorSupport()) {
-    array_splice($argv, 1, 0, ['-logger', 'phing.listener.AnsiColorLogger']);
+    array_splice($argv, 1, 0, ['-logger', 'Phing\Listener\AnsiColorLogger']);
 }
 
 try {
@@ -64,7 +67,7 @@ try {
     exit(-1); // This was convention previously for configuration errors.
 } catch (Exception $x) {
     Phing::shutdown();
-    
+
     // Assume the message was already printed as part of the build and
     // exit with non-0 error code.
 

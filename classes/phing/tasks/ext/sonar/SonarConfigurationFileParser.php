@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\Project;
+
 /**
  *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>

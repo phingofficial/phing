@@ -17,7 +17,10 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+use Phing\Project;
 use SebastianBergmann\PHPCPD\CodeCloneMap;
+use SebastianBergmann\PHPCPD\Log\Text;
 
 /**
  * Prints plain text output of phpcpd run
@@ -33,49 +36,15 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
      * @param CodeCloneMap   $clones
      * @param Project        $project
      * @param boolean        $useFile
-     * @param PhingFile|null $outFile
+     * @param File|null $outFile
      */
     public function processClones($clones, Project $project, $useFile = false, $outFile = null)
-    {
-        if (get_class($clones) == 'SebastianBergmann\PHPCPD\CodeCloneMap') {
-            if (class_exists('SebastianBergmann\PHPCPD\Log\Text')) {
-                $this->processClonesNew($clones, $useFile, $outFile);
-
-                return;
-            }
-
-            $logger = new \SebastianBergmann\PHPCPD\TextUI\ResultPrinter();
-        } else {
-            $logger = new PHPCPD_TextUI_ResultPrinter();
-        }
-
-        // default format goes to logs, no buffering
-        ob_start();
-        $logger->printResult($clones, $project->getBaseDir(), true);
-        $output = ob_get_contents();
-        ob_end_clean();
-
-        if (!$useFile || empty($outFile)) {
-            echo $output;
-        } else {
-            file_put_contents($outFile->getPath(), $output);
-        }
-    }
-
-    /**
-     * Wrapper for PHPCPD 2.0
-     *
-     * @param CodeCloneMap   $clones
-     * @param boolean        $useFile
-     * @param PhingFile|null $outFile
-     */
-    private function processClonesNew($clones, $useFile = false, $outFile = null)
     {
         if ($useFile) {
             ob_start();
         }
 
-        $logger = new \SebastianBergmann\PHPCPD\Log\Text();
+        $logger = new Text();
         $logger->printResult($clones, true);
 
         if ($useFile) {
