@@ -33,7 +33,7 @@ use Phing\Io\StringReader;
 use Phing\Io\Writer;
 use Phing\Project;
 use Phing\Task;
-use Phing\Task\System\AppendTask\TextElement;
+use Phing\Task\System\Append\TextElement;
 use Phing\Type\Element\FileListAware;
 use Phing\Type\Element\FileSetAware;
 use Phing\Type\Element\FilterChainAware;
