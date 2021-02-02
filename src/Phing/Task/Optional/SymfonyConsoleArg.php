@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
 use Phing\Type\DataType;
 
 /**
@@ -26,7 +28,7 @@ use Phing\Type\DataType;
  * @license GPL
  * @package phing.tasks.ext.symfony
  */
-class Arg extends DataType
+class SymfonyConsoleArg extends DataType
 {
     private $name = null;
     private $value = null;

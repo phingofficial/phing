@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Task\Optional;
+
+use Phing\Task\Optional\SymfonyConsoleArg;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
@@ -34,7 +37,7 @@ class SymfonyConsoleTask extends Task
 
     /**
      *
-     * @var Arg[] a collection of Arg objects
+     * @var SymfonyConsoleArg[] a collection of Arg objects
      */
     private $args = [];
 
@@ -173,12 +176,12 @@ class SymfonyConsoleTask extends Task
     /**
      * appends an arg tag to the arguments stack
      *
-     * @return Arg Argument object
+     * @return SymfonyConsoleArg Argument object
      */
 
     public function createArg()
     {
-        $num = array_push($this->args, new Arg());
+        $num = array_push($this->args, new SymfonyConsoleArg());
 
         return $this->args[$num - 1];
     }
