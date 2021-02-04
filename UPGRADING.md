@@ -39,6 +39,7 @@ that you might stumble across when upgrading from Phing 2 to 3.
 * [MoveTask] The default behavior of `overwrite` attribute was changed to `true`
 * [PHPUnitTask] Support for PHPUnit 9.
 * [PhpCodeSnifferTask] was removed in favor of [PhpCSTask].
+* The Zend Guard tasks were removed (Zend Guard is no longer supported).
 * A number of tasks (or group of tasks) were moved to their own repositories, but are automatically
   pulled in / installed when you install Phing:
   * ApiGen
