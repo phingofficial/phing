@@ -32,10 +32,8 @@ use Phing\Util\Timer;
  */
 class PhingTest extends \PHPUnit\Framework\TestCase
 {
-    private const NAMESPACED_CLASS = 'Vendor\\Package\\Sub_Package\\Separated_FullSeparatedClass';
+    private const NAMESPACED_CLASS = 'Vendor\\Package\\FullSeparatedClass';
     private const SEPARATED_CLASS = 'Vendor_Package_SeparatedClass';
-    private const DOTED_CLASS = 'Vendor.Package.DotedClass';
-    private const DOTED_CLASS_SHORTNAME = 'DotedClass';
 
     protected $classpath;
 
@@ -49,21 +47,14 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $className = Phing::import(self::NAMESPACED_CLASS, self::getClassPath());
         self::assertEquals(self::NAMESPACED_CLASS, $className);
         self::assertTrue(class_exists(self::NAMESPACED_CLASS));
+    }
 
+    public function testImportPEAR()
+    {
         // Test PEAR standard
         $className = Phing::import(self::SEPARATED_CLASS, self::getClassPath());
         self::assertEquals(self::SEPARATED_CLASS, $className);
         self::assertTrue(class_exists(self::SEPARATED_CLASS));
-    }
-
-    /**
-     * Test the default dot separated class loading
-     */
-    public function testImportDotPath()
-    {
-        $className = Phing::import(self::DOTED_CLASS, self::getClassPath());
-        self::assertEquals(self::DOTED_CLASS_SHORTNAME, $className);
-        self::assertTrue(class_exists(self::DOTED_CLASS_SHORTNAME));
     }
 
     public function testTimer()

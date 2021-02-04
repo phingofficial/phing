@@ -41,26 +41,6 @@ class StringHelper
     private static $FALSE_VALUES = ["off", "false", "f", "no", "0"];
 
     /**
-     * Remove qualification to name.
-     * E.g. eg.Cat -> Cat
-     *
-     * @param string $qualifiedName
-     * @param string $separator     Character used to separate.
-     *
-     * @return string
-     */
-    public static function unqualify($qualifiedName, $separator = '.')
-    {
-        // if false, then will be 0
-        $pos = strrpos($qualifiedName, $separator);
-        if ($pos === false) {
-            return $qualifiedName; // there is no '.' in the qualifed name
-        }
-
-        return substr($qualifiedName, $pos + 1); // start just after '.'
-    }
-
-    /**
      * @param bool|string $s
      *
      * @return boolean

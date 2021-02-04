@@ -1331,55 +1331,27 @@ class Phing
     }
 
     /**
-     * Import a path, supporting the following conventions:
+     * Import a class, supporting the following conventions:
      * - PEAR style (@link http://pear.php.net/manual/en/standards.naming.php)
      * - PSR-0 (@link https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
-     * - dot-path
      *
-     * @param string $dotPath Path
+     * @param string $classname Name of class
      * @param mixed $classpath String or object supporting __toString()
      *
      * @return string         The unqualified classname (which can be instantiated).
      *
      * @throws BuildException - if cannot find the specified file
      */
-    public static function import($dotPath, $classpath = null)
+    public static function import($classname, $classpath = null)
     {
-        if (strpos($dotPath, '.') !== false) {
-            $classname = StringHelper::unqualify($dotPath);
-        } else {
-            $classname = $dotPath;
-            $dotPath = '';
-            $shortClassName = $classname;
-            if (($lastNsPos = strrpos($shortClassName, '\\'))) {
-                $namespace = substr($shortClassName, 0, $lastNsPos);
-                $shortClassName = substr($shortClassName, $lastNsPos + 1);
-                $dotPath = str_replace('\\', '.', $namespace) . '.';
-            }
-            $dotPath .= str_replace('_', '.', $shortClassName);
-        }
-
         // first check to see that the class specified hasn't already been included.
-        // (this also handles case where this method is called w/ a classname rather than dotpath)
         if (class_exists($classname)) {
             return $classname;
         }
 
-        $dotClassname = basename($dotPath);
-        $dotClassnamePos = strlen($dotPath) - strlen($dotClassname);
+        $filename = strtr($classname, ['_' => DIRECTORY_SEPARATOR, '\\' => DIRECTORY_SEPARATOR]) . ".php";
 
-        // 1- temporarily replace escaped '.' with another illegal char (#)
-        $tmp = str_replace('\.', '##', $dotClassname);
-        // 2- swap out the remaining '.' with DIR_SEP
-        $tmp = strtr($tmp, '.', DIRECTORY_SEPARATOR);
-        // 3- swap back the escaped '.'
-        $tmp = str_replace('##', '.', $tmp);
-
-        $classFile = $tmp . ".php";
-
-        $path = substr_replace($dotPath, $classFile, $dotClassnamePos);
-
-        Phing::importFile($path, $classpath);
+        Phing::importFile($filename, $classpath);
 
         return $classname;
     }

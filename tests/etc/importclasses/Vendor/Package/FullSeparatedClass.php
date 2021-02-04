@@ -18,9 +18,11 @@
  * <http://phing.info>.
  */
 
+namespace Vendor\Package;
+
 /**
  * Just an empty class for import tests
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  */
-class DotedClass {}
+class FullSeparatedClass {}

@@ -299,7 +299,7 @@ class ComponentHelper
             $typelwr = strtolower($typeName);
             foreach ($this->typedefs as $name => $class) {
                 if (strtolower($name) === $typelwr) {
-                    $cls = StringHelper::unqualify($class);
+                    $cls = $class;
                     break;
                 }
             }

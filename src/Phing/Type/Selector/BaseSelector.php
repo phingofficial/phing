@@ -84,7 +84,7 @@ abstract class BaseSelector extends DataType implements FileSelector
     public function verifySettings()
     {
         if ($this->isReference()) {
-            $this->getCheckedRef(__CLASS__, StringHelper::unqualify(__CLASS__))->verifySettings();
+            $this->getCheckedRef(__CLASS__, __CLASS__)->verifySettings();
         }
     }
 

@@ -591,7 +591,7 @@ class IntrospectionHelper
             // loop through taskdefs and typesdefs and see if the class name
             // matches (case-insensitive) any of the classes in there
             foreach (array_merge($taskdefs, $typedefs) as $elName => $class) {
-                if (0 === strcasecmp($elClass, StringHelper::unqualify($class))) {
+                if (0 === strcasecmp($elClass, $class)) {
                     return $class;
                 }
             }

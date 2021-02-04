@@ -43,8 +43,6 @@ class IncludePathTask extends Task
 
     /**
      * Classname of task to register.
-     * This can be a dot-path -- relative to a location on PHP include_path.
-     * E.g. path.to.MyClass ->  path/to/MyClass.php
      *
      * @var string
      */

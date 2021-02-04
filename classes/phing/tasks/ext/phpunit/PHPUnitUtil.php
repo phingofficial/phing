@@ -78,27 +78,6 @@ class PHPUnitUtil
     }
 
     /**
-     * Derives the classname from a filename.
-     * Assumes that there is only one class defined in that particular file, and that
-     * the naming follows the dot-path (Java) notation scheme.
-     *
-     * @param  string the filename
-     * @return string the name fo the class
-     */
-    public static function getClassFromFileName($filename)
-    {
-        $filename = basename($filename);
-
-        $rpos = strrpos($filename, '.');
-
-        if ($rpos != -1) {
-            $filename = substr($filename, 0, $rpos);
-        }
-
-        return $filename;
-    }
-
-    /**
      * @param $filename
      * @param null $classpath
      * @throws Exception

@@ -57,8 +57,6 @@ class TypedefTask extends Task
 
     /**
      * Classname of task to register.
-     * This can be a dot-path -- relative to a location on PHP include_path.
-     * E.g. path.to.MyClass ->  path/to/MyClass.php
      *
      * @var string
      */
@@ -86,7 +84,7 @@ class TypedefTask extends Task
     }
 
     /**
-     * Sets the class name / dotpath to use.
+     * Sets the class name to use.
      *
      * @param string $class
      */

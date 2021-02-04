@@ -42,12 +42,6 @@ use Phing\Util\StringHelper;
  * <code>
  * <mapper type="glob" from="*.php" to="*.php.bak"/>
  * </code>
- * Custom mappers can be specified by providing a dot-path to a include_path-relative
- * class:
- * <code>
- * <mapper classname="myapp.mappers.DevToProdMapper" from="*.php" to="*.php"/>
- * <!-- maps all PHP files from development server to production server, for example -->
- * </code>
  *
  * @author  Hans Lellelid <hans@xmpl.org>
  */

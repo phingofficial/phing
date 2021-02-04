@@ -39,9 +39,6 @@ use Phing\Task\System\Element\LogLevelAware;
  * <echo>Resolved [absolute] path: ${absolute_path}</echo>
  * </code>
  *
- * TODO:
- *      - Possibly integrate this with PackageAsPath, for handling/resolving dot-path paths.
- *
  * @author  Hans Lellelid <hans@xmpl.org>
  */
 class ResolvePathTask extends Task
