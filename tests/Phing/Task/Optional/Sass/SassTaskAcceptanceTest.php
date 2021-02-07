@@ -1,13 +1,4 @@
 <?php
-
-namespace Phing\Task\Optional\Sass;
-
-use Phing\Exception\BuildException;
-use Phing\Io\FileSystem;
-use Phing\Project;
-use Phing\Support\BuildFileTest;
-use Phing\Task\Optional\Sass\SassCleaner;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,6 +16,15 @@ use Phing\Task\Optional\Sass\SassCleaner;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+namespace Phing\Task\Optional\Sass;
+
+use Phing\Exception\BuildException;
+use Phing\Io\FileSystem;
+use Phing\Project;
+use Phing\Support\BuildFileTest;
+use Phing\Task\Optional\Sass\SassCleaner;
+
 class SassTaskAcceptanceTest extends BuildFileTest
 {
     use SassCleaner;

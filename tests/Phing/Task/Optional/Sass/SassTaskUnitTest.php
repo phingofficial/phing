@@ -23,7 +23,7 @@ namespace Phing\Task\Optional\Sass;
 
 use Phing\Task\Optional\Sass\SassTaskAssert;
 use PHPUnit\Framework\TestCase;
-use SassTask;
+use Phing\Task\Ext\SassTask;
 
 class SassTaskUnitTest extends TestCase
 {

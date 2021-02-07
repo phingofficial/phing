@@ -24,7 +24,7 @@ namespace Phing\Task\Optional\Sass;
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use PHPUnit\Framework\TestCase;
-use ScssPhpCompiler;
+use Phing\Task\Ext\ScssPhpCompiler;
 
 class ScssPhpCompilerTest extends TestCase
 {
