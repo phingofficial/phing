@@ -36,6 +36,7 @@
         "ext-json": "*",
         "mehr-als-nix/parallel": "^v1.0",
         "phing/phing-composer-configurator": "dev-master",
+        "phing/task-analyzers": "dev-main",
         "phing/task-apigen": "dev-master",
         "phing/task-archives": "dev-main",
         "phing/task-coverage": "dev-master",

@@ -21,8 +21,8 @@ declare(strict_types=1);
 
 namespace Phing\Task\Optional\PHPStan;
 
-use PHPStanListCommandBuilder;
-use PHPStanTask;
+use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanListCommandBuilder;
+use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
 class PHPStanListCommandBuilderTest extends TestCase

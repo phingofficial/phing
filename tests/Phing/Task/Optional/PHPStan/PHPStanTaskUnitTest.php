@@ -21,7 +21,7 @@ declare(strict_types=1);
 
 namespace Phing\Task\Optional\PHPStan;
 
-use PHPStanTask;
+use Phing\Task\Ext\Phpstan\PHPStanTask;
 use Phing\Task\Optional\PHPStan\PHPStanTaskAssert;
 use PHPUnit\Framework\TestCase;
 
