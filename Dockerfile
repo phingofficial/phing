@@ -1,7 +1,6 @@
 FROM composer:1.9 AS composer
 
 ADD composer.* ./
-ADD classes/ classes
 ADD src/ src
 
 RUN composer global require hirak/prestissimo --no-plugins --no-scripts
@@ -14,7 +13,6 @@ RUN mkdir /app
 WORKDIR /app
 
 ADD bin/phing* bin/
-ADD classes/ classes
 ADD src/ src
 ADD etc/ etc
 

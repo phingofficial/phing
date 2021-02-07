@@ -107,7 +107,6 @@
             "Phing\\": "tests/Phing"
         }
     },
-    "include-path": ["classes"],
     "bin": [
         "bin/phing"
     ],
