@@ -20,6 +20,7 @@
 namespace Phing\Task\Ext\Phploc;
 
 use Phing\Exception\BuildException;
+use SebastianBergmann\PHPLOC\Log\Json;
 
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
@@ -30,7 +31,7 @@ class PHPLocJSONFormatter extends AbstractPHPLocFormatter
     public function printResult(array $count, $countTests = false)
     {
         if (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\Json')) {
-            $printer = new SebastianBergmann\PHPLOC\Log\Json();
+            $printer = new Json();
         } else {
             throw new BuildException('Not supported PHPLOC version used.');
         }
