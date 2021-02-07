@@ -132,12 +132,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-analyzers.git",
-                "reference": "a1528c89b6abc101e3b7dd0f39b2017da0befcd5"
+                "reference": "6c5b69befe544d6eb91a687a3e8b7e1eaa058528"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-analyzers/zipball/a1528c89b6abc101e3b7dd0f39b2017da0befcd5",
-                "reference": "a1528c89b6abc101e3b7dd0f39b2017da0befcd5",
+                "url": "https://api.github.com/repos/phingofficial/task-analyzers/zipball/6c5b69befe544d6eb91a687a3e8b7e1eaa058528",
+                "reference": "6c5b69befe544d6eb91a687a3e8b7e1eaa058528",
                 "shasum": ""
             },
             "require": {
@@ -159,7 +159,8 @@
                     "phpcpd": "Phing\\Task\\Ext\\Phpcpd\\PHPCPDTask",
                     "phploc": "Phing\\Task\\Ext\\Phploc\\PHPLocTask",
                     "phpmd": "Phing\\Task\\Ext\\Phpmd\\PHPMDTask",
-                    "phpdepend": "Phing\\Task\\Ext\\Pdepend\\PhpDependTask"
+                    "phpdepend": "Phing\\Task\\Ext\\Pdepend\\PhpDependTask",
+                    "sonar": "Phing\\Task\\Ext\\Sonar\\SonarTask"
                 }
             },
             "autoload": {
@@ -182,7 +183,7 @@
                 "issues": "https://github.com/phingofficial/task-analyzers/issues",
                 "source": "https://github.com/phingofficial/task-analyzers/tree/main"
             },
-            "time": "2021-02-07T17:38:22+00:00"
+            "time": "2021-02-07T18:31:01+00:00"
         },
         {
             "name": "phing/task-apigen",

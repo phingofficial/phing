@@ -21,7 +21,7 @@ namespace Phing\Task\Optional;
 
 use Phing\Exception\BuildException;
 use Phing\Support\BuildFileTest;
-use SonarConfigurationFileParser;
+use Phing\Task\Ext\Sonar\SonarConfigurationFileParser;
 
 /**
  *
