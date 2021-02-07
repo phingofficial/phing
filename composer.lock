@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd6d3489750c724c6e51b25a95898baa",
+    "content-hash": "6cc228d63046f391fe97e0ae9aaf6195",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -1020,6 +1020,56 @@
                 "source": "https://github.com/phingofficial/task-phpunit/tree/main"
             },
             "time": "2021-02-07T20:21:58+00:00"
+        },
+        {
+            "name": "phing/task-sass",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-sass.git",
+                "reference": "13d5209cf582d40b42551944d46db0d4d2f52c7a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-sass/zipball/13d5209cf582d40b42551944d46db0d4d2f52c7a",
+                "reference": "13d5209cf582d40b42551944d46db0d4d2f52c7a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev",
+                "scssphp/scssphp": "~1.0"
+            },
+            "default-branch": true,
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "sass": "Phing\\Task\\Ext\\SassTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Task\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "SassTask.",
+            "support": {
+                "issues": "https://github.com/phingofficial/task-sass/issues",
+                "source": "https://github.com/phingofficial/task-sass/tree/main"
+            },
+            "time": "2021-02-07T21:16:15+00:00"
         },
         {
             "name": "phing/task-smarty",
@@ -6449,6 +6499,7 @@
         "phing/task-phkpackage": 20,
         "phing/task-phpdoc": 20,
         "phing/task-phpunit": 20,
+        "phing/task-sass": 20,
         "phing/task-smarty": 20,
         "phing/task-ssh": 20,
         "phing/task-svn": 20,
