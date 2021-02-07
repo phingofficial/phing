@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43301ddac1cf610c88afde271044aeaf",
+    "content-hash": "dd6d3489750c724c6e51b25a95898baa",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -298,12 +298,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-coverage.git",
-                "reference": "0219548972bf3a60e1a71a2d27fcbc3a3977e8a4"
+                "reference": "e68f3ba3a63bb7b94f4d74eb9547cdb01c97cd92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/0219548972bf3a60e1a71a2d27fcbc3a3977e8a4",
-                "reference": "0219548972bf3a60e1a71a2d27fcbc3a3977e8a4",
+                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/e68f3ba3a63bb7b94f4d74eb9547cdb01c97cd92",
+                "reference": "e68f3ba3a63bb7b94f4d74eb9547cdb01c97cd92",
                 "shasum": ""
             },
             "require": {
@@ -342,7 +342,7 @@
                 "issues": "https://github.com/phingofficial/task-coverage/issues",
                 "source": "https://github.com/phingofficial/task-coverage/tree/master"
             },
-            "time": "2021-01-25T14:55:58+00:00"
+            "time": "2021-02-07T20:49:32+00:00"
         },
         {
             "name": "phing/task-dbdeploy",
@@ -969,6 +969,57 @@
                 "source": "https://github.com/phingofficial/task-phpdoc/tree/master"
             },
             "time": "2021-01-25T14:57:46+00:00"
+        },
+        {
+            "name": "phing/task-phpunit",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-phpunit.git",
+                "reference": "c99b723aa02502b76fbbf591e1762a540e03d5af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-phpunit/zipball/c99b723aa02502b76fbbf591e1762a540e03d5af",
+                "reference": "c99b723aa02502b76fbbf591e1762a540e03d5af",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "phing/phing": "3.0.x-dev",
+                "phpunit/phpunit": "^9.3"
+            },
+            "default-branch": true,
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "phpunit": "Phing\\Task\\Ext\\PHPUnitTask",
+                    "phpunitreport": "Phing\\Task\\Ext\\PHPUnitReportTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Task\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "PHPUnit related tasks.",
+            "support": {
+                "issues": "https://github.com/phingofficial/task-phpunit/issues",
+                "source": "https://github.com/phingofficial/task-phpunit/tree/main"
+            },
+            "time": "2021-02-07T20:21:58+00:00"
         },
         {
             "name": "phing/task-smarty",
@@ -6397,6 +6448,7 @@
         "phing/task-liquibase": 20,
         "phing/task-phkpackage": 20,
         "phing/task-phpdoc": 20,
+        "phing/task-phpunit": 20,
         "phing/task-smarty": 20,
         "phing/task-ssh": 20,
         "phing/task-svn": 20,
