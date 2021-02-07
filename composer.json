@@ -39,6 +39,7 @@
         "phing/task-analyzers": "dev-main",
         "phing/task-apigen": "dev-master",
         "phing/task-archives": "dev-main",
+        "phing/task-aws": "dev-main",
         "phing/task-coverage": "dev-master",
         "phing/task-dbdeploy": "dev-main",
         "phing/task-ftpdeploy": "dev-master",
@@ -97,9 +98,6 @@
         "symfony/stopwatch": "^5.2"
     },
     "autoload": {
-        "classmap": [
-            "classes/phing/"
-        ],
         "psr-4": {
             "Phing\\": "src/Phing"
         }
