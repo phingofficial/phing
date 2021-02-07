@@ -20,6 +20,7 @@
 namespace Phing\Task\Ext\Phploc;
 
 use Phing\Exception\BuildException;
+use SebastianBergmann\PHPLOC\Log\Xml;
 
 /**
  * @author Michiel Rook <mrook@php.net>
@@ -30,7 +31,7 @@ class PHPLocXMLFormatter extends AbstractPHPLocFormatter
     public function printResult(array $count, $countTests = false)
     {
         if (class_exists('\\SebastianBergmann\\PHPLOC\\Log\\Xml')) {
-            $printer = new SebastianBergmann\PHPLOC\Log\Xml();
+            $printer = new Xml();
         } else {
             throw new BuildException('Not supported PHPLOC version used.');
         }
