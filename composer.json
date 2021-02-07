@@ -52,6 +52,7 @@
         "phing/task-liquibase": "dev-master",
         "phing/task-phkpackage": "dev-master",
         "phing/task-phpdoc": "dev-master",
+        "phing/task-phpunit": "dev-main",
         "phing/task-smarty": "dev-master",
         "phing/task-ssh": "dev-master",
         "phing/task-svn": "dev-master",
