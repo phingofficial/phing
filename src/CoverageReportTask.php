@@ -24,6 +24,7 @@ use Phing\Type\Element\ClasspathAware;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Util\Properties;
+use Phing\Task\Ext\PHPUnitUtil;
 
 /**
  * Transforms information in a code coverage database to XML
@@ -197,7 +198,7 @@ class CoverageReportTask extends Task
      */
     protected function addClassToSubpackage($classname, $element)
     {
-        $subpackageName = \PHPUnitUtil::getSubpackageName($classname);
+        $subpackageName = PHPUnitUtil::getSubpackageName($classname);
 
         $subpackage = $this->getSubpackageElement($subpackageName);
 
@@ -340,7 +341,7 @@ class CoverageReportTask extends Task
      */
     protected function transformCoverageInformation($filename, $coverageInformation)
     {
-        $classes = \PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
+        $classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 
         if (is_array($classes)) {
             foreach ($classes as $classname) {
@@ -356,8 +357,8 @@ class CoverageReportTask extends Task
                 $classElement = $this->doc->createElement('class');
                 $classElement->setAttribute('name', $className);
 
-                $packageName = \PHPUnitUtil::getPackageName($reflection->getName());
-                $subpackageName = \PHPUnitUtil::getSubpackageName($reflection->getName());
+                $packageName = PHPUnitUtil::getPackageName($reflection->getName());
+                $subpackageName = PHPUnitUtil::getSubpackageName($reflection->getName());
 
                 if ($subpackageName !== null) {
                     $this->addSubpackageToPackage($packageName, $subpackageName);

@@ -26,6 +26,7 @@ use Phing\Io\File;
 use Phing\Type\Excludes;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
+use Phing\Task\Ext\PHPUnitUtil;
 
 /**
  * Stops the build if any of the specified coverage threshold was not reached
@@ -190,7 +191,7 @@ class CoverageThresholdTask extends Task
      */
     protected function calculateCoverageThreshold($filename, $coverageInformation)
     {
-        $classes = \PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
+        $classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 
         if (is_array($classes)) {
             foreach ($classes as $className) {
