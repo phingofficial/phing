@@ -20,7 +20,7 @@
 declare(strict_types=1);
 
 namespace Phing\Task\Optional\PHPStan;
-use PHPStanCommandBuilder;
+use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanCommandBuilder;
 
 class PHPStanCommandBuilderFake extends PHPStanCommandBuilder
 {

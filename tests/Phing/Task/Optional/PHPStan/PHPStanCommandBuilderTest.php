@@ -23,7 +23,7 @@ namespace Phing\Task\Optional\PHPStan;
 
 use Phing\Exception\BuildException;
 use Phing\Task\Optional\PHPStan\PHPStanCommandBuilderFake;
-use PHPStanTask;
+use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
 class PHPStanCommandBuilderTest extends TestCase
