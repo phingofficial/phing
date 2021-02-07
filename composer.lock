@@ -132,12 +132,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-analyzers.git",
-                "reference": "b2568ef07b79287e473493859cd48ac31a2e2347"
+                "reference": "955992f052616cc60dd67876575875b5a1c442b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-analyzers/zipball/b2568ef07b79287e473493859cd48ac31a2e2347",
-                "reference": "b2568ef07b79287e473493859cd48ac31a2e2347",
+                "url": "https://api.github.com/repos/phingofficial/task-analyzers/zipball/955992f052616cc60dd67876575875b5a1c442b0",
+                "reference": "955992f052616cc60dd67876575875b5a1c442b0",
                 "shasum": ""
             },
             "require": {
@@ -182,7 +182,7 @@
                 "issues": "https://github.com/phingofficial/task-analyzers/issues",
                 "source": "https://github.com/phingofficial/task-analyzers/tree/main"
             },
-            "time": "2021-02-07T16:50:48+00:00"
+            "time": "2021-02-07T17:32:03+00:00"
         },
         {
             "name": "phing/task-apigen",
