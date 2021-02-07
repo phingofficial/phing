@@ -25,7 +25,7 @@ use Phing\Exception\BuildException;
 use Phing\Task\Optional\Sass\FileSystemWhichStub;
 use PHPUnit\Framework\TestCase;
 use Phing\Task\Ext\SassCompiler;
-use SassTask;
+use Phing\Task\Ext\SassTask;
 use Phing\Task\Ext\SassTaskCompilerFactory;
 
 class SassTaskCompilerFactoryTest extends TestCase
