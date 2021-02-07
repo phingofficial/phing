@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6cc228d63046f391fe97e0ae9aaf6195",
+    "content-hash": "d2c9540ebc659d22944db1ff85b1a067",
     "packages": [
         {
             "name": "mehr-als-nix/parallel",
@@ -291,6 +291,57 @@
                 "source": "https://github.com/phingofficial/task-archives/tree/main"
             },
             "time": "2021-01-30T16:34:00+00:00"
+        },
+        {
+            "name": "phing/task-aws",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/task-aws.git",
+                "reference": "301f769d951ebd68d9621f52d76217050ae686f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/task-aws/zipball/301f769d951ebd68d9621f52d76217050ae686f4",
+                "reference": "301f769d951ebd68d9621f52d76217050ae686f4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.1"
+            },
+            "require-dev": {
+                "aws/aws-sdk-php": "^3.112",
+                "phing/phing": "3.0.x-dev"
+            },
+            "default-branch": true,
+            "type": "phing-extension",
+            "extra": {
+                "phing-custom-taskdefs": {
+                    "s3get": "Phing\\Task\\Ext\\Amazon\\S3\\S3GetTask",
+                    "s3put": "Phing\\Task\\Ext\\Amazon\\S3\\S3PutTask"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phing\\Task\\Ext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Siad Ardroumli",
+                    "email": "siad.ardroumli@gmail.com"
+                }
+            ],
+            "description": "AWS related tasks.",
+            "support": {
+                "issues": "https://github.com/phingofficial/task-aws/issues",
+                "source": "https://github.com/phingofficial/task-aws/tree/main"
+            },
+            "time": "2021-02-07T22:00:13+00:00"
         },
         {
             "name": "phing/task-coverage",
@@ -6485,6 +6536,7 @@
         "phing/task-analyzers": 20,
         "phing/task-apigen": 20,
         "phing/task-archives": 20,
+        "phing/task-aws": 20,
         "phing/task-coverage": 20,
         "phing/task-dbdeploy": 20,
         "phing/task-ftpdeploy": 20,
