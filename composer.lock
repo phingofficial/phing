@@ -298,12 +298,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-coverage.git",
-                "reference": "0219548972bf3a60e1a71a2d27fcbc3a3977e8a4"
+                "reference": "e68f3ba3a63bb7b94f4d74eb9547cdb01c97cd92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/0219548972bf3a60e1a71a2d27fcbc3a3977e8a4",
-                "reference": "0219548972bf3a60e1a71a2d27fcbc3a3977e8a4",
+                "url": "https://api.github.com/repos/phingofficial/task-coverage/zipball/e68f3ba3a63bb7b94f4d74eb9547cdb01c97cd92",
+                "reference": "e68f3ba3a63bb7b94f4d74eb9547cdb01c97cd92",
                 "shasum": ""
             },
             "require": {
@@ -342,7 +342,7 @@
                 "issues": "https://github.com/phingofficial/task-coverage/issues",
                 "source": "https://github.com/phingofficial/task-coverage/tree/master"
             },
-            "time": "2021-01-25T14:55:58+00:00"
+            "time": "2021-02-07T20:49:32+00:00"
         },
         {
             "name": "phing/task-dbdeploy",
