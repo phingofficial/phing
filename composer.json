@@ -33,7 +33,8 @@
       "phpcpd": "Phing\\Task\\Ext\\Phpcpd\\PHPCPDTask",
       "phploc": "Phing\\Task\\Ext\\Phploc\\PHPLocTask",
       "phpmd": "Phing\\Task\\Ext\\Phpmd\\PHPMDTask",
-      "phpdepend": "Phing\\Task\\Ext\\Pdepend\\PhpDependTask"
+      "phpdepend": "Phing\\Task\\Ext\\Pdepend\\PhpDependTask",
+      "sonar": "Phing\\Task\\Ext\\Sonar\\SonarTask"
     }
   }
 }
