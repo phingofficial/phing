@@ -62,7 +62,6 @@ use Phing\Type\FileSet;
  * @author  Jeff Martin <jeff@custommonkey.org> (Ant)
  * @author  Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author  Tim Stephenson <tim.stephenson@sybase.com> (Ant)
- * @package phing.tasks.ext.pdo
  */
 class PDOSQLExecTask extends PDOTask implements Condition
 {

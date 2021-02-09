@@ -107,7 +107,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets whether to expand/dereference symbolic links, default is false
      *
-     * @var boolean
+     * @param boolean $expandSymbolicLinks
      */
     public function setExpandSymbolicLinks(bool $expandSymbolicLinks)
     {
@@ -141,7 +141,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * @param $dir
+     * @param string|File $dir
      * @throws IOException
      * @throws NullPointerException
      */
@@ -250,7 +250,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param  $includes
+     * @param string $includes
      * @throws BuildException
      */
     public function setIncludes($includes)
@@ -265,7 +265,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Sets the set of exclude patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param  $excludes
+     * @param string $excludes
      * @throws BuildException
      */
     public function setExcludes($excludes)
@@ -307,7 +307,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets whether default exclusions should be used or not.
      *
-     * @param  $useDefaultExcludes "true"|"on"|"yes" when default exclusions
+     * @param bool $useDefaultExcludes "true"|"on"|"yes" when default exclusions
      *                           should be used, "false"|"off"|"no" when they
      *                           shouldn't be used.
      * @return void
@@ -324,7 +324,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets case sensitivity of the file system
      *
-     * @param $isCaseSensitive
+     * @param bool $isCaseSensitive
      */
     public function setCaseSensitive($isCaseSensitive)
     {
@@ -536,7 +536,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             return $this->getRef($p)->getSelectors($p);
         }
 
-// *copy* selectors
+        // *copy* selectors
         $result = [];
         for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
             $result[] = clone $this->selectorsList[$i];

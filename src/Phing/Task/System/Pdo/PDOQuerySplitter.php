@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @package phing.tasks.ext.pdo
  */
 
 namespace Phing\Task\System\Pdo;
@@ -28,7 +27,6 @@ use Phing\Io\Reader;
  * Base class for classes that split SQL source into separate queries
  *
  * @author  Alexey Borzov <avb@php.net>
- * @package phing.tasks.ext.pdo
  */
 abstract class PDOQuerySplitter
 {

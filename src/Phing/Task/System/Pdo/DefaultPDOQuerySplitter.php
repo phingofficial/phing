@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @package phing.tasks.ext.pdo
  */
 
 namespace Phing\Task\System\Pdo;
@@ -31,7 +30,6 @@ use Phing\Util\StringHelper;
  *
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Alexey Borzov <avb@php.net>
- * @package phing.tasks.ext.pdo
  */
 class DefaultPDOQuerySplitter extends PDOQuerySplitter
 {

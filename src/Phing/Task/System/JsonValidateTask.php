@@ -45,7 +45,6 @@ use Phing\Task;
  * <jsonvalidate file="path/file.json" />
  *
  * @author  Suat Özgür
- * @package phing.tasks.ext
  */
 class JsonValidateTask extends Task
 {

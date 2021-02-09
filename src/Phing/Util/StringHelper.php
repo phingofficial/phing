@@ -81,8 +81,8 @@ class StringHelper
     /**
      * tests if a string starts with a given string
      *
-     * @param $check
-     * @param $string
+     * @param string $check
+     * @param string $string
      *
      * @return bool
      */
@@ -98,8 +98,8 @@ class StringHelper
     /**
      * tests if a string ends with a given string
      *
-     * @param $check
-     * @param $string
+     * @param string $check
+     * @param string $string
      *
      * @return bool
      */

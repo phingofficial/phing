@@ -189,7 +189,7 @@ class PropertyTask extends Task
     /**
      * Set a file to use as the source for properties.
      *
-     * @param $file
+     * @param string|File $file
      *
      * @throws IOException
      * @throws NullPointerException
@@ -298,12 +298,9 @@ class PropertyTask extends Task
         return $this->userProperty;
     }
 
-    /**
-     * @param $v
-     */
-    public function setOverride(bool $v): void
+    public function setOverride(bool $override): void
     {
-        $this->override = $v;
+        $this->override = $override;
     }
 
     /**
@@ -335,9 +332,6 @@ class PropertyTask extends Task
         return $this->fallback;
     }
 
-    /**
-     * @param $logOutput
-     */
     public function setLogoutput(bool $logOutput): void
     {
         $this->logOutput = $logOutput;
@@ -355,7 +349,6 @@ class PropertyTask extends Task
      * Set quiet mode, which suppresses warnings if chmod() fails.
      *
      * @see   setFailonerror()
-     * @param $bool
      */
     public function setQuiet(bool $bool): void
     {

@@ -18,8 +18,6 @@
  */
 
 namespace Phing\Type\Selector;
-use selectors;
-use the;
 
 /**
  * An interface used to describe the actions required by any type of
@@ -34,21 +32,21 @@ interface SelectorScanner
     /**
      * Sets the selectors the scanner should use.
      *
-     * @param $selectors the list of selectors
+     * @param array $selectors the list of selectors
      */
     public function setSelectors($selectors);
 
     /**
      * Directories which were selected out of a scan.
      *
-     * @param selectors list selector objects
+     * @return array
      */
     public function getDeselectedDirectories();
 
     /**
      * Files which were selected out of a scan.
      *
-     * @param selectors list selector objects
+     * @return array
      */
     public function getDeselectedFiles();
 }

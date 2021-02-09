@@ -144,7 +144,7 @@ class PatternSet extends DataType
      * Sets the set of exclude patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param string the string containing the exclude patterns
+     * @param string $excludes the string containing the exclude patterns
      * @return void
      * @throws BuildException
      */
@@ -166,7 +166,7 @@ class PatternSet extends DataType
     /**
      * add a name entry to the given list
      *
-     * @param array List onto which the nameentry should be added
+     * @param array $list List onto which the nameentry should be added
      * @return PatternSetNameEntry Reference to the created PsetNameEntry instance
      */
     private function addPatternToList(&$list)
@@ -218,7 +218,7 @@ class PatternSet extends DataType
      * includes or excludes list
      *
      * @param File $patternfile
-     * @param $patternlist
+     * @param array $patternlist
      * @param Project $p
      *
      * @throws BuildException

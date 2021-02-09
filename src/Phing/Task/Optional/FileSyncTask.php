@@ -43,7 +43,6 @@ use Phing\Task;
  * @author  Federico Cargnelutti <fede.carg@gmail.com>
  * @author  Anton Stöckl <anton@stoeckl.de>
  * @version $Revision$
- * @package phing.tasks.ext
  * @see     http://svn.fedecarg.com/repo/Phing/tasks/ext/FileSyncTask.php
  * @example http://fedecarg.com/wiki/FileSyncTask
  */

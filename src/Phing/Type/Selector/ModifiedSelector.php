@@ -223,7 +223,7 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
      * Other parameters are invalid and an BuildException will
      * be thrown.
      *
-     * @param parameter  Key and value as parameter object
+     * @param Parameter $parameter Key and value as parameter object
      */
     public function useParameter(Parameter $parameter): void
     {

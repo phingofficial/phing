@@ -66,7 +66,7 @@ abstract class BuildFileTest extends TestCase
      * Asserts that the log buffer contains specified message at specified priority.
      * @param string $expected Message subsctring
      * @param int $priority Message priority (default: any)
-     * @param string $errmsg The error message to display.
+     * @param string $errormsg The error message to display.
      */
     protected function assertInLogs($expected, $priority = null, $errormsg = "Expected to find '%s' in logs: %s")
     {
@@ -97,7 +97,7 @@ abstract class BuildFileTest extends TestCase
      * Asserts that the log buffer contains specified message at specified priority.
      * @param string $expected Message subsctring
      * @param int $priority Message priority (default: any)
-     * @param string $errmsg The error message to display.
+     * @param string $errormsg The error message to display.
      */
     protected function assertLogLineContaining(
         $expected,
@@ -129,9 +129,9 @@ abstract class BuildFileTest extends TestCase
 
     /**
      * Asserts that the log buffer does NOT contain specified message at specified priority.
-     * @param string $expected Message subsctring
+     * @param string $message Message subsctring
      * @param int $priority Message priority (default: any)
-     * @param string $errmsg The error message to display.
+     * @param string $errormsg The error message to display.
      */
     protected function assertNotInLogs(
         $message,
@@ -351,7 +351,6 @@ abstract class BuildFileTest extends TestCase
      *
      * @param string $target target to run
      * @param string $cause information string to reader of report
-     * @param string $msg the message value of the build exception we are waiting for
      * @param string $contains substring of the build exception to look for
      */
     protected function expectBuildExceptionContaining($target, $cause, $contains)

@@ -31,7 +31,6 @@ use Phing\Project;
  * to be executed using the same JDBC connection and commit
  * operation in between.
  *
- * @package phing.tasks.ext.pdo
  */
 class PDOSQLExecTransaction
 {

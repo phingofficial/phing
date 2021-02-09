@@ -53,7 +53,7 @@ class Parameter extends DataType
     protected $parameters = [];
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -61,7 +61,7 @@ class Parameter extends DataType
     }
 
     /**
-     * @param $type
+     * @param string $type
      */
     public function setType($type)
     {
@@ -79,7 +79,7 @@ class Parameter extends DataType
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -87,7 +87,7 @@ class Parameter extends DataType
     }
 
     /**
-     * @param $v
+     * @param string $v
      */
     public function addText($v)
     {

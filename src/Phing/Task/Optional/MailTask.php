@@ -30,7 +30,6 @@ use Phing\Type\Element\FileSetAware;
  *
  * @author  Michiel Rook <mrook@php.net>
  * @author  Francois Harvey at SecuriWeb (http://www.securiweb.net)
- * @package phing.tasks.ext
  */
 class MailTask extends Task
 {

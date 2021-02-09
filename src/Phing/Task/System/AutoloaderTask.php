@@ -24,7 +24,6 @@ use Phing\Task;
 
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>
- * @package phing.tasks.ext
  */
 class AutoloaderTask extends Task
 {

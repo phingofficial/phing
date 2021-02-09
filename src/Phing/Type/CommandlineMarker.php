@@ -29,6 +29,9 @@ namespace Phing\Type;
  */
 class CommandlineMarker
 {
+    /**
+     * @var int
+     */
     private $position;
     private $realPos = -1;
     private $outer;
@@ -37,7 +40,7 @@ class CommandlineMarker
 
     /**
      * @param Commandline $outer
-     * @param $position
+     * @param int $position
      */
     public function __construct(Commandline $outer, $position)
     {

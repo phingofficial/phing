@@ -28,7 +28,6 @@ use Symfony\Component\Stopwatch\Stopwatch;
  * Stopwatch.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.stopwatch
  */
 class StopwatchTask extends DispatchTask
 {

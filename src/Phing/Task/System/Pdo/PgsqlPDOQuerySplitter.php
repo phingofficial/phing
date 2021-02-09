@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @package phing.tasks.ext.pdo
  */
 
 namespace Phing\Task\System\Pdo;
@@ -29,7 +28,6 @@ namespace Phing\Task\System\Pdo;
  * (including nested ones) and dollar-quoted strings.
  *
  * @author  Alexey Borzov <avb@php.net>
- * @package phing.tasks.ext.pdo
  * @link    http://www.phing.info/trac/ticket/499
  * @link    http://www.postgresql.org/docs/current/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
  */

@@ -21,6 +21,7 @@ namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Target;
 use Phing\Task;
@@ -174,9 +175,9 @@ class SubPhing extends Task
     /**
      * Runs the given target on the provided build file.
      *
-     * @param file the build file to execute
-     * @param directory the directory of the current iteration
-     * @throws BuildException is the file cannot be found, read, is
+     * @param File $file the build file to execute
+     * @param File|null $directory the directory of the current iteration
+     * @throws BuildException|IOException is the file cannot be found, read, is
      *         a directory, or the target called failed, but only if
      *         <code>failOnError</code> is <code>true</code>. Otherwise,
      *         a warning log message is simply output.
@@ -337,44 +338,44 @@ class SubPhing extends Task
     /**
      * Enable/ disable verbose log messages showing when each sub-build path is entered/ exited.
      * The default value is "false".
-     * @param bool $on true to enable verbose mode, false otherwise (default).
+     * @param bool $verbose true to enable verbose mode, false otherwise (default).
      */
-    public function setVerbose(bool $on)
+    public function setVerbose(bool $verbose)
     {
-        $this->verbose = $on;
+        $this->verbose = $verbose;
     }
 
     /**
      * Corresponds to <code>&lt;ant&gt;</code>'s
      * <code>output</code> attribute.
      *
-     * @param string $s the filename to write the output to.
+     * @param string $output the filename to write the output to.
      */
-    public function setOutput(string $s)
+    public function setOutput(string $output)
     {
-        $this->output = $s;
+        $this->output = $output;
     }
 
     /**
      * Corresponds to <code>&lt;ant&gt;</code>'s
      * <code>inheritall</code> attribute.
      *
-     * @param b the new value for this boolean flag.
+     * @param bool $inheritAll the new value for this boolean flag.
      */
-    public function setInheritall(bool $b)
+    public function setInheritall(bool $inheritAll)
     {
-        $this->inheritAll = $b;
+        $this->inheritAll = $inheritAll;
     }
 
     /**
      * Corresponds to <code>&lt;ant&gt;</code>'s
      * <code>inheritrefs</code> attribute.
      *
-     * @param b the new value for this boolean flag.
+     * @param bool $inheritRefs the new value for this boolean flag.
      */
-    public function setInheritrefs(bool $b)
+    public function setInheritrefs(bool $inheritRefs)
     {
-        $this->inheritRefs = $b;
+        $this->inheritRefs = $inheritRefs;
     }
 
     /**

@@ -29,7 +29,6 @@ use Phing\Type\Reference;
  *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Nico Seessle <nico@seessle.de> (Ant)
- * @package phing.tasks.system
  */
 class ThrowTask extends FailTask
 {

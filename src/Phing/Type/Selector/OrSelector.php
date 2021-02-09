@@ -51,7 +51,7 @@ class OrSelector extends BaseSelectorContainer
      * agree that the file should be selected.
      *
      * @param File $basedir the base directory the scan is being done from
-     * @param string filename the name of the file to check
+     * @param string $filename the name of the file to check
      * @param File $file a PhingFile object for the filename that the selector
      *                                                                can use
      * @return boolean Whether the file should be selected or not

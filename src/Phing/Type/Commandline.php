@@ -64,7 +64,7 @@ class Commandline implements Countable
     private $escape = false;
 
     /**
-     * @param null $to_process
+     * @param string $to_process
      * @throws BuildException
      */
     public function __construct($to_process = null)
@@ -197,7 +197,8 @@ class Commandline implements Countable
      * as is. If it contains double quotes, use single quotes - else
      * surround the argument by double quotes.</p>
      *
-     * @param $argument
+     * @param string $argument
+     * @param bool $escape
      *
      * @return string
      *
@@ -235,7 +236,7 @@ class Commandline implements Countable
      * Quotes the parts of the given array in way that makes them
      * usable as command line arguments.
      *
-     * @param $lines
+     * @param array $lines
      *
      * @return string
      *

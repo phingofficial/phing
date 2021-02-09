@@ -47,7 +47,6 @@ use Phing\Type\Path;
  * ```
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class PathToFileSet extends Task
 {
@@ -80,7 +79,7 @@ class PathToFileSet extends Task
     }
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -88,7 +87,7 @@ class PathToFileSet extends Task
     }
 
     /**
-     * @param $pathRefId
+     * @param string $pathRefId
      */
     public function setPathRefId($pathRefId)
     {
@@ -96,7 +95,7 @@ class PathToFileSet extends Task
     }
 
     /**
-     * @param $ignoreNonRelative
+     * @param bool $ignoreNonRelative
      */
     public function setIgnoreNonRelative($ignoreNonRelative)
     {

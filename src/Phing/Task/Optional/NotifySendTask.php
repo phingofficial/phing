@@ -5,7 +5,6 @@
  * PHP Version 5
  *
  * @category Tasks
- * @package  phing.tasks.ext
  * @author   Ken Guest <ken@linux.ie>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  * @link     https://github.com/kenguest/Phing-NotifySendTask
@@ -24,7 +23,6 @@ use Phing\Util\StringHelper;
  * NotifySendTask
  *
  * @category Tasks
- * @package  phing.tasks.ext
  * @author   Ken Guest <ken@linux.ie>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  * @link     NotifySendTask.php

@@ -299,7 +299,7 @@ class Properties
     /**
      * Whether loaded properties array contains specified property name.
      *
-     * @param  $key
+     * @param  string $key
      * @return boolean
      */
     public function containsKey($key)

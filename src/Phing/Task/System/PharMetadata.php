@@ -20,7 +20,6 @@
 namespace Phing\Task\System;
 
 /**
- * @package phing.tasks.ext.phar
  * @author Alexey Shockov <alexey@shockov.com>
  * @since 2.4.0
  */

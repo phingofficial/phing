@@ -31,7 +31,6 @@ use Phing\Util\Properties;
  * Task for setting properties from an XML file in buildfiles.
  *
  * @author  Jonathan Bond-Caron <jbondc@openmv.com>
- * @package phing.tasks.ext
  * @since   2.4.0
  * @link    http://ant.apache.org/manual/CoreTasks/xmlproperty.html
  */
@@ -115,11 +114,12 @@ class XmlPropertyTask extends PropertyTask
      *
      * @param  File $file
      * @return Properties
-     *@throws BuildException
+     * @throws BuildException
      */
     protected function loadFile(File $file)
     {
         $this->log("Loading " . $file->getAbsolutePath(), Project::MSG_INFO);
+
         try { // try to load file
             if ($file->exists()) {
                 $parser = new XmlFileParser();
@@ -143,5 +143,7 @@ class XmlPropertyTask extends PropertyTask
         } catch (IOException $ioe) {
             throw new BuildException("Could not load properties from file.", $ioe);
         }
+
+        return null;
     }
 }

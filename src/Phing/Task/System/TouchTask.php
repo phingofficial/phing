@@ -83,7 +83,7 @@ class TouchTask extends Task
      *
      * Optional, default=now
      *
-     * @param  $millis
+     * @param int $millis
      * @return void
      */
     public function setMillis($millis)
@@ -104,7 +104,7 @@ class TouchTask extends Task
      * in seconds since midnight Jan 1 1970.
      * Optional, default=now
      *
-     * @param  $seconds
+     * @param int $seconds
      * @return void
      */
     public function setSeconds($seconds)
@@ -121,7 +121,7 @@ class TouchTask extends Task
      * in the format MM/DD/YYYY HH:MM AM or PM;
      * Optional, default=now
      *
-     * @param  $dateTime
+     * @param string $dateTime
      * @return void
      */
     public function setDatetime($dateTime)
@@ -293,7 +293,7 @@ class TouchTask extends Task
     }
 
     /**
-     * @param $file
+     * @param File $file
      * @throws BuildException
      */
     private function touchFile(File $file)

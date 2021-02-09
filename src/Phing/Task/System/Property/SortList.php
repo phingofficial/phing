@@ -28,7 +28,6 @@ use Phing\Type\Reference;
  * SortList Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class SortList extends AbstractPropertySetterTask
 {

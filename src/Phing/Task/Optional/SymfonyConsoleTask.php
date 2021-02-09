@@ -30,7 +30,6 @@ use Phing\Type\Commandline;
  *
  * @author  nuno costa <nuno@francodacosta.com>
  * @license GPL
- * @package phing.tasks.ext.symfony
  */
 class SymfonyConsoleTask extends Task
 {

@@ -35,7 +35,6 @@ use Phing\Type\Parameter;
  * This class is inspired by the similarly-named class in the PHPUnit tasks.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.ext.pdo
  * @since   2.3.0
  */
 class PDOSQLExecFormatterElement

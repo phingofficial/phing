@@ -30,7 +30,6 @@ use Phing\Type\Element\FileSetAware;
  * A XML lint task. Checking syntax of one or more XML files against an XML Schema using the DOM extension.
  *
  * @author  Knut Urdalen <knut.urdalen@telio.no>
- * @package phing.tasks.ext
  */
 class XmlLintTask extends Task
 {

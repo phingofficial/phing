@@ -65,7 +65,7 @@ class TypeSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
-     * @return mixed|void
+     * @return void
      */
     public function setParameters(array $parameters): void
     {

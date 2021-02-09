@@ -26,7 +26,6 @@ use Phing\Type\DataType;
  *
  * @author  nuno costa <nuno@francodacosta.com>
  * @license GPL
- * @package phing.tasks.ext.symfony
  */
 class SymfonyConsoleArg extends DataType
 {

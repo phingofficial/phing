@@ -38,7 +38,7 @@ class FilterReader extends DataType
     private $classPath;
 
     /**
-     * @param $className
+     * @param string $className
      */
     public function setClassName($className)
     {
@@ -70,8 +70,7 @@ class FilterReader extends DataType
 
     /*
      * Set the classpath to load the FilterReader through (nested element).
-    */
-    /**
+     *
      * @return Path
      * @throws BuildException
      */

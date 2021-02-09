@@ -37,7 +37,6 @@ use Phing\Task;
  * </hipchat>
  *
  * @author  Suat Özgür <suat.oezguer@mindgeek.com>
- * @package phing.tasks.ext
  */
 class HipchatTask extends Task
 {

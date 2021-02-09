@@ -63,8 +63,6 @@ interface SelectorContainer
      * Add a new selector into this container.
      *
      * @param FileSelector $selector the new selector to add
-     *
-     * @return FileSelector the selector that was added
      */
     public function appendSelector(FileSelector $selector);
 

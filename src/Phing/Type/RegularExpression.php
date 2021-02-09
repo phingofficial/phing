@@ -37,15 +37,10 @@ use Phing\Util\StringHelper;
  */
 class RegularExpression extends DataType
 {
-    private $regexp = null;
     /**
-     * @todo Probably both $ignoreCase and $multiline should be removed
-     * from attribute list of RegularExpression class:
-     * actual values are preserved on regexp *engine* level, not expression
-     * object itself.
+     * @var Regexp
      */
-    private $ignoreCase = false;
-    private $multiline = false;
+    private $regexp = null;
 
     /**
      *
@@ -57,7 +52,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $pattern
+     * @param string $pattern
      */
     public function setPattern($pattern)
     {
@@ -65,7 +60,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $replace
+     * @param string $replace
      */
     public function setReplace($replace)
     {
@@ -73,7 +68,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $p
+     * @param Project $p
      * @return string
      * @throws BuildException
      */
@@ -105,7 +100,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $modifiers
+     * @param string $modifiers
      */
     public function setModifiers($modifiers)
     {
@@ -121,7 +116,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $bit
+     * @param bool $bit
      */
     public function setIgnoreCase($bit)
     {
@@ -137,7 +132,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $multiline
+     * @param bool $multiline
      */
     public function setMultiline($multiline)
     {

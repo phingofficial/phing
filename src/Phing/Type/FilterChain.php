@@ -157,7 +157,7 @@ class FilterChain extends DataType
     }
 
     /**
-     * @param PrefixLines $o
+     * @param EscapeUnicode $o
      */
     public function addEscapeUnicode(EscapeUnicode $o)
     {

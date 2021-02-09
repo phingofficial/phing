@@ -31,7 +31,6 @@ use Phing\Util\SizeHelper;
  * Returns the size of a file
  *
  * @author  Johan Persson <johan162@gmail.com>
- * @package phing.tasks.ext
  */
 class FileSizeTask extends Task
 {

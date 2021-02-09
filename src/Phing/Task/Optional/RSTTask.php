@@ -5,7 +5,6 @@
  * PHP version 5
  *
  * @category Tasks
- * @package  phing.tasks.ext
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link     http://www.phing.info/
@@ -29,7 +28,6 @@ use Phing\Type\Mapper;
  * PHP version 5
  *
  * @category Tasks
- * @package  phing.tasks.ext
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link     http://www.phing.info/

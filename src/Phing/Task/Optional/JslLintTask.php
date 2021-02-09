@@ -35,7 +35,6 @@ use Phing\Util\StringHelper;
  *
  * @author Stefan Priebsch <stefan.priebsch@e-novative.de>
  *
- * @package phing.tasks.ext
  */
 class JslLintTask extends Task
 {

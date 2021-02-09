@@ -113,7 +113,7 @@ class DataType extends ProjectComponent
      * The general contract of this method is that it shouldn't do
      * anything if checked is true and set it to true on exit.
      *
-     * @param $stk
+     * @param array $stk
      * @param Project $p
      *
      * @return void
@@ -162,12 +162,11 @@ class DataType extends ProjectComponent
     /**
      * Performs the check for circular references and returns the referenced object.
      *
-     * @param $requiredClass
-     * @param $dataTypeName
+     * @param string $requiredClass
+     * @param string $dataTypeName
      *
      * @return mixed
      * @throws BuildException
-     *
      */
     public function getCheckedRef($requiredClass, $dataTypeName)
     {

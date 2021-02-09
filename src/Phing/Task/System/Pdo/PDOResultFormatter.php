@@ -25,7 +25,6 @@ use Phing\Io\Writer;
  * Abstract
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.ext.pdo
  * @since   2.3.0
  */
 abstract class PDOResultFormatter

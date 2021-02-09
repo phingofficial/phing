@@ -27,7 +27,6 @@ use Phing\Task;
  * Publish Wiki document using Wiki API.
  *
  * @author  Piotr Lewandowski <piotr@cassis.pl>
- * @package phing.tasks.ext
  */
 class WikiPublishTask extends Task
 {

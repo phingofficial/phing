@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @package phing.tasks.ext
  */
 
 namespace Phing\Task\Optional;
@@ -31,7 +30,6 @@ use Phing\Task\System\SequentialTask;
  * WARNING: this task is highly experimental!
  *
  * @author  Michiel Rook <mrook@php.net>
- * @package phing.tasks.ext
  * @see     https://github.com/phpdocumentor/Parallel
  * @since   2.4.10
  */

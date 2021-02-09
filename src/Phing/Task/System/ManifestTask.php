@@ -48,7 +48,6 @@ use Phing\Type\Element\FileSetAware;
  *
  * @author David Persson <davidpersson at qeweurope dot org>
  *
- * @package phing.tasks.ext
  *
  * @since 2.3.1
  */

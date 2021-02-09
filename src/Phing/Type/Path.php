@@ -107,7 +107,7 @@ class Path extends DataType
     /**
      * Parses a path definition and creates single PathElements.
      *
-     * @param $path the path definition.
+     * @param string $path the path definition.
      *
      * @throws BuildException
      */
@@ -396,11 +396,11 @@ class Path extends DataType
      */
     public static function translatePath(Project $project, $source)
     {
-        $result = [];
         if ($source == null) {
-            return "";
+            return [];
         }
 
+        $result = [];
         $tok = new PathTokenizer($source);
         while ($tok->hasMoreTokens()) {
             $pathElement = $tok->nextToken();
@@ -468,7 +468,7 @@ class Path extends DataType
     /**
      * How many parts does this Path instance consist of.
      * DEV NOTE: expensive call! list is generated, counted, and then
-     * discareded.
+     * discarded.
      *
      * @return int
      */
@@ -481,7 +481,7 @@ class Path extends DataType
      * Overrides the version of DataType to recurse on all DataType
      * child elements that may have been added.
      *
-     * @param $stk
+     * @param array $stk
      * @param Project $p
      *
      * @return void
@@ -520,7 +520,7 @@ class Path extends DataType
      * <p>Assume the filename is absolute if project is null.</p>
      *
      * @param Project $project
-     * @param $relativeName
+     * @param string $relativeName
      *
      * @return string
      */

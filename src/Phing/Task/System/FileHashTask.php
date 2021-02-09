@@ -31,7 +31,6 @@ use Phing\Task;
  * value in a property
  *
  * @author  Johan Persson <johan162@gmail.com>
- * @package phing.tasks.ext
  */
 class FileHashTask extends Task
 {

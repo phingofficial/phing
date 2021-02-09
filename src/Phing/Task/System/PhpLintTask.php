@@ -33,7 +33,6 @@ use Phing\Util\DataStore;
  *
  * @author  Knut Urdalen <knut.urdalen@telio.no>
  * @author  Stefan Priebsch <stefan.priebsch@e-novative.de>
- * @package phing.tasks.ext
  */
 class PhpLintTask extends Task
 {

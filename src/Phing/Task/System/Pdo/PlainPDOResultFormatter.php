@@ -26,7 +26,6 @@ use Phing\Util\StringHelper;
  * Plain text formatter for PDO results.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.ext.pdo
  * @since   2.3.0
  */
 class PlainPDOResultFormatter extends PDOResultFormatter

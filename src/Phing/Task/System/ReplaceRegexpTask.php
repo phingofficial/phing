@@ -46,7 +46,6 @@ use Phing\Type\RegularExpression;
  *
  * @author Jonathan Bond-Caron <jbondc@openmv.com>
  *
- * @package phing.tasks.system
  *
  * @link http://ant.apache.org/manual/OptionalTasks/replaceregexp.html
  */
@@ -91,11 +90,10 @@ class ReplaceRegexpTask extends Task
     }
 
     /**
-     * @param $regexp
+     * @param string $regexp
      *
      * @return void
      * @see setMatch()
-     *
      */
     public function setPattern($regexp)
     {

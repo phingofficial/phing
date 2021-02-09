@@ -121,13 +121,13 @@ class SwitchTask extends Task
     }
 
     /**
-     * @param $bool
+     * @param bool $caseInsensitive
      *
      * @return void
      */
-    public function setCaseInsensitive($bool)
+    public function setCaseInsensitive($caseInsensitive)
     {
-        $this->caseInsensitive = $bool;
+        $this->caseInsensitive = $caseInsensitive;
     }
 
     /**

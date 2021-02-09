@@ -91,7 +91,7 @@ class DepthSelector extends BaseExtendSelector
      *
      * @param array $parameters the complete set of parameters for this selector
      *
-     * @return mixed|void
+     * @return void
      */
     public function setParameters(array $parameters): void
     {

@@ -34,7 +34,6 @@ use ReflectionProperty;
  * Variable Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class Variable extends PropertyTask
 {

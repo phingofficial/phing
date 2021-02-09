@@ -35,7 +35,6 @@ use SplFileInfo;
  *
  * @author  nuno costa <nuno@francodacosta.com>
  * @license MIT
- * @package phing.tasks.ext
  */
 class ComposerTask extends Task
 {

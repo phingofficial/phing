@@ -43,7 +43,7 @@ class Description extends DataType
      * Return the descriptions from all the targets of
      * a project.
      *
-     * @param project the project to get the descriptions for.
+     * @param Project $project the project to get the descriptions for.
      * @return string containing the concatenated descriptions of
      *         the targets.
      */
@@ -81,7 +81,7 @@ class Description extends DataType
     /**
      * Adds descriptive text to the project.
      *
-     * @param  $text
+     * @param string $text
      * @return void
      */
     public function addText($text)

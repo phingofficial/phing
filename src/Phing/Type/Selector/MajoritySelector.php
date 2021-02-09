@@ -53,9 +53,9 @@ class MajoritySelector extends BaseSelectorContainer
     }
 
     /**
-     * @param $tiebreaker
+     * @param bool $tiebreaker
      */
-    public function setAllowtie($tiebreaker)
+    public function setAllowtie(bool $tiebreaker)
     {
         $this->allowtie = $tiebreaker;
     }

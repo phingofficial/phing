@@ -123,7 +123,7 @@ class Mapper extends DataType
     /**
      * Set the type of FileNameMapper to use.
      *
-     * @param  $type
+     * @param string $type
      * @throws BuildException
      */
     public function setType($type)
@@ -137,7 +137,7 @@ class Mapper extends DataType
     /**
      * Add a nested <code>FileNameMapper</code>.
      *
-     * @param FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to add.
+     * @param Mapper $fileNameMapper the <code>FileNameMapper</code> to add.
      * @throws BuildException
      */
     public function add(Mapper $fileNameMapper)
@@ -188,7 +188,7 @@ class Mapper extends DataType
     /**
      * Set the argument to FileNameMapper.setFrom
      *
-     * @param  $from
+     * @param string $from
      * @throws BuildException
      */
     public function setFrom($from)
@@ -202,7 +202,7 @@ class Mapper extends DataType
     /**
      * Set the argument to FileNameMapper.setTo
      *
-     * @param  $to
+     * @param string $to
      * @throws BuildException
      */
     public function setTo($to)

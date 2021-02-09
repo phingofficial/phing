@@ -51,7 +51,6 @@ use Phing\Util\Regexp;
  * </pre>
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.regex
  */
 class RegexTask extends AbstractPropertySetterTask
 {
@@ -149,7 +148,7 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param $replace
+     * @param string $replace
      * @throws BuildException
      */
     public function setReplace($replace)
@@ -171,7 +170,7 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param $match
+     * @param string $match
      * @throws BuildException
      */
     public function setMatch($match)
@@ -188,7 +187,7 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param $caseSensitive
+     * @param bool $caseSensitive
      */
     public function setCaseSensitive($caseSensitive)
     {

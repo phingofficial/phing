@@ -87,8 +87,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Sets the project to work with.
      *
-     * @param object|Project $project The project this filter is part of.
-     *                        Should not be <code>null</code>.
+     * @param Project $project The project this filter is part of.
      */
     public function setProject(Project $project)
     {

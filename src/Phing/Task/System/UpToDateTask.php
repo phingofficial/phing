@@ -252,6 +252,9 @@ class UpToDateTask extends Task implements Condition
         }
         $upToDate = $this->evaluate();
         if ($upToDate) {
+            /**
+             * @var PropertyTask
+             */
             $property = $this->project->createTask('property');
             $property->setName($this->getProperty());
             $property->setValue($this->getValue());
@@ -275,7 +278,7 @@ class UpToDateTask extends Task implements Condition
 
     /**
      * @param File $srcDir
-     * @param $files
+     * @param array $files
      * @return bool
      */
     protected function scanDir(File $srcDir, $files)

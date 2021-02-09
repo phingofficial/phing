@@ -249,10 +249,9 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Sets the map of tokens to replace.
      * ; used by ReplaceTokens::chain()
      *
-     * @param    $tokens
-     * @throws   Exception
-     * @internal param A $array map (String->String) of token keys to replacement
+     * @param    array $tokens A $array map (String->String) of token keys to replacement
      *              values. Must not be <code>null</code>.
+     * @throws   Exception
      */
     public function setTokens($tokens)
     {

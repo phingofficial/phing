@@ -53,7 +53,7 @@ class Regexp
     /**
      * The regex engine -- e.g. 'preg' or 'ereg';
      *
-     * @var RegexpEngine
+     * @var PregEngine
      */
     private $engine;
 

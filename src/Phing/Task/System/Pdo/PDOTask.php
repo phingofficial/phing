@@ -34,7 +34,6 @@ use Phing\Task;
  * @author  Jeff Martin <jeff@custommonkey.org> (Ant)
  * @author  Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author  Tim Stephenson <tim.stephenson@sybase.com> (Ant)
- * @package phing.tasks.system
  */
 abstract class PDOTask extends Task
 {

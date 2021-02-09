@@ -38,7 +38,6 @@ use Phing\Util\Properties;
  * Resulting version number is also published under supplied property.
  *
  * @author  Mike Wittje <mw@mike.wittje.de>
- * @package phing.tasks.ext
  */
 class VersionTask extends Task
 {
@@ -114,7 +113,7 @@ class VersionTask extends Task
     /**
      * Set name of property to be set
      *
-     * @param  $property
+     * @param string $property
      * @return void
      */
     public function setProperty($property)

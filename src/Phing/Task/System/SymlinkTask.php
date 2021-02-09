@@ -48,9 +48,6 @@ use Phing\Type\FileSet;
  * </code>
  *
  * @author  Andrei Serdeliuc <andrei@serdeliuc.ro>
- * @extends Task
- * @version $ID$
- * @package phing.tasks.ext
  */
 class SymlinkTask extends Task
 {
@@ -369,6 +366,8 @@ class SymlinkTask extends Task
 
         $this->log('Linking: ' . $target . ' to ' . $link, Project::MSG_INFO);
 
-        return $fs->symlink($target, $link);
+        $fs->symlink($target, $link);
+
+        return true;
     }
 }

@@ -29,7 +29,6 @@ use Phing\Type\FileSet;
 /**
  * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
  *
- * @package phing.tasks.ext
  * @author  Alexey Shockov <alexey@shockov.com>
  * @since   2.4.0
  */

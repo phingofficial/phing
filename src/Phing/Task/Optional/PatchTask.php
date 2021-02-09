@@ -37,7 +37,6 @@ use Phing\Type\Commandline;
  *
  * Requires "patch" to be on the execution path.
  *
- * @package phing.tasks.ext
  */
 class PatchTask extends Task
 {

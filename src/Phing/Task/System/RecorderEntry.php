@@ -103,7 +103,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * Turns off or on this recorder.
      *
-     * @param bool|null state true for on, false for off, null for no change.
+     * @param bool|null $state true for on, false for off, null for no change.
      */
     public function setRecordState($state)
     {

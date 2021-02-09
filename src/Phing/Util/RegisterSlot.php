@@ -68,7 +68,7 @@ class RegisterSlot
     /**
      * Sets the value for this slot.
      *
-     * @param mixed
+     * @param mixed $v
      */
     public function setValue($v)
     {

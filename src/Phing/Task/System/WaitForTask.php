@@ -22,6 +22,7 @@ namespace Phing\Task\System;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task\System\Condition\ConditionBase;
+use Phing\Task\System\Condition\ConditionEnumeration;
 
 /**
  *  Based on Apache Ant Wait For:
@@ -172,6 +173,9 @@ class WaitForTask extends ConditionBase
             throw new BuildException("You must nest a condition into <waitfor>");
         }
 
+        /**
+         * @var ConditionEnumeration
+         */
         $cs = $this->getIterator();
         $condition = $cs->current();
 

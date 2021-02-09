@@ -26,7 +26,6 @@ use Phing\Task\System\Property\AbstractPropertySetterTask;
  * PropertyCopy
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class PropertyCopy extends AbstractPropertySetterTask
 {
