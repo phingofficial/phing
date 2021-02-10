@@ -84,6 +84,27 @@ class PhpEvalTask extends Task
     }
 
     /**
+     * Simplifies a Parameter object of arbitrary complexity into string or
+     * array, retaining only the value of the parameter
+     * @param Parameter $param
+     *
+     * @return mixed
+     */
+    protected function simplifyParameter(Parameter $param)
+    {
+        if (empty($children = $param->getParams())) {
+            return $param->getValue();
+        }
+
+        $simplified = [];
+        foreach ($children as $child) {
+            $simplified[] = $this->simplifyParameter($child);
+        }
+
+        return $simplified;
+    }
+
+    /**
      * Calls function and stores results in property
      */
     protected function callFunction()
@@ -102,23 +123,7 @@ class PhpEvalTask extends Task
         // put parameters into simple array
         $params = [];
         foreach ($this->params as $p) {
-            if ($p instanceof Parameter) {
-                $value = $p->getParams();
-                array_walk_recursive(
-                    $value,
-                    function (&$item) {
-                        if ($item instanceof Parameter) {
-                            $item = $item->getValue();
-                        }
-                    }
-                );
-                if ($value === null) {
-                    continue;
-                }
-                $params[] = $value;
-            } else {
-                $params[] = $p->getValue();
-            }
+            $params[] = $this->simplifyParameter($p);
         }
 
         $this->log("Calling PHP function: " . $h_func . "()", $this->logLevel);
@@ -131,21 +136,6 @@ class PhpEvalTask extends Task
         if ($this->returnProperty !== null) {
             $this->project->setProperty($this->returnProperty, $return);
         }
-    }
-
-    private function resolveParams(&$iterator)
-    {
-        foreach ($iterator as &$value) {
-            if (is_string($value)) {
-                continue;
-            }
-            if (is_array($value->getValue())) {
-                $this->resolveParams($value->getValue());
-            }
-            $value = is_string($value) ? $value : $value->getValue();
-        }
-
-        return $iterator;
     }
 
     /**
