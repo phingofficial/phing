@@ -466,7 +466,7 @@ class PhingTask extends Task
 
         // Add Task definitions
         foreach ($this->project->getTaskDefinitions() as $taskName => $taskClass) {
-            if ($taskClass === 'phing.tasks.system.PropertyTask') {
+            if ($taskClass === 'Phing\Task\System\PropertyTask') {
                 // we have already added this taskdef in init()
                 continue;
             }
