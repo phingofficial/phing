@@ -193,21 +193,20 @@ class MoveTask extends CopyTask
     /**
      * Its only ok to delete a dir tree if there are no files in it.
      *
-     * @param $d
-     *
-     * @throws IOException
+     * @param File $dir
      *
      * @return bool
+     * @throws IOException
      */
-    private function okToDelete(File $d)
+    private function okToDelete(File $dir)
     {
-        $list = $d->listDir();
+        $list = $dir->listDir();
         if ($list === null) {
             return false; // maybe io error?
         }
 
         foreach ($list as $s) {
-            $f = new File($d, $s);
+            $f = new File($dir, $s);
             if ($f->isDirectory()) {
                 if (!$this->okToDelete($f)) {
                     return false;
@@ -224,20 +223,20 @@ class MoveTask extends CopyTask
     /**
      * Go and delete the directory tree.
      *
-     * @param $d
+     * @param File $dir
      *
      * @throws BuildException
      * @throws IOException
      */
-    private function deleteDir(File $d)
+    private function deleteDir(File $dir)
     {
-        $list = $d->listDir();
+        $list = $dir->listDir();
         if ($list === null) {
             return; // on an io error list() can return null
         }
 
         foreach ($list as $fname) {
-            $f = new File($d, $fname);
+            $f = new File($dir, $fname);
             if ($f->isDirectory()) {
                 $this->deleteDir($f);
             } else {
@@ -245,11 +244,11 @@ class MoveTask extends CopyTask
             }
         }
 
-        $this->log("Deleting directory " . $d->getPath(), $this->verbosity);
+        $this->log("Deleting directory " . $dir->getPath(), $this->verbosity);
         try {
-            $d->delete();
+            $dir->delete();
         } catch (Exception $e) {
-            $this->logError("Unable to delete directory " . $d->__toString() . ": " . $e->getMessage());
+            $this->logError("Unable to delete directory " . $dir->__toString() . ": " . $e->getMessage());
         }
     }
 }

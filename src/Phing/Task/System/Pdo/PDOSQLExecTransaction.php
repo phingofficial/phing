@@ -38,10 +38,7 @@ class PDOSQLExecTransaction
     private $tSqlCommand = "";
     private $parent;
 
-    /**
-     * @param $parent
-     */
-    public function __construct($parent)
+    public function __construct(PDOSQLExecTask $parent)
     {
         // Parent is required so that we can log things ...
         $this->parent = $parent;
@@ -56,7 +53,7 @@ class PDOSQLExecTransaction
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      */
     public function addText($sql)
     {

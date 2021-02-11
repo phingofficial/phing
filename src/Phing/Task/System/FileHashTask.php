@@ -87,11 +87,8 @@ class FileHashTask extends Task
 
     /**
      * Set the name of the property to store the hash value in
-     *
-     * @param  $property
-     * @return void
      */
-    public function setPropertyName($property): void
+    public function setPropertyName(string $property): void
     {
         $this->propertyName = $property;
     }

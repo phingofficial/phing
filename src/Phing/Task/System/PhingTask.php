@@ -90,6 +90,8 @@ class PhingTask extends Task
 
     /**
      * the references to pass to the new project
+     *
+     * @var PhingReference[]
      */
     private $references = [];
 
@@ -587,7 +589,6 @@ class PhingTask extends Task
 
         if (count($this->references) > 0) {
             for ($i = 0, $count = count($this->references); $i < $count; $i++) {
-                /** @var Reference $ref */
                 $ref = $this->references[$i];
                 $refid = $ref->getRefId();
 
@@ -670,22 +671,22 @@ class PhingTask extends Task
      * If true, pass all properties to the new phing project.
      * Defaults to true.
      *
-     * @param $value
+     * @param bool $inheritAll
      */
-    public function setInheritAll($value)
+    public function setInheritAll($inheritAll)
     {
-        $this->inheritAll = (bool) $value;
+        $this->inheritAll = (bool) $inheritAll;
     }
 
     /**
      * If true, pass all references to the new phing project.
      * Defaults to false.
      *
-     * @param $value
+     * @param bool $inheritRefs
      */
-    public function setInheritRefs($value)
+    public function setInheritRefs($inheritRefs)
     {
-        $this->inheritRefs = (bool) $value;
+        $this->inheritRefs = (bool) $inheritRefs;
     }
 
     /**
@@ -694,11 +695,11 @@ class PhingTask extends Task
      * has been set to false, in which case it doesn't have a default
      * value. This will override the basedir setting of the called project.
      *
-     * @param File $d
+     * @param File $dir
      */
-    public function setDir(File $d): void
+    public function setDir(File $dir): void
     {
-        $this->dir = $d;
+        $this->dir = $dir;
     }
 
     /**
@@ -706,39 +707,39 @@ class PhingTask extends Task
      * Defaults to "build.xml". This file is expected to be a filename relative
      * to the dir attribute given.
      *
-     * @param $s
+     * @param string $file
      */
-    public function setPhingFile($s)
+    public function setPhingFile(string $file)
     {
         // it is a string and not a file to handle relative/absolute
         // otherwise a relative file will be resolved based on the current
         // basedir.
-        $this->phingFile = $s;
+        $this->phingFile = $file;
     }
 
     /**
      * Alias function for setPhingfile
      *
-     * @param $s
+     * @param string $file
      */
-    public function setBuildfile($s)
+    public function setBuildfile($file)
     {
-        $this->setPhingFile($s);
+        $this->setPhingFile($file);
     }
 
     /**
      * The target of the new Phing project to execute.
      * Defaults to the new project's default target.
      *
-     * @param string $s
+     * @param string $target
      */
-    public function setTarget(string $s)
+    public function setTarget(string $target)
     {
-        if ('' === $s) {
+        if ('' === $target) {
             throw new BuildException("target attribute must not be empty");
         }
 
-        $this->newTarget = $s;
+        $this->newTarget = $target;
     }
 
     /**

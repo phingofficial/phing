@@ -182,7 +182,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Set an inline SQL command to execute.
      * NB: Properties are not expanded in this text.
      *
-     * @param $sql
+     * @param string $sql
      */
     public function addText($sql)
     {
@@ -505,7 +505,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Exec the sql statement.
      *
-     * @param $sql
+     * @param string $sql
      *
      * @throws BuildException
      * @throws Exception

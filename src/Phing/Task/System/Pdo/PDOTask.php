@@ -77,17 +77,17 @@ abstract class PDOTask extends Task
      * getting an OutOfMemoryError when calling this task
      * multiple times in a row; default: true
      *
-     * @param $enable
+     * @param bool $caching
      */
-    public function setCaching($enable)
+    public function setCaching($caching)
     {
-        $this->caching = $enable;
+        $this->caching = $caching;
     }
 
     /**
      * Sets the database connection URL; required.
      *
-     * @param string The url to set
+     * @param string $url The url to set
      */
     public function setUrl($url)
     {
@@ -162,11 +162,11 @@ abstract class PDOTask extends Task
     }
 
     /**
-     * @param $value
+     * @return bool
      */
-    public function isCaching($value)
+    public function isCaching()
     {
-        $this->caching = $value;
+        return $this->caching;
     }
 
     /**

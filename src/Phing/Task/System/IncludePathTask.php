@@ -56,7 +56,7 @@ class IncludePathTask extends Task
     private $mode = "prepend";
 
     /**
-     * @param $mode
+     * @param string $mode
      * @throws BuildException
      */
     public function setMode($mode)
@@ -93,8 +93,8 @@ class IncludePathTask extends Task
     }
 
     /**
-     * @param $new_parts
-     * @param $curr_parts
+     * @param array $new_parts
+     * @param array $curr_parts
      */
     private function updateIncludePath($new_parts, $curr_parts)
     {

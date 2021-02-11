@@ -155,19 +155,14 @@ class EchoProperties extends Task
         }
     }
 
-
     /**
      * If true, the task will fail if an error occurs writing the properties
      * file, otherwise errors are just logged.
-     *
-     * @param failonerror <tt>true</tt> if IO exceptions are reported as build
-     *      exceptions, or <tt>false</tt> if IO exceptions are ignored.
      */
-    public function setFailOnError($failonerror)
+    public function setFailOnError(bool $failonerror)
     {
         $this->failonerror = $failonerror;
     }
-
 
     /**
      *  If the prefix is set, then only properties which start with this

@@ -153,6 +153,8 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                 return false;
             }
         }
+
+        return $tag;
     }
 
     /**
