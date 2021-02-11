@@ -282,8 +282,8 @@ class DeleteTask extends Task
      * which will only be deleted if 'includeEmpty' is true
      *
      * @param  File $d directory to work from
-     * @param  array     &$files array of files to delete; can be of zero length
-     * @param  array     &$dirs array of directories to delete; can of zero length
+     * @param  array     $files array of files to delete; can be of zero length
+     * @param  array     $dirs array of directories to delete; can of zero length
      * @throws BuildException
      */
     private function removeFiles(File $d, &$files, &$dirs)

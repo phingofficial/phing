@@ -43,11 +43,8 @@ class TextElement extends ProjectComponent
     /**
      * whether to filter the text in this element
      * or not.
-     *
-     * @param filtering true if the text should be filtered.
-     *                  the default value is true.
      */
-    public function setFiltering($filtering)
+    public function setFiltering(bool $filtering)
     {
         $this->filtering = $filtering;
     }

@@ -51,27 +51,20 @@ class VersionCompareCondition implements Condition
 
     private $debug = false;
 
-    /**
-     * @param $version
-     */
-    public function setVersion($version)
+    public function setVersion(string $version)
     {
         $this->version = $version;
     }
 
-    /**
-     * @param $desiredVersion
-     */
-    public function setDesiredVersion($desiredVersion)
+    public function setDesiredVersion(string $desiredVersion)
     {
         $this->desiredVersion = $desiredVersion;
     }
 
     /**
-     * @param $operator
      * @throws BuildException
      */
-    public function setOperator($operator)
+    public function setOperator(string $operator)
     {
         $allowed = ['<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>', 'ne'];
         if (!in_array($operator, $allowed)) { // allowed operators for php's version_comapare()

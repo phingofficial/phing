@@ -155,13 +155,6 @@ class ApplyTask extends ExecTask
         $this->destDir = $dest;
     }
 
-    /**
-     * File to which output should be written
-     *
-     * @param    $append
-     * @internal param PhingFile $outputfile Output log file
-     *
-     */
     public function setAppend(bool $append)
     {
         $this->appendoutput = $append;
@@ -192,10 +185,6 @@ class ApplyTask extends ExecTask
     /**
      * Whether the filenames should be passed on the command line as relative
      * pathnames (relative to the base directory of the corresponding fileset/list)
-     *
-     * @param    $relative
-     * @internal param bool $escape Escape command before execution
-     *
      */
     public function setRelative(bool $relative)
     {
@@ -226,14 +215,10 @@ class ApplyTask extends ExecTask
 
     /**
      * Limit the amount of parallelism by passing at most this many sourcefiles at once
-     *
-     * @param    $max
-     * @internal param bool $forwardslash Indicator to use forward-slash
-     *
      */
-    public function setMaxparallel($max)
+    public function setMaxparallel(int $max)
     {
-        $this->maxparallel = (int) $max;
+        $this->maxparallel = $max;
     }
 
     public function setForce(bool $force)
@@ -778,8 +763,8 @@ class ApplyTask extends ExecTask
      * Prepares the filename per base directory and relative path information
      *
      * @param array|string $filename
-     * @param $basedir
-     * @param $relative
+     * @param string $basedir
+     * @param string $relative
      *
      * @return mixed processed filenames
      *

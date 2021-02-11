@@ -83,7 +83,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * Required for \IteratorAggregate
      */
-    public function getIterator()
+    public function getIterator(): ConditionEnumeration
     {
         return new ConditionEnumeration($this);
     }

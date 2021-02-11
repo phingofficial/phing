@@ -70,20 +70,16 @@ class HasFreeSpaceCondition implements Condition
 
     /**
      * Set the partition/device to check.
-     *
-     * @param $partition
-     *
      */
-    public function setPartition($partition)
+    public function setPartition(string $partition)
     {
         $this->partition = $partition;
     }
 
     /**
      * Set the amount of free space required.
-     *
      */
-    public function setNeeded($needed)
+    public function setNeeded(string $needed)
     {
         $this->needed = $needed;
     }

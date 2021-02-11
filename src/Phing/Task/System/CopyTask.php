@@ -166,55 +166,45 @@ class CopyTask extends Task
 
     /**
      * @see CopyTask::setPreserveLastModified
-     * @param $bool
      */
-    public function setTstamp($bool)
+    public function setTstamp(bool $preserveLastModified)
     {
-        $this->setPreserveLastModified($bool);
+        $this->setPreserveLastModified($preserveLastModified);
     }
 
     /**
      * Set the preserve timestamp flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
      * value (bool primitive) is coming in here.
-     *
-     * @param  bool $bool Preserve the timestamp on the destination file
      */
-    public function setPreserveLastModified($bool)
+    public function setPreserveLastModified(bool $preserveLastModified)
     {
-        $this->preserveLMT = (bool) $bool;
+        $this->preserveLMT = $preserveLastModified;
     }
 
     /**
      * Set the preserve permissions flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
      * value (bool primitive) is coming in here.
-     *
-     * @param  bool $bool Preserve the timestamp on the destination file
      */
-    public function setPreservepermissions($bool)
+    public function setPreservepermissions(bool $preservePermissions)
     {
-        $this->preservePermissions = (bool) $bool;
+        $this->preservePermissions = $preservePermissions;
     }
 
-    /**
-     * @param $bool
-     */
-    public function setPreservemode($bool)
+    public function setPreservemode(bool $preserveMode)
     {
-        $this->setPreservepermissions($bool);
+        $this->setPreservepermissions($preserveMode);
     }
 
     /**
      * Set the include empty dirs flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
      * value (bool primitive) is coming in here.
-     *
-     * @param  bool $bool Flag if empty dirs should be cpoied too
      */
-    public function setIncludeEmptyDirs($bool)
+    public function setIncludeEmptyDirs(bool $includeEmptyDirs)
     {
-        $this->includeEmpty = (bool) $bool;
+        $this->includeEmpty = $includeEmptyDirs;
     }
 
     /**
@@ -448,11 +438,10 @@ class CopyTask extends Task
      * Compares source files to destination files to see if they
      * should be copied.
      *
-     * @param $fromDir
-     * @param $toDir
-     * @param $files
-     * @param $dirs
-     *
+     * @param string $fromDir
+     * @param string $toDir
+     * @param array $files
+     * @param array $dirs
      */
     private function scan(&$fromDir, &$toDir, &$files, &$dirs)
     {
@@ -483,14 +472,13 @@ class CopyTask extends Task
     /**
      * Builds a map of filenames (from->to) that should be copied
      *
-     * @param $fromDir
-     * @param $toDir
-     * @param $names
+     * @param string $fromDir
+     * @param string $toDir
+     * @param array $names
      * @param FileNameMapper $mapper
-     * @param $map
-     *
+     * @param array $map
      */
-    private function buildMap(&$fromDir, &$toDir, &$names, &$mapper, &$map)
+    private function buildMap($fromDir, $toDir, &$names, $mapper, &$map)
     {
         $toCopy = null;
         if ($this->overwrite) {
@@ -617,14 +605,14 @@ class CopyTask extends Task
     }
 
     /**
-     * @param $from
-     * @param $to
+     * @param string $from
+     * @param string $to
      * @param RegisterSlot $fromSlot
      * @param RegisterSlot $fromBasenameSlot
      * @param RegisterSlot $toSlot
      * @param RegisterSlot $toBasenameSlot
-     * @param $count
-     * @param $total
+     * @param int $count
+     * @param int $total
      */
     private function copyToSingleDestination(
         $from,

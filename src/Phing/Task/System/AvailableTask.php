@@ -69,20 +69,14 @@ class AvailableTask extends Task implements Condition
 
     private $followSymlinks = false;
 
-    /**
-     * @param $property
-     */
-    public function setProperty($property)
+    public function setProperty(string $property)
     {
-        $this->property = (string) $property;
+        $this->property = $property;
     }
 
-    /**
-     * @param $value
-     */
-    public function setValue($value)
+    public function setValue(string $value)
     {
-        $this->value = (string) $value;
+        $this->value = $value;
     }
 
     public function setFile(File $file)
@@ -90,33 +84,21 @@ class AvailableTask extends Task implements Condition
         $this->file = $file;
     }
 
-    /**
-     * @param $resource
-     */
-    public function setResource($resource)
+    public function setResource(string $resource)
     {
-        $this->resource = (string) $resource;
+        $this->resource = $resource;
     }
 
-    /**
-     * @param $extension
-     */
-    public function setExtension($extension)
+    public function setExtension(string $extension)
     {
-        $this->extension = (string) $extension;
+        $this->extension = $extension;
     }
 
-    /**
-     * @param $type
-     */
-    public function setType($type)
+    public function setType(string $type)
     {
-        $this->type = (string) strtolower($type);
+        $this->type = strtolower($type);
     }
 
-    /**
-     * @param $followSymlinks
-     */
     public function setFollowSymlinks(bool $followSymlinks)
     {
         $this->followSymlinks = $followSymlinks;
@@ -263,10 +245,9 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @param $resource
      * @return bool
      */
-    private function checkResource($resource)
+    private function checkResource(string $resource)
     {
         if (null != ($resourcePath = Phing::getResourcePath($resource))) {
             return $this->checkFile1(new File($resourcePath));

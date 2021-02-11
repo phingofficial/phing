@@ -23,15 +23,13 @@ use Phing\Task;
 
 /**
  * "Inner" class for SwitchTask.
- *
  */
 class CaseTask extends SequentialTask
 {
     private $value = null;
 
     /**
-     * @param $value
-     *
+     * @param mixed $value
      */
     public function setValue($value)
     {

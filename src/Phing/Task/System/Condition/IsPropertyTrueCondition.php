@@ -32,15 +32,11 @@ use Phing\Project;
 class IsPropertyTrueCondition extends ConditionBase implements Condition
 {
     /**
-     * @var string|null
+     * @var string
      */
     private $property = null;
 
-    /**
-     * @param $property
-     *
-     */
-    public function setProperty($property)
+    public function setProperty(string $property)
     {
         $this->property = $property;
     }

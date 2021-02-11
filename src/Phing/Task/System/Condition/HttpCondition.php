@@ -79,22 +79,18 @@ class HttpCondition extends ProjectComponent implements Condition
     /**
      * Whether redirects sent by the server should be followed,
      * defaults to true.
-     *
-     * @param bool $f
      */
-    public function setFollowRedirects($f)
+    public function setFollowRedirects(bool $followRedirects)
     {
-        $this->followRedirects = $f;
+        $this->followRedirects = $followRedirects;
     }
 
     /**
      * Set quiet mode, which suppresses warnings if curl_exec() fails.
-     *
-     * @param $bool
      */
-    public function setQuiet($bool)
+    public function setQuiet(bool $quiet)
     {
-        $this->quiet = $bool;
+        $this->quiet = $quiet;
     }
 
     /**

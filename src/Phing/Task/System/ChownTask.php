@@ -50,22 +50,20 @@ class ChownTask extends Task
      * This flag means 'note errors to the output, but keep going'
      *
      * @see   setQuiet()
-     * @param $bool
      */
-    public function setFailonerror($bool)
+    public function setFailonerror(bool $failOnError)
     {
-        $this->failonerror = $bool;
+        $this->failonerror = $failOnError;
     }
 
     /**
      * Set quiet mode, which suppresses warnings if chown() fails.
      *
      * @see   setFailonerror()
-     * @param $bool
      */
-    public function setQuiet($bool)
+    public function setQuiet(bool $quiet)
     {
-        $this->quiet = $bool;
+        $this->quiet = $quiet;
         if ($this->quiet) {
             $this->failonerror = false;
         }
@@ -74,18 +72,15 @@ class ChownTask extends Task
     /**
      * Set verbosity, which if set to false surpresses all but an overview
      * of what happened.
-     *
-     * @param $bool
      */
-    public function setVerbose(bool $bool)
+    public function setVerbose(bool $verbose)
     {
-        $this->verbose = $bool;
+        $this->verbose = $verbose;
     }
 
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
-     *
      */
     public function setFile(File $file)
     {
@@ -94,27 +89,22 @@ class ChownTask extends Task
 
     /**
      * Sets the user
-     *
-     * @param $user
      */
-    public function setUser($user)
+    public function setUser(string $user)
     {
         $this->user = $user;
     }
 
     /**
      * Sets the group
-     *
-     * @param $group
      */
-    public function setGroup($group)
+    public function setGroup(string $group)
     {
         $this->group = $group;
     }
 
     /**
      * Execute the touch operation.
-     *
      */
     public function main()
     {
@@ -141,7 +131,6 @@ class ChownTask extends Task
 
     /**
      * Does the actual work.
-     *
      */
     private function chown()
     {
