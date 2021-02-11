@@ -36,7 +36,6 @@ use Phing\UnknownElement;
  */
 class ElementHandler extends AbstractHandler
 {
-
     /**
      * Reference to the parent object that represents the parent tag
      * of this nested element

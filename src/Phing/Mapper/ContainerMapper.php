@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Mapper;
+
 use ArrayIterator;
 use BadMethodCallException;
 use Phing\Type\Mapper;

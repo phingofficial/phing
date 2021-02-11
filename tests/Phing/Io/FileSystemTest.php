@@ -38,10 +38,10 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
     public function tearDown(): void
     {
         Phing::setProperty('host.fstype', $this->oldFsType);
-        $this->_resetFileSystem();
+        $this->resetFileSystem();
     }
 
-    protected function _resetFileSystem()
+    protected function resetFileSystem()
     {
         $refClass = new ReflectionClass(FileSystem::class);
         $refProperty = $refClass->getProperty('fs');
@@ -51,7 +51,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
 
     public function testGetFileSystemWithUnknownTypeKeyThrowsException()
     {
-        $this->_resetFileSystem();
+        $this->resetFileSystem();
 
         $this->expectException(IOException::class);
 
@@ -65,7 +65,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey)
     {
-        $this->_resetFileSystem();
+        $this->resetFileSystem();
 
         Phing::setProperty('host.fstype', $fsTypeKey);
 

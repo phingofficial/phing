@@ -26,7 +26,6 @@ namespace Phing\Input;
  */
 interface InputHandler
 {
-
     /**
      * Handle the request encapsulated in the argument.
      *

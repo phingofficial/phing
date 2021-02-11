@@ -31,7 +31,6 @@ use Phing\Task;
  */
 class MkdirTask extends Task
 {
-
     /**
      * Directory to create.
      *

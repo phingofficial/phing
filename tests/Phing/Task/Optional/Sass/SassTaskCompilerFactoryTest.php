@@ -30,7 +30,6 @@ use Phing\Task\Ext\SassTaskCompilerFactory;
 
 class SassTaskCompilerFactoryTest extends TestCase
 {
-
     public function testItFailsWhenNoCompilerIsSet(): void
     {
         $sassTask = new SassTask();

@@ -27,7 +27,6 @@ use Phing\Task\Ext\SassTask;
 
 class SassTaskUnitTest extends TestCase
 {
-
     /** @var SassTask */
     private $object;
 

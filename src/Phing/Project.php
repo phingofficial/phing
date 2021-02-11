@@ -47,7 +47,6 @@ use ReflectionObject;
  */
 class Project
 {
-
     // Logging level constants.
     public const MSG_DEBUG = 4;
     public const MSG_VERBOSE = 3;
@@ -900,7 +899,7 @@ class Project
         // dependency tree, not just on the Targets that depend on the
         // build Target.
 
-        $this->_tsort($rootTarget, $state, $visiting, $ret);
+        $this->tsort($rootTarget, $state, $visiting, $ret);
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
@@ -918,7 +917,7 @@ class Project
             }
 
             if ($st === null) {
-                $this->_tsort($curTargetName, $state, $visiting, $ret);
+                $this->tsort($curTargetName, $state, $visiting, $ret);
             } elseif ($st === "VISITING") {
                 throw new Exception("Unexpected node in visiting state: $curTargetName");
             }
@@ -958,7 +957,7 @@ class Project
      * @throws BuildException
      * @throws Exception
      */
-    public function _tsort($root, &$state, &$visiting, &$ret)
+    private function tsort($root, &$state, &$visiting, &$ret)
     {
         $state[$root] = "VISITING";
         $visiting[] = $root;
@@ -994,10 +993,10 @@ class Project
             }
             if ($m === null) {
                 // not been visited
-                $this->_tsort($cur, $state, $visiting, $ret);
+                $this->tsort($cur, $state, $visiting, $ret);
             } elseif ($m == "VISITING") {
                 // currently visiting this node, so have a cycle
-                throw $this->_makeCircularException($cur, $visiting);
+                throw $this->makeCircularException($cur, $visiting);
             }
         }
 
@@ -1015,7 +1014,7 @@ class Project
      * @param array $stk
      * @return BuildException
      */
-    public function _makeCircularException($end, $stk)
+    private function makeCircularException($end, $stk)
     {
         $sb = "Circular dependency: $end";
         do {

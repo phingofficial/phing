@@ -30,7 +30,6 @@ use Phing\ProjectComponent;
  */
 class IsFalseCondition extends ProjectComponent implements Condition
 {
-
     /**
      * what we eval
      */

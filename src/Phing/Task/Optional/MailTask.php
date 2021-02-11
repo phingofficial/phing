@@ -72,7 +72,7 @@ class MailTask extends Task
         $mime = new \Mail_mime(['text_charset' => 'UTF-8']);
         $hdrs = [
             'From' => $this->from,
-            'Subject' => $this->subject
+            'Subject' => $this->subject,
         ];
         $mime->setTXTBody($this->msg);
 

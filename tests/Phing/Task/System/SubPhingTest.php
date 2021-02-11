@@ -54,7 +54,7 @@ class SubPhingTest extends BuildFileTest
             [
                 $dir1->getAbsolutePath(),
                 $dir2->getAbsolutePath(),
-                $dir3->getAbsolutePath()
+                $dir3->getAbsolutePath(),
             ]
         );
     }
@@ -74,7 +74,7 @@ class SubPhingTest extends BuildFileTest
             [
                 $dir1->getAbsolutePath(),
                 $dir2->getAbsolutePath(),
-                $dir3->getAbsolutePath()
+                $dir3->getAbsolutePath(),
             ]
         );
     }
@@ -94,7 +94,7 @@ class SubPhingTest extends BuildFileTest
      */
     private function baseDirs(string $target, array $dirs): void
     {
-        $bc = new class ($dirs) implements BuildListener {
+        $bc = new class($dirs) implements BuildListener {
             private $expectedBasedirs;
             private $calls = 0;
             private $error;

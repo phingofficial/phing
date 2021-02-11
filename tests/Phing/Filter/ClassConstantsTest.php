@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Filter;
+
 use Phing\Project;
 use Phing\Support\BuildFileTest;
 

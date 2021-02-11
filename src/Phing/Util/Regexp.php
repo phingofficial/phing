@@ -28,7 +28,6 @@ use Phing\Exception\BuildException;
  */
 class Regexp
 {
-
     /**
      * Matching groups found.
      *

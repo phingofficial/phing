@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Parser;
+
 /**
  * Stores the file name and line number of a XML file
  *

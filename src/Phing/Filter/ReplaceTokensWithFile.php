@@ -51,7 +51,6 @@ use Phing\Project;
  */
 class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Default "begin token" character.
      *

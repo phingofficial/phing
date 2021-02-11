@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Util;
+
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */

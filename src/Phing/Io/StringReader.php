@@ -25,7 +25,6 @@ namespace Phing\Io;
  */
 class StringReader extends Reader
 {
-
     /**
      * @var string
      */

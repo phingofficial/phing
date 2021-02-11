@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Support;
+
 /**
  * testcases for phing.IntrospectionHelper.
  *

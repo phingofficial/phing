@@ -25,7 +25,6 @@ namespace Phing\Io;
  */
 class FilterReader extends Reader
 {
-
     /**
      * @var Reader
      */

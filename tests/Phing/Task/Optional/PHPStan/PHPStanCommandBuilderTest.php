@@ -28,7 +28,6 @@ use PHPUnit\Framework\TestCase;
 
 class PHPStanCommandBuilderTest extends TestCase
 {
-
     /** @var PHPStanCommandBuilderFake */
     private $builder;
 
@@ -46,10 +45,10 @@ class PHPStanCommandBuilderTest extends TestCase
         $this->builder->build($task);
 
         $cmd = <<<CMD
-Executing 'anyExecutable' with arguments:
-'anyCommand'
-The ' characters around the executable and arguments are not part of the command.
-CMD;
+            Executing 'anyExecutable' with arguments:
+            'anyCommand'
+            The ' characters around the executable and arguments are not part of the command.
+            CMD;
 
         $this->assertEquals($cmd, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
@@ -81,17 +80,17 @@ CMD;
         $this->builder->build($task);
 
         $expectedCommand = <<<CMD
-Executing 'anyExecutable' with arguments:
-'anyCommand'
-'--help'
-'--quiet'
-'--version'
-'--ansi'
-'--no-ansi'
-'--no-interaction'
-'--verbose'
-The ' characters around the executable and arguments are not part of the command.
-CMD;
+            Executing 'anyExecutable' with arguments:
+            'anyCommand'
+            '--help'
+            '--quiet'
+            '--version'
+            '--ansi'
+            '--no-ansi'
+            '--no-interaction'
+            '--verbose'
+            The ' characters around the executable and arguments are not part of the command.
+            CMD;
 
         $this->assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }

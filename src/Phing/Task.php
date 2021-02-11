@@ -39,7 +39,6 @@ use Phing\Util\RegisterSlot;
  */
 abstract class Task extends ProjectComponent
 {
-
     /**
      * Owning Target object
      *

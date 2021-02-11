@@ -18,13 +18,13 @@
  */
 
 namespace Phing\Filter;
+
 /**
  * Holds a token.
  *
  */
 class Token
 {
-
     /**
      * Token key.
      *

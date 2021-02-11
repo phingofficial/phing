@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Util;
+
 use Phing\Io\BufferedWriter;
 use Phing\Io\File;
 use Phing\Io\FileParserInterface;
@@ -164,11 +165,7 @@ class Properties
 
     public function storeOutputStream(OutputStream $os, $comments)
     {
-        $this->_storeOutputStream(new BufferedWriter(new OutputStreamWriter($os)), $comments);
-    }
-
-    private function _storeOutputStream(BufferedWriter $bw, $comments)
-    {
+        $bw = new BufferedWriter(new OutputStreamWriter($os));
         if ($comments != null) {
             self::writeComments($bw, $comments);
         }

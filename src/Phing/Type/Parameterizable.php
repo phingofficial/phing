@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Type;
+
 /**
  * Parameterizable objects take genric key value pairs.
  *

@@ -68,30 +68,26 @@ class PDODelimitersTest extends BuildFileTest
         // for some reason default splitter mangles spaces on subsequent lines
         $expected = [
             <<<SQL
-insert into foo (bar, "strange;name""indeed") values ('bar''s value containing ;', 'a value for strange named column')
-SQL
-            ,
+                insert into foo (bar, "strange;name""indeed") values ('bar''s value containing ;', 'a value for strange named column')
+                SQL,
             <<<SQL
-delete
- from
- foo where bar = 'some value'
-SQL
-            ,
+                delete
+                 from
+                 foo where bar = 'some value'
+                SQL,
             <<<SQL
-update dump -- I should not be ignored
- set message = 'I am a string with \\\\ backslash \' escapes and semicolons;'
-SQL
-            ,
+                update dump -- I should not be ignored
+                 set message = 'I am a string with \\\\ backslash \' escapes and semicolons;'
+                SQL,
             <<<SQL
-create procedure setfoo(newfoo int)
- begin
- set @foo = newfoo;
- end
-SQL
-            ,
+                create procedure setfoo(newfoo int)
+                 begin
+                 set @foo = newfoo;
+                 end
+                SQL,
             <<<SQL
-insert into dump (message) values ('I am a statement not ending with a delimiter')
-SQL
+                insert into dump (message) values ('I am a statement not ending with a delimiter')
+                SQL,
         ];
         // and insists on "\n" linebreaks
         foreach ($expected as &$query) {
@@ -114,17 +110,15 @@ SQL
         // for some reason default splitter mangles spaces on subsequent lines
         $expected = [
             <<<SQL
-insert into "duh" (foo) values ('duh')
-SQL
-            ,
+                insert into "duh" (foo) values ('duh')
+                SQL,
             <<<SQL
-update "duh?" -- I should not be ignored
- set foo = 'some value'
-SQL
-            ,
+                update "duh?" -- I should not be ignored
+                 set foo = 'some value'
+                SQL,
             <<<SQL
-insert into dump (message) values ('I am a statement not ending with a delimiter')
-SQL
+                insert into dump (message) values ('I am a statement not ending with a delimiter')
+                SQL,
         ];
         // and insists on "\n" linebreaks
         foreach ($expected as &$query) {
@@ -152,67 +146,59 @@ SQL
     {
         $expected = [
             <<<SQL
-select 1
-# 2
-SQL
-            ,
+                select 1
+                # 2
+                SQL,
             <<<SQL
-select 'foo'
-// 'bar'
-SQL
-            ,
+                select 'foo'
+                // 'bar'
+                SQL,
             <<<SQL
-insert into foo (bar, "strange;name""indeed") values ('bar''s value containing ;', 'a value for strange named column')
-SQL
-            ,
+                insert into foo (bar, "strange;name""indeed") values ('bar''s value containing ;', 'a value for strange named column')
+                SQL,
             <<<SQL
-create function foo(text)
-returns boolean as
-\$function$
-BEGIN
-    RETURN ($1 ~ \$q$[\\t\\r\\n\\v\\\\]\$q$);
-END;
-\$function$
-language plpgsql
-SQL
-            ,
+                create function foo(text)
+                returns boolean as
+                \$function$
+                BEGIN
+                    RETURN ($1 ~ \$q$[\\t\\r\\n\\v\\\\]\$q$);
+                END;
+                \$function$
+                language plpgsql
+                SQL,
             <<<SQL
-CREATE FUNCTION phingPDOtest() RETURNS "trigger"
-    AS \$_X$
-if (1)
-{
-    # All is well - just continue
+                CREATE FUNCTION phingPDOtest() RETURNS "trigger"
+                    AS \$_X$
+                if (1)
+                {
+                    # All is well - just continue
 
-    return;
-}
-else
-{
-    # Not good - this is probably a fatal error!
-    elog(ERROR,"True is not true");
+                    return;
+                }
+                else
+                {
+                    # Not good - this is probably a fatal error!
+                    elog(ERROR,"True is not true");
 
-    return "SKIP";
-}
-\$_X$
-    LANGUAGE plperl
-SQL
-            ,
-            "insert into foo (bar) \nvalues ('some value')"
-            ,
+                    return "SKIP";
+                }
+                \$_X$
+                    LANGUAGE plperl
+                SQL,
+            "insert into foo (bar) \nvalues ('some value')",
             <<<SQL
-insert into foo (bar) values ($$ a dollar-quoted string containing a few quotes ' ", a \$placeholder$ and a semicolon;$$)
-SQL
-            ,
+                insert into foo (bar) values ($$ a dollar-quoted string containing a few quotes ' ", a \$placeholder$ and a semicolon;$$)
+                SQL,
             <<<SQL
-create rule blah_insert
-as on insert to blah do instead (
-    insert into foo values (new.id, 'blah');
-    insert into bar values (new.id, 'blah-blah');
-)
-SQL
-            ,
+                create rule blah_insert
+                as on insert to blah do instead (
+                    insert into foo values (new.id, 'blah');
+                    insert into bar values (new.id, 'blah-blah');
+                )
+                SQL,
             <<<SQL
-insert into dump (message) values ('I am a statement not ending with a delimiter')
-SQL
+                insert into dump (message) values ('I am a statement not ending with a delimiter')
+                SQL,
         ];
         foreach ($expected as &$query) {
             $query = str_replace(["\n\n", "\r"], ["\n", ''], $query);

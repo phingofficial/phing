@@ -29,7 +29,6 @@ use Phing\ProjectComponent;
  */
 class ConditionEnumeration implements Iterator
 {
-
     /**
      * Current element number
      */

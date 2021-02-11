@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Util;
+
 /**
  * String helper utility class.
  *

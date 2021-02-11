@@ -39,7 +39,6 @@ use Phing\Type\Path;
  */
 class AvailableTask extends Task implements Condition
 {
-
     /**
      * Property to check for.
      */
@@ -178,7 +177,7 @@ class AvailableTask extends Task implements Condition
             throw new BuildException("Type must be one of either dir or file", $this->getLocation());
         }
 
-        if (($this->file !== null) && !$this->_checkFile()) {
+        if (($this->file !== null) && !$this->checkFile()) {
             $this->log(
                 "Unable to find " . $this->file->__toString() . " to set property " . $this->property,
                 Project::MSG_VERBOSE
@@ -187,7 +186,7 @@ class AvailableTask extends Task implements Condition
             return false;
         }
 
-        if (($this->resource !== null) && !$this->_checkResource($this->resource)) {
+        if (($this->resource !== null) && !$this->checkResource($this->resource)) {
             $this->log(
                 "Unable to load resource " . $this->resource . " to set property " . $this->property,
                 Project::MSG_VERBOSE
@@ -213,10 +212,10 @@ class AvailableTask extends Task implements Condition
     /**
      * @return bool
      */
-    private function _checkFile()
+    private function checkFile()
     {
         if ($this->filepath === null) {
-            return $this->_checkFile1($this->file);
+            return $this->checkFile1($this->file);
         }
 
         $paths = $this->filepath->listPaths();
@@ -236,7 +235,7 @@ class AvailableTask extends Task implements Condition
      * @return bool
      * @throws IOException
      */
-    private function _checkFile1(File $file)
+    private function checkFile1(File $file)
     {
         // Resolve symbolic links
         if ($this->followSymlinks && $file->isLink()) {
@@ -271,10 +270,10 @@ class AvailableTask extends Task implements Condition
      * @param $resource
      * @return bool
      */
-    private function _checkResource($resource)
+    private function checkResource($resource)
     {
         if (null != ($resourcePath = Phing::getResourcePath($resource))) {
-            return $this->_checkFile1(new File($resourcePath));
+            return $this->checkFile1(new File($resourcePath));
         }
 
         return false;

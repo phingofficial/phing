@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Parser;
+
 use Phing\Project;
 use Phing\Target;
 
@@ -28,7 +29,6 @@ use Phing\Target;
  */
 class XmlContext
 {
-
     /**
      * Target that will hold all tasks/types placed outside of targets
      *

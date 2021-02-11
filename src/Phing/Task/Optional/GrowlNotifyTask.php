@@ -45,7 +45,6 @@ use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
-
 /**
  * Growl notification task for Phing, the PHP build tool.
  *
@@ -436,7 +435,7 @@ class GrowlNotifyTask extends Task
         }
 
         $notifications = [
-            $this->notification
+            $this->notification,
         ];
         $options = [
             'host' => $this->host,

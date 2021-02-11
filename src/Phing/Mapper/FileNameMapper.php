@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Mapper;
+
 /**
  * Interface for filename mapper classes.
  *
@@ -26,7 +27,6 @@ namespace Phing\Mapper;
  */
 interface FileNameMapper
 {
-
     /**
      * The mapper implementation.
      *

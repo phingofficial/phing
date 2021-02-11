@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Support;
+
 /**
  * testcases for phing.IntrospectionHelper.
  *
@@ -26,7 +27,6 @@ namespace Phing\Support;
  */
 class IHCreatorFail3
 {
-
     /**
      * no class hint!
      */

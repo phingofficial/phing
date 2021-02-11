@@ -29,7 +29,6 @@ namespace Phing\Io;
  */
 class InputStreamReader extends Reader
 {
-
     /**
      * @var InputStream
      */

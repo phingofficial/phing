@@ -30,7 +30,6 @@ use Phing\Io\File;
  */
 class OrSelector extends BaseSelectorContainer
 {
-
     /**
      * @return string
      */

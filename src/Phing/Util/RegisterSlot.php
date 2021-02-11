@@ -18,13 +18,13 @@
  */
 
 namespace Phing\Util;
+
 /**
  * Represents a slot in the register.
  *
  */
 class RegisterSlot
 {
-
     /**
      * The name of this slot.
      */

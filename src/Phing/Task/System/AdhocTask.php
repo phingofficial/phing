@@ -36,7 +36,6 @@ use Phing\Task;
  */
 class AdhocTask extends Task
 {
-
     /**
      * The PHP script
      *

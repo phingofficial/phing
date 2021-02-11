@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Regression;
+
 use Exception;
 use Phing\Support\BuildFileTest;
 

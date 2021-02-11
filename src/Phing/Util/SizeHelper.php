@@ -29,14 +29,14 @@ use Phing\Exception\BuildException;
  */
 class SizeHelper
 {
-    const B = 'B';
-    const KILO = 1000;
-    const KIBI = 1024;
-    const SI = [1 => ['kB', 'kilo', 'kilobyte',],
+    public const B = 'B';
+    public const KILO = 1000;
+    public const KIBI = 1024;
+    public const SI = [1 => ['kB', 'kilo', 'kilobyte',],
         2 => ['MB', 'mega', 'megabyte',],
         3 => ['GB', 'giga', 'gigabyte',],
         4 => ['TB', 'tera', 'terabyte',],];
-    const IEC = [0 => [self::B,],
+    public const IEC = [0 => [self::B,],
         1 => ['k', 'Ki', 'KiB', 'kibi', 'kibibyte',],
         2 => ['M', 'Mi', 'MiB', 'mebi', 'mebibyte',],
         3 => ['G', 'Gi', 'GiB', 'gibi', 'gibibyte',],

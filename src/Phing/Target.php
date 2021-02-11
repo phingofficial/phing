@@ -33,7 +33,6 @@ use function array_search;
  */
 class Target implements TaskContainer
 {
-
     /**
      * Name of target
      *

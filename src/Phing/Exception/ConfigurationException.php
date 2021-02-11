@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Exception;
+
 use Exception;
 use Phing\Parser\Location;
 
@@ -28,7 +29,6 @@ use Phing\Parser\Location;
  */
 class ConfigurationException extends Exception
 {
-
     /**
      * Location in the xml file.
      *

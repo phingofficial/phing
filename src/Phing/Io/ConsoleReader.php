@@ -27,7 +27,6 @@ namespace Phing\Io;
  */
 class ConsoleReader extends Reader
 {
-
     /**
      * @return string
      */

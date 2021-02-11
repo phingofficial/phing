@@ -38,7 +38,6 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class BuildFileTest extends TestCase
 {
-
     /** @var Project */
     protected $project;
 

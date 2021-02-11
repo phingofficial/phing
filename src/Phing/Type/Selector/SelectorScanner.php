@@ -28,7 +28,6 @@ namespace Phing\Type\Selector;
  */
 interface SelectorScanner
 {
-
     /**
      * Sets the selectors the scanner should use.
      *

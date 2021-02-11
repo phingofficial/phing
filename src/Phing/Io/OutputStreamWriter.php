@@ -29,7 +29,6 @@ namespace Phing\Io;
  */
 class OutputStreamWriter extends Writer
 {
-
     /**
      * @var OutputStream
      */

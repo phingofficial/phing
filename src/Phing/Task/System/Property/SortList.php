@@ -55,7 +55,7 @@ class SortList extends AbstractPropertySetterTask
         'SORT_STRING',
         'SORT_LOCALE_STRING',
         'SORT_NATURAL',
-        'SORT_FLAG_CASE'
+        'SORT_FLAG_CASE',
     ];
 
     /**

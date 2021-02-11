@@ -28,7 +28,6 @@ use Phing\Exception\BuildException;
  */
 class VersionCompareCondition implements Condition
 {
-
     /**
      * Actual version
      *

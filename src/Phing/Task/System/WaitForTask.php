@@ -86,7 +86,7 @@ class WaitForTask extends ConditionBase
      */
     public function setMaxWaitUnit($maxWaitUnit)
     {
-        $this->maxWaitMultiplier = $this->_convertUnit($maxWaitUnit);
+        $this->maxWaitMultiplier = $this->convertUnit($maxWaitUnit);
     }
 
     /**
@@ -96,7 +96,7 @@ class WaitForTask extends ConditionBase
      * @throws BuildException
      * @return int
      */
-    protected function _convertUnit($unit)
+    protected function convertUnit($unit)
     {
         if ($unit === 'week') {
             return self::ONE_WEEK;
@@ -143,7 +143,7 @@ class WaitForTask extends ConditionBase
      */
     public function setCheckEveryUnit($checkEveryUnit)
     {
-        $this->checkEveryMultiplier = $this->_convertUnit($checkEveryUnit);
+        $this->checkEveryMultiplier = $this->convertUnit($checkEveryUnit);
     }
 
     /**

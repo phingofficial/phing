@@ -35,7 +35,6 @@ use Phing\Task;
  */
 class SourceFileScanner
 {
-
     /**
      * Instance of FileUtils
      */

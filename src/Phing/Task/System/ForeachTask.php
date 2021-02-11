@@ -216,7 +216,7 @@ class ForeachTask extends Task
                 $ds = new DirectoryScanner();
                 $ds->setBasedir($pathElement);
                 $ds->scan();
-                $this->process($callee, new File($pathElement), $ds->getIncludedFiles(), array());
+                $this->process($callee, new File($pathElement), $ds->getIncludedFiles(), []);
             }
         }
 

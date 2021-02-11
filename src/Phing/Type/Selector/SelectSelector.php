@@ -35,7 +35,6 @@ use Phing\Project;
  */
 class SelectSelector extends AndSelector
 {
-
     /**
      * @return string
      */

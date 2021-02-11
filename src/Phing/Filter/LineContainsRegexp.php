@@ -50,7 +50,6 @@ use Phing\Util\RegexpException;
  */
 class LineContainsRegexp extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Parameter name for regular expression.
      *

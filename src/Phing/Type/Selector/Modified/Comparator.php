@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Type\Selector\Modified;
+
 /**
  * Interface Comparator
  */

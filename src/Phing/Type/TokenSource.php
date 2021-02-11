@@ -50,7 +50,6 @@ use Phing\Project;
  */
 class TokenSource extends DataType
 {
-
     /**
      * String to hold the path to the TokenReader
      *

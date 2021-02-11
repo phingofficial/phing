@@ -39,7 +39,6 @@ use SplFileObject;
  */
 class ExpatParser extends AbstractSAXParser
 {
-
     /**
      * @var resource
      */

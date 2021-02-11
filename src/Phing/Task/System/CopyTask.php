@@ -355,7 +355,7 @@ class CopyTask extends Task
                 $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
             }
 
-            $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
+            $this->scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
         }
 
         foreach ($this->dirsets as $dirset) {
@@ -377,7 +377,7 @@ class CopyTask extends Task
                     $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
                 }
 
-                $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
+                $this->scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
             } catch (BuildException $e) {
                 if ($this->haltonerror === true) {
                     throw $e;
@@ -403,7 +403,7 @@ class CopyTask extends Task
                     $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
                 }
 
-                $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
+                $this->scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
             } catch (BuildException $e) {
                 if ($this->haltonerror == true) {
                     throw $e;
@@ -465,7 +465,7 @@ class CopyTask extends Task
      *
      * @return void
      */
-    private function _scan(&$fromDir, &$toDir, &$files, &$dirs)
+    private function scan(&$fromDir, &$toDir, &$files, &$dirs)
     {
         /* mappers should be generic, so we get the mappers here and
         pass them on to builMap. This method is not redundan like it seems */

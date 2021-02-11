@@ -597,7 +597,7 @@ class Phing
         if ($this->buildFile === null) {
             // but -find then search for it
             if ($this->searchForThis !== null) {
-                $this->buildFile = $this->_findBuildFile(self::getProperty("user.dir"), $this->searchForThis);
+                $this->buildFile = $this->findBuildFile(self::getProperty("user.dir"), $this->searchForThis);
             } else {
                 $this->buildFile = new File(self::DEFAULT_BUILD_FILENAME);
             }
@@ -686,7 +686,7 @@ class Phing
      *@throws ConfigurationException
      *
      */
-    private function _findBuildFile($start, $suffix)
+    private function findBuildFile($start, $suffix)
     {
         if (self::getMsgOutputLevel() >= Project::MSG_INFO) {
             self::$out->write('Searching for ' . $suffix . ' ...' . PHP_EOL);
@@ -977,7 +977,7 @@ class Phing
                     'message' => $message,
                     'level' => $level,
                     'line' => $line,
-                    'file' => $file
+                    'file' => $file,
                 ];
             } else {
                 $message = '[PHP Error] ' . $message;
@@ -1278,10 +1278,10 @@ class Phing
                 $defaultDesc[] = $topDescriptions[$indexOfDefDesc];
             }
 
-            $this->_printTargets($project, $defaultName, $defaultDesc, [], "Default target:", $maxLength);
+            $this->printTargetNames($project, $defaultName, $defaultDesc, [], "Default target:", $maxLength);
         }
-        $this->_printTargets($project, $topNames, $topDescriptions, $topDependencies, "Main targets:", $maxLength);
-        $this->_printTargets($project, $subNames, null, $subDependencies, "Subtargets:", 0);
+        $this->printTargetNames($project, $topNames, $topDescriptions, $topDependencies, "Main targets:", $maxLength);
+        $this->printTargetNames($project, $subNames, null, $subDependencies, "Subtargets:", 0);
     }
 
     /**
@@ -1303,7 +1303,7 @@ class Phing
      *                             position so they line up (so long as the names really
      *                             <i>are</i> shorter than this).
      */
-    private function _printTargets(Project $project, $names, $descriptions, $dependencies, $heading, $maxlen)
+    private function printTargetNames(Project $project, $names, $descriptions, $dependencies, $heading, $maxlen)
     {
         $spaces = '  ';
         while (strlen($spaces) < $maxlen) {
@@ -1422,7 +1422,7 @@ class Phing
             self::$importPaths = self::explodeIncludePath();
         }
 
-        $path = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $path);
+        $path = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
         foreach (self::$importPaths as $prefix) {
             $testPath = $prefix . DIRECTORY_SEPARATOR . $path;

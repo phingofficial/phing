@@ -30,7 +30,6 @@ namespace Phing\Parser;
  */
 class RootHandler extends AbstractHandler
 {
-
     /**
      * The phing project configurator object
      */

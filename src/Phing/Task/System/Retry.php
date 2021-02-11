@@ -114,10 +114,10 @@ class Retry extends Task implements TaskContainer
                 if ($i >= $this->retryCount) {
                     $taskName = $this->nestedTask->getTaskName();
                     $exceptionMessage = <<<EXCEPTION_MESSAGE
-Task [{$taskName}] failed after [{$this->retryCount}] attempts; giving up
-Error messages:
-$errorMessages
-EXCEPTION_MESSAGE;
+                        Task [{$taskName}] failed after [{$this->retryCount}] attempts; giving up
+                        Error messages:
+                        $errorMessages
+                        EXCEPTION_MESSAGE;
                     throw new BuildException(
                         $exceptionMessage,
                         $this->getLocation()

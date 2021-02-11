@@ -27,7 +27,6 @@ namespace Phing\Io;
  */
 abstract class Reader
 {
-
     /**
      * Read data from source.
      *

@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Io;
+
 use Exception;
 
 /**
@@ -26,7 +27,6 @@ use Exception;
  */
 class FileOutputStream extends OutputStream
 {
-
     /**
      * @var File The associated file.
      */

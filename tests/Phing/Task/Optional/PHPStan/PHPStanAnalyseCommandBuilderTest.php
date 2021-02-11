@@ -27,7 +27,6 @@ use PHPUnit\Framework\TestCase;
 
 class PHPStanAnalyseCommandBuilderTest extends TestCase
 {
-
     /** @var PHPStanAnalyseCommandBuilder */
     private $builder;
 
@@ -53,18 +52,18 @@ class PHPStanAnalyseCommandBuilderTest extends TestCase
 
         $this->builder->build($task);
         $expectedCommand = <<< CMD
-Executing 'phpstan' with arguments:
-'analyse'
-'--configuration=anyConfiguration'
-'--level=anyLevel'
-'--no-progress'
-'--debug'
-'--autoload-file=anyAutoloadFile'
-'--error-format=anyErrorFormat'
-'--memory-limit=anyMemoryLimit'
-'path1 path2'
-The ' characters around the executable and arguments are not part of the command.
-CMD;
+            Executing 'phpstan' with arguments:
+            'analyse'
+            '--configuration=anyConfiguration'
+            '--level=anyLevel'
+            '--no-progress'
+            '--debug'
+            '--autoload-file=anyAutoloadFile'
+            '--error-format=anyErrorFormat'
+            '--memory-limit=anyMemoryLimit'
+            'path1 path2'
+            The ' characters around the executable and arguments are not part of the command.
+            CMD;
 
         $this->assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }

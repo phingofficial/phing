@@ -26,7 +26,6 @@ namespace Phing\Io;
  */
 class BufferedWriter extends Writer
 {
-
     /**
      * The size of the buffer in kb.
      */

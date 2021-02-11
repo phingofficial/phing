@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Filter;
+
 use Phing\Io\FilterReader;
 use Phing\Io\IOException;
 use Phing\Io\Reader;
@@ -32,7 +33,6 @@ use Phing\Project;
  */
 class BaseFilterReader extends FilterReader
 {
-
     /**
      * Have the parameters passed been interpreted?
      */

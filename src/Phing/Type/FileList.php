@@ -52,7 +52,6 @@ use Phing\Project;
  */
 class FileList extends DataType implements IteratorAggregate
 {
-
     // public for "cloning" purposes
 
     /**

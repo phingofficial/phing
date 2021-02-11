@@ -71,7 +71,7 @@ class RecorderTask extends Task implements SubBuildListener
         'warn' => 1,
         'info' => 2,
         'verbose' => 3,
-        'debug' => 4
+        'debug' => 4,
     ];
 
     /**

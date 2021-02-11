@@ -33,7 +33,6 @@ use Phing\Type\Commandline;
  */
 class SymfonyConsoleTask extends Task
 {
-
     /**
      *
      * @var SymfonyConsoleArg[] a collection of Arg objects
@@ -225,7 +224,7 @@ class SymfonyConsoleTask extends Task
         $cmd = [
             Commandline::quoteArgument($this->console),
             $this->command,
-            implode(' ', $this->args)
+            implode(' ', $this->args),
         ];
         $cmd = implode(' ', $cmd);
 

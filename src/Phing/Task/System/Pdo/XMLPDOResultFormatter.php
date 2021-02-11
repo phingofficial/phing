@@ -47,7 +47,6 @@ use Phing\Io\File;
  */
 class XMLPDOResultFormatter extends PDOResultFormatter
 {
-
     /**
      * The XML document being created.
      *

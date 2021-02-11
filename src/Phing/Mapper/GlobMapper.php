@@ -132,7 +132,7 @@ class GlobMapper implements FileNameMapper
             $this->toContainsStar
                 ? $this->extractVariablePart($sourceFileName) . $this->toPostfix
                 : ''
-            )
+            ),
         ];
     }
 

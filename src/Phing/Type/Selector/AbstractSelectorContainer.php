@@ -140,7 +140,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
             return $this->getRef($p)->getSelectors($p);
         }
 
-// *copy* selectors
+        // *copy* selectors
         $result = [];
         for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
             $result[] = clone $this->selectorsList[$i];

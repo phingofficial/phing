@@ -39,7 +39,6 @@ use Phing\Io\Reader;
  */
 class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Default line-breaking characters.
      *

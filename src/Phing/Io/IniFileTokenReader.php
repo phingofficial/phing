@@ -30,7 +30,6 @@ use Phing\Filter\Token;
  */
 class IniFileTokenReader extends TokenReader
 {
-
     /**
      * Holds the path to the INI file that is to be read.
      *

@@ -64,7 +64,7 @@ class RSTTask extends Task
         'man',
         'odt',
         's5',
-        'xml'
+        'xml',
     ];
 
     /**

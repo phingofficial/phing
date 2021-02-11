@@ -27,7 +27,6 @@ use Phing\Project;
  */
 class PatternSetNameEntry
 {
-
     /**
      * The pattern.
      *

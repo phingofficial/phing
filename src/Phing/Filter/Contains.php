@@ -18,13 +18,13 @@
  */
 
 namespace Phing\Filter;
+
 /**
  * Holds a contains element.
  *
  */
 class Contains
 {
-
     /**
      * @var string
      */

@@ -200,13 +200,13 @@ class TouchTask extends Task
     public function main()
     {
         $this->checkConfiguration();
-        $this->_touch();
+        $this->touch();
     }
 
     /**
      * Does the actual work.
      */
-    public function _touch()
+    private function touch()
     {
         if ($this->file !== null) {
             if (!$this->file->exists()) {

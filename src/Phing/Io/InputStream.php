@@ -25,7 +25,6 @@ namespace Phing\Io;
  */
 class InputStream
 {
-
     /**
      * @var resource The attached PHP stream.
      */

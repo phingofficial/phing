@@ -42,7 +42,6 @@ use Phing\Phing;
  */
 abstract class FileSystem
 {
-
     /**
      * @var int
      */
@@ -673,7 +672,6 @@ abstract class FileSystem
      */
     public function symlink($target, $link)
     {
-
         error_clear_last();
         // If Windows OS then symlink() will report it is not supported in
         // the build. Use this error instead of checking for Windows as the OS.

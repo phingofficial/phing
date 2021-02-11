@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Task\Optional;
+
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;

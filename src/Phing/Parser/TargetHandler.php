@@ -36,7 +36,6 @@ use Phing\Util\StringHelper;
  */
 class TargetHandler extends AbstractHandler
 {
-
     /**
      * Reference to the target object that represents the currently parsed
      * target.
@@ -233,7 +232,7 @@ class TargetHandler extends AbstractHandler
                     $extPointName,
                     $this->target->getName(),
                     $extensionPointMissing,
-                    null
+                    null,
                 ]);
             }
         }

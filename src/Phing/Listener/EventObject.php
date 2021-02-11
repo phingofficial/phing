@@ -18,13 +18,13 @@
  */
 
 namespace Phing\Listener;
+
 use Exception;
 
 /**
  */
 class EventObject
 {
-
     /**
      * The object on which the Event initially occurred.
      */

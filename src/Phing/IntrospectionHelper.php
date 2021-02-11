@@ -47,7 +47,6 @@ use ReflectionType;
  */
 class IntrospectionHelper
 {
-
     /**
      * Holds the attribute setter methods.
      *
@@ -599,7 +598,7 @@ class IntrospectionHelper
             return "$elClass (unknown)";
         }
 
-// ->getTag() method does exist, so use it
+        // ->getTag() method does exist, so use it
         $elName = $element->getTag();
         if (isset($taskdefs[$elName])) {
             return $taskdefs[$elName];

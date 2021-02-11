@@ -22,7 +22,6 @@ namespace Phing\Task\System;
 use Phing\Exception\BuildException;
 use Phing\Support\BuildFileTest;
 
-
 /**
  * Tests the Truncate Task
  *

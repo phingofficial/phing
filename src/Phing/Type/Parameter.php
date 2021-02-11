@@ -31,7 +31,6 @@ use Phing\Util\RegisterSlot;
  */
 class Parameter extends DataType
 {
-
     /**
      * Parameter name
      */

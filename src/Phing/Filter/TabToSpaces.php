@@ -41,7 +41,6 @@ use Phing\Io\Reader;
  */
 class TabToSpaces extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * The default tab length.
      *

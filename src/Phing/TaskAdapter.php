@@ -32,7 +32,6 @@ use Phing\Exception\BuildException;
  */
 class TaskAdapter extends Task implements TypeAdapter
 {
-
     /**
      * target object
      */

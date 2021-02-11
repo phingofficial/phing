@@ -31,7 +31,6 @@ use Phing\Util\StringHelper;
  */
 class ProjectHandler extends AbstractHandler
 {
-
     /**
      * The phing project configurator object.
      *

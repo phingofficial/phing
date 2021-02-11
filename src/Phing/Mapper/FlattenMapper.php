@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Mapper;
+
 use Phing\Io\File;
 
 /**

@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Task\Optional\Svn;
+
 use Phing\Task\Optional\Svn\AbstractSvnTaskTest;
 use Phing\Task\Optional\Svn\SvnTaskTestSkip;
 

@@ -41,7 +41,6 @@ use Phing\Io\Reader;
  */
 class PrefixLines extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Parameter name for the prefix.
      *

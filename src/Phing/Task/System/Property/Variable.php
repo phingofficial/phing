@@ -220,13 +220,13 @@ class Variable extends PropertyTask
 
             $value = $props->getProperty($name);
             $resolved = false;
-            $resolveStack = array();
+            $resolveStack = [];
 
             $ih = PropertyHelper::getPropertyHelper($this->project);
 
             while (!$resolved) {
-                $fragments = array();
-                $propertyRefs = array();
+                $fragments = [];
+                $propertyRefs = [];
 
                 // [HL] this was ::parsePropertyString($this->value ...) ... this seems wrong
                 $ih->parsePropertyString($value, $fragments, $propertyRefs);

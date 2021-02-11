@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Util;
+
 /**
  * Contains some shared attributes and methods -- and some abstract methods with
  * engine-specific implementations that sub-classes must override.
@@ -26,7 +27,6 @@ namespace Phing\Util;
  */
 interface RegexpEngine
 {
-
     /**
      * Sets whether or not regex operation should ingore case.
      *

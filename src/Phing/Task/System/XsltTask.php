@@ -35,7 +35,6 @@ use Phing\Type\FilterChain;
  */
 class XsltTask extends CopyTask
 {
-
     /**
      * @var XsltFilter object that we use to handle transformation.
      */

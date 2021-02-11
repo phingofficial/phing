@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Util;
+
 /**
  */
 class Character

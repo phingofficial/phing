@@ -69,7 +69,6 @@ use Phing\Type\Selector\WritableSelector;
  */
 abstract class MatchingTask extends Task implements SelectorContainer
 {
-
     /**
      * @var boolean
      */

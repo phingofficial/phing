@@ -41,7 +41,7 @@ class StatisticsReport
         "count",
         "average",
         "total",
-        "%"
+        "%",
     ];
 
     private static $TIME_FORMATTER;
@@ -84,7 +84,7 @@ class StatisticsReport
         $total = count($totalTimes);
         for ($i = 0; $i < $total; $i++) {
             $totalTime = $totalTimes[$i];
-            $round = round(100 * (double) $totalTime / $runningTotalTime);
+            $round = round(100 * (float) $totalTime / $runningTotalTime);
             $table->put($i + 1, self::$IDX_PERCENTAGE, (string) $round);
         }
     }
