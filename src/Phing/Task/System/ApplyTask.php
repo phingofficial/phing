@@ -113,11 +113,11 @@ class ApplyTask extends ExecTask
 
     protected $type = 'file';
     /**
-     * @var CommandlineMarker $targetFilePos
+     * @var CommandlineMarker
      */
     protected $targetFilePos;
     /**
-     * @var CommandlineMarker $srcFilePos
+     * @var CommandlineMarker
      */
     protected $srcFilePos;
     protected $srcIsFirst = true;
@@ -128,7 +128,7 @@ class ApplyTask extends ExecTask
     private $destDir;
 
     /**
-     * @var Mapper $mapperElement
+     * @var Mapper
      */
     private $mapperElement;
     private $additionalCmds;
@@ -436,8 +436,8 @@ class ApplyTask extends ExecTask
         $includedCount = (
             ($currentType !== self::$types['DIR']) ? $ds->getIncludedFilesCount() : 0
         ) + (
-                ($currentType !== self::$types['FILES']) ? $ds->getIncludedDirectoriesCount() : 0
-            );
+            ($currentType !== self::$types['FILES']) ? $ds->getIncludedDirectoriesCount() : 0
+        );
         $this->log(
             "Skipping fileset for directory " . $base . ". It is "
             . (($includedCount > 0) ? "up to date." : "empty."),

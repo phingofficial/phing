@@ -32,7 +32,7 @@ use Phing\Project;
 class IsPropertyTrueCondition extends ConditionBase implements Condition
 {
     /**
-     * @var string|null $property
+     * @var string|null
      */
     private $property = null;
 

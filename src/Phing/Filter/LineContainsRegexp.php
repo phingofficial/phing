@@ -67,12 +67,12 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     private $regexps = [];
 
     /**
-     * @var bool $negate
+     * @var bool
      */
     private $negate = false;
 
     /**
-     * @var bool $casesensitive
+     * @var bool
      */
     private $casesensitive = true;
 

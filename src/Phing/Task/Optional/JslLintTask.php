@@ -46,7 +46,7 @@ class JslLintTask extends Task
     protected $file; // the source file (from xml attribute)
 
     /**
-     * @var bool $showWarnings
+     * @var bool
      */
     protected $showWarnings = true;
 
@@ -71,7 +71,7 @@ class JslLintTask extends Task
     protected $hasWarnings = false;
 
     /**
-     * @var array $badFiles
+     * @var array
      */
     private $badFiles = [];
 

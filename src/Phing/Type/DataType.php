@@ -41,7 +41,7 @@ class DataType extends ProjectComponent
     /**
      * Value to the refid attribute.
      *
-     * @var Reference $ref
+     * @var Reference
      */
     private $ref;
 

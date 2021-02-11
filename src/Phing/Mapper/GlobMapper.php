@@ -32,42 +32,42 @@ class GlobMapper implements FileNameMapper
     /**
      * Part of &quot;from&quot; pattern before the <code>.*</code>.
      *
-     * @var string $fromPrefix
+     * @var string
      */
     private $fromPrefix = null;
 
     /**
      * Part of &quot;from&quot; pattern after the <code>.*</code>.
      *
-     * @var string $fromPostfix
+     * @var string
      */
     private $fromPostfix = null;
 
     /**
      * Length of the prefix (&quot;from&quot; pattern).
      *
-     * @var int $prefixLength
+     * @var int
      */
     private $prefixLength;
 
     /**
      * Length of the postfix (&quot;from&quot; pattern).
      *
-     * @var int $postfixLength
+     * @var int
      */
     private $postfixLength;
 
     /**
      * Part of &quot;to&quot; pattern before the <code>*.</code>.
      *
-     * @var string $toPrefix
+     * @var string
      */
     private $toPrefix = null;
 
     /**
      * Part of &quot;to&quot; pattern after the <code>*.</code>.
      *
-     * @var string $toPostfix
+     * @var string
      */
     private $toPostfix = null;
 

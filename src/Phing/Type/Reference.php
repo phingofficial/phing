@@ -30,12 +30,12 @@ use Phing\Project;
 class Reference
 {
     /**
-     * @var string $refid
+     * @var string
      */
     protected $refid;
 
     /**
-     * @var Project $project
+     * @var Project
      */
     private $project;
 

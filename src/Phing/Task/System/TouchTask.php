@@ -42,7 +42,7 @@ class TouchTask extends Task
     use FileSetAware;
 
     /**
-     * @var File $file
+     * @var File
      */
     private $file;
     private $seconds = -1;
@@ -51,7 +51,7 @@ class TouchTask extends Task
     private $mkdirs = false;
     private $verbose = true;
 
-    /** @var Mapper $mapperElement */
+    /** @var Mapper */
     private $mapperElement;
 
     public function __construct()

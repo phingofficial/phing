@@ -36,7 +36,7 @@ use Phing\Task\System\Condition\NestedCondition;
 class FailTask extends Task
 {
     /**
-     * @var string $message
+     * @var string
      */
     protected $message;
 

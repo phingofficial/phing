@@ -29,7 +29,7 @@ class Series
     private $stack;
 
     /**
-     * @var Duration[] $list
+     * @var Duration[]
      */
     private $list = [];
 

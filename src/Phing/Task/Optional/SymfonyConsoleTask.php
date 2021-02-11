@@ -72,7 +72,7 @@ class SymfonyConsoleTask extends Task
     private $debug = true;
 
     /**
-     * @var bool $silent
+     * @var bool
      */
     private $silent = false;
 

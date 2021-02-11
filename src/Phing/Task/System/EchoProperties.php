@@ -112,17 +112,17 @@ class EchoProperties extends Task
     private $failonerror = true;
 
     /**
-     * @var string $format
+     * @var string
      */
     private $format = "text";
 
     /**
-     * @var string $prefix
+     * @var string
      */
     private $prefix = '';
 
     /**
-     * @var string $regex
+     * @var string
      */
     private $regex = '';
 

@@ -35,17 +35,17 @@ abstract class ProjectComponent
      * Holds a reference to the project that a project component
      * (a task, a target, etc.) belongs to
      *
-     * @var Project $project A reference to the current project instance
+     * @var Project A reference to the current project instance
      */
     protected $project = null;
 
     /**
-     * @var Location $location
+     * @var Location
      */
     private $location;
 
     /**
-     * @var string $description
+     * @var string
      */
     private $description;
 

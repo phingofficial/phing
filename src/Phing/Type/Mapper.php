@@ -53,13 +53,13 @@ class Mapper extends DataType
     protected $to;
 
     /**
-     * @var Path $classpath
+     * @var Path
      */
     protected $classpath;
     protected $classpathId;
 
     /**
-     * @var ContainerMapper $container
+     * @var ContainerMapper
      */
     private $container = null;
 

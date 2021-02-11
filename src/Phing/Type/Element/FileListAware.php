@@ -24,7 +24,7 @@ use Phing\Type\FileList;
 trait FileListAware
 {
     /**
-     * @var FileList[] $filelists
+     * @var FileList[]
      */
     protected $filelists = [];
 

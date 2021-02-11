@@ -32,17 +32,17 @@ use Phing\Util\StringHelper;
 class Basename extends Task
 {
     /**
-     * @var File $file
+     * @var File
      */
     private $file;
 
     /**
-     * @var string $property
+     * @var string
      */
     private $property;
 
     /**
-     * @var string $suffix
+     * @var string
      */
     private $suffix;
 

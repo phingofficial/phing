@@ -45,7 +45,7 @@ use Phing\Task;
 class Dirname extends Task
 {
     /**
-     * @var File $file
+     * @var File
      */
     private $file;
     private $property;

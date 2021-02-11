@@ -41,7 +41,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     public $conditions = []; // needs to be public for "inner" class access
 
     /**
-     * @var string $taskName
+     * @var string
      */
     private $taskName = 'condition';
 

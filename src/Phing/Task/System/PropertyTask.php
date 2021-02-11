@@ -53,7 +53,7 @@ class PropertyTask extends Task
     protected $name;
 
     /**
-     * @var string $value of the property
+     * @var string of the property
      */
     protected $value;
 

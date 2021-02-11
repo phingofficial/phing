@@ -44,7 +44,7 @@ class FileHashTask extends Task
     /**
      * Property to be set
      *
-     * @var string $property
+     * @var string
      */
     private $propertyName = "filehashvalue";
 
@@ -53,11 +53,11 @@ class FileHashTask extends Task
      *   0 = MD5
      *   1 = SHA1
      *
-     * @var integer $hashtype
+     * @var integer
      */
     private $hashtype = 0;
 
-    /** @var string $algorithm */
+    /** @var string */
     private $algorithm = '';
 
     /**

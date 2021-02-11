@@ -86,18 +86,18 @@ class CopyTask extends Task
     protected $verbosity = Project::MSG_VERBOSE;
 
     /**
-     * @var int $mode
+     * @var int
      */
     protected $mode = 0; // mode to create directories with
 
     /**
-     * @var bool $haltonerror
+     * @var bool
      */
     protected $haltonerror = true; // stop build on errors
 
     protected $enableMultipleMappings = false;
 
-    /** @var int $granularity */
+    /** @var int */
     protected $granularity = 0;
 
     /**

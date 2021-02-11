@@ -32,7 +32,7 @@ use Phing\Util\StringHelper;
 class MapEntry
 {
     /**
-     * @var PathConvert $outer
+     * @var PathConvert
      */
     private $outer;
 

@@ -24,7 +24,7 @@ use Phing\Type\FilterChain;
 trait FilterChainAware
 {
     /**
-     * @var FilterChain[] $filterChains
+     * @var FilterChain[]
      */
     protected $filterChains = [];
 

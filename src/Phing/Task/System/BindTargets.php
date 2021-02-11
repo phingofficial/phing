@@ -32,10 +32,10 @@ use Phing\Task;
  */
 class BindTargets extends Task
 {
-    /** @var string $extensionPoint */
+    /** @var string */
     private $extensionPoint;
 
-    /** @var Target[] $targets */
+    /** @var Target[] */
     private $targets = [];
 
     private $onMissingExtensionPoint = 'fail';

@@ -34,21 +34,21 @@ class Retry extends Task implements TaskContainer
     /**
      * Task to execute n times.
      *
-     * @var Task $nestedTask
+     * @var Task
      */
     private $nestedTask;
 
     /**
      * Set retry count to 1 by default.
      *
-     * @var int $retryCount
+     * @var int
      */
     private $retryCount = 1;
 
     /**
      * The time to wait between retries in seconds, default to 0.
      *
-     * @var int $retryDelay
+     * @var int
      */
     private $retryDelay = 0;
 

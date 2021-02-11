@@ -55,7 +55,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      */
     private $prefix;
 
-    /** @var string|null $queuedData */
+    /** @var string|null */
     private $queuedData;
 
     /**

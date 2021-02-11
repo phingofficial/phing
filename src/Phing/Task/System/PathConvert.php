@@ -49,7 +49,7 @@ class PathConvert extends Task
     /**
      * Reference to path/fileset to convert
      *
-     * @var Reference $refid
+     * @var Reference
      */
     private $refid = null;
     /**

@@ -38,27 +38,27 @@ class RuntimeConfigurable
     private $elementTag = null;
 
     /**
-     * @var array $children
+     * @var array
      */
     private $children = [];
 
     /**
-     * @var object|Task $wrappedObject
+     * @var object|Task
      */
     private $wrappedObject = null;
 
     /**
-     * @var array $attributes
+     * @var array
      */
     private $attributes = [];
 
     /**
-     * @var string $characters
+     * @var string
      */
     private $characters = "";
 
     /**
-     * @var bool $proxyConfigured
+     * @var bool
      */
     private $proxyConfigured = false;
 

@@ -32,14 +32,14 @@ use Phing\Util\Regexp;
 class RegexpMapper implements FileNameMapper
 {
     /**
-     * @var string $to
+     * @var string
      */
     private $to;
 
     /**
      * The Regexp engine.
      *
-     * @var Regexp $reg
+     * @var Regexp
      */
     private $reg;
 

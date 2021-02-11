@@ -38,17 +38,17 @@ use Phing\Task\System\Condition\ConditionBase;
 class ConditionTask extends ConditionBase
 {
     /**
-     * @var string $property
+     * @var string
      */
     private $property;
 
     /**
-     * @var string $value
+     * @var string
      */
     private $value = "true";
 
     /**
-     * @var string $alternative
+     * @var string
      */
     private $alternative;
 

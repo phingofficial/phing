@@ -50,7 +50,7 @@ class LoadFileTask extends Task
     /**
      * Property to be set
      *
-     * @var string $property
+     * @var string
      */
     private $property;
 

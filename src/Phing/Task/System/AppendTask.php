@@ -91,12 +91,12 @@ class AppendTask extends Task
     private $filtering = true;
 
     /**
-     * @var TextElement $header
+     * @var TextElement
      */
     private $header;
 
     /**
-     * @var TextElement $footer
+     * @var TextElement
      */
     private $footer;
 

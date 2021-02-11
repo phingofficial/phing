@@ -32,7 +32,7 @@ use Phing\Util\StringHelper;
 class PropertyHelper
 {
     /**
-     * @var Project $project
+     * @var Project
      */
     private $project;
     private $next;

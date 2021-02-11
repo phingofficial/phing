@@ -105,7 +105,7 @@ class Phing
     /**
      * keep going mode
      *
-     * @var bool $keepGoingMode
+     * @var bool
      */
     private $keepGoingMode = false;
 
@@ -119,7 +119,7 @@ class Phing
     /**
      * Whether or not log output should be reduced to the minimum.
      *
-     * @var bool $silent
+     * @var bool
      */
     private $silent = false;
 

@@ -38,12 +38,12 @@ use Phing\Util\StringHelper;
 abstract class BaseSelector extends DataType implements FileSelector
 {
     /**
-     * @var string $errmsg
+     * @var string
      */
     private $errmsg = null;
 
     /**
-     * @var Exception $cause
+     * @var Exception
      */
     private $cause;
 

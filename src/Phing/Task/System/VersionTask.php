@@ -56,7 +56,7 @@ class VersionTask extends Task
     /**
      * Property for Releasetype
      *
-     * @var string $releasetype
+     * @var string
      */
     private $releasetype;
 
@@ -70,7 +70,7 @@ class VersionTask extends Task
     /**
      * Property to be set
      *
-     * @var string $property
+     * @var string
      */
     private $property;
 

@@ -26,7 +26,7 @@ use Phing\Type\Reference;
 trait ClasspathAware
 {
     /**
-     * @var Path $classpath
+     * @var Path
      */
     protected $classpath;
 

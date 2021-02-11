@@ -28,12 +28,12 @@ use Phing\Io\File;
 class PathElement
 {
     /**
-     * @var array $parts
+     * @var array
      */
     private $parts = [];
 
     /**
-     * @var Path $outer
+     * @var Path
      */
     private $outer;
 

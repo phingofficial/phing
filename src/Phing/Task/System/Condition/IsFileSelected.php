@@ -30,7 +30,7 @@ use Phing\Type\Selector\FileSelector;
 class IsFileSelected extends AbstractSelectorContainer implements Condition
 {
     /**
-     * @var File $file
+     * @var File
      */
     private $file;
     private $baseDir;

@@ -51,22 +51,22 @@ use Phing\Type\Path;
 class PathToFileSet extends Task
 {
     /**
-     * @var File $dir
+     * @var File
      */
     private $dir;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
     /**
-     * @var string $pathRefId
+     * @var string
      */
     private $pathRefId;
 
     /**
-     * @var bool $ignoreNonRelative
+     * @var bool
      */
     private $ignoreNonRelative = false;
 

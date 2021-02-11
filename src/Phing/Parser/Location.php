@@ -28,17 +28,17 @@ namespace Phing\Parser;
 class Location
 {
     /**
-     * @var null|string $fileName
+     * @var null|string
      */
     private $fileName;
 
     /**
-     * @var int|null $lineNumber
+     * @var int|null
      */
     private $lineNumber;
 
     /**
-     * @var int|null $columnNumber
+     * @var int|null
      */
     private $columnNumber;
 

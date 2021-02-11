@@ -32,22 +32,22 @@ use Phing\Type\Reference;
 class SortList extends AbstractPropertySetterTask
 {
     /**
-     * @var string $value
+     * @var string
      */
     private $value;
 
     /**
-     * @var Reference $ref
+     * @var Reference
      */
     private $ref;
 
     /**
-     * @var string $delimiter
+     * @var string
      */
     private $delimiter = ",";
 
     /**
-     * @var array $flags
+     * @var array
      */
     private static $allowedFlags = [
         'SORT_REGULAR',
@@ -59,7 +59,7 @@ class SortList extends AbstractPropertySetterTask
     ];
 
     /**
-     * @var string $flags
+     * @var string
      */
     private $flags = "";
 

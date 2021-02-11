@@ -27,7 +27,7 @@ namespace Phing\Task\System\Condition;
 class IsFailure implements Condition
 {
     /**
-     * @var int $code
+     * @var int
      */
     private $code;
 

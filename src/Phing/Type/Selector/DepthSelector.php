@@ -33,12 +33,12 @@ use Phing\Io\File;
 class DepthSelector extends BaseExtendSelector
 {
     /**
-     * @var int $min
+     * @var int
      */
     public $min = -1;
 
     /**
-     * @var int $max
+     * @var int
      */
     public $max = -1;
 

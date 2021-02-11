@@ -42,27 +42,27 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /**
      * The expression set from XML.
      *
-     * @var string $userProvidedExpression
+     * @var string
      */
     private $userProvidedExpression;
 
     /**
-     * @var Regexp $myExpression
+     * @var Regexp
      */
     private $myExpression;
 
     /**
-     * @var bool $casesensitive
+     * @var bool
      */
     private $casesensitive = true;
 
     /**
-     * @var bool $casesensitive
+     * @var bool
      */
     private $multiline = false;
 
     /**
-     * @var RegularExpression $myRegExp
+     * @var RegularExpression
      */
     private $myRegExp;
 

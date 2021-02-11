@@ -50,7 +50,7 @@ class PatchTask extends Task
     private $originalFile;
 
     /**
-     * @var File $directory
+     * @var File
      */
     private $directory;
 
@@ -62,12 +62,12 @@ class PatchTask extends Task
     private $failOnError = false;
 
     /**
-     * @var Commandline $cmd
+     * @var Commandline
      */
     private $cmd;
 
     /**
-     * @var bool $havePatchFile
+     * @var bool
      */
     private $havePatchFile = false;
 

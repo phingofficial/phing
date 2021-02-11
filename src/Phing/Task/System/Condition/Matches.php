@@ -31,27 +31,27 @@ use Phing\Type\RegularExpression;
 class Matches extends ProjectComponent implements Condition
 {
     /**
-     * @var string $string
+     * @var string
      */
     private $string;
 
     /**
-     * @var RegularExpression $regularExpression
+     * @var RegularExpression
      */
     private $regularExpression;
 
     /**
-     * @var bool $multiLine
+     * @var bool
      */
     private $multiLine = false;
 
     /**
-     * @var bool $caseSensitive
+     * @var bool
      */
     private $caseSensitive = true;
 
     /**
-     * @var string $modifiers
+     * @var string
      */
     private $modifiers;
 

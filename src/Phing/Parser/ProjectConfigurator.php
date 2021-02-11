@@ -49,7 +49,7 @@ class ProjectConfigurator
     public const PARSING_CONTEXT_REFERENCE = "phing.parsing.context";
 
     /**
-     * @var Project $project
+     * @var Project
      */
     public $project;
     public $locator;

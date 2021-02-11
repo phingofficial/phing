@@ -33,22 +33,22 @@ use Phing\Task;
 class DefaultExcludes extends Task
 {
     /**
-     * @var string $add
+     * @var string
      */
     private $add = "";
 
     /**
-     * @var string $remove
+     * @var string
      */
     private $remove = "";
 
     /**
-     * @var boolean $defaultrequested
+     * @var boolean
      */
     private $defaultrequested = false;
 
     /**
-     * @var boolean $echo
+     * @var boolean
      */
     private $echo = false;
 

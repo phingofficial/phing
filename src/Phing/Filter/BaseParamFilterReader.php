@@ -37,7 +37,7 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
     /**
      * The passed in parameter array.
      *
-     * @var array $parameters
+     * @var array
      */
     protected $parameters = [];
 

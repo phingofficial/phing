@@ -30,12 +30,12 @@ use Phing\Util\SizeHelper;
 class HasFreeSpaceCondition implements Condition
 {
     /**
-     * @var string $partition
+     * @var string
      */
     private $partition;
 
     /**
-     * @var string $needed
+     * @var string
      */
     private $needed;
 

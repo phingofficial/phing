@@ -68,7 +68,7 @@ class ForeachTask extends Task
     private $param;
 
     /**
-     * @var PropertyTask[] $params
+     * @var PropertyTask[]
      */
     private $params = [];
 
@@ -116,7 +116,7 @@ class ForeachTask extends Task
     private $total_dirs = 0;
 
     /**
-     * @var bool $trim
+     * @var bool
      */
     private $trim = false;
 
@@ -126,22 +126,22 @@ class ForeachTask extends Task
     private $inheritAll = false;
 
     /**
-     * @var bool $inheritRefs
+     * @var bool
      */
     private $inheritRefs = false;
 
     /**
-     * @var Path $currPath
+     * @var Path
      */
     private $currPath;
 
     /**
-     * @var PhingReference[] $references
+     * @var PhingReference[]
      */
     private $references = [];
 
     /**
-     * @var string $index
+     * @var string
      */
     private $index = 'index';
 

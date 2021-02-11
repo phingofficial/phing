@@ -34,21 +34,21 @@ class StopwatchTask extends DispatchTask
     /**
      * Name of the timer.
      *
-     * @var string $name
+     * @var string
      */
     private $name = '';
 
     /**
      * Category of the timer.
      *
-     * @var string $category optional
+     * @var string optional
      */
     private $category = '';
 
     /**
      * Holds an instance of Stopwatch.
      *
-     * @var Stopwatch $timer
+     * @var Stopwatch
      */
     private static $timer = null;
 

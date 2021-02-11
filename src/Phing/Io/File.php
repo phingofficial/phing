@@ -49,6 +49,8 @@ class File
      *
      * @throws IOException
      * @throws NullPointerException
+     * @param null|mixed $arg1
+     * @param null|mixed $arg2
      */
     public function __construct($arg1 = null, $arg2 = null)
     {

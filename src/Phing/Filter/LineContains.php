@@ -70,7 +70,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     private $contains = [];
 
     /**
-     * @var bool $negate
+     * @var bool
      */
     private $negate = false;
 

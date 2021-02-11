@@ -34,7 +34,7 @@ class MkdirTask extends Task
     /**
      * Directory to create.
      *
-     * @var File $dir
+     * @var File
      */
     private $dir;
 
