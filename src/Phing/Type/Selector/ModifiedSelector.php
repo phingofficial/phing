@@ -315,12 +315,10 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
         }
     }
 
-
     public function buildStarted(BuildEvent $event)
     {
         // do nothing
     }
-
 
     public function buildFinished(BuildEvent $event)
     {
@@ -396,12 +394,10 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
         $this->cacheClass = $classname;
     }
 
-
     public function targetStarted(BuildEvent $event)
     {
         // do nothing
     }
-
 
     public function targetFinished(BuildEvent $event)
     {
@@ -410,12 +406,10 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
         }
     }
 
-
     public function taskStarted(BuildEvent $event)
     {
         // do nothing
     }
-
 
     public function taskFinished(BuildEvent $event)
     {
@@ -423,7 +417,6 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
             $this->saveCache();
         }
     }
-
 
     public function messageLogged(BuildEvent $event)
     {

@@ -433,13 +433,10 @@ class XmlLogger implements BuildLogger
         $this->buildElement = $elem;
     }
 
-
-
     public function &getElementStack(): array
     {
         return $this->elementStack;
     }
-
 
     public function &getTimesStack(): array
     {

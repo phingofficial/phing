@@ -232,7 +232,6 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
         // Setup the locale/gettext environment
         $this->initEnvironment();
 
-
         // replace any occurrences of _("") or gettext("") with
         // the translated value.
         //

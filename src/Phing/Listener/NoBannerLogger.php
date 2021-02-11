@@ -29,19 +29,16 @@ class NoBannerLogger extends DefaultLogger
 {
     private $targetName = null;
 
-
     public function targetStarted(BuildEvent $event)
     {
         $target = $event->getTarget();
         $this->targetName = $target->getName();
     }
 
-
     public function targetFinished(BuildEvent $event)
     {
         $this->targetName = null;
     }
-
 
     public function messageLogged(BuildEvent $event)
     {

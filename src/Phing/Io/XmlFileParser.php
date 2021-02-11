@@ -33,18 +33,15 @@ class XmlFileParser implements FileParserInterface
     private $collapseAttr = true;
     private $delimiter = ',';
 
-
     public function setKeepRoot(bool $keepRoot): void
     {
         $this->keepRoot = $keepRoot;
     }
 
-
     public function setCollapseAttr(bool $collapseAttr): void
     {
         $this->collapseAttr = $collapseAttr;
     }
-
 
     public function setDelimiter(string $delimiter): void
     {

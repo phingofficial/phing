@@ -253,12 +253,10 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
         }
     }
 
-
     public function setMatchAny(bool $matchAny): void
     {
         $this->matchAny = $matchAny;
     }
-
 
     public function isMatchAny(): bool
     {

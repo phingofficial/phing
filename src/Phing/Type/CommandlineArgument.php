@@ -32,7 +32,6 @@ class CommandlineArgument
     private $outer;
     public $escape = false;
 
-
     public function __construct(Commandline $outer)
     {
         $this->outer = $outer;

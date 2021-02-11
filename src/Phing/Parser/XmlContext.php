@@ -86,7 +86,6 @@ class XmlContext
         array_pop($this->configurators);
     }
 
-
     public function getConfigurator()
     {
         $l = count($this->configurators);
@@ -120,7 +119,6 @@ class XmlContext
 
     /** Impoerted files */
     private $extensionPointStack = [];
-
 
     public function addExtensionPoint($elem)
     {
@@ -171,7 +169,6 @@ class XmlContext
         return $this->implicitTarget;
     }
 
-
     public function setImplicitTarget(Target $target)
     {
         $this->implicitTarget = $target;
@@ -184,7 +181,6 @@ class XmlContext
     {
         return $this->currentTarget;
     }
-
 
     public function setCurrentTarget(Target $target)
     {

@@ -44,7 +44,6 @@ class DateSelector extends BaseExtendSelector
     public const WHEN_KEY = "when";
     private static $timeComparisons = ["before", "after", "equal"];
 
-
     public function __construct()
     {
         parent::__construct();

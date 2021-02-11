@@ -110,7 +110,6 @@ class RecorderTask extends Task implements SubBuildListener
         $this->start = strtolower($action) === "start";
     }
 
-
     /**
      * Whether or not the logger should append to a previous file.
      *
@@ -120,7 +119,6 @@ class RecorderTask extends Task implements SubBuildListener
     {
         $this->append = $append;
     }
-
 
     /**
      * Set emacs mode.

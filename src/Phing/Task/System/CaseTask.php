@@ -38,7 +38,6 @@ class CaseTask extends SequentialTask
         $this->value = $value;
     }
 
-
     public function getValue()
     {
         return $this->value;

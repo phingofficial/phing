@@ -47,13 +47,11 @@ class PrintStream
         $this->textOut = new BufferedWriter(new OutputStreamWriter($out));
     }
 
-
     public function println($value)
     {
         $this->prints($value);
         $this->newLine();
     }
-
 
     public function prints($value)
     {
@@ -63,7 +61,6 @@ class PrintStream
 
         $this->write((string) $value);
     }
-
 
     private function newLine()
     {

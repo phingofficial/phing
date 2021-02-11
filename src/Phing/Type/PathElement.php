@@ -37,12 +37,10 @@ class PathElement
      */
     private $outer;
 
-
     public function __construct(Path $outer)
     {
         $this->outer = $outer;
     }
-
 
     public function setDir(File $loc)
     {

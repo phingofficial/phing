@@ -58,7 +58,6 @@ class Excludes extends DataType
      */
     private $methods = [];
 
-
     public function __construct(Project $project)
     {
         parent::__construct();

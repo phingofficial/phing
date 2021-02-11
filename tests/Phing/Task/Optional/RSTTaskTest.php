@@ -267,7 +267,6 @@ class RSTTaskTest extends BuildFileTest
         $this->assertFileCreated('files/single.html');
     }
 
-
     public function testMultipleMapper()
     {
         $this->executeTarget(__FUNCTION__);
@@ -283,7 +282,6 @@ class RSTTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
     }
 
-
     public function testFilterChain()
     {
         $this->executeTarget(__FUNCTION__);
@@ -293,7 +291,6 @@ class RSTTaskTest extends BuildFileTest
         $this->assertStringContainsString('This is a bar.', $cont);
         unlink($file);
     }
-
 
     public function testCustomParameter()
     {

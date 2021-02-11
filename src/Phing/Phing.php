@@ -1091,7 +1091,6 @@ class Phing
         }
     }
 
-
     /**
      * Returns buildfile's path
      *
@@ -1126,7 +1125,6 @@ class Phing
 
         throw new ConfigurationException('Invalid path for sample buildfile.');
     }
-
 
     /**
      * Writes sample buildfile

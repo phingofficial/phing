@@ -355,7 +355,6 @@ class Path extends DataType
         return $preserveDuplicates ? $result : array_unique($result);
     }
 
-
     /**
      * Returns a textual representation of the path, which can be used as
      * CLASSPATH or PATH environment variable definition.

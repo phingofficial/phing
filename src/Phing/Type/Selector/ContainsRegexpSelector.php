@@ -108,7 +108,6 @@ class ContainsRegexpSelector extends BaseExtendSelector
         $this->casesensitive = $casesensitive;
     }
 
-
     public function setMultiline(bool $multiline): void
     {
         $this->multiline = $multiline;

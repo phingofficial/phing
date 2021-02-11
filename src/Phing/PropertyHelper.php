@@ -266,7 +266,6 @@ class PropertyHelper
     // Methods used to support the default behavior and provide backward
     // compatibility. Some will be deprecated, you should avoid calling them.
 
-
     /**
      * Default implementation of setProperty. Will be called from Project.
      *  This is the original 1.5 implementation, with calls to the hook
@@ -464,7 +463,6 @@ class PropertyHelper
         }
         return $this->userProperties[$name] ?? null;
     }
-
 
     // -------------------- Access to property tables  --------------------
     // This is used to support ant call and similar tasks. It should be

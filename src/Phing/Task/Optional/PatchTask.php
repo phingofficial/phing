@@ -240,7 +240,6 @@ class PatchTask extends Task
         $this->failOnError = $value;
     }
 
-
     public function setHaltOnFailure(string $value)
     {
         $this->failOnError = $value;

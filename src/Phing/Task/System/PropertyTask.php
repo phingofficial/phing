@@ -208,7 +208,6 @@ class PropertyTask extends Task
         return $this->file;
     }
 
-
     public function setRefid(Reference $ref): void
     {
         $this->reference = $ref;
@@ -349,7 +348,6 @@ class PropertyTask extends Task
     {
         $this->quiet = $bool;
     }
-
 
     public function getQuiet(): bool
     {

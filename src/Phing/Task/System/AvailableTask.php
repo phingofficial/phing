@@ -85,7 +85,6 @@ class AvailableTask extends Task implements Condition
         $this->value = (string) $value;
     }
 
-
     public function setFile(File $file)
     {
         $this->file = $file;

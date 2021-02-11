@@ -68,7 +68,6 @@ class SortList extends AbstractPropertySetterTask
         $this->value = $value;
     }
 
-
     public function setRefid(Reference $ref)
     {
         $this->ref = $ref;

@@ -69,7 +69,6 @@ class XsltTask extends CopyTask
         parent::main();
     }
 
-
     public function setHtml(bool $isHtml)
     {
         $this->xsltFilter->setHtml($isHtml);

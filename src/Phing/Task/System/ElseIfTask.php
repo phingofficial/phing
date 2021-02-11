@@ -61,7 +61,6 @@ class ElseIfTask extends ConditionBase
         return $c->evaluate();
     }
 
-
     public function main()
     {
         if ($this->thenTasks != null) {

@@ -102,7 +102,6 @@ class Parameter extends DataType
         return $this->type;
     }
 
-
     public function getValue()
     {
         if ($this->value instanceof RegisterSlot) {

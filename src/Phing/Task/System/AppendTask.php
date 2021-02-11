@@ -108,7 +108,6 @@ class AppendTask extends Task
 
     private $eolString;
 
-
     public function setFiltering(bool $filtering)
     {
         $this->filtering = $filtering;

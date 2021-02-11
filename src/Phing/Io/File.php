@@ -294,7 +294,6 @@ class File
         return new File((string) $this->getAbsolutePath());
     }
 
-
     /**
      * Returns the canonical pathname string of this abstract pathname.
      *
@@ -325,7 +324,6 @@ class File
 
         return $fs->canonicalize($this->path);
     }
-
 
     /**
      * Returns the canonical form of this abstract pathname.  Equivalent to

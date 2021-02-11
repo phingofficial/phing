@@ -199,7 +199,6 @@ abstract class FileSystem
         // but we need to be sure
         @clearstatcache();
 
-
         // Shouldn't this be $f->GetAbsolutePath() ?
         // And why doesn't GetAbsolutePath() work?
 

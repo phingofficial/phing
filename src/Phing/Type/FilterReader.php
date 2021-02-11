@@ -102,7 +102,6 @@ class FilterReader extends DataType
         $o->setRefid($r);
     }
 
-
     public function addParam(Parameter $param)
     {
         $this->parameters[] = $param;

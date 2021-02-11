@@ -63,7 +63,6 @@ class Mapper extends DataType
      */
     private $container = null;
 
-
     public function __construct(Project $project)
     {
         parent::__construct();

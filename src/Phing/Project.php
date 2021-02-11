@@ -1095,12 +1095,10 @@ class Project
         }
     }
 
-
     public function addBuildListener(BuildListener $listener)
     {
         $this->listeners[] = $listener;
     }
-
 
     public function removeBuildListener(BuildListener $listener)
     {

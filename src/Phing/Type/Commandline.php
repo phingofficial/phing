@@ -127,7 +127,6 @@ class Commandline implements Countable
         return $this->executable;
     }
 
-
     public function addArguments(array $arguments)
     {
         foreach ($arguments as $arg) {

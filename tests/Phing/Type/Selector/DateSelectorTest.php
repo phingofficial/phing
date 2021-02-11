@@ -35,7 +35,6 @@ class DateSelectorTest extends BuildFileTest
 
     private static $fileStateMsgs = [];
 
-
     /**
      * {@inheritDoc}
      * @see \PHPUnit\Framework\TestCase::setUpBeforeClass()
@@ -353,7 +352,6 @@ class DateSelectorTest extends BuildFileTest
         $this->assertFileDoesNotExist($this->outputDir . basename($afterFile), self::getFileStateMsg('After', true));
         $this->assertFileExists($this->outputDir . basename($nowFile), self::getFileStateMsg('Now', false));
     }
-
 
     /*
      * Test using millis attribute with when set to after

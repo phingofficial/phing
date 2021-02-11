@@ -237,7 +237,6 @@ class RecorderEntry implements BuildLogger, SubBuildListener
         $this->log($buf, $event->getPriority());
     }
 
-
     /**
      * The thing that actually sends the information to the output.
      *

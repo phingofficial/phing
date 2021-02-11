@@ -76,144 +76,120 @@ class FilterChain extends DataType
         return $this->filterReaders;
     }
 
-
     public function addConcatFilter(ConcatFilter $o)
     {
         $this->add($o);
     }
-
 
     public function addExpandProperties(ExpandProperties $o)
     {
         $this->add($o);
     }
 
-
     public function addGettext(TranslateGettext $o)
     {
         $this->add($o);
     }
-
 
     public function addHeadFilter(HeadFilter $o)
     {
         $this->add($o);
     }
 
-
     public function addIconvFilter(IconvFilter $o)
     {
         $this->add($o);
     }
-
 
     public function addTailFilter(TailFilter $o)
     {
         $this->add($o);
     }
 
-
     public function addLineContains(LineContains $o)
     {
         $this->add($o);
     }
-
 
     public function addLineContainsRegExp(LineContainsRegexp $o)
     {
         $this->add($o);
     }
 
-
     public function addPrefixLines(PrefixLines $o)
     {
         $this->add($o);
     }
-
 
     public function addSuffixLines(SuffixLines $o)
     {
         $this->add($o);
     }
 
-
     public function addEscapeUnicode(EscapeUnicode $o)
     {
         $this->add($o);
     }
-
 
     public function addPhpArrayMapLines(PhpArrayMapLines $o)
     {
         $this->add($o);
     }
 
-
     public function addReplaceTokens(ReplaceTokens $o)
     {
         $this->add($o);
     }
-
 
     public function addReplaceTokensWithFile(ReplaceTokensWithFile $o)
     {
         $this->add($o);
     }
 
-
     public function addReplaceRegexp(ReplaceRegexp $o)
     {
         $this->add($o);
     }
-
 
     public function addStripPhpComments(StripPhpComments $o)
     {
         $this->add($o);
     }
 
-
     public function addStripLineBreaks(StripLineBreaks $o)
     {
         $this->add($o);
     }
-
 
     public function addStripLineComments(StripLineComments $o)
     {
         $this->add($o);
     }
 
-
     public function addStripWhitespace(StripWhitespace $o)
     {
         $this->add($o);
     }
-
 
     public function addTidyFilter(TidyFilter $o)
     {
         $this->add($o);
     }
 
-
     public function addTabToSpaces(TabToSpaces $o)
     {
         $this->add($o);
     }
-
 
     public function addXincludeFilter(XincludeFilter $o)
     {
         $this->add($o);
     }
 
-
     public function addXsltFilter(XsltFilter $o)
     {
         $this->add($o);
     }
-
 
     public function addFilterReader(FilterReader $o)
     {
@@ -221,12 +197,10 @@ class FilterChain extends DataType
         $this->filterReaders[] = $o;
     }
 
-
     public function addSortFilter(SortFilter $o)
     {
         $this->add($o);
     }
-
 
     public function addClassConstants(ClassConstants $o)
     {

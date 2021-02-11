@@ -51,7 +51,6 @@ class ThrowTask extends FailTask
         parent::main();
     }
 
-
     public function setRefid(Reference $ref)
     {
         $this->reference = $ref;

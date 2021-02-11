@@ -31,7 +31,6 @@ class WindowsFileSystem extends FileSystem
 
     private static $driveDirCache = [];
 
-
     public function __construct()
     {
         $this->slash = self::getSeparator();
@@ -452,7 +451,6 @@ class WindowsFileSystem extends FileSystem
 
         return ($pl === 3) ? substr($path, 0, 2) : null;
     }
-
 
     public function resolveFile(File $f)
     {

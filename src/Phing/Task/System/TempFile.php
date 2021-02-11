@@ -103,7 +103,6 @@ class TempFile extends Task
         }
     }
 
-
     /**
      * Sets the optional prefix string for the temp file.
      *
@@ -113,7 +112,6 @@ class TempFile extends Task
     {
         $this->prefix = $prefix;
     }
-
 
     /**
      * Sets the optional suffix string for the temp file.

@@ -54,7 +54,6 @@ class TouchTask extends Task
     /** @var Mapper $mapperElement */
     private $mapperElement;
 
-
     public function __construct()
     {
         parent::__construct();

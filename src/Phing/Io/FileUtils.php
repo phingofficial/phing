@@ -194,7 +194,6 @@ class FileUtils
         }
     }
 
-
     /**
      * Attempts to rename a file from a source to a destination.
      * If overwrite is set to true, this method overwrites existing file even if the destination file is newer.
@@ -396,7 +395,6 @@ class FileUtils
             }
             $sb .= (string) $s[$i];
         }
-
 
         $path = (string) $sb;
         if ($dosWithDrive === true) {

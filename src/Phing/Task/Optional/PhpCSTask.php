@@ -51,7 +51,6 @@ class PhpCSTask extends Task
      */
     protected $files = [];
 
-
     /** @var Commandline */
     private $cmd;
 
@@ -79,30 +78,25 @@ class PhpCSTask extends Task
         return $this->cmd;
     }
 
-
     public function setCache(bool $cache): void
     {
         $this->cache = $cache;
     }
-
 
     public function setIgnoreAnnotations(bool $ignore): void
     {
         $this->ignoreAnnotations = $ignore;
     }
 
-
     public function setCheckreturn(bool $checkreturn): void
     {
         $this->checkreturn = $checkreturn;
     }
 
-
     public function setBin(string $bin): void
     {
         $this->bin = $bin;
     }
-
 
     public function setFile(File $file): void
     {

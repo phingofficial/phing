@@ -42,7 +42,6 @@ class RegularExpression extends DataType
      */
     private $regexp = null;
 
-
     public function __construct()
     {
         parent::__construct();

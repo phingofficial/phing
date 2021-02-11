@@ -38,7 +38,6 @@ class FilterReader extends Reader
         $this->in = $in;
     }
 
-
     public function setReader(Reader $in)
     {
         $this->in = $in;

@@ -412,7 +412,6 @@ class PatternSet extends DataType
         }
     }
 
-
     public function __toString(): string
     {
         return sprintf(
