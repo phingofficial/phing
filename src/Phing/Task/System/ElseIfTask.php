@@ -32,7 +32,6 @@ class ElseIfTask extends ConditionBase
     private $thenTasks = null;
 
     /**
-     * @param SequentialTask $t
      * @throws BuildException
      */
     public function addThen(SequentialTask $t)
@@ -62,9 +61,7 @@ class ElseIfTask extends ConditionBase
         return $c->evaluate();
     }
 
-    /**
-     *
-     */
+
     public function main()
     {
         if ($this->thenTasks != null) {

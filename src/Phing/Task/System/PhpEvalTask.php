@@ -86,9 +86,7 @@ class PhpEvalTask extends Task
     /**
      * Simplifies a Parameter object of arbitrary complexity into string or
      * array, retaining only the value of the parameter
-     * @param Parameter $param
      *
-     * @return mixed
      */
     protected function simplifyParameter(Parameter $param)
     {

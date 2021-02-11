@@ -39,7 +39,6 @@ class IsPropertyFalseCondition extends ConditionBase implements Condition
     /**
      * @param string $property
      *
-     * @return void
      */
     public function setProperty($property)
     {

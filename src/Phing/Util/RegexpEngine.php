@@ -31,7 +31,6 @@ interface RegexpEngine
      * Sets whether or not regex operation should ingore case.
      *
      * @param  boolean $bit
-     * @return void
      */
     public function setIgnoreCase($bit);
 

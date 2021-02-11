@@ -64,7 +64,6 @@ class DepthSelector extends BaseExtendSelector
      *
      * @param int $min minimum directory levels below basedir to go
      *
-     * @return void
      */
     public function setMin($min)
     {
@@ -76,7 +75,6 @@ class DepthSelector extends BaseExtendSelector
      *
      * @param int $max maximum directory levels below basedir to go
      *
-     * @return void
      */
     public function setMax($max)
     {
@@ -91,7 +89,6 @@ class DepthSelector extends BaseExtendSelector
      *
      * @param array $parameters the complete set of parameters for this selector
      *
-     * @return void
      */
     public function setParameters(array $parameters): void
     {
@@ -120,7 +117,6 @@ class DepthSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @return void
      */
     public function verifySettings()
     {

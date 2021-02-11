@@ -303,7 +303,6 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Creates a new ReplaceTokens using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
      * @return ReplaceTokens A new filter based on this configuration, but filtering
      *                the specified reader
      * @throws Exception

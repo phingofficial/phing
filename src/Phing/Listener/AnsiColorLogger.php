@@ -202,7 +202,6 @@ class AnsiColorLogger extends DefaultLogger
     /**
      * @see   DefaultLogger#printMessage
      * @param string       $message
-     * @param OutputStream $stream
      * @param int          $priority
      */
     final protected function printMessage($message, OutputStream $stream, $priority)

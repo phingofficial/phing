@@ -110,7 +110,6 @@ class GlobMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     * @param mixed $sourceFileName
      * @return array|null
      */
     public function main($sourceFileName)
@@ -129,7 +128,7 @@ class GlobMapper implements FileNameMapper
         }
         return [
             $this->toPrefix . (
-            $this->toContainsStar
+                $this->toContainsStar
                 ? $this->extractVariablePart($sourceFileName) . $this->toPostfix
                 : ''
             ),
@@ -140,7 +139,6 @@ class GlobMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $from
-     * @return void
      */
     public function setFrom($from)
     {
@@ -167,7 +165,6 @@ class GlobMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $to
-     * @return void
      */
     public function setTo($to)
     {

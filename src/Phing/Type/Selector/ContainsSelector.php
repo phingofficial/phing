@@ -99,7 +99,6 @@ class ContainsSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
-     * @return void
      */
     public function setParameters(array $parameters): void
     {
@@ -139,9 +138,7 @@ class ContainsSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param File $basedir
      * @param string $filename
-     * @param File $file
      *
      * @return bool whether the file should be selected or not
      * @throws BuildException

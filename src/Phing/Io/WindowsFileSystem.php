@@ -23,8 +23,6 @@ use InvalidArgumentException;
 use Phing\Phing;
 use Phing\Util\StringHelper;
 
-/**
- */
 class WindowsFileSystem extends FileSystem
 {
     protected $slash;
@@ -33,9 +31,7 @@ class WindowsFileSystem extends FileSystem
 
     private static $driveDirCache = [];
 
-    /**
-     *
-     */
+
     public function __construct()
     {
         $this->slash = self::getSeparator();
@@ -376,7 +372,6 @@ class WindowsFileSystem extends FileSystem
     /* -- Path operations -- */
 
     /**
-     * @param File $f
      * @return bool
      */
     public function isAbsolute(File $f)
@@ -458,9 +453,7 @@ class WindowsFileSystem extends FileSystem
         return ($pl === 3) ? substr($path, 0, 2) : null;
     }
 
-    /**
-     * @param File $f
-     */
+
     public function resolveFile(File $f)
     {
         $path = $f->getPath();
@@ -527,8 +520,6 @@ class WindowsFileSystem extends FileSystem
     /**
      * compares file paths lexicographically
      *
-     * @param File $f1
-     * @param File $f2
      * @return int
      */
     public function compare(File $f1, File $f2)

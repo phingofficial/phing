@@ -21,8 +21,6 @@ namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
 
-/**
- */
 class TstampCustomFormat
 {
     private $propertyName = "";

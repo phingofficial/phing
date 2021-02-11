@@ -123,7 +123,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * You must not set another attribute or nest elements inside
      * this element if you make it a reference.
      *
-     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -159,7 +158,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     /**
      * @param Project $p
-     * @return mixed
      * @throws BuildException
      */
     public function getDir(Project $p = null)
@@ -176,7 +174,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * @return mixed
      * @throws BuildException
      */
     public function createPatternSet()
@@ -310,7 +307,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * @param bool $useDefaultExcludes "true"|"on"|"yes" when default exclusions
      *                           should be used, "false"|"off"|"no" when they
      *                           shouldn't be used.
-     * @return void
      * @throws BuildException
      */
     public function setDefaultexcludes($useDefaultExcludes)
@@ -376,7 +372,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * feed dirscanner with infos defined by this fileset
      *
-     * @param DirectoryScanner $ds
      * @param Project $p
      * @throws BuildException
      */
@@ -448,7 +443,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Performs the check for circular references and returns the
      * referenced FileSet.
      *
-     * @param Project $p
      *
      * @return FileSet
      * @throws BuildException
@@ -526,7 +520,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Returns the set of selectors as an array.
      *
-     * @param Project $p
      * @return array of selectors in this container
      * @throws BuildException
      */
@@ -564,7 +557,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      *
      * @param FileSelector $selector new selector to add
      *
-     * @return void
      * @throws BuildException
      *
      */
@@ -580,7 +572,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     /**
      * @param array ...$options
-     * @return ArrayIterator
      */
     public function getIterator(...$options): ArrayIterator
     {

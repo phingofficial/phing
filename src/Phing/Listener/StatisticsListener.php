@@ -121,7 +121,6 @@ class StatisticsListener implements SubBuildListener
     }
 
     /**
-     * @param  BuildEvent $buildEvent
      * @return SeriesTimer
      */
     private function findTargetTimer(BuildEvent $buildEvent)
@@ -133,7 +132,6 @@ class StatisticsListener implements SubBuildListener
     }
 
     /**
-     * @param  BuildEvent $buildEvent
      * @return SeriesTimer
      */
     private function findTaskTimer(BuildEvent $buildEvent)

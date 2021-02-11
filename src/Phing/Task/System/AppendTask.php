@@ -108,9 +108,7 @@ class AppendTask extends Task
 
     private $eolString;
 
-    /**
-     * @param bool $filtering
-     */
+
     public function setFiltering(bool $filtering)
     {
         $this->filtering = $filtering;
@@ -127,9 +125,7 @@ class AppendTask extends Task
     /**
      * The more conventional naming for method to set destination file.
      *
-     * @param File $f
      *
-     * @return void
      */
     public function setDestFile(File $f)
     {
@@ -174,7 +170,6 @@ class AppendTask extends Task
     /**
      * Sets specific file to append.
      *
-     * @param File $f
      */
     public function setFile(File $f)
     {
@@ -193,7 +188,6 @@ class AppendTask extends Task
      *
      * @param string $txt
      *
-     * @return void
      */
     public function setText($txt)
     {
@@ -205,7 +199,6 @@ class AppendTask extends Task
      *
      * @param string $txt
      *
-     * @return void
      */
     public function addText($txt)
     {
@@ -382,7 +375,6 @@ class AppendTask extends Task
      * @param array $files array of files to delete; can be of zero length
      * @param File $dir directory to work from
      *
-     * @return void
      */
     private function appendFiles(Writer $writer, $files, File $dir = null)
     {
@@ -458,9 +450,7 @@ class AppendTask extends Task
 
     /**
      * @param FileWriter $writer
-     * @param File $f
      *
-     * @return void
      */
     private function appendFile(Writer $writer, File $f)
     {

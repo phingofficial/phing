@@ -28,9 +28,7 @@ trait FilterChainAware
      */
     protected $filterChains = [];
 
-    /**
-     * @param FilterChain $filterChain
-     */
+
     public function addFilterChain(FilterChain $filterChain)
     {
         $this->filterChains[] = $filterChain;

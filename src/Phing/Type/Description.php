@@ -82,7 +82,6 @@ class Description extends DataType
      * Adds descriptive text to the project.
      *
      * @param string $text
-     * @return void
      */
     public function addText($text)
     {

@@ -21,8 +21,6 @@ namespace Phing\Exception;
 
 use Exception;
 
-/**
- */
 class SecurityException extends Exception
 {
 }

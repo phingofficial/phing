@@ -65,7 +65,6 @@ class PregEngine implements RegexpEngine
      * Sets pattern modifiers for regex engine
      *
      * @param  string $mods Modifiers to be applied to a given regex
-     * @return void
      */
     public function setModifiers($mods)
     {
@@ -101,7 +100,6 @@ class PregEngine implements RegexpEngine
      * Sets whether or not regex operation is case sensitive.
      *
      * @param  boolean $bit
-     * @return void
      */
     public function setIgnoreCase($bit)
     {

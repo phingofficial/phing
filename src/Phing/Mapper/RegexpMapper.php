@@ -92,7 +92,6 @@ class RegexpMapper implements FileNameMapper
      *
      * @param string $from
      *
-     * @return void
      */
     public function setFrom($from)
     {
@@ -110,7 +109,6 @@ class RegexpMapper implements FileNameMapper
      *
      * @param string $to
      *
-     * @return void
      *
      * @intern [HL] I'm changing the way this works for now to just use string
      *              <code>$this->to = StringHelper::toCharArray($to);</code>
@@ -127,7 +125,6 @@ class RegexpMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     * @param mixed $sourceFileName
      *
      * @return array|null
      */

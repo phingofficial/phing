@@ -98,7 +98,7 @@ class HipchatTask extends Task
     }
 
     /**
-     * @return String
+     * @return string
      */
     public function getFormat()
     {

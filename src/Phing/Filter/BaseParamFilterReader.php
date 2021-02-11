@@ -48,7 +48,6 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
      * @param array $parameters Array of parameters to be used by this filter.
      *              Should not be <code>null</code>.
      *
-     * @return void
      *
      * @throws Exception
      */

@@ -82,7 +82,6 @@ class Reference
     /**
      * returns reference to object in references container of project
      *
-     * @param Project|null $fallback
      *
      * @return object
      */

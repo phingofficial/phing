@@ -221,7 +221,6 @@ class UnixFileSystem extends FileSystem
     }
 
     /**
-     * @param File $f
      *
      * @return bool
      */
@@ -233,7 +232,6 @@ class UnixFileSystem extends FileSystem
     /**
      * the file resolver
      *
-     * @param File $f
      *
      * @return string
      */
@@ -254,8 +252,6 @@ class UnixFileSystem extends FileSystem
     /**
      * compares file paths lexicographically
      *
-     * @param File $f1
-     * @param File $f2
      * @return int
      */
     public function compare(File $f1, File $f2)
@@ -272,7 +268,6 @@ class UnixFileSystem extends FileSystem
      * @param File $src Source path and name file to copy.
      * @param File $dest Destination path and name of new file.
      *
-     * @return void
      * @throws Exception if file cannot be copied.
      */
     public function copy(File $src, File $dest)
@@ -309,7 +304,6 @@ class UnixFileSystem extends FileSystem
     /**
      * Whether file can be deleted.
      *
-     * @param File $f
      * @return boolean
      */
     public function canDelete(File $f)

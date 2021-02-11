@@ -149,7 +149,6 @@ class ForeachTask extends Task
      * This method does the work.
      *
      * @throws BuildException
-     * @return void
      */
     public function main()
     {
@@ -259,8 +258,6 @@ class ForeachTask extends Task
     /**
      * Processes a list of files & directories
      *
-     * @param PhingCallTask $callee
-     * @param File $fromDir
      * @param array $srcFiles
      * @param array $srcDirs
      */
@@ -284,9 +281,6 @@ class ForeachTask extends Task
     }
 
     /**
-     * @param int $rescount
-     * @param array $srcRes
-     * @param PhingCallTask $callee
      * @param string $fromDir
      * @param FileNameMapper $mapper
      * @throws IOException

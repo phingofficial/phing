@@ -46,8 +46,6 @@ class File
     /**
      * constructor
      *
-     * @param mixed $arg1
-     * @param mixed $arg2
      *
      * @throws IOException
      * @throws NullPointerException
@@ -83,7 +81,6 @@ class File
     /* -- constructors not called by signature match, so we need some helpers --*/
 
     /**
-     * @param string $pathname
      *
      * @throws IOException
      */
@@ -96,8 +93,6 @@ class File
     }
 
     /**
-     * @param string $parent
-     * @param string $child
      * @throws IOException
      */
     protected function constructStringParentStringChild(string $parent, string $child): void
@@ -114,8 +109,6 @@ class File
     }
 
     /**
-     * @param File $parent
-     * @param string $child
      * @throws IOException
      */
     protected function constructFileParentStringChild(File $parent, string $child): void

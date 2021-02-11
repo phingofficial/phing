@@ -141,7 +141,6 @@ abstract class FileSystem
      * Resolve the given abstract pathname into absolute form.  Invoked by the
      * getAbsolutePath and getCanonicalPath methods in the PhingFile class.
      *
-     * @param File $f
      */
     abstract public function resolveFile(File $f);
 
@@ -167,7 +166,6 @@ abstract class FileSystem
     /**
      * Tell whether or not the given abstract pathname is absolute.
      *
-     * @param File $f
      */
     abstract public function isAbsolute(File $f);
 
@@ -192,7 +190,6 @@ abstract class FileSystem
      * access is made.  Return false if access is denied or an I/O error
      * occurs.
      *
-     * @param  File    $f
      * @param  boolean $write
      * @return bool
      */
@@ -229,7 +226,6 @@ abstract class FileSystem
     /**
      * Whether file can be deleted.
      *
-     * @param  File $f
      * @return boolean
      */
     public function canDelete(File $f)
@@ -245,7 +241,6 @@ abstract class FileSystem
      * abstract pathname was last modified, or zero if it does not exist or
      * some other I/O error occurs.
      *
-     * @param  File $f
      * @return int
      * @throws IOException
      */
@@ -286,7 +281,6 @@ abstract class FileSystem
      * pathname, or zero if it does not exist, is a directory, or some other
      * I/O error occurs.
      *
-     * @param  File $f
      * @return int
      * @throws IOException
      */
@@ -340,7 +334,6 @@ abstract class FileSystem
      * Delete the file or directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
      *
-     * @param  File    $f
      * @param  boolean $recursive
      * @throws IOException
      */
@@ -358,7 +351,6 @@ abstract class FileSystem
      * pathname to be deleted when Phing::shutdown is called, returning
      * true if and only if the operation succeeds.
      *
-     * @param  File $f
      * @throws IOException
      */
     public function deleteOnExit(File $f)
@@ -411,7 +403,6 @@ abstract class FileSystem
      *
      * @param  File $f1 abstract source file
      * @param  File $f2 abstract destination file
-     * @return void
      * @throws IOException if rename cannot be performed
      */
     public function rename(File $f1, File $f2)
@@ -433,9 +424,7 @@ abstract class FileSystem
      * given abstract pathname returning true if and only if the
      * operation succeeds.
      *
-     * @param  File $f
      * @param  int  $time
-     * @return void
      * @throws IOException
      */
     public function setLastModifiedTime(File $f, $time)
@@ -455,8 +444,6 @@ abstract class FileSystem
     /**
      * Compare two abstract pathnames lexicographically.
      *
-     * @param  File $f1
-     * @param  File $f2
      * @return int
      * @throws IOException
      */
@@ -471,7 +458,6 @@ abstract class FileSystem
      * @param File $src  Source path and name file to copy.
      * @param File $dest Destination path and name of new file.
      *
-     * @return void
      *
      * @throws IOException if file cannot be copied.
      */
@@ -549,7 +535,6 @@ abstract class FileSystem
      * @param string $pathname Path and name of file or directory.
      * @param string $user     The user name or number of the file or directory. See http://us.php.net/chown
      *
-     * @return void
      *
      * @throws IOException if operation failed.
      */
@@ -569,7 +554,6 @@ abstract class FileSystem
      * @param string $pathname Path and name of file or directory.
      * @param string $group    The group of the file or directory. See http://us.php.net/chgrp
      *
-     * @return void
      * @throws IOException if operation failed.
      */
     public function chgrp($pathname, $group)
@@ -591,7 +575,6 @@ abstract class FileSystem
      *                         0. eg. 0777. Mode is affected by the
      *                         umask system setting.
      *
-     * @return void
      * @throws IOException if operation failed.
      */
     public function chmod($pathname, $mode)
@@ -608,8 +591,6 @@ abstract class FileSystem
     /**
      * Locks a file and throws an Exception if this is not possible.
      *
-     * @param  File $f
-     * @return void
      * @throws IOException
      */
     public function lock(File $f)
@@ -626,8 +607,6 @@ abstract class FileSystem
     /**
      * Unlocks a file and throws an IO Error if this is not possible.
      *
-     * @param  File $f
-     * @return void
      * @throws IOException
      */
     public function unlock(File $f)
@@ -646,7 +625,6 @@ abstract class FileSystem
      *
      * @param string $file Path and/or name of file to delete.
      *
-     * @return void
      * @throws IOException - if an error is encountered.
      */
     public function unlink($file)
@@ -667,7 +645,6 @@ abstract class FileSystem
      *
      * @param  string $target Path and/or name of file to link.
      * @param  string $link   Path and/or name of link to be created.
-     * @return void
      * @throws IOException
      */
     public function symlink($target, $link)
@@ -690,7 +667,6 @@ abstract class FileSystem
      *
      * @param  string $file Path and/or name of file to touch.
      * @param  int    $time
-     * @return void
      * @throws Exception
      */
     public function touch($file, $time = null)
@@ -718,7 +694,6 @@ abstract class FileSystem
      * @param bool   $children False: don't delete directory contents.
      *                         True: delete directory contents.
      *
-     * @return void
      * @throws Exception
      */
     public function rmdir($dir, $children = false)
@@ -796,8 +771,7 @@ abstract class FileSystem
     /**
      * Set the umask for file and directory creation.
      *
-     * @param    Int $mode
-     * @return   void
+     * @param    int $mode
      * @throws   Exception
      * @internal param Int $mode . Permissions usually in ocatal. Use leading 0 for
      *                    octal. Number between 0 and 0777.
@@ -862,7 +836,6 @@ abstract class FileSystem
     /**
      * returns the contents of a directory in an array
      *
-     * @param  File $f
      * @return string[]
      */
     public function listContents(File $f)

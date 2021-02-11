@@ -87,9 +87,7 @@ class ChainReaderHelper
     /*
      * Sets the primary reader
     */
-    /**
-     * @param Reader $reader
-     */
+
     public function setPrimaryReader(Reader $reader)
     {
         $this->primaryReader = $reader;
@@ -98,9 +96,7 @@ class ChainReaderHelper
     /*
      * Set the project to work with
     */
-    /**
-     * @param Project $project
-     */
+
     public function setProject(Project $project)
     {
         $this->project = $project;

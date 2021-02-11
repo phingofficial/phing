@@ -176,7 +176,6 @@ class PharPackageTask extends MatchingTask
     /**
      * Destination (output) file.
      *
-     * @param File $destinationFile
      */
     public function setDestFile(File $destinationFile)
     {
@@ -187,7 +186,6 @@ class PharPackageTask extends MatchingTask
      * Base directory, which will be deleted from each included file (from path).
      * Paths with deleted basedir part are local paths in package.
      *
-     * @param File $baseDirectory
      */
     public function setBaseDir(File $baseDirectory)
     {
@@ -198,7 +196,6 @@ class PharPackageTask extends MatchingTask
      * Relative path within the phar package to run,
      * if accessed on the command line.
      *
-     * @param File $stubFile
      */
     public function setCliStub(File $stubFile)
     {
@@ -209,7 +206,6 @@ class PharPackageTask extends MatchingTask
      * Relative path within the phar package to run,
      * if accessed through a web browser.
      *
-     * @param File $stubFile
      */
     public function setWebStub(File $stubFile)
     {

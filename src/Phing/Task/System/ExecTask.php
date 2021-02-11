@@ -191,7 +191,6 @@ class ExecTask extends Task
      * changes to the specified directory.
      *
      * @throws BuildException
-     * @return void
      */
     protected function prepare()
     {
@@ -245,7 +244,6 @@ class ExecTask extends Task
      * Builds the full command to execute and stores it in $command.
      *
      * @throws BuildException
-     * @return void
      * @uses   $command
      */
     protected function buildCommand()
@@ -335,7 +333,6 @@ class ExecTask extends Task
      * @param array $output Array with command output
      *
      * @throws BuildException
-     * @return void
      */
     protected function cleanup($return, $output): void
     {
@@ -393,7 +390,6 @@ class ExecTask extends Task
      *
      * @param string $command String or string-compatible (e.g. w/ __toString()).
      *
-     * @return void
      * @throws BuildException
      */
     public function setCommand($command): void
@@ -411,7 +407,6 @@ class ExecTask extends Task
      *
      * @param string|bool $value String or string-compatible (e.g. w/ __toString()).
      *
-     * @return void
      */
     public function setExecutable($value): void
     {
@@ -427,7 +422,6 @@ class ExecTask extends Task
      *
      * @param boolean $escape If the command shall be escaped or not
      *
-     * @return void
      */
     public function setEscape(bool $escape): void
     {
@@ -439,7 +433,6 @@ class ExecTask extends Task
      *
      * @param File $dir Working directory
      *
-     * @return void
      */
     public function setDir(File $dir): void
     {
@@ -451,7 +444,6 @@ class ExecTask extends Task
      *
      * @param string $os Operating system string (e.g. "Linux")
      *
-     * @return void
      */
     public function setOs($os): void
     {
@@ -489,7 +481,6 @@ class ExecTask extends Task
      *
      * @param File $f Output log file
      *
-     * @return void
      */
     public function setOutput(File $f): void
     {
@@ -501,7 +492,6 @@ class ExecTask extends Task
      *
      * @param File $f Error log file
      *
-     * @return void
      */
     public function setError(File $f): void
     {
@@ -513,7 +503,6 @@ class ExecTask extends Task
      *
      * @param boolean $passthru If passthru shall be used
      *
-     * @return void
      */
     public function setPassthru($passthru): void
     {
@@ -525,7 +514,6 @@ class ExecTask extends Task
      *
      * @param boolean $logOutput If output shall be logged visibly
      *
-     * @return void
      */
     public function setLogoutput($logOutput): void
     {
@@ -537,7 +525,6 @@ class ExecTask extends Task
      *
      * @param boolean $spawn If the command is to be run in the background
      *
-     * @return void
      */
     public function setSpawn($spawn): void
     {
@@ -549,7 +536,6 @@ class ExecTask extends Task
      *
      * @param boolean $checkreturn If the return code shall be checked
      *
-     * @return void
      */
     public function setCheckreturn($checkreturn): void
     {
@@ -561,7 +547,6 @@ class ExecTask extends Task
      *
      * @param string $prop Property name
      *
-     * @return void
      */
     public function setReturnProperty($prop): void
     {
@@ -580,7 +565,6 @@ class ExecTask extends Task
      *
      * @param string $prop Property name
      *
-     * @return void
      */
     public function setOutputProperty($prop): void
     {

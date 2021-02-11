@@ -113,7 +113,6 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * Creates a new StripLineBreaks using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
      * @return StripLineBreaks A new filter based on this configuration, but filtering
      *                the specified reader
      * @internal param A $object Reader object providing the underlying stream.

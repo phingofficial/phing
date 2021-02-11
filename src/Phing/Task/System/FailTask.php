@@ -65,7 +65,6 @@ class FailTask extends Task
      *
      * @param string $value message to output
      *
-     * @return void
      */
     public function setMsg($value)
     {
@@ -77,7 +76,6 @@ class FailTask extends Task
      *
      * @param string $value message to output
      *
-     * @return void
      */
     public function setMessage($value)
     {
@@ -89,7 +87,6 @@ class FailTask extends Task
      *
      * @param string $c property name
      *
-     * @return void
      */
     public function setIf($c)
     {
@@ -102,7 +99,6 @@ class FailTask extends Task
      *
      * @param string $c property name
      *
-     * @return void
      */
     public function setUnless($c)
     {
@@ -122,7 +118,6 @@ class FailTask extends Task
     /**
      * {@inheritdoc}
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -185,7 +180,6 @@ class FailTask extends Task
      *
      * @param string $msg
      *
-     * @return void
      */
     public function addText($msg)
     {

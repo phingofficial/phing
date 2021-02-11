@@ -277,7 +277,6 @@ class UpToDateTask extends Task implements Condition
     }
 
     /**
-     * @param File $srcDir
      * @param array $files
      * @return bool
      */

@@ -88,10 +88,7 @@ class SubPhingTest extends BuildFileTest
         $this->assertPropertySet('classpath');
     }
 
-    /**
-     * @param string $target
-     * @param array $dirs
-     */
+
     private function baseDirs(string $target, array $dirs): void
     {
         $bc = new class($dirs) implements BuildListener {

@@ -230,7 +230,6 @@ class ProjectConfigurator
     }
 
     /**
-     * @param XmlContext $ctx
      * @throws ExpatParseException
      */
     protected function innerParse(XmlContext $ctx)

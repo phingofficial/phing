@@ -160,7 +160,6 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      *           the specified reader
      */
     /**
-     * @param Reader $reader
      * @return StripLineComments
      * @throws Exception
      */

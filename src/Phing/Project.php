@@ -374,7 +374,6 @@ class Project
      * {@link #copyInheritedProperties copyInheritedProperties}.</p>
      *
      * @param Project $other the project to copy the properties to.  Must not be null.
-     * @return void
      * @since  phing 2.0
      */
     public function copyUserProperties(Project $other)
@@ -427,7 +426,6 @@ class Project
      * Sets the name of the current project
      *
      * @param string $name name of project
-     * @return void
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function setName($name)
@@ -500,8 +498,6 @@ class Project
      * (If strict mode is On, all the warnings would be converted to an error
      * (and the build will be stopped/aborted)
      *
-     * @param bool $strictmode
-     * @return void
      * @access public
      * @author Utsav Handa, handautsav@hotmail.com
      */
@@ -602,7 +598,6 @@ class Project
     /**
      * Sets system properties and the environment variables for this project.
      *
-     * @return void
      */
     public function setSystemProperties()
     {
@@ -759,7 +754,6 @@ class Project
      * Executes a list of targets
      *
      * @param array $targetNames List of target names to execute
-     * @return void
      * @throws BuildException
      */
     public function executeTargets($targetNames)
@@ -775,7 +769,6 @@ class Project
      * Executes a target
      *
      * @param string $targetName Name of Target to execute
-     * @return void
      * @throws BuildException
      */
     public function executeTarget($targetName)
@@ -839,9 +832,7 @@ class Project
     /**
      * Helper function
      *
-     * @param string $fileName
      * @param File $rootDir
-     * @return File
      * @throws IOException
      */
     public function resolveFile(string $fileName, File $rootDir = null): File
@@ -1072,7 +1063,6 @@ class Project
      * Does the project know this reference?
      *
      * @param string $key The reference id/key.
-     * @return bool
      */
     public function hasReference(string $key): bool
     {
@@ -1091,10 +1081,8 @@ class Project
     }
 
     /**
-     * @param mixed $obj
      * @param string $msg
      * @param int $level
-     * @param Exception|null $t
      */
     public function logObject($obj, $msg, $level, Exception $t = null)
     {
@@ -1107,17 +1095,13 @@ class Project
         }
     }
 
-    /**
-     * @param BuildListener $listener
-     */
+
     public function addBuildListener(BuildListener $listener)
     {
         $this->listeners[] = $listener;
     }
 
-    /**
-     * @param BuildListener $listener
-     */
+
     public function removeBuildListener(BuildListener $listener)
     {
         $newarray = [];
@@ -1231,7 +1215,6 @@ class Project
     }
 
     /**
-     * @param mixed $object
      * @param string $message
      * @param int $priority
      * @param Exception $t

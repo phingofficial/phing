@@ -129,7 +129,6 @@ class CopyTask extends Task
      *
      * @param boolean $bool Overwrite the destination file(s) if it/they already exist
      *
-     * @return void
      */
     public function setOverwrite($bool)
     {
@@ -180,7 +179,6 @@ class CopyTask extends Task
      * value (boolean primitive) is coming in here.
      *
      * @param  boolean $bool Preserve the timestamp on the destination file
-     * @return void
      */
     public function setPreserveLastModified($bool)
     {
@@ -193,7 +191,6 @@ class CopyTask extends Task
      * value (boolean primitive) is coming in here.
      *
      * @param  boolean $bool Preserve the timestamp on the destination file
-     * @return void
      */
     public function setPreservepermissions($bool)
     {
@@ -214,7 +211,6 @@ class CopyTask extends Task
      * value (boolean primitive) is coming in here.
      *
      * @param  boolean $bool Flag if empty dirs should be cpoied too
-     * @return void
      */
     public function setIncludeEmptyDirs($bool)
     {
@@ -228,7 +224,6 @@ class CopyTask extends Task
      *
      * @param File $file The source file. Either a string or an PhingFile object
      *
-     * @return void
      */
     public function setFile(File $file)
     {
@@ -242,7 +237,6 @@ class CopyTask extends Task
      *
      * @param File $file The dest file. Either a string or an PhingFile object
      *
-     * @return void
      */
     public function setTofile(File $file)
     {
@@ -255,7 +249,6 @@ class CopyTask extends Task
      *
      * @param integer $mode Octal mode
      *
-     * @return void
      */
     public function setMode($mode)
     {
@@ -269,7 +262,6 @@ class CopyTask extends Task
      *
      * @param File $dir The directory, either a string or an PhingFile object
      *
-     * @return void
      */
     public function setTodir(File $dir)
     {
@@ -292,7 +284,6 @@ class CopyTask extends Task
      *
      * @param boolean $haltonerror Flag if the build should be stopped on errors
      *
-     * @return void
      */
     public function setHaltonerror($haltonerror)
     {
@@ -424,7 +415,6 @@ class CopyTask extends Task
     /**
      * Validates attributes coming in from XML
      *
-     * @return void
      * @throws BuildException
      */
     protected function validateAttributes()
@@ -463,7 +453,6 @@ class CopyTask extends Task
      * @param $files
      * @param $dirs
      *
-     * @return void
      */
     private function scan(&$fromDir, &$toDir, &$files, &$dirs)
     {
@@ -500,7 +489,6 @@ class CopyTask extends Task
      * @param FileNameMapper $mapper
      * @param $map
      *
-     * @return void
      */
     private function buildMap(&$fromDir, &$toDir, &$names, &$mapper, &$map)
     {
@@ -543,7 +531,6 @@ class CopyTask extends Task
     /**
      * Actually copies the files
      *
-     * @return void
      * @throws BuildException
      */
     protected function doWork()

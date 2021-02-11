@@ -70,9 +70,7 @@ class PathToFileSet extends Task
      */
     private $ignoreNonRelative = false;
 
-    /**
-     * @param File $dir
-     */
+
     public function setDir(File $dir)
     {
         $this->dir = $dir;
@@ -165,7 +163,6 @@ class PathToFileSet extends Task
 
     /**
      * @param string $dirNormal
-     * @param File $file
      * @return string|false
      * @throws IOException
      */

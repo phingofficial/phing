@@ -125,7 +125,6 @@ class TruncateTask extends Task
     }
 
     /**
-     * @param File $f
      * @return bool
      * @throws BuildException
      */

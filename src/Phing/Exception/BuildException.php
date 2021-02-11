@@ -103,7 +103,6 @@ class BuildException extends RuntimeException
     /**
      * Sets the location of error in XML file.
      *
-     * @param Location $loc
      */
     public function setLocation(Location $loc)
     {

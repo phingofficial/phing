@@ -134,7 +134,6 @@ class PDOSQLExecFormatterElement
     /**
      * Construct a new PDOSQLExecFormatterElement with parent task.
      *
-     * @param PDOSQLExecTask $parentTask
      */
     public function __construct(PDOSQLExecTask $parentTask)
     {
@@ -266,7 +265,6 @@ class PDOSQLExecFormatterElement
     /**
      * Sets the output file for the formatter results.
      *
-     * @param    File $outfile
      * @internal param PhingFile $outFile
      */
     public function setOutfile(File $outfile)

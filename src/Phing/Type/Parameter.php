@@ -70,7 +70,6 @@ class Parameter extends DataType
     /**
      * Sets value to dynamic register slot.
      *
-     * @param RegisterSlot $value
      */
     public function setListeningValue(RegisterSlot $value)
     {
@@ -103,9 +102,7 @@ class Parameter extends DataType
         return $this->type;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getValue()
     {
         if ($this->value instanceof RegisterSlot) {

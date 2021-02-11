@@ -321,7 +321,6 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Creates a new ReplaceTokensWithFile using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
      * @return ReplaceTokensWithFile A new filter based on this configuration, but filtering
      *                the specified reader
      * @internal param A $object Reader object providing the underlying stream.

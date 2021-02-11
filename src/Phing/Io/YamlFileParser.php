@@ -71,7 +71,6 @@ class YamlFileParser implements FileParserInterface
     /**
      * Flattens an array to key => value.
      *
-     * @param array $arrayToFlatten
      * @todo: milo - 20142901 - If you plan to extend phing and add a new fileparser, please move this to an abstract
      * class.
      *

@@ -38,7 +38,6 @@ trait ClasspathAware
     /**
      * Returns the classpath.
      *
-     * @return Path|null
      */
     public function getClasspath(): ?Path
     {
@@ -46,7 +45,6 @@ trait ClasspathAware
     }
 
     /**
-     * @param Path $classpath
      *
      * @throws BuildException
      */
@@ -60,7 +58,6 @@ trait ClasspathAware
     }
 
     /**
-     * @return Path
      *
      * @throws BuildException
      */
@@ -76,7 +73,6 @@ trait ClasspathAware
     /**
      * Reference to a classpath to use when loading the files.
      *
-     * @param Reference $r
      *
      * @throws BuildException
      */

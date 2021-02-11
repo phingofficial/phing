@@ -40,7 +40,6 @@ class TaskAdapter extends Task implements TypeAdapter
     /**
      * Main entry point.
      *
-     * @return void
      * @throws Exception
      * @throws BuildException
      */
@@ -82,7 +81,6 @@ class TaskAdapter extends Task implements TypeAdapter
      * Set the target object.
      *
      * @param object $o
-     * @return void
      */
     public function setProxy($o)
     {

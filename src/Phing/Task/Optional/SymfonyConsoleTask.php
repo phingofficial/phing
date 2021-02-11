@@ -89,7 +89,7 @@ class SymfonyConsoleTask extends Task
     /**
      * return the symfony console command to execute
      *
-     * @return String
+     * @return string
      */
     public function getCommand()
     {
@@ -120,7 +120,6 @@ class SymfonyConsoleTask extends Task
      * Set the name of the property to store the application output in
      *
      * @param  $property
-     * @return void
      */
     public function setPropertyName($property)
     {
@@ -132,7 +131,6 @@ class SymfonyConsoleTask extends Task
      *
      * @param boolean $checkreturn If the return code shall be checked
      *
-     * @return void
      */
     public function setCheckreturn(bool $checkreturn)
     {
@@ -144,7 +142,6 @@ class SymfonyConsoleTask extends Task
      *
      * @param boolean $debug If the symfony cli debug mode is set
      *
-     * @return void
      */
     public function setDebug(bool $debug)
     {

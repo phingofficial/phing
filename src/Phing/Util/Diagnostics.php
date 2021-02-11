@@ -195,7 +195,6 @@ class Diagnostics
      * checks that it has space and access.
      * We also do some clock reporting.
      *
-     * @param PrintStream $out
      */
     private static function doReportTempDir(PrintStream $out)
     {

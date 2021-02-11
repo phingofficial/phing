@@ -167,7 +167,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Whether to resolve entities in document.
      *
-     * @param bool $resolveExternals
      *
      * @since 2.4
      */
@@ -189,7 +188,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Whether to resolve entities in stylesheet.
      *
-     * @param bool $resolveExternals
      *
      * @since 2.4
      */

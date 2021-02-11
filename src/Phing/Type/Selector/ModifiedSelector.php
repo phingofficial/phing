@@ -315,19 +315,13 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
         }
     }
 
-    /**
-     * @param BuildEvent $event
-     * @return mixed
-     */
+
     public function buildStarted(BuildEvent $event)
     {
         // do nothing
     }
 
-    /**
-     * @param BuildEvent $event
-     * @return mixed
-     */
+
     public function buildFinished(BuildEvent $event)
     {
         if ($this->getDelayUpdate()) {
@@ -380,7 +374,6 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
 
     /**
      * Setter for algorithmClass.
-     * @param string $classname
      */
     public function setAlgorithmClass(string $classname): void
     {
@@ -389,7 +382,6 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
 
     /**
      * Setter for comparatorClass.
-     * @param string $classname
      */
     public function setComparatorClass(string $classname): void
     {
@@ -398,26 +390,19 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
 
     /**
      * Setter for cacheClass.
-     * @param string $classname
      */
     public function setCacheClass(string $classname): void
     {
         $this->cacheClass = $classname;
     }
 
-    /**
-     * @param BuildEvent $event
-     * @return mixed
-     */
+
     public function targetStarted(BuildEvent $event)
     {
         // do nothing
     }
 
-    /**
-     * @param BuildEvent $event
-     * @return mixed
-     */
+
     public function targetFinished(BuildEvent $event)
     {
         if ($this->getDelayUpdate()) {
@@ -425,19 +410,13 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
         }
     }
 
-    /**
-     * @param BuildEvent $event
-     * @return mixed
-     */
+
     public function taskStarted(BuildEvent $event)
     {
         // do nothing
     }
 
-    /**
-     * @param BuildEvent $event
-     * @return mixed
-     */
+
     public function taskFinished(BuildEvent $event)
     {
         if ($this->getDelayUpdate()) {
@@ -445,19 +424,14 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
         }
     }
 
-    /**
-     * @param BuildEvent $event
-     * @return mixed
-     */
+
     public function messageLogged(BuildEvent $event)
     {
         // do nothing
     }
 
     /**
-     * @param File $basedir
      * @param string $filename
-     * @param File $file
      * @return bool|null
      */
     public function isSelected(File $basedir, $filename, File $file)

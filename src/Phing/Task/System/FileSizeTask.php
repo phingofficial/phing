@@ -58,7 +58,6 @@ class FileSizeTask extends Task
     /**
      * Which file to calculate the file size of
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -87,7 +86,6 @@ class FileSizeTask extends Task
     /**
      * Main-Method for the Task
      *
-     * @return void
      * @throws BuildException
      */
     public function main()

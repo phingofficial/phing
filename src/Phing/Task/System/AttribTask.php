@@ -143,7 +143,6 @@ class AttribTask extends ApplyTask
      * Set the executable.
      * This is not allowed, and it always throws a BuildException.
      *
-     * @param  mixed $e
      * @throws BuildException
      */
     public function setExecutable($e): void

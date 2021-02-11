@@ -34,7 +34,6 @@ class ExtensionPoint extends Target
     /**
      * Throws an exception.
      *
-     * @param  Task $task
      * @throws BuildException
      */
     public function addTask(Task $task)

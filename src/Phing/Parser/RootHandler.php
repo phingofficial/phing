@@ -51,7 +51,6 @@ class RootHandler extends AbstractHandler
      *
      * @param AbstractSAXParser $parser The ExpatParser object.
      * @param ProjectConfigurator $configurator The ProjectConfigurator object.
-     * @param XmlContext $context
      */
     public function __construct(AbstractSAXParser $parser, ProjectConfigurator $configurator, XmlContext $context)
     {

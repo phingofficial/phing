@@ -145,7 +145,6 @@ class Target implements TaskContainer
     /**
      * Get the location of this target's definition.
      *
-     * @return Location
      */
     public function getLocation(): Location
     {
@@ -470,7 +469,6 @@ class Target implements TaskContainer
     /**
      * Replaces all occurrences of the given task in the list
      * of children with the replacement data type wrapper.
-     * @param Task $task
      * @param RuntimeConfigurable|Task $o
      */
     public function replaceChild(Task $task, $o)

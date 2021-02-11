@@ -278,10 +278,8 @@ class IntrospectionHelper
     /**
      * Sets the named attribute.
      *
-     * @param Project $project
      * @param object $element
      * @param string $attributeName
-     * @param mixed $value
      * @throws BuildException
      */
     public function setAttribute(Project $project, $element, $attributeName, &$value)
@@ -374,7 +372,6 @@ class IntrospectionHelper
     /**
      * Adds PCDATA areas.
      *
-     * @param Project $project
      * @param string $element
      * @param string $text
      * @throws BuildException
@@ -398,7 +395,6 @@ class IntrospectionHelper
      *
      * Valid creators can be in the form createFoo() or addFoo(Bar).
      *
-     * @param Project $project
      * @param object $element Object the XML tag is child of.
      *                              Often a task object.
      * @param string $elementName XML tag name
@@ -506,7 +502,6 @@ class IntrospectionHelper
      * @param string $element
      * @param string $child
      * @param string|null $elementName
-     * @return void
      * @throws BuildException
      */
     public function storeElement($project, $element, $child, $elementName = null)
@@ -573,7 +568,6 @@ class IntrospectionHelper
      * be returned.  If not available (loaded in taskdefs or typedefs) then the
      * XML element name will be returned.
      *
-     * @param Project $project
      * @param object $element The Task or type element.
      * @return string  Fully qualified class name of element when possible.
      */

@@ -100,7 +100,6 @@ class SymlinkTask extends Task
      * setter for linkTarget
      *
      * @param string $linkTarget
-     * @return void
      */
     public function setTarget($linkTarget)
     {
@@ -111,7 +110,6 @@ class SymlinkTask extends Task
      * setter for _link
      *
      * @param string $link
-     * @return void
      */
     public function setLink($link)
     {
@@ -134,7 +132,6 @@ class SymlinkTask extends Task
      * setter for _overwrite
      *
      * @param boolean $overwrite
-     * @return void
      */
     public function setOverwrite($overwrite)
     {

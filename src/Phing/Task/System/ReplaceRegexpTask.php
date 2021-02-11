@@ -68,9 +68,7 @@ class ReplaceRegexpTask extends Task
     /**
      * File to apply regexp on
      *
-     * @param File $path
      *
-     * @return void
      */
     public function setFile(File $path)
     {
@@ -82,7 +80,6 @@ class ReplaceRegexpTask extends Task
      *
      * @param string $regexp
      *
-     * @return void
      */
     public function setMatch($regexp)
     {
@@ -92,7 +89,6 @@ class ReplaceRegexpTask extends Task
     /**
      * @param string $regexp
      *
-     * @return void
      * @see setMatch()
      */
     public function setPattern($regexp)
@@ -105,7 +101,6 @@ class ReplaceRegexpTask extends Task
      *
      * @param string $string
      *
-     * @return void
      */
     public function setReplace($string)
     {
@@ -117,9 +112,6 @@ class ReplaceRegexpTask extends Task
      *
      * @param string $flags
      *
-     * @return void
-     *
-     * todo ... `$this->_regexp->setFlags( $flags );`
      */
     public function setFlags($flags)
     {
@@ -130,7 +122,6 @@ class ReplaceRegexpTask extends Task
      *
      * @param bool $yesNo
      *
-     * @return void
      */
     public function setByline($yesNo)
     {
@@ -140,7 +131,6 @@ class ReplaceRegexpTask extends Task
     /**
      * {@inheritdoc}
      *
-     * @return void
      */
     public function init()
     {
@@ -150,7 +140,6 @@ class ReplaceRegexpTask extends Task
     /**
      * {@inheritdoc}
      *
-     * @return void
      *
      * @throws BuildException
      */

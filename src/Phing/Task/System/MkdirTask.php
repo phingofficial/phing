@@ -83,8 +83,6 @@ class MkdirTask extends Task
     /**
      * The directory to create; required.
      *
-     * @param  File $dir
-     * @return void
      */
     public function setDir(File $dir)
     {
@@ -94,8 +92,6 @@ class MkdirTask extends Task
     /**
      * Sets mode to create directory with
      *
-     * @param  mixed $mode
-     * @return void
      */
     public function setMode($mode)
     {

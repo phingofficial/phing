@@ -55,7 +55,6 @@ class StopwatchTask extends DispatchTask
     /**
      * Initialize Task.
      *
-     * @return void
      */
     public function init()
     {
@@ -83,7 +82,6 @@ class StopwatchTask extends DispatchTask
     /**
      * Start timer.
      *
-     * @return void
      */
     public function start()
     {
@@ -94,7 +92,6 @@ class StopwatchTask extends DispatchTask
     /**
      * Stop timer.
      *
-     * @return void
      */
     public function stop()
     {
@@ -120,7 +117,6 @@ class StopwatchTask extends DispatchTask
     /**
      * Measure lap time.
      *
-     * @return void
      */
     public function lap()
     {
@@ -133,7 +129,6 @@ class StopwatchTask extends DispatchTask
      *
      * @param string $name the name of the stopwatch timer
      *
-     * @return void
      */
     public function setName($name)
     {
@@ -145,7 +140,6 @@ class StopwatchTask extends DispatchTask
      *
      * @param string $category
      *
-     * @return void
      */
     public function setCategory($category)
     {
@@ -155,7 +149,6 @@ class StopwatchTask extends DispatchTask
     /**
      * The main entry point
      *
-     * @return void
      *
      * @throws BuildException
      */

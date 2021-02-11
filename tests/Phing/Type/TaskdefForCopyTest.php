@@ -21,8 +21,6 @@ namespace Phing\Type;
 
 use Phing\Support\BuildFileTest;
 
-/**
- */
 class TaskdefForCopyTest extends BuildFileTest
 {
     public function setUp(): void

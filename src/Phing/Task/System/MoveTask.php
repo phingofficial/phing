@@ -48,7 +48,6 @@ class MoveTask extends CopyTask
     /**
      * Validates attributes coming in from XML
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -193,7 +192,6 @@ class MoveTask extends CopyTask
     /**
      * Its only ok to delete a dir tree if there are no files in it.
      *
-     * @param File $dir
      *
      * @return bool
      * @throws IOException
@@ -223,7 +221,6 @@ class MoveTask extends CopyTask
     /**
      * Go and delete the directory tree.
      *
-     * @param File $dir
      *
      * @throws BuildException
      * @throws IOException

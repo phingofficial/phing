@@ -87,7 +87,6 @@ class RuntimeConfigurable
     /**
      * @param object|Task $proxy
      *
-     * @return void
      */
     public function setProxy($proxy)
     {
@@ -100,7 +99,6 @@ class RuntimeConfigurable
      *
      * @param array $attributes
      *
-     * @return void
      */
     public function setAttributes($attributes)
     {
@@ -120,9 +118,7 @@ class RuntimeConfigurable
     /**
      * Adds child elements to the wrapped element.
      *
-     * @param RuntimeConfigurable $child
      *
-     * @return void
      */
     public function addChild(RuntimeConfigurable $child)
     {
@@ -151,7 +147,6 @@ class RuntimeConfigurable
      *
      * @param string $data
      *
-     * @return void
      */
     public function addText($data)
     {
@@ -189,9 +184,7 @@ class RuntimeConfigurable
     /**
      * Configure the wrapped element and all children.
      *
-     * @param Project $project
      *
-     * @return void
      *
      * @throws BuildException
      * @throws Exception

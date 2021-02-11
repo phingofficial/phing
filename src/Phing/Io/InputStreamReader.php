@@ -37,7 +37,6 @@ class InputStreamReader extends Reader
     /**
      * Construct a new InputStreamReader.
      *
-     * @param InputStream $inStream
      * @internal param $InputStream $$inStream InputStream to read from
      */
     public function __construct(InputStream $inStream)

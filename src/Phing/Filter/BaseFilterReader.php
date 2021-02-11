@@ -160,7 +160,6 @@ class BaseFilterReader extends FilterReader
      * @param string $msg Message to log.
      * @param int $level Priority level.
      *
-     * @return void
      */
     public function log($msg, $level = Project::MSG_INFO)
     {

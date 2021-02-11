@@ -78,7 +78,6 @@ class PosixPermissionsSelectorTest extends TestCase
      * @test
      * @dataProvider illegalArgumentProvider
      * @dataProvider legalArgumentProvider
-     * @param string $permission
      * @param bool $throws
      */
     public function argument(string $permission, $throws = false): void

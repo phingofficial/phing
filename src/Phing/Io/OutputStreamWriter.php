@@ -47,7 +47,6 @@ class OutputStreamWriter extends Writer
     /**
      * Close the stream.
      *
-     * @return void
      */
     public function close()
     {

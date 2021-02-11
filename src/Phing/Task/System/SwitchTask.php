@@ -76,9 +76,6 @@ use Phing\Task;
  */
 class SwitchTask extends Task
 {
-    /**
-     * @var mixed $value
-     */
     private $value = null;
 
     /**
@@ -111,9 +108,7 @@ class SwitchTask extends Task
     /**
      * Adds a CaseTask.
      *
-     * @param CaseTask $case
      *
-     * @return void
      */
     public function addCase(CaseTask $case)
     {
@@ -123,7 +118,6 @@ class SwitchTask extends Task
     /**
      * @param bool $caseInsensitive
      *
-     * @return void
      */
     public function setCaseInsensitive($caseInsensitive)
     {

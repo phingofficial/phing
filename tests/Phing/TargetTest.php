@@ -60,7 +60,6 @@ class TargetTest extends BuildFileTest
 
     /**
      * @dataProvider setDependsValidDataProvider
-     * @param array $expectedDepends
      * @param string $depends
      */
     public function testSetDependsValid(array $expectedDepends, $depends)

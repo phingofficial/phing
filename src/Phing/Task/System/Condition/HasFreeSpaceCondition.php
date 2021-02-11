@@ -55,7 +55,6 @@ class HasFreeSpaceCondition implements Condition
     }
 
     /**
-     * @return void
      *
      * @throws BuildException
      */
@@ -74,7 +73,6 @@ class HasFreeSpaceCondition implements Condition
      *
      * @param $partition
      *
-     * @return void
      */
     public function setPartition($partition)
     {
@@ -84,7 +82,6 @@ class HasFreeSpaceCondition implements Condition
     /**
      * Set the amount of free space required.
      *
-     * @return void
      */
     public function setNeeded($needed)
     {

@@ -54,9 +54,7 @@ class TouchTask extends Task
     /** @var Mapper $mapperElement */
     private $mapperElement;
 
-    /**
-     *
-     */
+
     public function __construct()
     {
         parent::__construct();
@@ -67,8 +65,6 @@ class TouchTask extends Task
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      *
-     * @param  File $file
-     * @return void
      */
     public function setFile(File $file)
     {
@@ -84,7 +80,6 @@ class TouchTask extends Task
      * Optional, default=now
      *
      * @param int $millis
-     * @return void
      */
     public function setMillis($millis)
     {
@@ -105,7 +100,6 @@ class TouchTask extends Task
      * Optional, default=now
      *
      * @param int $seconds
-     * @return void
      */
     public function setSeconds($seconds)
     {
@@ -122,7 +116,6 @@ class TouchTask extends Task
      * Optional, default=now
      *
      * @param string $dateTime
-     * @return void
      */
     public function setDatetime($dateTime)
     {
@@ -293,7 +286,6 @@ class TouchTask extends Task
     }
 
     /**
-     * @param File $file
      * @throws BuildException
      */
     private function touchFile(File $file)

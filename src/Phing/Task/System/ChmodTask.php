@@ -86,7 +86,6 @@ class ChmodTask extends Task
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -104,7 +103,6 @@ class ChmodTask extends Task
     /**
      * Execute the touch operation.
      *
-     * @return void
      */
     public function main()
     {
@@ -117,7 +115,6 @@ class ChmodTask extends Task
      * Ensure that correct parameters were passed in.
      *
      * @throws BuildException
-     * @return void
      */
     private function checkParams()
     {
@@ -140,7 +137,6 @@ class ChmodTask extends Task
     /**
      * Does the actual work.
      *
-     * @return void
      */
     private function chmod()
     {
@@ -193,7 +189,6 @@ class ChmodTask extends Task
     /**
      * Actually change the mode for the file.
      *
-     * @param  File $file
      * @param  int $mode
      * @throws BuildException
      * @throws Exception

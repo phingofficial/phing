@@ -21,8 +21,6 @@ namespace Phing\Listener;
 
 use Exception;
 
-/**
- */
 class EventObject
 {
     /**

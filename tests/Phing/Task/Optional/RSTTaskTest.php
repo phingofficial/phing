@@ -68,7 +68,6 @@ class RSTTaskTest extends BuildFileTest
      *
      * @param string $file relative file path
      *
-     * @return void
      */
     protected function assertFileCreated($file)
     {

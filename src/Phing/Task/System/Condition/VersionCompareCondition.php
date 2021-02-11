@@ -92,7 +92,6 @@ class VersionCompareCondition implements Condition
     }
 
     /**
-     * @return mixed
      * @throws BuildException
      */
     public function evaluate()

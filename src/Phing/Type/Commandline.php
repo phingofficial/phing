@@ -127,9 +127,7 @@ class Commandline implements Countable
         return $this->executable;
     }
 
-    /**
-     * @param array $arguments
-     */
+
     public function addArguments(array $arguments)
     {
         foreach ($arguments as $arg) {
@@ -140,7 +138,6 @@ class Commandline implements Countable
     /**
      * Returns the executable and all defined arguments.
      *
-     * @return array
      */
     public function getCommandline(): array
     {
@@ -238,7 +235,6 @@ class Commandline implements Countable
      *
      * @param array $lines
      *
-     * @return string
      *
      * @throws BuildException
      */

@@ -24,7 +24,6 @@ class CommandlineArgumentTest extends \PHPUnit\Framework\TestCase
     /**
      * Test the one 'getter' method of the CommandlineArgument class
      *
-     * @return void
      */
     public function testGetParts()
     {

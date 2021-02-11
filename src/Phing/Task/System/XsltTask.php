@@ -69,9 +69,7 @@ class XsltTask extends CopyTask
         parent::main();
     }
 
-    /**
-     * @param bool $isHtml
-     */
+
     public function setHtml(bool $isHtml)
     {
         $this->xsltFilter->setHtml($isHtml);
@@ -80,7 +78,6 @@ class XsltTask extends CopyTask
     /**
      * Set the stylesheet to use.
      *
-     * @param File $style
      */
     public function setStyle(File $style)
     {
@@ -90,7 +87,6 @@ class XsltTask extends CopyTask
     /**
      * Whether to resolve entities in the XML document.
      *
-     * @param bool $resolveExternals
      *
      * @since 2.4
      */
@@ -102,7 +98,6 @@ class XsltTask extends CopyTask
     /**
      * Whether to resolve entities in the stylesheet.
      *
-     * @param bool $resolveExternals
      *
      * @since 2.4
      */

@@ -98,7 +98,6 @@ class FileUtils
      *
      * @param Reader $in Reader to modify (if appropriate).
      * @param array   &$filterChains filter chains to apply.
-     * @param Project $project
      * @return Reader  Assembled Reader (w/ filter chains).
      */
     public static function getChainedReader(Reader $in, &$filterChains, Project $project)
@@ -118,16 +117,11 @@ class FileUtils
     /**
      * Copies a file using filter chains.
      *
-     * @param File $sourceFile
-     * @param File $destFile
      * @param boolean $overwrite
      * @param boolean $preserveLastModified
      * @param array $filterChains
-     * @param Project $project
      * @param integer $mode
      * @param bool $preservePermissions
-     * @param int $granularity
-     * @return void
      * @throws Exception
      * @throws IOException
      */
@@ -206,9 +200,6 @@ class FileUtils
      * If overwrite is set to true, this method overwrites existing file even if the destination file is newer.
      * Otherwise, the source file is renamed only if the destination file is older than it.
      *
-     * @param File $sourceFile
-     * @param File $destFile
-     * @return void
      */
     public function renameFile(File $sourceFile, File $destFile, $overwrite = false)
     {
@@ -475,8 +466,6 @@ class FileUtils
     }
 
     /**
-     * @param File $file1
-     * @param File $file2
      *
      * @return boolean Whether contents of two files is the same.
      */

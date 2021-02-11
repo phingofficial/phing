@@ -119,7 +119,6 @@ class UnknownElement extends Task
     /**
      * Add a child element to the unknown element
      *
-     * @param UnknownElement $child
      * @internal param The $object object representing the child element
      */
     public function addChild(UnknownElement $child)

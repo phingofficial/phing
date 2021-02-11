@@ -278,7 +278,6 @@ class Phing
     /**
      * Prints the message of the Exception if it's not null.
      *
-     * @param Throwable $t
      */
     public static function printMessage(Throwable $t)
     {
@@ -358,7 +357,6 @@ class Phing
      *
      * @since Phing 2.3.0
      *
-     * @return void
      */
     private static function handleLogfile()
     {
@@ -387,7 +385,6 @@ class Phing
      *
      * @param array $args Command line args.
      *
-     * @return void
      */
     public static function fire($args)
     {
@@ -401,7 +398,6 @@ class Phing
      *
      * @throws ConfigurationException
      *
-     * @return void
      */
     public function execute($args)
     {
@@ -632,10 +628,7 @@ class Phing
     /**
      * Handle the -propertyfile argument.
      *
-     * @param array $args
-     * @param int $pos
      *
-     * @return int
      *
      * @throws ConfigurationException
      * @throws IOException
@@ -828,10 +821,8 @@ class Phing
      * This means adding the logger and any build listeners that were specified
      * with -listener arg.
      *
-     * @param  Project $project
      * @throws BuildException
      * @throws ConfigurationException
-     * @return void
      */
     private function addBuildListeners(Project $project)
     {
@@ -1200,7 +1191,6 @@ class Phing
     /**
      * Print the project description, if any
      *
-     * @param Project $project
      *
      * @throws IOException
      */
@@ -1287,7 +1277,6 @@ class Phing
     /**
      * Writes a formatted list of target names with an optional description.
      *
-     * @param Project $project
      * @param array $names The names to be printed.
      *                             Must not be <code>null</code>.
      * @param array $descriptions The associated target descriptions.
@@ -1492,7 +1481,6 @@ class Phing
     /**
      * Set System constants which can be retrieved by calling Phing::getProperty($propName).
      *
-     * @return void
      */
     private static function setSystemConstants()
     {
@@ -1581,7 +1569,6 @@ class Phing
      * This sets a property that was set via command line or otherwise passed into Phing.
      *
      * @param  string $name
-     * @param  mixed $value
      * @return mixed value of found property (or null, if none found).
      */
     public static function setDefinedProperty($name, $value)
@@ -1652,7 +1639,6 @@ class Phing
     /**
      * Sets the include path to PHP_CLASSPATH constant (if this has been defined).
      *
-     * @return void
      * @throws ConfigurationException - if the include_path could not be set (for some bizarre reason)
      */
     private static function setIncludePaths()
@@ -1714,7 +1700,6 @@ class Phing
     /**
      * Returns reference to Timer object.
      *
-     * @return Timer
      */
     public static function getTimer(): Timer
     {
@@ -1729,7 +1714,6 @@ class Phing
      * Start up Phing.
      * Sets up the Phing environment but does not initiate the build process.
      *
-     * @return void
      * @throws Exception - If the Phing environment cannot be initialized.
      */
     public static function startup(): void

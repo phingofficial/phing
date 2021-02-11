@@ -151,7 +151,6 @@ class PhingTask extends Task
      * as it would be when running the build file directly -
      * independent of dir and/or inheritAll settings.
      *
-     * @param bool $b
      */
     public function setUseNativeBasedir(bool $b)
     {
@@ -161,7 +160,6 @@ class PhingTask extends Task
     /**
      * Creates a Project instance for the project to call.
      *
-     * @return void
      */
     public function init()
     {
@@ -224,7 +222,6 @@ class PhingTask extends Task
     /**
      * Main entry point for the task.
      *
-     * @return void
      */
     public function main()
     {
@@ -429,7 +426,6 @@ class PhingTask extends Task
     /**
      * Get the (sub)-Project instance currently in use.
      *
-     * @return Project
      */
     protected function getNewProject(): Project
     {
@@ -542,7 +538,6 @@ class PhingTask extends Task
      * Override the properties in the new project with the one
      * explicitly defined as nested elements here.
      *
-     * @return void
      * @throws BuildException
      */
     private function overrideProperties()
@@ -574,7 +569,6 @@ class PhingTask extends Task
      * existing references in the new project if inheritrefs has been
      * requested.
      *
-     * @return void
      * @throws BuildException
      */
     private function addReferences()
@@ -636,7 +630,6 @@ class PhingTask extends Task
      * @param  string $oldKey
      * @param  string $newKey
      * @throws BuildException
-     * @return void
      */
     private function copyReference($oldKey, $newKey)
     {
@@ -695,7 +688,6 @@ class PhingTask extends Task
      * has been set to false, in which case it doesn't have a default
      * value. This will override the basedir setting of the called project.
      *
-     * @param File $dir
      */
     public function setDir(File $dir): void
     {
@@ -707,7 +699,6 @@ class PhingTask extends Task
      * Defaults to "build.xml". This file is expected to be a filename relative
      * to the dir attribute given.
      *
-     * @param string $file
      */
     public function setPhingFile(string $file)
     {
@@ -731,7 +722,6 @@ class PhingTask extends Task
      * The target of the new Phing project to execute.
      * Defaults to the new project's default target.
      *
-     * @param string $target
      */
     public function setTarget(string $target)
     {
@@ -772,7 +762,6 @@ class PhingTask extends Task
      * Reference element identifying a data type to carry
      * over to the new project.
      *
-     * @param PhingReference $ref
      */
     public function addReference(PhingReference $ref)
     {

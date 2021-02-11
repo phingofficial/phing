@@ -31,9 +31,7 @@ class ReadableSelector implements FileSelector
     /**
      * {@inheritdoc}
      *
-     * @param File $basedir
      * @param string $filename
-     * @param File $file
      *
      * @return bool
      */

@@ -96,10 +96,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
         return $this->conditions;
     }
 
-    /**
-     * @param AvailableTask $a
-     * @return void
-     */
+
     public function addAvailable(AvailableTask $a)
     {
         $this->conditions[] = $a;
@@ -307,7 +304,6 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
 
     /**
      * @param  string $elementName
-     * @param  Project $project
      * @throws BuildException
      * @return Condition
      */

@@ -85,9 +85,7 @@ class AvailableTask extends Task implements Condition
         $this->value = (string) $value;
     }
 
-    /**
-     * @param File $file
-     */
+
     public function setFile(File $file)
     {
         $this->file = $file;
@@ -231,7 +229,6 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @param File $file
      * @return bool
      * @throws IOException
      */

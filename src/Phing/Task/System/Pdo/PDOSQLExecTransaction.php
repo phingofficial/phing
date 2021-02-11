@@ -44,9 +44,7 @@ class PDOSQLExecTransaction
         $this->parent = $parent;
     }
 
-    /**
-     * @param File $src
-     */
+
     public function setSrc(File $src)
     {
         $this->tSrcFile = $src;

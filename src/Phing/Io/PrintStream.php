@@ -37,7 +37,6 @@ class PrintStream
     protected $out;
 
     /**
-     * @param OutputStream $out
      * @param bool $autoFlush
      */
     public function __construct(OutputStream $out, $autoFlush = false)
@@ -48,18 +47,14 @@ class PrintStream
         $this->textOut = new BufferedWriter(new OutputStreamWriter($out));
     }
 
-    /**
-     * @param mixed $value
-     */
+
     public function println($value)
     {
         $this->prints($value);
         $this->newLine();
     }
 
-    /**
-     * @param mixed $value
-     */
+
     public function prints($value)
     {
         if (is_bool($value)) {
@@ -69,9 +64,7 @@ class PrintStream
         $this->write((string) $value);
     }
 
-    /**
-     *
-     */
+
     private function newLine()
     {
         $this->textOut->newLine();

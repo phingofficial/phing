@@ -153,7 +153,6 @@ abstract class MatchingTask extends Task implements SelectorContainer
      * or a space.
      *
      * @param  string $includes the string containing the include patterns
-     * @return void
      */
     public function setIncludes($includes)
     {
@@ -186,7 +185,6 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Returns the directory scanner needed to access the files to process.
      *
-     * @param  File $baseDir
      * @return DirectoryScanner
      *@throws BuildException
      */
@@ -203,7 +201,6 @@ abstract class MatchingTask extends Task implements SelectorContainer
      *
      * @param  File $includesfile A string containing the filename to fetch
      *                                 the include patterns from.
-     * @return void
      */
     public function setIncludesfile(File $includesfile)
     {
@@ -215,7 +212,6 @@ abstract class MatchingTask extends Task implements SelectorContainer
      *
      * @param  File $excludesfile A string containing the filename to fetch
      *                                 the include patterns from.
-     * @return void
      */
     public function setExcludesfile(File $excludesfile)
     {
@@ -227,7 +223,6 @@ abstract class MatchingTask extends Task implements SelectorContainer
      *
      * @param  boolean $isCaseSensitive "true"|"on"|"yes" if file system is case
      *                                  sensitive, "false"|"off"|"no" when not.
-     * @return void
      */
     public function setCaseSensitive($isCaseSensitive)
     {
@@ -238,7 +233,6 @@ abstract class MatchingTask extends Task implements SelectorContainer
      * Sets whether or not symbolic links should be followed.
      *
      * @param  boolean $followSymlinks whether or not symbolic links should be followed
-     * @return void
      */
     public function setFollowSymlinks($followSymlinks)
     {
@@ -268,7 +262,6 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Returns the set of selectors as an array.
      *
-     * @param  Project $p
      * @return array FileSelector[] An array of selectors in this container
      */
     public function getSelectors(Project $p)
@@ -453,7 +446,6 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * add a type selector entry on the selector list
      *
-     * @param TypeSelector $selector
      */
     public function addType(TypeSelector $selector)
     {
@@ -463,7 +455,6 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * add a contains selector entry on the selector list
      *
-     * @param ContainsRegexpSelector $selector
      */
     public function addContainsRegexp(ContainsRegexpSelector $selector)
     {

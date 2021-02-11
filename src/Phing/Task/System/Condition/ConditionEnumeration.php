@@ -39,9 +39,7 @@ class ConditionEnumeration implements Iterator
      */
     private $outer;
 
-    /**
-     * @param ConditionBase $outer
-     */
+
     public function __construct(ConditionBase $outer)
     {
         $this->outer = $outer;

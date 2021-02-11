@@ -40,7 +40,6 @@ interface FileNameMapper
      * depends on the child class.
      *
      * @param string $to To what this mapper should convert the from string
-     * @return void
      */
     public function setTo($to);
 
@@ -50,7 +49,6 @@ interface FileNameMapper
      * child class
      *
      * @param string $from On what this mapper should work
-     * @return void
      */
     public function setFrom($from);
 }

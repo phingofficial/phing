@@ -161,7 +161,6 @@ class ApplyTask extends ExecTask
      * @param    $append
      * @internal param PhingFile $outputfile Output log file
      *
-     * @return void
      */
     public function setAppend(bool $append)
     {
@@ -171,9 +170,8 @@ class ApplyTask extends ExecTask
     /**
      * Run the command only once, appending all files as arguments
      *
-     * @param Boolean $parallel Identifier for files as arguments appending
+     * @param boolean $parallel Identifier for files as arguments appending
      *
-     * @return void
      */
     public function setParallel(bool $parallel)
     {
@@ -183,9 +181,8 @@ class ApplyTask extends ExecTask
     /**
      * To add the source filename at the end of command of automatically
      *
-     * @param Boolean $addsourcefile Identifier for adding source file at the end of command
+     * @param boolean $addsourcefile Identifier for adding source file at the end of command
      *
-     * @return void
      */
     public function setAddsourcefile(bool $addsourcefile)
     {
@@ -199,7 +196,6 @@ class ApplyTask extends ExecTask
      * @param    $relative
      * @internal param bool $escape Escape command before execution
      *
-     * @return void
      */
     public function setRelative(bool $relative)
     {
@@ -211,7 +207,6 @@ class ApplyTask extends ExecTask
      *
      * @param boolean $failonerror Indicator to fail on error
      *
-     * @return void
      */
     public function setFailonerror(bool $failonerror)
     {
@@ -223,7 +218,6 @@ class ApplyTask extends ExecTask
      *
      * @param boolean $forwardslash Indicator to use forward-slash
      *
-     * @return void
      */
     public function setForwardslash(bool $forwardslash)
     {
@@ -236,7 +230,6 @@ class ApplyTask extends ExecTask
      * @param    $max
      * @internal param bool $forwardslash Indicator to use forward-slash
      *
-     * @return void
      */
     public function setMaxparallel($max)
     {
@@ -442,8 +435,8 @@ class ApplyTask extends ExecTask
     {
         $includedCount = (
             ($currentType !== self::$types['DIR']) ? $ds->getIncludedFilesCount() : 0
-            ) + (
-            ($currentType !== self::$types['FILES']) ? $ds->getIncludedDirectoriesCount() : 0
+        ) + (
+                ($currentType !== self::$types['FILES']) ? $ds->getIncludedDirectoriesCount() : 0
             );
         $this->log(
             "Skipping fileset for directory " . $base . ". It is "
@@ -457,7 +450,6 @@ class ApplyTask extends ExecTask
      * - Required information validation
      * - Working directory
      *
-     * @return void
      * @throws BuildException
      * @throws IOException
      */
@@ -550,7 +542,6 @@ class ApplyTask extends ExecTask
     /**
      * Builds the full command to execute and stores it in $realCommand.
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -618,7 +609,6 @@ class ApplyTask extends ExecTask
      * @param array $srcFiles File list for processing
      * @param string $basedir Base directory of the file list
      *
-     * @return void
      * @throws BuildException
      * @throws IOException
      * @throws NullPointerException
@@ -773,7 +763,8 @@ class ApplyTask extends ExecTask
      * Runs cleanup tasks post execution
      * - Restore working directory
      *
-     * @return void
+     * @param null|mixed $return
+     * @param null|mixed $output
      */
     protected function cleanup($return = null, $output = null): void
     {
@@ -820,7 +811,6 @@ class ApplyTask extends ExecTask
      *
      * @throws BuildException
      *
-     * @return void
      */
     private function throwBuildException($information): void
     {

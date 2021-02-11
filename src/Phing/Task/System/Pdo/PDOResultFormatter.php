@@ -39,7 +39,6 @@ abstract class PDOResultFormatter
     /**
      * Sets the output writer.
      *
-     * @param Writer $out
      */
     public function setOutput(Writer $out)
     {

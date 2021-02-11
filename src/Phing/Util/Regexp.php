@@ -75,7 +75,6 @@ class Regexp
      * Sets pattern to use for matching.
      *
      * @param  string $pat The pattern to match on.
-     * @return void
      */
     public function setPattern($pat)
     {
@@ -96,7 +95,6 @@ class Regexp
      * Sets replacement string.
      *
      * @param  string $rep The pattern to replace matches with.
-     * @return void
      */
     public function setReplace($rep)
     {
@@ -174,7 +172,6 @@ class Regexp
      * Sets pattern modifiers for regex engine
      *
      * @param  string $mods Modifiers to be applied to a given regex
-     * @return void
      */
     public function setModifiers($mods)
     {

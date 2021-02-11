@@ -59,10 +59,6 @@ class TargetHandler extends AbstractHandler
     /**
      * Constructs a new TargetHandler
      *
-     * @param AbstractSAXParser $parser
-     * @param AbstractHandler $parentHandler
-     * @param ProjectConfigurator $configurator
-     * @param XmlContext $context
      * @internal param the $object ExpatParser object
      * @internal param the $object parent handler that invoked this handler
      * @internal param the $object ProjectConfigurator object

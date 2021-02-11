@@ -69,8 +69,6 @@ class Properties
     /**
      * Load properties from a file.
      *
-     * @param  File $file
-     * @return void
      * @throws IOException - if unable to read file.
      */
     public function load(File $file)
@@ -87,7 +85,6 @@ class Properties
     /**
      * Parses the file given.
      *
-     * @param File $file
      */
     protected function parse(File $file)
     {
@@ -135,7 +132,6 @@ class Properties
      *
      * @param  File   $file   File to create/overwrite with properties.
      * @param  string $header Header text that will be placed (within comments) at the top of properties file.
-     * @return void
      * @throws IOException - on error writing properties file.
      */
     public function store(File $file = null, $header = null)
@@ -206,7 +202,6 @@ class Properties
      * This is the same as get() method.
      *
      * @param  string $prop The property name (key).
-     * @return mixed
      * @see    get()
      */
     public function getProperty($prop)
@@ -224,7 +219,6 @@ class Properties
      * properties.
      *
      * @param  string $prop The property name (key).
-     * @return mixed
      * @see    getProperty()
      */
     public function get($prop)
@@ -240,7 +234,6 @@ class Properties
      * Set the value for a property.
      *
      * @param  string $key
-     * @param  mixed  $value
      * @return mixed  Old property value or null if none was set.
      */
     public function setProperty($key, $value)
@@ -257,8 +250,6 @@ class Properties
      * interface for properties.
      *
      * @param  string $key
-     * @param  mixed  $value
-     * @return mixed
      */
     public function put($key, $value)
     {
@@ -271,7 +262,6 @@ class Properties
      * If the property does not, it just adds it.
      *
      * @param string $key
-     * @param mixed  $value
      * @param string $delimiter
      */
     public function append($key, $value, $delimiter = ',')

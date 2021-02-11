@@ -45,7 +45,6 @@ class DeleteTask extends Task
     /**
      * Set the name of a single file to be removed.
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -55,7 +54,6 @@ class DeleteTask extends Task
     /**
      * Set the directory from which files are to be deleted.
      *
-     * @param File $dir
      */
     public function setDir(File $dir)
     {
@@ -85,7 +83,6 @@ class DeleteTask extends Task
      * meaning things are verbose
      *
      * @param  bool $bool
-     * @return void
      */
     public function setQuiet($bool)
     {
@@ -110,7 +107,6 @@ class DeleteTask extends Task
      * Used to delete empty directories.
      *
      * @param  bool $includeEmpty
-     * @return void
      */
     public function setIncludeEmptyDirs($includeEmpty)
     {

@@ -67,9 +67,7 @@ class SleepTask extends Task
      */
     private $milliseconds = 0;
 
-    /**
-     * @param bool $var
-     */
+
     public function setFailOnError(bool $var)
     {
         $this->failOnError = $var;
@@ -83,65 +81,49 @@ class SleepTask extends Task
         return $this->failOnError;
     }
 
-    /**
-     * @param mixed $hours
-     */
+
     public function setHours($hours)
     {
         $this->hours = $hours;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getHours()
     {
         return $this->hours;
     }
 
-    /**
-     * @param mixed $milliseconds
-     */
+
     public function setMilliseconds($milliseconds)
     {
         $this->milliseconds = $milliseconds;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getMilliseconds()
     {
         return $this->milliseconds;
     }
 
-    /**
-     * @param mixed $minutes
-     */
+
     public function setMinutes($minutes)
     {
         $this->minutes = $minutes;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getMinutes()
     {
         return $this->minutes;
     }
 
-    /**
-     * @param mixed $seconds
-     */
+
     public function setSeconds($seconds)
     {
         $this->seconds = $seconds;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getSeconds()
     {
         return $this->seconds;

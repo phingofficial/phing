@@ -166,7 +166,6 @@ class PathConvert extends Task
      * Adds a reference to a Path, FileSet, DirSet, or FileList defined
      * elsewhere.
      *
-     * @param Reference $r
      *
      * @throws BuildException
      */
@@ -325,7 +324,7 @@ class PathConvert extends Task
      * then the input string is returned unchanged.
      *
      * @param  string $elem The path element to apply the map to
-     * @return String Updated element
+     * @return string Updated element
      */
     private function mapElement($elem)
     {
@@ -421,9 +420,7 @@ class PathConvert extends Task
         return $this->preserveDuplicates;
     }
 
-    /**
-     * @param bool $preserveDuplicates
-     */
+
     public function setPreserveDuplicates(bool $preserveDuplicates): void
     {
         $this->preserveDuplicates = $preserveDuplicates;

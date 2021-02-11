@@ -32,9 +32,7 @@ class CommandlineArgument
     private $outer;
     public $escape = false;
 
-    /**
-     * @param Commandline $outer
-     */
+
     public function __construct(Commandline $outer)
     {
         $this->outer = $outer;
@@ -88,7 +86,6 @@ class CommandlineArgument
      * Sets a single commandline argument to the absolute filename
      * of the given file.
      *
-     * @param File $value
      * @internal param a $value single commandline argument.
      */
     public function setFile(File $value): void

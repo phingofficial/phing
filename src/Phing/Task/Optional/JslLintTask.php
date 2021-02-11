@@ -128,7 +128,6 @@ class JslLintTask extends Task
     /**
      * File to be performed syntax check on
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -138,7 +137,6 @@ class JslLintTask extends Task
     /**
      * Whether to store last-modified times in cache
      *
-     * @param File $file
      */
     public function setCacheFile(File $file)
     {
@@ -148,7 +146,6 @@ class JslLintTask extends Task
     /**
      * jsl config file
      *
-     * @param File $file
      */
     public function setConfFile(File $file)
     {
@@ -180,7 +177,6 @@ class JslLintTask extends Task
     /**
      * File to save error messages to
      *
-     * @param File $tofile
      */
     public function setToFile(File $tofile)
     {

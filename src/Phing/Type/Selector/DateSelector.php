@@ -44,9 +44,7 @@ class DateSelector extends BaseExtendSelector
     public const WHEN_KEY = "when";
     private static $timeComparisons = ["before", "after", "equal"];
 
-    /**
-     *
-     */
+
     public function __construct()
     {
         parent::__construct();
@@ -167,7 +165,6 @@ class DateSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
-     * @return void
      */
     public function setParameters(array $parameters): void
     {

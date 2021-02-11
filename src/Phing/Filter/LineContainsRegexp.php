@@ -127,7 +127,6 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
     /**
      * Whether to match casesensitevly.
-     * @param bool $b
      */
     public function setCaseSensitive(bool $b)
     {
@@ -225,7 +224,6 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * Creates a new LineContainsRegExp using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
      * @return LineContainsRegexp A new filter based on this configuration, but filtering
      *                the specified reader
      * @throws Exception

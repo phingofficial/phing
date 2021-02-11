@@ -109,7 +109,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      * Sets the output stream.
      *
-     * @param OutputStream $output
      * @see   BuildLogger#setOutputStream()
      */
     public function setOutputStream(OutputStream $output)
@@ -120,7 +119,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      * Sets the error stream.
      *
-     * @param OutputStream $err
      * @see   BuildLogger#setErrorStream()
      */
     public function setErrorStream(OutputStream $err)
@@ -143,7 +141,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Sets the start-time when the build started. Used for calculating
      *  the build-time.
      *
-     * @param BuildEvent $event
      */
     public function buildStarted(BuildEvent $event)
     {
@@ -161,7 +158,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Prints whether the build succeeded or failed, and any errors that
      *  occurred during the build. Also outputs the total build-time.
      *
-     * @param BuildEvent $event
      * @see   BuildEvent::getException()
      */
     public function buildFinished(BuildEvent $event)
@@ -238,7 +234,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Prints the current target name
      *
-     * @param BuildEvent $event
      * @see   BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event)
@@ -257,7 +252,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a target has finished. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param BuildEvent $event
      * @see   BuildEvent::getException()
      */
     public function targetFinished(BuildEvent $event)
@@ -268,7 +262,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a task is started. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param BuildEvent $event
      * @see   BuildEvent::getTask()
      */
     public function taskStarted(BuildEvent $event)
@@ -289,7 +282,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Print a message to the stdout.
      *
-     * @param BuildEvent $event
      * @see   BuildEvent::getMessage()
      */
     public function messageLogged(BuildEvent $event)
@@ -346,7 +338,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @param  int                   $priority The priority of the message.
      *                                         (Ignored in this
      *                                         implementation.)
-     * @return void
      * @throws IOException
      */
     protected function printMessage($message, OutputStream $stream, $priority)

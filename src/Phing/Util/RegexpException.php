@@ -21,8 +21,6 @@ namespace Phing\Util;
 
 use Exception;
 
-/**
- */
 class RegexpException extends Exception
 {
 }

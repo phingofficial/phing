@@ -120,7 +120,6 @@ class TokenSource extends DataType
      * Configures a TokenReader with the parameters passed to the
      * TokenSource.
      *
-     * @param TokenReader $reader
      */
     private function configureTokenReader(TokenReader $reader)
     {

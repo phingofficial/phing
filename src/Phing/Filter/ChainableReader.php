@@ -32,7 +32,6 @@ interface ChainableReader
      * Returns a reader with the same configuration as this one,
      * but filtering input from the specified reader.
      *
-     * @param Reader $reader
      * @return Reader A reader with the same configuration as this one, but
      *                filtering input from the specified reader
      */

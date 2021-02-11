@@ -97,7 +97,6 @@ class LoadFileTask extends Task
      * Set name of property to be set
      *
      * @param string $property
-     * @return void
      */
     public function setProperty($property)
     {
@@ -107,7 +106,6 @@ class LoadFileTask extends Task
     /**
      * Main method
      *
-     * @return void
      * @throws BuildException
      */
     public function main()

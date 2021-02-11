@@ -89,7 +89,6 @@ class PhpLintTask extends Task
     /**
      * File to be performed syntax check on
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -109,7 +108,6 @@ class PhpLintTask extends Task
     /**
      * Whether to store last-modified times in cache
      *
-     * @param File $file
      */
     public function setCacheFile(File $file)
     {
@@ -119,7 +117,6 @@ class PhpLintTask extends Task
     /**
      * File to save error messages to
      *
-     * @param File $tofile
      * @internal param PhingFile $file
      */
     public function setToFile(File $tofile)

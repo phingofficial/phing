@@ -47,7 +47,6 @@ class HttpCondition extends ProjectComponent implements Condition
      *
      * @param string $url the url of the request
      *
-     * @return void
      */
     public function setUrl($url)
     {
@@ -59,7 +58,6 @@ class HttpCondition extends ProjectComponent implements Condition
      *
      * @param string $errorsBeginAt number at which errors begin at, default is 400
      *
-     * @return void
      */
     public function setErrorsBeginAt($errorsBeginAt)
     {

@@ -59,7 +59,6 @@ abstract class ProjectComponent
      *
      * @param Project $project The reference to the current project
      *
-     * @return void
      */
     public function setProject($project)
     {
@@ -128,7 +127,6 @@ abstract class ProjectComponent
      * @param string $msg The message to be logged.
      * @param integer $level The message's priority at this message should have
      *
-     * @return void
      */
     public function log($msg, $level = Project::MSG_INFO)
     {

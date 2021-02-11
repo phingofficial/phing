@@ -116,7 +116,7 @@ class ComposerTask extends Task
     /**
      * Return the Composer command to execute.
      *
-     * @return String
+     * @return string
      */
     public function getCommand()
     {

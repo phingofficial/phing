@@ -39,7 +39,6 @@ class NotifySendTask extends Task
      *
      * @param \Phing\Io\File $icon name/location of icon
      *
-     * @return void
      */
     public function setIcon(File $icon)
     {
@@ -68,7 +67,6 @@ class NotifySendTask extends Task
      *
      * @param string $silent Don't execute notifysend? Truthy value.
      *
-     * @return void
      */
     public function setSilent($silent)
     {
@@ -80,7 +78,6 @@ class NotifySendTask extends Task
      *
      * @param string $title Title to display
      *
-     * @return void
      */
     public function setTitle($title)
     {
@@ -102,7 +99,6 @@ class NotifySendTask extends Task
      *
      * @param string $msg Message
      *
-     * @return void
      */
     public function setMsg($msg)
     {
@@ -122,7 +118,6 @@ class NotifySendTask extends Task
     /**
      * The main entry point method.
      *
-     * @return void
      * @throws BuildException
      */
     public function main()

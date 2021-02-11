@@ -47,7 +47,6 @@ class FlattenMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $to
-     * @return void
      */
     public function setTo($to)
     {
@@ -58,7 +57,6 @@ class FlattenMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $from
-     * @return void
      */
     public function setFrom($from)
     {

@@ -86,7 +86,6 @@ class ChownTask extends Task
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -116,7 +115,6 @@ class ChownTask extends Task
     /**
      * Execute the touch operation.
      *
-     * @return void
      */
     public function main()
     {
@@ -129,7 +127,6 @@ class ChownTask extends Task
      * Ensure that correct parameters were passed in.
      *
      * @throws BuildException
-     * @return void
      */
     private function checkParams()
     {
@@ -145,7 +142,6 @@ class ChownTask extends Task
     /**
      * Does the actual work.
      *
-     * @return void
      */
     private function chown()
     {
@@ -201,7 +197,6 @@ class ChownTask extends Task
     /**
      * Actually change the mode for the file.
      *
-     * @param  File $file
      * @param  string $user
      * @param  string $group
      * @throws BuildException

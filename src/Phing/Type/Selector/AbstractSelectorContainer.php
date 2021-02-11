@@ -39,7 +39,6 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      * Performs the check for circular references and returns the
      * referenced FileSet.
      *
-     * @param Project $p
      *
      * @return FileSet
      * @throws BuildException
@@ -130,7 +129,6 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     /**
      * Returns the set of selectors as an array.
      *
-     * @param Project $p
      * @return array of selectors in this container
      * @throws BuildException
      */
@@ -168,7 +166,6 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      *
      * @param FileSelector $selector new selector to add
      *
-     * @return void
      * @throws BuildException
      *
      */

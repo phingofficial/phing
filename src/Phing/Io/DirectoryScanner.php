@@ -738,7 +738,6 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Return the count of included files.
      *
-     * @return int
      *
      * @throws UnexpectedValueException
      */
@@ -838,7 +837,6 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Return the count of included directories.
      *
-     * @return int
      *
      * @throws UnexpectedValueException
      */

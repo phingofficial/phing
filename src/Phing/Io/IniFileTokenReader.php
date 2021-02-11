@@ -107,7 +107,6 @@ class IniFileTokenReader extends TokenReader
     /**
      * Process an individual section
      *
-     * @param array $section
      */
     protected function processSection(array $section)
     {

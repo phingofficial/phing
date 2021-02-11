@@ -42,9 +42,7 @@ class RegularExpression extends DataType
      */
     private $regexp = null;
 
-    /**
-     *
-     */
+
     public function __construct()
     {
         parent::__construct();
@@ -148,7 +146,6 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param Project $p
      * @return null|Regexp
      * @throws BuildException
      */
@@ -164,8 +161,6 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param Project $p
-     * @return mixed
      * @throws BuildException
      */
     public function getRef(Project $p)

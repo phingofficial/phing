@@ -81,9 +81,7 @@ class DataType extends ProjectComponent
      * have been set as well or child elements have been created and
      * thus override this method. if they do they must call parent::setRefid()
      *
-     * @param Reference $r
      *
-     * @return void
      */
     public function setRefid(Reference $r)
     {
@@ -116,7 +114,6 @@ class DataType extends ProjectComponent
      * @param array $stk
      * @param Project $p
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -165,7 +162,6 @@ class DataType extends ProjectComponent
      * @param string $requiredClass
      * @param string $dataTypeName
      *
-     * @return mixed
      * @throws BuildException
      */
     public function getCheckedRef($requiredClass, $dataTypeName)
@@ -224,7 +220,6 @@ class DataType extends ProjectComponent
      *
      * {@inheritdoc}
      *
-     * @return void
      */
     public function parsingComplete()
     {
