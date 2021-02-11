@@ -71,6 +71,7 @@
         "ext-pdo_sqlite": "*",
         "ext-simplexml": "*",
         "aws/aws-sdk-php": "^3.112",
+        "friendsofphp/php-cs-fixer": "^2.18",
         "guzzlehttp/guzzle": "^7.1",
         "jawira/plantuml-encoding": "^1.0",
         "mikey179/vfsstream": "^1.6.8",

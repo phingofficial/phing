@@ -1,0 +1,15 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->in('src/Phing')
+    ->in('tests/Phing')
+;
+
+$config = new PhpCsFixer\Config();
+return $config->setRules([
+        '@PSR2' => true,
+    ], [
+        '@PHP74Migration'
+    ])
+    ->setFinder($finder)
+;
