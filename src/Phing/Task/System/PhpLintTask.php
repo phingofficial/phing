@@ -79,7 +79,7 @@ class PhpLintTask extends Task
     /**
      * The haltonfailure property
      *
-     * @param boolean $aValue
+     * @param bool $aValue
      */
     public function setHaltOnFailure($aValue)
     {
@@ -127,7 +127,7 @@ class PhpLintTask extends Task
     /**
      * Sets whether to treat deprecated warnings (introduced in PHP 5.3) as errors
      *
-     * @param boolean $deprecatedAsError
+     * @param bool $deprecatedAsError
      */
     public function setDeprecatedAsError($deprecatedAsError)
     {

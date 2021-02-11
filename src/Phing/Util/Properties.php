@@ -287,7 +287,7 @@ class Properties
      * Whether loaded properties array contains specified property name.
      *
      * @param  string $key
-     * @return boolean
+     * @return bool
      */
     public function containsKey($key)
     {
@@ -309,7 +309,7 @@ class Properties
     /**
      * Whether properties list is empty.
      *
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {

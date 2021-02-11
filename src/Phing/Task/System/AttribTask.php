@@ -87,7 +87,7 @@ class AttribTask extends ApplyTask
     /**
      * Set the ReadOnly file attribute.
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setReadonly($value)
     {
@@ -97,7 +97,7 @@ class AttribTask extends ApplyTask
     /**
      * Set the Archive file attribute.
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setArchive($value)
     {
@@ -107,7 +107,7 @@ class AttribTask extends ApplyTask
     /**
      * Set the System file attribute.
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setSystem($value)
     {
@@ -117,7 +117,7 @@ class AttribTask extends ApplyTask
     /**
      * Set the Hidden file attribute.
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setHidden($value)
     {
@@ -157,7 +157,7 @@ class AttribTask extends ApplyTask
      * Add source file.
      * This is not allowed, and it always throws a BuildException.
      *
-     * @param  boolean $b ignored
+     * @param  bool $b ignored
      * @throws BuildException
      */
     public function setAddsourcefile(bool $b)
@@ -189,7 +189,7 @@ class AttribTask extends ApplyTask
      * Set parallel.
      * This is not allowed, and it always throws a BuildException.
      *
-     * @param  boolean $parallel ignored
+     * @param  bool $parallel ignored
      * @throws BuildException
      */
     public function setParallel(bool $parallel)

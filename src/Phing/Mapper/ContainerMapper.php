@@ -84,7 +84,7 @@ abstract class ContainerMapper implements FileNameMapper
      * its sub-elements contains the specified <code>FileNameMapper</code>.
      *
      * @param FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to search for.
-     * @return boolean
+     * @return bool
      */
     protected function contains(FileNameMapper $fileNameMapper)
     {

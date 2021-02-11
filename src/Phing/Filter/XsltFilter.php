@@ -137,7 +137,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * Whether to use HTML parser for the XML.
      * This is supported in libxml2 -- Yay!
      *
-     * @return boolean
+     * @return bool
      */
     public function getHtml()
     {
@@ -147,7 +147,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Whether to use HTML parser for XML.
      *
-     * @param boolean $b
+     * @param bool $b
      */
     public function setHtml($b)
     {

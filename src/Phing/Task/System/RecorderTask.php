@@ -49,11 +49,11 @@ class RecorderTask extends Task implements SubBuildListener
      */
     private $filename = null;
     /**
-     * Whether or not to append. Need Boolean to record an unset state (null).
+     * Whether or not to append. Need bool to record an unset state (null).
      */
     private $append = null;
     /**
-     * Whether to start or stop recording. Need Boolean to record an unset
+     * Whether to start or stop recording. Need bool to record an unset
      * state (null).
      */
     private $start = null;

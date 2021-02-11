@@ -184,7 +184,7 @@ class Phing
     private static $err;
 
     /**
-     * @var boolean Whether we are using a logfile.
+     * @var bool Whether we are using a logfile.
      */
     private static $isLogFileUsed = false;
 

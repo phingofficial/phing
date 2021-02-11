@@ -173,7 +173,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets whether default exclusions should be used or not.
      *
-     * @param boolean $useDefaultExcludes "true"|"on"|"yes" when default exclusions
+     * @param bool $useDefaultExcludes "true"|"on"|"yes" when default exclusions
      *                                    should be used, "false"|"off"|"no" when they
      *                                    shouldn't be used.
      */
@@ -221,7 +221,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets case sensitivity of the file system
      *
-     * @param  boolean $isCaseSensitive "true"|"on"|"yes" if file system is case
+     * @param  bool $isCaseSensitive "true"|"on"|"yes" if file system is case
      *                                  sensitive, "false"|"off"|"no" when not.
      */
     public function setCaseSensitive($isCaseSensitive)
@@ -232,7 +232,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets whether or not symbolic links should be followed.
      *
-     * @param  boolean $followSymlinks whether or not symbolic links should be followed
+     * @param  bool $followSymlinks whether or not symbolic links should be followed
      */
     public function setFollowSymlinks($followSymlinks)
     {
@@ -242,7 +242,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Indicates whether there are any selectors here.
      *
-     * @return boolean Whether any selectors are in this container
+     * @return bool Whether any selectors are in this container
      */
     public function hasSelectors()
     {

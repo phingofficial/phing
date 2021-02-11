@@ -287,7 +287,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Sets the fetch mode to use for the PDO resultset.
      *
-     * @param  mixed $mode The PDO fetchmode integer or constant name.
+     * @param  mixed $mode The PDO fetchmode int or constant name.
      * @throws BuildException
      */
     public function setFetchmode($mode): void
@@ -486,7 +486,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @param string $sql
      *
-     * @return boolean Whether specified SQL looks like a SELECT query.
+     * @return bool Whether specified SQL looks like a SELECT query.
      */
     protected function isSelectSql($sql)
     {

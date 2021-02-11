@@ -53,7 +53,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     /**
      * Indicates whether there are any selectors here.
      *
-     * @return boolean Whether any selectors are in this container
+     * @return bool Whether any selectors are in this container
      */
     public function hasSelectors()
     {

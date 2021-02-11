@@ -75,7 +75,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider prefixLengthDataPRovider
-     * @param integer $expected
+     * @param int $expected
      * @param string $pathname
      */
     public function testPrefixLength($expected, $pathname)
@@ -208,7 +208,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider isAbsoluteDataProvider
-     * @param boolean $expected
+     * @param bool $expected
      * @param string $path
      * @param int $prefix
      */

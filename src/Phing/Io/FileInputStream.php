@@ -81,7 +81,7 @@ class FileInputStream extends InputStream
     /**
      * Mark is supported by FileInputStream.
      *
-     * @return boolean TRUE
+     * @return bool TRUE
      */
     public function markSupported()
     {

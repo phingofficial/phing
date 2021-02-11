@@ -86,7 +86,7 @@ class Commandline implements Countable
      * <p>Each commandline object has at most one instance of the
      * argument class.</p>
      *
-     * @param boolean $insertAtStart if true, the argument is inserted at the
+     * @param bool $insertAtStart if true, the argument is inserted at the
      *                                beginning of the list of args, otherwise
      *                                it is appended.
      * @return CommandlineArgument

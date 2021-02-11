@@ -138,7 +138,7 @@ class ApplyTask extends ExecTask
      * no source files have been found or are newer than their
      * corresponding target files, the command will not be run.
      *
-     * @param boolean $skip whether to skip empty filesets.
+     * @param bool $skip whether to skip empty filesets.
      */
     public function setSkipEmptyFilesets(bool $skip)
     {
@@ -170,7 +170,7 @@ class ApplyTask extends ExecTask
     /**
      * Run the command only once, appending all files as arguments
      *
-     * @param boolean $parallel Identifier for files as arguments appending
+     * @param bool $parallel Identifier for files as arguments appending
      *
      */
     public function setParallel(bool $parallel)
@@ -181,7 +181,7 @@ class ApplyTask extends ExecTask
     /**
      * To add the source filename at the end of command of automatically
      *
-     * @param boolean $addsourcefile Identifier for adding source file at the end of command
+     * @param bool $addsourcefile Identifier for adding source file at the end of command
      *
      */
     public function setAddsourcefile(bool $addsourcefile)
@@ -205,7 +205,7 @@ class ApplyTask extends ExecTask
     /**
      * Fail on command exits with a returncode other than zero
      *
-     * @param boolean $failonerror Indicator to fail on error
+     * @param bool $failonerror Indicator to fail on error
      *
      */
     public function setFailonerror(bool $failonerror)
@@ -216,7 +216,7 @@ class ApplyTask extends ExecTask
     /**
      * Whether to use forward-slash as file-separator on the file names
      *
-     * @param boolean $forwardslash Indicator to use forward-slash
+     * @param bool $forwardslash Indicator to use forward-slash
      *
      */
     public function setForwardslash(bool $forwardslash)

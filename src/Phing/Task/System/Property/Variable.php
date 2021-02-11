@@ -44,7 +44,7 @@ class Variable extends PropertyTask
      * Default is false. Once  removed, conditions that check for property
      * existence will find this property does not exist.
      *
-     * @param boolean $b set to true to remove the property from the project.
+     * @param bool $b set to true to remove the property from the project.
      */
     public function setUnset($b)
     {

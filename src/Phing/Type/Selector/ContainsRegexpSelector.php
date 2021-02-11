@@ -101,7 +101,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /**
      * Whether to ignore case in the regex match.
      *
-     * @param boolean $casesensitive whether to pay attention to case sensitivity
+     * @param bool $casesensitive whether to pay attention to case sensitivity
      */
     public function setCasesensitive($casesensitive)
     {

@@ -44,7 +44,7 @@ class ElseIfTask extends ConditionBase
 
     /**
      * @throws BuildException
-     * @return boolean
+     * @return bool
      */
     public function evaluate()
     {

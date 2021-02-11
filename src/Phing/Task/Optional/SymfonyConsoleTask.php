@@ -129,7 +129,7 @@ class SymfonyConsoleTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @param boolean $checkreturn If the return code shall be checked
+     * @param bool $checkreturn If the return code shall be checked
      *
      */
     public function setCheckreturn(bool $checkreturn)
@@ -140,7 +140,7 @@ class SymfonyConsoleTask extends Task
     /**
      * Whether to set the symfony cli debug mode
      *
-     * @param boolean $debug If the symfony cli debug mode is set
+     * @param bool $debug If the symfony cli debug mode is set
      *
      */
     public function setDebug(bool $debug)
@@ -151,7 +151,7 @@ class SymfonyConsoleTask extends Task
     /**
      * Get if the symfony cli debug mode is set
      *
-     * @return boolean
+     * @return bool
      */
     public function getDebug()
     {
@@ -194,7 +194,7 @@ class SymfonyConsoleTask extends Task
     /**
      * Check if the no-debug option was added via args
      *
-     * @return boolean
+     * @return bool
      */
     private function isNoDebugArgPresent()
     {

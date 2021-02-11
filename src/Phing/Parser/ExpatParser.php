@@ -91,7 +91,7 @@ class ExpatParser extends AbstractSAXParser
      *
      * @param    $opt
      * @param    $val
-     * @return   boolean true if the option could be set, otherwise false
+     * @return   bool true if the option could be set, otherwise false
      * @internal param the $string option to set
      */
     public function parserSetOption($opt, $val)

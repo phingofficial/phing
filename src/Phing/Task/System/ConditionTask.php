@@ -26,7 +26,7 @@ use Phing\Task\System\Condition\ConditionBase;
 /**
  * <condition> task as a generalization of <available>
  *
- * <p>This task supports boolean logic as well as pluggable conditions
+ * <p>This task supports bool logic as well as pluggable conditions
  * to decide, whether a property should be set.</p>
  *
  * <p>This task does not extend Task to take advantage of

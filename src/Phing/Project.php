@@ -510,7 +510,7 @@ class Project
     /**
      * Get the strict-mode status for the project
      *
-     * @return boolean
+     * @return bool
      */
     public function getStrictmode()
     {
@@ -844,11 +844,11 @@ class Project
     }
 
     /**
-     * Return the boolean equivalent of a string, which is considered
+     * Return the bool equivalent of a string, which is considered
      * <code>true</code> if either <code>"on"</code>, <code>"true"</code>,
      * or <code>"yes"</code> is found, ignoring case.
      *
-     * @param string $s The string to convert to a boolean value.
+     * @param string $s The string to convert to a bool value.
      *
      * @return <code>true</code> if the given string is <code>"on"</code>,
      *         <code>"true"</code> or <code>"yes"</code>, or
@@ -860,7 +860,7 @@ class Project
             strcasecmp($s, 'on') === 0
             || strcasecmp($s, 'true') === 0
             || strcasecmp($s, 'yes') === 0
-            // FIXME next condition should be removed if the boolean behavior for properties will be solved
+            // FIXME next condition should be removed if the bool behavior for properties will be solved
             || strcasecmp($s, 1) === 0
         );
     }

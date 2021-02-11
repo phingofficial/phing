@@ -153,7 +153,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     /**
      * Set the negation mode.  Default false (no negation).
      *
-     * @param boolean $b the boolean negation mode to set.
+     * @param bool $b the bool negation mode to set.
      */
     public function setNegate(bool $b)
     {
@@ -163,7 +163,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     /**
      * Find out whether we have been negated.
      *
-     * @return boolean negation flag.
+     * @return bool negation flag.
      */
     public function isNegated(): bool
     {

@@ -277,7 +277,7 @@ class PropertyTask extends Task
      * of the class is still being set via constructor, so Phing will
      * allow this method to function.
      *
-     * @param boolean $v
+     * @param bool $v
      */
     public function setUserProperty(bool $v): void
     {

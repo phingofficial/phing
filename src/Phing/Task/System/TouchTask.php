@@ -131,7 +131,7 @@ class TouchTask extends Task
      * Set whether nonexistent parent directories should be created
      * when touching new files.
      *
-     * @param boolean $mkdirs whether to create parent directories.
+     * @param bool $mkdirs whether to create parent directories.
      */
     public function setMkdirs($mkdirs)
     {
@@ -142,7 +142,7 @@ class TouchTask extends Task
      * Set whether the touch task will report every file it creates;
      * defaults to <code>true</code>.
      *
-     * @param boolean $verbose flag.
+     * @param bool $verbose flag.
      */
     public function setVerbose($verbose)
     {

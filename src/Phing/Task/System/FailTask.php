@@ -190,7 +190,7 @@ class FailTask extends Task
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     protected function testIfCondition()
     {
@@ -202,7 +202,7 @@ class FailTask extends Task
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     protected function testUnlessCondition()
     {
@@ -233,7 +233,7 @@ class FailTask extends Task
     /**
      * test whether there is a nested condition.
      *
-     * @return boolean
+     * @return bool
      */
     private function nestedConditionPresent()
     {

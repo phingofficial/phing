@@ -63,7 +63,7 @@ class DeleteTask extends Task
     /**
      * Used to force listing of all names of deleted files.
      *
-     * @param boolean $verbosity
+     * @param bool $verbosity
      */
     public function setVerbose($verbosity)
     {

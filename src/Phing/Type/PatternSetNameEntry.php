@@ -113,7 +113,7 @@ class PatternSetNameEntry
      * Checks whether pattern should be applied based on whether the if and unless
      * properties are set in project.
      *
-     * @return boolean
+     * @return bool
      */
     public function valid(Project $project)
     {

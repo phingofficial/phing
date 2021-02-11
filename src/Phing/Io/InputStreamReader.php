@@ -88,7 +88,7 @@ class InputStreamReader extends Reader
     /**
      * Whether the attached stream supports mark/reset.
      *
-     * @return boolean
+     * @return bool
      */
     public function markSupported()
     {
@@ -108,7 +108,7 @@ class InputStreamReader extends Reader
     /**
      * Whether eof has been reached with stream.
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {

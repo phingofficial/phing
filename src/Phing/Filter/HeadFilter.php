@@ -115,7 +115,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the number of lines to be returned in the filtered stream.
      *
-     * @param integer $lines the number of lines to be returned in the filtered stream.
+     * @param int $lines the number of lines to be returned in the filtered stream.
      *
      */
     public function setLines($lines)
@@ -126,7 +126,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns the number of lines to be returned in the filtered stream.
      *
-     * @return integer The number of lines to be returned in the filtered stream.
+     * @return int The number of lines to be returned in the filtered stream.
      */
     public function getLines()
     {

@@ -107,7 +107,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets whether to expand/dereference symbolic links, default is false
      *
-     * @param boolean $expandSymbolicLinks
+     * @param bool $expandSymbolicLinks
      */
     public function setExpandSymbolicLinks(bool $expandSymbolicLinks)
     {
@@ -458,7 +458,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Indicates whether there are any selectors here.
      *
-     * @return boolean Whether any selectors are in this container
+     * @return bool Whether any selectors are in this container
      */
     public function hasSelectors()
     {
@@ -474,7 +474,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Indicates whether there are any patterns here.
      *
-     * @return boolean Whether any patterns are in this container.
+     * @return bool Whether any patterns are in this container.
      */
     public function hasPatterns()
     {

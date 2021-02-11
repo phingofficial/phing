@@ -79,7 +79,7 @@ class ContainsSelector extends BaseExtendSelector
     /**
      * Whether to ignore case in the string being searched.
      *
-     * @param boolean $casesensitive whether to pay attention to case sensitivity
+     * @param bool $casesensitive whether to pay attention to case sensitivity
      */
     public function setCasesensitive($casesensitive)
     {
@@ -87,7 +87,7 @@ class ContainsSelector extends BaseExtendSelector
     }
 
     /**
-     * @param boolean $ignoreWhitespace
+     * @param bool $ignoreWhitespace
      */
     public function setIgnoreWhitespace($ignoreWhitespace)
     {

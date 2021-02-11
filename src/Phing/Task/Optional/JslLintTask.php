@@ -98,7 +98,7 @@ class JslLintTask extends Task
     /**
      * Sets the flag if warnings should be shown
      *
-     * @param boolean $show
+     * @param bool $show
      */
     public function setShowWarnings($show)
     {
@@ -108,7 +108,7 @@ class JslLintTask extends Task
     /**
      * The haltonfailure property
      *
-     * @param boolean $aValue
+     * @param bool $aValue
      */
     public function setHaltOnFailure($aValue)
     {
@@ -118,7 +118,7 @@ class JslLintTask extends Task
     /**
      * The haltonwarning property
      *
-     * @param boolean $aValue
+     * @param bool $aValue
      */
     public function setHaltOnWarning($aValue)
     {

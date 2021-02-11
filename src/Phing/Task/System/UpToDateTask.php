@@ -155,7 +155,7 @@ class UpToDateTask extends Task implements Condition
      * see if the target(s) is/are up-to-date.
      *
      * @throws BuildException
-     * @return boolean
+     * @return bool
      */
     public function evaluate()
     {

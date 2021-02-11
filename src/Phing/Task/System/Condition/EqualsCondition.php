@@ -54,7 +54,7 @@ class EqualsCondition implements Condition
     /**
      * Should we want to trim the arguments before comparing them?
      *
-     * @param boolean $b
+     * @param bool $b
      */
     public function setTrim($b)
     {
@@ -64,7 +64,7 @@ class EqualsCondition implements Condition
     /**
      * Should the comparison be case sensitive?
      *
-     * @param boolean $b
+     * @param bool $b
      */
     public function setCaseSensitive($b)
     {

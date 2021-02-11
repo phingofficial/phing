@@ -131,7 +131,7 @@ class SymlinkTask extends Task
     /**
      * setter for _overwrite
      *
-     * @param boolean $overwrite
+     * @param bool $overwrite
      */
     public function setOverwrite($overwrite)
     {
@@ -139,7 +139,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * @param boolean $relative
+     * @param bool $relative
      */
     public function setRelative($relative)
     {
@@ -189,7 +189,7 @@ class SymlinkTask extends Task
     /**
      * getter for _overwrite
      *
-     * @return boolean
+     * @return bool
      */
     public function getOverwrite()
     {
@@ -197,7 +197,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isRelative()
     {

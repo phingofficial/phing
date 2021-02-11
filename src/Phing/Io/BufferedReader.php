@@ -43,7 +43,7 @@ class BufferedReader extends Reader
     /**
      *
      * @param InputStreamReader $reader The reader (e.g. FileReader).
-     * @param integer $buffsize The size of the buffer we should use for reading files.
+     * @param int $buffsize The size of the buffer we should use for reading files.
      *                                    A large buffer ensures that most files (all scripts?)
      *                                    are parsed in 1 buffer.
      */
@@ -168,7 +168,7 @@ class BufferedReader extends Reader
      * This is important, because filters may want to know if the end of the file (and not just buffer)
      * has been reached.
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {

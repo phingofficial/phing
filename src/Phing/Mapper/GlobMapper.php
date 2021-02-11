@@ -80,7 +80,7 @@ class GlobMapper implements FileNameMapper
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
      *
-     * @param boolean $handleDirSep a boolean, default is false.
+     * @param bool $handleDirSep a boolean, default is false.
      */
     public function setHandleDirSep($handleDirSep)
     {
@@ -100,7 +100,7 @@ class GlobMapper implements FileNameMapper
      * Attribute specifying whether to ignore the case difference
      * in the names.
      *
-     * @param boolean $caseSensitive a boolean, default is false.
+     * @param bool $caseSensitive a boolean, default is false.
      */
     public function setCaseSensitive($caseSensitive)
     {

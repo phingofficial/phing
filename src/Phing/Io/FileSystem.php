@@ -190,7 +190,7 @@ abstract class FileSystem
      * access is made.  Return false if access is denied or an I/O error
      * occurs.
      *
-     * @param  boolean $write
+     * @param  bool $write
      * @return bool
      */
     public function checkAccess(File $f, $write = false)
@@ -225,7 +225,7 @@ abstract class FileSystem
     /**
      * Whether file can be deleted.
      *
-     * @return boolean
+     * @return bool
      */
     public function canDelete(File $f)
     {
@@ -307,7 +307,7 @@ abstract class FileSystem
      * IOException if an I/O error occurs.
      *
      * @param  string $strPathname Path of the file to be created.
-     * @return boolean
+     * @return bool
      * @throws IOException
      */
     public function createNewFile($strPathname)
@@ -333,7 +333,7 @@ abstract class FileSystem
      * Delete the file or directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
      *
-     * @param  boolean $recursive
+     * @param  bool $recursive
      * @throws IOException
      */
     public function delete(File $f, $recursive = false)
@@ -376,7 +376,7 @@ abstract class FileSystem
      *
      * @param  File     $f
      * @param  int|null $mode
-     * @return boolean
+     * @return bool
      */
     public function createDirectory(&$f, $mode = null)
     {

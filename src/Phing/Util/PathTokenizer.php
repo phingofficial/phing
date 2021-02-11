@@ -143,7 +143,7 @@ class PathTokenizer
      *
      * @param string $path path to search for.
      *
-     * @return boolean
+     * @return bool
      */
     public function contains($path)
     {

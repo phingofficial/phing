@@ -50,7 +50,7 @@ interface BuildLogger extends BuildListener
      *   - Project::MSG_VERBOSE
      *   - Project::MSG_DEBUG
      *
-     * @param int $level The log level integer (e.g. Project::MSG_VERBOSE, etc.).
+     * @param int $level The log level int (e.g. Project::MSG_VERBOSE, etc.).
      */
     public function setMessageOutputLevel($level);
 

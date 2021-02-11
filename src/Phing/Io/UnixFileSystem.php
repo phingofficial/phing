@@ -304,7 +304,7 @@ class UnixFileSystem extends FileSystem
     /**
      * Whether file can be deleted.
      *
-     * @return boolean
+     * @return bool
      */
     public function canDelete(File $f)
     {

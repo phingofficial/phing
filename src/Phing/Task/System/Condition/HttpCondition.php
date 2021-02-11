@@ -80,7 +80,7 @@ class HttpCondition extends ProjectComponent implements Condition
      * Whether redirects sent by the server should be followed,
      * defaults to true.
      *
-     * @param boolean $f
+     * @param bool $f
      */
     public function setFollowRedirects($f)
     {

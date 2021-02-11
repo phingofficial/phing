@@ -63,7 +63,7 @@ class FileHashTask extends Task
     /**
      * Specify if MD5 or SHA1 hash should be used
      *
-     * @param integer $type 0=MD5, 1=SHA1
+     * @param int $type 0=MD5, 1=SHA1
      */
     public function setHashtype($type): void
     {

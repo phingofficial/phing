@@ -334,7 +334,7 @@ class IntrospectionHelper
                 /** @var ReflectionType $hint */
                 $reflectedAttr = ($hint = $params[0]->getType()) ? $hint->getName() : null;
 
-                // value is a string representation of a boolean type,
+                // value is a string representation of a bool type,
                 // convert it to primitive
                 if ($reflectedAttr === 'bool' || ($reflectedAttr !== 'string' && StringHelper::isBoolean($value))) {
                     $value = StringHelper::booleanValue($value);
@@ -530,7 +530,7 @@ class IntrospectionHelper
     /**
      * Does the introspected class support PCDATA?
      *
-     * @return boolean
+     * @return bool
      */
     public function supportsCharacters()
     {

@@ -200,7 +200,7 @@ class UnknownElement extends Task
      *
      * @param UnknownElement $ue The unknwon element to create a task from
      * @param RuntimeConfigurable $w The wrapper object
-     * @param boolean $onTopLevel Whether to treat this task as if it is top-level.
+     * @param bool $onTopLevel Whether to treat this task as if it is top-level.
      * @return Task                The freshly created task
      * @throws BuildException
      */

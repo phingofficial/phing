@@ -275,7 +275,7 @@ class ExecTask extends Task
             $this->realCommand .= ' 2>&1';
         }
 
-        // we ignore the spawn boolean for windows
+        // we ignore the spawn bool for windows
         if ($this->spawn) {
             $this->realCommand .= ' &';
         }
@@ -329,7 +329,7 @@ class ExecTask extends Task
      * - log output
      * - verify return value
      *
-     * @param integer $return Return code
+     * @param int $return Return code
      * @param array $output Array with command output
      *
      * @throws BuildException
@@ -420,7 +420,7 @@ class ExecTask extends Task
     /**
      * Whether to use escapeshellcmd() to escape command.
      *
-     * @param boolean $escape If the command shall be escaped or not
+     * @param bool $escape If the command shall be escaped or not
      *
      */
     public function setEscape(bool $escape): void
@@ -501,7 +501,7 @@ class ExecTask extends Task
     /**
      * Whether to use PHP's passthru() function instead of exec()
      *
-     * @param boolean $passthru If passthru shall be used
+     * @param bool $passthru If passthru shall be used
      *
      */
     public function setPassthru($passthru): void
@@ -512,7 +512,7 @@ class ExecTask extends Task
     /**
      * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
      *
-     * @param boolean $logOutput If output shall be logged visibly
+     * @param bool $logOutput If output shall be logged visibly
      *
      */
     public function setLogoutput($logOutput): void
@@ -523,7 +523,7 @@ class ExecTask extends Task
     /**
      * Whether to suppress all output and run in the background.
      *
-     * @param boolean $spawn If the command is to be run in the background
+     * @param bool $spawn If the command is to be run in the background
      *
      */
     public function setSpawn($spawn): void
@@ -534,7 +534,7 @@ class ExecTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @param boolean $checkreturn If the return code shall be checked
+     * @param bool $checkreturn If the return code shall be checked
      *
      */
     public function setCheckreturn($checkreturn): void
@@ -594,7 +594,7 @@ class ExecTask extends Task
     /**
      * Is this the OS the user wanted?
      *
-     * @return boolean.
+     * @return bool.
      * <ul>
      * <li>
      * <li><code>true</code> if the os and osfamily attributes are null.</li>

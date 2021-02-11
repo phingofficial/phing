@@ -82,7 +82,7 @@ abstract class Reader
     /**
      * Whether marking is supported.
      *
-     * @return boolean
+     * @return bool
      */
     public function markSupported()
     {
@@ -92,7 +92,7 @@ abstract class Reader
     /**
      * Is stream ready for reading.
      *
-     * @return boolean
+     * @return bool
      */
     public function ready()
     {

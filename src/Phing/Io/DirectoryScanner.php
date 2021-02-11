@@ -263,7 +263,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * @param string $pattern the pattern to match against
      * @param string $str the string (path) to match
      * @param bool $isCaseSensitive must matches be case sensitive?
-     * @return boolean true if matches, otherwise false
+     * @return bool true if matches, otherwise false
      */
     public function matchPatternStart($pattern, $str, $isCaseSensitive = true)
     {
@@ -296,7 +296,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *                                pattern
      * @param bool $isCaseSensitive
      *
-     * @return boolean true when the string matches against the pattern,
+     * @return bool true when the string matches against the pattern,
      *                 false otherwise.
      */
     public function match($pattern, $str, $isCaseSensitive = true)
@@ -321,7 +321,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * default exclude.
      *
      * @param string $s A string to add as an exclude pattern.
-     * @return boolean   <code>true</code> if the string was added;
+     * @return bool   <code>true</code> if the string was added;
      *                   <code>false</code> if it already existed.
      */
     public static function addDefaultExclude($s)
@@ -340,7 +340,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      * Remove a string if it is a default exclude.
      *
      * @param string $s The string to attempt to remove.
-     * @return boolean    <code>true</code> if <code>s</code> was a default
+     * @return bool    <code>true</code> if <code>s</code> was a default
      *                    exclude (and thus was removed);
      *                    <code>false</code> if <code>s</code> was not
      *                    in the default excludes list to begin with.
@@ -464,7 +464,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
     /**
      * Sets whether to expand/dereference symbolic links
      *
-     * @param boolean $expandSymbolicLinks
+     * @param bool $expandSymbolicLinks
      */
     public function setExpandSymbolicLinks($expandSymbolicLinks)
     {
@@ -933,7 +933,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *
      * @param string $name The filename to check for selecting.
      * @param string $file The full file path.
-     * @return boolean False when the selectors says that the file
+     * @return bool False when the selectors says that the file
      *                      should not be selected, True otherwise.
      * @throws BuildException
      * @throws IOException

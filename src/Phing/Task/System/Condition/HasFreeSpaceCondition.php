@@ -44,7 +44,7 @@ class HasFreeSpaceCondition implements Condition
      *
      * @throws BuildException
      *
-     * @return boolean
+     * @return bool
      */
     public function evaluate()
     {

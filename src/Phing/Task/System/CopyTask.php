@@ -125,9 +125,9 @@ class CopyTask extends Task
     /**
      * Set the overwrite flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
-     * value (boolean primitive) is coming in here.
+     * value (bool primitive) is coming in here.
      *
-     * @param boolean $bool Overwrite the destination file(s) if it/they already exist
+     * @param bool $bool Overwrite the destination file(s) if it/they already exist
      *
      */
     public function setOverwrite($bool)
@@ -153,7 +153,7 @@ class CopyTask extends Task
     /**
      * Used to force listing of all names of copied files.
      *
-     * @param boolean $verbosity
+     * @param bool $verbosity
      */
     public function setVerbose($verbosity)
     {
@@ -176,9 +176,9 @@ class CopyTask extends Task
     /**
      * Set the preserve timestamp flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
-     * value (boolean primitive) is coming in here.
+     * value (bool primitive) is coming in here.
      *
-     * @param  boolean $bool Preserve the timestamp on the destination file
+     * @param  bool $bool Preserve the timestamp on the destination file
      */
     public function setPreserveLastModified($bool)
     {
@@ -188,9 +188,9 @@ class CopyTask extends Task
     /**
      * Set the preserve permissions flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
-     * value (boolean primitive) is coming in here.
+     * value (bool primitive) is coming in here.
      *
-     * @param  boolean $bool Preserve the timestamp on the destination file
+     * @param  bool $bool Preserve the timestamp on the destination file
      */
     public function setPreservepermissions($bool)
     {
@@ -208,9 +208,9 @@ class CopyTask extends Task
     /**
      * Set the include empty dirs flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
-     * value (boolean primitive) is coming in here.
+     * value (bool primitive) is coming in here.
      *
-     * @param  boolean $bool Flag if empty dirs should be cpoied too
+     * @param  bool $bool Flag if empty dirs should be cpoied too
      */
     public function setIncludeEmptyDirs($bool)
     {
@@ -247,7 +247,7 @@ class CopyTask extends Task
      * Sets the mode to create destination directories with (ignored on Windows).
      * Default mode is taken from umask()
      *
-     * @param integer $mode Octal mode
+     * @param int $mode Octal mode
      *
      */
     public function setMode($mode)
@@ -282,7 +282,7 @@ class CopyTask extends Task
      * Set the haltonerror attribute - when true, will
      * make the build fail when errors are detected.
      *
-     * @param boolean $haltonerror Flag if the build should be stopped on errors
+     * @param bool $haltonerror Flag if the build should be stopped on errors
      *
      */
     public function setHaltonerror($haltonerror)

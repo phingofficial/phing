@@ -30,28 +30,28 @@ interface RegexpEngine
     /**
      * Sets whether or not regex operation should ingore case.
      *
-     * @param  boolean $bit
+     * @param  bool $bit
      */
     public function setIgnoreCase($bit);
 
     /**
      * Returns status of ignore case flag.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIgnoreCase();
 
     /**
      * Sets whether regexp should be applied in multiline mode.
      *
-     * @param boolean $bit
+     * @param bool $bit
      */
     public function setMultiline($bit);
 
     /**
      * Gets whether regexp is to be applied in multiline mode.
      *
-     * @return boolean
+     * @return bool
      */
     public function getMultiline();
 
@@ -75,7 +75,7 @@ interface RegexpEngine
      * @param  string $pattern The regex pattern to match.
      * @param  string $source  The source string.
      * @param  array  $matches The array in which to store matches.
-     * @return boolean Success of matching operation.
+     * @return bool Success of matching operation.
      */
     public function match($pattern, $source, &$matches);
 
@@ -85,7 +85,7 @@ interface RegexpEngine
      * @param  string $pattern The regex pattern to match.
      * @param  string $source  The source string.
      * @param  array  $matches The array in which to store matches.
-     * @return boolean Success of matching operation.
+     * @return bool Success of matching operation.
      */
     public function matchAll($pattern, $source, &$matches);
 

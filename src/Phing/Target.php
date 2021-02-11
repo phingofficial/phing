@@ -225,7 +225,7 @@ class Target implements TaskContainer
     /**
      * Set target status. If true, target does not come in phing -list
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Target
      */
     public function setHidden($flag)
@@ -238,7 +238,7 @@ class Target implements TaskContainer
     /**
      * Get target status. If true, target does not come in phing -list
      *
-     * @return boolean
+     * @return bool
      */
     public function getHidden()
     {
@@ -248,7 +248,7 @@ class Target implements TaskContainer
     /**
      * Alias for getHidden()
      *
-     * @return boolean
+     * @return bool
      */
     public function isHidden()
     {
@@ -421,7 +421,7 @@ class Target implements TaskContainer
     /**
      * Tests if the property set in ifConfiditon exists.
      *
-     * @return boolean <code>true</code> if the property specified
+     * @return bool <code>true</code> if the property specified
      *                 in <code>$this->ifCondition</code> exists;
      *                 <code>false</code> otherwise
      */
@@ -445,7 +445,7 @@ class Target implements TaskContainer
     /**
      * Tests if the property set in unlessCondition exists.
      *
-     * @return boolean <code>true</code> if the property specified
+     * @return bool <code>true</code> if the property specified
      *                 in <code>$this->unlessCondition</code> exists;
      *                 <code>false</code> otherwise
      */

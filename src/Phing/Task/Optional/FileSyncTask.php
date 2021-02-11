@@ -391,7 +391,7 @@ class FileSyncTask extends Task
     /**
      * Sets the isRemoteConnection property.
      *
-     * @param boolean $isRemote
+     * @param bool $isRemote
      */
     protected function setIsRemoteConnection($isRemote)
     {
@@ -481,7 +481,7 @@ class FileSyncTask extends Task
      * information about what files are being transferred and a brief summary at
      * the end.
      *
-     * @param boolean $verbose
+     * @param bool $verbose
      */
     public function setVerbose(bool $verbose)
     {
@@ -494,7 +494,7 @@ class FileSyncTask extends Task
      * size and time of last modification match between the sender and receiver.
      * This option changes this to compare a 128-bit checksum for each file that has a matching size.
      *
-     * @param boolean $checksum
+     * @param bool $checksum
      */
     public function setChecksum(bool $checksum)
     {
@@ -506,7 +506,7 @@ class FileSyncTask extends Task
      * output as a real run).  It is  most commonly used in combination with the -v, --verbose and/or
      * -i, --itemize-changes options to see what an rsync command is going to do before one actually runs it.
      *
-     * @param boolean $dryRun
+     * @param bool $dryRun
      */
     public function setDryRun(bool $dryRun)
     {
@@ -516,7 +516,7 @@ class FileSyncTask extends Task
     /**
      * Requests a simple itemized list of the changes that are being made to each file, including attribute changes.
      *
-     * @param boolean $itemizeChanges
+     * @param bool $itemizeChanges
      */
     public function setItemizeChanges(bool $itemizeChanges)
     {
@@ -528,7 +528,7 @@ class FileSyncTask extends Task
      * for the directories that are being synchronized. Files that are excluded
      * from transfer are also excluded from being deleted.
      *
-     * @param boolean $delete
+     * @param bool $delete
      */
     public function setDelete(bool $delete)
     {

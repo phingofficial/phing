@@ -407,7 +407,7 @@ class PathConvert extends Task
     /**
      * Get the preserveDuplicates.
      *
-     * @return boolean
+     * @return bool
      */
     public function isPreserveDuplicates(): bool
     {

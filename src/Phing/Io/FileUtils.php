@@ -76,7 +76,7 @@ class FileUtils
      * Returns the default file/dir creation mask value
      * (The mask value is prepared w.r.t the current user's file-creation mask value)
      *
-     * @param boolean $dirmode Directory creation mask to select
+     * @param bool $dirmode Directory creation mask to select
      *
      * @return int  Creation Mask in octal representation
      */
@@ -117,10 +117,10 @@ class FileUtils
     /**
      * Copies a file using filter chains.
      *
-     * @param boolean $overwrite
-     * @param boolean $preserveLastModified
+     * @param bool $overwrite
+     * @param bool $preserveLastModified
      * @param array $filterChains
-     * @param integer $mode
+     * @param int $mode
      * @param bool $preservePermissions
      * @throws Exception
      * @throws IOException
@@ -415,9 +415,9 @@ class FileUtils
      * @param string $suffix file extension; include the '.'.
      * @param File $parentDir Directory to create the temporary file in;
      *                                sys_get_temp_dir() used if not specified.
-     * @param boolean $deleteOnExit whether to set the tempfile for deletion on
+     * @param bool $deleteOnExit whether to set the tempfile for deletion on
      *                                normal exit.
-     * @param boolean $createFile true if the file must actually be created. If false
+     * @param bool $createFile true if the file must actually be created. If false
      *                                chances exist that a file with the same name is
      *                                created in the time between invoking this method
      *                                and the moment the file is actually created. If
@@ -465,7 +465,7 @@ class FileUtils
 
     /**
      *
-     * @return boolean Whether contents of two files is the same.
+     * @return bool Whether contents of two files is the same.
      */
     public function contentEquals(File $file1, File $file2)
     {

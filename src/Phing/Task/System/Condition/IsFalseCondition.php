@@ -38,7 +38,7 @@ class IsFalseCondition extends ProjectComponent implements Condition
     /**
      * Set the value to be tested.
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setValue(bool $value)
     {
