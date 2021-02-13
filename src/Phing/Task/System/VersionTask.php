@@ -41,7 +41,6 @@ use Phing\Util\Properties;
  */
 class VersionTask extends Task
 {
-
     /**
      * The name of the property in which the build number is stored.
      */
@@ -57,7 +56,7 @@ class VersionTask extends Task
     /**
      * Property for Releasetype
      *
-     * @var string $releasetype
+     * @var string
      */
     private $releasetype;
 
@@ -71,7 +70,7 @@ class VersionTask extends Task
     /**
      * Property to be set
      *
-     * @var string $property
+     * @var string
      */
     private $property;
 
@@ -103,7 +102,6 @@ class VersionTask extends Task
     /**
      * Set Property for File containing versioninformation
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -114,7 +112,6 @@ class VersionTask extends Task
      * Set name of property to be set
      *
      * @param string $property
-     * @return void
      */
     public function setProperty($property)
     {
@@ -132,7 +129,6 @@ class VersionTask extends Task
     /**
      * Main-Method for the Task
      *
-     * @return void
      * @throws BuildException
      */
     public function main()
@@ -239,7 +235,6 @@ class VersionTask extends Task
     /**
      * checks releasetype attribute
      *
-     * @return void
      * @throws BuildException
      */
     private function checkReleasetype()
@@ -252,7 +247,7 @@ class VersionTask extends Task
         $releaseTypes = [
             self::RELEASETYPE_MAJOR,
             self::RELEASETYPE_MINOR,
-            self::RELEASETYPE_BUGFIX
+            self::RELEASETYPE_BUGFIX,
         ];
 
         if (!in_array($this->releasetype, $releaseTypes)) {
@@ -269,7 +264,6 @@ class VersionTask extends Task
     /**
      * checks file attribute
      *
-     * @return void
      * @throws BuildException
      */
     private function checkFile()

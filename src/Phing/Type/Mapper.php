@@ -53,19 +53,16 @@ class Mapper extends DataType
     protected $to;
 
     /**
-     * @var Path $classpath
+     * @var Path
      */
     protected $classpath;
     protected $classpathId;
 
     /**
-     * @var ContainerMapper $container
+     * @var ContainerMapper
      */
     private $container = null;
 
-    /**
-     * @param Project $project
-     */
     public function __construct(Project $project)
     {
         parent::__construct();
@@ -108,7 +105,6 @@ class Mapper extends DataType
     /**
      * Reference to a classpath to use when loading the files.
      *
-     * @param Reference $r
      * @throws BuildException
      */
     public function setClasspathRef(Reference $r)
@@ -218,7 +214,6 @@ class Mapper extends DataType
      *
      * You must not set any other attribute if you make it a reference.
      *
-     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)

@@ -157,7 +157,7 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * Returns <code>true</code> if the sorting process will be in reverse
      * order, otherwise the sorting process will be in ascendant order.
      *
-     * @return boolean <code>true</code> if the sorting process will be in reverse
+     * @return bool <code>true</code> if the sorting process will be in reverse
      *                 order, otherwise the sorting process will be in ascendant order.
      */
     public function isReverse()
@@ -169,8 +169,8 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * Sets the sorting process will be in ascendant (<code>reverse=false</code>)
      * or to descendant (<code>reverse=true</code>).
      *
-     * @param boolean $reverse
-     *            Boolean representing reverse ordering process.
+     * @param bool $reverse
+     *            bool representing reverse ordering process.
      */
     public function setReverse($reverse)
     {

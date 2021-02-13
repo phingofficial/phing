@@ -75,7 +75,6 @@ class PresentSelector extends BaseSelector
      *
      * @param File $targetdir the directory to scan looking for matching files.
      *
-     * @return void
      */
     public function setTargetdir(File $targetdir)
     {
@@ -111,7 +110,6 @@ class PresentSelector extends BaseSelector
      * @param string $fp An attribute set to either <code>srconly</code> or
      *                   <code>both</code>.
      *
-     * @return void
      */
     public function setPresent($fp)
     {
@@ -125,7 +123,6 @@ class PresentSelector extends BaseSelector
      * Checks to make sure all settings are kosher. In this case, it
      * means that the targetdir attribute has been set and we have a mapper.
      *
-     * @return void
      */
     public function verifySettings()
     {

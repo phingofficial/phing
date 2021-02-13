@@ -20,9 +20,9 @@
 declare(strict_types=1);
 
 namespace Phing\Task\Optional\Hg;
+
 trait HgTaskTestSkip
 {
-
     public function markTestAsSkippedWhenHgNotInstalled(): void
     {
         exec('hg help > /dev/null 2>&1', $output, $code);

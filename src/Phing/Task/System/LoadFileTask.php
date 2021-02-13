@@ -50,7 +50,7 @@ class LoadFileTask extends Task
     /**
      * Property to be set
      *
-     * @var string $property
+     * @var string
      */
     private $property;
 
@@ -79,21 +79,16 @@ class LoadFileTask extends Task
 
     /**
      * Set file to read
-     *
-     * @param File $file
      */
-    public function setFile($file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
 
     /**
      * Convenience setter to maintain Ant compatibility (@see setFile())
-     *
-     * @param    $srcFile
-     * @internal param PhingFile $file
      */
-    public function setSrcFile($srcFile)
+    public function setSrcFile(File $srcFile)
     {
         $this->file = $srcFile;
     }
@@ -101,8 +96,7 @@ class LoadFileTask extends Task
     /**
      * Set name of property to be set
      *
-     * @param  $property
-     * @return void
+     * @param string $property
      */
     public function setProperty($property)
     {
@@ -112,7 +106,6 @@ class LoadFileTask extends Task
     /**
      * Main method
      *
-     * @return void
      * @throws BuildException
      */
     public function main()

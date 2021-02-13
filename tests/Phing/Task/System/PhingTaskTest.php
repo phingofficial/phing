@@ -89,7 +89,7 @@ class PhingTaskTest extends BuildFileTest
 
     private function baseDirs(string $target, array $dirs): void
     {
-        $bc = new class ($dirs) implements BuildListener {
+        $bc = new class($dirs) implements BuildListener {
             private $expectedBasedirs;
             private $calls = 0;
             private $error;
@@ -193,7 +193,7 @@ class PhingTaskTest extends BuildFileTest
 
     protected function reference(string $target, array $keys, array $expect, $value): void
     {
-        $rc = new class ($keys, $expect, $value) implements BuildListener {
+        $rc = new class($keys, $expect, $value) implements BuildListener {
             private $keys;
             private $expectSame;
             private $value;
@@ -313,7 +313,7 @@ class PhingTaskTest extends BuildFileTest
             $this->getProject()->resolveFile("test1.log"),
             $this->getProject()->resolveFile("test2.log"),
             $this->getProject()->resolveFile("phing/test3.log"),
-            $this->getProject()->resolveFile("phing/test4.log")
+            $this->getProject()->resolveFile("phing/test4.log"),
         ];
 
         foreach ($logFiles as $file) {

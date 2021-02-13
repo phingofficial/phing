@@ -63,7 +63,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     /**
      * Set the showheaders attribute.
      *
-     * @param boolean $v
+     * @param bool $v
      */
     public function setShowheaders($v)
     {

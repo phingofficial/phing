@@ -41,7 +41,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     public $conditions = []; // needs to be public for "inner" class access
 
     /**
-     * @var string $taskName
+     * @var string
      */
     private $taskName = 'condition';
 
@@ -83,7 +83,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * Required for \IteratorAggregate
      */
-    public function getIterator()
+    public function getIterator(): ConditionEnumeration
     {
         return new ConditionEnumeration($this);
     }
@@ -96,10 +96,6 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
         return $this->conditions;
     }
 
-    /**
-     * @param AvailableTask $a
-     * @return void
-     */
     public function addAvailable(AvailableTask $a)
     {
         $this->conditions[] = $a;
@@ -307,7 +303,6 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
 
     /**
      * @param  string $elementName
-     * @param  Project $project
      * @throws BuildException
      * @return Condition
      */

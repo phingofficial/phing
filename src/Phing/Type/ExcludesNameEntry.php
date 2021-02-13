@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Type;
+
 /**
  * Class for holding nested excludes elements (file, class, method).
  *

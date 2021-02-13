@@ -92,7 +92,6 @@ class Path extends DataType
      * @param File $location the location of the element to add (must not be
      *                            <code>null</code> nor empty.
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -125,9 +124,7 @@ class Path extends DataType
      * <p>You must not set another attribute or nest elements inside
      * this element if you make it a reference.</p>
      *
-     * @param Reference $r
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -161,9 +158,7 @@ class Path extends DataType
     /**
      * Adds a nested <code>&lt;filelist&gt;</code> element.
      *
-     * @param FileList $fl
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -179,9 +174,7 @@ class Path extends DataType
     /**
      * Adds a nested <code>&lt;fileset&gt;</code> element.
      *
-     * @param FileSet $fs
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -197,9 +190,7 @@ class Path extends DataType
     /**
      * Adds a nested <code>&lt;dirset&gt;</code> element.
      *
-     * @param DirSet $dset
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -234,9 +225,7 @@ class Path extends DataType
     /**
      * Append the contents of the other Path instance to this.
      *
-     * @param Path $other
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -259,7 +248,6 @@ class Path extends DataType
      *
      * @param Path $source - Source path whose components are examined for existence.
      *
-     * @return void
      */
     public function addExisting(Path $source)
     {
@@ -367,7 +355,6 @@ class Path extends DataType
         return $preserveDuplicates ? $result : array_unique($result);
     }
 
-
     /**
      * Returns a textual representation of the path, which can be used as
      * CLASSPATH or PATH environment variable definition.
@@ -389,7 +376,6 @@ class Path extends DataType
     /**
      * Splits a PATH (with : or ; as separators) into its parts.
      *
-     * @param Project $project
      * @param string $source
      *
      * @return array
@@ -484,7 +470,6 @@ class Path extends DataType
      * @param array $stk
      * @param Project $p
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -519,7 +504,6 @@ class Path extends DataType
      *
      * <p>Assume the filename is absolute if project is null.</p>
      *
-     * @param Project $project
      * @param string $relativeName
      *
      * @return string

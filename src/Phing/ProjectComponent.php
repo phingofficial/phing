@@ -35,17 +35,17 @@ abstract class ProjectComponent
      * Holds a reference to the project that a project component
      * (a task, a target, etc.) belongs to
      *
-     * @var Project $project A reference to the current project instance
+     * @var Project A reference to the current project instance
      */
     protected $project = null;
 
     /**
-     * @var Location $location
+     * @var Location
      */
     private $location;
 
     /**
-     * @var string $description
+     * @var string
      */
     private $description;
 
@@ -59,7 +59,6 @@ abstract class ProjectComponent
      *
      * @param Project $project The reference to the current project
      *
-     * @return void
      */
     public function setProject($project)
     {
@@ -126,9 +125,8 @@ abstract class ProjectComponent
      * Logs a message with the given priority.
      *
      * @param string $msg The message to be logged.
-     * @param integer $level The message's priority at this message should have
+     * @param int $level The message's priority at this message should have
      *
-     * @return void
      */
     public function log($msg, $level = Project::MSG_INFO)
     {

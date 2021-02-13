@@ -155,7 +155,7 @@ class UpToDateTask extends Task implements Condition
      * see if the target(s) is/are up-to-date.
      *
      * @throws BuildException
-     * @return boolean
+     * @return bool
      */
     public function evaluate()
     {
@@ -235,7 +235,6 @@ class UpToDateTask extends Task implements Condition
         return $upToDate;
     }
 
-
     /**
      * Sets property to true if target file(s) have a more recent timestamp
      * than (each of) the corresponding source file(s).
@@ -277,7 +276,6 @@ class UpToDateTask extends Task implements Condition
     }
 
     /**
-     * @param File $srcDir
      * @param array $files
      * @return bool
      */

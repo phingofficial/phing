@@ -24,6 +24,7 @@ use Phing\Io\DirectoryScanner;
 use Phing\Io\File;
 use Phing\Io\FileSystem;
 use Phing\Io\IOException;
+use Phing\Mapper\FileNameMapper;
 use Phing\Project;
 use Phing\Task;
 use Phing\Type\Element\ResourceAware;
@@ -67,7 +68,7 @@ class ForeachTask extends Task
     private $param;
 
     /**
-     * @var PropertyTask[] $params
+     * @var PropertyTask[]
      */
     private $params = [];
 
@@ -89,7 +90,7 @@ class ForeachTask extends Task
     private $callee;
 
     /**
-     * Instance of mapper
+     * @var Mapper
      */
     private $mapperElement;
 
@@ -115,32 +116,32 @@ class ForeachTask extends Task
     private $total_dirs = 0;
 
     /**
-     * @var bool $trim
+     * @var bool
      */
     private $trim = false;
 
     /**
-     * @var  $inheritAll
+     * @var bool
      */
     private $inheritAll = false;
 
     /**
-     * @var bool $inheritRefs
+     * @var bool
      */
     private $inheritRefs = false;
 
     /**
-     * @var Path $currPath
+     * @var Path
      */
     private $currPath;
 
     /**
-     * @var PhingReference[] $references
+     * @var PhingReference[]
      */
     private $references = [];
 
     /**
-     * @var string $index
+     * @var string
      */
     private $index = 'index';
 
@@ -148,7 +149,6 @@ class ForeachTask extends Task
      * This method does the work.
      *
      * @throws BuildException
-     * @return void
      */
     public function main()
     {
@@ -215,7 +215,7 @@ class ForeachTask extends Task
                 $ds = new DirectoryScanner();
                 $ds->setBasedir($pathElement);
                 $ds->scan();
-                $this->process($callee, new File($pathElement), $ds->getIncludedFiles(), array());
+                $this->process($callee, new File($pathElement), $ds->getIncludedFiles(), []);
             }
         }
 
@@ -258,12 +258,10 @@ class ForeachTask extends Task
     /**
      * Processes a list of files & directories
      *
-     * @param PhingCallTask $callee
-     * @param File $fromDir
      * @param array $srcFiles
      * @param array $srcDirs
      */
-    protected function process(Task $callee, File $fromDir, $srcFiles, $srcDirs)
+    protected function process(PhingCallTask $callee, File $fromDir, $srcFiles, $srcDirs)
     {
         $mapper = null;
 
@@ -283,14 +281,11 @@ class ForeachTask extends Task
     }
 
     /**
-     * @param int $rescount
-     * @param array $srcRes
-     * @param $callee
-     * @param $fromDir
-     * @param $mapper
+     * @param string $fromDir
+     * @param FileNameMapper $mapper
      * @throws IOException
      */
-    private function processResources(int $rescount, array $srcRes, $callee, $fromDir, $mapper)
+    private function processResources(int $rescount, array $srcRes, PhingCallTask $callee, $fromDir, $mapper)
     {
         for ($j = 0; $j < $rescount; $j++) {
             $value = $srcRes[$j];
@@ -325,30 +320,21 @@ class ForeachTask extends Task
         }
     }
 
-    public function setTrim($trim)
+    public function setTrim(string $trim)
     {
         $this->trim = $trim;
     }
 
-    /**
-     * @param $list
-     */
-    public function setList($list)
+    public function setList(string $list)
     {
-        $this->list = (string) $list;
+        $this->list = $list;
     }
 
-    /**
-     * @param $target
-     */
-    public function setTarget($target)
+    public function setTarget(string $target)
     {
-        $this->calleeTarget = (string) $target;
+        $this->calleeTarget = $target;
     }
 
-    /**
-     * @param PropertyTask $param
-     */
     public function addParam(PropertyTask $param)
     {
         $this->params[] = $param;
@@ -363,20 +349,14 @@ class ForeachTask extends Task
         $this->references[] = $r;
     }
 
-    /**
-     * @param $absparam
-     */
-    public function setAbsparam($absparam)
+    public function setAbsparam(string $absparam)
     {
-        $this->absparam = (string) $absparam;
+        $this->absparam = $absparam;
     }
 
-    /**
-     * @param $delimiter
-     */
-    public function setDelimiter($delimiter)
+    public function setDelimiter(string $delimiter)
     {
-        $this->delimiter = (string) $delimiter;
+        $this->delimiter = $delimiter;
     }
 
     public function setIndex($index)

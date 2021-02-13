@@ -30,7 +30,6 @@ use Phing\ProjectComponent;
  */
 class IsTrueCondition extends ProjectComponent implements Condition
 {
-
     /**
      * what we eval
      */
@@ -39,7 +38,6 @@ class IsTrueCondition extends ProjectComponent implements Condition
     /**
      * Set the value to be tested.
      *
-     * @param mixed $value
      */
     public function setValue($value)
     {

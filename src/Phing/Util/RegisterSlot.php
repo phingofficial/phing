@@ -18,13 +18,13 @@
  */
 
 namespace Phing\Util;
+
 /**
  * Represents a slot in the register.
  *
  */
 class RegisterSlot
 {
-
     /**
      * The name of this slot.
      */
@@ -68,7 +68,6 @@ class RegisterSlot
     /**
      * Sets the value for this slot.
      *
-     * @param mixed $v
      */
     public function setValue($v)
     {
@@ -78,7 +77,6 @@ class RegisterSlot
     /**
      * Returns the value at this slot.
      *
-     * @return mixed
      */
     public function getValue()
     {
@@ -88,7 +86,6 @@ class RegisterSlot
     /**
      * Recursively implodes an array to a comma-separated string
      *
-     * @param  array $arr
      * @return string
      */
     private function implodeArray(array $arr)

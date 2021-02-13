@@ -36,7 +36,6 @@ use Phing\Util\StringHelper;
  */
 class TargetHandler extends AbstractHandler
 {
-
     /**
      * Reference to the target object that represents the currently parsed
      * target.
@@ -60,10 +59,6 @@ class TargetHandler extends AbstractHandler
     /**
      * Constructs a new TargetHandler
      *
-     * @param AbstractSAXParser $parser
-     * @param AbstractHandler $parentHandler
-     * @param ProjectConfigurator $configurator
-     * @param XmlContext $context
      * @internal param the $object ExpatParser object
      * @internal param the $object parent handler that invoked this handler
      * @internal param the $object ProjectConfigurator object
@@ -233,7 +228,7 @@ class TargetHandler extends AbstractHandler
                     $extPointName,
                     $this->target->getName(),
                     $extensionPointMissing,
-                    null
+                    null,
                 ]);
             }
         }

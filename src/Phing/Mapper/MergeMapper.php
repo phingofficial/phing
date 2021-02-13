@@ -29,7 +29,6 @@ use Phing\Exception\BuildException;
  */
 class MergeMapper implements FileNameMapper
 {
-
     /**
      * the merge
      */

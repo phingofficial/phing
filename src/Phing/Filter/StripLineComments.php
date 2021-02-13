@@ -52,7 +52,6 @@ use Phing\Util\StringHelper;
  */
 class StripLineComments extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Parameter name for the comment prefix.
      */
@@ -161,7 +160,6 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      *           the specified reader
      */
     /**
-     * @param Reader $reader
      * @return StripLineComments
      * @throws Exception
      */

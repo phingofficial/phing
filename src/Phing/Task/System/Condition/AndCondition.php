@@ -31,7 +31,6 @@ namespace Phing\Task\System\Condition;
  */
 class AndCondition extends ConditionBase implements Condition
 {
-
     /**
      * @return bool
      */

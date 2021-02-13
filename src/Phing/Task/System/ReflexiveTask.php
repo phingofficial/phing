@@ -67,7 +67,6 @@ class ReflexiveTask extends Task
     /**
      * Alias for setFrom()
      *
-     * @param File $f
      */
     public function setFile(File $f)
     {

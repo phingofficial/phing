@@ -76,9 +76,6 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
         return $this->resolveExternals;
     }
 
-    /**
-     * @param File $dir
-     */
     public function setBasedir(File $dir)
     {
         $this->basedir = $dir;

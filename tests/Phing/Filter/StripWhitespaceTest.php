@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Filter;
+
 use Phing\Support\BuildFileTest;
 
 /**
@@ -42,9 +43,9 @@ class StripWhitespaceTest extends BuildFileTest
         $resultFile = $this->getProject()->resolveFile("result/stripwhitespace.test");
 
         $expected = <<<EXPECTED
-<?php
-class { public function __construct() { return ''; } }
-EXPECTED;
+            <?php
+            class { public function __construct() { return ''; } }
+            EXPECTED;
 
         $result = file_get_contents($resultFile->getAbsolutePath());
 

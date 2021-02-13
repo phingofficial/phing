@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Util;
+
 /**
  * This class can be used to obtain the execution time of all of the scripts
  * that are executed in the process of building a page.
@@ -63,7 +64,6 @@ class Timer
     /**
      * Starts the timer and sets the class variable $stime to the current time in microseconds.
      *
-     * @return void
      */
     public function start()
     {
@@ -74,7 +74,6 @@ class Timer
     /**
      * Stops the timer and sets the class variable $etime to the current time in microseconds.
      *
-     * @return void
      */
     public function stop()
     {

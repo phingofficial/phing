@@ -82,7 +82,7 @@ class TruncateTask extends Task
     /**
      * Set whether to create nonexistent files.
      *
-     * @param boolean $create default <code>true</code>.
+     * @param bool $create default <code>true</code>.
      */
     public function setCreate($create)
     {
@@ -93,7 +93,7 @@ class TruncateTask extends Task
      * Set whether, when creating nonexistent files, nonexistent directories
      * should also be created.
      *
-     * @param boolean $mkdirs default <code>false</code>.
+     * @param bool $mkdirs default <code>false</code>.
      */
     public function setMkdirs($mkdirs)
     {
@@ -125,7 +125,6 @@ class TruncateTask extends Task
     }
 
     /**
-     * @param File $f
      * @return bool
      * @throws BuildException
      */

@@ -31,7 +31,6 @@ use Phing\Util\StringHelper;
  */
 class ProjectHandler extends AbstractHandler
 {
-
     /**
      * The phing project configurator object.
      *
@@ -50,7 +49,6 @@ class ProjectHandler extends AbstractHandler
      * @param ExpatParser $parser the ExpatParser object
      * @param AbstractHandler $parentHandler the parent handler that invoked this handler
      * @param ProjectConfigurator $configurator the ProjectConfigurator object
-     * @param XmlContext $context
      */
     public function __construct(
         ExpatParser $parser,
@@ -199,7 +197,6 @@ class ProjectHandler extends AbstractHandler
 
     /**
      * @param $name
-     * @return mixed
      */
     public static function canonicalName($name)
     {

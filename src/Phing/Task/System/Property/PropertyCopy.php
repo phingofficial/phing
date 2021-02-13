@@ -30,12 +30,12 @@ use Phing\Task\System\Property\AbstractPropertySetterTask;
 class PropertyCopy extends AbstractPropertySetterTask
 {
     /**
-     * @var string $from
+     * @var string
      */
     private $from;
 
     /**
-     * @var bool $silent
+     * @var bool
      */
     private $silent;
 

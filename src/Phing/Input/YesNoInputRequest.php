@@ -22,13 +22,12 @@ namespace Phing\Input;
 use Phing\Util\StringHelper;
 
 /**
- * Encapsulates an input request that returns a boolean (yes/no).
+ * Encapsulates an input request that returns a bool (yes/no).
  *
  * @author  Hans Lellelid <hans@xmpl.org>
  */
 class YesNoInputRequest extends MultipleChoiceInputRequest
 {
-
     /**
      * @return bool true if the input is one of the allowed values.
      */

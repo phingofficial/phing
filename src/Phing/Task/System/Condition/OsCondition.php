@@ -39,10 +39,7 @@ class OsCondition implements Condition
 
     private $family;
 
-    /**
-     * @param $f
-     */
-    public function setFamily($f)
+    public function setFamily(string $f)
     {
         $this->family = strtolower($f);
     }

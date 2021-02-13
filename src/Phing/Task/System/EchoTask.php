@@ -117,51 +117,26 @@ class EchoTask extends Task
         return $msg;
     }
 
-    /**
-     * setter for file
-     *
-     * @param $file
-     */
     public function setFile(string $file)
     {
         $this->file = $file;
     }
 
-    /**
-     * setter for level
-     *
-     * @param $level
-     */
     public function setLevel(string $level)
     {
         $this->level = $level;
     }
 
-    /**
-     * setter for append
-     *
-     * @param $append
-     */
     public function setAppend(bool $append)
     {
         $this->append = $append;
     }
 
-    /**
-     * setter for message
-     *
-     * @param $msg
-     */
     public function setMsg(string $msg)
     {
         $this->setMessage($msg);
     }
 
-    /**
-     * alias setter
-     *
-     * @param $msg
-     */
     public function setMessage(string $msg)
     {
         $this->msg = $msg;
@@ -169,8 +144,6 @@ class EchoTask extends Task
 
     /**
      * Supporting the <echo>Message</echo> syntax.
-     *
-     * @param $msg
      */
     public function addText(string $msg)
     {

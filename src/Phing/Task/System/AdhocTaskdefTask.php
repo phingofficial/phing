@@ -52,7 +52,6 @@ use ReflectionException;
  */
 class AdhocTaskdefTask extends AdhocTask
 {
-
     /**
      * The tag that refers to this task.
      */

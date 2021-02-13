@@ -52,7 +52,6 @@ use Phing\Project;
  */
 class FileList extends DataType implements IteratorAggregate
 {
-
     // public for "cloning" purposes
 
     /**
@@ -95,7 +94,6 @@ class FileList extends DataType implements IteratorAggregate
      * Makes this instance in effect a reference to another FileList
      * instance.
      *
-     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -109,7 +107,6 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Base directory for files in list.
      *
-     * @param File $dir
      * @throws IOException
      * @throws NullPointerException
      */
@@ -124,7 +121,6 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Get the basedir for files in list.
      *
-     * @param Project $p
      * @return File
      * @throws BuildException
      */
@@ -183,7 +179,6 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Get the source "list" file that contains file names.
      *
-     * @param Project $p
      * @return File
      */
     public function getListFile(Project $p)
@@ -200,7 +195,6 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Returns the list of files represented by this FileList.
      *
-     * @param Project $p
      * @return array
      * @throws IOException
      * @throws BuildException
@@ -233,7 +227,6 @@ class FileList extends DataType implements IteratorAggregate
      * Performs the check for circular references and returns the
      * referenced FileSet.
      *
-     * @param Project $p
      *
      * @return FileList
      * @throws BuildException
@@ -247,7 +240,6 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Reads file names from a file and adds them to the files array.
      *
-     * @param Project $p
      *
      * @throws BuildException
      * @throws IOException

@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Parser;
+
 /**
  * Stores the file name and line number of a XML file
  *
@@ -27,17 +28,17 @@ namespace Phing\Parser;
 class Location
 {
     /**
-     * @var null|string $fileName
+     * @var null|string
      */
     private $fileName;
 
     /**
-     * @var int|null $lineNumber
+     * @var int|null
      */
     private $lineNumber;
 
     /**
-     * @var int|null $columnNumber
+     * @var int|null
      */
     private $columnNumber;
 
@@ -45,8 +46,8 @@ class Location
      * Constructs the location consisting of a file name and line number
      *
      * @param string $fileName the filename
-     * @param integer $lineNumber the line number
-     * @param integer $columnNumber the column number
+     * @param int $lineNumber the line number
+     * @param int $columnNumber the column number
      */
     public function __construct($fileName = null, $lineNumber = null, $columnNumber = null)
     {

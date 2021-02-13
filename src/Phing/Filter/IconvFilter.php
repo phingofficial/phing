@@ -117,7 +117,6 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Creates a new IconvFilter using the passed in Reader for instantiation.
      *
-     * @param Reader $reader
      * @return self A new filter based on this configuration, but filtering the specified reader.
      * @internal param A $object Reader object providing the underlying stream. Must not be <code>null</code>.
      */

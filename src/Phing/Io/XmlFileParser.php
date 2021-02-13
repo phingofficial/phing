@@ -33,25 +33,16 @@ class XmlFileParser implements FileParserInterface
     private $collapseAttr = true;
     private $delimiter = ',';
 
-    /**
-     * @param bool $keepRoot
-     */
     public function setKeepRoot(bool $keepRoot): void
     {
         $this->keepRoot = $keepRoot;
     }
 
-    /**
-     * @param bool $collapseAttr
-     */
     public function setCollapseAttr(bool $collapseAttr): void
     {
         $this->collapseAttr = $collapseAttr;
     }
 
-    /**
-     * @param string $delimiter
-     */
     public function setDelimiter(string $delimiter): void
     {
         $this->delimiter = $delimiter;
@@ -70,7 +61,6 @@ class XmlFileParser implements FileParserInterface
     /**
      * Parses an XML file and returns properties
      *
-     * @param File $file
      *
      * @return Properties
      * @throws IOException
@@ -126,7 +116,6 @@ class XmlFileParser implements FileParserInterface
      * @param array $path Path to this node
      * @param Properties $prop Properties will be added as they are found (by reference here)
      *
-     * @return void
      */
     private function addNode($node, $path, $prop)
     {

@@ -35,17 +35,17 @@ use Phing\Type\Mapper;
 abstract class MappingSelector extends BaseSelector
 {
     /**
-     * @var File $targetdir
+     * @var File
      */
     protected $targetdir;
 
     /**
-     * @var Mapper $mapperElement
+     * @var Mapper
      */
     protected $mapperElement;
 
     /**
-     * @var FileNameMapper $map
+     * @var FileNameMapper
      */
     protected $map;
 

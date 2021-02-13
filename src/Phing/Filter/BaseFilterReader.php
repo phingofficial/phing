@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Filter;
+
 use Phing\Io\FilterReader;
 use Phing\Io\IOException;
 use Phing\Io\Reader;
@@ -32,7 +33,6 @@ use Phing\Project;
  */
 class BaseFilterReader extends FilterReader
 {
-
     /**
      * Have the parameters passed been interpreted?
      */
@@ -67,7 +67,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Returns the initialized status.
      *
-     * @return boolean whether or not the filter is initialized
+     * @return bool whether or not the filter is initialized
      */
     public function getInitialized()
     {
@@ -77,7 +77,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Sets the initialized status.
      *
-     * @param boolean $initialized Whether or not the filter is initialized.
+     * @param bool $initialized Whether or not the filter is initialized.
      */
     public function setInitialized($initialized)
     {
@@ -147,7 +147,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Returns whether the end of file has been reached with input stream.
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {
@@ -160,7 +160,6 @@ class BaseFilterReader extends FilterReader
      * @param string $msg Message to log.
      * @param int $level Priority level.
      *
-     * @return void
      */
     public function log($msg, $level = Project::MSG_INFO)
     {

@@ -27,7 +27,6 @@ class EqualComparator implements Comparator
     /**
      * @param object $o1
      * @param object $o2
-     * @return int
      */
     public function compare($o1, $o2): int
     {

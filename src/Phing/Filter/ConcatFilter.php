@@ -52,14 +52,14 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * File to add before the content.
      *
-     * @var File $prepend
+     * @var File
      */
     private $prepend;
 
     /**
      * File to add after the content.
      *
-     * @var File|string $append
+     * @var File|string
      */
     private $append;
 

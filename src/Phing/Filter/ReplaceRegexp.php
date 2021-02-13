@@ -40,7 +40,6 @@ use Phing\Type\RegularExpression;
  */
 class ReplaceRegexp extends BaseFilterReader implements ChainableReader
 {
-
     /**
      * @var array RegularExpression[]
      */

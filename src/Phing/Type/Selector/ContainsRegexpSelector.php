@@ -42,27 +42,27 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /**
      * The expression set from XML.
      *
-     * @var string $userProvidedExpression
+     * @var string
      */
     private $userProvidedExpression;
 
     /**
-     * @var Regexp $myExpression
+     * @var Regexp
      */
     private $myExpression;
 
     /**
-     * @var bool $casesensitive
+     * @var bool
      */
     private $casesensitive = true;
 
     /**
-     * @var bool $casesensitive
+     * @var bool
      */
     private $multiline = false;
 
     /**
-     * @var RegularExpression $myRegExp
+     * @var RegularExpression
      */
     private $myRegExp;
 
@@ -101,16 +101,13 @@ class ContainsRegexpSelector extends BaseExtendSelector
     /**
      * Whether to ignore case in the regex match.
      *
-     * @param boolean $casesensitive whether to pay attention to case sensitivity
+     * @param bool $casesensitive whether to pay attention to case sensitivity
      */
     public function setCasesensitive($casesensitive)
     {
         $this->casesensitive = $casesensitive;
     }
 
-    /**
-     * @param bool $multiline
-     */
     public function setMultiline(bool $multiline): void
     {
         $this->multiline = $multiline;
@@ -122,7 +119,6 @@ class ContainsRegexpSelector extends BaseExtendSelector
      *
      * @param array $parameters the complete set of parameters for this selector
      *
-     * @return void
      */
     public function setParameters(array $parameters): void
     {

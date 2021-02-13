@@ -33,7 +33,6 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Sets up the fixture.
      *
-     * @return void
      */
     public function setUp(): void
     {
@@ -44,7 +43,6 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test for required attributes
      *
-     * @return void
      */
     public function testRequiredParameters()
     {
@@ -56,7 +54,6 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test list of values to process without the 'param' attribute
      *
-     * @return void
      */
     public function testListWithoutParam()
     {
@@ -68,7 +65,6 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test list of values to process without the 'target' attribute
      *
-     * @return void
      */
     public function testListWithoutCalleeTarget()
     {
@@ -80,7 +76,6 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test to get the right log message on fileset usage
      *
-     * @return void
      */
     public function testLogMessageWithFileset()
     {
@@ -91,7 +86,6 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test to get the right log message on fileset usage
      *
-     * @return void
      */
     public function testLogMessageWithDirset()
     {
@@ -102,7 +96,6 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test to get the right log message on list usage with multiple entries
      *
-     * @return void
      */
     public function testLogMessageWithList()
     {
@@ -113,7 +106,6 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test to get the right log message on list usage with a single entry
      *
-     * @return void
      */
     public function testLogMessageWithListUniqueEntry()
     {
@@ -124,7 +116,6 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test to get the right log message on fileset usage
      *
-     * @return void
      */
     public function testLogMessageWithPath()
     {

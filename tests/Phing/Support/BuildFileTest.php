@@ -38,7 +38,6 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class BuildFileTest extends TestCase
 {
-
     /** @var Project */
     protected $project;
 
@@ -525,7 +524,6 @@ abstract class BuildFileTest extends TestCase
 
         return $returndate;
     }
-
 
     public function assertFileSizeAtLeast(string $filepath, int $bytes)
     {

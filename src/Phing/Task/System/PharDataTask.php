@@ -93,7 +93,6 @@ class PharDataTask extends MatchingTask
     /**
      * Destination (output) file.
      *
-     * @param File $destinationFile
      */
     public function setDestFile(File $destinationFile)
     {
@@ -104,7 +103,6 @@ class PharDataTask extends MatchingTask
      * Base directory, which will be deleted from each included file (from path).
      * Paths with deleted basedir part are local paths in archive.
      *
-     * @param File $baseDirectory
      */
     public function setBaseDir(File $baseDirectory)
     {

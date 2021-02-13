@@ -40,7 +40,6 @@ use Phing\Project;
  */
 class XmlLogger implements BuildLogger
 {
-
     /**
      * XML element name for a build.
      */
@@ -378,7 +377,6 @@ class XmlLogger implements BuildLogger
     /**
      * Sets the output stream.
      *
-     * @param OutputStream $output
      * @see   BuildLogger#setOutputStream()
      */
     public function setOutputStream(OutputStream $output)
@@ -389,7 +387,6 @@ class XmlLogger implements BuildLogger
     /**
      * Sets the error stream.
      *
-     * @param OutputStream $err
      * @see   BuildLogger#setErrorStream()
      */
     public function setErrorStream(OutputStream $err)
@@ -436,18 +433,11 @@ class XmlLogger implements BuildLogger
         $this->buildElement = $elem;
     }
 
-
-    /**
-     * @return array
-     */
     public function &getElementStack(): array
     {
         return $this->elementStack;
     }
 
-    /**
-     * @return array
-     */
     public function &getTimesStack(): array
     {
         return $this->timesStack;

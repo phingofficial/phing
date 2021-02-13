@@ -55,47 +55,47 @@ use Phing\Util\Regexp;
 class RegexTask extends AbstractPropertySetterTask
 {
     /**
-     * @var string $subject
+     * @var string
      */
     private $subject;
 
     /**
-     * @var string $pattern
+     * @var string
      */
     private $pattern;
 
     /**
-     * @var string $match
+     * @var string
      */
     private $match;
 
     /**
-     * @var string $replace
+     * @var string
      */
     private $replace;
 
     /**
-     * @var string $defaultValue
+     * @var string
      */
     private $defaultValue;
 
     /**
-     * @var bool $caseSensitive
+     * @var bool
      */
     private $caseSensitive = true;
 
     /**
-     * @var array $modifiers
+     * @var array
      */
     private $modifiers = '';
 
     /**
-     * @var Regexp $reg
+     * @var Regexp
      */
     private $reg;
 
     /**
-     * @var int $limit
+     * @var int
      */
     private $limit = -1;
 

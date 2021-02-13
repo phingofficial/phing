@@ -32,42 +32,42 @@ class GlobMapper implements FileNameMapper
     /**
      * Part of &quot;from&quot; pattern before the <code>.*</code>.
      *
-     * @var string $fromPrefix
+     * @var string
      */
     private $fromPrefix = null;
 
     /**
      * Part of &quot;from&quot; pattern after the <code>.*</code>.
      *
-     * @var string $fromPostfix
+     * @var string
      */
     private $fromPostfix = null;
 
     /**
      * Length of the prefix (&quot;from&quot; pattern).
      *
-     * @var int $prefixLength
+     * @var int
      */
     private $prefixLength;
 
     /**
      * Length of the postfix (&quot;from&quot; pattern).
      *
-     * @var int $postfixLength
+     * @var int
      */
     private $postfixLength;
 
     /**
      * Part of &quot;to&quot; pattern before the <code>*.</code>.
      *
-     * @var string $toPrefix
+     * @var string
      */
     private $toPrefix = null;
 
     /**
      * Part of &quot;to&quot; pattern after the <code>*.</code>.
      *
-     * @var string $toPostfix
+     * @var string
      */
     private $toPostfix = null;
 
@@ -80,7 +80,7 @@ class GlobMapper implements FileNameMapper
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
      *
-     * @param boolean $handleDirSep a boolean, default is false.
+     * @param bool $handleDirSep a boolean, default is false.
      */
     public function setHandleDirSep($handleDirSep)
     {
@@ -100,7 +100,7 @@ class GlobMapper implements FileNameMapper
      * Attribute specifying whether to ignore the case difference
      * in the names.
      *
-     * @param boolean $caseSensitive a boolean, default is false.
+     * @param bool $caseSensitive a boolean, default is false.
      */
     public function setCaseSensitive($caseSensitive)
     {
@@ -110,7 +110,6 @@ class GlobMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     * @param mixed $sourceFileName
      * @return array|null
      */
     public function main($sourceFileName)
@@ -129,10 +128,10 @@ class GlobMapper implements FileNameMapper
         }
         return [
             $this->toPrefix . (
-            $this->toContainsStar
+                $this->toContainsStar
                 ? $this->extractVariablePart($sourceFileName) . $this->toPostfix
                 : ''
-            )
+            ),
         ];
     }
 
@@ -140,7 +139,6 @@ class GlobMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $from
-     * @return void
      */
     public function setFrom($from)
     {
@@ -167,7 +165,6 @@ class GlobMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $to
-     * @return void
      */
     public function setTo($to)
     {

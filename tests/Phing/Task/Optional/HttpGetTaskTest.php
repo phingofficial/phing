@@ -92,7 +92,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $options = [
             'proxy' => 'socks5://localhost:1080/',
             'verify' => false,
-            'allow_redirects' => true
+            'allow_redirects' => true,
         ];
 
         $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
@@ -139,7 +139,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
 
         $options = [
             'proxy' => 'http://localhost:8080/',
-            'timeout' => 20
+            'timeout' => 20,
         ];
 
         $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
@@ -157,7 +157,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
 
         $options = [
             'proxy' => null,
-            'timeout' => 20
+            'timeout' => 20,
         ];
 
         $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);

@@ -44,7 +44,6 @@ use Phing\Project;
  */
 class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 {
-
     // constants for specifying keys to expect
     // when this is called using <filterreader ... />
     public const DOMAIN_KEY = "domain";
@@ -97,7 +96,6 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the root locale directory.
      *
-     * @param File $dir
      */
     public function setDir(File $dir)
     {
@@ -154,7 +152,6 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * This method will change some env vars and locale settings; the
      * restoreEnvironment should put them all back :)
      *
-     * @return void
      * @throws BuildException - if locale cannot be set.
      * @see    restoreEnvironment()
      */
@@ -182,7 +179,6 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * This does _not_ restore any gettext-specific settings
      * (e.g. textdomain()).
      *
-     * @return void
      */
     protected function restoreEnvironment()
     {
@@ -235,7 +231,6 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
         // Setup the locale/gettext environment
         $this->initEnvironment();
-
 
         // replace any occurrences of _("") or gettext("") with
         // the translated value.

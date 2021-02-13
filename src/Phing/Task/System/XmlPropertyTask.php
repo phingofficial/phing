@@ -43,7 +43,6 @@ class XmlPropertyTask extends PropertyTask
     /**
      * Keep the xml root tag as the first value in the property name
      *
-     * @param bool $yesNo
      */
     public function setKeepRoot(bool $yesNo)
     {
@@ -61,7 +60,6 @@ class XmlPropertyTask extends PropertyTask
     /**
      * Treat attributes as nested elements.
      *
-     * @param bool $yesNo
      */
     public function setCollapseAttributes(bool $yesNo)
     {
@@ -112,7 +110,6 @@ class XmlPropertyTask extends PropertyTask
     /**
      * load properties from an XML file.
      *
-     * @param  File $file
      * @return Properties
      * @throws BuildException
      */

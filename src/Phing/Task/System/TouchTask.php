@@ -42,7 +42,7 @@ class TouchTask extends Task
     use FileSetAware;
 
     /**
-     * @var File $file
+     * @var File
      */
     private $file;
     private $seconds = -1;
@@ -51,12 +51,9 @@ class TouchTask extends Task
     private $mkdirs = false;
     private $verbose = true;
 
-    /** @var Mapper $mapperElement */
+    /** @var Mapper */
     private $mapperElement;
 
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -67,8 +64,6 @@ class TouchTask extends Task
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      *
-     * @param  File $file
-     * @return void
      */
     public function setFile(File $file)
     {
@@ -84,7 +79,6 @@ class TouchTask extends Task
      * Optional, default=now
      *
      * @param int $millis
-     * @return void
      */
     public function setMillis($millis)
     {
@@ -105,7 +99,6 @@ class TouchTask extends Task
      * Optional, default=now
      *
      * @param int $seconds
-     * @return void
      */
     public function setSeconds($seconds)
     {
@@ -122,7 +115,6 @@ class TouchTask extends Task
      * Optional, default=now
      *
      * @param string $dateTime
-     * @return void
      */
     public function setDatetime($dateTime)
     {
@@ -139,7 +131,7 @@ class TouchTask extends Task
      * Set whether nonexistent parent directories should be created
      * when touching new files.
      *
-     * @param boolean $mkdirs whether to create parent directories.
+     * @param bool $mkdirs whether to create parent directories.
      */
     public function setMkdirs($mkdirs)
     {
@@ -150,7 +142,7 @@ class TouchTask extends Task
      * Set whether the touch task will report every file it creates;
      * defaults to <code>true</code>.
      *
-     * @param boolean $verbose flag.
+     * @param bool $verbose flag.
      */
     public function setVerbose($verbose)
     {
@@ -200,13 +192,13 @@ class TouchTask extends Task
     public function main()
     {
         $this->checkConfiguration();
-        $this->_touch();
+        $this->touch();
     }
 
     /**
      * Does the actual work.
      */
-    public function _touch()
+    private function touch()
     {
         if ($this->file !== null) {
             if (!$this->file->exists()) {
@@ -293,7 +285,6 @@ class TouchTask extends Task
     }
 
     /**
-     * @param File $file
      * @throws BuildException
      */
     private function touchFile(File $file)

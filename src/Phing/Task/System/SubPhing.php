@@ -323,7 +323,7 @@ class SubPhing extends Task
     /**
      * Sets whether to fail with a build exception on error, or go on.
      *
-     * @param bool $failOnError the new value for this boolean flag.
+     * @param bool $failOnError the new value for this bool flag.
      */
     public function setFailonerror(bool $failOnError)
     {
@@ -360,7 +360,7 @@ class SubPhing extends Task
      * Corresponds to <code>&lt;ant&gt;</code>'s
      * <code>inheritall</code> attribute.
      *
-     * @param bool $inheritAll the new value for this boolean flag.
+     * @param bool $inheritAll the new value for this bool flag.
      */
     public function setInheritall(bool $inheritAll)
     {
@@ -371,7 +371,7 @@ class SubPhing extends Task
      * Corresponds to <code>&lt;ant&gt;</code>'s
      * <code>inheritrefs</code> attribute.
      *
-     * @param bool $inheritRefs the new value for this boolean flag.
+     * @param bool $inheritRefs the new value for this bool flag.
      */
     public function setInheritrefs(bool $inheritRefs)
     {

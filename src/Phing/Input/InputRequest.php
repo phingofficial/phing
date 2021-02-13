@@ -103,7 +103,6 @@ class InputRequest
     /**
      * Set the default value to use.
      *
-     * @param mixed $v
      */
     public function setDefaultValue($v)
     {
@@ -113,7 +112,6 @@ class InputRequest
     /**
      * Return the default value to use.
      *
-     * @return mixed
      */
     public function getDefaultValue()
     {

@@ -31,7 +31,6 @@ use PHPUnit\Framework\TestCase;
 
 class PHPStanCommandBuilderFactoryTest extends TestCase
 {
-
     /** @var PHPStanCommandBuilderFactory */
     private $factory;
 

@@ -33,7 +33,6 @@ use Phing\Type\Commandline;
  */
 class SymfonyConsoleTask extends Task
 {
-
     /**
      *
      * @var SymfonyConsoleArg[] a collection of Arg objects
@@ -73,7 +72,7 @@ class SymfonyConsoleTask extends Task
     private $debug = true;
 
     /**
-     * @var bool $silent
+     * @var bool
      */
     private $silent = false;
 
@@ -90,7 +89,7 @@ class SymfonyConsoleTask extends Task
     /**
      * return the symfony console command to execute
      *
-     * @return String
+     * @return string
      */
     public function getCommand()
     {
@@ -121,7 +120,6 @@ class SymfonyConsoleTask extends Task
      * Set the name of the property to store the application output in
      *
      * @param  $property
-     * @return void
      */
     public function setPropertyName($property)
     {
@@ -131,9 +129,8 @@ class SymfonyConsoleTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @param boolean $checkreturn If the return code shall be checked
+     * @param bool $checkreturn If the return code shall be checked
      *
-     * @return void
      */
     public function setCheckreturn(bool $checkreturn)
     {
@@ -143,9 +140,8 @@ class SymfonyConsoleTask extends Task
     /**
      * Whether to set the symfony cli debug mode
      *
-     * @param boolean $debug If the symfony cli debug mode is set
+     * @param bool $debug If the symfony cli debug mode is set
      *
-     * @return void
      */
     public function setDebug(bool $debug)
     {
@@ -155,7 +151,7 @@ class SymfonyConsoleTask extends Task
     /**
      * Get if the symfony cli debug mode is set
      *
-     * @return boolean
+     * @return bool
      */
     public function getDebug()
     {
@@ -198,7 +194,7 @@ class SymfonyConsoleTask extends Task
     /**
      * Check if the no-debug option was added via args
      *
-     * @return boolean
+     * @return bool
      */
     private function isNoDebugArgPresent()
     {
@@ -225,7 +221,7 @@ class SymfonyConsoleTask extends Task
         $cmd = [
             Commandline::quoteArgument($this->console),
             $this->command,
-            implode(' ', $this->args)
+            implode(' ', $this->args),
         ];
         $cmd = implode(' ', $cmd);
 

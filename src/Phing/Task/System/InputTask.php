@@ -156,7 +156,7 @@ class InputTask extends Task
         if ($this->validargs !== null) {
             $accept = preg_split('/[\s,]+/', $this->validargs);
 
-            // is it a boolean (yes/no) inputrequest?
+            // is it a bool (yes/no) inputrequest?
             $yesno = false;
             if (count($accept) == 2) {
                 $yesno = true;

@@ -30,7 +30,6 @@ namespace Phing\Type\Selector;
  */
 class NotSelector extends NoneSelector
 {
-
     /**
      * @return string
      */

@@ -49,7 +49,7 @@ class SleepTaskTest extends BuildFileTest
 
     private function timer()
     {
-        return new class extends Timer {
+        return new class() extends Timer {
             public function time()
             {
                 return $this->etime - $this->stime;

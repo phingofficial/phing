@@ -49,11 +49,11 @@ class RecorderTask extends Task implements SubBuildListener
      */
     private $filename = null;
     /**
-     * Whether or not to append. Need Boolean to record an unset state (null).
+     * Whether or not to append. Need bool to record an unset state (null).
      */
     private $append = null;
     /**
-     * Whether to start or stop recording. Need Boolean to record an unset
+     * Whether to start or stop recording. Need bool to record an unset
      * state (null).
      */
     private $start = null;
@@ -71,7 +71,7 @@ class RecorderTask extends Task implements SubBuildListener
         'warn' => 1,
         'info' => 2,
         'verbose' => 3,
-        'debug' => 4
+        'debug' => 4,
     ];
 
     /**
@@ -110,7 +110,6 @@ class RecorderTask extends Task implements SubBuildListener
         $this->start = strtolower($action) === "start";
     }
 
-
     /**
      * Whether or not the logger should append to a previous file.
      *
@@ -120,7 +119,6 @@ class RecorderTask extends Task implements SubBuildListener
     {
         $this->append = $append;
     }
-
 
     /**
      * Set emacs mode.

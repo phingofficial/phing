@@ -25,7 +25,6 @@ namespace Phing\Io;
  */
 class FilterReader extends Reader
 {
-
     /**
      * @var Reader
      */
@@ -39,9 +38,6 @@ class FilterReader extends Reader
         $this->in = $in;
     }
 
-    /**
-     * @param Reader $in
-     */
     public function setReader(Reader $in)
     {
         $this->in = $in;

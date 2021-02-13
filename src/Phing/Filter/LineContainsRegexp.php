@@ -50,7 +50,6 @@ use Phing\Util\RegexpException;
  */
 class LineContainsRegexp extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Parameter name for regular expression.
      *
@@ -68,12 +67,12 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     private $regexps = [];
 
     /**
-     * @var bool $negate
+     * @var bool
      */
     private $negate = false;
 
     /**
-     * @var bool $casesensitive
+     * @var bool
      */
     private $casesensitive = true;
 
@@ -128,7 +127,6 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
     /**
      * Whether to match casesensitevly.
-     * @param bool $b
      */
     public function setCaseSensitive(bool $b)
     {
@@ -138,7 +136,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Find out whether we match casesensitevly.
      *
-     * @return boolean negation flag.
+     * @return bool negation flag.
      */
     public function isCaseSensitive()
     {
@@ -148,7 +146,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Set the negation mode.  Default false (no negation).
      *
-     * @param boolean $b the boolean negation mode to set.
+     * @param bool $b the bool negation mode to set.
      */
     public function setNegate(bool $b)
     {
@@ -158,7 +156,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Find out whether we have been negated.
      *
-     * @return boolean negation flag.
+     * @return bool negation flag.
      */
     public function isNegated()
     {
@@ -226,7 +224,6 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * Creates a new LineContainsRegExp using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
      * @return LineContainsRegexp A new filter based on this configuration, but filtering
      *                the specified reader
      * @throws Exception

@@ -65,7 +65,6 @@ class PregEngine implements RegexpEngine
      * Sets pattern modifiers for regex engine
      *
      * @param  string $mods Modifiers to be applied to a given regex
-     * @return void
      */
     public function setModifiers($mods)
     {
@@ -100,8 +99,7 @@ class PregEngine implements RegexpEngine
     /**
      * Sets whether or not regex operation is case sensitive.
      *
-     * @param  boolean $bit
-     * @return void
+     * @param  bool $bit
      */
     public function setIgnoreCase($bit)
     {
@@ -111,7 +109,7 @@ class PregEngine implements RegexpEngine
     /**
      * Gets whether or not regex operation is case sensitive.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIgnoreCase()
     {
@@ -121,7 +119,7 @@ class PregEngine implements RegexpEngine
     /**
      * Sets whether regexp should be applied in multiline mode.
      *
-     * @param boolean $bit
+     * @param bool $bit
      */
     public function setMultiline($bit)
     {
@@ -131,7 +129,7 @@ class PregEngine implements RegexpEngine
     /**
      * Gets whether regexp is to be applied in multiline mode.
      *
-     * @return boolean
+     * @return bool
      */
     public function getMultiline()
     {
@@ -193,7 +191,7 @@ class PregEngine implements RegexpEngine
      * @param  string $pattern The regex pattern to match.
      * @param  string $source  The source string.
      * @param  array  $matches The array in which to store matches.
-     * @return boolean Success of matching operation.
+     * @return bool Success of matching operation.
      */
     public function match($pattern, $source, &$matches)
     {
@@ -206,7 +204,7 @@ class PregEngine implements RegexpEngine
      * @param  string $pattern The regex pattern to match.
      * @param  string $source  The source string.
      * @param  array  $matches The array in which to store matches.
-     * @return boolean Success of matching operation.
+     * @return bool Success of matching operation.
      */
     public function matchAll($pattern, $source, &$matches)
     {

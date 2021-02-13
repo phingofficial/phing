@@ -27,7 +27,6 @@ namespace Phing\Io;
  */
 abstract class Reader
 {
-
     /**
      * Read data from source.
      *
@@ -35,7 +34,6 @@ abstract class Reader
      * otherwise stream is read until EOF.
      *
      * @param int $len
-     * @return mixed
      * @throws IOException
      */
     abstract public function read($len = null);
@@ -84,7 +82,7 @@ abstract class Reader
     /**
      * Whether marking is supported.
      *
-     * @return boolean
+     * @return bool
      */
     public function markSupported()
     {
@@ -94,7 +92,7 @@ abstract class Reader
     /**
      * Is stream ready for reading.
      *
-     * @return boolean
+     * @return bool
      */
     public function ready()
     {

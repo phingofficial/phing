@@ -31,7 +31,7 @@ use Phing\Type\RegularExpression;
 class PropertySelector extends AbstractPropertySetterTask
 {
     /**
-     * @var RegularExpression $match
+     * @var RegularExpression
      */
     private $match;
     private $select = "\\0";

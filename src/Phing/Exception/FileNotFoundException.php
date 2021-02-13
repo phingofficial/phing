@@ -18,10 +18,9 @@
  */
 
 namespace Phing\Exception;
+
 use Exception;
 
-/**
- */
 class FileNotFoundException extends Exception
 {
 }

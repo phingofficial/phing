@@ -32,14 +32,14 @@ use Phing\Util\Regexp;
 class RegexpMapper implements FileNameMapper
 {
     /**
-     * @var string $to
+     * @var string
      */
     private $to;
 
     /**
      * The Regexp engine.
      *
-     * @var Regexp $reg
+     * @var Regexp
      */
     private $reg;
 
@@ -59,7 +59,7 @@ class RegexpMapper implements FileNameMapper
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
      *
-     * @param boolean $handleDirSep a boolean, default is false.
+     * @param bool $handleDirSep a boolean, default is false.
      */
     public function setHandleDirSep($handleDirSep)
     {
@@ -79,7 +79,7 @@ class RegexpMapper implements FileNameMapper
      * Attribute specifying whether to ignore the case difference
      * in the names.
      *
-     * @param boolean $caseSensitive a boolean, default is false.
+     * @param bool $caseSensitive a boolean, default is false.
      */
     public function setCaseSensitive($caseSensitive)
     {
@@ -92,7 +92,6 @@ class RegexpMapper implements FileNameMapper
      *
      * @param string $from
      *
-     * @return void
      */
     public function setFrom($from)
     {
@@ -110,7 +109,6 @@ class RegexpMapper implements FileNameMapper
      *
      * @param string $to
      *
-     * @return void
      *
      * @intern [HL] I'm changing the way this works for now to just use string
      *              <code>$this->to = StringHelper::toCharArray($to);</code>
@@ -127,7 +125,6 @@ class RegexpMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     * @param mixed $sourceFileName
      *
      * @return array|null
      */

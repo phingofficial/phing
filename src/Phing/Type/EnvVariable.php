@@ -81,7 +81,6 @@ class EnvVariable
      * The value will contain all path elements separated by the appropriate
      * separator
      *
-     * @param Path $path
      */
     public function setPath(Path $path)
     {

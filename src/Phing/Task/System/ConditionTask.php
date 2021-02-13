@@ -26,7 +26,7 @@ use Phing\Task\System\Condition\ConditionBase;
 /**
  * <condition> task as a generalization of <available>
  *
- * <p>This task supports boolean logic as well as pluggable conditions
+ * <p>This task supports bool logic as well as pluggable conditions
  * to decide, whether a property should be set.</p>
  *
  * <p>This task does not extend Task to take advantage of
@@ -38,17 +38,17 @@ use Phing\Task\System\Condition\ConditionBase;
 class ConditionTask extends ConditionBase
 {
     /**
-     * @var string $property
+     * @var string
      */
     private $property;
 
     /**
-     * @var string $value
+     * @var string
      */
     private $value = "true";
 
     /**
-     * @var string $alternative
+     * @var string
      */
     private $alternative;
 
@@ -64,7 +64,6 @@ class ConditionTask extends ConditionBase
      * The name of the property to set. Required.
      *
      * @param  string $p
-     * @return void
      */
     public function setProperty($p)
     {
@@ -75,7 +74,6 @@ class ConditionTask extends ConditionBase
      * The value for the property to set. Defaults to "true".
      *
      * @param  string $v
-     * @return void
      */
     public function setValue($v)
     {
@@ -97,7 +95,6 @@ class ConditionTask extends ConditionBase
      * See whether our nested condition holds and set the property.
      *
      * @throws BuildException
-     * @return void
      */
     public function main()
     {

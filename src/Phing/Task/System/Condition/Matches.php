@@ -31,32 +31,32 @@ use Phing\Type\RegularExpression;
 class Matches extends ProjectComponent implements Condition
 {
     /**
-     * @var string $string
+     * @var string
      */
     private $string;
 
     /**
-     * @var RegularExpression $regularExpression
+     * @var RegularExpression
      */
     private $regularExpression;
 
     /**
-     * @var bool $multiLine
+     * @var bool
      */
     private $multiLine = false;
 
     /**
-     * @var bool $caseSensitive
+     * @var bool
      */
     private $caseSensitive = true;
 
     /**
-     * @var string $modifiers
+     * @var string
      */
     private $modifiers;
 
     /**
-     * @param boolean $caseSensitive
+     * @param bool $caseSensitive
      */
     public function setCaseSensitive($caseSensitive)
     {
@@ -66,7 +66,7 @@ class Matches extends ProjectComponent implements Condition
     /**
      * Whether to match should be multiline.
      *
-     * @param boolean $multiLine
+     * @param bool $multiLine
      */
     public function setMultiLine($multiLine)
     {

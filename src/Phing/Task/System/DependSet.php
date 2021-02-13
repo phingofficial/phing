@@ -61,22 +61,22 @@ use Phing\Type\FileSet;
 class DependSet extends MatchingTask
 {
     /**
-     * @var FileSet[] $sourceFileSets
+     * @var FileSet[]
      */
     private $sourceFileSets = [];
 
     /**
-     * @var FileList[] $sourceFileLists
+     * @var FileList[]
      */
     private $sourceFileLists = [];
 
     /**
-     * @var FileSet[] $targetFileSets
+     * @var FileSet[]
      */
     private $targetFileSets = [];
 
     /**
-     * @var FileList[] $targetFileLists
+     * @var FileList[]
      */
     private $targetFileLists = [];
 

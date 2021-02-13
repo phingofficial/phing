@@ -86,7 +86,7 @@ class Commandline implements Countable
      * <p>Each commandline object has at most one instance of the
      * argument class.</p>
      *
-     * @param boolean $insertAtStart if true, the argument is inserted at the
+     * @param bool $insertAtStart if true, the argument is inserted at the
      *                                beginning of the list of args, otherwise
      *                                it is appended.
      * @return CommandlineArgument
@@ -127,9 +127,6 @@ class Commandline implements Countable
         return $this->executable;
     }
 
-    /**
-     * @param array $arguments
-     */
     public function addArguments(array $arguments)
     {
         foreach ($arguments as $arg) {
@@ -140,7 +137,6 @@ class Commandline implements Countable
     /**
      * Returns the executable and all defined arguments.
      *
-     * @return array
      */
     public function getCommandline(): array
     {
@@ -238,7 +234,6 @@ class Commandline implements Countable
      *
      * @param array $lines
      *
-     * @return string
      *
      * @throws BuildException
      */

@@ -25,7 +25,6 @@ namespace Phing\Io;
  */
 abstract class Writer
 {
-
     /**
      * Writes data to output stream.
      *

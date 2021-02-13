@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Task\Optional;
+
 use Phing\Task\Optional\SymfonyConsoleArg;
 
 /**

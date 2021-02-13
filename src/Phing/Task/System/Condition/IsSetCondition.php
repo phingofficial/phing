@@ -30,12 +30,12 @@ use Phing\ProjectComponent;
  */
 class IsSetCondition extends ProjectComponent implements Condition
 {
+    /**
+     * @var string
+     */
     private $property;
 
-    /**
-     * @param $p
-     */
-    public function setProperty($p)
+    public function setProperty(string $p)
     {
         $this->property = $p;
     }

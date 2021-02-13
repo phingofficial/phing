@@ -23,28 +23,19 @@ use Phing\Task;
 
 /**
  * "Inner" class for SwitchTask.
- *
  */
 class CaseTask extends SequentialTask
 {
-    /**
-     * @var mixed $value
-     */
     private $value = null;
 
     /**
-     * @param $value
-     *
-     * @return void
+     * @param mixed $value
      */
     public function setValue($value)
     {
         $this->value = $value;
     }
 
-    /**
-     * @return mixed
-     */
     public function getValue()
     {
         return $this->value;

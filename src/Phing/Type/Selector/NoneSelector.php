@@ -31,7 +31,6 @@ use Phing\Io\File;
  */
 class NoneSelector extends BaseSelectorContainer
 {
-
     /**
      * @return string
      */

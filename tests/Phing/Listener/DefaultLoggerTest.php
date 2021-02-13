@@ -81,7 +81,7 @@ class DefaultLoggerTest extends TestCase
     public function buildFinished()
     {
         $event = new BuildEvent(new Project());
-        $logger = new class extends DefaultLogger {
+        $logger = new class() extends DefaultLogger {
             public function printMessage($message, ?OutputStream $stream = null, $priority = null)
             {
                 echo $message;

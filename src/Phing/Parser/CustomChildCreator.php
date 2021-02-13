@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Parser;
+
 use Phing\Project;
 
 /**

@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Util;
+
 /**
  * String helper utility class.
  *
@@ -43,12 +44,12 @@ class StringHelper
     /**
      * @param bool|string $s
      *
-     * @return boolean
+     * @return bool
      */
     public static function booleanValue($s)
     {
         if (is_bool($s)) {
-            return $s; // it's already boolean (not a string)
+            return $s; // it's already bool (not a string)
         }
         // otherwise assume it's something like "true" or "t"
         $trimmed = strtolower(trim($s));

@@ -47,7 +47,6 @@ class HttpCondition extends ProjectComponent implements Condition
      *
      * @param string $url the url of the request
      *
-     * @return void
      */
     public function setUrl($url)
     {
@@ -59,7 +58,6 @@ class HttpCondition extends ProjectComponent implements Condition
      *
      * @param string $errorsBeginAt number at which errors begin at, default is 400
      *
-     * @return void
      */
     public function setErrorsBeginAt($errorsBeginAt)
     {
@@ -81,22 +79,18 @@ class HttpCondition extends ProjectComponent implements Condition
     /**
      * Whether redirects sent by the server should be followed,
      * defaults to true.
-     *
-     * @param boolean $f
      */
-    public function setFollowRedirects($f)
+    public function setFollowRedirects(bool $followRedirects)
     {
-        $this->followRedirects = $f;
+        $this->followRedirects = $followRedirects;
     }
 
     /**
      * Set quiet mode, which suppresses warnings if curl_exec() fails.
-     *
-     * @param $bool
      */
-    public function setQuiet($bool)
+    public function setQuiet(bool $quiet)
     {
-        $this->quiet = $bool;
+        $this->quiet = $quiet;
     }
 
     /**

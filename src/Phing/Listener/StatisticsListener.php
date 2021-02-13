@@ -34,17 +34,17 @@ class StatisticsListener implements SubBuildListener
     private static $BUILDEVENT_PROJECT_NAME_HAS_NULL_VALUE = true;
 
     /**
-     * @var ProjectTimerMap $projectTimerMap
+     * @var ProjectTimerMap
      */
     protected $projectTimerMap;
 
     /**
-     * @var Clock $clock
+     * @var Clock
      */
     private $clock;
 
     /**
-     * @var StatisticsReport $statisticsReport
+     * @var StatisticsReport
      */
     private $statisticsReport;
 
@@ -121,7 +121,6 @@ class StatisticsListener implements SubBuildListener
     }
 
     /**
-     * @param  BuildEvent $buildEvent
      * @return SeriesTimer
      */
     private function findTargetTimer(BuildEvent $buildEvent)
@@ -133,7 +132,6 @@ class StatisticsListener implements SubBuildListener
     }
 
     /**
-     * @param  BuildEvent $buildEvent
      * @return SeriesTimer
      */
     private function findTaskTimer(BuildEvent $buildEvent)

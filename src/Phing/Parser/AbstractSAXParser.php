@@ -33,7 +33,6 @@ use Exception;
  */
 abstract class AbstractSAXParser
 {
-
     /**
      * @var AbstractHandler
      */

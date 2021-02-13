@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Task\Optional;
+
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -34,7 +35,6 @@ abstract class BaseHttpTaskTest extends BuildFileTest
 
     /**
      * @param \GuzzleHttp\Psr7\Response[] $responses
-     * @return void
      */
     protected function createMockHandler(array $responses): void
     {

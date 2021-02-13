@@ -120,7 +120,7 @@ class SelectorUtils
             return false;
         }
 
-// pattern now holds ** while string is not exhausted
+        // pattern now holds ** while string is not exhausted
         // this will generate false positives but we can live with that.
         return true;
     }
@@ -150,7 +150,7 @@ class SelectorUtils
             '\*\*' . $dirSep => '(.*' . $dirSep . ')?',
             '\*\*' => '.*',
             '\*' => '[^' . $dirSep . ']*',
-            '\?' => '[^' . $dirSep . ']'
+            '\?' => '[^' . $dirSep . ']',
         ];
         $rePattern = str_replace(array_keys($patternReplacements), array_values($patternReplacements), $rePattern);
         $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');

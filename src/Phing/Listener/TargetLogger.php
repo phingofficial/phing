@@ -33,9 +33,6 @@ class TargetLogger extends AnsiColorLogger
     private $targetName = null;
     private $targetStartTime;
 
-    /**
-     * @param BuildEvent $event
-     */
     public function targetStarted(BuildEvent $event)
     {
         parent::targetStarted($event);
@@ -44,9 +41,6 @@ class TargetLogger extends AnsiColorLogger
         $this->targetStartTime = Phing::currentTimeMillis();
     }
 
-    /**
-     * @param BuildEvent $event
-     */
     public function targetFinished(BuildEvent $event)
     {
         $msg = PHP_EOL . "Target time: " . self::formatTime(

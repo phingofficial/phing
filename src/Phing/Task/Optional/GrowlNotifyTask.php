@@ -45,7 +45,6 @@ use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
-
 /**
  * Growl notification task for Phing, the PHP build tool.
  *
@@ -87,7 +86,6 @@ class GrowlNotifyTask extends Task
      * The init method check if Net_Growl is available
      * (exists and can be loaded)
      *
-     * @return void
      * @throws BuildException
      */
     public function init()
@@ -124,7 +122,6 @@ class GrowlNotifyTask extends Task
      *                     that appears in your Growl preferences
      *                     Default: "Growl for Phing"
      *
-     * @return void
      * @throws BuildException
      */
     public function setName($name = '')
@@ -148,7 +145,6 @@ class GrowlNotifyTask extends Task
      *
      * @param bool $sticky (optional) Notification should be sticky
      *
-     * @return void
      */
     public function setSticky(bool $sticky = true)
     {
@@ -161,7 +157,6 @@ class GrowlNotifyTask extends Task
      *
      * @param string $message Notification's text
      *
-     * @return void
      * @throws BuildException
      */
     public function setMessage($message = '')
@@ -183,7 +178,6 @@ class GrowlNotifyTask extends Task
      * @param string $title (optional) Notification's title
      *                      Default: GrowlNotify
      *
-     * @return void
      * @throws BuildException
      */
     public function setTitle($title = '')
@@ -208,7 +202,6 @@ class GrowlNotifyTask extends Task
      * @param string $notification Name/type
      *                             Default: "General Notification"
      *
-     * @return void
      * @throws BuildException
      */
     public function setNotification($notification = '')
@@ -239,7 +232,6 @@ class GrowlNotifyTask extends Task
      *
      * @param string $icon Icon of the application
      *
-     * @return void
      * @throws BuildException
      */
     public function setAppicon($icon = '')
@@ -271,7 +263,6 @@ class GrowlNotifyTask extends Task
      * @param string $host Remote host name/ip
      *                     Default: 127.0.0.1
      *
-     * @return void
      * @throws BuildException
      */
     public function setHost($host = '127.0.0.1')
@@ -296,7 +287,6 @@ class GrowlNotifyTask extends Task
      *
      * @param string $password Password to send request to a remote host
      *
-     * @return void
      * @throws BuildException
      */
     public function setPassword($password = '')
@@ -320,7 +310,6 @@ class GrowlNotifyTask extends Task
      * @param string $priority Notification priority
      *                         Default: normal
      *
-     * @return void
      * @throws BuildException
      */
     public function setPriority($priority = '')
@@ -364,7 +353,6 @@ class GrowlNotifyTask extends Task
      * @param string $protocol Protocol to use to send request to remote host
      *                         Default: gntp
      *
-     * @return void
      * @throws BuildException
      */
     public function setProtocol($protocol = '')
@@ -399,7 +387,6 @@ class GrowlNotifyTask extends Task
      *
      * @param string $icon Icon of the message
      *
-     * @return void
      * @throws BuildException
      */
     public function setIcon($icon = '')
@@ -424,7 +411,6 @@ class GrowlNotifyTask extends Task
     /**
      * The main entry point method
      *
-     * @return void
      * @throws BuildException
      */
     public function main()
@@ -436,7 +422,7 @@ class GrowlNotifyTask extends Task
         }
 
         $notifications = [
-            $this->notification
+            $this->notification,
         ];
         $options = [
             'host' => $this->host,

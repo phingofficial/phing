@@ -51,7 +51,6 @@ class PhpCSTask extends Task
      */
     protected $files = [];
 
-
     /** @var Commandline */
     private $cmd;
 
@@ -79,41 +78,26 @@ class PhpCSTask extends Task
         return $this->cmd;
     }
 
-    /**
-     * @param bool $cache
-     */
     public function setCache(bool $cache): void
     {
         $this->cache = $cache;
     }
 
-    /**
-     * @param bool $ignore
-     */
     public function setIgnoreAnnotations(bool $ignore): void
     {
         $this->ignoreAnnotations = $ignore;
     }
 
-    /**
-     * @param bool $checkreturn
-     */
     public function setCheckreturn(bool $checkreturn): void
     {
         $this->checkreturn = $checkreturn;
     }
 
-    /**
-     * @param string $bin
-     */
     public function setBin(string $bin): void
     {
         $this->bin = $bin;
     }
 
-    /**
-     * @param File $file
-     */
     public function setFile(File $file): void
     {
         $this->file = $file;

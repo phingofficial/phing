@@ -20,7 +20,9 @@
 namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
+use Phing\Exception\NullPointerException;
 use Phing\Io\File;
+use Phing\Io\IOException;
 use Phing\Task;
 
 /**
@@ -43,7 +45,7 @@ use Phing\Task;
 class Dirname extends Task
 {
     /**
-     * @var File $file
+     * @var File
      */
     private $file;
     private $property;
@@ -51,7 +53,9 @@ class Dirname extends Task
     /**
      * Path to take the dirname of.
      *
-     * @param string|File file a <code>File</code> value
+     * @param string|File $file a <code>File</code> value
+     * @throws NullPointerException
+     * @throws IOException
      */
     public function setFile($file)
     {

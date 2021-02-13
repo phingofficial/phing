@@ -134,7 +134,6 @@ class PDOSQLExecFormatterElement
     /**
      * Construct a new PDOSQLExecFormatterElement with parent task.
      *
-     * @param PDOSQLExecTask $parentTask
      */
     public function __construct(PDOSQLExecTask $parentTask)
     {
@@ -246,7 +245,7 @@ class PDOSQLExecFormatterElement
     /**
      * Set whether to write formatter results to file.
      *
-     * @param boolean $useFile
+     * @param bool $useFile
      */
     public function setUseFile($useFile)
     {
@@ -256,7 +255,7 @@ class PDOSQLExecFormatterElement
     /**
      * Return whether to write formatter results to file.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseFile()
     {
@@ -266,7 +265,6 @@ class PDOSQLExecFormatterElement
     /**
      * Sets the output file for the formatter results.
      *
-     * @param    File $outfile
      * @internal param PhingFile $outFile
      */
     public function setOutfile(File $outfile)
@@ -288,7 +286,7 @@ class PDOSQLExecFormatterElement
      * whether output should be appended to or overwrite
      * an existing file.  Defaults to false.
      *
-     * @param boolean $append
+     * @param bool $append
      */
     public function setAppend($append)
     {
@@ -298,7 +296,7 @@ class PDOSQLExecFormatterElement
     /**
      * Whether output should be appended to file.
      *
-     * @return boolean
+     * @return bool
      */
     public function getAppend()
     {
@@ -309,7 +307,7 @@ class PDOSQLExecFormatterElement
      * Print headers for result sets from the
      * statements; optional, default true.
      *
-     * @param boolean $showheaders
+     * @param bool $showheaders
      */
     public function setShowheaders($showheaders)
     {
@@ -347,7 +345,7 @@ class PDOSQLExecFormatterElement
     }
 
     /**
-     * @param boolean $v
+     * @param bool $v
      */
     public function setFormatOutput($v)
     {

@@ -17,8 +17,8 @@
  * <http://phing.info>.
  */
 
-
 namespace Phing\Type\Selector;
+
 use Phing\Support\BuildFileTest;
 
 /**
@@ -28,13 +28,12 @@ use Phing\Support\BuildFileTest;
  */
 class DateSelectorTest extends BuildFileTest
 {
-    const TWENTY_FOUR_HOURS_IN_SECONDS = (24 * 60 * 60);
+    public const TWENTY_FOUR_HOURS_IN_SECONDS = (24 * 60 * 60);
 
     private $inputDir;
     private $outputDir;
 
-    private static $fileStateMsgs = array();
-
+    private static $fileStateMsgs = [];
 
     /**
      * {@inheritDoc}
@@ -42,9 +41,9 @@ class DateSelectorTest extends BuildFileTest
      */
     public static function setUpBeforeClass(): void
     {
-        self::$fileStateMsgs['Before'] = array();
-        self::$fileStateMsgs['Now'] = array();
-        self::$fileStateMsgs['After'] = array();
+        self::$fileStateMsgs['Before'] = [];
+        self::$fileStateMsgs['Now'] = [];
+        self::$fileStateMsgs['After'] = [];
 
         self::$fileStateMsgs['Before'][true] = 'Before file should not exist in the output directory';
         self::$fileStateMsgs['Before'][false] = 'Before file should exist in the output directory';
@@ -67,7 +66,7 @@ class DateSelectorTest extends BuildFileTest
      */
     public static function tearDownAfterClass(): void
     {
-        self::$fileStateMsgs = array();
+        self::$fileStateMsgs = [];
     }
 
     public function setUp(): void
@@ -188,22 +187,22 @@ class DateSelectorTest extends BuildFileTest
 
         $this->getProject()->setProperty('epoch.seconds', $epochSeconds);
 
-        $inWindowFiles = array(
+        $inWindowFiles = [
             '-60s' => $this->createTestFile($this->inputDir, $epochSeconds - 60),
             '-59s' => $this->createTestFile($this->inputDir, $epochSeconds - 59),
             '-30s' => $this->createTestFile($this->inputDir, $epochSeconds - 30),
             '-+0s' => $this->createTestFile($this->inputDir, $epochSeconds),
             '+30s' => $this->createTestFile($this->inputDir, $epochSeconds + 30),
             '+59s' => $this->createTestFile($this->inputDir, $epochSeconds + 59),
-            '+60s' => $this->createTestFile($this->inputDir, $epochSeconds + 60)
-        );
+            '+60s' => $this->createTestFile($this->inputDir, $epochSeconds + 60),
+        ];
 
-        $outOfWindowFiles = array(
+        $outOfWindowFiles = [
             '-24h' => $this->createTestFile($this->inputDir, $epochSeconds - self::TWENTY_FOUR_HOURS_IN_SECONDS),
             '-61s' => $this->createTestFile($this->inputDir, $epochSeconds - 61),
             '+61s' => $this->createTestFile($this->inputDir, $epochSeconds + 61),
-            '+24h' => $this->createTestFile($this->inputDir, $epochSeconds + self::TWENTY_FOUR_HOURS_IN_SECONDS)
-        );
+            '+24h' => $this->createTestFile($this->inputDir, $epochSeconds + self::TWENTY_FOUR_HOURS_IN_SECONDS),
+        ];
 
         $this->executeTarget(__FUNCTION__);
 
@@ -302,22 +301,22 @@ class DateSelectorTest extends BuildFileTest
 
         $this->getProject()->setProperty('datetime', $dateTime);
 
-        $inWindowFiles = array(
+        $inWindowFiles = [
             '-30s' => $this->createTestFile($this->inputDir, $epochSeconds - 30),
             '-29s' => $this->createTestFile($this->inputDir, $epochSeconds - 29),
             '-15s' => $this->createTestFile($this->inputDir, $epochSeconds - 15),
             '-+0s' => $this->createTestFile($this->inputDir, $epochSeconds),
             '+15s' => $this->createTestFile($this->inputDir, $epochSeconds + 15),
             '+29s' => $this->createTestFile($this->inputDir, $epochSeconds + 29),
-            '+30s' => $this->createTestFile($this->inputDir, $epochSeconds + 30)
-        );
+            '+30s' => $this->createTestFile($this->inputDir, $epochSeconds + 30),
+        ];
 
-        $outOfWindowFiles = array(
+        $outOfWindowFiles = [
             '-24h' => $this->createTestFile($this->inputDir, $epochSeconds - self::TWENTY_FOUR_HOURS_IN_SECONDS),
             '-31s' => $this->createTestFile($this->inputDir, $epochSeconds - 31),
             '+31s' => $this->createTestFile($this->inputDir, $epochSeconds + 31),
-            '+24h' => $this->createTestFile($this->inputDir, $epochSeconds + self::TWENTY_FOUR_HOURS_IN_SECONDS)
-        );
+            '+24h' => $this->createTestFile($this->inputDir, $epochSeconds + self::TWENTY_FOUR_HOURS_IN_SECONDS),
+        ];
 
         $this->executeTarget(__FUNCTION__);
 
@@ -353,7 +352,6 @@ class DateSelectorTest extends BuildFileTest
         $this->assertFileDoesNotExist($this->outputDir . basename($afterFile), self::getFileStateMsg('After', true));
         $this->assertFileExists($this->outputDir . basename($nowFile), self::getFileStateMsg('Now', false));
     }
-
 
     /*
      * Test using millis attribute with when set to after
@@ -413,22 +411,22 @@ class DateSelectorTest extends BuildFileTest
 
         $this->getProject()->setProperty('epoch.millis', $epochMillis);
 
-        $inWindowFiles = array(
+        $inWindowFiles = [
             '-6s' => $this->createTestFile($this->inputDir, $epochSeconds - 6),
             '-5s' => $this->createTestFile($this->inputDir, $epochSeconds - 5),
             '-3s' => $this->createTestFile($this->inputDir, $epochSeconds - 3),
             '+-0s' => $this->createTestFile($this->inputDir, $epochSeconds),
             '+3s' => $this->createTestFile($this->inputDir, $epochSeconds + 3),
             '+5s' => $this->createTestFile($this->inputDir, $epochSeconds + 5),
-            '+6s' => $this->createTestFile($this->inputDir, $epochSeconds + 6)
-        );
+            '+6s' => $this->createTestFile($this->inputDir, $epochSeconds + 6),
+        ];
 
-        $outOfWindowFiles = array(
+        $outOfWindowFiles = [
             '-24h' => $this->createTestFile($this->inputDir, $epochSeconds - self::TWENTY_FOUR_HOURS_IN_SECONDS),
             '-7s' => $this->createTestFile($this->inputDir, $epochSeconds - 7),
             '+7s' => $this->createTestFile($this->inputDir, $epochSeconds + 7),
-            '+24h' => $this->createTestFile($this->inputDir, $epochSeconds + self::TWENTY_FOUR_HOURS_IN_SECONDS)
-        );
+            '+24h' => $this->createTestFile($this->inputDir, $epochSeconds + self::TWENTY_FOUR_HOURS_IN_SECONDS),
+        ];
 
         $this->executeTarget(__FUNCTION__);
 

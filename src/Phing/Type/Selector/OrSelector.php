@@ -30,7 +30,6 @@ use Phing\Io\File;
  */
 class OrSelector extends BaseSelectorContainer
 {
-
     /**
      * @return string
      */
@@ -54,7 +53,7 @@ class OrSelector extends BaseSelectorContainer
      * @param string $filename the name of the file to check
      * @param File $file a PhingFile object for the filename that the selector
      *                                                                can use
-     * @return boolean Whether the file should be selected or not
+     * @return bool Whether the file should be selected or not
      */
     public function isSelected(File $basedir, $filename, File $file)
     {

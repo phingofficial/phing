@@ -49,7 +49,7 @@ class ProjectConfigurator
     public const PARSING_CONTEXT_REFERENCE = "phing.parsing.context";
 
     /**
-     * @var Project $project
+     * @var Project
      */
     public $project;
     public $locator;
@@ -211,14 +211,14 @@ class ProjectConfigurator
                 // this is an imported file
                 // modify project tag parse behavior
                 $this->setIgnoreProjectTag(true);
-                $this->_parse($ctx);
+                $this->innerParse($ctx);
                 $newCurrent->main();
 
                 $ctx->setImplicitTarget($currentImplicit);
                 $ctx->setCurrentTargets($currentTargets);
             } else {
                 $ctx->setCurrentTargets([]);
-                $this->_parse($ctx);
+                $this->innerParse($ctx);
                 $ctx->getImplicitTarget()->main();
             }
 
@@ -230,10 +230,9 @@ class ProjectConfigurator
     }
 
     /**
-     * @param XmlContext $ctx
      * @throws ExpatParseException
      */
-    protected function _parse(XmlContext $ctx)
+    protected function innerParse(XmlContext $ctx)
     {
         // push action onto global stack
         $ctx->startConfigure($this);
@@ -420,7 +419,7 @@ class ProjectConfigurator
             $extPoint = null;
             if ($prefixAndSep === null) {
                 // no prefix - not from an imported/included build file
-                $extPoint = isset($projectTargets[$extPointName]) ? $projectTargets[$extPointName] : null;
+                $extPoint = $projectTargets[$extPointName] ?? null;
             } else {
                 // we have a prefix, which means we came from an include/import
 
@@ -430,9 +429,9 @@ class ProjectConfigurator
                 // which prefix should be tested before testing the non-prefix
                 // root name.
 
-                $extPoint = isset($projectTargets[$prefixAndSep . $extPointName]) ? $projectTargets[$prefixAndSep . $extPointName] : null;
+                $extPoint = $projectTargets[$prefixAndSep . $extPointName] ?? null;
                 if ($extPoint === null) {
-                    $extPoint = isset($projectTargets[$extPointName]) ? $projectTargets[$extPointName] : null;
+                    $extPoint = $projectTargets[$extPointName] ?? null;
                 }
             }
 

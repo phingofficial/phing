@@ -76,210 +76,132 @@ class FilterChain extends DataType
         return $this->filterReaders;
     }
 
-    /**
-     * @param ConcatFilter $o
-     */
     public function addConcatFilter(ConcatFilter $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param ExpandProperties $o
-     */
     public function addExpandProperties(ExpandProperties $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param TranslateGettext $o
-     */
     public function addGettext(TranslateGettext $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param HeadFilter $o
-     */
     public function addHeadFilter(HeadFilter $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param IconvFilter $o
-     */
     public function addIconvFilter(IconvFilter $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param TailFilter $o
-     */
     public function addTailFilter(TailFilter $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param LineContains $o
-     */
     public function addLineContains(LineContains $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param LineContainsRegexp $o
-     */
     public function addLineContainsRegExp(LineContainsRegexp $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param PrefixLines $o
-     */
     public function addPrefixLines(PrefixLines $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param SuffixLines $o
-     */
     public function addSuffixLines(SuffixLines $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param EscapeUnicode $o
-     */
     public function addEscapeUnicode(EscapeUnicode $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param PhpArrayMapLines $o
-     */
     public function addPhpArrayMapLines(PhpArrayMapLines $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param ReplaceTokens $o
-     */
     public function addReplaceTokens(ReplaceTokens $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param ReplaceTokensWithFile $o
-     */
     public function addReplaceTokensWithFile(ReplaceTokensWithFile $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param ReplaceRegexp $o
-     */
     public function addReplaceRegexp(ReplaceRegexp $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param StripPhpComments $o
-     */
     public function addStripPhpComments(StripPhpComments $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param StripLineBreaks $o
-     */
     public function addStripLineBreaks(StripLineBreaks $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param StripLineComments $o
-     */
     public function addStripLineComments(StripLineComments $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param StripWhitespace $o
-     */
     public function addStripWhitespace(StripWhitespace $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param TidyFilter $o
-     */
     public function addTidyFilter(TidyFilter $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param TabToSpaces $o
-     */
     public function addTabToSpaces(TabToSpaces $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param XincludeFilter $o
-     */
     public function addXincludeFilter(XincludeFilter $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param XsltFilter $o
-     */
     public function addXsltFilter(XsltFilter $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param FilterReader $o
-     */
     public function addFilterReader(FilterReader $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
-    /**
-     * @param SortFilter $o
-     */
     public function addSortFilter(SortFilter $o)
     {
         $this->add($o);
     }
 
-    /**
-     * @param ClassConstants $o
-     */
     public function addClassConstants(ClassConstants $o)
     {
         $this->add($o);
@@ -302,7 +224,6 @@ class FilterChain extends DataType
      * @throws BuildException if this instance already has been configured.
     */
     /**
-     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)

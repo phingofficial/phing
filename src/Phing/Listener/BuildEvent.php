@@ -43,7 +43,6 @@ use Phing\Task;
  */
 class BuildEvent extends EventObject
 {
-
     /**
      * A reference to the project
      *
@@ -118,7 +117,7 @@ class BuildEvent extends EventObject
      * Sets the message with details and the message priority for this event.
      *
      * @param string   The string message of the event
-     * @param integer  The priority this message should have
+     * @param int  The priority this message should have
      */
     public function setMessage($message, $priority)
     {
@@ -190,7 +189,7 @@ class BuildEvent extends EventObject
      * Returns the priority of the logging message. This field will only
      * be set for "messageLogged" events.
      *
-     * @return integer The message priority
+     * @return int The message priority
      */
     public function getPriority()
     {

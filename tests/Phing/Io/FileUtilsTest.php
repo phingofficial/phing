@@ -29,7 +29,7 @@ use Phing\Support\BuildFileTest;
  */
 class FileUtilsTest extends BuildFileTest
 {
-    /** @var FileUtils $fu */
+    /** @var FileUtils */
     private $fu;
 
     public function setUp(): void

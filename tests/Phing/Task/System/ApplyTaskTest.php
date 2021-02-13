@@ -462,7 +462,6 @@ class ApplyTaskTest extends BuildFileTest
         $this->assertContains('Applied echo to 4 files and 0 directories.', $messages);
     }
 
-
     /**********************************************************************************/
     /************************** H E L P E R  M E T H O D S ****************************/
     /**********************************************************************************/
@@ -523,7 +522,6 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * @param string $property
-     * @param mixed $value
      * @param string $propertyName
      */
     protected function assertAttributeIsSetTo($property, $value, $propertyName = null)

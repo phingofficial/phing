@@ -26,7 +26,6 @@ namespace Phing\Input;
  */
 interface InputHandler
 {
-
     /**
      * Handle the request encapsulated in the argument.
      *
@@ -36,8 +35,6 @@ interface InputHandler
      * <p>Postcondition: request.getInput will return a non-null
      * value, request.isInputValid will return true.</p>
      *
-     * @param  InputRequest $request
-     * @return void
      */
     public function handleInput(InputRequest $request);
 }

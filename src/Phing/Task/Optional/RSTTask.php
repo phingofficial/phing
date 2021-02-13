@@ -64,7 +64,7 @@ class RSTTask extends Task
         'man',
         'odt',
         's5',
-        'xml'
+        'xml',
     ];
 
     /**
@@ -145,7 +145,6 @@ class RSTTask extends Task
     /**
      * The main entry point method.
      *
-     * @return void
      * @throws BuildException
      */
     public function main()
@@ -209,7 +208,6 @@ class RSTTask extends Task
      * @param string $source rST source file
      * @param string $targetFile target file name
      *
-     * @return void
      */
     protected function render($tool, $source, $targetFile)
     {
@@ -240,7 +238,6 @@ class RSTTask extends Task
      * @param string $source rST source file
      * @param string $targetFile target file name
      *
-     * @return void
      *
      * @throws BuildException When the conversion fails
      */
@@ -339,7 +336,6 @@ class RSTTask extends Task
      *
      * @param string $file Path of file to render
      *
-     * @return void
      */
     public function setFile($file)
     {
@@ -351,7 +347,6 @@ class RSTTask extends Task
      *
      * @param string $format Output format
      *
-     * @return void
      *
      * @throws BuildException When the format is not supported
      */
@@ -375,7 +370,6 @@ class RSTTask extends Task
      * @param string $destination Output file or directory. When it ends
      *                            with a slash, it is taken as directory.
      *
-     * @return void
      */
     public function setDestination($destination)
     {
@@ -387,7 +381,6 @@ class RSTTask extends Task
      *
      * @param string $param Additional rst2* tool parameters
      *
-     * @return void
      */
     public function setToolparam($param)
     {
@@ -398,7 +391,6 @@ class RSTTask extends Task
      * The setter for the attribute "toolpath"
      *
      * @param    $path
-     * @return void
      * @throws   BuildException
      * @internal param string $param Full path to tool path, i.e. /usr/local/bin/rst2html
      *
@@ -428,7 +420,6 @@ class RSTTask extends Task
      *
      * @param string $uptodate True/false
      *
-     * @return void
      */
     public function setUptodate($uptodate)
     {

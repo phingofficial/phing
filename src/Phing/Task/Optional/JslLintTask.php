@@ -46,7 +46,7 @@ class JslLintTask extends Task
     protected $file; // the source file (from xml attribute)
 
     /**
-     * @var bool $showWarnings
+     * @var bool
      */
     protected $showWarnings = true;
 
@@ -71,7 +71,7 @@ class JslLintTask extends Task
     protected $hasWarnings = false;
 
     /**
-     * @var array $badFiles
+     * @var array
      */
     private $badFiles = [];
 
@@ -98,7 +98,7 @@ class JslLintTask extends Task
     /**
      * Sets the flag if warnings should be shown
      *
-     * @param boolean $show
+     * @param bool $show
      */
     public function setShowWarnings($show)
     {
@@ -108,7 +108,7 @@ class JslLintTask extends Task
     /**
      * The haltonfailure property
      *
-     * @param boolean $aValue
+     * @param bool $aValue
      */
     public function setHaltOnFailure($aValue)
     {
@@ -118,7 +118,7 @@ class JslLintTask extends Task
     /**
      * The haltonwarning property
      *
-     * @param boolean $aValue
+     * @param bool $aValue
      */
     public function setHaltOnWarning($aValue)
     {
@@ -128,7 +128,6 @@ class JslLintTask extends Task
     /**
      * File to be performed syntax check on
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -138,7 +137,6 @@ class JslLintTask extends Task
     /**
      * Whether to store last-modified times in cache
      *
-     * @param File $file
      */
     public function setCacheFile(File $file)
     {
@@ -148,7 +146,6 @@ class JslLintTask extends Task
     /**
      * jsl config file
      *
-     * @param File $file
      */
     public function setConfFile(File $file)
     {
@@ -180,7 +177,6 @@ class JslLintTask extends Task
     /**
      * File to save error messages to
      *
-     * @param File $tofile
      */
     public function setToFile(File $tofile)
     {

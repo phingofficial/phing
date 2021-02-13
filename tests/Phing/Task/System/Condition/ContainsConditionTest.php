@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Task\System\Condition;
+
 /**
  * Testcase for the &lt;contains&gt; condition.
  *

@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Regression;
+
 use Phing\Support\BuildFileTest;
 
 /**
@@ -44,7 +45,6 @@ class ExcludeZipTest extends BuildFileTest
         foreach ($this->logBuffer as $log) {
             $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
         }
-
 
         foreach ($this->logBuffer as $log) {
             if (stripos($log['message'], $expected) !== false) {

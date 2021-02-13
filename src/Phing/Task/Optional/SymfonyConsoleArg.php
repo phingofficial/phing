@@ -36,7 +36,7 @@ class SymfonyConsoleArg extends DataType
     /**
      * Gets the argument name
      *
-     * @return String
+     * @return string
      */
     public function getName()
     {
@@ -46,7 +46,7 @@ class SymfonyConsoleArg extends DataType
     /**
      * Sets the argument name
      *
-     * @param String $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -56,7 +56,7 @@ class SymfonyConsoleArg extends DataType
     /**
      * Gets the argument value
      *
-     * @return String
+     * @return string
      */
     public function getValue()
     {
@@ -66,7 +66,7 @@ class SymfonyConsoleArg extends DataType
     /**
      * Sets the argument value
      *
-     * @param String $value
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -76,7 +76,7 @@ class SymfonyConsoleArg extends DataType
     /**
      * Should the argument value be enclosed in double quotes
      *
-     * @return boolean
+     * @return bool
      */
     public function getQuotes()
     {
@@ -86,7 +86,7 @@ class SymfonyConsoleArg extends DataType
     /**
      * Should the argument value be enclosed in double quotes
      *
-     * @param boolean $quotes
+     * @param bool $quotes
      */
     public function setQuotes($quotes)
     {
@@ -97,7 +97,7 @@ class SymfonyConsoleArg extends DataType
      * Transforms the argument object into a string, takes into consideration
      * the quotes and the argument value
      *
-     * @return String
+     * @return string
      */
     public function __toString()
     {

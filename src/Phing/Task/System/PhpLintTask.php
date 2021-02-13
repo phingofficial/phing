@@ -79,7 +79,7 @@ class PhpLintTask extends Task
     /**
      * The haltonfailure property
      *
-     * @param boolean $aValue
+     * @param bool $aValue
      */
     public function setHaltOnFailure($aValue)
     {
@@ -89,7 +89,6 @@ class PhpLintTask extends Task
     /**
      * File to be performed syntax check on
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -109,7 +108,6 @@ class PhpLintTask extends Task
     /**
      * Whether to store last-modified times in cache
      *
-     * @param File $file
      */
     public function setCacheFile(File $file)
     {
@@ -119,7 +117,6 @@ class PhpLintTask extends Task
     /**
      * File to save error messages to
      *
-     * @param File $tofile
      * @internal param PhingFile $file
      */
     public function setToFile(File $tofile)
@@ -130,7 +127,7 @@ class PhpLintTask extends Task
     /**
      * Sets whether to treat deprecated warnings (introduced in PHP 5.3) as errors
      *
-     * @param boolean $deprecatedAsError
+     * @param bool $deprecatedAsError
      */
     public function setDeprecatedAsError($deprecatedAsError)
     {

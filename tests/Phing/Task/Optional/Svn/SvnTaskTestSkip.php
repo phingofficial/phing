@@ -20,9 +20,9 @@
 declare(strict_types=1);
 
 namespace Phing\Task\Optional\Svn;
+
 trait SvnTaskTestSkip
 {
-
     public function markTestAsSkippedWhenSvnNotInstalled(): void
     {
         exec('svn help > /dev/null 2>&1', $output, $code);

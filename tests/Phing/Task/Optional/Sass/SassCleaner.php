@@ -25,7 +25,6 @@ use Phing\Io\FileSystem;
 
 trait SassCleaner
 {
-
     public function sassCleanUp(string $compileDirectoryPath, string $testFileName): void
     {
         $fs = FileSystem::getFileSystem();
