@@ -42,4 +42,42 @@ class TryCatchTest extends BuildFileTest
         $this->assertInLogs('In <finally>.');
         $this->assertStringEndsWith('Tada!', $this->project->getProperty("prop." . __FUNCTION__));
     }
+
+    public function testExceptionInCatch()
+    {
+        $this->expectBuildExceptionContaining(
+            __FUNCTION__,
+            'Exception ref.'.__FUNCTION__,
+            'Failing in try'
+        );
+        $this->assertPropertyEquals('prop.'.__FUNCTION__.'.infinally', 'true');
+    }
+
+    public function testExceptionInFinally()
+    {
+        $this->expectBuildExceptionContaining(
+            __FUNCTION__,
+            'Exception ref.'.__FUNCTION__,
+            'Failing in finally'
+        );
+
+        $this->assertStringContainsString(
+            'Failing in try',
+            $this->project->getProperty('prop.'.__FUNCTION__.'.message')
+        );
+    }
+
+    public function testNoCatch()
+    {
+        $this->expectBuildExceptionContaining(
+            __FUNCTION__,
+            'Exception ref.'.__FUNCTION__,
+            'Failing in try'
+        );
+
+        $this->assertPropertyEquals(
+            'prop.'.__FUNCTION__.'.infinally',
+            'true'
+        );
+    }
 }

@@ -70,10 +70,10 @@ class TryCatchTask extends Task
             } else {
                 $exc = $e;
             }
-        }
-
-        if (!empty($this->finallyContainer)) {
-            $this->finallyContainer->perform();
+        } finally {
+            if (!empty($this->finallyContainer)) {
+                $this->finallyContainer->perform();
+            }
         }
 
         if (!empty($exc)) {
