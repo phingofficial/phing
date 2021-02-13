@@ -16,4 +16,44 @@
         </trycatch>
         <echo>${prop.testTryCatchFinally}</echo>
     </target>
+    <target name="testExceptionInCatch">
+        <trycatch property="prop.testExceptionInCatch.message"
+                  reference="ref.testExceptionInCatch">
+            <try >
+                <fail message="Failing in try" />
+            </try>
+            <catch>
+                <throw refid="ref.testExceptionInCatch" />
+            </catch>
+            <finally>
+                <property name="prop.testExceptionInCatch.infinally"
+                          value="true" />
+            </finally>
+        </trycatch>
+    </target>
+    <target name="testExceptionInFinally">
+        <trycatch property="prop.testExceptionInFinally.message"
+                  reference="ref.testExceptionInFinally">
+            <try >
+                <fail message="Failing in try" />
+            </try>
+            <catch>
+                <throw refid="ref.testExceptionInFinally" />
+            </catch>
+            <finally>
+                <fail message="Failing in finally" />
+            </finally>
+        </trycatch>
+    </target>
+    <target name="testNoCatch">
+        <trycatch property="prop.testNoCatch.message"
+                  reference="ref.testNoCatch">
+            <try >
+                <fail message="Failing in try" />
+            </try>
+            <finally>
+                <property name="prop.testNoCatch.infinally" value="true" />
+            </finally>
+        </trycatch>
+    </target>
 </project>
