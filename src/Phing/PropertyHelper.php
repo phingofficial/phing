@@ -427,7 +427,7 @@ class PropertyHelper
             return $o;
         }
 
-        $found = $this->properties[$name] ?? null;
+        $found = $this->properties[$name] ?? '';
         // check to see if there are unresolved property references
         if (false !== strpos($found, '${')) {
             // attempt to resolve properties
