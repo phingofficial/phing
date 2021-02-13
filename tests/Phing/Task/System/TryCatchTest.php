@@ -47,23 +47,23 @@ class TryCatchTest extends BuildFileTest
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,
-            'Exception ref.'.__FUNCTION__,
+            'Exception ref.' . __FUNCTION__,
             'Failing in try'
         );
-        $this->assertPropertyEquals('prop.'.__FUNCTION__.'.infinally', 'true');
+        $this->assertPropertyEquals('prop.' . __FUNCTION__ . '.infinally', 'true');
     }
 
     public function testExceptionInFinally()
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,
-            'Exception ref.'.__FUNCTION__,
+            'Exception ref.' . __FUNCTION__,
             'Failing in finally'
         );
 
         $this->assertStringContainsString(
             'Failing in try',
-            $this->project->getProperty('prop.'.__FUNCTION__.'.message')
+            $this->project->getProperty('prop.' . __FUNCTION__ . '.message')
         );
     }
 
@@ -71,12 +71,12 @@ class TryCatchTest extends BuildFileTest
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,
-            'Exception ref.'.__FUNCTION__,
+            'Exception ref.' . __FUNCTION__,
             'Failing in try'
         );
 
         $this->assertPropertyEquals(
-            'prop.'.__FUNCTION__.'.infinally',
+            'prop.' . __FUNCTION__ . '.infinally',
             'true'
         );
     }
