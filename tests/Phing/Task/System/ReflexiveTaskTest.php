@@ -43,13 +43,18 @@ class ReflexiveTaskTest extends BuildFileTest
         $this->executeTarget("clean");
     }
 
-    public function test1()
+    public function test1(): void
     {
         $this->expectBuildException(__FUNCTION__, 'You must specify a file or fileset(s) for the <reflexive> task.');
     }
 
-    public function test2()
+    public function test2(): void
     {
         $this->expectBuildException(__FUNCTION__, 'File cannot be a directory.');
+    }
+
+    public function test3(): void
+    {
+        $this->expectBuildException(__FUNCTION__, 'You must specify a filterchain for the <reflexive> task.');
     }
 }

@@ -18,5 +18,9 @@
         <reflexive file=""/>
     </target>
 
+    <target name="test3">
+        <reflexive file="template.xml"/>
+    </target>
+
     <target name="main"/>
 </project>
