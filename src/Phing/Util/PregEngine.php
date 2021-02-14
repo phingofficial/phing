@@ -47,7 +47,7 @@ class PregEngine implements RegexpEngine
      * @link http://php.net/manual/en/reference.pcre.pattern.modifiers.php
      * @var  string
      */
-    private $modifiers = null;
+    private $modifiers = '';
 
     /**
      * Set the limit.
