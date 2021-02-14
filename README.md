@@ -1,7 +1,7 @@
 <h1><img width="30" src="https://raw.githubusercontent.com/phingofficial/phing-github-action/main/action.svg"/>P     H     I     N     G</h1>
 
-  ![Phing CI](https://github.com/phingofficial/phing/workflows/Phing%20CI/badge.svg?branch=master)
-  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/phingofficial/phing/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/phingofficial/phing/?branch=master)
+  ![Phing CI](https://github.com/phingofficial/phing/workflows/Phing%20CI/badge.svg?branch=main)
+  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/phingofficial/phing/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/phingofficial/phing/?branch=main)
   [![codecov](https://codecov.io/gh/phingofficial/phing/branch/master/graph/badge.svg)](https://codecov.io/gh/phingofficial/phing)
 
   Thank you for using PHING!
