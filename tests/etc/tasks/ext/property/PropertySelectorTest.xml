@@ -9,7 +9,20 @@
         <propertyselector property="pack.list"
                           delimiter=","
                           match="package\.([^\.]*)\.name"
-                          select="\1"
+                          select="$1"
                           casesensitive="false" />
+    </target>
+    <target name="testSecondGroupSelectionDistinct">
+        <property name="package.ABC.name" value="abc pack name" />
+        <property name="package.DEF.name" value="def pack name" />
+        <property name="package.GHI.name" value="ghi pack name" />
+        <property name="package.JKL.name" value="jkl pack name" />
+
+        <propertyselector property="pack.list"
+                          delimiter=","
+                          match="package\.([^\.]*)\.([^\.]*)"
+                          select="$2"
+                          casesensitive="false"
+                          distinct="true" />
     </target>
 </project>
