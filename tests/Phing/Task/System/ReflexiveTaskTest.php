@@ -50,7 +50,6 @@ class ReflexiveTaskTest extends BuildFileTest
 
     public function test2()
     {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('Error reading file', Project::MSG_WARN);
+        $this->expectBuildException(__FUNCTION__, 'File cannot be a directory.');
     }
 }
