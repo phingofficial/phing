@@ -133,7 +133,7 @@ class ReflexiveTask extends Task
                 if ($in) {
                     $in->close();
                 }
-                $this->log("Erorr reading file: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log("Error reading file: " . $e->getMessage(), Project::MSG_WARN);
             }
 
             try {

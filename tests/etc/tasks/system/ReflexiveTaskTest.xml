@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CopyTaskTest" default="main">
+    <property name="tmp.dir" value="tmp"/>
+
+    <target name="setup">
+        <mkdir dir="${tmp.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="test1">
+        <reflexive/>
+    </target>
+
+    <target name="test2">
+        <reflexive file=""/>
+    </target>
+
+    <target name="main"/>
+</project>
