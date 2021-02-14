@@ -61,6 +61,7 @@ class ReflexiveTask extends Task
 
     /**
      * Single file to process.
+     * @var File
      */
     private $file;
 
@@ -80,6 +81,10 @@ class ReflexiveTask extends Task
     {
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException("You must specify a file or fileset(s) for the <reflexive> task.");
+        }
+
+        if ($this->file->isDirectory()) {
+            throw new BuildException('File cannot be a directory.');
         }
 
         // compile a list of all files to modify, both file attrib and fileset elements
@@ -133,7 +138,7 @@ class ReflexiveTask extends Task
                 if ($in) {
                     $in->close();
                 }
-                $this->log("Erorr reading file: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log("Error reading file: " . $e->getMessage(), Project::MSG_WARN);
             }
 
             try {
