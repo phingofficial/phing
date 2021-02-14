@@ -40,4 +40,10 @@ class PropertySelectorTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('pack.list', 'ABC,DEF,GHI,JKL');
     }
+
+    public function testSecondGroupSelectionDistinct()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('pack.list', 'name');
+    }
 }
