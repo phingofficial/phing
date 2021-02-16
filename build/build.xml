@@ -191,7 +191,7 @@
         <filehash file="${filename}" algorithm="sha1" />
 
         <exec executable="gpg" checkreturn="true" logoutput="true" taskname="gpg">
-            <arg line="-u mrook@php.net --detach-sign --output ${filename}.asc ${filename}"/>
+            <arg line="-u release@phing.info --detach-sign --output ${filename}.asc ${filename}"/>
         </exec>
     </target>
 
