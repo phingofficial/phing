@@ -19,6 +19,7 @@
 
 namespace Phing\Task\System;
 
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 use Phing\Type\Element\DirSetAware;
@@ -77,9 +78,13 @@ class EchoTask extends Task
             $this->log($this->msg, $loglevel);
         } else {
             if ($this->append) {
-                $handle = fopen($this->file, "a");
+                $handle = @fopen($this->file, "a");
             } else {
-                $handle = fopen($this->file, "w");
+                $handle = @fopen($this->file, "w");
+            }
+
+            if ($handle === false) {
+                throw new BuildException("Unable to open file {$this->file}");
             }
 
             fwrite($handle, $this->msg);
