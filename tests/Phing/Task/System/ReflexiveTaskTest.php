@@ -57,4 +57,13 @@ class ReflexiveTaskTest extends BuildFileTest
     {
         $this->expectBuildException(__FUNCTION__, 'You must specify a filterchain for the <reflexive> task.');
     }
+
+    public function testReplaceCharactersUsingFileset(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertStringEqualsFile(
+            $this->getProject()->getProperty('tmp.dir') . '/foo.bar',
+            'y'
+        );
+    }
 }

@@ -22,5 +22,19 @@
         <reflexive file="template.xml"/>
     </target>
 
+    <target name="testReplaceCharactersUsingFileset">
+        <echo file="${tmp.dir}/foo.bar">x</echo>
+        <reflexive>
+            <fileset dir="${tmp.dir}">
+                <include pattern="**/foo.bar"/>
+            </fileset>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="x" replace="y" ignoreCase="true"/>
+                </replaceregexp>
+            </filterchain>
+        </reflexive>
+    </target>
+
     <target name="main"/>
 </project>

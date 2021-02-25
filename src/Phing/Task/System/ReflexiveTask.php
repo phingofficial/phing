@@ -163,7 +163,7 @@ class ReflexiveTask extends Task
             throw new BuildException('You must specify a file or fileset(s) for the <reflexive> task.');
         }
 
-        if ($this->file->isDirectory()) {
+        if ($this->file !== null && $this->file->isDirectory()) {
             throw new BuildException('File cannot be a directory.');
         }
 
