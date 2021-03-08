@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="VisualizerTask" default="help">
+
+    <target name="setup" depends="composer:install"
+            description="Prepare project for development"/>
+    <target name="qa" description="Check code quality"
+            depends="composer:validate, composer:normalize, phpstan:analyse"/>
+
+    <target name="help">
+        <exec executable="xdg-open" spawn="true">
+            <arg path="build.png"/>
+        </exec>
+    </target>
+
+    <target name="visualizer" description="Create buildfile diagram">
+        <visualizer format="png"/>
+    </target>
+
+    <target name="composer:normalize" description="Normalize composer.json content">
+        <composer command="normalize"/>
+    </target>
+
+    <target name="composer:install" description="Install Composer dependencies">
+        <composer command="install">
+            <arg value="--dev"/>
+            <arg value="--prefer-dist"/>
+            <arg value="--no-interaction"/>
+            <arg value="--no-progress"/>
+            <arg value="--no-suggest"/>
+            <arg value="--ansi"/>
+        </composer>
+    </target>
+
+    <target name="composer:validate" description="Validate composer.json syntax">
+        <composer command="validate"/>
+    </target>
+
+    <target name="phpstan:analyse" description="Static code analysis">
+        <exec executable="vendor/bin/phpstan" passthru="true" checkreturn="true">
+            <arg line="--level=max --no-progress --ansi --no-interaction"/>
+            <arg value="analyse"/>
+            <arg path="src"/>
+        </exec>
+    </target>
+
+</project>
