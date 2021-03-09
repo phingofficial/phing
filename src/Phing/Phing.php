@@ -1208,67 +1208,60 @@ class Phing
 
     /**
      * Print out a list of all targets in the current buildfile
-     *
-     * @param $project
      */
-    public function printTargets($project)
+    public function printTargets(Project $project)
     {
-        // Calculating padding
-        $getPadding = function (int $carry, Target $target) {
-            $nameLength = strlen($target->getName());
-
-            return $nameLength > $carry ? $nameLength : $carry;
-        };
-        $padding    = array_reduce($project->getTargets(), $getPadding, 0);
-
-        // Default target
-        $defaultTarget     = array_filter($project->getTargets(),
-            function (Target $target) use ($project) {
-                return $target->getName() === $project->getDefaultTarget() && !empty($target->getName()) && !$target->isHidden();
-            });
-        $defaultTargetList = $this->printTargetNames("Default target:", $defaultTarget, $padding);
-        $project->log($defaultTargetList, Project::MSG_WARN);
-
-        // Main targets, aka targets with description
-        $mainTargets     = array_filter($project->getTargets(),
-            function (Target $target) {
-                return !empty($target->getDescription()) && !empty($target->getName()) && !$target->isHidden();
-            });
-        $mainTargetsList = $this->printTargetNames("Main targets:", $mainTargets, $padding);
-        $project->log($mainTargetsList, Project::MSG_WARN);
-
-        // Subtargets, aka targets w/o description
-        $subtargets    = array_filter($project->getTargets(),
-            function (Target $target) {
-                return empty($target->getDescription()) && !empty($target->getName()) && !$target->isHidden();
-            });
-        $subargetsList = $this->printTargetNames("Subtargets:", $subtargets, $padding);
-        $project->log($subargetsList, Project::MSG_WARN);
+        $visibleTargets = array_filter($project->getTargets(), fn(Target $target) => !$target->isHidden() && !empty($target->getName()));
+        $padding        = array_reduce($visibleTargets, fn(int $carry, Target $target) => max(strlen($target->getName()), $carry), 0);
+        $categories     = [
+            'Default target:' => array_filter($visibleTargets, fn(Target $target) => $target->getName() === $project->getDefaultTarget()),
+            'Main targets:'   => array_filter($visibleTargets, fn(Target $target) => !empty($target->getDescription())),
+            'Subtargets:'     => array_filter($visibleTargets, fn(Target $target) => empty($target->getDescription())),
+        ];
+        foreach ($categories as $title => $targets) {
+            $list = $this->generateList($title, $targets, $padding);
+            $project->log($list, Project::MSG_WARN);
+        }
     }
 
     /**
-     * Writes a formatted list of target names with an optional description.
+     * Returns a formatted list of target names with an optional description.
+     *
+     * @param string   $title   Title for this list
+     * @param Target[] $targets Targets in this list
+     * @param int      $padding Padding for name column
+     * @return string
      */
-    private function printTargetNames($title, $targets, $padding): string
+    private function generateList(string $title, array $targets, int $padding): string
     {
-        $header     = <<<HEADING
-        $title
-        -------------------------------------------------------------------------------
+        usort($targets, fn(Target $a, Target $b) => $a->getName() <=> $b->getName());
 
-        HEADING;
-        $getDetails = function (Target $target) use ($padding) {
-            // Name & description
-            $details = sprintf(" %-${padding}s  %s", $target->getName(), $target->getDescription());
+        $header = <<<HEADING
+            $title
+            -------------------------------------------------------------------------------
 
-            // depends
-            // if property
-            // unless property
+            HEADING;
 
-            return $details;
+        $getDetails = function (Target $target) use ($padding): string {
+            $details = [];
+            if (!empty($target->getDescription())) {
+                $details[] = $target->getDescription();
+            }
+            if (!empty($target->getDependencies())) {
+                $details[] = 'depends on: ' . implode(', ', $target->getDependencies());
+            }
+            if (!empty($target->getIf())) {
+                $details[] = 'if property: ' . $target->getIf();
+            }
+            if (!empty($target->getUnless())) {
+                $details[] = 'unless property: ' . $target->getUnless();
+            }
+            $detailsToString = fn(?string $name, ?string $detail): string => sprintf(" %-${padding}s  %s", $name, $detail);
+
+            return implode(PHP_EOL, array_map($detailsToString, [$target->getName()], $details));
         };
-        $details    = array_map($getDetails, $targets);
 
-        return $header . implode(PHP_EOL, $details) . PHP_EOL;
+        return $header . implode(PHP_EOL, array_map($getDetails, $targets)) . PHP_EOL;
     }
 
     /**
