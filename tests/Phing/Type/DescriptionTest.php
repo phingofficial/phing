@@ -1,6 +1,7 @@
 <?php
 
 namespace Phing\Type;
+
 use Phing\Support\BuildFileTest;
 
 /**

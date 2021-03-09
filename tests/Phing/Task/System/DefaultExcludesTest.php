@@ -123,7 +123,7 @@ class DefaultExcludesTest extends BuildFileTest
             "**/.bzr",
             "**/.bzr/**",
             "**/.bzrignore",
-            "foo"
+            "foo",
         ];
 
         $this->executeTarget(__FUNCTION__);

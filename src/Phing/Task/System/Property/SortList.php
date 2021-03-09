@@ -28,27 +28,26 @@ use Phing\Type\Reference;
  * SortList Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class SortList extends AbstractPropertySetterTask
 {
     /**
-     * @var string $value
+     * @var string
      */
     private $value;
 
     /**
-     * @var Reference $ref
+     * @var Reference
      */
     private $ref;
 
     /**
-     * @var string $delimiter
+     * @var string
      */
     private $delimiter = ",";
 
     /**
-     * @var array $flags
+     * @var array
      */
     private static $allowedFlags = [
         'SORT_REGULAR',
@@ -56,11 +55,11 @@ class SortList extends AbstractPropertySetterTask
         'SORT_STRING',
         'SORT_LOCALE_STRING',
         'SORT_NATURAL',
-        'SORT_FLAG_CASE'
+        'SORT_FLAG_CASE',
     ];
 
     /**
-     * @var string $flags
+     * @var string
      */
     private $flags = "";
 
@@ -68,7 +67,6 @@ class SortList extends AbstractPropertySetterTask
     {
         $this->value = $value;
     }
-
 
     public function setRefid(Reference $ref)
     {

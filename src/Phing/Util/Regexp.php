@@ -28,7 +28,6 @@ use Phing\Exception\BuildException;
  */
 class Regexp
 {
-
     /**
      * Matching groups found.
      *
@@ -53,7 +52,7 @@ class Regexp
     /**
      * The regex engine -- e.g. 'preg' or 'ereg';
      *
-     * @var RegexpEngine
+     * @var PregEngine
      */
     private $engine;
 
@@ -76,7 +75,6 @@ class Regexp
      * Sets pattern to use for matching.
      *
      * @param  string $pat The pattern to match on.
-     * @return void
      */
     public function setPattern($pat)
     {
@@ -97,7 +95,6 @@ class Regexp
      * Sets replacement string.
      *
      * @param  string $rep The pattern to replace matches with.
-     * @return void
      */
     public function setReplace($rep)
     {
@@ -118,7 +115,7 @@ class Regexp
      * Performs match of specified pattern against $subject.
      *
      * @param  string $subject The subject, on which to perform matches.
-     * @return boolean Whether or not pattern matches subject string passed.
+     * @return bool Whether or not pattern matches subject string passed.
      * @throws RegexpException
      */
     public function matches($subject)
@@ -159,7 +156,7 @@ class Regexp
     /**
      * Get specific matched group.
      *
-     * @param  integer $idx
+     * @param  int $idx
      * @return string  specified group or NULL if group is not set.
      */
     public function getGroup($idx)
@@ -175,7 +172,6 @@ class Regexp
      * Sets pattern modifiers for regex engine
      *
      * @param  string $mods Modifiers to be applied to a given regex
-     * @return void
      */
     public function setModifiers($mods)
     {
@@ -199,7 +195,7 @@ class Regexp
      * Sets whether the regexp matching is case insensitive.
      * (default is false -- i.e. case sensisitive)
      *
-     * @param boolean $bit
+     * @param bool $bit
      */
     public function setIgnoreCase($bit)
     {
@@ -209,7 +205,7 @@ class Regexp
     /**
      * Gets whether the regexp matching is case insensitive.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIgnoreCase()
     {
@@ -219,7 +215,7 @@ class Regexp
     /**
      * Sets whether regexp should be applied in multiline mode.
      *
-     * @param boolean $bit
+     * @param bool $bit
      */
     public function setMultiline($bit)
     {
@@ -229,7 +225,7 @@ class Regexp
     /**
      * Gets whether regexp is to be applied in multiline mode.
      *
-     * @return boolean
+     * @return bool
      */
     public function getMultiline()
     {

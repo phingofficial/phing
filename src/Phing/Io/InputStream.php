@@ -25,7 +25,6 @@ namespace Phing\Io;
  */
 class InputStream
 {
-
     /**
      * @var resource The attached PHP stream.
      */
@@ -123,7 +122,7 @@ class InputStream
     /**
      * Whether the input stream supports mark and reset methods.
      *
-     * @return boolean
+     * @return bool
      */
     public function markSupported()
     {
@@ -169,7 +168,7 @@ class InputStream
     /**
      * Whether eof has been reached with stream.
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {

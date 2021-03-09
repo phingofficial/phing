@@ -28,7 +28,7 @@ namespace Phing\Input;
 class MultipleChoiceInputRequest extends InputRequest
 {
     /**
-     * @var array $choises
+     * @var array
      */
     protected $choices = [];
 

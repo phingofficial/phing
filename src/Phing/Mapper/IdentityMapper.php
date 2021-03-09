@@ -43,7 +43,6 @@ class IdentityMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $to
-     * @return void
      */
     public function setTo($to)
     {
@@ -54,7 +53,6 @@ class IdentityMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $from
-     * @return void
      */
     public function setFrom($from)
     {

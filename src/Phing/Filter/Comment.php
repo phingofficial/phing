@@ -18,13 +18,13 @@
  */
 
 namespace Phing\Filter;
+
 /**
  * The class that holds a comment representation.
  *
  */
 class Comment
 {
-
     /**
      * The prefix for a line comment.
      */

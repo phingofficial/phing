@@ -27,7 +27,6 @@ namespace Phing\Io;
  */
 class ConsoleReader extends Reader
 {
-
     /**
      * @return string
      */
@@ -66,7 +65,7 @@ class ConsoleReader extends Reader
     /**
      * Whether eof has been reached with stream.
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {

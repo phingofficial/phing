@@ -43,7 +43,6 @@ use Phing\Task;
  * @author  Federico Cargnelutti <fede.carg@gmail.com>
  * @author  Anton Stöckl <anton@stoeckl.de>
  * @version $Revision$
- * @package phing.tasks.ext
  * @see     http://svn.fedecarg.com/repo/Phing/tasks/ext/FileSyncTask.php
  * @example http://fedecarg.com/wiki/FileSyncTask
  */
@@ -206,7 +205,6 @@ class FileSyncTask extends Task
     /**
      * Phing's main method. Wraps the executeCommand() method.
      *
-     * @return void
      */
     public function main()
     {
@@ -384,7 +382,6 @@ class FileSyncTask extends Task
      * Sets the path to the rsync command.
      *
      * @param string $path
-     * @return void
      */
     public function setRsyncPath($path)
     {
@@ -394,8 +391,7 @@ class FileSyncTask extends Task
     /**
      * Sets the isRemoteConnection property.
      *
-     * @param boolean $isRemote
-     * @return void
+     * @param bool $isRemote
      */
     protected function setIsRemoteConnection($isRemote)
     {
@@ -406,7 +402,6 @@ class FileSyncTask extends Task
      * Sets the source directory.
      *
      * @param string $dir
-     * @return void
      */
     public function setSourceDir($dir)
     {
@@ -417,7 +412,6 @@ class FileSyncTask extends Task
      * Sets the command options.
      *
      * @param string $options
-     * @return void
      */
     public function setOptions($options)
     {
@@ -429,7 +423,6 @@ class FileSyncTask extends Task
      * in the build.xml file, rsync will point to a local directory instead.
      *
      * @param string $dir
-     * @return void
      */
     public function setDestinationDir($dir)
     {
@@ -440,7 +433,6 @@ class FileSyncTask extends Task
      * Sets the remote host.
      *
      * @param string $host
-     * @return void
      */
     public function setRemoteHost($host)
     {
@@ -452,7 +444,6 @@ class FileSyncTask extends Task
      * specified in the properties file.
      *
      * @param string $user
-     * @return void
      */
     public function setRemoteUser($user)
     {
@@ -465,7 +456,6 @@ class FileSyncTask extends Task
      * using the built in transport, not when using a remote shell as the transport.
      *
      * @param string $pass
-     * @return void
      */
     public function setRemotePass($pass)
     {
@@ -479,7 +469,6 @@ class FileSyncTask extends Task
      * on a local network.
      *
      * @param string $shell
-     * @return void
      */
     public function setRemoteShell($shell)
     {
@@ -492,8 +481,7 @@ class FileSyncTask extends Task
      * information about what files are being transferred and a brief summary at
      * the end.
      *
-     * @param boolean $verbose
-     * @return void
+     * @param bool $verbose
      */
     public function setVerbose(bool $verbose)
     {
@@ -506,8 +494,7 @@ class FileSyncTask extends Task
      * size and time of last modification match between the sender and receiver.
      * This option changes this to compare a 128-bit checksum for each file that has a matching size.
      *
-     * @param boolean $checksum
-     * @return void
+     * @param bool $checksum
      */
     public function setChecksum(bool $checksum)
     {
@@ -519,8 +506,7 @@ class FileSyncTask extends Task
      * output as a real run).  It is  most commonly used in combination with the -v, --verbose and/or
      * -i, --itemize-changes options to see what an rsync command is going to do before one actually runs it.
      *
-     * @param boolean $dryRun
-     * @return void
+     * @param bool $dryRun
      */
     public function setDryRun(bool $dryRun)
     {
@@ -530,8 +516,7 @@ class FileSyncTask extends Task
     /**
      * Requests a simple itemized list of the changes that are being made to each file, including attribute changes.
      *
-     * @param boolean $itemizeChanges
-     * @return void
+     * @param bool $itemizeChanges
      */
     public function setItemizeChanges(bool $itemizeChanges)
     {
@@ -543,8 +528,7 @@ class FileSyncTask extends Task
      * for the directories that are being synchronized. Files that are excluded
      * from transfer are also excluded from being deleted.
      *
-     * @param boolean $delete
-     * @return void
+     * @param bool $delete
      */
     public function setDelete(bool $delete)
     {
@@ -556,7 +540,6 @@ class FileSyncTask extends Task
      * lines starting with ';' or '#' are ignored.
      *
      * @param string $file
-     * @return void
      */
     public function setExcludeFile($file)
     {
@@ -567,7 +550,6 @@ class FileSyncTask extends Task
      * Makes backups into hierarchy based in $dir.
      *
      * @param string dir
-     * @return void
      */
     public function setBackupDir($dir)
     {
@@ -578,7 +560,6 @@ class FileSyncTask extends Task
      * Sets the identity file for public key transfers.
      *
      * @param string location of ssh identity file
-     * @return void
      */
     public function setIdentityFile($identity)
     {
@@ -599,7 +580,6 @@ class FileSyncTask extends Task
      * Sets exclude matching pattern.
      *
      * @param string $exclude
-     * @return void
      */
     public function setExclude($exclude)
     {

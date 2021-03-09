@@ -39,7 +39,6 @@ use Phing\Util\RegisterSlot;
  */
 abstract class Task extends ProjectComponent
 {
-
     /**
      * Owning Target object
      *
@@ -87,7 +86,6 @@ abstract class Task extends ProjectComponent
      *
      * @param string $msg The message to log
      * @param int $level The priority of the message
-     * @param Exception|null $t
      * @see   BuildEvent
      * @see   BuildListener
      */
@@ -179,7 +177,6 @@ abstract class Task extends ProjectComponent
     /**
      * Perfrom this task
      *
-     * @return void
      *
      * @throws BuildException
      * @throws Error
@@ -279,8 +276,6 @@ abstract class Task extends ProjectComponent
     /**
      * Recursively adds an UnknownElement instance for each child
      * element of replacement.
-     * @param RuntimeConfigurable $wrapper
-     * @param UnknownElement $parentElement
      */
     private function replaceChildren(RuntimeConfigurable $wrapper, UnknownElement $parentElement): void
     {

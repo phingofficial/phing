@@ -10,6 +10,7 @@ that you might stumble across when upgrading from Phing 2 to 3.
 * All Phing code is now namespaced. This means that existing references to classes
   that existed in earlier Phing versions will no longer work. For example, the
   class `PhingFile` has been moved to `Phing\Io\File`.
+* Support for dot-path classnames (i.e., `foo.bar.FooBar`) has been removed.
 * Omitting the `basedir` property in the root `project` tag now means "." instead
   of the current working directory. This effectively reverts the change made in 
   http://www.phing.info/trac/ticket/309 ([dfdb0bc](https://github.com/phingofficial/phing/commit/dfdb0bc8095db18284de364b421d320be3c1b6fb))
@@ -39,6 +40,7 @@ that you might stumble across when upgrading from Phing 2 to 3.
 * [MoveTask] The default behavior of `overwrite` attribute was changed to `true`
 * [PHPUnitTask] Support for PHPUnit 9.
 * [PhpCodeSnifferTask] was removed in favor of [PhpCSTask].
+* The Zend Guard tasks were removed (Zend Guard is no longer supported).
 * A number of tasks (or group of tasks) were moved to their own repositories, but are automatically
   pulled in / installed when you install Phing:
   * ApiGen

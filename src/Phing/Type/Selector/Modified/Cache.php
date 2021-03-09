@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Type\Selector\Modified;
+
 use Iterator;
 use IteratorAggregate;
 

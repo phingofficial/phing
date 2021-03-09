@@ -49,12 +49,12 @@ use Phing\Io\IOException;
 class DifferentSelector extends MappingSelector
 {
     /**
-     * @var bool $ignoreFileTimes
+     * @var bool
      */
     private $ignoreFileTimes = true;
 
     /**
-     * @var bool $ignoreContents
+     * @var bool
      */
     private $ignoreContents = false;
 

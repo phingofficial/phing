@@ -31,7 +31,6 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
      * description and checking for that as the description of the retrieved
      * project - e g not a default/hardcoded description.
      *
-     * @return void
      */
     public function testGetProject()
     {

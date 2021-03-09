@@ -32,7 +32,6 @@ use UnexpectedValueException;
 /**
  * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.
  *
- * @package phing.tasks.ext
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
 class PharDataTask extends MatchingTask
@@ -94,7 +93,6 @@ class PharDataTask extends MatchingTask
     /**
      * Destination (output) file.
      *
-     * @param File $destinationFile
      */
     public function setDestFile(File $destinationFile)
     {
@@ -105,7 +103,6 @@ class PharDataTask extends MatchingTask
      * Base directory, which will be deleted from each included file (from path).
      * Paths with deleted basedir part are local paths in archive.
      *
-     * @param File $baseDirectory
      */
     public function setBaseDir(File $baseDirectory)
     {

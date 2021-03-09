@@ -211,8 +211,6 @@
                 <ref name="xmllint"/>
                 <ref name="xmlproperty"/>
                 <ref name="zendcodeanalyzer"/>
-                <ref name="zendguardencode"/>
-                <ref name="zendguardlicense"/>
                 <ref name="zip"/>
                 <ref name="zsdtpack"/>
                 <ref name="zsdtvalidate"/>
@@ -1299,7 +1297,7 @@
             </interleave>
         </element>
     </define>
-    
+
     <define name="blockfor">
         <element name="blockfor">
             <interleave>
@@ -7199,133 +7197,7 @@
             </zeroOrMore>
         </element>
     </define>
-
-
-    <!--
-        =========================================
-        ZendGuardEncodeTask
-        =========================================
-    -->
-    <define name="zendguardencode">
-        <element name="zendguardencode">
-            <interleave>
-                <attribute name="zendencoderpath"/>
-                <optional>
-                    <attribute name="deletesource">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="renamesourceext"/>
-                </optional>
-                <optional>
-                    <attribute name="expires"/>
-                </optional>
-                <optional>
-                    <attribute name="obfuscationlevel">
-                        <data type="int"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="optmask">
-                        <data type="int"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="privatekeypath"/>
-                </optional>
-                <optional>
-                    <attribute name="productname"/>
-                </optional>
-                <optional>
-                    <attribute name="prologfile"/>
-                </optional>
-                <optional>
-                    <attribute name="shorttags">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="asptags">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="noheader">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="usecrypto">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="encodedonly">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="forceencode">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="licenseproduct">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="signproduct">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-            </interleave>
-            <zeroOrMore>
-                <ref name="fileset"/>
-            </zeroOrMore>
-        </element>
-    </define>
-
-
-    <!--
-        =========================================
-        ZendGuardLicenseTask
-        =========================================
-    -->
-    <define name="zendguardlicense">
-        <element name="zendguardlicense">
-            <interleave>
-                <attribute name="zendsignpath"/>
-                <attribute name="privatekeypath"/>
-                <attribute name="outputfile"/>
-                <attribute name="productname"/>
-                <attribute name="registeredto"/>
-                <attribute name="expires"/>
-                <optional>
-                    <attribute name="licensetemplate"/>
-                </optional>
-                <optional>
-                    <attribute name="iprange"/>
-                </optional>
-                <optional>
-                    <attribute name="hardwarelocked">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="hostid"/>
-                </optional>
-                <optional>
-                    <attribute name="userdefinedvalues"/>
-                </optional>
-                <optional>
-                    <attribute name="xuserdefinedvalues"/>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
+    
 
     <!--
         =========================================
@@ -7742,7 +7614,7 @@
             </interleave>
         </element>
     </define>
-    
+
     <define name="or">
         <element name="or">
             <oneOrMore>

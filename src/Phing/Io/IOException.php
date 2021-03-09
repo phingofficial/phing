@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Io;
+
 use Exception;
 
 /**

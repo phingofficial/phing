@@ -40,7 +40,7 @@ class DynamicTask extends Task implements DynamicConfigurator
 
     public function customChildCreator($name, Project $project)
     {
-        return new class ($project) implements DynamicConfigurator {
+        return new class($project) implements DynamicConfigurator {
             /**
              * @var Project
              */

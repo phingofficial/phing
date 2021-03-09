@@ -105,7 +105,7 @@ class Phing
     /**
      * keep going mode
      *
-     * @var bool $keepGoingMode
+     * @var bool
      */
     private $keepGoingMode = false;
 
@@ -119,7 +119,7 @@ class Phing
     /**
      * Whether or not log output should be reduced to the minimum.
      *
-     * @var bool $silent
+     * @var bool
      */
     private $silent = false;
 
@@ -184,7 +184,7 @@ class Phing
     private static $err;
 
     /**
-     * @var boolean Whether we are using a logfile.
+     * @var bool Whether we are using a logfile.
      */
     private static $isLogFileUsed = false;
 
@@ -278,7 +278,6 @@ class Phing
     /**
      * Prints the message of the Exception if it's not null.
      *
-     * @param Throwable $t
      */
     public static function printMessage(Throwable $t)
     {
@@ -358,7 +357,6 @@ class Phing
      *
      * @since Phing 2.3.0
      *
-     * @return void
      */
     private static function handleLogfile()
     {
@@ -387,7 +385,6 @@ class Phing
      *
      * @param array $args Command line args.
      *
-     * @return void
      */
     public static function fire($args)
     {
@@ -401,7 +398,6 @@ class Phing
      *
      * @throws ConfigurationException
      *
-     * @return void
      */
     public function execute($args)
     {
@@ -597,7 +593,7 @@ class Phing
         if ($this->buildFile === null) {
             // but -find then search for it
             if ($this->searchForThis !== null) {
-                $this->buildFile = $this->_findBuildFile(self::getProperty("user.dir"), $this->searchForThis);
+                $this->buildFile = $this->findBuildFile(self::getProperty("user.dir"), $this->searchForThis);
             } else {
                 $this->buildFile = new File(self::DEFAULT_BUILD_FILENAME);
             }
@@ -632,10 +628,7 @@ class Phing
     /**
      * Handle the -propertyfile argument.
      *
-     * @param array $args
-     * @param int $pos
      *
-     * @return int
      *
      * @throws ConfigurationException
      * @throws IOException
@@ -686,7 +679,7 @@ class Phing
      *@throws ConfigurationException
      *
      */
-    private function _findBuildFile($start, $suffix)
+    private function findBuildFile($start, $suffix)
     {
         if (self::getMsgOutputLevel() >= Project::MSG_INFO) {
             self::$out->write('Searching for ' . $suffix . ' ...' . PHP_EOL);
@@ -828,10 +821,8 @@ class Phing
      * This means adding the logger and any build listeners that were specified
      * with -listener arg.
      *
-     * @param  Project $project
      * @throws BuildException
      * @throws ConfigurationException
-     * @return void
      */
     private function addBuildListeners(Project $project)
     {
@@ -977,7 +968,7 @@ class Phing
                     'message' => $message,
                     'level' => $level,
                     'line' => $line,
-                    'file' => $file
+                    'file' => $file,
                 ];
             } else {
                 $message = '[PHP Error] ' . $message;
@@ -1100,7 +1091,6 @@ class Phing
         }
     }
 
-
     /**
      * Returns buildfile's path
      *
@@ -1135,7 +1125,6 @@ class Phing
 
         throw new ConfigurationException('Invalid path for sample buildfile.');
     }
-
 
     /**
      * Writes sample buildfile
@@ -1200,7 +1189,6 @@ class Phing
     /**
      * Print the project description, if any
      *
-     * @param Project $project
      *
      * @throws IOException
      */
@@ -1278,16 +1266,15 @@ class Phing
                 $defaultDesc[] = $topDescriptions[$indexOfDefDesc];
             }
 
-            $this->_printTargets($project, $defaultName, $defaultDesc, [], "Default target:", $maxLength);
+            $this->printTargetNames($project, $defaultName, $defaultDesc, [], "Default target:", $maxLength);
         }
-        $this->_printTargets($project, $topNames, $topDescriptions, $topDependencies, "Main targets:", $maxLength);
-        $this->_printTargets($project, $subNames, null, $subDependencies, "Subtargets:", 0);
+        $this->printTargetNames($project, $topNames, $topDescriptions, $topDependencies, "Main targets:", $maxLength);
+        $this->printTargetNames($project, $subNames, null, $subDependencies, "Subtargets:", 0);
     }
 
     /**
      * Writes a formatted list of target names with an optional description.
      *
-     * @param Project $project
      * @param array $names The names to be printed.
      *                             Must not be <code>null</code>.
      * @param array $descriptions The associated target descriptions.
@@ -1303,7 +1290,7 @@ class Phing
      *                             position so they line up (so long as the names really
      *                             <i>are</i> shorter than this).
      */
-    private function _printTargets(Project $project, $names, $descriptions, $dependencies, $heading, $maxlen)
+    private function printTargetNames(Project $project, $names, $descriptions, $dependencies, $heading, $maxlen)
     {
         $spaces = '  ';
         while (strlen($spaces) < $maxlen) {
@@ -1331,55 +1318,27 @@ class Phing
     }
 
     /**
-     * Import a path, supporting the following conventions:
+     * Import a class, supporting the following conventions:
      * - PEAR style (@link http://pear.php.net/manual/en/standards.naming.php)
      * - PSR-0 (@link https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
-     * - dot-path
      *
-     * @param string $dotPath Path
+     * @param string $classname Name of class
      * @param mixed $classpath String or object supporting __toString()
      *
      * @return string         The unqualified classname (which can be instantiated).
      *
      * @throws BuildException - if cannot find the specified file
      */
-    public static function import($dotPath, $classpath = null)
+    public static function import($classname, $classpath = null)
     {
-        if (strpos($dotPath, '.') !== false) {
-            $classname = StringHelper::unqualify($dotPath);
-        } else {
-            $classname = $dotPath;
-            $dotPath = '';
-            $shortClassName = $classname;
-            if (($lastNsPos = strrpos($shortClassName, '\\'))) {
-                $namespace = substr($shortClassName, 0, $lastNsPos);
-                $shortClassName = substr($shortClassName, $lastNsPos + 1);
-                $dotPath = str_replace('\\', '.', $namespace) . '.';
-            }
-            $dotPath .= str_replace('_', '.', $shortClassName);
-        }
-
         // first check to see that the class specified hasn't already been included.
-        // (this also handles case where this method is called w/ a classname rather than dotpath)
         if (class_exists($classname)) {
             return $classname;
         }
 
-        $dotClassname = basename($dotPath);
-        $dotClassnamePos = strlen($dotPath) - strlen($dotClassname);
+        $filename = strtr($classname, ['_' => DIRECTORY_SEPARATOR, '\\' => DIRECTORY_SEPARATOR]) . ".php";
 
-        // 1- temporarily replace escaped '.' with another illegal char (#)
-        $tmp = str_replace('\.', '##', $dotClassname);
-        // 2- swap out the remaining '.' with DIR_SEP
-        $tmp = strtr($tmp, '.', DIRECTORY_SEPARATOR);
-        // 3- swap back the escaped '.'
-        $tmp = str_replace('##', '.', $tmp);
-
-        $classFile = $tmp . ".php";
-
-        $path = substr_replace($dotPath, $classFile, $dotClassnamePos);
-
-        Phing::importFile($path, $classpath);
+        Phing::importFile($filename, $classpath);
 
         return $classname;
     }
@@ -1450,7 +1409,7 @@ class Phing
             self::$importPaths = self::explodeIncludePath();
         }
 
-        $path = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $path);
+        $path = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
         foreach (self::$importPaths as $prefix) {
             $testPath = $prefix . DIRECTORY_SEPARATOR . $path;
@@ -1520,7 +1479,6 @@ class Phing
     /**
      * Set System constants which can be retrieved by calling Phing::getProperty($propName).
      *
-     * @return void
      */
     private static function setSystemConstants()
     {
@@ -1609,7 +1567,6 @@ class Phing
      * This sets a property that was set via command line or otherwise passed into Phing.
      *
      * @param  string $name
-     * @param  mixed $value
      * @return mixed value of found property (or null, if none found).
      */
     public static function setDefinedProperty($name, $value)
@@ -1680,7 +1637,6 @@ class Phing
     /**
      * Sets the include path to PHP_CLASSPATH constant (if this has been defined).
      *
-     * @return void
      * @throws ConfigurationException - if the include_path could not be set (for some bizarre reason)
      */
     private static function setIncludePaths()
@@ -1742,7 +1698,6 @@ class Phing
     /**
      * Returns reference to Timer object.
      *
-     * @return Timer
      */
     public static function getTimer(): Timer
     {
@@ -1757,7 +1712,6 @@ class Phing
      * Start up Phing.
      * Sets up the Phing environment but does not initiate the build process.
      *
-     * @return void
      * @throws Exception - If the Phing environment cannot be initialized.
      */
     public static function startup(): void

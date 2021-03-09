@@ -40,7 +40,6 @@ use tidy;
  */
 class TidyFilter extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * @var string Encoding of resulting document.
      */

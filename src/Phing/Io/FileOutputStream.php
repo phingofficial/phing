@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Io;
+
 use Exception;
 
 /**
@@ -26,7 +27,6 @@ use Exception;
  */
 class FileOutputStream extends OutputStream
 {
-
     /**
      * @var File The associated file.
      */
@@ -35,8 +35,7 @@ class FileOutputStream extends OutputStream
     /**
      * Construct a new FileOutputStream.
      *
-     * @param  mixed   $file
-     * @param  boolean $append Whether to append bytes to end of file rather than beginning.
+     * @param  bool $append Whether to append bytes to end of file rather than beginning.
      * @throws Exception   - if invalid argument specified.
      * @throws IOException - if unable to open file.
      */

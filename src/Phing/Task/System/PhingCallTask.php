@@ -46,7 +46,6 @@ use Phing\Task;
  */
 class PhingCallTask extends Task
 {
-
     /**
      * The called Phing task.
      *
@@ -79,18 +78,18 @@ class PhingCallTask extends Task
      *  If true, pass all properties to the new Phing project.
      *  Defaults to true. Future use.
      *
-     * @param boolean new value
+     * @param bool $inheritAll
      */
-    public function setInheritAll($inherit)
+    public function setInheritAll($inheritAll)
     {
-        $this->inheritAll = (bool) $inherit;
+        $this->inheritAll = (bool) $inheritAll;
     }
 
     /**
      *  If true, pass all references to the new Phing project.
      *  Defaults to false. Future use.
      *
-     * @param boolean new value
+     * @param bool $inheritRefs
      */
     public function setInheritRefs($inheritRefs)
     {
@@ -126,7 +125,6 @@ class PhingCallTask extends Task
     /**
      * Target to execute, required.
      *
-     * @param string $target
      */
     public function setTarget(string $target): void
     {

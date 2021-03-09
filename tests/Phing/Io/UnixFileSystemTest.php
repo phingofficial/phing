@@ -26,7 +26,6 @@ namespace Phing\Io;
  */
 class UnixFileSystemTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @var FileSystem
      */

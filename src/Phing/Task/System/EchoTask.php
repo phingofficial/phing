@@ -19,6 +19,7 @@
 
 namespace Phing\Task\System;
 
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 use Phing\Type\Element\DirSetAware;
@@ -77,9 +78,13 @@ class EchoTask extends Task
             $this->log($this->msg, $loglevel);
         } else {
             if ($this->append) {
-                $handle = fopen($this->file, "a");
+                $handle = @fopen($this->file, "a");
             } else {
-                $handle = fopen($this->file, "w");
+                $handle = @fopen($this->file, "w");
+            }
+
+            if ($handle === false) {
+                throw new BuildException("Unable to open file {$this->file}");
             }
 
             fwrite($handle, $this->msg);
@@ -117,51 +122,26 @@ class EchoTask extends Task
         return $msg;
     }
 
-    /**
-     * setter for file
-     *
-     * @param $file
-     */
     public function setFile(string $file)
     {
         $this->file = $file;
     }
 
-    /**
-     * setter for level
-     *
-     * @param $level
-     */
     public function setLevel(string $level)
     {
         $this->level = $level;
     }
 
-    /**
-     * setter for append
-     *
-     * @param $append
-     */
     public function setAppend(bool $append)
     {
         $this->append = $append;
     }
 
-    /**
-     * setter for message
-     *
-     * @param $msg
-     */
     public function setMsg(string $msg)
     {
         $this->setMessage($msg);
     }
 
-    /**
-     * alias setter
-     *
-     * @param $msg
-     */
     public function setMessage(string $msg)
     {
         $this->msg = $msg;
@@ -169,8 +149,6 @@ class EchoTask extends Task
 
     /**
      * Supporting the <echo>Message</echo> syntax.
-     *
-     * @param $msg
      */
     public function addText(string $msg)
     {

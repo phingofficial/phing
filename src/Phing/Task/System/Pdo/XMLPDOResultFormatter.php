@@ -43,12 +43,10 @@ use Phing\Io\File;
  * with PDO.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
- * @package phing.tasks.ext.pdo
  * @since   2.3.0
  */
 class XMLPDOResultFormatter extends PDOResultFormatter
 {
-
     /**
      * The XML document being created.
      *
@@ -84,7 +82,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
     }
 
     /**
-     * @param boolean $v
+     * @param bool $v
      */
     public function setFormatOutput($v)
     {

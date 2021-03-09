@@ -69,8 +69,7 @@ class DependSelector extends BaseSelector
      * The name of the file or directory which is checked for out-of-date
      * files.
      *
-     * @param File the $targetdir
-     * @internal param the $targetdir directory to scan looking for files.
+     * @param File $targetdir the directory to scan looking for files.
      */
     public function setTargetdir(File $targetdir)
     {
@@ -81,7 +80,7 @@ class DependSelector extends BaseSelector
      * Sets the number of milliseconds leeway we will give before we consider
      * a file out of date.
      *
-     * @param $granularity
+     * @param int $granularity
      */
     public function setGranularity($granularity)
     {

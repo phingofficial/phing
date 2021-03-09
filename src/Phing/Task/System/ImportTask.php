@@ -77,7 +77,6 @@ class ImportTask extends Task
     /**
      * Initialize task.
      *
-     * @return void
      */
     public function init()
     {
@@ -88,7 +87,6 @@ class ImportTask extends Task
      * Set the file to import.
      *
      * @param  string $f Path to file
-     * @return void
      */
     public function setFile($f)
     {
@@ -98,7 +96,6 @@ class ImportTask extends Task
     /**
      * The prefix to use when prefixing the imported target names.
      *
-     * @param string $prefix
      */
     public function setAs(string $prefix)
     {
@@ -109,7 +106,6 @@ class ImportTask extends Task
      * The separator to use between prefix and target name, default is
      * ".".
      *
-     * @param string $s
      */
     public function setPrefixSeparator(string $s)
     {
@@ -121,7 +117,6 @@ class ImportTask extends Task
      *
      * @param  bool $opt If true, do not stop the build if the file does not
      *                   exist
-     * @return void
      */
     public function setOptional($opt)
     {
@@ -133,7 +128,6 @@ class ImportTask extends Task
      * targets it defines into the current project.
      *
      * @throws BuildException
-     * @return void
      */
     public function main()
     {
@@ -197,7 +191,6 @@ class ImportTask extends Task
      * targets it defines into the current project.
      *
      * @throws BuildException
-     * @return void
      */
     protected function importFile(File $file)
     {
@@ -228,7 +221,6 @@ class ImportTask extends Task
      * overwritten in the importing build file.  The depends list of
      * the imported targets is not modified at all.</p>
      *
-     * @return bool
      */
     protected function isInIncludeMode(): bool
     {

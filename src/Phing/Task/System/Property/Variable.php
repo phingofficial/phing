@@ -34,7 +34,6 @@ use ReflectionProperty;
  * Variable Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class Variable extends PropertyTask
 {
@@ -45,7 +44,7 @@ class Variable extends PropertyTask
      * Default is false. Once  removed, conditions that check for property
      * existence will find this property does not exist.
      *
-     * @param boolean $b set to true to remove the property from the project.
+     * @param bool $b set to true to remove the property from the project.
      */
     public function setUnset($b)
     {
@@ -221,13 +220,13 @@ class Variable extends PropertyTask
 
             $value = $props->getProperty($name);
             $resolved = false;
-            $resolveStack = array();
+            $resolveStack = [];
 
             $ih = PropertyHelper::getPropertyHelper($this->project);
 
             while (!$resolved) {
-                $fragments = array();
-                $propertyRefs = array();
+                $fragments = [];
+                $propertyRefs = [];
 
                 // [HL] this was ::parsePropertyString($this->value ...) ... this seems wrong
                 $ih->parsePropertyString($value, $fragments, $propertyRefs);

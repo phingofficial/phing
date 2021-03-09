@@ -21,12 +21,11 @@ declare(strict_types=1);
 
 namespace Phing\Task\Optional\PHPStan;
 
-use PHPStanTask;
+use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\Assert;
 
 class PHPStanTaskAssert extends Assert
 {
-
     public function assertDefaults(PHPStanTask $task): void
     {
         $this->assertEquals('phpstan', $task->getExecutable());

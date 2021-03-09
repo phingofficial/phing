@@ -25,7 +25,6 @@ namespace Phing\Io;
  */
 class FileReader extends InputStreamReader
 {
-
     /**
      * Construct a new FileReader.
      *

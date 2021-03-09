@@ -42,14 +42,14 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * The name of the file associated with this recorder entry.
      *
-     * @var string $filename
+     * @var string
      */
     private $filename = null;
 
     /**
      * The state of the recorder (recorder on or off).
      *
-     * @var bool $record
+     * @var bool
      */
     private $record = true;
 
@@ -61,7 +61,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * The output OutputStream to record to.
      *
-     * @var OutputStream $out
+     * @var OutputStream
      */
     private $out = null;
 
@@ -78,7 +78,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * project instance the recorder is associated with
      *
-     * @var Project $project
+     * @var Project
      */
     private $project;
 
@@ -103,7 +103,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     /**
      * Turns off or on this recorder.
      *
-     * @param bool|null state true for on, false for off, null for no change.
+     * @param bool|null $state true for on, false for off, null for no change.
      */
     public function setRecordState($state)
     {
@@ -236,7 +236,6 @@ class RecorderEntry implements BuildLogger, SubBuildListener
 
         $this->log($buf, $event->getPriority());
     }
-
 
     /**
      * The thing that actually sends the information to the output.

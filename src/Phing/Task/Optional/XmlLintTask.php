@@ -30,7 +30,6 @@ use Phing\Type\Element\FileSetAware;
  * A XML lint task. Checking syntax of one or more XML files against an XML Schema using the DOM extension.
  *
  * @author  Knut Urdalen <knut.urdalen@telio.no>
- * @package phing.tasks.ext
  */
 class XmlLintTask extends Task
 {
@@ -45,7 +44,6 @@ class XmlLintTask extends Task
     /**
      * File to be performed syntax check on
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -55,7 +53,6 @@ class XmlLintTask extends Task
     /**
      * XML Schema Description file to validate against
      *
-     * @param File $schema
      */
     public function setSchema(File $schema)
     {
@@ -75,9 +72,7 @@ class XmlLintTask extends Task
     /**
      * Sets the haltonfailure attribute
      *
-     * @param bool $haltonfailure
      *
-     * @return void
      */
     public function setHaltonfailure(bool $haltonfailure)
     {
@@ -89,7 +84,6 @@ class XmlLintTask extends Task
      *
      * {@inheritdoc}
      *
-     * @return void
      * @throws BuildException
      *
      */
@@ -122,7 +116,6 @@ class XmlLintTask extends Task
     /**
      * @param $message
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -140,7 +133,6 @@ class XmlLintTask extends Task
      *
      * @param string $file
      *
-     * @return void
      */
     protected function lint($file)
     {
@@ -187,9 +179,7 @@ class XmlLintTask extends Task
      * @param string $message
      * @param string $file
      * @param int $line
-     * @param mixed $context
      *
-     * @return void
      */
     public function errorHandler($level, $message, $file, $line, $context)
     {

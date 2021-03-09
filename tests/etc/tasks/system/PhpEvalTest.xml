@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PhpEvalTaskTest" default="test">
+    <target name="test">
+        <fail message="This build project must only be used in testing" />
+    </target>
+    <target name="testZeroParams">
+        <php function="get_include_path" returnProperty="result" />
+    </target>
+    <target name="testOneScalarParam">
+        <php function="trim" returnProperty="result">
+            <param value="   test   " />
+        </php>
+    </target>
+    <target name="testMultiScalarParams">
+        <php function="trim" returnProperty="result">
+            <param value="##**test**##" />
+            <param value="#" />
+        </php>
+    </target>
+    <target name="testArrayParam">
+        <php function="implode" returnProperty="result">
+            <param>
+                <param value="Phing" />
+                <param value=" " />
+                <param value="3" />
+            </param>
+        </php>
+    </target>
+    <target name="testMixedParams">
+        <php function="implode" returnProperty="result">
+            <param value=" " />
+            <param>
+                <param value="Phing" />
+                <param value="3" />
+            </param>
+        </php>
+    </target>
+    <target name="testStaticMethodWithMultiDimArrayParam">
+        <php class="Phing\Task\System\PhpEvalTaskTest"
+             function="recursiveProcess" returnProperty="result">
+            <param>
+                <param value="a" />
+                <param>
+                    <param value="b" />
+                    <param value="c" />
+                </param>
+                <param value="d" />
+            </param>
+        </php>
+    </target>
+</project>

@@ -46,10 +46,10 @@ class EchoXMLTest extends BuildFileTest
         $this->assertStringEqualsFile(
             $this->getProject()->getProperty('file'),
             <<< XML
-<project name="failure" default="" basedir=".">
-  <fail message="foo=bar"/>
-</project>
-XML
+                <project name="failure" default="" basedir=".">
+                  <fail message="foo=bar"/>
+                </project>
+                XML
         );
     }
 

@@ -18,13 +18,13 @@
  */
 
 namespace Phing\Filter;
+
 /**
  * Holds a token.
  *
  */
 class Token
 {
-
     /**
      * Token key.
      *
@@ -56,7 +56,7 @@ class Token
      */
     public function setValue($value)
     {
-        // special case for boolean values
+        // special case for bool values
         if (is_bool($value)) {
             if ($value) {
                 $this->value = "true";

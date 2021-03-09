@@ -38,12 +38,12 @@ use Phing\Util\StringHelper;
 abstract class BaseSelector extends DataType implements FileSelector
 {
     /**
-     * @var string $errmsg
+     * @var string
      */
     private $errmsg = null;
 
     /**
-     * @var Exception $cause
+     * @var Exception
      */
     private $cause;
 
@@ -84,7 +84,7 @@ abstract class BaseSelector extends DataType implements FileSelector
     public function verifySettings()
     {
         if ($this->isReference()) {
-            $this->getCheckedRef(__CLASS__, StringHelper::unqualify(__CLASS__))->verifySettings();
+            $this->getCheckedRef(__CLASS__, __CLASS__)->verifySettings();
         }
     }
 

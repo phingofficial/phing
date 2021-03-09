@@ -51,52 +51,51 @@ use Phing\Util\Regexp;
  * </pre>
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.regex
  */
 class RegexTask extends AbstractPropertySetterTask
 {
     /**
-     * @var string $subject
+     * @var string
      */
     private $subject;
 
     /**
-     * @var string $pattern
+     * @var string
      */
     private $pattern;
 
     /**
-     * @var string $match
+     * @var string
      */
     private $match;
 
     /**
-     * @var string $replace
+     * @var string
      */
     private $replace;
 
     /**
-     * @var string $defaultValue
+     * @var string
      */
     private $defaultValue;
 
     /**
-     * @var bool $caseSensitive
+     * @var bool
      */
     private $caseSensitive = true;
 
     /**
-     * @var array $modifiers
+     * @var array
      */
     private $modifiers = '';
 
     /**
-     * @var Regexp $reg
+     * @var Regexp
      */
     private $reg;
 
     /**
-     * @var int $limit
+     * @var int
      */
     private $limit = -1;
 
@@ -149,7 +148,7 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param $replace
+     * @param string $replace
      * @throws BuildException
      */
     public function setReplace($replace)
@@ -171,7 +170,7 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param $match
+     * @param string $match
      * @throws BuildException
      */
     public function setMatch($match)
@@ -188,7 +187,7 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param $caseSensitive
+     * @param bool $caseSensitive
      */
     public function setCaseSensitive($caseSensitive)
     {

@@ -39,7 +39,6 @@ use Phing\Type\Path;
  */
 class AvailableTask extends Task implements Condition
 {
-
     /**
      * Property to check for.
      */
@@ -70,57 +69,36 @@ class AvailableTask extends Task implements Condition
 
     private $followSymlinks = false;
 
-    /**
-     * @param $property
-     */
-    public function setProperty($property)
+    public function setProperty(string $property)
     {
-        $this->property = (string) $property;
+        $this->property = $property;
     }
 
-    /**
-     * @param $value
-     */
-    public function setValue($value)
+    public function setValue(string $value)
     {
-        $this->value = (string) $value;
+        $this->value = $value;
     }
 
-    /**
-     * @param File $file
-     */
     public function setFile(File $file)
     {
         $this->file = $file;
     }
 
-    /**
-     * @param $resource
-     */
-    public function setResource($resource)
+    public function setResource(string $resource)
     {
-        $this->resource = (string) $resource;
+        $this->resource = $resource;
     }
 
-    /**
-     * @param $extension
-     */
-    public function setExtension($extension)
+    public function setExtension(string $extension)
     {
-        $this->extension = (string) $extension;
+        $this->extension = $extension;
     }
 
-    /**
-     * @param $type
-     */
-    public function setType($type)
+    public function setType(string $type)
     {
-        $this->type = (string) strtolower($type);
+        $this->type = strtolower($type);
     }
 
-    /**
-     * @param $followSymlinks
-     */
     public function setFollowSymlinks(bool $followSymlinks)
     {
         $this->followSymlinks = $followSymlinks;
@@ -178,7 +156,7 @@ class AvailableTask extends Task implements Condition
             throw new BuildException("Type must be one of either dir or file", $this->getLocation());
         }
 
-        if (($this->file !== null) && !$this->_checkFile()) {
+        if (($this->file !== null) && !$this->checkFile()) {
             $this->log(
                 "Unable to find " . $this->file->__toString() . " to set property " . $this->property,
                 Project::MSG_VERBOSE
@@ -187,7 +165,7 @@ class AvailableTask extends Task implements Condition
             return false;
         }
 
-        if (($this->resource !== null) && !$this->_checkResource($this->resource)) {
+        if (($this->resource !== null) && !$this->checkResource($this->resource)) {
             $this->log(
                 "Unable to load resource " . $this->resource . " to set property " . $this->property,
                 Project::MSG_VERBOSE
@@ -213,10 +191,10 @@ class AvailableTask extends Task implements Condition
     /**
      * @return bool
      */
-    private function _checkFile()
+    private function checkFile()
     {
         if ($this->filepath === null) {
-            return $this->_checkFile1($this->file);
+            return $this->checkFile1($this->file);
         }
 
         $paths = $this->filepath->listPaths();
@@ -232,11 +210,10 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @param File $file
      * @return bool
      * @throws IOException
      */
-    private function _checkFile1(File $file)
+    private function checkFile1(File $file)
     {
         // Resolve symbolic links
         if ($this->followSymlinks && $file->isLink()) {
@@ -268,13 +245,12 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @param $resource
      * @return bool
      */
-    private function _checkResource($resource)
+    private function checkResource(string $resource)
     {
         if (null != ($resourcePath = Phing::getResourcePath($resource))) {
-            return $this->_checkFile1(new File($resourcePath));
+            return $this->checkFile1(new File($resourcePath));
         }
 
         return false;

@@ -64,7 +64,6 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Sets up the fixture.
      *
-     * @return void
      */
     public function setUp(): void
     {
@@ -116,7 +115,6 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty name attribute. So use the default value
      *
-     * @return void
      */
     public function testEmptyName()
     {
@@ -128,7 +126,6 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty title attribute. So use the default value
      *
-     * @return void
      */
     public function testEmptyTitle()
     {
@@ -145,7 +142,6 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty notification attribute. So use the default value
      *
-     * @return void
      */
     public function testEmptyNotification()
     {
@@ -162,7 +158,6 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty appicon attribute. So use the default value
      *
-     * @return void
      */
     public function testEmptyAppIcon()
     {
@@ -179,7 +174,6 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty priority attribute. So use the default value
      *
-     * @return void
      */
     public function testEmptyPriority()
     {
@@ -196,7 +190,6 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty protocol attribute. So use the default value
      *
-     * @return void
      */
     public function testEmptyProtocol()
     {

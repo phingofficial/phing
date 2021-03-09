@@ -32,7 +32,7 @@ use Phing\Util\StringHelper;
 class PropertyHelper
 {
     /**
-     * @var Project $project
+     * @var Project
      */
     private $project;
     private $next;
@@ -266,7 +266,6 @@ class PropertyHelper
     // Methods used to support the default behavior and provide backward
     // compatibility. Some will be deprecated, you should avoid calling them.
 
-
     /**
      * Default implementation of setProperty. Will be called from Project.
      *  This is the original 1.5 implementation, with calls to the hook
@@ -430,7 +429,7 @@ class PropertyHelper
 
         $found = $this->properties[$name] ?? null;
         // check to see if there are unresolved property references
-        if (false !== strpos($found, '${')) {
+        if ($found !== null && false !== strpos($found, '${')) {
             // attempt to resolve properties
             $found = $this->replaceProperties($found, null);
             if (StringHelper::startsWith('${', $found) && StringHelper::endsWith('}', $found)) {
@@ -464,7 +463,6 @@ class PropertyHelper
         }
         return $this->userProperties[$name] ?? null;
     }
-
 
     // -------------------- Access to property tables  --------------------
     // This is used to support ant call and similar tasks. It should be

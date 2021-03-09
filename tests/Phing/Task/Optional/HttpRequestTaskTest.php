@@ -36,7 +36,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
     protected function createRequestWithMockAdapter()
     {
         $this->createMockHandler([
-            new Response(200, [], "The response containing a 'foo' string")
+            new Response(200, [], "The response containing a 'foo' string"),
         ]);
     }
 
@@ -113,7 +113,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
 
         $options = [
             'proxy' => 'http://localhost:8080/',
-            'timeout' => 20
+            'timeout' => 20,
         ];
 
         $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);

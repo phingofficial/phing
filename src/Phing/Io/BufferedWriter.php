@@ -26,7 +26,6 @@ namespace Phing\Io;
  */
 class BufferedWriter extends Writer
 {
-
     /**
      * The size of the buffer in kb.
      */
@@ -38,7 +37,6 @@ class BufferedWriter extends Writer
     private $out;
 
     /**
-     * @param Writer $writer
      * @param int $buffsize
      */
     public function __construct(Writer $writer, $buffsize = 8192)
@@ -51,7 +49,6 @@ class BufferedWriter extends Writer
      * @param string $buf
      * @param int $off
      * @param int $len
-     * @return mixed
      */
     public function write($buf, $off = null, $len = null)
     {

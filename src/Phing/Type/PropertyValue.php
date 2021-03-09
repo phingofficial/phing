@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Type;
+
 /**
  * Class to hold a property value
  *  Class only required to make it possible to add a property as reference
@@ -25,7 +26,6 @@ namespace Phing\Type;
  */
 class PropertyValue
 {
-
     /**
      * @var string
      */
@@ -34,7 +34,7 @@ class PropertyValue
     /**
      * Constructor optionaly sets a the value of property component.
      *
-     * @param mixed      Value of name, all scalars allowed
+     * @param mixed $value Value of property, all scalars allowed
      */
     public function __construct($value = null)
     {
@@ -46,7 +46,7 @@ class PropertyValue
     /**
      * Sets a the value of property component.
      *
-     * @param mixed      Value of name, all scalars allowed
+     * @param mixed $value Value of property, all scalars allowed
      */
     public function setValue($value)
     {

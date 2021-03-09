@@ -48,7 +48,6 @@ use Phing\Type\Element\FileSetAware;
  *
  * @author David Persson <davidpersson at qeweurope dot org>
  *
- * @package phing.tasks.ext
  *
  * @since 2.3.1
  */
@@ -109,7 +108,6 @@ class ManifestTask extends Task
      *
      * @param File $file Path to readable file
      *
-     * @return void
      */
     public function setFile(File $file)
     {
@@ -119,9 +117,7 @@ class ManifestTask extends Task
     /**
      * The setter for the attribute "checksum"
      *
-     * @param mixed $mixed
      *
-     * @return void
      */
     public function setChecksum($mixed)
     {
@@ -143,7 +139,6 @@ class ManifestTask extends Task
      *
      * @param string $string
      *
-     * @return void
      */
     public function setSalt($string)
     {
@@ -305,7 +300,6 @@ class ManifestTask extends Task
     /**
      * Validates attributes coming in from XML
      *
-     * @return void
      *
      * @throws BuildException
      */

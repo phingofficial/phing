@@ -27,7 +27,7 @@ namespace Phing\Io;
 class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var FileParserInterface
+     * @var FileParserFactory
      */
     private $objectToTest;
 

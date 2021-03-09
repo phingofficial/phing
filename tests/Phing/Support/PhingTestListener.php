@@ -107,7 +107,7 @@ class PhingTestListener implements BuildListener
     {
         $this->parent->logBuffer[] = [
             'message' => $event->getMessage(),
-            'priority' => $event->getPriority()
+            'priority' => $event->getPriority(),
         ];
     }
 }

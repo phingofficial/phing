@@ -41,7 +41,7 @@ class UnknownElement extends Task
     /**
      * Constructs a UnknownElement object
      *
-     * @param string  The XML element name that is unknown
+     * @param string $elementName The XML element name that is unknown
      */
     public function __construct($elementName)
     {
@@ -119,7 +119,6 @@ class UnknownElement extends Task
     /**
      * Add a child element to the unknown element
      *
-     * @param UnknownElement $child
      * @internal param The $object object representing the child element
      */
     public function addChild(UnknownElement $child)
@@ -201,7 +200,7 @@ class UnknownElement extends Task
      *
      * @param UnknownElement $ue The unknwon element to create a task from
      * @param RuntimeConfigurable $w The wrapper object
-     * @param boolean $onTopLevel Whether to treat this task as if it is top-level.
+     * @param bool $onTopLevel Whether to treat this task as if it is top-level.
      * @return Task                The freshly created task
      * @throws BuildException
      */

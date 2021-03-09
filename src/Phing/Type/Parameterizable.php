@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Type;
+
 /**
  * Parameterizable objects take genric key value pairs.
  *
@@ -26,9 +27,5 @@ namespace Phing\Type;
  */
 interface Parameterizable
 {
-    /**
-     * @param array $parameters
-     * @return mixed
-     */
     public function setParameters(array $parameters): void;
 }

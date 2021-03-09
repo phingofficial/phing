@@ -47,40 +47,36 @@ use Phing\Type\Path;
  * ```
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class PathToFileSet extends Task
 {
     /**
-     * @var File $dir
+     * @var File
      */
     private $dir;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
     /**
-     * @var string $pathRefId
+     * @var string
      */
     private $pathRefId;
 
     /**
-     * @var bool $ignoreNonRelative
+     * @var bool
      */
     private $ignoreNonRelative = false;
 
-    /**
-     * @param File $dir
-     */
     public function setDir(File $dir)
     {
         $this->dir = $dir;
     }
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -88,7 +84,7 @@ class PathToFileSet extends Task
     }
 
     /**
-     * @param $pathRefId
+     * @param string $pathRefId
      */
     public function setPathRefId($pathRefId)
     {
@@ -96,7 +92,7 @@ class PathToFileSet extends Task
     }
 
     /**
-     * @param $ignoreNonRelative
+     * @param bool $ignoreNonRelative
      */
     public function setIgnoreNonRelative($ignoreNonRelative)
     {
@@ -166,7 +162,6 @@ class PathToFileSet extends Task
 
     /**
      * @param string $dirNormal
-     * @param File $file
      * @return string|false
      * @throws IOException
      */

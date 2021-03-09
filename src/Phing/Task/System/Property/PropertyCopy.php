@@ -26,17 +26,16 @@ use Phing\Task\System\Property\AbstractPropertySetterTask;
  * PropertyCopy
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class PropertyCopy extends AbstractPropertySetterTask
 {
     /**
-     * @var string $from
+     * @var string
      */
     private $from;
 
     /**
-     * @var bool $silent
+     * @var bool
      */
     private $silent;
 

@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Util;
+
 /**
  * String helper utility class.
  *
@@ -41,34 +42,14 @@ class StringHelper
     private static $FALSE_VALUES = ["off", "false", "f", "no", "0"];
 
     /**
-     * Remove qualification to name.
-     * E.g. eg.Cat -> Cat
-     *
-     * @param string $qualifiedName
-     * @param string $separator     Character used to separate.
-     *
-     * @return string
-     */
-    public static function unqualify($qualifiedName, $separator = '.')
-    {
-        // if false, then will be 0
-        $pos = strrpos($qualifiedName, $separator);
-        if ($pos === false) {
-            return $qualifiedName; // there is no '.' in the qualifed name
-        }
-
-        return substr($qualifiedName, $pos + 1); // start just after '.'
-    }
-
-    /**
      * @param bool|string $s
      *
-     * @return boolean
+     * @return bool
      */
     public static function booleanValue($s)
     {
         if (is_bool($s)) {
-            return $s; // it's already boolean (not a string)
+            return $s; // it's already bool (not a string)
         }
         // otherwise assume it's something like "true" or "t"
         $trimmed = strtolower(trim($s));
@@ -101,8 +82,8 @@ class StringHelper
     /**
      * tests if a string starts with a given string
      *
-     * @param $check
-     * @param $string
+     * @param string $check
+     * @param string $string
      *
      * @return bool
      */
@@ -118,8 +99,8 @@ class StringHelper
     /**
      * tests if a string ends with a given string
      *
-     * @param $check
-     * @param $string
+     * @param string $check
+     * @param string $string
      *
      * @return bool
      */

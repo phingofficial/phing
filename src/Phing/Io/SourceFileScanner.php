@@ -35,7 +35,6 @@ use Phing\Task;
  */
 class SourceFileScanner
 {
-
     /**
      * Instance of FileUtils
      */
@@ -66,7 +65,7 @@ class SourceFileScanner
      *                                absolute.
      * @param FilenameMapper $mapper knows how to construct a target file names from
      *                source file names.
-     * @param bool $force Boolean that determines if the files should be
+     * @param bool $force bool that determines if the files should be
      *                                forced to be copied.
      * @return array
      */

@@ -21,13 +21,12 @@ declare(strict_types=1);
 
 namespace Phing\Task\Optional\PHPStan;
 
-use PHPStanListCommandBuilder;
-use PHPStanTask;
+use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanListCommandBuilder;
+use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
 class PHPStanListCommandBuilderTest extends TestCase
 {
-
     /** @var PHPStanListCommandBuilder */
     private $builder;
 
@@ -49,13 +48,13 @@ class PHPStanListCommandBuilderTest extends TestCase
         $this->builder->build($task);
 
         $expectedCommand = <<<CMD
-Executing 'phpstan' with arguments:
-'list'
-'--format=anyFormat'
-'--raw'
-'anyNamespace'
-The ' characters around the executable and arguments are not part of the command.
-CMD;
+            Executing 'phpstan' with arguments:
+            'list'
+            '--format=anyFormat'
+            '--raw'
+            'anyNamespace'
+            The ' characters around the executable and arguments are not part of the command.
+            CMD;
 
         $this->assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }

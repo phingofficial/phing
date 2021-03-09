@@ -155,7 +155,7 @@ class UpToDateTask extends Task implements Condition
      * see if the target(s) is/are up-to-date.
      *
      * @throws BuildException
-     * @return boolean
+     * @return bool
      */
     public function evaluate()
     {
@@ -235,7 +235,6 @@ class UpToDateTask extends Task implements Condition
         return $upToDate;
     }
 
-
     /**
      * Sets property to true if target file(s) have a more recent timestamp
      * than (each of) the corresponding source file(s).
@@ -252,6 +251,9 @@ class UpToDateTask extends Task implements Condition
         }
         $upToDate = $this->evaluate();
         if ($upToDate) {
+            /**
+             * @var PropertyTask
+             */
             $property = $this->project->createTask('property');
             $property->setName($this->getProperty());
             $property->setValue($this->getValue());
@@ -274,8 +276,7 @@ class UpToDateTask extends Task implements Condition
     }
 
     /**
-     * @param File $srcDir
-     * @param $files
+     * @param array $files
      * @return bool
      */
     protected function scanDir(File $srcDir, $files)

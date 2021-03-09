@@ -24,11 +24,10 @@ namespace Phing\Task\Optional\Sass;
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use PHPUnit\Framework\TestCase;
-use ScssPhpCompiler;
+use Phing\Task\Ext\ScssPhpCompiler;
 
 class ScssPhpCompilerTest extends TestCase
 {
-
     private const SASS_TEST_BASE = PHING_TEST_BASE . "/etc/tasks/ext/sass/";
 
     /** @var ScssPhpCompiler */

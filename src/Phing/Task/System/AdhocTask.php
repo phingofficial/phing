@@ -36,7 +36,6 @@ use Phing\Task;
  */
 class AdhocTask extends Task
 {
-
     /**
      * The PHP script
      *
@@ -74,7 +73,6 @@ class AdhocTask extends Task
     /**
      * Load the adhoc class, and perform any core validation.
      *
-     * @return string         The classname of the ProjectComponent class.
      * @throws BuildException - if more than one class is defined.
      */
     protected function execute()

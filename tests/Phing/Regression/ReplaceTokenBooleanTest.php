@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Regression;
+
 use Phing\Support\BuildFileTest;
 
 /**

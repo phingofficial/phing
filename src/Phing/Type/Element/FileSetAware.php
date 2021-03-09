@@ -24,7 +24,7 @@ use Phing\Type\FileSet;
 trait FileSetAware
 {
     /**
-     * @var FileSet[] $filesets
+     * @var FileSet[]
      */
     protected $filesets = [];
 

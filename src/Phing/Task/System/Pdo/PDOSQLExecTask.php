@@ -62,7 +62,6 @@ use Phing\Type\FileSet;
  * @author  Jeff Martin <jeff@custommonkey.org> (Ant)
  * @author  Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author  Tim Stephenson <tim.stephenson@sybase.com> (Ant)
- * @package phing.tasks.ext.pdo
  */
 class PDOSQLExecTask extends PDOTask implements Condition
 {
@@ -172,7 +171,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
      *
-     * @param File $srcFile
      */
     public function setSrc(File $srcFile)
     {
@@ -183,7 +181,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Set an inline SQL command to execute.
      * NB: Properties are not expanded in this text.
      *
-     * @param $sql
+     * @param string $sql
      */
     public function addText($sql)
     {
@@ -193,7 +191,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Adds a set of files (nested fileset attribute).
      *
-     * @param FileSet $set
      */
     public function addFileset(FileSet $set)
     {
@@ -203,7 +200,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Adds a set of files (nested filelist attribute).
      *
-     * @param FileList $list
      */
     public function addFilelist(FileList $list)
     {
@@ -250,7 +246,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * <p>For example, set this to "go" and delimitertype to "ROW" for
      * Sybase ASE or MS SQL Server.</p>
      *
-     * @param string $delimiter
      */
     public function setDelimiter(string $delimiter): void
     {
@@ -260,7 +255,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Get the statement delimiter.
      *
-     * @return string
      */
     public function getDelimiter(): string
     {
@@ -273,7 +267,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * terminate the SQL command whereas with row, only a line containing just
      * the delimiter is recognized as the end of the command.
      *
-     * @param string $delimiterType
      */
     public function setDelimiterType(string $delimiterType): void
     {
@@ -294,7 +287,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Sets the fetch mode to use for the PDO resultset.
      *
-     * @param  mixed $mode The PDO fetchmode integer or constant name.
+     * @param  mixed $mode The PDO fetchmode int or constant name.
      * @throws BuildException
      */
     public function setFetchmode($mode): void
@@ -464,7 +457,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * read in lines and execute them
      *
-     * @param  Reader $reader
      * @throws BuildException
      */
     public function runStatements(Reader $reader)
@@ -494,7 +486,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @param string $sql
      *
-     * @return boolean Whether specified SQL looks like a SELECT query.
+     * @return bool Whether specified SQL looks like a SELECT query.
      */
     protected function isSelectSql($sql)
     {
@@ -506,7 +498,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Exec the sql statement.
      *
-     * @param $sql
+     * @param string $sql
      *
      * @throws BuildException
      * @throws Exception
@@ -629,7 +621,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @author Jawira Portugal <dev@tugal.be>
      *
-     * @return bool
      */
     public function evaluate(): bool
     {

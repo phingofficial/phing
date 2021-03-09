@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Filter;
+
 use Phing\Util\RegisterSlot;
 
 /**
@@ -88,7 +89,6 @@ class XsltParam
     /**
      * Sets expression to dynamic register slot.
      *
-     * @param RegisterSlot $expr
      */
     public function setListeningExpression(RegisterSlot $expr)
     {

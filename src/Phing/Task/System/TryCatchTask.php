@@ -44,7 +44,6 @@ class TryCatchTask extends Task
      * Main method
      *
      * @throws BuildException
-     * @return void
      */
     public function main()
     {
@@ -70,10 +69,10 @@ class TryCatchTask extends Task
             } else {
                 $exc = $e;
             }
-        }
-
-        if (!empty($this->finallyContainer)) {
-            $this->finallyContainer->perform();
+        } finally {
+            if (!empty($this->finallyContainer)) {
+                $this->finallyContainer->perform();
+            }
         }
 
         if (!empty($exc)) {
@@ -98,7 +97,6 @@ class TryCatchTask extends Task
      *
      * @param Exception $reference
      *
-     * @return void
      */
     public function setReference($reference)
     {
@@ -108,7 +106,6 @@ class TryCatchTask extends Task
     /**
      * Add nested <try> element
      *
-     * @param SequentialTask $container
      */
     public function addTry(SequentialTask $container)
     {
@@ -118,7 +115,6 @@ class TryCatchTask extends Task
     /**
      * Add nested <catch> element
      *
-     * @param SequentialTask $container
      */
     public function addCatch(SequentialTask $container)
     {
@@ -128,7 +124,6 @@ class TryCatchTask extends Task
     /**
      * Add nested <finally> element
      *
-     * @param SequentialTask $container
      */
     public function addFinally(SequentialTask $container)
     {

@@ -81,7 +81,6 @@ class FilenameSelector extends BaseExtendSelector
      * @param string $pattern the file pattern that any filename must match
      *                        against in order to be selected.
      *
-     * @return void
      */
     public function setName($pattern)
     {
@@ -110,7 +109,6 @@ class FilenameSelector extends BaseExtendSelector
      *
      * @param bool $casesensitive whether to pay attention to case sensitivity
      *
-     * @return void
      */
     public function setCasesensitive($casesensitive)
     {
@@ -125,7 +123,6 @@ class FilenameSelector extends BaseExtendSelector
      *
      * @param bool $negated whether to negate this selection
      *
-     * @return void
      */
     public function setNegate($negated)
     {
@@ -138,7 +135,6 @@ class FilenameSelector extends BaseExtendSelector
      *
      * @param array $parameters the complete set of parameters for this selector
      *
-     * @return void
      */
     public function setParameters(array $parameters): void
     {
@@ -172,7 +168,6 @@ class FilenameSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @return void
      */
     public function verifySettings()
     {

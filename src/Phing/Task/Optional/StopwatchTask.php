@@ -28,35 +28,33 @@ use Symfony\Component\Stopwatch\Stopwatch;
  * Stopwatch.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.stopwatch
  */
 class StopwatchTask extends DispatchTask
 {
     /**
      * Name of the timer.
      *
-     * @var string $name
+     * @var string
      */
     private $name = '';
 
     /**
      * Category of the timer.
      *
-     * @var string $category optional
+     * @var string optional
      */
     private $category = '';
 
     /**
      * Holds an instance of Stopwatch.
      *
-     * @var Stopwatch $timer
+     * @var Stopwatch
      */
     private static $timer = null;
 
     /**
      * Initialize Task.
      *
-     * @return void
      */
     public function init()
     {
@@ -84,7 +82,6 @@ class StopwatchTask extends DispatchTask
     /**
      * Start timer.
      *
-     * @return void
      */
     public function start()
     {
@@ -95,7 +92,6 @@ class StopwatchTask extends DispatchTask
     /**
      * Stop timer.
      *
-     * @return void
      */
     public function stop()
     {
@@ -121,7 +117,6 @@ class StopwatchTask extends DispatchTask
     /**
      * Measure lap time.
      *
-     * @return void
      */
     public function lap()
     {
@@ -134,7 +129,6 @@ class StopwatchTask extends DispatchTask
      *
      * @param string $name the name of the stopwatch timer
      *
-     * @return void
      */
     public function setName($name)
     {
@@ -146,7 +140,6 @@ class StopwatchTask extends DispatchTask
      *
      * @param string $category
      *
-     * @return void
      */
     public function setCategory($category)
     {
@@ -156,7 +149,6 @@ class StopwatchTask extends DispatchTask
     /**
      * The main entry point
      *
-     * @return void
      *
      * @throws BuildException
      */

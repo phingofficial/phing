@@ -41,7 +41,6 @@ use Phing\Io\Reader;
  */
 class PrefixLines extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Parameter name for the prefix.
      *
@@ -56,7 +55,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      */
     private $prefix;
 
-    /** @var string|null $queuedData */
+    /** @var string|null */
     private $queuedData;
 
     /**
@@ -126,7 +125,6 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      * Creates a new PrefixLines filter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
      * @return PrefixLines A new filter based on this configuration, but filtering
      *                the specified reader
      * @internal param A $object Reader object providing the underlying stream.

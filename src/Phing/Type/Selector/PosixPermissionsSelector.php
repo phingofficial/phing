@@ -29,7 +29,7 @@ use Phing\Io\File;
  */
 class PosixPermissionsSelector implements FileSelector
 {
-    /** @var string $permissions */
+    /** @var string */
     private $permissions;
 
     /**

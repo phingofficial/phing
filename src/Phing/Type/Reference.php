@@ -30,12 +30,12 @@ use Phing\Project;
 class Reference
 {
     /**
-     * @var string $refid
+     * @var string
      */
     protected $refid;
 
     /**
-     * @var Project $project
+     * @var Project
      */
     private $project;
 
@@ -49,7 +49,7 @@ class Reference
     }
 
     /**
-     * @param $id
+     * @param string $id
      */
     public function setRefId($id)
     {
@@ -82,7 +82,6 @@ class Reference
     /**
      * returns reference to object in references container of project
      *
-     * @param Project|null $fallback
      *
      * @return object
      */

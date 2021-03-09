@@ -24,7 +24,7 @@ use Phing\Type\DirSet;
 trait DirSetAware
 {
     /**
-     * @var DirSet[] $dirsets
+     * @var DirSet[]
      */
     protected $dirsets = [];
 

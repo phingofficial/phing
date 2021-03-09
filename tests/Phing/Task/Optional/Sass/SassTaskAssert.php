@@ -22,11 +22,10 @@ declare(strict_types=1);
 namespace Phing\Task\Optional\Sass;
 
 use PHPUnit\Framework\Assert;
-use SassTask;
+use Phing\Task\Ext\SassTask;
 
 class SassTaskAssert extends Assert
 {
-
     public function assertDefaults(SassTask $task): void
     {
         $this->assertEquals('', $task->getPath());

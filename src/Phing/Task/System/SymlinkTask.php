@@ -48,9 +48,6 @@ use Phing\Type\FileSet;
  * </code>
  *
  * @author  Andrei Serdeliuc <andrei@serdeliuc.ro>
- * @extends Task
- * @version $ID$
- * @package phing.tasks.ext
  */
 class SymlinkTask extends Task
 {
@@ -103,7 +100,6 @@ class SymlinkTask extends Task
      * setter for linkTarget
      *
      * @param string $linkTarget
-     * @return void
      */
     public function setTarget($linkTarget)
     {
@@ -114,7 +110,6 @@ class SymlinkTask extends Task
      * setter for _link
      *
      * @param string $link
-     * @return void
      */
     public function setLink($link)
     {
@@ -136,8 +131,7 @@ class SymlinkTask extends Task
     /**
      * setter for _overwrite
      *
-     * @param boolean $overwrite
-     * @return void
+     * @param bool $overwrite
      */
     public function setOverwrite($overwrite)
     {
@@ -145,7 +139,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * @param boolean $relative
+     * @param bool $relative
      */
     public function setRelative($relative)
     {
@@ -195,7 +189,7 @@ class SymlinkTask extends Task
     /**
      * getter for _overwrite
      *
-     * @return boolean
+     * @return bool
      */
     public function getOverwrite()
     {
@@ -203,7 +197,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isRelative()
     {
@@ -369,6 +363,8 @@ class SymlinkTask extends Task
 
         $this->log('Linking: ' . $target . ' to ' . $link, Project::MSG_INFO);
 
-        return $fs->symlink($target, $link);
+        $fs->symlink($target, $link);
+
+        return true;
     }
 }

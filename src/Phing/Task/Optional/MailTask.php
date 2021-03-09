@@ -30,7 +30,6 @@ use Phing\Type\Element\FileSetAware;
  *
  * @author  Michiel Rook <mrook@php.net>
  * @author  Francois Harvey at SecuriWeb (http://www.securiweb.net)
- * @package phing.tasks.ext
  */
 class MailTask extends Task
 {
@@ -73,7 +72,7 @@ class MailTask extends Task
         $mime = new \Mail_mime(['text_charset' => 'UTF-8']);
         $hdrs = [
             'From' => $this->from,
-            'Subject' => $this->subject
+            'Subject' => $this->subject,
         ];
         $mime->setTXTBody($this->msg);
 

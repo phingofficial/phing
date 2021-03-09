@@ -31,7 +31,6 @@ use Phing\Project;
  * to be executed using the same JDBC connection and commit
  * operation in between.
  *
- * @package phing.tasks.ext.pdo
  */
 class PDOSQLExecTransaction
 {
@@ -39,25 +38,19 @@ class PDOSQLExecTransaction
     private $tSqlCommand = "";
     private $parent;
 
-    /**
-     * @param $parent
-     */
-    public function __construct($parent)
+    public function __construct(PDOSQLExecTask $parent)
     {
         // Parent is required so that we can log things ...
         $this->parent = $parent;
     }
 
-    /**
-     * @param File $src
-     */
     public function setSrc(File $src)
     {
         $this->tSrcFile = $src;
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      */
     public function addText($sql)
     {

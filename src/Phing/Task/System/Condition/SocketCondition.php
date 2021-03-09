@@ -30,7 +30,6 @@ use Phing\Exception\BuildException;
  */
 class SocketCondition implements Condition
 {
-
     /**
      * @var string
      */
@@ -58,7 +57,7 @@ class SocketCondition implements Condition
     }
 
     /**
-     * @return boolean
+     * @return bool
      * @throws BuildException
      */
     public function evaluate()

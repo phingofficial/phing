@@ -46,11 +46,11 @@ class File
     /**
      * constructor
      *
-     * @param mixed $arg1
-     * @param mixed $arg2
      *
      * @throws IOException
      * @throws NullPointerException
+     * @param null|mixed $arg1
+     * @param null|mixed $arg2
      */
     public function __construct($arg1 = null, $arg2 = null)
     {
@@ -83,7 +83,6 @@ class File
     /* -- constructors not called by signature match, so we need some helpers --*/
 
     /**
-     * @param string $pathname
      *
      * @throws IOException
      */
@@ -96,8 +95,6 @@ class File
     }
 
     /**
-     * @param string $parent
-     * @param string $child
      * @throws IOException
      */
     protected function constructStringParentStringChild(string $parent, string $child): void
@@ -114,8 +111,6 @@ class File
     }
 
     /**
-     * @param File $parent
-     * @param string $child
      * @throws IOException
      */
     protected function constructFileParentStringChild(File $parent, string $child): void
@@ -246,7 +241,7 @@ class File
      * if its prefix is a drive specifier followed by "\\", or if its prefix
      * is "\\".
      *
-     * @return boolean true if this abstract pathname is absolute, false otherwise
+     * @return bool true if this abstract pathname is absolute, false otherwise
      */
     public function isAbsolute()
     {
@@ -301,7 +296,6 @@ class File
         return new File((string) $this->getAbsolutePath());
     }
 
-
     /**
      * Returns the canonical pathname string of this abstract pathname.
      *
@@ -333,7 +327,6 @@ class File
         return $fs->canonicalize($this->path);
     }
 
-
     /**
      * Returns the canonical form of this abstract pathname.  Equivalent to
      * getCanonicalPath(.
@@ -352,7 +345,7 @@ class File
      * Tests whether the application can read the file denoted by this
      * abstract pathname.
      *
-     * @return boolean true if and only if the file specified by this
+     * @return bool true if and only if the file specified by this
      *                 abstract pathname exists and can be read by the
      *                 application; false otherwise
      */
@@ -371,7 +364,7 @@ class File
      * Tests whether the application can modify to the file denoted by this
      * abstract pathname.
      *
-     * @return boolean true if and only if the file system actually
+     * @return bool true if and only if the file system actually
      *                 contains a file denoted by this abstract pathname and
      *                 the application is allowed to write to the file;
      *                 false otherwise.
@@ -386,7 +379,7 @@ class File
     /**
      * Tests whether the file denoted by this abstract pathname exists.
      *
-     * @return boolean true if and only if the file denoted by this
+     * @return bool true if and only if the file denoted by this
      *                 abstract pathname exists; false otherwise
      */
     public function exists()
@@ -408,7 +401,7 @@ class File
      * Tests whether the file denoted by this abstract pathname is a
      * directory.
      *
-     * @return boolean true if and only if the file denoted by this
+     * @return bool true if and only if the file denoted by this
      *                 abstract pathname exists and is a directory;
      *                 false otherwise
      * @throws IOException
@@ -430,7 +423,7 @@ class File
      * addition, satisfies other system-dependent criteria.  Any non-directory
      * file created by a Java application is guaranteed to be a normal file.
      *
-     * @return boolean true if and only if the file denoted by this
+     * @return bool true if and only if the file denoted by this
      *                 abstract pathname exists and is a normal file;
      *                 false otherwise
      */
@@ -444,7 +437,7 @@ class File
     /**
      * Tests whether the file denoted by this abstract pathname is a symbolic link.
      *
-     * @return boolean true if and only if the file denoted by this
+     * @return bool true if and only if the file denoted by this
      *                 abstract pathname exists and is a symbolic link;
      *                 false otherwise
      * @throws IOException
@@ -463,7 +456,7 @@ class File
     /**
      * Tests whether the file denoted by this abstract pathname is executable.
      *
-     * @return boolean true if and only if the file denoted by this
+     * @return bool true if and only if the file denoted by this
      *                 abstract pathname exists and is a symbolic link;
      *                 false otherwise
      * @throws IOException
@@ -493,7 +486,7 @@ class File
      * Returns the time that the file denoted by this abstract pathname was
      * last modified.
      *
-     * @return int An integer value representing the time the file was
+     * @return int An int value representing the time the file was
      *             last modified, measured in seconds since the epoch
      *             (00:00:00 GMT, January 1, 1970), or 0 if the
      *             file does not exist or if an I/O error occurs
@@ -553,7 +546,7 @@ class File
      * filesystem activities that might affect the file.
      *
      * @param bool $parents
-     * @return boolean     true if the named file does not exist and was
+     * @return bool     true if the named file does not exist and was
      *                     successfully created; <code>false</code> if the named file
      *                     already exists
      * @throws IOException
@@ -643,7 +636,7 @@ class File
      * parent directories.
      *
      * @param int|null $mode
-     * @return boolean     true if and only if the directory was created,
+     * @return bool     true if and only if the directory was created,
      *                     along with all necessary parent directories; false
      *                     otherwise
      * @throws IOException
@@ -669,7 +662,7 @@ class File
      * Creates the directory named by this abstract pathname.
      *
      * @param int|null $mode
-     * @return boolean     true if and only if the directory was created; false otherwise
+     * @return bool     true if and only if the directory was created; false otherwise
      * @throws IOException
      */
     public function mkdir($mode = null)
@@ -833,7 +826,7 @@ class File
      *
      * @param File $obj
      *
-     * @return boolean
+     * @return bool
      */
     public function equals($obj)
     {

@@ -22,16 +22,15 @@ declare(strict_types=1);
 namespace Phing\Task\Optional\PHPStan;
 
 use Phing\Exception\BuildException;
-use PHPStanAnalyseCommandBuilder;
-use PHPStanCommandBuilderFactory;
-use PHPStanHelpCommandBuilder;
-use PHPStanListCommandBuilder;
-use PHPStanTask;
+use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanAnalyseCommandBuilder;
+use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanCommandBuilderFactory;
+use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanHelpCommandBuilder;
+use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanListCommandBuilder;
+use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
 class PHPStanCommandBuilderFactoryTest extends TestCase
 {
-
     /** @var PHPStanCommandBuilderFactory */
     private $factory;
 

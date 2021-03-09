@@ -47,7 +47,6 @@ use Phing\Type\TokenSource;
  */
 class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Default "begin token" character.
      *
@@ -249,10 +248,9 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Sets the map of tokens to replace.
      * ; used by ReplaceTokens::chain()
      *
-     * @param    $tokens
-     * @throws   Exception
-     * @internal param A $array map (String->String) of token keys to replacement
+     * @param    array $tokens A $array map (String->String) of token keys to replacement
      *              values. Must not be <code>null</code>.
+     * @throws   Exception
      */
     public function setTokens($tokens)
     {
@@ -305,7 +303,6 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Creates a new ReplaceTokens using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
      * @return ReplaceTokens A new filter based on this configuration, but filtering
      *                the specified reader
      * @throws Exception

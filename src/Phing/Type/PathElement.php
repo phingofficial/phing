@@ -28,37 +28,28 @@ use Phing\Io\File;
 class PathElement
 {
     /**
-     * @var array $parts
+     * @var array
      */
     private $parts = [];
 
     /**
-     * @var Path $outer
+     * @var Path
      */
     private $outer;
 
-    /**
-     * @param Path $outer
-     */
     public function __construct(Path $outer)
     {
         $this->outer = $outer;
     }
 
-    /**
-     * @param File $loc
-     *
-     * @return void
-     */
     public function setDir(File $loc)
     {
         $this->parts = [Path::translateFile($loc->getAbsolutePath())];
     }
 
     /**
-     * @param $path
+     * @param string $path
      *
-     * @return void
      */
     public function setPath($path)
     {

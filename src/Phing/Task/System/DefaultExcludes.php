@@ -33,22 +33,22 @@ use Phing\Task;
 class DefaultExcludes extends Task
 {
     /**
-     * @var string $add
+     * @var string
      */
     private $add = "";
 
     /**
-     * @var string $remove
+     * @var string
      */
     private $remove = "";
 
     /**
-     * @var boolean $defaultrequested
+     * @var boolean
      */
     private $defaultrequested = false;
 
     /**
-     * @var boolean $echo
+     * @var boolean
      */
     private $echo = false;
 
@@ -95,7 +95,7 @@ class DefaultExcludes extends Task
     /**
      * go back to standard default patterns
      *
-     * @param boolean $def if true go back to default patterns
+     * @param bool $def if true go back to default patterns
      */
     public function setDefault($def)
     {
@@ -126,7 +126,7 @@ class DefaultExcludes extends Task
     /**
      * If true, echo the default excludes.
      *
-     * @param boolean $echo whether or not to echo the contents of
+     * @param bool $echo whether or not to echo the contents of
      *                      the default excludes.
      */
     public function setEcho($echo)

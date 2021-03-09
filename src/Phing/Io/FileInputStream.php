@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Io;
+
 use Exception;
 
 /**
@@ -26,7 +27,6 @@ use Exception;
  */
 class FileInputStream extends InputStream
 {
-
     /**
      * The associated file.
      *
@@ -81,7 +81,7 @@ class FileInputStream extends InputStream
     /**
      * Mark is supported by FileInputStream.
      *
-     * @return boolean TRUE
+     * @return bool TRUE
      */
     public function markSupported()
     {

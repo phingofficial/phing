@@ -191,7 +191,6 @@ class ExecTask extends Task
      * changes to the specified directory.
      *
      * @throws BuildException
-     * @return void
      */
     protected function prepare()
     {
@@ -245,7 +244,6 @@ class ExecTask extends Task
      * Builds the full command to execute and stores it in $command.
      *
      * @throws BuildException
-     * @return void
      * @uses   $command
      */
     protected function buildCommand()
@@ -277,7 +275,7 @@ class ExecTask extends Task
             $this->realCommand .= ' 2>&1';
         }
 
-        // we ignore the spawn boolean for windows
+        // we ignore the spawn bool for windows
         if ($this->spawn) {
             $this->realCommand .= ' &';
         }
@@ -331,11 +329,10 @@ class ExecTask extends Task
      * - log output
      * - verify return value
      *
-     * @param integer $return Return code
+     * @param int $return Return code
      * @param array $output Array with command output
      *
      * @throws BuildException
-     * @return void
      */
     protected function cleanup($return, $output): void
     {
@@ -393,7 +390,6 @@ class ExecTask extends Task
      *
      * @param string $command String or string-compatible (e.g. w/ __toString()).
      *
-     * @return void
      * @throws BuildException
      */
     public function setCommand($command): void
@@ -411,7 +407,6 @@ class ExecTask extends Task
      *
      * @param string|bool $value String or string-compatible (e.g. w/ __toString()).
      *
-     * @return void
      */
     public function setExecutable($value): void
     {
@@ -425,9 +420,8 @@ class ExecTask extends Task
     /**
      * Whether to use escapeshellcmd() to escape command.
      *
-     * @param boolean $escape If the command shall be escaped or not
+     * @param bool $escape If the command shall be escaped or not
      *
-     * @return void
      */
     public function setEscape(bool $escape): void
     {
@@ -439,7 +433,6 @@ class ExecTask extends Task
      *
      * @param File $dir Working directory
      *
-     * @return void
      */
     public function setDir(File $dir): void
     {
@@ -451,7 +444,6 @@ class ExecTask extends Task
      *
      * @param string $os Operating system string (e.g. "Linux")
      *
-     * @return void
      */
     public function setOs($os): void
     {
@@ -489,7 +481,6 @@ class ExecTask extends Task
      *
      * @param File $f Output log file
      *
-     * @return void
      */
     public function setOutput(File $f): void
     {
@@ -501,7 +492,6 @@ class ExecTask extends Task
      *
      * @param File $f Error log file
      *
-     * @return void
      */
     public function setError(File $f): void
     {
@@ -511,9 +501,8 @@ class ExecTask extends Task
     /**
      * Whether to use PHP's passthru() function instead of exec()
      *
-     * @param boolean $passthru If passthru shall be used
+     * @param bool $passthru If passthru shall be used
      *
-     * @return void
      */
     public function setPassthru($passthru): void
     {
@@ -523,9 +512,8 @@ class ExecTask extends Task
     /**
      * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
      *
-     * @param boolean $logOutput If output shall be logged visibly
+     * @param bool $logOutput If output shall be logged visibly
      *
-     * @return void
      */
     public function setLogoutput($logOutput): void
     {
@@ -535,9 +523,8 @@ class ExecTask extends Task
     /**
      * Whether to suppress all output and run in the background.
      *
-     * @param boolean $spawn If the command is to be run in the background
+     * @param bool $spawn If the command is to be run in the background
      *
-     * @return void
      */
     public function setSpawn($spawn): void
     {
@@ -547,9 +534,8 @@ class ExecTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @param boolean $checkreturn If the return code shall be checked
+     * @param bool $checkreturn If the return code shall be checked
      *
-     * @return void
      */
     public function setCheckreturn($checkreturn): void
     {
@@ -561,7 +547,6 @@ class ExecTask extends Task
      *
      * @param string $prop Property name
      *
-     * @return void
      */
     public function setReturnProperty($prop): void
     {
@@ -580,7 +565,6 @@ class ExecTask extends Task
      *
      * @param string $prop Property name
      *
-     * @return void
      */
     public function setOutputProperty($prop): void
     {
@@ -610,7 +594,7 @@ class ExecTask extends Task
     /**
      * Is this the OS the user wanted?
      *
-     * @return boolean.
+     * @return bool.
      * <ul>
      * <li>
      * <li><code>true</code> if the os and osfamily attributes are null.</li>

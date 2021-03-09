@@ -65,7 +65,6 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Sets up the fixture.
      *
-     * @return void
      */
     public function setUp(): void
     {
@@ -105,7 +104,6 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Test for required message attribute
      *
-     * @return void
      */
     public function testEmptyMessage()
     {
@@ -118,7 +116,6 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Test a single message notification
      *
-     * @return void
      */
     public function testSingleNotification()
     {
@@ -131,7 +128,6 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Test a single message notification that sould be sticky
      *
-     * @return void
      */
     public function testSingleStickyNotification()
     {
@@ -145,7 +141,6 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Test a single notification with custom application icon
      *
-     * @return void
      */
     public function testSingleCustomAppIconNotification()
     {
@@ -159,7 +154,6 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Test a single notification with custom notification type
      *
-     * @return void
      */
     public function testSingleNotificationType()
     {
@@ -173,7 +167,6 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Test a single notification with custom title
      *
-     * @return void
      */
     public function testSingleNotificationTitled()
     {
@@ -187,7 +180,6 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Test broadcasting message
      *
-     * @return void
      */
     public function testBroadcastNotification()
     {
@@ -201,7 +193,6 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Test a single notification with priority defined
      *
-     * @return void
      */
     public function testSingleNotificationWithPriority()
     {
@@ -218,7 +209,6 @@ class GrowlNotifyTaskTest extends BuildFileTest
     /**
      * Test a single notification with custom application and message icons
      *
-     * @return void
      */
     public function testSingleCustomIconNotification()
     {

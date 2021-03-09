@@ -42,12 +42,6 @@ use Phing\Util\StringHelper;
  * <code>
  * <mapper type="glob" from="*.php" to="*.php.bak"/>
  * </code>
- * Custom mappers can be specified by providing a dot-path to a include_path-relative
- * class:
- * <code>
- * <mapper classname="myapp.mappers.DevToProdMapper" from="*.php" to="*.php"/>
- * <!-- maps all PHP files from development server to production server, for example -->
- * </code>
  *
  * @author  Hans Lellelid <hans@xmpl.org>
  */
@@ -59,19 +53,16 @@ class Mapper extends DataType
     protected $to;
 
     /**
-     * @var Path $classpath
+     * @var Path
      */
     protected $classpath;
     protected $classpathId;
 
     /**
-     * @var ContainerMapper $container
+     * @var ContainerMapper
      */
     private $container = null;
 
-    /**
-     * @param Project $project
-     */
     public function __construct(Project $project)
     {
         parent::__construct();
@@ -114,7 +105,6 @@ class Mapper extends DataType
     /**
      * Reference to a classpath to use when loading the files.
      *
-     * @param Reference $r
      * @throws BuildException
      */
     public function setClasspathRef(Reference $r)
@@ -129,7 +119,7 @@ class Mapper extends DataType
     /**
      * Set the type of FileNameMapper to use.
      *
-     * @param  $type
+     * @param string $type
      * @throws BuildException
      */
     public function setType($type)
@@ -143,7 +133,7 @@ class Mapper extends DataType
     /**
      * Add a nested <code>FileNameMapper</code>.
      *
-     * @param FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to add.
+     * @param Mapper $fileNameMapper the <code>FileNameMapper</code> to add.
      * @throws BuildException
      */
     public function add(Mapper $fileNameMapper)
@@ -194,7 +184,7 @@ class Mapper extends DataType
     /**
      * Set the argument to FileNameMapper.setFrom
      *
-     * @param  $from
+     * @param string $from
      * @throws BuildException
      */
     public function setFrom($from)
@@ -208,7 +198,7 @@ class Mapper extends DataType
     /**
      * Set the argument to FileNameMapper.setTo
      *
-     * @param  $to
+     * @param string $to
      * @throws BuildException
      */
     public function setTo($to)
@@ -224,7 +214,6 @@ class Mapper extends DataType
      *
      * You must not set any other attribute if you make it a reference.
      *
-     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)

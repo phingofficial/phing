@@ -36,7 +36,6 @@ class EchoXML extends XMLFragment
     /**
      * setter for file
      *
-     * @param string $file
      */
     public function setFile(string $file): void
     {
@@ -46,7 +45,6 @@ class EchoXML extends XMLFragment
     /**
      * setter for append
      *
-     * @param bool $append
      */
     public function setAppend(bool $append): void
     {

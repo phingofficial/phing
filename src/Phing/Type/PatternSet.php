@@ -46,7 +46,6 @@ class PatternSet extends DataType
      * You must not set another attribute or nest elements inside
      * this element if you make it a reference.
      *
-     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -122,7 +121,6 @@ class PatternSet extends DataType
      * or a space.
      *
      * @param string $includes the string containing the include patterns
-     * @return void
      * @throws BuildException
      */
     public function setIncludes($includes)
@@ -144,8 +142,7 @@ class PatternSet extends DataType
      * Sets the set of exclude patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param string the string containing the exclude patterns
-     * @return void
+     * @param string $excludes the string containing the exclude patterns
      * @throws BuildException
      */
     public function setExcludes($excludes)
@@ -166,7 +163,7 @@ class PatternSet extends DataType
     /**
      * add a name entry to the given list
      *
-     * @param array List onto which the nameentry should be added
+     * @param array $list List onto which the nameentry should be added
      * @return PatternSetNameEntry Reference to the created PsetNameEntry instance
      */
     private function addPatternToList(&$list)
@@ -217,9 +214,7 @@ class PatternSet extends DataType
      * Reads path matching patterns from a file and adds them to the
      * includes or excludes list
      *
-     * @param File $patternfile
-     * @param $patternlist
-     * @param Project $p
+     * @param array $patternlist
      *
      * @throws BuildException
      */
@@ -254,8 +249,6 @@ class PatternSet extends DataType
     /**
      * Adds the patterns of the other instance to this set.
      *
-     * @param PatternSet $other
-     * @param Project $p
      *
      * @throws BuildException
      */
@@ -285,7 +278,6 @@ class PatternSet extends DataType
     /**
      * Returns the filtered include patterns.
      *
-     * @param Project $p
      *
      * @return array
      * @throws BuildException
@@ -311,7 +303,6 @@ class PatternSet extends DataType
     /**
      * Returns the filtered exclude patterns.
      *
-     * @param Project $p
      *
      * @return array
      * @throws BuildException
@@ -349,7 +340,6 @@ class PatternSet extends DataType
      * Performs the check for circular references and returns the
      * referenced PatternSet.
      *
-     * @param Project $p
      *
      * @return Reference
      * @throws BuildException
@@ -365,7 +355,6 @@ class PatternSet extends DataType
      * Convert a array of PatternSetNameEntry elements into an array of Strings.
      *
      * @param array $list
-     * @param Project $p
      *
      * @return array
      */
@@ -389,7 +378,6 @@ class PatternSet extends DataType
     /**
      * Read includesfile or excludesfile if not already done so.
      *
-     * @param Project $p
      *
      * @throws BuildException
      */
@@ -424,9 +412,6 @@ class PatternSet extends DataType
         }
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return sprintf(

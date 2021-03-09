@@ -52,10 +52,7 @@ class MajoritySelector extends BaseSelectorContainer
         return $buf;
     }
 
-    /**
-     * @param $tiebreaker
-     */
-    public function setAllowtie($tiebreaker)
+    public function setAllowtie(bool $tiebreaker)
     {
         $this->allowtie = $tiebreaker;
     }

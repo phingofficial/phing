@@ -22,6 +22,7 @@ namespace Phing\Task\System;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task\System\Condition\ConditionBase;
+use Phing\Task\System\Condition\ConditionEnumeration;
 
 /**
  *  Based on Apache Ant Wait For:
@@ -85,7 +86,7 @@ class WaitForTask extends ConditionBase
      */
     public function setMaxWaitUnit($maxWaitUnit)
     {
-        $this->maxWaitMultiplier = $this->_convertUnit($maxWaitUnit);
+        $this->maxWaitMultiplier = $this->convertUnit($maxWaitUnit);
     }
 
     /**
@@ -95,7 +96,7 @@ class WaitForTask extends ConditionBase
      * @throws BuildException
      * @return int
      */
-    protected function _convertUnit($unit)
+    protected function convertUnit($unit)
     {
         if ($unit === 'week') {
             return self::ONE_WEEK;
@@ -138,18 +139,16 @@ class WaitForTask extends ConditionBase
      * Set the check every time unit
      *
      * @param  string $checkEveryUnit
-     * @return void
      */
     public function setCheckEveryUnit($checkEveryUnit)
     {
-        $this->checkEveryMultiplier = $this->_convertUnit($checkEveryUnit);
+        $this->checkEveryMultiplier = $this->convertUnit($checkEveryUnit);
     }
 
     /**
      * Name of the property to set after a timeout.
      *
      * @param  string $timeoutProperty
-     * @return void
      */
     public function setTimeoutProperty($timeoutProperty)
     {
@@ -172,6 +171,9 @@ class WaitForTask extends ConditionBase
             throw new BuildException("You must nest a condition into <waitfor>");
         }
 
+        /**
+         * @var ConditionEnumeration
+         */
         $cs = $this->getIterator();
         $condition = $cs->current();
 

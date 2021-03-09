@@ -25,7 +25,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Task\Optional\Sass\SassCleaner;
 use PHPUnit\Framework\TestCase;
-use SassCompiler;
+use Phing\Task\Ext\SassCompiler;
 
 class SassCompilerTest extends TestCase
 {

@@ -50,10 +50,6 @@ class XMLChild implements DynamicConfigurator
     /**
      * XMLChild constructor.
      *
-     * @param Project             $p
-     * @param DOMDocument         $d
-     * @param DOMDocumentFragment $f
-     * @param DOMElement          $e
      */
     public function __construct(Project $p, DOMDocument $d, DOMDocumentFragment $f, DOMElement $e)
     {

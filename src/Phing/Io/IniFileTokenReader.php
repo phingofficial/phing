@@ -30,7 +30,6 @@ use Phing\Filter\Token;
  */
 class IniFileTokenReader extends TokenReader
 {
-
     /**
      * Holds the path to the INI file that is to be read.
      *
@@ -108,7 +107,6 @@ class IniFileTokenReader extends TokenReader
     /**
      * Process an individual section
      *
-     * @param array $section
      */
     protected function processSection(array $section)
     {

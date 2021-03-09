@@ -4,6 +4,7 @@ namespace Phing\Task\System\Property;
 
 use Phing\Exception\BuildException;
 use Phing\Task;
+use Phing\Task\System\PropertyTask;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -54,6 +55,9 @@ abstract class AbstractPropertySetterTask extends Task
                     $this->getProject()->setUserProperty($this->property, $value);
                 }
             } else {
+                /**
+                 * @var PropertyTask
+                 */
                 $p = $this->project->createTask("property");
                 $p->setName($this->property);
                 $p->setValue($value);

@@ -24,7 +24,6 @@ namespace Phing\Io;
  */
 abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @var FileSystem
      */
@@ -67,7 +66,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
             'empty' => ['', ''],
             'relative' => ['My Files\\file.txt', 'My Files/file.txt'],
             'directoryRelative' => ['c:My Files\\file.txt', 'c:My Files\\file.txt'],
-            'driveRelative' => ['\\My Files\\file.txt', '\\My Files/file.txt']
+            'driveRelative' => ['\\My Files\\file.txt', '\\My Files/file.txt'],
             // Error shown in version of phpunit using (3.6.10) when serialising this argument set.
             // Not sure if an issue in phpunit
             //'unc' => array('\\\\server\\My Files\\file.txt', '\\\\server\\My Files\\file.txt')
@@ -76,7 +75,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider prefixLengthDataPRovider
-     * @param integer $expected
+     * @param int $expected
      * @param string $pathname
      */
     public function testPrefixLength($expected, $pathname)
@@ -96,7 +95,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
             'empty' => [0, ''],
             'driveRelative' => [1, '\\My Files\\file.txt'],
             'directoryRelative' => [2, 'c:My Files\\file.txt'],
-            'relative' => [0, 'My Files\\file.txt']
+            'relative' => [0, 'My Files\\file.txt'],
         ];
     }
 
@@ -121,7 +120,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
             // Not working properly on my version of phpunit (3.6.10)
             //'uncChild' => array('C:\\My Files\\files\\file.txt', 'C:\\My Files', '\\\\files\\file.txt')
             'driveRelativeChild' => ['C:\\My Files\\file.txt', 'C:\\My Files', '\\file.txt'],
-            'endSlashParent' => ['C:\\My Files\\file.txt', 'C:\\My Files\\', '\\file.txt']
+            'endSlashParent' => ['C:\\My Files\\file.txt', 'C:\\My Files\\', '\\file.txt'],
         ];
     }
 
@@ -161,7 +160,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
             // Not sure if an issue in phpunit
             //'unc' => array('\\\\files\\file.txt', '\\\\files\\file.txt', 2)
             'relative' => [$cwd . '\\files\file.txt', 'files\\file.txt', 0],
-            'driveRelative' => [$driveLetter . '\\files\\file.txt', '\\files\\file.txt', 1]
+            'driveRelative' => [$driveLetter . '\\files\\file.txt', '\\files\\file.txt', 1],
         ];
     }
 
@@ -203,13 +202,13 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
             'slashStart' => ['/foo', '/foo/'],
             'driveLetter' => ['c:/foo', '/c:/foo'],
             'slashPath' => ['c:/foo', 'c:/foo/'],
-            'slashPathRootDrive' => ['c:/', '/c:/']
+            'slashPathRootDrive' => ['c:/', '/c:/'],
         ];
     }
 
     /**
      * @dataProvider isAbsoluteDataProvider
-     * @param boolean $expected
+     * @param bool $expected
      * @param string $path
      * @param int $prefix
      */
@@ -231,7 +230,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
             //'unc' => array(true, '\\\\file.txt', 2)
             'absoluteLocal' => [true, 'C:\\file.txt', 3],
             'driveRelative' => [true, '\\file.txt', 1],
-            'relative' => [false, 'file.txt', 0]
+            'relative' => [false, 'file.txt', 0],
         ];
     }
 }

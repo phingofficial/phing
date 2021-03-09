@@ -53,7 +53,7 @@ class PropertyTask extends Task
     protected $name;
 
     /**
-     * @var string $value of the property
+     * @var string of the property
      */
     protected $value;
 
@@ -142,7 +142,6 @@ class PropertyTask extends Task
     /**
      * Sets a the name of current property component
      *
-     * @param string $name
      */
     public function setName(string $name): void
     {
@@ -170,7 +169,6 @@ class PropertyTask extends Task
     /**
      * Sets value of property to CDATA tag contents.
      *
-     * @param string $value
      * @since    2.2.0
      */
     public function addText(string $value): void
@@ -189,7 +187,7 @@ class PropertyTask extends Task
     /**
      * Set a file to use as the source for properties.
      *
-     * @param $file
+     * @param string|File $file
      *
      * @throws IOException
      * @throws NullPointerException
@@ -210,9 +208,6 @@ class PropertyTask extends Task
         return $this->file;
     }
 
-    /**
-     * @param Reference $ref
-     */
     public function setRefid(Reference $ref): void
     {
         $this->reference = $ref;
@@ -265,7 +260,6 @@ class PropertyTask extends Task
      * environment variables on your operating system are not, e.g. it
      * will be ${env.Path} not ${env.PATH} on Windows 2000.
      *
-     * @param string $env
      */
     public function setEnvironment(string $env): void
     {
@@ -283,7 +277,7 @@ class PropertyTask extends Task
      * of the class is still being set via constructor, so Phing will
      * allow this method to function.
      *
-     * @param boolean $v
+     * @param bool $v
      */
     public function setUserProperty(bool $v): void
     {
@@ -298,12 +292,9 @@ class PropertyTask extends Task
         return $this->userProperty;
     }
 
-    /**
-     * @param $v
-     */
-    public function setOverride(bool $v): void
+    public function setOverride(bool $override): void
     {
-        $this->override = $v;
+        $this->override = $override;
     }
 
     /**
@@ -335,9 +326,6 @@ class PropertyTask extends Task
         return $this->fallback;
     }
 
-    /**
-     * @param $logOutput
-     */
     public function setLogoutput(bool $logOutput): void
     {
         $this->logOutput = $logOutput;
@@ -355,16 +343,12 @@ class PropertyTask extends Task
      * Set quiet mode, which suppresses warnings if chmod() fails.
      *
      * @see   setFailonerror()
-     * @param $bool
      */
     public function setQuiet(bool $bool): void
     {
         $this->quiet = $bool;
     }
 
-    /**
-     * @return bool
-     */
     public function getQuiet(): bool
     {
         return $this->quiet;
@@ -514,7 +498,6 @@ class PropertyTask extends Task
     /**
      * load properties from a file.
      *
-     * @param  File $file
      * @throws BuildException
      */
     protected function loadFile(File $file)
@@ -559,7 +542,6 @@ class PropertyTask extends Task
      *
      * @param  Properties $props The collection of Properties that need to be resolved.
      * @throws BuildException
-     * @return void
      */
     protected function resolveAllProperties(Properties $props)
     {

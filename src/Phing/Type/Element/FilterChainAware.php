@@ -24,13 +24,10 @@ use Phing\Type\FilterChain;
 trait FilterChainAware
 {
     /**
-     * @var FilterChain[] $filterChains
+     * @var FilterChain[]
      */
     protected $filterChains = [];
 
-    /**
-     * @param FilterChain $filterChain
-     */
     public function addFilterChain(FilterChain $filterChain)
     {
         $this->filterChains[] = $filterChain;

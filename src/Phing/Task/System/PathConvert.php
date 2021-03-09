@@ -49,7 +49,7 @@ class PathConvert extends Task
     /**
      * Reference to path/fileset to convert
      *
-     * @var Reference $refid
+     * @var Reference
      */
     private $refid = null;
     /**
@@ -116,7 +116,6 @@ class PathConvert extends Task
         return $this->path->createPath();
     }
 
-
     /**
      * Create a nested MAP element
      *
@@ -166,7 +165,6 @@ class PathConvert extends Task
      * Adds a reference to a Path, FileSet, DirSet, or FileList defined
      * elsewhere.
      *
-     * @param Reference $r
      *
      * @throws BuildException
      */
@@ -179,7 +177,6 @@ class PathConvert extends Task
         $this->refid = $r;
     }
 
-
     /**
      * Set the default path separator string;
      * defaults to current JVM
@@ -191,7 +188,6 @@ class PathConvert extends Task
         $this->pathSep = $sep;
     }
 
-
     /**
      * Set the default directory separator string
      *
@@ -202,7 +198,6 @@ class PathConvert extends Task
         $this->dirSep = $sep;
     }
 
-
     /**
      * Has the refid attribute of this element been set?
      *
@@ -212,7 +207,6 @@ class PathConvert extends Task
     {
         return $this->refid !== null;
     }
-
 
     /**
      * Do the execution.
@@ -325,7 +319,7 @@ class PathConvert extends Task
      * then the input string is returned unchanged.
      *
      * @param  string $elem The path element to apply the map to
-     * @return String Updated element
+     * @return string Updated element
      */
     private function mapElement($elem)
     {
@@ -398,7 +392,6 @@ class PathConvert extends Task
         $this->dirSep = $dsep;
     }
 
-
     /**
      * Creates an exception that indicates that this XML element must not have
      * child elements if the refid attribute is set.
@@ -414,16 +407,13 @@ class PathConvert extends Task
     /**
      * Get the preserveDuplicates.
      *
-     * @return boolean
+     * @return bool
      */
     public function isPreserveDuplicates(): bool
     {
         return $this->preserveDuplicates;
     }
 
-    /**
-     * @param bool $preserveDuplicates
-     */
     public function setPreserveDuplicates(bool $preserveDuplicates): void
     {
         $this->preserveDuplicates = $preserveDuplicates;

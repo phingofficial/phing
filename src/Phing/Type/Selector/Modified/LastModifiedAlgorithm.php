@@ -35,7 +35,7 @@ class LastModifiedAlgorithm implements Algorithm
 
     /**
      * Computes a 'timestamp' for a file based on the lastModified time.
-     * @param file  The file for which the value should be computed
+     * @param File $file  The file for which the value should be computed
      * @return string|null the timestamp or <i>null</i> if the timestamp couldn't be computed
      */
     public function getValue(File $file): ?string

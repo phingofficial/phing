@@ -30,7 +30,6 @@ namespace Phing\Task\System\Condition;
  */
 class OrCondition extends ConditionBase implements Condition
 {
-
     /**
      * @return bool
      */

@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Exception;
+
 use Exception;
 use Phing\Parser\Location;
 use RuntimeException;
@@ -30,7 +31,6 @@ use Throwable;
  */
 class BuildException extends RuntimeException
 {
-
     /**
      * Location in the xml file.
      *
@@ -103,7 +103,6 @@ class BuildException extends RuntimeException
     /**
      * Sets the location of error in XML file.
      *
-     * @param Location $loc
      */
     public function setLocation(Location $loc)
     {

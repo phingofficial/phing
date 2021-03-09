@@ -38,7 +38,7 @@ class FilterReader extends DataType
     private $classPath;
 
     /**
-     * @param $className
+     * @param string $className
      */
     public function setClassName($className)
     {
@@ -53,7 +53,6 @@ class FilterReader extends DataType
     /**
      * Set the classpath to load the FilterReader through (attribute).
      *
-     * @param Path $classpath
      * @throws BuildException
      */
     public function setClasspath(Path $classpath)
@@ -70,8 +69,7 @@ class FilterReader extends DataType
 
     /*
      * Set the classpath to load the FilterReader through (nested element).
-    */
-    /**
+     *
      * @return Path
      * @throws BuildException
      */
@@ -93,7 +91,6 @@ class FilterReader extends DataType
     }
 
     /**
-     * @param Reference $r
      * @throws BuildException
      */
     public function setClasspathRef(Reference $r)
@@ -105,9 +102,6 @@ class FilterReader extends DataType
         $o->setRefid($r);
     }
 
-    /**
-     * @param Parameter $param
-     */
     public function addParam(Parameter $param)
     {
         $this->parameters[] = $param;
@@ -145,7 +139,6 @@ class FilterReader extends DataType
      * @throws BuildException if this instance already has been configured.
     */
     /**
-     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)

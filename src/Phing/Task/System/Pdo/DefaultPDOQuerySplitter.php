@@ -16,7 +16,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @package phing.tasks.ext.pdo
  */
 
 namespace Phing\Task\System\Pdo;
@@ -31,7 +30,6 @@ use Phing\Util\StringHelper;
  *
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Alexey Borzov <avb@php.net>
- * @package phing.tasks.ext.pdo
  */
 class DefaultPDOQuerySplitter extends PDOQuerySplitter
 {
@@ -52,8 +50,6 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
     /**
      * Constructor, sets the parent task, reader with SQL source and delimiter type
      *
-     * @param PDOSQLExecTask $parent
-     * @param Reader $reader
      * @param string $delimiterType
      */
     public function __construct(PDOSQLExecTask $parent, Reader $reader, $delimiterType = PDOSQLExecTask::DELIM_NORMAL)

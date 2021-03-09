@@ -31,7 +31,6 @@ use Phing\Task;
  * value in a property
  *
  * @author  Johan Persson <johan162@gmail.com>
- * @package phing.tasks.ext
  */
 class FileHashTask extends Task
 {
@@ -45,7 +44,7 @@ class FileHashTask extends Task
     /**
      * Property to be set
      *
-     * @var string $property
+     * @var string
      */
     private $propertyName = "filehashvalue";
 
@@ -54,17 +53,17 @@ class FileHashTask extends Task
      *   0 = MD5
      *   1 = SHA1
      *
-     * @var integer $hashtype
+     * @var integer
      */
     private $hashtype = 0;
 
-    /** @var string $algorithm */
+    /** @var string */
     private $algorithm = '';
 
     /**
      * Specify if MD5 or SHA1 hash should be used
      *
-     * @param integer $type 0=MD5, 1=SHA1
+     * @param int $type 0=MD5, 1=SHA1
      */
     public function setHashtype($type): void
     {
@@ -88,11 +87,8 @@ class FileHashTask extends Task
 
     /**
      * Set the name of the property to store the hash value in
-     *
-     * @param  $property
-     * @return void
      */
-    public function setPropertyName($property): void
+    public function setPropertyName(string $property): void
     {
         $this->propertyName = $property;
     }
@@ -141,7 +137,7 @@ class FileHashTask extends Task
         // publish hash value
         $this->project->setProperty($this->propertyName, $hashValue);
         $fos = new FileOutputStream($this->file . '.' . $this->algorithm);
-        $fos->write(sprintf('%s  %s', $hashValue, basename($this->file)));
+        $fos->write(sprintf("%s  %s\n", $hashValue, basename($this->file)));
     }
 
     /**

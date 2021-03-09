@@ -30,15 +30,17 @@ use Phing\Type\Selector\FileSelector;
 class IsFileSelected extends AbstractSelectorContainer implements Condition
 {
     /**
-     * @var File $file
+     * @var File
      */
     private $file;
+
+    /**
+     * @var File
+     */
     private $baseDir;
 
     /**
      * The file to check.
-     *
-     * @param file the file to check if if passes the embedded selector.
      */
     public function setFile(File $file)
     {
@@ -47,9 +49,6 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
 
     /**
      * The base directory to use.
-     *
-     * @param baseDir the base directory to use, if null use the project's
-     *                basedir.
      */
     public function setBaseDir(File $baseDir)
     {
@@ -83,10 +82,8 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
             $myBaseDir = $this->getProject()->getBaseDir();
         }
 
-        /**
-         * @var FileSelector $f
-         */
         $file = $this->getSelectors($this->getProject());
+        /** @var FileSelector $f */
         $f = $file[0];
         return $f->isSelected($myBaseDir, $this->file->getName(), $this->file);
     }

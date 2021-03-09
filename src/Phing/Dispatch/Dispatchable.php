@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Dispatch;
+
 /**
  * Classes implementing this interface specify the
  * name of the parameter that contains the name

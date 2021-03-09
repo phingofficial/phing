@@ -52,7 +52,6 @@ abstract class TokenReader
      * @param $level
      * @param $msg
      *
-     * @return void
      */
     public function log($level, $msg)
     {

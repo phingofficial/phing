@@ -113,11 +113,11 @@ class ApplyTask extends ExecTask
 
     protected $type = 'file';
     /**
-     * @var CommandlineMarker $targetFilePos
+     * @var CommandlineMarker
      */
     protected $targetFilePos;
     /**
-     * @var CommandlineMarker $srcFilePos
+     * @var CommandlineMarker
      */
     protected $srcFilePos;
     protected $srcIsFirst = true;
@@ -128,7 +128,7 @@ class ApplyTask extends ExecTask
     private $destDir;
 
     /**
-     * @var Mapper $mapperElement
+     * @var Mapper
      */
     private $mapperElement;
     private $additionalCmds;
@@ -138,7 +138,7 @@ class ApplyTask extends ExecTask
      * no source files have been found or are newer than their
      * corresponding target files, the command will not be run.
      *
-     * @param boolean $skip whether to skip empty filesets.
+     * @param bool $skip whether to skip empty filesets.
      */
     public function setSkipEmptyFilesets(bool $skip)
     {
@@ -155,14 +155,6 @@ class ApplyTask extends ExecTask
         $this->destDir = $dest;
     }
 
-    /**
-     * File to which output should be written
-     *
-     * @param    $append
-     * @internal param PhingFile $outputfile Output log file
-     *
-     * @return void
-     */
     public function setAppend(bool $append)
     {
         $this->appendoutput = $append;
@@ -171,9 +163,8 @@ class ApplyTask extends ExecTask
     /**
      * Run the command only once, appending all files as arguments
      *
-     * @param Boolean $parallel Identifier for files as arguments appending
+     * @param bool $parallel Identifier for files as arguments appending
      *
-     * @return void
      */
     public function setParallel(bool $parallel)
     {
@@ -183,9 +174,8 @@ class ApplyTask extends ExecTask
     /**
      * To add the source filename at the end of command of automatically
      *
-     * @param Boolean $addsourcefile Identifier for adding source file at the end of command
+     * @param bool $addsourcefile Identifier for adding source file at the end of command
      *
-     * @return void
      */
     public function setAddsourcefile(bool $addsourcefile)
     {
@@ -195,11 +185,6 @@ class ApplyTask extends ExecTask
     /**
      * Whether the filenames should be passed on the command line as relative
      * pathnames (relative to the base directory of the corresponding fileset/list)
-     *
-     * @param    $relative
-     * @internal param bool $escape Escape command before execution
-     *
-     * @return void
      */
     public function setRelative(bool $relative)
     {
@@ -209,9 +194,8 @@ class ApplyTask extends ExecTask
     /**
      * Fail on command exits with a returncode other than zero
      *
-     * @param boolean $failonerror Indicator to fail on error
+     * @param bool $failonerror Indicator to fail on error
      *
-     * @return void
      */
     public function setFailonerror(bool $failonerror)
     {
@@ -221,9 +205,8 @@ class ApplyTask extends ExecTask
     /**
      * Whether to use forward-slash as file-separator on the file names
      *
-     * @param boolean $forwardslash Indicator to use forward-slash
+     * @param bool $forwardslash Indicator to use forward-slash
      *
-     * @return void
      */
     public function setForwardslash(bool $forwardslash)
     {
@@ -232,15 +215,10 @@ class ApplyTask extends ExecTask
 
     /**
      * Limit the amount of parallelism by passing at most this many sourcefiles at once
-     *
-     * @param    $max
-     * @internal param bool $forwardslash Indicator to use forward-slash
-     *
-     * @return void
      */
-    public function setMaxparallel($max)
+    public function setMaxparallel(int $max)
     {
-        $this->maxparallel = (int) $max;
+        $this->maxparallel = $max;
     }
 
     public function setForce(bool $force)
@@ -442,9 +420,9 @@ class ApplyTask extends ExecTask
     {
         $includedCount = (
             ($currentType !== self::$types['DIR']) ? $ds->getIncludedFilesCount() : 0
-            ) + (
+        ) + (
             ($currentType !== self::$types['FILES']) ? $ds->getIncludedDirectoriesCount() : 0
-            );
+        );
         $this->log(
             "Skipping fileset for directory " . $base . ". It is "
             . (($includedCount > 0) ? "up to date." : "empty."),
@@ -457,7 +435,6 @@ class ApplyTask extends ExecTask
      * - Required information validation
      * - Working directory
      *
-     * @return void
      * @throws BuildException
      * @throws IOException
      */
@@ -550,7 +527,6 @@ class ApplyTask extends ExecTask
     /**
      * Builds the full command to execute and stores it in $realCommand.
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -618,7 +594,6 @@ class ApplyTask extends ExecTask
      * @param array $srcFiles File list for processing
      * @param string $basedir Base directory of the file list
      *
-     * @return void
      * @throws BuildException
      * @throws IOException
      * @throws NullPointerException
@@ -773,7 +748,8 @@ class ApplyTask extends ExecTask
      * Runs cleanup tasks post execution
      * - Restore working directory
      *
-     * @return void
+     * @param null|mixed $return
+     * @param null|mixed $output
      */
     protected function cleanup($return = null, $output = null): void
     {
@@ -787,8 +763,8 @@ class ApplyTask extends ExecTask
      * Prepares the filename per base directory and relative path information
      *
      * @param array|string $filename
-     * @param $basedir
-     * @param $relative
+     * @param string $basedir
+     * @param string $relative
      *
      * @return mixed processed filenames
      *
@@ -820,7 +796,6 @@ class ApplyTask extends ExecTask
      *
      * @throws BuildException
      *
-     * @return void
      */
     private function throwBuildException($information): void
     {

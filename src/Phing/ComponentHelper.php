@@ -61,7 +61,6 @@ class ComponentHelper
     /**
      * ComponentHelper constructor.
      *
-     * @param Project $project
      */
     public function __construct(Project $project)
     {
@@ -69,7 +68,6 @@ class ComponentHelper
     }
 
     /**
-     * @param Project $project
      * @return ComponentHelper
      */
     public static function getComponentHelper(Project $project)
@@ -299,7 +297,7 @@ class ComponentHelper
             $typelwr = strtolower($typeName);
             foreach ($this->typedefs as $name => $class) {
                 if (strtolower($name) === $typelwr) {
-                    $cls = StringHelper::unqualify($class);
+                    $cls = $class;
                     break;
                 }
             }

@@ -30,7 +30,6 @@ use Phing\Io\File;
  */
 interface FileSelector
 {
-
     /**
      * Method that each selector will implement to create their
      * selection behaviour. If there is a problem with the setup

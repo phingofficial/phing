@@ -39,7 +39,6 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      * Performs the check for circular references and returns the
      * referenced FileSet.
      *
-     * @param Project $p
      *
      * @return FileSet
      * @throws BuildException
@@ -54,7 +53,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     /**
      * Indicates whether there are any selectors here.
      *
-     * @return boolean Whether any selectors are in this container
+     * @return bool Whether any selectors are in this container
      */
     public function hasSelectors()
     {
@@ -130,7 +129,6 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     /**
      * Returns the set of selectors as an array.
      *
-     * @param Project $p
      * @return array of selectors in this container
      * @throws BuildException
      */
@@ -140,7 +138,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
             return $this->getRef($p)->getSelectors($p);
         }
 
-// *copy* selectors
+        // *copy* selectors
         $result = [];
         for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
             $result[] = clone $this->selectorsList[$i];
@@ -168,7 +166,6 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      *
      * @param FileSelector $selector new selector to add
      *
-     * @return void
      * @throws BuildException
      *
      */

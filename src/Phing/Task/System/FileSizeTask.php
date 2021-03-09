@@ -31,7 +31,6 @@ use Phing\Util\SizeHelper;
  * Returns the size of a file
  *
  * @author  Johan Persson <johan162@gmail.com>
- * @package phing.tasks.ext
  */
 class FileSizeTask extends Task
 {
@@ -59,7 +58,6 @@ class FileSizeTask extends Task
     /**
      * Which file to calculate the file size of
      *
-     * @param File $file
      */
     public function setFile(File $file)
     {
@@ -71,9 +69,6 @@ class FileSizeTask extends Task
 
     /**
      * Set the name of the property to store the file size
-     *
-     * @param  $property
-     * @return void
      */
     public function setPropertyName(string $property)
     {
@@ -91,7 +86,6 @@ class FileSizeTask extends Task
     /**
      * Main-Method for the Task
      *
-     * @return void
      * @throws BuildException
      */
     public function main()

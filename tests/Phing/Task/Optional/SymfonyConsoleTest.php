@@ -18,7 +18,8 @@
  */
 
 namespace Phing\Task\Optional;
-use SymfonyConsoleTask;
+
+use Phing\Task\Optional\SymfonyConsoleTask;
 
 /**
  * Test class for the SymfonyConsoleTask.
@@ -100,7 +101,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $o = $this->object;
         $arg = $o->createArg();
-        $this->assertTrue(get_class($arg) == 'Arg');
+        $this->assertInstanceOf(SymfonyConsoleArg::class, $arg);
     }
 
     /**

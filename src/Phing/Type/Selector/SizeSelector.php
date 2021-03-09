@@ -67,7 +67,6 @@ class SizeSelector extends BaseExtendSelector
      *
      * @param string $value Values like '1024', '5000B', '300M', '2G'.
      *
-     * @return void
      */
     public function setValue(string $value)
     {
@@ -80,7 +79,6 @@ class SizeSelector extends BaseExtendSelector
      * when the file matches a particular size, when it is smaller,
      * or whether it is larger.
      *
-     * @param string $when
      */
     public function setWhen(string $when): void
     {
@@ -98,7 +96,6 @@ class SizeSelector extends BaseExtendSelector
      *
      * @param Parameter[] $parameters the complete set of parameters for this selector
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -135,7 +132,6 @@ class SizeSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @return void
      */
     public function verifySettings()
     {

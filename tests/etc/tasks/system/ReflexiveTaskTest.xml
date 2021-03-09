@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CopyTaskTest" default="main">
+    <property name="tmp.dir" value="tmp"/>
+
+    <target name="setup">
+        <mkdir dir="${tmp.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="test1">
+        <reflexive/>
+    </target>
+
+    <target name="test2">
+        <reflexive file=""/>
+    </target>
+
+    <target name="test3">
+        <reflexive file="template.xml"/>
+    </target>
+
+    <target name="testReplaceCharactersUsingFileset">
+        <echo file="${tmp.dir}/foo.bar">x</echo>
+        <reflexive>
+            <fileset dir="${tmp.dir}">
+                <include pattern="**/foo.bar"/>
+            </fileset>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="x" replace="y" ignoreCase="true"/>
+                </replaceregexp>
+            </filterchain>
+        </reflexive>
+    </target>
+
+    <target name="main"/>
+</project>

@@ -41,7 +41,7 @@ class DataType extends ProjectComponent
     /**
      * Value to the refid attribute.
      *
-     * @var Reference $ref
+     * @var Reference
      */
     private $ref;
 
@@ -81,9 +81,7 @@ class DataType extends ProjectComponent
      * have been set as well or child elements have been created and
      * thus override this method. if they do they must call parent::setRefid()
      *
-     * @param Reference $r
      *
-     * @return void
      */
     public function setRefid(Reference $r)
     {
@@ -113,10 +111,9 @@ class DataType extends ProjectComponent
      * The general contract of this method is that it shouldn't do
      * anything if checked is true and set it to true on exit.
      *
-     * @param $stk
+     * @param array $stk
      * @param Project $p
      *
-     * @return void
      *
      * @throws BuildException
      */
@@ -162,12 +159,10 @@ class DataType extends ProjectComponent
     /**
      * Performs the check for circular references and returns the referenced object.
      *
-     * @param $requiredClass
-     * @param $dataTypeName
+     * @param string $requiredClass
+     * @param string $dataTypeName
      *
-     * @return mixed
      * @throws BuildException
-     *
      */
     public function getCheckedRef($requiredClass, $dataTypeName)
     {
@@ -225,7 +220,6 @@ class DataType extends ProjectComponent
      *
      * {@inheritdoc}
      *
-     * @return void
      */
     public function parsingComplete()
     {

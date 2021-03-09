@@ -64,7 +64,6 @@ class MailLogger extends DefaultLogger
 
     /**
      * @param string       $message
-     * @param OutputStream $stream
      * @param int          $priority
      * @see   DefaultLogger::printMessage
      */
@@ -79,7 +78,6 @@ class MailLogger extends DefaultLogger
      * Sends the mail
      *
      * @see   DefaultLogger#buildFinished
-     * @param BuildEvent $event
      */
     public function buildFinished(BuildEvent $event)
     {
@@ -140,11 +138,8 @@ class MailLogger extends DefaultLogger
     }
 
     /**
-     * @param array  $properties
      * @param string $name
-     * @param mixed  $defaultValue
      *
-     * @return mixed
      *
      * @throws BadMethodCallException
      */

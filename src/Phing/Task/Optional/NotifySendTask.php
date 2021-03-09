@@ -5,7 +5,6 @@
  * PHP Version 5
  *
  * @category Tasks
- * @package  phing.tasks.ext
  * @author   Ken Guest <ken@linux.ie>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  * @link     https://github.com/kenguest/Phing-NotifySendTask
@@ -24,7 +23,6 @@ use Phing\Util\StringHelper;
  * NotifySendTask
  *
  * @category Tasks
- * @package  phing.tasks.ext
  * @author   Ken Guest <ken@linux.ie>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
  * @link     NotifySendTask.php
@@ -41,7 +39,6 @@ class NotifySendTask extends Task
      *
      * @param \Phing\Io\File $icon name/location of icon
      *
-     * @return void
      */
     public function setIcon(File $icon)
     {
@@ -70,7 +67,6 @@ class NotifySendTask extends Task
      *
      * @param string $silent Don't execute notifysend? Truthy value.
      *
-     * @return void
      */
     public function setSilent($silent)
     {
@@ -82,7 +78,6 @@ class NotifySendTask extends Task
      *
      * @param string $title Title to display
      *
-     * @return void
      */
     public function setTitle($title)
     {
@@ -104,7 +99,6 @@ class NotifySendTask extends Task
      *
      * @param string $msg Message
      *
-     * @return void
      */
     public function setMsg($msg)
     {
@@ -124,7 +118,6 @@ class NotifySendTask extends Task
     /**
      * The main entry point method.
      *
-     * @return void
      * @throws BuildException
      */
     public function main()

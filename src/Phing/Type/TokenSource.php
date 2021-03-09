@@ -50,7 +50,6 @@ use Phing\Project;
  */
 class TokenSource extends DataType
 {
-
     /**
      * String to hold the path to the TokenReader
      *
@@ -121,7 +120,6 @@ class TokenSource extends DataType
      * Configures a TokenReader with the parameters passed to the
      * TokenSource.
      *
-     * @param TokenReader $reader
      */
     private function configureTokenReader(TokenReader $reader)
     {
@@ -134,7 +132,7 @@ class TokenSource extends DataType
     }
 
     /**
-     * Set the classname (dot-path) to use for handling token replacement.
+     * Set the classname to use for handling token replacement.
      *
      * @param string $c
      */
@@ -144,7 +142,7 @@ class TokenSource extends DataType
     }
 
     /**
-     * Returns the qualified classname (dot-path) to use for handling token replacement.
+     * Returns the classname to use for handling token replacement.
      *
      * @return string
      */

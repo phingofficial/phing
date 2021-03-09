@@ -30,7 +30,6 @@ use Phing\ProjectComponent;
  */
 class AdhocTypedefTask extends AdhocTask
 {
-
     /**
      * The tag that refers to this task.
      */

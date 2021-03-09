@@ -27,15 +27,14 @@ use Phing\Type\RegularExpression;
  * PropertySelector Task
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @package phing.tasks.ext.property
  */
 class PropertySelector extends AbstractPropertySetterTask
 {
     /**
-     * @var RegularExpression $match
+     * @var RegularExpression
      */
     private $match;
-    private $select = "\\0";
+    private $select = "$0";
     private $delim = ',';
     private $caseSensitive = true;
     private $distinct = false;
@@ -69,7 +68,7 @@ class PropertySelector extends AbstractPropertySetterTask
     protected function validate()
     {
         parent::validate();
-        if ($this->match == null) {
+        if ($this->match === null) {
             throw new BuildException("No match expression specified.");
         }
     }
@@ -80,35 +79,19 @@ class PropertySelector extends AbstractPropertySetterTask
 
         $regex = $this->match->getRegexp($this->project);
         $regex->setIgnoreCase(!$this->caseSensitive);
-        $props = $this->project->getProperties();
-        $e = array_keys($props);
+
         $buf = '';
-        $cnt = 0;
-
         $used = [];
-
-        foreach ($e as $key) {
+        foreach (array_keys($this->project->getProperties()) as $key) {
             if ($regex->matches($key)) {
-                $output = $this->select;
                 $groups = $regex->getGroups();
-                $sz = count($groups);
-                for ($i = 0; $i < $sz; $i++) {
-                    $s = $groups[$i];
-
-                    $result = new RegularExpression();
-                    $result->setPattern("\\\\" . $i);
-                    $sregex = $result->getRegexp($this->project);
-                    $sregex->setReplace($output);
-                    $output = $sregex->replace($s);
-                }
-
+                $output = $groups[ltrim($this->select, '$')];
                 if (!($this->distinct && in_array($output, $used))) {
                     $used[] = $output;
-                    if ($cnt !== 0) {
+                    if ($buf !== '') {
                         $buf .= $this->delim;
                     }
                     $buf .= $output;
-                    $cnt++;
                 }
             }
         }

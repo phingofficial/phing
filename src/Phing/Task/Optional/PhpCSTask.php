@@ -31,7 +31,6 @@ use Phing\Type\Element\FileSetAware;
  * A PHP code sniffer task. Checking the style of one or more PHP source files.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>Ex
- * @package phing.tasks.ext
  */
 class PhpCSTask extends Task
 {
@@ -51,7 +50,6 @@ class PhpCSTask extends Task
      * @var array
      */
     protected $files = [];
-
 
     /** @var Commandline */
     private $cmd;
@@ -80,41 +78,26 @@ class PhpCSTask extends Task
         return $this->cmd;
     }
 
-    /**
-     * @param bool $cache
-     */
     public function setCache(bool $cache): void
     {
         $this->cache = $cache;
     }
 
-    /**
-     * @param bool $ignore
-     */
     public function setIgnoreAnnotations(bool $ignore): void
     {
         $this->ignoreAnnotations = $ignore;
     }
 
-    /**
-     * @param bool $checkreturn
-     */
     public function setCheckreturn(bool $checkreturn): void
     {
         $this->checkreturn = $checkreturn;
     }
 
-    /**
-     * @param string $bin
-     */
     public function setBin(string $bin): void
     {
         $this->bin = $bin;
     }
 
-    /**
-     * @param File $file
-     */
     public function setFile(File $file): void
     {
         $this->file = $file;

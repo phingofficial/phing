@@ -30,12 +30,12 @@ use Phing\Util\SizeHelper;
 class HasFreeSpaceCondition implements Condition
 {
     /**
-     * @var string $partition
+     * @var string
      */
     private $partition;
 
     /**
-     * @var string $needed
+     * @var string
      */
     private $needed;
 
@@ -44,7 +44,7 @@ class HasFreeSpaceCondition implements Condition
      *
      * @throws BuildException
      *
-     * @return boolean
+     * @return bool
      */
     public function evaluate()
     {
@@ -55,7 +55,6 @@ class HasFreeSpaceCondition implements Condition
     }
 
     /**
-     * @return void
      *
      * @throws BuildException
      */
@@ -71,22 +70,16 @@ class HasFreeSpaceCondition implements Condition
 
     /**
      * Set the partition/device to check.
-     *
-     * @param $partition
-     *
-     * @return void
      */
-    public function setPartition($partition)
+    public function setPartition(string $partition)
     {
         $this->partition = $partition;
     }
 
     /**
      * Set the amount of free space required.
-     *
-     * @return void
      */
-    public function setNeeded($needed)
+    public function setNeeded(string $needed)
     {
         $this->needed = $needed;
     }

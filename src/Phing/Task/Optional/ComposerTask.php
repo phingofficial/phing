@@ -35,7 +35,6 @@ use SplFileInfo;
  *
  * @author  nuno costa <nuno@francodacosta.com>
  * @license MIT
- * @package phing.tasks.ext
  */
 class ComposerTask extends Task
 {
@@ -117,7 +116,7 @@ class ComposerTask extends Task
     /**
      * Return the Composer command to execute.
      *
-     * @return String
+     * @return string
      */
     public function getCommand()
     {

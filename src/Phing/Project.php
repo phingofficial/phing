@@ -47,7 +47,6 @@ use ReflectionObject;
  */
 class Project
 {
-
     // Logging level constants.
     public const MSG_DEBUG = 4;
     public const MSG_VERBOSE = 3;
@@ -375,7 +374,6 @@ class Project
      * {@link #copyInheritedProperties copyInheritedProperties}.</p>
      *
      * @param Project $other the project to copy the properties to.  Must not be null.
-     * @return void
      * @since  phing 2.0
      */
     public function copyUserProperties(Project $other)
@@ -428,7 +426,6 @@ class Project
      * Sets the name of the current project
      *
      * @param string $name name of project
-     * @return void
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function setName($name)
@@ -501,8 +498,6 @@ class Project
      * (If strict mode is On, all the warnings would be converted to an error
      * (and the build will be stopped/aborted)
      *
-     * @param bool $strictmode
-     * @return void
      * @access public
      * @author Utsav Handa, handautsav@hotmail.com
      */
@@ -515,7 +510,7 @@ class Project
     /**
      * Get the strict-mode status for the project
      *
-     * @return boolean
+     * @return bool
      */
     public function getStrictmode()
     {
@@ -603,7 +598,6 @@ class Project
     /**
      * Sets system properties and the environment variables for this project.
      *
-     * @return void
      */
     public function setSystemProperties()
     {
@@ -760,7 +754,6 @@ class Project
      * Executes a list of targets
      *
      * @param array $targetNames List of target names to execute
-     * @return void
      * @throws BuildException
      */
     public function executeTargets($targetNames)
@@ -776,7 +769,6 @@ class Project
      * Executes a target
      *
      * @param string $targetName Name of Target to execute
-     * @return void
      * @throws BuildException
      */
     public function executeTarget($targetName)
@@ -840,9 +832,7 @@ class Project
     /**
      * Helper function
      *
-     * @param string $fileName
      * @param File $rootDir
-     * @return File
      * @throws IOException
      */
     public function resolveFile(string $fileName, File $rootDir = null): File
@@ -854,11 +844,11 @@ class Project
     }
 
     /**
-     * Return the boolean equivalent of a string, which is considered
+     * Return the bool equivalent of a string, which is considered
      * <code>true</code> if either <code>"on"</code>, <code>"true"</code>,
      * or <code>"yes"</code> is found, ignoring case.
      *
-     * @param string $s The string to convert to a boolean value.
+     * @param string $s The string to convert to a bool value.
      *
      * @return <code>true</code> if the given string is <code>"on"</code>,
      *         <code>"true"</code> or <code>"yes"</code>, or
@@ -870,7 +860,7 @@ class Project
             strcasecmp($s, 'on') === 0
             || strcasecmp($s, 'true') === 0
             || strcasecmp($s, 'yes') === 0
-            // FIXME next condition should be removed if the boolean behavior for properties will be solved
+            // FIXME next condition should be removed if the bool behavior for properties will be solved
             || strcasecmp($s, 1) === 0
         );
     }
@@ -900,7 +890,7 @@ class Project
         // dependency tree, not just on the Targets that depend on the
         // build Target.
 
-        $this->_tsort($rootTarget, $state, $visiting, $ret);
+        $this->tsort($rootTarget, $state, $visiting, $ret);
 
         $retHuman = "";
         for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
@@ -918,7 +908,7 @@ class Project
             }
 
             if ($st === null) {
-                $this->_tsort($curTargetName, $state, $visiting, $ret);
+                $this->tsort($curTargetName, $state, $visiting, $ret);
             } elseif ($st === "VISITING") {
                 throw new Exception("Unexpected node in visiting state: $curTargetName");
             }
@@ -958,7 +948,7 @@ class Project
      * @throws BuildException
      * @throws Exception
      */
-    public function _tsort($root, &$state, &$visiting, &$ret)
+    private function tsort($root, &$state, &$visiting, &$ret)
     {
         $state[$root] = "VISITING";
         $visiting[] = $root;
@@ -994,10 +984,10 @@ class Project
             }
             if ($m === null) {
                 // not been visited
-                $this->_tsort($cur, $state, $visiting, $ret);
+                $this->tsort($cur, $state, $visiting, $ret);
             } elseif ($m == "VISITING") {
                 // currently visiting this node, so have a cycle
-                throw $this->_makeCircularException($cur, $visiting);
+                throw $this->makeCircularException($cur, $visiting);
             }
         }
 
@@ -1015,7 +1005,7 @@ class Project
      * @param array $stk
      * @return BuildException
      */
-    public function _makeCircularException($end, $stk)
+    private function makeCircularException($end, $stk)
     {
         $sb = "Circular dependency: $end";
         do {
@@ -1073,7 +1063,6 @@ class Project
      * Does the project know this reference?
      *
      * @param string $key The reference id/key.
-     * @return bool
      */
     public function hasReference(string $key): bool
     {
@@ -1092,10 +1081,8 @@ class Project
     }
 
     /**
-     * @param mixed $obj
      * @param string $msg
      * @param int $level
-     * @param Exception|null $t
      */
     public function logObject($obj, $msg, $level, Exception $t = null)
     {
@@ -1108,17 +1095,11 @@ class Project
         }
     }
 
-    /**
-     * @param BuildListener $listener
-     */
     public function addBuildListener(BuildListener $listener)
     {
         $this->listeners[] = $listener;
     }
 
-    /**
-     * @param BuildListener $listener
-     */
     public function removeBuildListener(BuildListener $listener)
     {
         $newarray = [];
@@ -1232,7 +1213,6 @@ class Project
     }
 
     /**
-     * @param mixed $object
      * @param string $message
      * @param int $priority
      * @param Exception $t

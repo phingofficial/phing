@@ -86,18 +86,18 @@ class CopyTask extends Task
     protected $verbosity = Project::MSG_VERBOSE;
 
     /**
-     * @var int $mode
+     * @var int
      */
     protected $mode = 0; // mode to create directories with
 
     /**
-     * @var bool $haltonerror
+     * @var bool
      */
     protected $haltonerror = true; // stop build on errors
 
     protected $enableMultipleMappings = false;
 
-    /** @var int $granularity */
+    /** @var int */
     protected $granularity = 0;
 
     /**
@@ -125,11 +125,10 @@ class CopyTask extends Task
     /**
      * Set the overwrite flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
-     * value (boolean primitive) is coming in here.
+     * value (bool primitive) is coming in here.
      *
-     * @param boolean $bool Overwrite the destination file(s) if it/they already exist
+     * @param bool $bool Overwrite the destination file(s) if it/they already exist
      *
-     * @return void
      */
     public function setOverwrite($bool)
     {
@@ -154,7 +153,7 @@ class CopyTask extends Task
     /**
      * Used to force listing of all names of copied files.
      *
-     * @param boolean $verbosity
+     * @param bool $verbosity
      */
     public function setVerbose($verbosity)
     {
@@ -167,58 +166,45 @@ class CopyTask extends Task
 
     /**
      * @see CopyTask::setPreserveLastModified
-     * @param $bool
      */
-    public function setTstamp($bool)
+    public function setTstamp(bool $preserveLastModified)
     {
-        $this->setPreserveLastModified($bool);
+        $this->setPreserveLastModified($preserveLastModified);
     }
 
     /**
      * Set the preserve timestamp flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
-     * value (boolean primitive) is coming in here.
-     *
-     * @param  boolean $bool Preserve the timestamp on the destination file
-     * @return void
+     * value (bool primitive) is coming in here.
      */
-    public function setPreserveLastModified($bool)
+    public function setPreserveLastModified(bool $preserveLastModified)
     {
-        $this->preserveLMT = (bool) $bool;
+        $this->preserveLMT = $preserveLastModified;
     }
 
     /**
      * Set the preserve permissions flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
-     * value (boolean primitive) is coming in here.
-     *
-     * @param  boolean $bool Preserve the timestamp on the destination file
-     * @return void
+     * value (bool primitive) is coming in here.
      */
-    public function setPreservepermissions($bool)
+    public function setPreservepermissions(bool $preservePermissions)
     {
-        $this->preservePermissions = (bool) $bool;
+        $this->preservePermissions = $preservePermissions;
     }
 
-    /**
-     * @param $bool
-     */
-    public function setPreservemode($bool)
+    public function setPreservemode(bool $preserveMode)
     {
-        $this->setPreservepermissions($bool);
+        $this->setPreservepermissions($preserveMode);
     }
 
     /**
      * Set the include empty dirs flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
-     * value (boolean primitive) is coming in here.
-     *
-     * @param  boolean $bool Flag if empty dirs should be cpoied too
-     * @return void
+     * value (bool primitive) is coming in here.
      */
-    public function setIncludeEmptyDirs($bool)
+    public function setIncludeEmptyDirs(bool $includeEmptyDirs)
     {
-        $this->includeEmpty = (bool) $bool;
+        $this->includeEmpty = $includeEmptyDirs;
     }
 
     /**
@@ -228,7 +214,6 @@ class CopyTask extends Task
      *
      * @param File $file The source file. Either a string or an PhingFile object
      *
-     * @return void
      */
     public function setFile(File $file)
     {
@@ -242,7 +227,6 @@ class CopyTask extends Task
      *
      * @param File $file The dest file. Either a string or an PhingFile object
      *
-     * @return void
      */
     public function setTofile(File $file)
     {
@@ -253,9 +237,8 @@ class CopyTask extends Task
      * Sets the mode to create destination directories with (ignored on Windows).
      * Default mode is taken from umask()
      *
-     * @param integer $mode Octal mode
+     * @param int $mode Octal mode
      *
-     * @return void
      */
     public function setMode($mode)
     {
@@ -269,7 +252,6 @@ class CopyTask extends Task
      *
      * @param File $dir The directory, either a string or an PhingFile object
      *
-     * @return void
      */
     public function setTodir(File $dir)
     {
@@ -290,9 +272,8 @@ class CopyTask extends Task
      * Set the haltonerror attribute - when true, will
      * make the build fail when errors are detected.
      *
-     * @param boolean $haltonerror Flag if the build should be stopped on errors
+     * @param bool $haltonerror Flag if the build should be stopped on errors
      *
-     * @return void
      */
     public function setHaltonerror($haltonerror)
     {
@@ -355,7 +336,7 @@ class CopyTask extends Task
                 $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
             }
 
-            $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
+            $this->scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
         }
 
         foreach ($this->dirsets as $dirset) {
@@ -377,7 +358,7 @@ class CopyTask extends Task
                     $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
                 }
 
-                $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
+                $this->scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
             } catch (BuildException $e) {
                 if ($this->haltonerror === true) {
                     throw $e;
@@ -403,7 +384,7 @@ class CopyTask extends Task
                     $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
                 }
 
-                $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
+                $this->scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
             } catch (BuildException $e) {
                 if ($this->haltonerror == true) {
                     throw $e;
@@ -424,7 +405,6 @@ class CopyTask extends Task
     /**
      * Validates attributes coming in from XML
      *
-     * @return void
      * @throws BuildException
      */
     protected function validateAttributes()
@@ -458,14 +438,12 @@ class CopyTask extends Task
      * Compares source files to destination files to see if they
      * should be copied.
      *
-     * @param $fromDir
-     * @param $toDir
-     * @param $files
-     * @param $dirs
-     *
-     * @return void
+     * @param string $fromDir
+     * @param string $toDir
+     * @param array $files
+     * @param array $dirs
      */
-    private function _scan(&$fromDir, &$toDir, &$files, &$dirs)
+    private function scan(&$fromDir, &$toDir, &$files, &$dirs)
     {
         /* mappers should be generic, so we get the mappers here and
         pass them on to builMap. This method is not redundan like it seems */
@@ -494,15 +472,13 @@ class CopyTask extends Task
     /**
      * Builds a map of filenames (from->to) that should be copied
      *
-     * @param $fromDir
-     * @param $toDir
-     * @param $names
+     * @param string $fromDir
+     * @param string $toDir
+     * @param array $names
      * @param FileNameMapper $mapper
-     * @param $map
-     *
-     * @return void
+     * @param array $map
      */
-    private function buildMap(&$fromDir, &$toDir, &$names, &$mapper, &$map)
+    private function buildMap($fromDir, $toDir, &$names, $mapper, &$map)
     {
         $toCopy = null;
         if ($this->overwrite) {
@@ -543,7 +519,6 @@ class CopyTask extends Task
     /**
      * Actually copies the files
      *
-     * @return void
      * @throws BuildException
      */
     protected function doWork()
@@ -630,14 +605,14 @@ class CopyTask extends Task
     }
 
     /**
-     * @param $from
-     * @param $to
+     * @param string $from
+     * @param string $to
      * @param RegisterSlot $fromSlot
      * @param RegisterSlot $fromBasenameSlot
      * @param RegisterSlot $toSlot
      * @param RegisterSlot $toBasenameSlot
-     * @param $count
-     * @param $total
+     * @param int $count
+     * @param int $total
      */
     private function copyToSingleDestination(
         $from,

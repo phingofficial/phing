@@ -18,7 +18,8 @@
  */
 
 namespace Phing\Task\Optional;
-use Arg;
+
+use Phing\Task\Optional\SymfonyConsoleArg;
 
 /**
  * Test class for Arg.
@@ -27,7 +28,7 @@ use Arg;
 class ArgTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var Arg
+     * @var SymfonyConsoleArg
      */
     protected $object;
 
@@ -37,7 +38,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new Arg();
+        $this->object = new SymfonyConsoleArg();
     }
 
     /**
@@ -49,8 +50,8 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Arg::getName
-     * @covers Arg::setName
+     * @covers SymfonyConsoleArg::getName
+     * @covers SymfonyConsoleArg::setName
      */
     public function testSetGetName()
     {
@@ -60,8 +61,8 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Arg::getValue
-     * @covers Arg::setValue
+     * @covers SymfonyConsoleArg::getValue
+     * @covers SymfonyConsoleArg::setValue
      */
     public function testSetGetValue()
     {
@@ -71,8 +72,8 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Arg::getQuotes
-     * @covers Arg::setQuotes
+     * @covers SymfonyConsoleArg::getQuotes
+     * @covers SymfonyConsoleArg::setQuotes
      */
     public function testGetQuotes()
     {
@@ -82,7 +83,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Arg::__toString
+     * @covers SymfonyConsoleArg::__toString
      */
     public function testToStringWithQuotes()
     {
@@ -95,7 +96,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Arg::__toString
+     * @covers SymfonyConsoleArg::__toString
      */
     public function testToStringWithoutQuotes()
     {
@@ -108,7 +109,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Arg::__toString
+     * @covers SymfonyConsoleArg::__toString
      */
     public function testToStringJustName()
     {
@@ -120,7 +121,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Arg::__toString
+     * @covers SymfonyConsoleArg::__toString
      */
     public function testToStringJustValueWithoutQuotes()
     {
@@ -132,7 +133,7 @@ class ArgTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Arg::__toString
+     * @covers SymfonyConsoleArg::__toString
      */
     public function testToStringJustValueWithQuotes()
     {

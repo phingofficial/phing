@@ -27,7 +27,7 @@ use Phing\Support\BuildFileTest;
  */
 class SuffixLinesTest extends BuildFileTest
 {
-    /** @var FileUtils $fu */
+    /** @var FileUtils */
     protected $fu;
 
     public function setUp(): void

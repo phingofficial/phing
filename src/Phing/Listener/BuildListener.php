@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Listener;
+
 use Phing\Project;
 
 /**
@@ -33,7 +34,6 @@ use Phing\Project;
  */
 interface BuildListener
 {
-
     /**
      * Fired before any targets are started.
      *

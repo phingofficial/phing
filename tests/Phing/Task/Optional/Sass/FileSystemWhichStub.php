@@ -25,7 +25,6 @@ use Phing\Io\UnixFileSystem;
 
 class FileSystemWhichStub extends UnixFileSystem
 {
-
     private $isWhichSuccessful;
 
     public function __construct(bool $isWhichSuccessful)

@@ -18,6 +18,7 @@
  */
 
 namespace Phing\Exception;
+
 use Exception;
 
 /**

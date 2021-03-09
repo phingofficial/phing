@@ -14,7 +14,6 @@
     	<include name="bin/phing"/>
     	<include name="bin/phing.bat"/>
     	<include name="bin/phing.php"/>
-        <include name="classes/**"/>
         <include name="src/**"/>
         <include name="etc/**"/>
         <include name="CHANGELOG.md"/>
@@ -133,7 +132,6 @@
             basedir="${build.full.dir}">
             <fileset dir="${build.full.dir}">
                 <include name="bin/**" />
-                <include name="classes/**" />
                 <include name="src/**" />
                 <include name="etc/**" />
                 <include name="vendor/**" />
@@ -193,7 +191,7 @@
         <filehash file="${filename}" algorithm="sha1" />
 
         <exec executable="gpg" checkreturn="true" logoutput="true" taskname="gpg">
-            <arg line="-u mrook@php.net --detach-sign --output ${filename}.asc ${filename}"/>
+            <arg line="-u release@phing.info --detach-sign --output ${filename}.asc ${filename}"/>
         </exec>
     </target>
 

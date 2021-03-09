@@ -21,8 +21,6 @@ namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
 
-/**
- */
 class TstampCustomFormat
 {
     private $propertyName = "";
@@ -44,7 +42,7 @@ class TstampCustomFormat
      * The date/time pattern to be used. The values are as
      * defined by the PHP strftime() function.
      *
-     * @param pattern
+     * @param string $pattern
      */
     public function setPattern($pattern)
     {

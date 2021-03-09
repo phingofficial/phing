@@ -64,7 +64,7 @@ class Commandline implements Countable
     private $escape = false;
 
     /**
-     * @param null $to_process
+     * @param string $to_process
      * @throws BuildException
      */
     public function __construct($to_process = null)
@@ -86,7 +86,7 @@ class Commandline implements Countable
      * <p>Each commandline object has at most one instance of the
      * argument class.</p>
      *
-     * @param boolean $insertAtStart if true, the argument is inserted at the
+     * @param bool $insertAtStart if true, the argument is inserted at the
      *                                beginning of the list of args, otherwise
      *                                it is appended.
      * @return CommandlineArgument
@@ -127,9 +127,6 @@ class Commandline implements Countable
         return $this->executable;
     }
 
-    /**
-     * @param array $arguments
-     */
     public function addArguments(array $arguments)
     {
         foreach ($arguments as $arg) {
@@ -140,7 +137,6 @@ class Commandline implements Countable
     /**
      * Returns the executable and all defined arguments.
      *
-     * @return array
      */
     public function getCommandline(): array
     {
@@ -197,7 +193,8 @@ class Commandline implements Countable
      * as is. If it contains double quotes, use single quotes - else
      * surround the argument by double quotes.</p>
      *
-     * @param $argument
+     * @param string $argument
+     * @param bool $escape
      *
      * @return string
      *
@@ -235,9 +232,8 @@ class Commandline implements Countable
      * Quotes the parts of the given array in way that makes them
      * usable as command line arguments.
      *
-     * @param $lines
+     * @param array $lines
      *
-     * @return string
      *
      * @throws BuildException
      */

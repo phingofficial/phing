@@ -87,7 +87,6 @@ class SelectorUtilsTest extends TestCase
     /**
      * Non Existing Source File Causes Out Of Date To Return False
      *
-     * @return void
      */
     public function testNonExistingSourceFileCausesOutOfDateToReturnFalse()
     {
@@ -108,7 +107,6 @@ class SelectorUtilsTest extends TestCase
     /**
      * Test Granularity of isOutOfDate
      *
-     * @return void
      */
     public function testOutOfDate()
     {

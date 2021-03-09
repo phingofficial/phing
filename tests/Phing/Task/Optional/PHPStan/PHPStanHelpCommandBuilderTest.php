@@ -21,8 +21,8 @@ declare(strict_types=1);
 
 namespace Phing\Task\Optional\PHPStan;
 
-use PHPStanHelpCommandBuilder;
-use PHPStanTask;
+use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanHelpCommandBuilder;
+use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
 class PHPStanHelpCommandBuilderTest extends TestCase
@@ -48,13 +48,13 @@ class PHPStanHelpCommandBuilderTest extends TestCase
         $this->builder->build($task);
 
         $expectedCommand = <<<CMD
-Executing 'phpstan' with arguments:
-'help'
-'--format=anyFormat'
-'--raw'
-'anyCommand'
-The ' characters around the executable and arguments are not part of the command.
-CMD;
+            Executing 'phpstan' with arguments:
+            'help'
+            '--format=anyFormat'
+            '--raw'
+            'anyCommand'
+            The ' characters around the executable and arguments are not part of the command.
+            CMD;
 
         $this->assertEquals($expectedCommand, str_replace("\r", '', $task->getCommandline()->describeCommand()));
     }
