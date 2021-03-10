@@ -1625,16 +1625,6 @@ class Phing
     }
 
     /**
-     * @return float
-     */
-    public static function currentTimeMillis()
-    {
-        [$usec, $sec] = explode(" ", microtime());
-
-        return ((float) $usec + (float) $sec);
-    }
-
-    /**
      * Sets the include path to PHP_CLASSPATH constant (if this has been defined).
      *
      * @throws ConfigurationException - if the include_path could not be set (for some bizarre reason)
