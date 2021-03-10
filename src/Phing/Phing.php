@@ -1211,12 +1211,12 @@ class Phing
      */
     public function printTargets(Project $project)
     {
-        $visibleTargets = array_filter($project->getTargets(), fn(Target $target) => !$target->isHidden() && !empty($target->getName()));
-        $padding        = array_reduce($visibleTargets, fn(int $carry, Target $target) => max(strlen($target->getName()), $carry), 0);
+        $visibleTargets = array_filter($project->getTargets(), function (Target $target) { return !$target->isHidden() && !empty($target->getName());});
+        $padding        = array_reduce($visibleTargets, function (int $carry, Target $target) { return max(strlen($target->getName()), $carry);}, 0);
         $categories     = [
-            'Default target:' => array_filter($visibleTargets, fn(Target $target) => $target->getName() === $project->getDefaultTarget()),
-            'Main targets:'   => array_filter($visibleTargets, fn(Target $target) => !empty($target->getDescription())),
-            'Subtargets:'     => array_filter($visibleTargets, fn(Target $target) => empty($target->getDescription())),
+            'Default target:' => array_filter($visibleTargets, function (Target $target) use ($project) { return $target->getName() === $project->getDefaultTarget();}),
+            'Main targets:'   => array_filter($visibleTargets, function (Target $target) { return !empty($target->getDescription());}),
+            'Subtargets:'     => array_filter($visibleTargets, function (Target $target) { return empty($target->getDescription());}),
         ];
         foreach ($categories as $title => $targets) {
             $list = $this->generateList($title, $targets, $padding);
@@ -1234,7 +1234,7 @@ class Phing
      */
     private function generateList(string $title, array $targets, int $padding): string
     {
-        usort($targets, fn(Target $a, Target $b) => $a->getName() <=> $b->getName());
+        usort($targets, function(Target $a, Target $b) { return $a->getName() <=> $b->getName();});
 
         $header = <<<HEADING
             $title
@@ -1256,7 +1256,7 @@ class Phing
             if (!empty($target->getUnless())) {
                 $details[] = 'unless property: ' . $target->getUnless();
             }
-            $detailsToString = fn(?string $name, ?string $detail): string => sprintf(" %-${padding}s  %s", $name, $detail);
+            $detailsToString = function (?string $name, ?string $detail) use ($padding): string { return sprintf(" %-${padding}s  %s", $name, $detail);};
 
             return implode(PHP_EOL, array_map($detailsToString, [$target->getName()], $details));
         };
