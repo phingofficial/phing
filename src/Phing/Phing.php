@@ -52,6 +52,8 @@ use function array_reduce;
 use function implode;
 use function sprintf;
 use function strlen;
+use function strval;
+use function trim;
 use const PHP_EOL;
 
 /**
@@ -1219,7 +1221,7 @@ class Phing
         }, 0);
         $categories     = [
             'Default target:' => array_filter($visibleTargets, function (Target $target) use ($project) {
-                return $target->getName() === $project->getDefaultTarget();
+                return trim(strval($target)) === $project->getDefaultTarget();
             }),
             'Main targets:'   => array_filter($visibleTargets, function (Target $target) {
                 return !empty($target->getDescription());
@@ -1229,8 +1231,8 @@ class Phing
             }),
         ];
         foreach ($categories as $title => $targets) {
-            $list = $this->generateList($title, $targets, $padding);
-            $project->log($list, Project::MSG_WARN);
+            $targetList = $this->generateTargetList($title, $targets, $padding);
+            $project->log($targetList, Project::MSG_WARN);
         }
     }
 
@@ -1242,17 +1244,17 @@ class Phing
      * @param int      $padding Padding for name column
      * @return string
      */
-    private function generateList(string $title, array $targets, int $padding): string
+    private function generateTargetList(string $title, array $targets, int $padding): string
     {
         usort($targets, function (Target $a, Target $b) {
             return $a->getName() <=> $b->getName();
         });
 
-        $header = <<<HEADING
+        $header = <<<HEADER
             $title
             -------------------------------------------------------------------------------
 
-            HEADING;
+            HEADER;
 
         $getDetails = function (Target $target) use ($padding): string {
             $details = [];
@@ -1260,13 +1262,13 @@ class Phing
                 $details[] = $target->getDescription();
             }
             if (!empty($target->getDependencies())) {
-                $details[] = 'depends on: ' . implode(', ', $target->getDependencies());
+                $details[] = ' - depends on: ' . implode(', ', $target->getDependencies());
             }
             if (!empty($target->getIf())) {
-                $details[] = 'if property: ' . $target->getIf();
+                $details[] = ' - if property: ' . $target->getIf();
             }
             if (!empty($target->getUnless())) {
-                $details[] = 'unless property: ' . $target->getUnless();
+                $details[] = ' - unless property: ' . $target->getUnless();
             }
             $detailsToString = function (?string $name, ?string $detail) use ($padding): string {
                 return sprintf(" %-${padding}s  %s", $name, $detail);
