@@ -87,7 +87,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
      */
     public function __construct($name)
     {
-        $this->targetStartTime = Phing::currentTimeMillis();
+        $this->targetStartTime = microtime(true);
         $this->filename = $name;
         $this->loglevel = Project::MSG_INFO;
     }
@@ -177,7 +177,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
             Phing::getProperty('line.separator') . $event->getTarget()->getName() . ":",
             Project::MSG_INFO
         );
-        $this->targetStartTime = Phing::currentTimeMillis();
+        $this->targetStartTime = microtime(true);
     }
 
     /**
@@ -187,7 +187,7 @@ class RecorderEntry implements BuildLogger, SubBuildListener
     {
         $this->log("<< TARGET FINISHED -- " . $event->getTarget()->getName(), Project::MSG_DEBUG);
 
-        $time = DefaultLogger::formatTime(Phing::currentTimeMillis() - $this->targetStartTime);
+        $time = DefaultLogger::formatTime(microtime(true) - $this->targetStartTime);
 
         $this->log($event->getTarget()->getName() . ":  duration " . $time, Project::MSG_VERBOSE);
         flush();

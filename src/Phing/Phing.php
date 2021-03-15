@@ -80,6 +80,17 @@ class Phing
      * The default build file name
      */
     public const DEFAULT_BUILD_FILENAME = "build.xml";
+    public const DEFAULT_BUILD_CONTENT = <<<XML
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <project name="" description="" default="">
+            
+            <target name="" description="">
+                
+            </target>
+            
+        </project>
+        XML;
     public const PHING_HOME = 'phing.home';
     public const PHP_VERSION = 'php.version';
     public const PHP_INTERPRETER = 'php.interpreter';
@@ -1151,17 +1162,7 @@ class Phing
             throw new ConfigurationException('Cannot overwrite existing file.');
         }
 
-        $content = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
-        $content .= '' . PHP_EOL;
-        $content .= '<project name="" description="" default="">' . PHP_EOL;
-        $content .= '    ' . PHP_EOL;
-        $content .= '    <target name="" description="">' . PHP_EOL;
-        $content .= '        ' . PHP_EOL;
-        $content .= '    </target>' . PHP_EOL;
-        $content .= '    ' . PHP_EOL;
-        $content .= '</project>' . PHP_EOL;
-
-        file_put_contents($buildfilePath, $content);
+        file_put_contents($buildfilePath, self::DEFAULT_BUILD_CONTENT);
     }
 
     /**
@@ -1585,16 +1586,6 @@ class Phing
         self::$properties[$propName] = $propValue;
 
         return $oldValue;
-    }
-
-    /**
-     * @return float
-     */
-    public static function currentTimeMillis()
-    {
-        [$usec, $sec] = explode(" ", microtime());
-
-        return ((float) $usec + (float) $sec);
     }
 
     /**
