@@ -35,17 +35,17 @@ class Ssh2MethodConnectionParam
     /**
      * @var string
      */
-    private $crypt = null;
+    private $crypt;
 
     /**
      * @var string
      */
-    private $comp = null;
+    private $comp;
 
     /**
      * @var string
      */
-    private $mac = null;
+    private $mac;
 
     /**
      * @param string $comp

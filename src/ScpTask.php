@@ -19,8 +19,9 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
 use Phing\Task;
-use Phing\Tasks\System\Element\LogLevelAware;
+use Phing\Task\System\Element\LogLevelAware;
 use Phing\Type\Element\FileSetAware;
 
 /**
@@ -337,21 +338,21 @@ class ScpTask extends Task
         $p = $this->getProject();
 
         if (!function_exists('ssh2_connect')) {
-            throw new \BuildException("To use ScpTask, you need to install the PHP SSH2 extension.");
+            throw new BuildException("To use ScpTask, you need to install the PHP SSH2 extension.");
         }
 
-        if ($this->file == "" && empty($this->filesets)) {
-            throw new \BuildException("Missing either a nested fileset or attribute 'file'");
+        if ($this->file === "" && empty($this->filesets)) {
+            throw new BuildException("Missing either a nested fileset or attribute 'file'");
         }
 
-        if ($this->host == "" || $this->username == "") {
-            throw new \BuildException("Attribute 'host' and 'username' must be set");
+        if ($this->host === "" || $this->username == "") {
+            throw new BuildException("Attribute 'host' and 'username' must be set");
         }
 
         $methods = !empty($this->methods) ? $this->methods->toArray($p) : [];
         $this->connection = ssh2_connect($this->host, $this->port, $methods);
         if (!$this->connection) {
-            throw new \BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
+            throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
         }
 
         $could_auth = null;
@@ -367,7 +368,7 @@ class ScpTask extends Task
             $could_auth = ssh2_auth_password($this->connection, $this->username, $this->password);
         }
         if (!$could_auth) {
-            throw new \BuildException("Could not authenticate connection!");
+            throw new BuildException("Could not authenticate connection!");
         }
 
         // prepare sftp resource
@@ -379,7 +380,7 @@ class ScpTask extends Task
             $this->copyFile($this->file, basename($this->file));
         } else {
             if ($this->fetch) {
-                throw new \BuildException("Unable to use filesets to retrieve files from remote server");
+                throw new BuildException("Unable to use filesets to retrieve files from remote server");
             }
 
             foreach ($this->filesets as $fs) {
@@ -406,7 +407,7 @@ class ScpTask extends Task
     /**
      * @param $local
      * @param $remote
-     * @throws \BuildException
+     * @throws BuildException
      */
     protected function copyFile($local, $remote)
     {
@@ -421,7 +422,7 @@ class ScpTask extends Task
             $ret = @ssh2_scp_recv($this->connection, $remoteEndpoint, $localEndpoint);
 
             if ($ret === false) {
-                throw new \BuildException("Could not fetch remote file '" . $remoteEndpoint . "'");
+                throw new BuildException("Could not fetch remote file '" . $remoteEndpoint . "'");
             }
         } else {
             $localEndpoint = $local;
@@ -466,7 +467,7 @@ class ScpTask extends Task
             }
 
             if ($ret === false) {
-                throw new \BuildException("Could not create remote file '" . $remoteEndpoint . "'");
+                throw new BuildException("Could not create remote file '" . $remoteEndpoint . "'");
             }
         }
 

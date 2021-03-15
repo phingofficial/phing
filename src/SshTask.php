@@ -19,6 +19,8 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+use Phing\Project;
 use Phing\Task;
 
 /**
@@ -312,13 +314,13 @@ class SshTask extends Task
         $p = $this->getProject();
 
         if (!function_exists('ssh2_connect')) {
-            throw new \BuildException("To use SshTask, you need to install the PHP SSH2 extension.");
+            throw new BuildException("To use SshTask, you need to install the PHP SSH2 extension.");
         }
 
         $methods = !empty($this->methods) ? $this->methods->toArray($p) : [];
         $this->connection = ssh2_connect($this->host, $this->port, $methods);
         if (!$this->connection) {
-            throw new \BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
+            throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
         }
 
         $could_auth = null;
@@ -334,7 +336,7 @@ class SshTask extends Task
             $could_auth = ssh2_auth_password($this->connection, $this->username, $this->password);
         }
         if (!$could_auth) {
-            throw new \BuildException("Could not authenticate connection!");
+            throw new BuildException("Could not authenticate connection!");
         }
     }
 
@@ -357,15 +359,15 @@ class SshTask extends Task
      * closes the streams properly.
      *
      * @param  $stream
-     * @throws \BuildException
+     * @throws BuildException
      */
     protected function handleStream($stream)
     {
         if (!$stream) {
-            throw new \BuildException("Could not execute command!");
+            throw new BuildException("Could not execute command!");
         }
 
-        $this->log("Executing command {$this->command}", \Project::MSG_VERBOSE);
+        $this->log("Executing command {$this->command}", Project::MSG_VERBOSE);
 
         stream_set_blocking($stream, true);
         $result = stream_get_contents($stream);
@@ -389,7 +391,7 @@ class SshTask extends Task
         }
 
         if ($this->failonerror && !empty($result_error)) {
-            throw new \BuildException("SSH Task failed: " . $result_error);
+            throw new BuildException("SSH Task failed: " . $result_error);
         }
     }
 }

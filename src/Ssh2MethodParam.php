@@ -19,7 +19,10 @@
 
 namespace Phing\Tasks\Ext;
 
+use Phing\Exception\BuildException;
+use Phing\Project;
 use Phing\Type\DataType;
+use Phing\Util\StringHelper;
 
 /**
  * Class that holds parameters for an ssh2_connect $methods parameter
@@ -63,11 +66,11 @@ class Ssh2MethodParam extends DataType
     }
 
     /**
-     * @param \Project $p
-     * @throws \BuildException
+     * @param Project $p
+     * @throws BuildException
      * @return string
      */
-    public function getHostkey(\Project $p)
+    public function getHostkey(Project $p)
     {
         if ($this->isReference()) {
             return $this->getRef($p)->getHostkey($p);
@@ -85,11 +88,11 @@ class Ssh2MethodParam extends DataType
     }
 
     /**
-     * @param \Project $p
-     * @throws \BuildException
+     * @param Project $p
+     * @throws BuildException
      * @return string
      */
-    public function getKex(\Project $p)
+    public function getKex(Project $p)
     {
         if ($this->isReference()) {
             return $this->getRef($p)->getKex($p);
@@ -99,9 +102,9 @@ class Ssh2MethodParam extends DataType
     }
 
     /**
-     * @param \Project $p
-     * @throws \BuildException
-     * @return \Ssh2MethodConnectionParam
+     * @param Project $p
+     * @throws BuildException
+     * @return Ssh2MethodConnectionParam
      */
     public function getClientToServer(Project $p)
     {
@@ -113,11 +116,11 @@ class Ssh2MethodParam extends DataType
     }
 
     /**
-     * @param \Project $p
-     * @throws \BuildException
+     * @param Project $p
+     * @throws BuildException
      * @return Ssh2MethodConnectionParam
      */
-    public function getServerToClient(\Project $p)
+    public function getServerToClient(Project $p)
     {
         if ($this->isReference()) {
             return $this->getRef($p)->getServerToClient($p);
@@ -153,10 +156,10 @@ class Ssh2MethodParam extends DataType
     /**
      * Convert the params to an array that is suitable to be passed in the ssh2_connect $methods parameter
      *
-     * @param  \Project $p
+     * @param Project $p
      * @return array
      */
-    public function toArray(\Project $p)
+    public function toArray(Project $p)
     {
         $client_to_server = $this->getClientToServer($p);
         $server_to_client = $this->getServerToClient($p);
@@ -186,13 +189,13 @@ class Ssh2MethodParam extends DataType
 
     /**
      *
-     * @param \Project $p
-     * @throws \BuildException
+     * @param Project $p
+     * @throws BuildException
      * @return Ssh2MethodParam
      */
-    public function getRef(\Project $p)
+    public function getRef(Project $p)
     {
-        $dataTypeName = \StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
         return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 }
