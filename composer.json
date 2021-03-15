@@ -19,16 +19,16 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Tasks\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\": "src/"
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "ssh": "Phing\\Tasks\\Ext\\SshTask",
-      "scp": "Phing\\Tasks\\Ext\\ScpTask"
+      "ssh": "Phing\\Task\\Ext\\SshTask",
+      "scp": "Phing\\Task\\Ext\\ScpTask"
     },
     "phing-custom-typedefs": {
-      "sshconfig": "Phing\\Tasks\\Ext\\Ssh2MethodParam"
+      "sshconfig": "Phing\\Task\\Ext\\Ssh2MethodParam"
     }
   }
 }
