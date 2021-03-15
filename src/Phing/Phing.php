@@ -71,6 +71,17 @@ class Phing
      * The default build file name
      */
     public const DEFAULT_BUILD_FILENAME = "build.xml";
+    public const DEFAULT_BUILD_CONTENT = <<<XML
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <project name="" description="" default="">
+
+            <target name="" description="">
+
+            </target>
+
+        </project>
+        XML;
     public const PHING_HOME = 'phing.home';
     public const PHP_VERSION = 'php.version';
     public const PHP_INTERPRETER = 'php.interpreter';
@@ -1142,19 +1153,7 @@ class Phing
             throw new ConfigurationException('Cannot overwrite existing file.');
         }
 
-        $content = <<<'XML'
-            <?xml version="1.0" encoding="UTF-8" ?>
-
-            <project name="" description="" default="">
-                
-                <target name="" description="">
-                    
-                </target>
-                
-            </project>
-            XML;
-
-        file_put_contents($buildfilePath, $content);
+        file_put_contents($buildfilePath, self::DEFAULT_BUILD_CONTENT);
     }
 
     /**
