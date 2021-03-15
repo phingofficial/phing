@@ -1142,15 +1142,17 @@ class Phing
             throw new ConfigurationException('Cannot overwrite existing file.');
         }
 
-        $content = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
-        $content .= '' . PHP_EOL;
-        $content .= '<project name="" description="" default="">' . PHP_EOL;
-        $content .= '    ' . PHP_EOL;
-        $content .= '    <target name="" description="">' . PHP_EOL;
-        $content .= '        ' . PHP_EOL;
-        $content .= '    </target>' . PHP_EOL;
-        $content .= '    ' . PHP_EOL;
-        $content .= '</project>' . PHP_EOL;
+        $content = <<<'XML'
+            <?xml version="1.0" encoding="UTF-8" ?>
+
+            <project name="" description="" default="">
+
+                <target name="" description="">
+
+                </target>
+
+            </project>
+            XML;
 
         file_put_contents($buildfilePath, $content);
     }
