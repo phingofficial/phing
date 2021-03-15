@@ -75,11 +75,11 @@ class Phing
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <project name="" description="" default="">
-
+            
             <target name="" description="">
-
+                
             </target>
-
+            
         </project>
         XML;
     public const PHING_HOME = 'phing.home';
