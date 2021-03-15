@@ -309,6 +309,11 @@ class Target implements TaskContainer
         $this->ifCondition = $property ?? "";
     }
 
+    public function getIf()
+    {
+        return $this->ifCondition;
+    }
+
     /**
      * Set the unless-condition from the XML tag, if any. The property name
      * given as parameter must be present so the unless condition evaluates
@@ -319,6 +324,11 @@ class Target implements TaskContainer
     public function setUnless($property)
     {
         $this->unlessCondition = $property ?? "";
+    }
+
+    public function getUnless()
+    {
+        return $this->unlessCondition;
     }
 
     /**
