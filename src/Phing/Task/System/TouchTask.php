@@ -222,7 +222,7 @@ class TouchTask extends Task
         if ($this->seconds < 0) {
             $resetSeconds = true;
             // Note: this function actually returns seconds, not milliseconds (e.g. 1606505920.2657)
-            $this->seconds = Phing::currentTimeMillis();
+            $this->seconds = microtime(true);
         }
 
         if ($this->file !== null) {
