@@ -1,4 +1,4 @@
-<h1><img width="30" src="https://raw.githubusercontent.com/phingofficial/phing-github-action/main/action.svg"/>P     H     I     N     G</h1>
+<h1><img alt="Phing Logo" width="30" src="https://raw.githubusercontent.com/phingofficial/phing-github-action/main/action.svg"/>P     H     I     N     G</h1>
 
   ![Phing CI](https://github.com/phingofficial/phing/workflows/Phing%20CI/badge.svg?branch=main)
   [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/phingofficial/phing/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/phingofficial/phing/?branch=main)

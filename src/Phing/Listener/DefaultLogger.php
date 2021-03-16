@@ -144,7 +144,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function buildStarted(BuildEvent $event)
     {
-        $this->startTime = Phing::currentTimeMillis();
+        $this->startTime = microtime(true);
         if ($this->msgOutputLevel >= Project::MSG_INFO) {
             $this->printMessage(
                 "Buildfile: " . $event->getProject()->getProperty("phing.file"),
@@ -170,7 +170,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
 
             self::throwableMessage($msg, $error, Project::MSG_VERBOSE <= $this->msgOutputLevel);
         }
-        $msg .= PHP_EOL . "Total time: " . static::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
+        $msg .= PHP_EOL . "Total time: " . static::formatTime(microtime(true) - $this->startTime) . PHP_EOL;
 
         $error === null
             ? $this->printMessage($msg, $this->out, Project::MSG_VERBOSE)

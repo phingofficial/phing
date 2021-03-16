@@ -46,6 +46,15 @@ use Phing\Util\Timer;
 use SebastianBergmann\Version;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Throwable;
+use function array_filter;
+use function array_map;
+use function array_reduce;
+use function implode;
+use function sprintf;
+use function strlen;
+use function strval;
+use function trim;
+use const PHP_EOL;
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
@@ -71,6 +80,17 @@ class Phing
      * The default build file name
      */
     public const DEFAULT_BUILD_FILENAME = "build.xml";
+    public const DEFAULT_BUILD_CONTENT = <<<XML
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <project name="" description="" default="">
+            
+            <target name="" description="">
+                
+            </target>
+            
+        </project>
+        XML;
     public const PHING_HOME = 'phing.home';
     public const PHP_VERSION = 'php.version';
     public const PHP_INTERPRETER = 'php.interpreter';
@@ -1142,17 +1162,7 @@ class Phing
             throw new ConfigurationException('Cannot overwrite existing file.');
         }
 
-        $content = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
-        $content .= '' . PHP_EOL;
-        $content .= '<project name="" description="" default="">' . PHP_EOL;
-        $content .= '    ' . PHP_EOL;
-        $content .= '    <target name="" description="">' . PHP_EOL;
-        $content .= '        ' . PHP_EOL;
-        $content .= '    </target>' . PHP_EOL;
-        $content .= '    ' . PHP_EOL;
-        $content .= '</project>' . PHP_EOL;
-
-        file_put_contents($buildfilePath, $content);
+        file_put_contents($buildfilePath, self::DEFAULT_BUILD_CONTENT);
     }
 
     /**
@@ -1201,120 +1211,74 @@ class Phing
 
     /**
      * Print out a list of all targets in the current buildfile
-     *
-     * @param $project
      */
-    public function printTargets($project)
+    public function printTargets(Project $project)
     {
-        // find the target with the longest name
-        $maxLength = 0;
-        $targets = $project->getTargets();
-        $targetName = null;
-        $targetDescription = null;
-        /** @var Target $currentTarget */
-        $currentTarget = null;
-
-        // split the targets in top-level and sub-targets depending
-        // on the presence of a description
-
-        $subNames = [];
-        $subDependencies = [];
-        $topNameDescMap = [];
-
-        foreach ($targets as $currentTarget) {
-            $targetName = $currentTarget->getName();
-            $targetDescription = $currentTarget->getDescription();
-            if ($currentTarget->isHidden()) {
-                continue;
-            }
-
-            // subtargets are targets w/o descriptions
-            if ($targetDescription === null) {
-                $subNames[] = $targetName;
-                $currentDependencies = $currentTarget->getDependencies();
-                if (!empty($currentDependencies)) {
-                    array_push($subDependencies, ...$currentTarget->getDependencies());
-                }
-            } else {
-                // topNames and topDescriptions are handled later
-                // here we store in hash map (for sorting purposes)
-                $topNameDescMap[$targetName] = $targetDescription;
-                if (strlen($targetName) > $maxLength) {
-                    $maxLength = strlen($targetName);
-                }
-            }
+        $visibleTargets = array_filter($project->getTargets(), function (Target $target) {
+            return !$target->isHidden() && !empty($target->getName());
+        });
+        $padding        = array_reduce($visibleTargets, function (int $carry, Target $target) {
+            return max(strlen($target->getName()), $carry);
+        }, 0);
+        $categories     = [
+            'Default target:' => array_filter($visibleTargets, function (Target $target) use ($project) {
+                return trim(strval($target)) === $project->getDefaultTarget();
+            }),
+            'Main targets:'   => array_filter($visibleTargets, function (Target $target) {
+                return !empty($target->getDescription());
+            }),
+            'Subtargets:'     => array_filter($visibleTargets, function (Target $target) {
+                return empty($target->getDescription());
+            }),
+        ];
+        foreach ($categories as $title => $targets) {
+            $targetList = $this->generateTargetList($title, $targets, $padding);
+            $project->log($targetList, Project::MSG_WARN);
         }
-
-        // Sort the arrays
-        sort($subNames); // sort array values, resetting keys (which are numeric)
-        ksort($topNameDescMap); // sort the keys (targetName) keeping key=>val associations
-
-        $topNames = array_keys($topNameDescMap);
-        $topDescriptions = array_values($topNameDescMap);
-        $topDependencies = $currentTarget->getDependencies();
-
-        $defaultTarget = $project->getDefaultTarget();
-
-        if ($defaultTarget !== null && $defaultTarget !== "") {
-            $defaultName = [];
-            $defaultDesc = [];
-            $defaultName[] = $defaultTarget;
-
-            $indexOfDefDesc = array_search($defaultTarget, $topNames, true);
-            if ($indexOfDefDesc !== false && $indexOfDefDesc >= 0) {
-                $defaultDesc = [];
-                $defaultDesc[] = $topDescriptions[$indexOfDefDesc];
-            }
-
-            $this->printTargetNames($project, $defaultName, $defaultDesc, [], "Default target:", $maxLength);
-        }
-        $this->printTargetNames($project, $topNames, $topDescriptions, $topDependencies, "Main targets:", $maxLength);
-        $this->printTargetNames($project, $subNames, null, $subDependencies, "Subtargets:", 0);
     }
 
     /**
-     * Writes a formatted list of target names with an optional description.
+     * Returns a formatted list of target names with an optional description.
      *
-     * @param array $names The names to be printed.
-     *                             Must not be <code>null</code>.
-     * @param array $descriptions The associated target descriptions.
-     *                             May be <code>null</code>, in which case
-     *                             no descriptions are displayed.
-     *                             If non-<code>null</code>, this should have
-     *                             as many elements as <code>names</code>.
-     * @param $dependencies
-     * @param string $heading The heading to display.
-     *                             Should not be <code>null</code>.
-     * @param int $maxlen The maximum length of the names of the targets.
-     *                             If descriptions are given, they are padded to this
-     *                             position so they line up (so long as the names really
-     *                             <i>are</i> shorter than this).
+     * @param string   $title   Title for this list
+     * @param Target[] $targets Targets in this list
+     * @param int      $padding Padding for name column
+     * @return string
      */
-    private function printTargetNames(Project $project, $names, $descriptions, $dependencies, $heading, $maxlen)
+    private function generateTargetList(string $title, array $targets, int $padding): string
     {
-        $spaces = '  ';
-        while (strlen($spaces) < $maxlen) {
-            $spaces .= $spaces;
-        }
-        $msg = "";
-        $msg .= $heading . PHP_EOL;
-        $msg .= str_repeat("-", 79) . PHP_EOL;
+        usort($targets, function (Target $a, Target $b) {
+            return $a->getName() <=> $b->getName();
+        });
 
-        $total = count($names);
-        for ($i = 0; $i < $total; $i++) {
-            $msg .= " ";
-            $msg .= $names[$i];
-            if (!empty($descriptions)) {
-                $msg .= substr($spaces, 0, $maxlen - strlen($names[$i]) + 2);
-                $msg .= $descriptions[$i];
-            }
-            $msg .= PHP_EOL;
-            if (!empty($dependencies) && isset($dependencies[$i + 1])) {
-                $msg .= '   depends on: ' . implode(', ', $dependencies) . PHP_EOL;
-            }
-        }
+        $header = <<<HEADER
+            $title
+            -------------------------------------------------------------------------------
 
-        $project->log($msg, Project::MSG_WARN);
+            HEADER;
+
+        $getDetails = function (Target $target) use ($padding): string {
+            $details = [];
+            if (!empty($target->getDescription())) {
+                $details[] = $target->getDescription();
+            }
+            if (!empty($target->getDependencies())) {
+                $details[] = ' - depends on: ' . implode(', ', $target->getDependencies());
+            }
+            if (!empty($target->getIf())) {
+                $details[] = ' - if property: ' . $target->getIf();
+            }
+            if (!empty($target->getUnless())) {
+                $details[] = ' - unless property: ' . $target->getUnless();
+            }
+            $detailsToString = function (?string $name, ?string $detail) use ($padding): string {
+                return sprintf(" %-${padding}s  %s", $name, $detail);
+            };
+
+            return implode(PHP_EOL, array_map($detailsToString, [$target->getName()], $details));
+        };
+
+        return $header . implode(PHP_EOL, array_map($getDetails, $targets)) . PHP_EOL;
     }
 
     /**
@@ -1622,16 +1586,6 @@ class Phing
         self::$properties[$propName] = $propValue;
 
         return $oldValue;
-    }
-
-    /**
-     * @return float
-     */
-    public static function currentTimeMillis()
-    {
-        [$usec, $sec] = explode(" ", microtime());
-
-        return ((float) $usec + (float) $sec);
     }
 
     /**
