@@ -2488,16 +2488,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.174.0",
+            "version": "3.174.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "b3ddabdcbbc2340c5312446f3a2109342974b020"
+                "reference": "b481fd0dab83b9ed6eab35279e1a43e3a875c87e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b3ddabdcbbc2340c5312446f3a2109342974b020",
-                "reference": "b3ddabdcbbc2340c5312446f3a2109342974b020",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b481fd0dab83b9ed6eab35279e1a43e3a875c87e",
+                "reference": "b481fd0dab83b9ed6eab35279e1a43e3a875c87e",
                 "shasum": ""
             },
             "require": {
@@ -2572,9 +2572,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.174.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.174.1"
             },
-            "time": "2021-03-15T18:17:20+00:00"
+            "time": "2021-03-16T18:18:56+00:00"
         },
         {
             "name": "composer/semver",
