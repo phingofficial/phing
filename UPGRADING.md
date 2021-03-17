@@ -9,7 +9,10 @@ that you might stumble across when upgrading from Phing 2 to 3.
 * Phing now requires at least PHP 7.3.
 * All Phing code is now namespaced. This means that existing references to classes
   that existed in earlier Phing versions will no longer work. For example, the
-  class `PhingFile` has been moved to `Phing\Io\File`.
+  class `PhingFile` has been moved to `Phing\Io\File`. If you are used to providing
+  a specific logger or listener when running Phing (such as `phing.listener.DefaultLogger`),
+  you will need to adjust this (to `Phing\Listener\DefaultLogger`, for example).
+  The documentation has been modified to reflect this.
 * Support for dot-path classnames (i.e., `foo.bar.FooBar`) has been removed.
 * Omitting the `basedir` property in the root `project` tag now means "." instead
   of the current working directory. This effectively reverts the change made in 
