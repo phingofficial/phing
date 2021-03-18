@@ -1087,7 +1087,7 @@ class Phing
         $msg .= "  -inputhandler <file>   the class to use to handle user input" . PHP_EOL;
         //$msg .= "  -recursive <file>      search for buildfile downwards and use it" . PHP_EOL;
         $msg .= PHP_EOL;
-        $msg .= "Report bugs to <dev@phing.tigris.org>" . PHP_EOL;
+        $msg .= "Report bugs to https://github.com/phingofficial/phing/issues" . PHP_EOL;
         self::$err->write($msg);
     }
 
