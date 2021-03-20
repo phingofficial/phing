@@ -37,7 +37,7 @@ class TimestampedLoggerTest extends TestCase
                 echo $message;
             }
 
-            public static function formatTime(float $micros):string
+            public static function formatTime(float $micros): string
             {
                 return 'TIME_STRING';
             }
