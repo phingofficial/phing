@@ -50,7 +50,7 @@ class SilentLoggerTest extends TestCase
                 echo $message;
             }
 
-            public static function formatTime($micros)
+            public static function formatTime(float $micros):string
             {
                 return 'TIME_STRING';
             }
