@@ -60,3 +60,5 @@ that you might stumble across when upgrading from Phing 2 to 3.
   * Visualizer
   * ZendCodeAnalyser
   * ZendServerDevelopmentTools
+* The signature from `\Phing\Listener\DefaultLogger::formatTime` has been changed. Therefore, if you have written a
+  logger that overrides this method, you will need to update its signature accordingly.
