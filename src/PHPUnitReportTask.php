@@ -21,7 +21,6 @@ namespace Phing\Task\Ext;
 
 use DOMDocument;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\ExtendedFileStream;
 use Phing\Io\FileWriter;
 use Phing\Io\IOException;
@@ -127,7 +126,6 @@ class PHPUnitReportTask extends Task
      *
      * @return File
      * @throws IOException
-     * @throws NullPointerException
      */
     protected function getStyleSheet()
     {
@@ -162,7 +160,6 @@ class PHPUnitReportTask extends Task
      * @param DOMDocument $document
      * @throws BuildException
      * @throws IOException
-     * @throws NullPointerException
      */
     protected function transform(\DOMDocument $document)
     {
@@ -301,7 +298,6 @@ class PHPUnitReportTask extends Task
      * The main entry point
      *
      * @throws BuildException
-     * @throws NullPointerException
      */
     public function main()
     {

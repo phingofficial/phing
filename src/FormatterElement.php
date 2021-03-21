@@ -20,7 +20,6 @@
 namespace Phing\Task\Ext;
 
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
@@ -112,7 +111,6 @@ class FormatterElement
      *
      * @param string $toDir
      * @throws IOException
-     * @throws NullPointerException
      */
     public function setToDir($toDir)
     {
