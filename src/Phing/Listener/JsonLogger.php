@@ -47,7 +47,7 @@ class JsonLogger extends XmlLogger
      */
     public function buildFinished(BuildEvent $event)
     {
-        $elapsedTime = microtime(true) - $this->getBuildTimerStart();
+        $elapsedTime = $this->clock->getCurrentTime() - $this->getBuildTimerStart();
 
         $this->getBuildElement()->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 
