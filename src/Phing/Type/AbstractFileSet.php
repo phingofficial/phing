@@ -23,7 +23,6 @@ use ArrayIterator;
 use Exception;
 use IteratorAggregate;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\DirectoryScanner;
 use Phing\Io\File;
 use Phing\Io\IOException;
@@ -142,7 +141,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * @param string|File $dir
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function setDir($dir)
     {

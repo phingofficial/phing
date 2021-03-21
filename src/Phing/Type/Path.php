@@ -20,7 +20,6 @@
 namespace Phing\Type;
 
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\File;
 use Phing\Io\IOException;
 use Phing\Project;
@@ -277,7 +276,7 @@ class Path extends DataType
      * @param bool $preserveDuplicates
      * @return array List of path elements.
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function listPaths($preserveDuplicates = false)
     {

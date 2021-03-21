@@ -20,7 +20,6 @@
 namespace Phing\Io;
 
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Filter\Token;
 
 /**
@@ -121,7 +120,7 @@ class IniFileTokenReader extends TokenReader
     /**
      * @param string|File $file
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function setFile($file)
     {
