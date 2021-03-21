@@ -90,7 +90,6 @@ class VisualizerTask extends HttpTask
      * The main entry point method.
      *
      * @throws \Phing\Io\IOException
-     * @throws \Phing\Exception\NullPointerException
      * @throws \Exception
      */
     public function main(): void
@@ -190,7 +189,6 @@ class VisualizerTask extends HttpTask
      *
      * @return \Phing\Io\File
      * @throws \Phing\Io\IOException
-     * @throws \Phing\Exception\NullPointerException
      */
     protected function resolveImageDestination(): File
     {
