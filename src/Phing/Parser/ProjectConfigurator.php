@@ -22,7 +22,6 @@ namespace Phing\Parser;
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Exception\ExitStatusException;
-use Phing\Exception\NullPointerException;
 use Phing\ExtensionPoint;
 use Phing\IntrospectionHelper;
 use Phing\Io\BufferedReader;
@@ -84,7 +83,7 @@ class ProjectConfigurator
      *
      * @throws IOException
      * @throws BuildException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public static function configureProject(Project $project, File $buildFile): void
     {
@@ -99,7 +98,7 @@ class ProjectConfigurator
      * @param Project $project the Project instance this configurator should use
      * @param File $buildFile the buildfile object the parser should use
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     private function __construct(Project $project, File $buildFile)
     {

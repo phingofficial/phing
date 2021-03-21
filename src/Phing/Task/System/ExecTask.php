@@ -21,7 +21,6 @@ namespace Phing\Task\System;
 
 use InvalidArgumentException;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\File;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
@@ -174,7 +173,7 @@ class ExecTask extends Task
 
         try {
             $this->commandline->setExecutable($this->resolveExecutable($this->executable, $this->searchPath));
-        } catch (IOException | NullPointerException $e) {
+        } catch (IOException | \InvalidArgumentException $e) {
             throw new BuildException($e);
         }
 
@@ -678,7 +677,6 @@ class ExecTask extends Task
      * @return string the executable as a full path if it can be determined.
      * @throws BuildException
      * @throws IOException
-     * @throws NullPointerException
      */
     protected function resolveExecutable($exec, $mustSearchPath): ?string
     {

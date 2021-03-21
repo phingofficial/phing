@@ -20,7 +20,6 @@
 namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\File;
 use Phing\Io\IOException;
 use Phing\Project;
@@ -44,8 +43,6 @@ class TruncateTask extends Task
      * Set a single target File.
      *
      * @param  File $f the single File
-     * @throws IOException
-     * @throws NullPointerException
      */
     public function setFile(File $f): void
     {

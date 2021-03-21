@@ -20,7 +20,6 @@
 namespace Phing\Io;
 
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Type\Selector\FileSelector;
 use Phing\Type\Selector\SelectorScanner;
 use Phing\Type\Selector\SelectorUtils;
@@ -937,7 +936,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      *                      should not be selected, True otherwise.
      * @throws BuildException
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     protected function isSelected($name, $file)
     {

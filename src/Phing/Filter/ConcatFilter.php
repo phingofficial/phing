@@ -20,7 +20,6 @@
 namespace Phing\Filter;
 
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\BufferedReader;
 use Phing\Io\File;
 use Phing\Io\FileReader;
@@ -98,7 +97,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * @throws IOException if the underlying stream throws an IOException
      *                     during reading
      * @throws BuildException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function read($len = null)
     {
@@ -141,7 +140,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * also scan for skip parameter.
      *
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     private function initialize()
     {
@@ -186,7 +185,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * @return ConcatFilter a new filter based on this configuration, but filtering
      *                      the specified reader
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function chain(Reader $reader): Reader
     {
@@ -213,7 +212,7 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @param File|string $prepend prepend new value
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function setPrepend($prepend)
     {

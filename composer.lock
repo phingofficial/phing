@@ -1078,12 +1078,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-phpunit.git",
-                "reference": "c99b723aa02502b76fbbf591e1762a540e03d5af"
+                "reference": "8c5e2fdd45cf3517d6e8250f685813a5e2208025"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-phpunit/zipball/c99b723aa02502b76fbbf591e1762a540e03d5af",
-                "reference": "c99b723aa02502b76fbbf591e1762a540e03d5af",
+                "url": "https://api.github.com/repos/phingofficial/task-phpunit/zipball/8c5e2fdd45cf3517d6e8250f685813a5e2208025",
+                "reference": "8c5e2fdd45cf3517d6e8250f685813a5e2208025",
                 "shasum": ""
             },
             "require": {
@@ -1121,7 +1121,7 @@
                 "issues": "https://github.com/phingofficial/task-phpunit/issues",
                 "source": "https://github.com/phingofficial/task-phpunit/tree/main"
             },
-            "time": "2021-02-07T20:21:58+00:00"
+            "time": "2021-03-21T20:36:42+00:00"
         },
         {
             "name": "phing/task-sass",
@@ -1345,12 +1345,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-visualizer.git",
-                "reference": "e6613e73aa6bbe48d68e9577a0388c14bfd904ea"
+                "reference": "7d311398353f7366059cf3b68e380c107007cfc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-visualizer/zipball/e6613e73aa6bbe48d68e9577a0388c14bfd904ea",
-                "reference": "e6613e73aa6bbe48d68e9577a0388c14bfd904ea",
+                "url": "https://api.github.com/repos/phingofficial/task-visualizer/zipball/7d311398353f7366059cf3b68e380c107007cfc4",
+                "reference": "7d311398353f7366059cf3b68e380c107007cfc4",
                 "shasum": ""
             },
             "require": {
@@ -1394,7 +1394,7 @@
                 "issues": "https://github.com/phingofficial/task-visualizer/issues",
                 "source": "https://github.com/phingofficial/task-visualizer/tree/main"
             },
-            "time": "2021-03-14T20:12:19+00:00"
+            "time": "2021-03-21T20:39:07+00:00"
         },
         {
             "name": "phing/task-zendcodeanalyser",

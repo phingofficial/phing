@@ -23,7 +23,6 @@ use ArrayIterator;
 use Exception;
 use IteratorAggregate;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\BufferedReader;
 use Phing\Io\File;
 use Phing\Io\FileReader;
@@ -108,7 +107,7 @@ class FileList extends DataType implements IteratorAggregate
      * Base directory for files in list.
      *
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function setDir(File $dir)
     {
@@ -163,7 +162,7 @@ class FileList extends DataType implements IteratorAggregate
      *
      * @param string $file
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function setListFile($file)
     {

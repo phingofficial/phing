@@ -19,8 +19,6 @@
 
 namespace Phing\Filter;
 
-use A;
-use Phing\Exception\NullPointerException;
 use Phing\Io\FileUtils;
 use Phing\Io\FilterReader;
 use Phing\Io\IOException;
@@ -45,7 +43,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      * @return string the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function read($len = null)
     {
@@ -86,7 +84,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      * Creates a new StripWhitespace using the passed in
      * Reader for instantiation.
      *
-     * @param A|Reader $reader
+     * @param Reader $reader
      * @return StripWhitespace a new filter based on this configuration, but filtering
      *           the specified reader
      * @internal param A $reader Reader object providing the underlying stream.

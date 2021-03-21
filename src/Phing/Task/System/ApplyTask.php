@@ -20,7 +20,6 @@
 namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\DirectoryScanner;
 use Phing\Io\File;
 use Phing\Io\FileUtils;
@@ -389,7 +388,7 @@ class ApplyTask extends ExecTask
             $this->cleanup();
             // Log
             $this->log('End ', $this->loglevel);
-        } catch (IOException | NullPointerException | UnexpectedValueException $e) {
+        } catch (IOException | \InvalidArgumentException | UnexpectedValueException $e) {
             throw new BuildException('Execute failed: ' . $e, $e, $this->getLocation());
         }
     }
@@ -596,7 +595,7 @@ class ApplyTask extends ExecTask
      *
      * @throws BuildException
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     private function process($srcFiles, $basedir)
     {

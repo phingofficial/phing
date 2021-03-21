@@ -21,7 +21,6 @@ namespace Phing\Task\System;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\FileUtils;
@@ -404,7 +403,7 @@ class AppendTask extends Task
                         "Unable to append contents of file " . $file . ": " . $ioe->getMessage(),
                         Project::MSG_WARN
                     );
-                } catch (NullPointerException $npe) {
+                } catch (\InvalidArgumentException $npe) {
                     $this->log(
                         "Unable to append contents of file " . $file . ": " . $npe->getMessage(),
                         Project::MSG_WARN
