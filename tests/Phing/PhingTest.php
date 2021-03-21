@@ -62,11 +62,6 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Timer::class, Phing::getTimer());
     }
 
-    public function testFloatOnCurrentTimeMillis()
-    {
-        $this->assertIsFloat(Phing::currentTimeMillis());
-    }
-
     public function testGetPhingVersion()
     {
         $this->assertStringStartsWith('Phing ', Phing::getPhingVersion());

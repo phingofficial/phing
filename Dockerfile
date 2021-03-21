@@ -9,7 +9,6 @@ RUN composer install --optimize-autoloader --prefer-dist --no-progress --no-inte
 FROM php:7.4-cli-alpine AS phing
 MAINTAINER Phing <info@phing.info>
 
-RUN mkdir /app
 WORKDIR /app
 
 ADD bin/phing* bin/
