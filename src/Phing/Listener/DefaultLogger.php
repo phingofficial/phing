@@ -22,8 +22,11 @@ namespace Phing\Listener;
 use Phing\Exception\BuildException;
 use Phing\Io\IOException;
 use Phing\Io\OutputStream;
-use Phing\Phing;
 use Phing\Project;
+use Phing\Util\Clock;
+use Phing\Util\DefaultClock;
+use Phing\Util\ProjectTimer;
+use Phing\Util\ProjectTimerMap;
 use Phing\Util\StringHelper;
 use function end;
 use function fmod;
@@ -90,12 +93,26 @@ class DefaultLogger implements StreamRequiredBuildLogger
     protected $err;
 
     protected $emacsMode = false;
+    /**
+     * @var Clock|DefaultClock
+     */
+    protected $clock;
+    /**
+     * @var ProjectTimerMap
+     */
+    protected $projectTimerMap;
 
     /**
      *  Construct a new default logger.
      */
-    public function __construct()
+    public function __construct(Clock $clock = null)
     {
+        $this->projectTimerMap = new ProjectTimerMap();
+        if ($clock === null) {
+            $this->clock = new DefaultClock();
+        } else {
+            $this->clock = $clock;
+        }
     }
 
     /**
@@ -163,7 +180,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function buildStarted(BuildEvent $event)
     {
-        $this->startTime = microtime(true);
+        $this->findInitialProjectTimer()->start();
         if ($this->msgOutputLevel >= Project::MSG_INFO) {
             $this->printMessage(
                 "Buildfile: " . $event->getProject()->getProperty("phing.file"),
@@ -181,6 +198,9 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function buildFinished(BuildEvent $event)
     {
+        $projectTimer = $this->findProjectTimer($event);
+        $this->updateDurationWithInitialProjectTimer($projectTimer);
+        $projectTimer->finish();
         $msg = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
         $error = $event->getException();
 
@@ -189,7 +209,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
 
             self::throwableMessage($msg, $error, Project::MSG_VERBOSE <= $this->msgOutputLevel);
         }
-        $msg .= PHP_EOL . "Total time: " . static::formatTime(microtime(true) - $this->startTime) . PHP_EOL;
+        $msg .= PHP_EOL . "Total time: "
+            . static::formatTime($projectTimer->getTime()) . PHP_EOL;
 
         $error === null
             ? $this->printMessage($msg, $this->out, Project::MSG_VERBOSE)
@@ -217,15 +238,18 @@ class DefaultLogger implements StreamRequiredBuildLogger
             if ($error instanceof BuildException) {
                 $msg .= $error->getLocation() . PHP_EOL;
             }
-            $msg .= '[' . get_class($error) . '] ' . $error->getMessage() . PHP_EOL . $error->getTraceAsString() . PHP_EOL;
+            $msg .= '[' . get_class($error) . '] ' . $error->getMessage() . PHP_EOL
+                . $error->getTraceAsString() . PHP_EOL;
         } else {
-            $msg .= ($error instanceof BuildException ? $error->getLocation() . " " : "") . $error->getMessage() . PHP_EOL;
+            $msg .= ($error instanceof BuildException ? $error->getLocation() . " " : "")
+                . $error->getMessage() . PHP_EOL;
         }
 
         if ($error->getPrevious() && $verbose) {
             $error = $error->getPrevious();
             do {
-                $msg .= '[Caused by ' . get_class($error) . '] ' . $error->getMessage() . PHP_EOL . $error->getTraceAsString() . PHP_EOL;
+                $msg .= '[Caused by ' . get_class($error) . '] ' . $error->getMessage() . PHP_EOL
+                    . $error->getTraceAsString() . PHP_EOL;
             } while ($error = $error->getPrevious());
         }
     }
@@ -262,7 +286,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
             && $event->getTarget()->getName() != ''
         ) {
             $showLongTargets = $event->getProject()->getProperty("phing.showlongtargets");
-            $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
+            $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName()
+                . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());
         }
     }
@@ -386,5 +411,23 @@ class DefaultLogger implements StreamRequiredBuildLogger
     protected function printMessage($message, OutputStream $stream, $priority)
     {
         $stream->write($message . PHP_EOL);
+    }
+
+    private function findProjectTimer(BuildEvent $buildEvent)
+    {
+        $project = $buildEvent->getProject();
+        return $this->projectTimerMap->find($project, $this->clock);
+    }
+
+    protected function findInitialProjectTimer()
+    {
+        return $this->projectTimerMap->find('', $this->clock);
+    }
+
+    private function updateDurationWithInitialProjectTimer(ProjectTimer $projectTimer)
+    {
+        $rootProjectTimer = $this->findInitialProjectTimer();
+        $duration = $rootProjectTimer->getSeries()->current();
+        $projectTimer->getSeries()->add($duration);
     }
 }

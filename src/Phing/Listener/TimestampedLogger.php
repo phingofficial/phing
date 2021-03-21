@@ -24,7 +24,7 @@ namespace Phing\Listener;
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class TimestampedLogger extends DefaultLogger
+class TimestampedLogger extends AnsiColorLogger
 {
     /**
      * what appears between the old message and the new

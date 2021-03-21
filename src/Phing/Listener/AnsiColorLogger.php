@@ -204,7 +204,7 @@ class AnsiColorLogger extends DefaultLogger
      * @param string       $message
      * @param int          $priority
      */
-    final protected function printMessage($message, OutputStream $stream, $priority)
+    protected function printMessage($message, OutputStream $stream, $priority)
     {
         if ($message !== null) {
             if (!$this->colorsSet) {

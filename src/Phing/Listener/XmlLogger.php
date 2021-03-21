@@ -29,6 +29,8 @@ use Phing\Io\OutputStream;
 use Phing\Io\OutputStreamWriter;
 use Phing\Phing;
 use Phing\Project;
+use Phing\Util\Clock;
+use Phing\Util\DefaultClock;
 
 /**
  * Generates a file in the current directory with
@@ -134,12 +136,21 @@ class XmlLogger implements BuildLogger
      * @var string Name of filename to create.
      */
     private $outFilename;
+    /**
+     * @var Clock|DefaultClock
+     */
+    protected $clock;
 
     /**
      *  Constructs a new BuildListener that logs build events to an XML file.
      */
-    public function __construct()
+    public function __construct(Clock $clock = null)
     {
+        if ($clock === null) {
+            $this->clock = new DefaultClock();
+        } else {
+            $this->clock = $clock;
+        }
         $this->doc = new DOMDocument("1.0", "UTF-8");
         $this->doc->formatOutput = true;
     }
@@ -152,7 +163,7 @@ class XmlLogger implements BuildLogger
      */
     public function buildStarted(BuildEvent $event)
     {
-        $this->buildTimerStart = microtime(true);
+        $this->buildTimerStart = $this->clock->getCurrentTime();
         $this->buildElement = $this->doc->createElement(XmlLogger::BUILD_TAG);
         $this->elementStack[] = $this->buildElement;
         $this->timesStack[] = $this->buildTimerStart;
@@ -178,7 +189,7 @@ class XmlLogger implements BuildLogger
             $this->doc->appendChild($xslt);
         }
 
-        $elapsedTime = microtime(true) - $this->buildTimerStart;
+        $elapsedTime = $this->clock->getCurrentTime() - $this->buildTimerStart;
 
         $this->buildElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 
@@ -237,7 +248,7 @@ class XmlLogger implements BuildLogger
         $targetElement = $this->doc->createElement(XmlLogger::TARGET_TAG);
         $targetElement->setAttribute(XmlLogger::NAME_ATTR, $target->getName());
 
-        $this->timesStack[] = microtime(true);
+        $this->timesStack[] = $this->clock->getCurrentTime();
         $this->elementStack[] = $targetElement;
     }
 
@@ -253,7 +264,7 @@ class XmlLogger implements BuildLogger
         $targetTimerStart = array_pop($this->timesStack);
         $targetElement = array_pop($this->elementStack);
 
-        $elapsedTime = microtime(true) - $targetTimerStart;
+        $elapsedTime = $this->clock->getCurrentTime() - $targetTimerStart;
         $targetElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 
         $parentElement = $this->elementStack[count($this->elementStack) - 1];
@@ -274,7 +285,7 @@ class XmlLogger implements BuildLogger
         $taskElement->setAttribute(XmlLogger::NAME_ATTR, $task->getTaskName());
         $taskElement->setAttribute(XmlLogger::LOCATION_ATTR, (string) $task->getLocation());
 
-        $this->timesStack[] = microtime(true);
+        $this->timesStack[] = $this->clock->getCurrentTime();
         $this->elementStack[] = $taskElement;
     }
 
@@ -290,7 +301,7 @@ class XmlLogger implements BuildLogger
         $taskTimerStart = array_pop($this->timesStack);
         $taskElement = array_pop($this->elementStack);
 
-        $elapsedTime = microtime(true) - $taskTimerStart;
+        $elapsedTime = $this->clock->getCurrentTime() - $taskTimerStart;
         $taskElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 
         $parentElement = $this->elementStack[count($this->elementStack) - 1];

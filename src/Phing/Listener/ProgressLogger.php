@@ -59,7 +59,7 @@ class ProgressLogger extends AnsiColorLogger
      */
     public function buildStarted(BuildEvent $event)
     {
-        $this->startTime = microtime(true);
+        $this->startTime = $this->clock->getCurrentTime();
         $this->bar->setMessage($event->getProject()->getProperty("phing.file"), 'buildfile');
     }
 
