@@ -25,6 +25,10 @@ use Phing\Io\OutputStream;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Util\StringHelper;
+use function end;
+use function fmod;
+use function intdiv;
+use function vsprintf;
 
 /**
  * Writes a build event to the console.
@@ -44,6 +48,21 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * @var int
      */
     public const LEFT_COLUMN_SIZE = 12;
+
+    /**
+     * A day in seconds.
+     */
+    protected const A_DAY = 86400;
+
+    /**
+     * An hour in seconds.
+     */
+    protected const AN_HOUR = 3600;
+
+    /**
+     * A minute in seconds.
+     */
+    protected const A_MINUTE = 60;
 
     /**
      *  The message output level that should be used. The default is
@@ -306,26 +325,50 @@ class DefaultLogger implements StreamRequiredBuildLogger
     }
 
     /**
-     *  Formats a time micro int to human readable format.
+     * Formats time (expressed in seconds) to a human readable format.
      *
-     * @param  int The time stamp
+     * @param float $seconds Time to convert, can have decimals.
      * @return string
+     * @noinspection PhpMissingBreakStatementInspection
      */
-    public static function formatTime($micros)
+    public static function formatTime(float $seconds): string
     {
-        $seconds = $micros;
-        $minutes = (int) floor($seconds / 60);
-        if ($minutes >= 1) {
-            return sprintf(
-                "%1.0f minute%s %0.2f second%s",
-                $minutes,
-                ($minutes === 1 ? " " : "s "),
-                $seconds - floor($seconds / 60) * 60,
-                ($seconds % 60 === 1 ? "" : "s")
-            );
+        /** @var int|float $number */
+        $getPlural = function ($number): string {
+            return $number == 1 ? '' : 's';
+        };
+        $chunks    = [];
+        $format    = '';
+        $precision = 4;
+        switch (true) {
+            // Days
+            case ($seconds >= self::A_DAY):
+                $chunks[] = intdiv($seconds, self::A_DAY);
+                $chunks[] = $getPlural(end($chunks));
+                $seconds  = fmod($seconds, self::A_DAY);
+                $format   .= '%u day%s  ';
+            // Hours
+            case ($seconds >= self::AN_HOUR):
+                $chunks[] = intdiv($seconds, self::AN_HOUR);
+                $chunks[] = $getPlural(end($chunks));
+                $seconds  = fmod($seconds, self::AN_HOUR);
+                $format   .= '%u hour%s  ';
+            // Minutes
+            case ($seconds >= self::A_MINUTE):
+                $chunks[]  = intdiv($seconds, self::A_MINUTE);
+                $chunks[]  = $getPlural(end($chunks));
+                $seconds   = fmod($seconds, self::A_MINUTE);
+                $format    .= '%u minute%s  ';
+                $precision = 2;
+            // Seconds
+            default:
+                $chunks[] = $seconds;
+                $chunks[] = $getPlural(end($chunks));
+                $format   .= "%.{$precision}F second%s";
+                break;
         }
 
-        return sprintf("%0.4f second%s", $seconds, ($seconds % 60 === 1 ? "" : "s"));
+        return vsprintf($format, $chunks);
     }
 
     /**
