@@ -38,11 +38,11 @@ use Phing\Listener\DefaultLogger;
 use Phing\Listener\SilentLogger;
 use Phing\Listener\StreamRequiredBuildLogger;
 use Phing\Parser\ProjectConfigurator;
+use Phing\Util\DefaultClock;
 use Phing\Util\Diagnostics;
 use Phing\Util\Properties;
 use Phing\Util\SizeHelper;
 use Phing\Util\StringHelper;
-use Phing\Util\Timer;
 use SebastianBergmann\Version;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Throwable;
@@ -1650,13 +1650,13 @@ class Phing
     }
 
     /**
-     * Returns reference to Timer object.
+     * Returns reference to DefaultClock object.
      *
      */
-    public static function getTimer(): Timer
+    public static function getTimer(): DefaultClock
     {
         if (self::$timer === null) {
-            self::$timer = new Timer();
+            self::$timer = new DefaultClock();
         }
 
         return self::$timer;

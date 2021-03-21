@@ -20,7 +20,7 @@
 namespace Phing;
 
 use Phing\Io\OutputStream;
-use Phing\Util\Timer;
+use Phing\Util\DefaultClock;
 
 /**
  * Core Phing class test
@@ -59,7 +59,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
 
     public function testTimer()
     {
-        $this->assertInstanceOf(Timer::class, Phing::getTimer());
+        $this->assertInstanceOf(DefaultClock::class, Phing::getTimer());
     }
 
     public function testGetPhingVersion()

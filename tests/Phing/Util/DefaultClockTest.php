@@ -19,19 +19,21 @@
 
 namespace Phing\Util;
 
+use PHPUnit\Framework\TestCase;
+
 /**
- * Unit test for Timer
+ * Unit test for DefaultClock
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class TimerTest extends \PHPUnit\Framework\TestCase
+class DefaultClockTest extends TestCase
 {
-    /** @var Timer */
+    /** @var DefaultClock */
     private $timer;
 
     public function setUp(): void
     {
-        $this->timer = new Timer();
+        $this->timer = new DefaultClock();
     }
 
     public function tearDown(): void

@@ -21,7 +21,7 @@ namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
 use Phing\Support\BuildFileTest;
-use Phing\Util\Timer;
+use Phing\Util\DefaultClock;
 
 /**
  * Tests the SleepTask
@@ -49,7 +49,7 @@ class SleepTaskTest extends BuildFileTest
 
     private function timer()
     {
-        return new class() extends Timer {
+        return new class() extends DefaultClock {
             public function time()
             {
                 return $this->etime - $this->stime;
