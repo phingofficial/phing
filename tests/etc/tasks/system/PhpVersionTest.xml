@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PhpVersionTest" default="testPhpVersion">
+    <target name="testPhpVersion">
+        <condition property="isTrue">
+            <and>
+                <phpversion atleast="7.3"/>
+                <phpversion atmost="100.10.10"/>
+                <not>
+                    <and>
+                        <phpversion atleast="5.3"/>
+                        <phpversion atmost="5.3"/>
+                        <phpversion exactly="5.3"/>
+                    </and>
+                </not>
+            </and>
+        </condition>
+    </target>
+</project>

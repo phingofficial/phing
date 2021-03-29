@@ -7579,6 +7579,7 @@
             <ref name="ispropertyfalse"/>
             <ref name="ispropertytrue"/>
             <ref name="phingversion_cond"/>
+            <ref name="phpversion_cond"/>
             <ref name="socket"/>
             <ref name="versioncompare"/>
             <ref name="available_cond"/>
@@ -7772,6 +7773,18 @@
                 <choice>
                     <attribute name="atLeast"/>
                     <attribute name="exactly"/>
+                </choice>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="phpversion_cond">
+        <element name="phpversion">
+            <interleave>
+                <choice>
+                    <attribute name="atleast"/>
+                    <attribute name="exactly"/>
+                    <attribute name="atmost"/>
                 </choice>
             </interleave>
         </element>

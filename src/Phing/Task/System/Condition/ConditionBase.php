@@ -252,6 +252,13 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
         return $this->conditions[$num - 1];
     }
 
+    public function createPhpVersion()
+    {
+        $num = array_push($this->conditions, new PhpVersion());
+
+        return $this->conditions[$num - 1];
+    }
+
     public function createHasFreeSpace()
     {
         $num = array_push($this->conditions, new HasFreeSpaceCondition());
