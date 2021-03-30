@@ -40,7 +40,7 @@ class ProjectTimerMap extends TimerMap
         return parent::find($name, $clock);
     }
 
-    protected function createTimer($name, Clock $clock)
+    protected function createTimer($name, Clock $clock): ProjectTimer
     {
         return new ProjectTimer($name, $clock);
     }

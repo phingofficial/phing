@@ -19,6 +19,7 @@
 
 namespace Phing\Util;
 
+use Phing\Phing;
 use SplStack;
 
 /**
@@ -148,9 +149,9 @@ class StatisticsReport
                 $sb .= $this->createTaskStatistics($projectTimer);
                 $sb .= PHP_EOL;
             }
-            print(PHP_EOL);
-            print($this->create("Project Statistics", $projectSeriesMap));
-            print(PHP_EOL . $sb);
+            Phing::log(PHP_EOL);
+            Phing::log($this->create("Project Statistics", $projectSeriesMap));
+            Phing::log(PHP_EOL . $sb);
         }
     }
 

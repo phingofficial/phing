@@ -21,7 +21,6 @@ namespace Phing\Task\System;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\File;
 use Phing\Io\FileParserFactory;
 use Phing\Io\FileParserFactoryInterface;
@@ -190,7 +189,6 @@ class PropertyTask extends Task
      * @param string|File $file
      *
      * @throws IOException
-     * @throws NullPointerException
      */
     public function setFile($file)
     {

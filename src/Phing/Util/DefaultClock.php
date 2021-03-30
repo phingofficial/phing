@@ -25,6 +25,74 @@ namespace Phing\Util;
 class DefaultClock implements Clock
 {
     /**
+     * start time
+     *
+     * @var float
+     */
+    protected $stime;
+
+    /**
+     * end time
+     *
+     * @var float
+     */
+    protected $etime;
+
+    /**
+     * is the timer running
+     *
+     * @var bool
+     */
+    protected $running;
+
+    /**
+     * Starts the timer and sets the class variable $stime to the current time in microseconds.
+     *
+     */
+    public function start()
+    {
+        $this->stime = $this->getCurrentTime();
+        $this->running = true;
+    }
+
+    /**
+     * Stops the timer and sets the class variable $etime to the current time in microseconds.
+     *
+     */
+    public function stop()
+    {
+        $this->etime = $this->getCurrentTime();
+        $this->running = false;
+    }
+
+    /**
+     * This function returns the elapsed time in seconds.
+     *
+     * Call start_time() at the beginning of script execution and end_time() at
+     * the end of script execution.  Then, call elapsed_time() to obtain the
+     * difference between start_time() and end_time().
+     *
+     * @param int $places decimal place precision of elapsed time (default is 5)
+     *
+     * @return string Properly formatted time.
+     */
+    public function getElapsedTime($places = 5)
+    {
+        $etime = $this->etime - $this->stime;
+        $format = "%0." . $places . "f";
+
+        return (sprintf($format, $etime));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRunning()
+    {
+        return $this->running;
+    }
+
+    /**
      * @return int
      */
     public function getCurrentTime()

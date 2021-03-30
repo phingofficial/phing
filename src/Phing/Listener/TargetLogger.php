@@ -30,7 +30,7 @@ use Phing\Project;
  */
 class TargetLogger extends AnsiColorLogger
 {
-    private $targetName = null;
+    private $targetName;
     private $targetStartTime;
 
     public function targetStarted(BuildEvent $event)
@@ -38,13 +38,13 @@ class TargetLogger extends AnsiColorLogger
         parent::targetStarted($event);
         $target = $event->getTarget();
         $this->targetName = $target->getName();
-        $this->targetStartTime = microtime(true);
+        $this->targetStartTime = $this->clock->getCurrentTime();
     }
 
     public function targetFinished(BuildEvent $event)
     {
         $msg = PHP_EOL . "Target time: " . self::formatTime(
-            microtime(true) - $this->targetStartTime
+            $this->clock->getCurrentTime() - $this->targetStartTime
         ) . PHP_EOL;
         $event->setMessage($msg, Project::MSG_INFO);
         $this->messageLogged($event);

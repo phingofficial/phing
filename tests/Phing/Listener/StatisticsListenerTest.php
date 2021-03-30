@@ -42,7 +42,6 @@ class StatisticsListenerTest extends TestCase
             '            Task Statistics - ' . PHP_EOL . PHP_EOL .
             'name    count    average    total    %    ' . PHP_EOL .
             '------------------------------------------' . PHP_EOL . PHP_EOL . PHP_EOL . '/';
-        $this->expectOutputRegex($msg);
-        $logger->buildFinished($event);
+        $this->assertNull($logger->buildFinished($event));
     }
 }

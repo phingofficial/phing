@@ -21,7 +21,6 @@ namespace Phing\Task\System;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\FileUtils;
@@ -78,7 +77,7 @@ class ReflexiveTask extends Task
 
     /**
      * Append the file(s).
-     * @throws IOException|NullPointerException
+     * @throws IOException|\InvalidArgumentException
      */
     public function main()
     {

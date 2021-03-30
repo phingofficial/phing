@@ -38,11 +38,11 @@ use Phing\Listener\DefaultLogger;
 use Phing\Listener\SilentLogger;
 use Phing\Listener\StreamRequiredBuildLogger;
 use Phing\Parser\ProjectConfigurator;
+use Phing\Util\DefaultClock;
 use Phing\Util\Diagnostics;
 use Phing\Util\Properties;
 use Phing\Util\SizeHelper;
 use Phing\Util\StringHelper;
-use Phing\Util\Timer;
 use SebastianBergmann\Version;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Throwable;
@@ -1087,7 +1087,7 @@ class Phing
         $msg .= "  -inputhandler <file>   the class to use to handle user input" . PHP_EOL;
         //$msg .= "  -recursive <file>      search for buildfile downwards and use it" . PHP_EOL;
         $msg .= PHP_EOL;
-        $msg .= "Report bugs to <dev@phing.tigris.org>" . PHP_EOL;
+        $msg .= "Report bugs to https://github.com/phingofficial/phing/issues" . PHP_EOL;
         self::$err->write($msg);
     }
 
@@ -1650,13 +1650,13 @@ class Phing
     }
 
     /**
-     * Returns reference to Timer object.
+     * Returns reference to DefaultClock object.
      *
      */
-    public static function getTimer(): Timer
+    public static function getTimer(): DefaultClock
     {
         if (self::$timer === null) {
-            self::$timer = new Timer();
+            self::$timer = new DefaultClock();
         }
 
         return self::$timer;

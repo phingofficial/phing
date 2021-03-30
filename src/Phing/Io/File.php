@@ -20,7 +20,6 @@
 namespace Phing\Io;
 
 use Exception;
-use Phing\Exception\NullPointerException;
 use Phing\Util\StringHelper;
 
 /**
@@ -48,7 +47,7 @@ class File
      *
      *
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      * @param null|mixed $arg1
      * @param null|mixed $arg2
      */
@@ -63,7 +62,7 @@ class File
             $this->constructStringParentStringChild($arg1, $arg2);
         } else {
             if ($arg1 === null) {
-                throw new NullPointerException("Argument1 to function must not be null");
+                throw new \InvalidArgumentException("Argument1 to function must not be null");
             }
             $this->path = (string) $arg1;
             $this->prefixLength = (int) $arg2;
