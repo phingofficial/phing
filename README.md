@@ -78,10 +78,9 @@
 
 ## Documentation
 
-  Documentation is available in various formats in the *docs/docbook5/en/output*
-  directory (generated from DocBook sources located in *docs/docbook5/en/source*).
+  Phing's documentation can be found at <https://www.phing.info/#docs>.
 
-  For online documentation, you can also visit the Phing website: https://www.phing.info/
+  For the source of the documentation, go to <https://github.com/phingofficial/guide>.
 
 ## Contact
 
