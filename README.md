@@ -78,9 +78,9 @@
 
 ## Documentation
 
-  Documentation can be found at <https://www.phing.info/#docs>.
+  Phing's documentation can be found at <https://www.phing.info/#docs>.
 
-  To update documentation please go to <https://github.com/phingofficial/guide>.
+  For the source of the documentation, go to <https://github.com/phingofficial/guide>.
 
 ## Contact
 
