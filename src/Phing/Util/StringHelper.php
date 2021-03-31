@@ -93,7 +93,7 @@ class StringHelper
             return true;
         }
 
-        return strpos($string, $check) === 0;
+        return strpos((string) $string, $check) === 0;
     }
 
     /**
