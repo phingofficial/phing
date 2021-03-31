@@ -109,7 +109,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
             // SQL defines "--" as a comment to EOL
             // and in Oracle it may contain a hint
             // so we cannot just remove it, instead we must end it
-            if (strpos($line, "--") !== false) {
+            if (strpos((string) $line, "--") !== false) {
                 $sql .= "\n";
             }
 
