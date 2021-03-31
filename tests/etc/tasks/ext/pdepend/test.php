@@ -2,7 +2,10 @@
 
 class Test
 {
-    public function test($a = 0)
+    /**
+     * @param int $a
+     */
+    public function testing($a = 0)
     {
         echo "Hello World";
     }
