@@ -41,6 +41,9 @@ class PHPMDTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt');
     }
 
+    /**
+     * @requires PHP < 8.1
+     */
     public function testReportHtml()
     {
         $this->executeTarget(__FUNCTION__);
