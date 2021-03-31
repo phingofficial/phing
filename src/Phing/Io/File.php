@@ -33,7 +33,7 @@ class File
      * pathname string uses the default name-separator character and does not
      * contain any duplicate or redundant separators.
      */
-    private $path = null;
+    private $path = '';
 
     /**
      * The length of this abstract pathname's prefix, or zero if it has no prefix.

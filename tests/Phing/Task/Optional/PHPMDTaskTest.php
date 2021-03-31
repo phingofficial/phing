@@ -32,6 +32,9 @@ class PHPMDTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpmd/build.xml");
     }
 
+    /**
+     * @requires PHP < 8.1
+     */
     public function testReportText()
     {
         $this->executeTarget(__FUNCTION__);
@@ -41,6 +44,9 @@ class PHPMDTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt');
     }
 
+    /**
+     * @requires PHP < 8.1
+     */
     public function testReportHtml()
     {
         $this->executeTarget(__FUNCTION__);
@@ -50,6 +56,9 @@ class PHPMDTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.html');
     }
 
+    /**
+     * @requires PHP < 8.1
+     */
     public function testReportXml()
     {
         $this->executeTarget(__FUNCTION__);

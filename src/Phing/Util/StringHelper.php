@@ -93,7 +93,7 @@ class StringHelper
             return true;
         }
 
-        return strpos($string, $check) === 0;
+        return strpos((string) $string, $check) === 0;
     }
 
     /**
@@ -139,7 +139,7 @@ class StringHelper
 
         $len = $endpos - $startpos;
 
-        return substr($string, $startpos, $len + 1);
+        return substr((string) $string, $startpos, $len + 1);
     }
 
     /**

@@ -117,7 +117,7 @@ class BufferedReader extends Reader
         $line = null;
         while (($ch = $this->readChar()) !== -1) {
             if ($ch === "\n") {
-                $line = rtrim($line);
+                $line = rtrim((string) $line);
                 break;
             }
             $line .= $ch;
