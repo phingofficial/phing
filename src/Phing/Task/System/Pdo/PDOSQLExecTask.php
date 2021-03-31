@@ -463,7 +463,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     {
         if (self::DELIM_NONE == $this->delimiterType) {
             $splitter = new DummyPDOQuerySplitter($this, $reader);
-        } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos($this->getUrl(), 'pgsql:')) {
+        } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos((string) $this->getUrl(), 'pgsql:')) {
             $splitter = new PgsqlPDOQuerySplitter($this, $reader);
         } else {
             $splitter = new DefaultPDOQuerySplitter($this, $reader, $this->delimiterType);
