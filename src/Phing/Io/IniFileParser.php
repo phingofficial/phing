@@ -41,8 +41,8 @@ class IniFileParser implements FileParserInterface
         // concatenate lines ending with backslash
         $linesCount = count($lines);
         for ($i = 0; $i < $linesCount; $i++) {
-            if (substr($lines[$i], -1, 1) === '\\') {
-                $lines[$i + 1] = substr($lines[$i], 0, -1) . ltrim($lines[$i + 1]);
+            if (substr((string) $lines[$i], -1, 1) === '\\') {
+                $lines[$i + 1] = substr((string) $lines[$i], 0, -1) . ltrim($lines[$i + 1]);
                 $lines[$i] = '';
             }
         }
@@ -56,12 +56,12 @@ class IniFileParser implements FileParserInterface
                 continue;
             }
 
-            $pos = strpos($line, '=');
+            $pos = strpos((string) $line, '=');
             if (false === $pos) {
                 continue;
             }
-            $property = trim(substr($line, 0, $pos));
-            $value = trim(substr($line, $pos + 1));
+            $property = trim(substr((string) $line, 0, $pos));
+            $value = trim(substr((string) $line, $pos + 1));
             $properties[$property] = $this->inVal($value);
         } // for each line
 
