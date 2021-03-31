@@ -32,6 +32,9 @@ class PHPMDTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpmd/build.xml");
     }
 
+    /**
+     * @requires PHP < 8.1
+     */
     public function testReportText()
     {
         $this->executeTarget(__FUNCTION__);
