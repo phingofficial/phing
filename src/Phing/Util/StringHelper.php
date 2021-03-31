@@ -139,7 +139,7 @@ class StringHelper
 
         $len = $endpos - $startpos;
 
-        return substr($string, $startpos, $len + 1);
+        return substr((string) $string, $startpos, $len + 1);
     }
 
     /**
