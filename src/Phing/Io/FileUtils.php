@@ -46,6 +46,15 @@ class FileUtils
      */
     private static $separator;
 
+    /**
+     * @var false
+     */
+    private $dosWithDrive;
+
+    /**
+     * @return string
+     * @throws IOException
+     */
     public static function getPathSeparator(): string
     {
         if (self::$pathSeparator === null) {
@@ -54,6 +63,10 @@ class FileUtils
         return self::$pathSeparator;
     }
 
+    /**
+     * @return string
+     * @throws IOException
+     */
     public static function getSeparator(): string
     {
         if (self::$separator === null) {
@@ -80,9 +93,8 @@ class FileUtils
      *
      * @return int  Creation Mask in octal representation
      */
-    public static function getDefaultFileCreationMask($dirmode = false)
+    public static function getDefaultFileCreationMask($dirmode = false): int
     {
-
         // Preparing the creation mask base permission
         $permission = ($dirmode === true) ? 0777 : 0666;
 
@@ -117,12 +129,15 @@ class FileUtils
     /**
      * Copies a file using filter chains.
      *
+     * @param File $sourceFile
+     * @param File $destFile
+     * @param Project $project
      * @param bool $overwrite
      * @param bool $preserveLastModified
      * @param array $filterChains
      * @param int $mode
      * @param bool $preservePermissions
-     * @throws Exception
+     * @param int $granularity
      * @throws IOException
      */
     public function copyFile(
@@ -199,8 +214,9 @@ class FileUtils
      * If overwrite is set to true, this method overwrites existing file even if the destination file is newer.
      * Otherwise, the source file is renamed only if the destination file is older than it.
      *
+     * @throws IOException
      */
-    public function renameFile(File $sourceFile, File $destFile, $overwrite = false)
+    public function renameFile(File $sourceFile, File $destFile, $overwrite = false): void
     {
         // ensure that parent dir of dest file exists!
         $parent = $destFile->getParentFile();
@@ -240,7 +256,7 @@ class FileUtils
      * @throws IOException
      *
      */
-    public function resolveFile($file, $filename)
+    public function resolveFile(File $file, string $filename): File
     {
         // remove this and use the static class constant File::separator
         // as soon as ZE2 is ready
@@ -297,32 +313,83 @@ class FileUtils
      *
      * @return string
      * @throws IOException
-     *
+     * @throws BuildException
      */
-    public function normalize($path)
+    public function normalize(string $path): string
     {
-        $path = (string) $path;
-        $orig = $path;
+        $dissect = $this->dissect($path);
+        $sep = self::getSeparator();
 
-        $path = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+        $s = [];
+        $s[] = $dissect[0];
+        $tok = strtok($dissect[1], $sep);
+        while ($tok !== false) {
+            $thisToken = $tok;
+            if ("." === $thisToken) {
+                $tok = strtok($sep);
+                continue;
+            }
+
+            if (".." === $thisToken) {
+                if (count($s) < 2) {
+                    // using '..' in path that is too short
+                    throw new IOException("Cannot resolve path: $path");
+                }
+
+                array_pop($s);
+            } else { // plain component
+                $s[] = $thisToken;
+            }
+            $tok = strtok($sep);
+        }
+
+        $sb = "";
+        foreach ($s as $i => $v) {
+            if ($i > 1) {
+                // not before the filesystem root and not after it, since root
+                // already contains one
+                $sb .= $sep;
+            }
+            $sb .= $v;
+        }
+
+        $path = $sb;
+        if ($this->dosWithDrive === true) {
+            $path = str_replace('/', '\\', $path);
+        }
+
+        return $path;
+    }
+
+    /**
+     * Dissect the specified absolute path.
+     * @param string $path
+     * @return array {root, remainig path}
+     * @throws BuildException
+     * @throws IOException
+     */
+    public function dissect(string $path): array
+    {
+        $sep = self::getSeparator();
+        $path = str_replace(['\\', '/'], $sep, $path);
 
         // make sure we are dealing with an absolute path
         if (
-            !StringHelper::startsWith(DIRECTORY_SEPARATOR, $path)
+            !StringHelper::startsWith($sep, $path)
             && !(strlen($path) >= 2
                 && Character::isLetter($path[0])
                 && $path[1] === ':')
         ) {
-            throw new IOException("$path is not an absolute path");
+            throw new BuildException("$path is not an absolute path");
         }
 
-        $dosWithDrive = false;
+        $this->dosWithDrive = false;
         $root = null;
 
         // Eliminate consecutive slashes after the drive spec
 
         if (strlen($path) >= 2 && Character::isLetter($path[0]) && $path[1] === ':') {
-            $dosWithDrive = true;
+            $this->dosWithDrive = true;
 
             $ca = str_replace('/', '\\', $path);
 
@@ -338,9 +405,9 @@ class FileUtils
                 }
             }
 
-            $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
+            $path = str_replace('\\', $sep, $path);
 
-            if (strlen($path) == 2) {
+            if (strlen($path) === 2) {
                 $root = $path;
                 $path = "";
             } else {
@@ -348,60 +415,22 @@ class FileUtils
                 $path = substr($path, 3);
             }
         } else {
-            if (strlen($path) == 1) {
-                $root = DIRECTORY_SEPARATOR;
+            if (strlen($path) === 1) {
+                $root = $sep;
                 $path = "";
             } else {
-                if ($path[1] == DIRECTORY_SEPARATOR) {
+                if ($path[1] === $sep) {
                     // UNC drive
-                    $root = DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR;
+                    $root = $sep . $sep;
                     $path = substr($path, 2);
                 } else {
-                    $root = DIRECTORY_SEPARATOR;
+                    $root = $sep;
                     $path = substr($path, 1);
                 }
             }
         }
 
-        $s = [];
-        $s[] = $root;
-        $tok = strtok($path, DIRECTORY_SEPARATOR);
-        while ($tok !== false) {
-            $thisToken = $tok;
-            if ("." === $thisToken) {
-                $tok = strtok(DIRECTORY_SEPARATOR);
-                continue;
-            }
-
-            if (".." === $thisToken) {
-                if (count($s) < 2) {
-                    // using '..' in path that is too short
-                    throw new IOException("Cannot resolve path: $orig");
-                }
-
-                array_pop($s);
-            } else { // plain component
-                $s[] = $thisToken;
-            }
-            $tok = strtok(DIRECTORY_SEPARATOR);
-        }
-
-        $sb = "";
-        for ($i = 0, $_i = count($s); $i < $_i; $i++) {
-            if ($i > 1) {
-                // not before the filesystem root and not after it, since root
-                // already contains one
-                $sb .= DIRECTORY_SEPARATOR;
-            }
-            $sb .= (string) $s[$i];
-        }
-
-        $path = (string) $sb;
-        if ($dosWithDrive === true) {
-            $path = str_replace('/', '\\', $path);
-        }
-
-        return $path;
+        return [$root, $path];
     }
 
     /**
@@ -431,7 +460,7 @@ class FileUtils
         File $parentDir = null,
         $deleteOnExit = false,
         $createFile = false
-    ) {
+    ): File {
         $result = null;
         $parent = ($parentDir === null) ? self::getTempDir() : $parentDir->getPath();
 
@@ -464,10 +493,12 @@ class FileUtils
     }
 
     /**
-     *
+     * @param File $file1
+     * @param File $file2
      * @return bool Whether contents of two files is the same.
+     * @throws IOException
      */
-    public function contentEquals(File $file1, File $file2)
+    public function contentEquals(File $file1, File $file2): bool
     {
         if (!($file1->exists() && $file2->exists())) {
             return false;
@@ -484,6 +515,6 @@ class FileUtils
         $c1 = file_get_contents($file1->getAbsolutePath());
         $c2 = file_get_contents($file2->getAbsolutePath());
 
-        return trim($c1) == trim($c2);
+        return trim($c1) === trim($c2);
     }
 }
