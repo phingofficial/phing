@@ -27,10 +27,6 @@ use Phing\Type\FileList;
 use Phing\Type\Reference;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class FileListTest extends TestCase
 {
     /**

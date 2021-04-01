@@ -26,10 +26,6 @@ use Phing\Listener\TimestampedLogger;
 use Phing\Project;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class TimestampedLoggerTest extends TestCase
 {
     /**

@@ -53,8 +53,8 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getCommand
-     * @covers \SymfonyConsoleTask::setCommand
+     * @covers SymfonyConsoleTask::getCommand
+     * @covers SymfonyConsoleTask::setCommand
      */
     public function testSetGetCommand()
     {
@@ -64,8 +64,8 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getConsole
-     * @covers \SymfonyConsoleTask::setConsole
+     * @covers SymfonyConsoleTask::getConsole
+     * @covers SymfonyConsoleTask::setConsole
      */
     public function testSetGetConsole()
     {
@@ -75,8 +75,8 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getDebug
-     * @covers \SymfonyConsoleTask::setDebug
+     * @covers SymfonyConsoleTask::getDebug
+     * @covers SymfonyConsoleTask::setDebug
      */
     public function testSetGetDebug()
     {
@@ -86,8 +86,8 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getSilent
-     * @covers \SymfonyConsoleTask::setSilent
+     * @covers SymfonyConsoleTask::getSilent
+     * @covers SymfonyConsoleTask::setSilent
      */
     public function testSetGetSilent()
     {
@@ -97,7 +97,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::createArg
+     * @covers SymfonyConsoleTask::createArg
      */
     public function testCreateArg()
     {
@@ -107,19 +107,19 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getArgs
+     * @covers SymfonyConsoleTask::getArgs
      */
     public function testGetArgs()
     {
         $o = $this->object;
-        $arg = $o->createArg();
-        $arg = $o->createArg();
-        $arg = $o->createArg();
+        $o->createArg();
+        $o->createArg();
+        $o->createArg();
         $this->assertCount(3, $o->getArgs());
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getCmdString
+     * @covers SymfonyConsoleTask::getCmdString
      *
      * @todo Implement testMain().
      */
@@ -139,7 +139,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getCmdString
+     * @covers SymfonyConsoleTask::getCmdString
      */
     public function testNoDebugGetCmdString()
     {
@@ -158,7 +158,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getCmdString
+     * @covers SymfonyConsoleTask::getCmdString
      */
     public function testNoDebugOnlyOnce()
     {

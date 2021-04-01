@@ -27,10 +27,6 @@ use Phing\Io\FileSystem;
 use Phing\Task\Ext\SassCompiler;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class SassCompilerTest extends TestCase
 {
     use SassCleaner;

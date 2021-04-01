@@ -30,10 +30,6 @@ use Phing\Project;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
-/**
- * @internal
- * @coversNothing
- */
 class DefaultLoggerTest extends TestCase
 {
     /**

@@ -25,10 +25,6 @@ namespace Phing\Test\Task\Optional\Sass;
 use Phing\Task\Ext\SassTask;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class SassTaskUnitTest extends TestCase
 {
     /** @var SassTask */

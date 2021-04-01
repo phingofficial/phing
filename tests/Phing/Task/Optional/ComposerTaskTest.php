@@ -23,7 +23,9 @@ namespace Phing\Test\Task\Optional;
 use Phing\Io\FileSystem;
 use Phing\Project;
 use Phing\Task\Optional\ComposerTask;
+use Phing\Task\OptionalComposerTask;
 use Phing\Type\CommandlineArgument;
+use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use ReflectionProperty;
 
@@ -32,7 +34,7 @@ use ReflectionProperty;
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
  */
-class ComposerTaskTest extends \PHPUnit\Framework\TestCase
+class ComposerTaskTest extends TestCase
 {
     /**
      * @var ComposerTask
@@ -58,8 +60,8 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \ComposerTask::getCommand
-     * @covers \ComposerTask::setCommand
+     * @covers ComposerTask::getCommand
+     * @covers ComposerTask::setCommand
      */
     public function testSetGetCommand()
     {
@@ -69,8 +71,8 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \ComposerTask::getPhp
-     * @covers \ComposerTask::setPhp
+     * @covers ComposerTask::getPhp
+     * @covers ComposerTask::setPhp
      */
     public function testSetGetPhp()
     {
@@ -80,7 +82,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \ComposerTask::setComposer
+     * @covers ComposerTask::setComposer
      */
     public function testSetComposer()
     {
@@ -95,7 +97,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \ComposerTask::getComposer
+     * @covers ComposerTask::getComposer
      */
     public function testGetComposerNotOnPath()
     {
@@ -118,7 +120,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \ComposerTask::getComposer
+     * @covers ComposerTask::getComposer
      */
     public function testGetComposerFromPath()
     {
@@ -141,7 +143,7 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \ComposerTask::createArg
+     * @covers ComposerTask::createArg
      */
     public function testCreateArg()
     {

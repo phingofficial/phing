@@ -25,10 +25,6 @@ namespace Phing\Test\Task\Optional\PHPStan;
 use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class PHPStanTaskUnitTest extends TestCase
 {
     public function testItHasValidDefaults(): void

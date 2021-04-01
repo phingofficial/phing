@@ -26,10 +26,6 @@ use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
-/**
- * @internal
- * @coversNothing
- */
 class PHPStanTaskTest extends BuildFileTest
 {
     private const PHPSTAN_TEST_BASE = PHING_TEST_BASE . '/etc/tasks/ext/phpstan/';

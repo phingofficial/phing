@@ -20,6 +20,7 @@
 
 namespace Phing\Test\Io;
 
+use org\bovigo\vfs\vfsStream;
 use Phing\Io\File;
 use Phing\Io\IniFileParser;
 use Phing\Io\IOException;
@@ -36,13 +37,13 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
     protected function setUp(): void
     {
         $this->parser = new IniFileParser();
-        $this->root = \org\bovigo\vfs\vfsStream::setUp();
+        $this->root = vfsStream::setUp();
     }
 
     /**
      * @dataProvider provideIniFiles
-     * @covers       \IniFileParser::inVal
-     * @covers       \IniFileParser::parseFile
+     * @covers       IniFileParser::inVal
+     * @covers       IniFileParser::parseFile
      *
      * @param mixed $data
      * @param mixed $expected
@@ -57,7 +58,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \IniFileParser::parseFile
+     * @covers IniFileParser::parseFile
      */
     public function testParseFileCouldntOpenFile()
     {
