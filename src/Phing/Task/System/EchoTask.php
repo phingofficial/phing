@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +27,7 @@ use Phing\Type\Element\DirSetAware;
 use Phing\Type\Element\FileSetAware;
 
 /**
- * Echos a message to the logging system or to a file
+ * Echos a message to the logging system or to a file.
  *
  * @author  Michiel Rook <mrook@php.net>
  * @author  Andreas Aderhold, andi@binarycloud.com
@@ -36,39 +37,48 @@ class EchoTask extends Task
     use DirSetAware;
     use FileSetAware;
 
-    protected $msg = "";
+    protected $msg = '';
 
-    protected $file = "";
+    protected $file = '';
 
     protected $append = false;
 
-    protected $level = "info";
+    protected $level = 'info';
 
     public function main()
     {
         switch ($this->level) {
-            case "error":
+            case 'error':
                 $loglevel = Project::MSG_ERR;
+
                 break;
-            case "warning":
+
+            case 'warning':
                 $loglevel = Project::MSG_WARN;
+
                 break;
-            case "verbose":
+
+            case 'verbose':
                 $loglevel = Project::MSG_VERBOSE;
+
                 break;
-            case "debug":
+
+            case 'debug':
                 $loglevel = Project::MSG_DEBUG;
+
                 break;
-            case "info":
+
+            case 'info':
             default:
                 $loglevel = Project::MSG_INFO;
+
                 break;
         }
 
         $this->filesets = array_merge($this->filesets, $this->dirsets);
 
         if (count($this->filesets)) {
-            if (trim(substr($this->msg, -1)) != '') {
+            if ('' != trim(substr($this->msg, -1))) {
                 $this->msg .= "\n";
             }
             $this->msg .= $this->getFilesetsMsg();
@@ -78,12 +88,12 @@ class EchoTask extends Task
             $this->log($this->msg, $loglevel);
         } else {
             if ($this->append) {
-                $handle = @fopen($this->file, "a");
+                $handle = @fopen($this->file, 'a');
             } else {
-                $handle = @fopen($this->file, "w");
+                $handle = @fopen($this->file, 'w');
             }
 
-            if ($handle === false) {
+            if (false === $handle) {
                 throw new BuildException("Unable to open file {$this->file}");
             }
 
@@ -91,35 +101,6 @@ class EchoTask extends Task
 
             fclose($handle);
         }
-    }
-
-    /**
-     * Merges all filesets into a string to be echoed out
-     *
-     * @return string String to echo
-     */
-    protected function getFilesetsMsg()
-    {
-        $project = $this->getProject();
-        $msg = '';
-        foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($project);
-            $fromDir = $fs->getDir($project);
-            $srcDirs = $ds->getIncludedDirectories();
-            $srcFiles = $ds->getIncludedFiles();
-            $msg .= 'Directory: ' . $fromDir . ' => '
-                . realpath($fromDir) . "\n";
-            foreach ($srcDirs as $dir) {
-                $relPath = $fromDir . DIRECTORY_SEPARATOR . $dir;
-                $msg .= $relPath . "\n";
-            }
-            foreach ($srcFiles as $file) {
-                $relPath = $fromDir . DIRECTORY_SEPARATOR . $file;
-                $msg .= $relPath . "\n";
-            }
-        }
-
-        return $msg;
     }
 
     public function setFile(string $file)
@@ -153,5 +134,34 @@ class EchoTask extends Task
     public function addText(string $msg)
     {
         $this->msg = $msg;
+    }
+
+    /**
+     * Merges all filesets into a string to be echoed out.
+     *
+     * @return string String to echo
+     */
+    protected function getFilesetsMsg()
+    {
+        $project = $this->getProject();
+        $msg = '';
+        foreach ($this->filesets as $fs) {
+            $ds = $fs->getDirectoryScanner($project);
+            $fromDir = $fs->getDir($project);
+            $srcDirs = $ds->getIncludedDirectories();
+            $srcFiles = $ds->getIncludedFiles();
+            $msg .= 'Directory: ' . $fromDir . ' => '
+                . realpath($fromDir) . "\n";
+            foreach ($srcDirs as $dir) {
+                $relPath = $fromDir . DIRECTORY_SEPARATOR . $dir;
+                $msg .= $relPath . "\n";
+            }
+            foreach ($srcFiles as $file) {
+                $relPath = $fromDir . DIRECTORY_SEPARATOR . $file;
+                $msg .= $relPath . "\n";
+            }
+        }
+
+        return $msg;
     }
 }

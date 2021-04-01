@@ -8,9 +8,17 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Mahmoud Al-Husseiny <mahmoud@alhusseiny.io>
+ *
+ * @internal
+ * @coversNothing
  */
 class PhpEvalTaskTest extends BuildFileTest
 {
+    protected function setUp(): void
+    {
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/PhpEvalTest.xml');
+    }
+
     public static function recursiveProcess(array $arr): string
     {
         // ensure n-d array (n > 1)
@@ -18,6 +26,7 @@ class PhpEvalTaskTest extends BuildFileTest
         foreach ($arr as $value) {
             if (is_array($value) && !empty($value)) {
                 $isMultiDimArray = true;
+
                 break;
             }
         }
@@ -32,11 +41,6 @@ class PhpEvalTaskTest extends BuildFileTest
         });
 
         return $arraySum;
-    }
-
-    protected function setUp(): void
-    {
-        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/PhpEvalTest.xml');
     }
 
     public function testZeroParams()

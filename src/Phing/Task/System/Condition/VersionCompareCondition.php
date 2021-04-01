@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,28 +23,28 @@ namespace Phing\Task\System\Condition;
 use Phing\Exception\BuildException;
 
 /**
- * Condition that compare versions
+ * Condition that compare versions.
  *
  * @author  Tomáš Fejfar (tomas.fejfar@gmail.com)
  */
 class VersionCompareCondition implements Condition
 {
     /**
-     * Actual version
+     * Actual version.
      *
      * @var string
      */
     private $version;
 
     /**
-     * Version to be compared to
+     * Version to be compared to.
      *
      * @var string
      */
     private $desiredVersion;
 
     /**
-     * Operator to use (default "greater or equal")
+     * Operator to use (default "greater or equal").
      *
      * @var string operator for possible values @see http://php.net/version%20compare
      */
@@ -89,8 +90,8 @@ class VersionCompareCondition implements Condition
      */
     public function evaluate()
     {
-        if ($this->version === null || $this->desiredVersion === null) {
-            throw new BuildException("Missing one version parameter for version compare");
+        if (null === $this->version || null === $this->desiredVersion) {
+            throw new BuildException('Missing one version parameter for version compare');
         }
         $isValid = version_compare($this->version, $this->desiredVersion, $this->operator);
         if ($this->debug) {
@@ -101,6 +102,7 @@ class VersionCompareCondition implements Condition
                 $this->desiredVersion
             );
         }
+
         return $isValid;
     }
 }

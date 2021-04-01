@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,7 +22,6 @@ namespace Phing\Util;
 
 /**
  * Represents a slot in the register.
- *
  */
 class RegisterSlot
 {
@@ -43,6 +43,20 @@ class RegisterSlot
     public function __construct($key)
     {
         $this->key = (string) $key;
+    }
+
+    /**
+     * Returns the value at this slot as a string value.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (is_array($this->value)) {
+            return $this->implodeArray($this->value);
+        }
+
+        return (string) $this->value;
     }
 
     /**
@@ -68,6 +82,7 @@ class RegisterSlot
     /**
      * Sets the value for this slot.
      *
+     * @param mixed $v
      */
     public function setValue($v)
     {
@@ -76,7 +91,6 @@ class RegisterSlot
 
     /**
      * Returns the value at this slot.
-     *
      */
     public function getValue()
     {
@@ -84,7 +98,7 @@ class RegisterSlot
     }
 
     /**
-     * Recursively implodes an array to a comma-separated string
+     * Recursively implodes an array to a comma-separated string.
      *
      * @return string
      */
@@ -100,20 +114,6 @@ class RegisterSlot
             }
         }
 
-        return "{" . implode(",", $values) . "}";
-    }
-
-    /**
-     * Returns the value at this slot as a string value.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (is_array($this->value)) {
-            return $this->implodeArray($this->value);
-        }
-
-        return (string) $this->value;
+        return '{' . implode(',', $values) . '}';
     }
 }

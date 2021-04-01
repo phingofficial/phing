@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +27,7 @@ use Phing\Task;
 use Phing\Util\SizeHelper;
 
 /**
- * FileSizeTask
+ * FileSizeTask.
  *
  * Returns the size of a file
  *
@@ -35,29 +36,28 @@ use Phing\Util\SizeHelper;
 class FileSizeTask extends Task
 {
     /**
-     * Property for File
+     * Property for File.
      *
      * @var File file
      */
     private $file;
 
     /**
-     * Property where the file size will be stored
+     * Property where the file size will be stored.
      *
      * @var string
      */
-    private $propertyName = "filesize";
+    private $propertyName = 'filesize';
 
     /**
-     * Return size in this unit
+     * Return size in this unit.
      *
      * @var string
      */
     private $unit = SizeHelper::B;
 
     /**
-     * Which file to calculate the file size of
-     *
+     * Which file to calculate the file size of.
      */
     public function setFile(File $file)
     {
@@ -68,7 +68,7 @@ class FileSizeTask extends Task
     }
 
     /**
-     * Set the name of the property to store the file size
+     * Set the name of the property to store the file size.
      */
     public function setPropertyName(string $property)
     {
@@ -84,7 +84,7 @@ class FileSizeTask extends Task
     }
 
     /**
-     * Main-Method for the Task
+     * Main-Method for the Task.
      *
      * @throws BuildException
      */
@@ -96,7 +96,7 @@ class FileSizeTask extends Task
 
         $size = filesize($this->file);
 
-        if ($size === false) {
+        if (false === $size) {
             throw new BuildException(sprintf('Cannot determine filesize of: %s', $this->file));
         }
         $this->log(sprintf('%s filesize is %s%s', $this->file, $size, SizeHelper::B), Project::MSG_VERBOSE);

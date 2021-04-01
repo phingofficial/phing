@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,11 +36,11 @@ class NotSelector extends NoneSelector
      */
     public function __toString()
     {
-        $buf = "";
+        $buf = '';
         if ($this->hasSelectors()) {
-            $buf .= "{notselect: ";
+            $buf .= '{notselect: ';
             $buf .= parent::__toString();
-            $buf .= "}";
+            $buf .= '}';
         }
 
         return $buf;
@@ -51,10 +52,10 @@ class NotSelector extends NoneSelector
      */
     public function verifySettings()
     {
-        if ($this->count() !== 1) {
+        if (1 !== $this->count()) {
             $this->setError(
-                "One and only one selector is allowed within the " .
-                "<not> tag"
+                'One and only one selector is allowed within the ' .
+                '<not> tag'
             );
         }
     }

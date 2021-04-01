@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -34,7 +35,6 @@ interface InputHandler
      *
      * <p>Postcondition: request.getInput will return a non-null
      * value, request.isInputValid will return true.</p>
-     *
      */
     public function handleInput(InputRequest $request);
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,9 +23,12 @@ namespace Phing\Test\Task\System;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the ElseIf Task
+ * Tests the ElseIf Task.
  *
  * @author  Paul Edenburg <pauledenburg@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class ElseIfTaskTest extends BuildFileTest
 {
@@ -36,7 +40,7 @@ class ElseIfTaskTest extends BuildFileTest
     }
 
     /**
-     * Test the 'elseif' conditional of the if-task
+     * Test the 'elseif' conditional of the if-task.
      *
      * @test
      */
@@ -51,7 +55,7 @@ class ElseIfTaskTest extends BuildFileTest
 
     /**
      * Test that evaluating a correct elseif condition gives the
-     * expected result
+     * expected result.
      *
      * @test
      */
@@ -61,12 +65,12 @@ class ElseIfTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         // check the output for the expected value
-        $this->assertInLogs("Elseif: The value of property foo is foo");
+        $this->assertInLogs('Elseif: The value of property foo is foo');
     }
 
     /**
      * test that a BuildException is thrown when we've got two
-     * conditions inside an elseif-task
+     * conditions inside an elseif-task.
      *
      * @test
      */
@@ -82,7 +86,7 @@ class ElseIfTaskTest extends BuildFileTest
 
     /**
      * test that a BuildException is thrown when we've got
-     * no conditions inside an elseif-task
+     * no conditions inside an elseif-task.
      *
      * @test
      */

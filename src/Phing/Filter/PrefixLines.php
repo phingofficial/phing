@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -37,6 +38,7 @@ use Phing\Io\Reader;
  *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
+ *
  * @see     FilterReader
  */
 class PrefixLines extends BaseParamFilterReader implements ChainableReader
@@ -46,7 +48,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    public const PREFIX_KEY = "lines";
+    public const PREFIX_KEY = 'lines';
 
     /**
      * The prefix to be used.
@@ -55,15 +57,17 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      */
     private $prefix;
 
-    /** @var string|null */
+    /** @var null|string */
     private $queuedData;
 
     /**
      * Adds a prefix to each line of input stream and returns resulting stream.
      *
      * @param int $len
-     * @return mixed buffer, -1 on EOF
+     *
      * @throws IOException
+     *
+     * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
     {
@@ -74,24 +78,25 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
 
         $ch = -1;
 
-        if ($this->queuedData !== null && $this->queuedData === '') {
+        if (null !== $this->queuedData && '' === $this->queuedData) {
             $this->queuedData = null;
         }
 
-        if ($this->queuedData !== null) {
+        if (null !== $this->queuedData) {
             $ch = $this->queuedData[0];
             $this->queuedData = (string) substr($this->queuedData, 1);
-            if ($this->queuedData === '') {
+            if ('' === $this->queuedData) {
                 $this->queuedData = null;
             }
         } else {
             $this->queuedData = $this->readLine();
-            if ($this->queuedData === null) {
+            if (null === $this->queuedData) {
                 $ch = -1;
             } else {
-                if ($this->prefix !== null) {
+                if (null !== $this->prefix) {
                     $this->queuedData = $this->prefix . $this->queuedData;
                 }
+
                 return $this->read();
             }
         }
@@ -126,7 +131,8 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      * Reader for instantiation.
      *
      * @return PrefixLines A new filter based on this configuration, but filtering
-     *                the specified reader
+     *                     the specified reader
+     *
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      */
@@ -146,10 +152,11 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
     private function initialize()
     {
         $params = $this->getParameters();
-        if ($params !== null) {
-            for ($i = 0, $_i = count($params); $i < $_i; $i++) {
+        if (null !== $params) {
+            for ($i = 0, $_i = count($params); $i < $_i; ++$i) {
                 if (self::PREFIX_KEY == $params[$i]->getName()) {
                     $this->prefix = (string) $params[$i]->getValue();
+
                     break;
                 }
             }

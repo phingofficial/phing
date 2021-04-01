@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -34,7 +35,7 @@ class IsFailure implements Condition
     /**
      * Set the return code to check.
      *
-     * @param int $c the return code.
+     * @param int $c the return code
      */
     public function setCode($c)
     {
@@ -44,11 +45,21 @@ class IsFailure implements Condition
     /**
      * Get the return code that will be checked by this IsFailure condition.
      *
-     * @return int return code as int.
+     * @return int return code as int
      */
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * Fulfill the condition interface.
+     *
+     * @return bool the result of evaluating the specified return code
+     */
+    public function evaluate()
+    {
+        return $this->isFailureCode($this->code);
     }
 
     /**
@@ -60,16 +71,6 @@ class IsFailure implements Condition
      */
     protected function isFailureCode($code)
     {
-        return $code !== 0;
-    }
-
-    /**
-     * Fulfill the condition interface.
-     *
-     * @return bool the result of evaluating the specified return code.
-     */
-    public function evaluate()
-    {
-        return $this->isFailureCode($this->code);
+        return 0 !== $code;
     }
 }

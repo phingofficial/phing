@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,19 +21,19 @@
 namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
-use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Io\IOException;
 use Phing\Io\XmlFileParser;
 use Phing\Project;
-use Phing\Task\System\PropertyTask;
 use Phing\Util\Properties;
 
 /**
  * Task for setting properties from an XML file in buildfiles.
  *
  * @author  Jonathan Bond-Caron <jbondc@openmv.com>
+ *
  * @since   2.4.0
- * @link    http://ant.apache.org/manual/CoreTasks/xmlproperty.html
+ * @see    http://ant.apache.org/manual/CoreTasks/xmlproperty.html
  */
 class XmlPropertyTask extends PropertyTask
 {
@@ -41,8 +42,7 @@ class XmlPropertyTask extends PropertyTask
     private $delimiter = ',';
 
     /**
-     * Keep the xml root tag as the first value in the property name
-     *
+     * Keep the xml root tag as the first value in the property name.
      */
     public function setKeepRoot(bool $yesNo)
     {
@@ -59,7 +59,6 @@ class XmlPropertyTask extends PropertyTask
 
     /**
      * Treat attributes as nested elements.
-     *
      */
     public function setCollapseAttributes(bool $yesNo)
     {
@@ -95,12 +94,12 @@ class XmlPropertyTask extends PropertyTask
     /**
      * set the property in the project to the value.
      * if the task was give a file or env attribute
-     * here is where it is loaded
+     * here is where it is loaded.
      */
     public function main()
     {
-        if ($this->file === null) {
-            throw new BuildException("You must specify file to load properties from", $this->getLocation());
+        if (null === $this->file) {
+            throw new BuildException('You must specify file to load properties from', $this->getLocation());
         }
 
         $props = $this->loadFile($this->file);
@@ -110,12 +109,13 @@ class XmlPropertyTask extends PropertyTask
     /**
      * load properties from an XML file.
      *
-     * @return Properties
      * @throws BuildException
+     *
+     * @return Properties
      */
     protected function loadFile(File $file)
     {
-        $this->log("Loading " . $file->getAbsolutePath(), Project::MSG_INFO);
+        $this->log('Loading ' . $file->getAbsolutePath(), Project::MSG_INFO);
 
         try { // try to load file
             if ($file->exists()) {
@@ -130,15 +130,15 @@ class XmlPropertyTask extends PropertyTask
             }
 
             if ($this->getRequired()) {
-                throw new BuildException("Could not load required properties file.");
+                throw new BuildException('Could not load required properties file.');
             }
 
             $this->log(
-                "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
+                'Unable to find property file: ' . $file->getAbsolutePath() . '... skipped',
                 Project::MSG_WARN
             );
         } catch (IOException $ioe) {
-            throw new BuildException("Could not load properties from file.", $ioe);
+            throw new BuildException('Could not load properties from file.', $ioe);
         }
 
         return null;

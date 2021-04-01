@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,25 +24,28 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class TailFilterTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/tailfilter.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/tailfilter.xml');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testTailFilter()
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/tailfilter.test");
-        $result = $this->getProject()->resolveFile("result/tailfilter.test");
+        $expected = $this->getProject()->resolveFile('expected/tailfilter.test');
+        $result = $this->getProject()->resolveFile('result/tailfilter.test');
 
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }
@@ -50,8 +54,8 @@ class TailFilterTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/tailheadfilter.test");
-        $result = $this->getProject()->resolveFile("result/tailfilter.test");
+        $expected = $this->getProject()->resolveFile('expected/tailheadfilter.test');
+        $result = $this->getProject()->resolveFile('result/tailfilter.test');
 
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }

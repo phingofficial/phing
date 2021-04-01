@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,19 +24,21 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/1041
- * - Properties within then/else blocks are not expanded
+ * - Properties within then/else blocks are not expanded.
  *
+ * @internal
+ * @coversNothing
  */
 class PropertiesInIfTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/1041/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/1041/build.xml');
     }
 
     public function testCopyTask()
     {
-        $this->executeTarget("test");
+        $this->executeTarget('test');
 
         $this->assertNotInLogs('Property ${outp} has not been set.');
         $this->assertInLogs('Property ${outp} => test');

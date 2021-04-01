@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +21,7 @@
 namespace Phing\Parser;
 
 /**
- * This is an abstract class all SAX handler classes must extend
+ * This is an abstract class all SAX handler classes must extend.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
@@ -30,19 +31,19 @@ abstract class AbstractHandler
     /**
      * @var AbstractHandler
      */
-    public $parentHandler = null;
+    public $parentHandler;
 
     /**
      * @var AbstractSAXParser
      */
-    public $parser = null;
+    public $parser;
 
     /**
      * Constructs a SAX handler parser.
      *
      * The constructor must be called by all derived classes.
      *
-     * @param ExpatParser $parser the parser object
+     * @param ExpatParser     $parser        the parser object
      * @param AbstractHandler $parentHandler the parent handler of this handler
      */
     protected function __construct(AbstractSAXParser $parser, AbstractHandler $parentHandler)
@@ -53,25 +54,19 @@ abstract class AbstractHandler
     }
 
     /**
-     * Gets invoked when a XML open tag occurs
+     * Gets invoked when a XML open tag occurs.
      *
      * Must be overloaded by the child class. Throws an ExpatParseException
      * if there is no handler registered for an element.
      *
-     * @param string $name name of the XML element
-     * @param array $attribs attributes of the XML element
+     * @param string $name    name of the XML element
+     * @param array  $attribs attributes of the XML element
+     *
      * @throws ExpatParseException
      */
     public function startElement($name, $attribs)
     {
-        throw new ExpatParseException("Unexpected element $name");
-    }
-
-    /**
-     * Gets invoked when element closes method.
-     */
-    protected function finished()
-    {
+        throw new ExpatParseException("Unexpected element {$name}");
     }
 
     /**
@@ -92,15 +87,23 @@ abstract class AbstractHandler
      * Invoked by occurrence of #PCDATA.
      *
      * @param string $data contents
-     * @throws    ExpatParseException
+     *
+     * @throws ExpatParseException
      * @throws ExpatParseException if there is no CDATA but method
-     *            was called
+     *                             was called
      */
     public function characters($data)
     {
         $s = trim($data);
         if (strlen($s) > 0) {
-            throw new ExpatParseException("Unexpected text '$s'", $this->parser->getLocation());
+            throw new ExpatParseException("Unexpected text '{$s}'", $this->parser->getLocation());
         }
+    }
+
+    /**
+     * Gets invoked when element closes method.
+     */
+    protected function finished()
+    {
     }
 }

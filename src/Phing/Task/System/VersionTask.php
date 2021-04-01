@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,15 +22,15 @@ namespace Phing\Task\System;
 
 use Exception;
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
-use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\Properties;
 
 /**
- * VersionTask
+ * VersionTask.
  *
  * Increments a three-part version number from a given file
  * and writes it back to the file.
@@ -44,40 +45,40 @@ class VersionTask extends Task
     /**
      * The name of the property in which the build number is stored.
      */
-    public const DEFAULT_PROPERTY_NAME = "build.version";
+    public const DEFAULT_PROPERTY_NAME = 'build.version';
 
     /**
      * The default filename to use if no file specified.
      */
     public const DEFAULT_FILENAME = self::DEFAULT_PROPERTY_NAME;
 
+    // Allowed Releastypes
+    public const RELEASETYPE_MAJOR = 'MAJOR';
+    public const RELEASETYPE_MINOR = 'MINOR';
+    public const RELEASETYPE_BUGFIX = 'BUGFIX';
+
     private $startingVersion = '0.0.0';
 
     /**
-     * Property for Releasetype
+     * Property for Releasetype.
      *
      * @var string
      */
     private $releasetype;
 
     /**
-     * Property for File
+     * Property for File.
      *
      * @var File file
      */
     private $file;
 
     /**
-     * Property to be set
+     * Property to be set.
      *
      * @var string
      */
     private $property;
-
-    /* Allowed Releastypes */
-    public const RELEASETYPE_MAJOR = 'MAJOR';
-    public const RELEASETYPE_MINOR = 'MINOR';
-    public const RELEASETYPE_BUGFIX = 'BUGFIX';
 
     private $propFile = false;
 
@@ -90,7 +91,7 @@ class VersionTask extends Task
     }
 
     /**
-     * Set Property for Releasetype (Minor, Major, Bugfix)
+     * Set Property for Releasetype (Minor, Major, Bugfix).
      *
      * @param string $releasetype
      */
@@ -100,8 +101,7 @@ class VersionTask extends Task
     }
 
     /**
-     * Set Property for File containing versioninformation
-     *
+     * Set Property for File containing versioninformation.
      */
     public function setFile(File $file)
     {
@@ -109,7 +109,7 @@ class VersionTask extends Task
     }
 
     /**
-     * Set name of property to be set
+     * Set name of property to be set.
      *
      * @param string $property
      */
@@ -127,7 +127,7 @@ class VersionTask extends Task
     }
 
     /**
-     * Main-Method for the Task
+     * Main-Method for the Task.
      *
      * @throws BuildException
      */
@@ -156,17 +156,19 @@ class VersionTask extends Task
         }
 
         // get new version
-        $this->log("Old version: $content", Project::MSG_INFO);
+        $this->log("Old version: {$content}", Project::MSG_INFO);
         $newVersion = $this->getVersion($content);
-        $this->log("New version: $newVersion", Project::MSG_INFO);
+        $this->log("New version: {$newVersion}", Project::MSG_INFO);
 
         if ($this->propFile) {
             $properties->put($this->property, $newVersion);
+
             try {
-                $header = "Build Number for PHING. Do not edit!";
+                $header = 'Build Number for PHING. Do not edit!';
                 $properties->store($this->file, $header);
             } catch (IOException $ioe) {
-                $message = "Error while writing " . $this->file;
+                $message = 'Error while writing ' . $this->file;
+
                 throw new BuildException($message, $ioe);
             }
         } else {
@@ -181,8 +183,9 @@ class VersionTask extends Task
     /**
      * Utility method to load properties from file.
      *
-     * @return Properties the loaded properties
      * @throws BuildException
+     *
+     * @return Properties the loaded properties
      */
     private function loadProperties()
     {
@@ -192,13 +195,15 @@ class VersionTask extends Task
         } catch (IOException $ioe) {
             throw new BuildException($ioe);
         }
+
         return $properties;
     }
 
     /**
-     * Returns new version number corresponding to Release type
+     * Returns new version number corresponding to Release type.
      *
      * @param string $oldVersion
+     *
      * @return string
      */
     private function getVersion($oldVersion)
@@ -218,10 +223,11 @@ class VersionTask extends Task
             // no break
             case self::RELEASETYPE_MINOR:
                 $version[self::RELEASETYPE_BUGFIX] = '0';
+
                 break;
         }
 
-        $version[$this->releasetype]++;
+        ++$version[$this->releasetype];
 
         return sprintf(
             '%s%u.%u.%u',
@@ -233,7 +239,7 @@ class VersionTask extends Task
     }
 
     /**
-     * checks releasetype attribute
+     * checks releasetype attribute.
      *
      * @throws BuildException
      */
@@ -262,7 +268,7 @@ class VersionTask extends Task
     }
 
     /**
-     * checks file attribute
+     * checks file attribute.
      *
      * @throws BuildException
      */
@@ -283,22 +289,25 @@ class VersionTask extends Task
             }
         } catch (IOException $ioe) {
             $message = $this->file . " doesn't exist and new file can't be created.";
+
             throw new BuildException($message, $ioe);
         }
 
         if (!$this->file->canRead()) {
-            $message = "Unable to read from " . $this->file . ".";
+            $message = 'Unable to read from ' . $this->file . '.';
+
             throw new BuildException($message);
         }
         if (!$this->file->canWrite()) {
-            $message = "Unable to write to " . $this->file . ".";
+            $message = 'Unable to write to ' . $this->file . '.';
+
             throw new BuildException($message);
         }
     }
 
     private function checkProperty()
     {
-        if ($this->property === null) {
+        if (null === $this->property) {
             $this->property = self::DEFAULT_PROPERTY_NAME;
         }
     }

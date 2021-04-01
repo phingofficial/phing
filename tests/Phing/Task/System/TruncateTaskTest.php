@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,9 +24,12 @@ use Phing\Exception\BuildException;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Truncate Task
+ * Tests the Truncate Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class TruncateTaskTest extends BuildFileTest
 {
@@ -33,14 +37,14 @@ class TruncateTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/TruncateTaskTest.xml"
+            . '/etc/tasks/system/TruncateTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testBasic()

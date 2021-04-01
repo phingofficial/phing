@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -58,7 +59,7 @@ namespace Phing\Util;
 class Register
 {
     /**
-     * Slots that have been registered
+     * Slots that have been registered.
      */
     private static $slots = [];
 
@@ -67,7 +68,8 @@ class Register
      *
      * If not slot exists a new one is created for key.
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return RegisterSlot
      */
     public static function getSlot($key)

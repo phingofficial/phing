@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,6 @@ use Exception;
 
 /**
  * Input stream subclass for file streams.
- *
  */
 class FileInputStream extends InputStream
 {
@@ -38,8 +38,9 @@ class FileInputStream extends InputStream
      * Construct a new FileInputStream.
      *
      * @param File|string $file Path to the file
-     * @throws Exception        - if invalid argument specified.
-     * @throws IOException      - if unable to open file.
+     *
+     * @throws Exception   - if invalid argument specified
+     * @throws IOException - if unable to open file
      */
     public function __construct($file)
     {
@@ -48,18 +49,18 @@ class FileInputStream extends InputStream
         } elseif (is_string($file)) {
             $this->file = new File($file);
         } else {
-            throw new Exception("Invalid argument type for \$file.");
+            throw new Exception('Invalid argument type for $file.');
         }
 
         if (!$this->file->exists()) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for reading. File does not exists.");
+            throw new IOException('Unable to open ' . $this->file->__toString() . ' for reading. File does not exists.');
         }
         if (!$this->file->canRead()) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for reading. File not readable.");
+            throw new IOException('Unable to open ' . $this->file->__toString() . ' for reading. File not readable.');
         }
-        $stream = @fopen($this->file->getAbsolutePath(), "rb");
-        if ($stream === false) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . print_r(
+        $stream = @fopen($this->file->getAbsolutePath(), 'rb');
+        if (false === $stream) {
+            throw new IOException('Unable to open ' . $this->file->__toString() . ' for reading: ' . print_r(
                 error_get_last(),
                 true
             ));

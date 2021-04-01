@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,8 +32,10 @@ interface FileParserInterface
      * Builds an array from the given (ini) file and returns it.
      *
      * @param  $file
-     * @return array
+     *
      * @throws IOException
+     *
+     * @return array
      */
     public function parseFile(File $file);
 }

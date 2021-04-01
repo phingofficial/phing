@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -49,38 +50,38 @@ class IncludePathTask extends Task
     private $classname;
 
     /**
-     * Whether to prepend, append or replace the include path
+     * Whether to prepend, append or replace the include path.
      *
      * @var string
      */
-    private $mode = "prepend";
+    private $mode = 'prepend';
 
     /**
      * @param string $mode
+     *
      * @throws BuildException
      */
     public function setMode($mode)
     {
         if (!in_array($mode, ['append', 'prepend', 'replace'])) {
-            throw new BuildException("Illegal mode: needs to be either append, prepend or replace");
+            throw new BuildException('Illegal mode: needs to be either append, prepend or replace');
         }
 
         $this->mode = $mode;
     }
 
     /**
-     * Main entry point
+     * Main entry point.
      */
     public function main()
     {
-
         // Apparently casting to (string) no longer invokes __toString() automatically.
         if (is_object($this->classpath)) {
             $classpath = $this->classpath->__toString();
         }
 
         if (empty($classpath)) {
-            throw new BuildException("Provided classpath was empty.");
+            throw new BuildException('Provided classpath was empty.');
         }
 
         $curr_parts = Phing::explodeIncludePath();
@@ -99,27 +100,30 @@ class IncludePathTask extends Task
     private function updateIncludePath($new_parts, $curr_parts)
     {
         $includePath = [];
-        $verb = "";
+        $verb = '';
 
         switch ($this->mode) {
-            case "append":
+            case 'append':
                 $includePath = array_merge($curr_parts, $new_parts);
-                $verb = "Appending";
+                $verb = 'Appending';
+
                 break;
 
-            case "replace":
+            case 'replace':
                 $includePath = $new_parts;
-                $verb = "Replacing";
+                $verb = 'Replacing';
+
                 break;
 
-            case "prepend":
+            case 'prepend':
                 $includePath = array_merge($new_parts, $curr_parts);
-                $verb = "Prepending";
+                $verb = 'Prepending';
+
                 break;
         }
 
         $this->log(
-            $verb . " new include_path components: " . implode(PATH_SEPARATOR, $new_parts),
+            $verb . ' new include_path components: ' . implode(PATH_SEPARATOR, $new_parts),
             Project::MSG_VERBOSE
         );
 

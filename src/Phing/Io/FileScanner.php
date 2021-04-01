@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -46,7 +47,7 @@ interface FileScanner
      * The names are relative to the base directory.
      *
      * @return string[] the names of the directories which matched at least one of the
-     *                  include patterns and at least one of the exclude patterns.
+     *                  include patterns and at least one of the exclude patterns
      */
     public function getExcludedDirectories();
 
@@ -56,7 +57,7 @@ interface FileScanner
      * The names are relative to the base directory.
      *
      * @return string[] the names of the files which matched at least one of the
-     *                  include patterns and at least one of the exclude patterns.
+     *                  include patterns and at least one of the exclude patterns
      */
     public function getExcludedFiles();
 
@@ -66,7 +67,7 @@ interface FileScanner
      * The names are relative to the base directory.
      *
      * @return string[] the names of the directories which matched at least one of the
-     *                  include patterns and none of the exclude patterns.
+     *                  include patterns and none of the exclude patterns
      */
     public function getIncludedDirectories();
 
@@ -76,7 +77,7 @@ interface FileScanner
      * The names are relative to the base directory.
      *
      * @return string[] the names of the files which matched at least one of the
-     *                  include patterns and none of the exclude patterns.
+     *                  include patterns and none of the exclude patterns
      */
     public function getIncludedFiles();
 
@@ -85,7 +86,7 @@ interface FileScanner
      * patterns. The names are relative to the base directory.
      *
      * @return string[] the names of the directories which matched none of the include
-     *                  patterns.
+     *                  patterns
      */
     public function getNotIncludedDirectories();
 
@@ -94,7 +95,7 @@ interface FileScanner
      * patterns. The names are relative to the base directory.
      *
      * @return array the names of the files which matched none of the include
-     *         patterns.
+     *               patterns
      */
     public function getNotIncludedFiles();
 
@@ -132,7 +133,7 @@ interface FileScanner
      *                           May be <code>null</code>, indicating that all files
      *                           should be included. If a non-<code>null</code>
      *                           list is given, all elements must be
-     * non-<code>null</code>.
+     *                           non-<code>null</code>.
      */
     public function setIncludes($includes);
 

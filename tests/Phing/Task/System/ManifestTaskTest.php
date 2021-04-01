@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,9 +23,12 @@ namespace Phing\Test\Task\System;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Manifest Task
+ * Tests the Manifest Task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class ManifestTaskTest extends BuildFileTest
 {
@@ -32,22 +36,22 @@ class ManifestTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/ext/ManifestTaskTest.xml"
+            . '/etc/tasks/ext/ManifestTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testGenerateManifest()
     {
         $this->executeTarget(__FUNCTION__);
-        $hash = md5("saltyFile1");
-        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/manifest");
-        $this->assertInLogs("Writing to " . $manifestFile);
+        $hash = md5('saltyFile1');
+        $manifestFile = realpath(PHING_TEST_BASE . '/etc/tasks/ext/tmp/manifest');
+        $this->assertInLogs('Writing to ' . $manifestFile);
         $this->assertEquals("file1\t" . $hash . "\n", file_get_contents($manifestFile));
     }
 }

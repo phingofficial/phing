@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,7 +36,7 @@ use Phing\TaskContainer;
 class SequentialTask extends Task implements TaskContainer
 {
     /**
-     * Optional Vector holding the nested tasks
+     * Optional Vector holding the nested tasks.
      */
     protected $nestedTasks = [];
 
@@ -52,7 +53,7 @@ class SequentialTask extends Task implements TaskContainer
     /**
      * Execute all nestedTasks.
      *
-     * @throws BuildException if one of the nested tasks fails.
+     * @throws BuildException if one of the nested tasks fails
      */
     public function main()
     {

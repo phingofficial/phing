@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -47,13 +48,13 @@ class IsSetCondition extends ProjectComponent implements Condition
      */
     public function evaluate()
     {
-        if ($this->property === null) {
+        if (null === $this->property) {
             throw new BuildException(
-                "No property specified for isset "
-                . "condition"
+                'No property specified for isset '
+                . 'condition'
             );
         }
 
-        return $this->project->getProperty($this->property) !== null;
+        return null !== $this->project->getProperty($this->property);
     }
 }

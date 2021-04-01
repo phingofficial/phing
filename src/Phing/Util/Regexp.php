@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -50,7 +51,7 @@ class Regexp
     private $replace;
 
     /**
-     * The regex engine -- e.g. 'preg' or 'ereg';
+     * The regex engine -- e.g. 'preg' or 'ereg';.
      *
      * @var PregEngine
      */
@@ -59,22 +60,23 @@ class Regexp
     /**
      * Constructor sets the regex engine to use (preg by default).
      *
-     * @param  string $engineType
+     * @param string $engineType
+     *
      * @throws BuildException
      */
     public function __construct($engineType = 'preg')
     {
-        if ($engineType == 'preg') {
+        if ('preg' == $engineType) {
             $this->engine = new PregEngine();
         } else {
-            throw new BuildException("Invalid engine type for Regexp: " . $engineType);
+            throw new BuildException('Invalid engine type for Regexp: ' . $engineType);
         }
     }
 
     /**
      * Sets pattern to use for matching.
      *
-     * @param  string $pat The pattern to match on.
+     * @param string $pat the pattern to match on
      */
     public function setPattern($pat)
     {
@@ -84,7 +86,7 @@ class Regexp
     /**
      * Gets pattern to use for matching.
      *
-     * @return string The pattern to match on.
+     * @return string the pattern to match on
      */
     public function getPattern()
     {
@@ -94,7 +96,7 @@ class Regexp
     /**
      * Sets replacement string.
      *
-     * @param  string $rep The pattern to replace matches with.
+     * @param string $rep the pattern to replace matches with
      */
     public function setReplace($rep)
     {
@@ -104,7 +106,7 @@ class Regexp
     /**
      * Gets replacement string.
      *
-     * @return string The pattern to replace matches with.
+     * @return string the pattern to replace matches with
      */
     public function getReplace()
     {
@@ -114,14 +116,16 @@ class Regexp
     /**
      * Performs match of specified pattern against $subject.
      *
-     * @param  string $subject The subject, on which to perform matches.
-     * @return bool Whether or not pattern matches subject string passed.
+     * @param string $subject the subject, on which to perform matches
+     *
      * @throws RegexpException
+     *
+     * @return bool whether or not pattern matches subject string passed
      */
     public function matches($subject)
     {
-        if ($this->pattern === null) {
-            throw new RegexpException("No pattern specified for regexp match().");
+        if (null === $this->pattern) {
+            throw new RegexpException('No pattern specified for regexp match().');
         }
 
         return $this->engine->match($this->pattern, $subject, $this->groups);
@@ -130,14 +134,16 @@ class Regexp
     /**
      * Performs replacement of specified pattern and replacement strings.
      *
-     * @param  string $subject Text on which to perform replacement.
-     * @return string subject after replacement has been performed.
+     * @param string $subject text on which to perform replacement
+     *
      * @throws RegexpException
+     *
+     * @return string subject after replacement has been performed
      */
     public function replace($subject)
     {
-        if ($this->pattern === null || $this->replace === null) {
-            throw new RegexpException("Missing pattern or replacement string regexp replace().");
+        if (null === $this->pattern || null === $this->replace) {
+            throw new RegexpException('Missing pattern or replacement string regexp replace().');
         }
 
         return $this->engine->replace($this->pattern, $this->replace, $subject);
@@ -156,8 +162,9 @@ class Regexp
     /**
      * Get specific matched group.
      *
-     * @param  int $idx
-     * @return string  specified group or NULL if group is not set.
+     * @param int $idx
+     *
+     * @return string specified group or NULL if group is not set
      */
     public function getGroup($idx)
     {
@@ -169,9 +176,9 @@ class Regexp
     }
 
     /**
-     * Sets pattern modifiers for regex engine
+     * Sets pattern modifiers for regex engine.
      *
-     * @param  string $mods Modifiers to be applied to a given regex
+     * @param string $mods Modifiers to be applied to a given regex
      */
     public function setModifiers($mods)
     {
@@ -182,7 +189,7 @@ class Regexp
      * Gets pattern modifiers.
      * Subsequent call to engines getModifiers() filters out duplicates
      * i.e. if i is provided in $mods, and setIgnoreCase(true), "i"
-     * modifier would be included only once
+     * modifier would be included only once.
      *
      * @return string
      */
@@ -193,7 +200,7 @@ class Regexp
 
     /**
      * Sets whether the regexp matching is case insensitive.
-     * (default is false -- i.e. case sensisitive)
+     * (default is false -- i.e. case sensisitive).
      *
      * @param bool $bit
      */

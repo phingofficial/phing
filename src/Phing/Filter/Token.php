@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,7 +22,6 @@ namespace Phing\Filter;
 
 /**
  * Holds a token.
- *
  */
 class Token
 {
@@ -59,9 +59,9 @@ class Token
         // special case for bool values
         if (is_bool($value)) {
             if ($value) {
-                $this->value = "true";
+                $this->value = 'true';
             } else {
-                $this->value = "false";
+                $this->value = 'false';
             }
         } else {
             $this->value = (string) $value;
@@ -71,7 +71,7 @@ class Token
     /**
      * Returns the key for this token.
      *
-     * @return string The key for this token.
+     * @return string the key for this token
      */
     public function getKey()
     {
@@ -81,7 +81,7 @@ class Token
     /**
      * Returns the value for this token.
      *
-     * @return string The value for this token.
+     * @return string the value for this token
      */
     public function getValue()
     {

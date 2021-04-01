@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,35 +33,36 @@ class IniFileTokenReader extends TokenReader
     /**
      * Holds the path to the INI file that is to be read.
      *
-     * @var object  Reference to a PhingFile Object representing
-     *              the path to the INI file.
+     * @var object reference to a PhingFile Object representing
+     *             the path to the INI file
      */
-    private $file = null;
+    private $file;
 
     /**
-     * @var string  Sets the section to load from the INI file.
-     *              if omitted, all sections are loaded.
+     * @var string Sets the section to load from the INI file.
+     *             if omitted, all sections are loaded.
      */
-    private $section = null;
+    private $section;
 
     /**
      * @var array
      */
-    private $tokens = null;
+    private $tokens;
 
     /**
-     * Reads the next token from the INI file
+     * Reads the next token from the INI file.
+     *
+     * @throws BuildException
      *
      * @return Token
-     * @throws BuildException
      */
     public function readToken()
     {
-        if ($this->file === null) {
-            throw new BuildException("No File set for IniFileTokenReader");
+        if (null === $this->file) {
+            throw new BuildException('No File set for IniFileTokenReader');
         }
 
-        if ($this->tokens === null) {
+        if (null === $this->tokens) {
             $this->processFile();
         }
 
@@ -72,17 +74,48 @@ class IniFileTokenReader extends TokenReader
     }
 
     /**
-     * Parse & process the ini file
+     * @param File|string $file
+     *
+     * @throws IOException
+     * @throws \InvalidArgumentException
+     */
+    public function setFile($file)
+    {
+        if (is_string($file)) {
+            $this->file = new File($file);
+
+            return;
+        }
+
+        if (is_object($file) && $file instanceof File) {
+            $this->file = $file;
+
+            return;
+        }
+
+        throw new BuildException('Unsupported value ' . (string) $file);
+    }
+
+    /**
+     * @param $str
+     */
+    public function setSection($str)
+    {
+        $this->section = (string) $str;
+    }
+
+    /**
+     * Parse & process the ini file.
      */
     protected function processFile()
     {
         $arr = parse_ini_file($this->file->getAbsolutePath(), true);
 
-        if ($arr === false) {
+        if (false === $arr) {
             return;
         }
 
-        if ($this->section !== null) {
+        if (null !== $this->section) {
             if (isset($arr[$this->section])) {
                 $this->processSection($arr[$this->section]);
             }
@@ -104,8 +137,7 @@ class IniFileTokenReader extends TokenReader
     }
 
     /**
-     * Process an individual section
-     *
+     * Process an individual section.
      */
     protected function processSection(array $section)
     {
@@ -115,35 +147,5 @@ class IniFileTokenReader extends TokenReader
             $tok->setValue($value);
             $this->tokens[] = $tok;
         }
-    }
-
-    /**
-     * @param string|File $file
-     * @throws IOException
-     * @throws \InvalidArgumentException
-     */
-    public function setFile($file)
-    {
-        if (is_string($file)) {
-            $this->file = new File($file);
-
-            return;
-        }
-
-        if (is_object($file) && $file instanceof File) {
-            $this->file = $file;
-
-            return;
-        }
-
-        throw new BuildException("Unsupported value " . (string) $file);
-    }
-
-    /**
-     * @param $str
-     */
-    public function setSection($str)
-    {
-        $this->section = (string) $str;
     }
 }

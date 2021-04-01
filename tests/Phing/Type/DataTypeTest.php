@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,8 +24,10 @@ use Phing\Exception\BuildException;
 use Phing\Type\DataType;
 
 /**
- * Unit test for DataType
+ * Unit test for DataType.
  *
+ * @internal
+ * @coversNothing
  */
 class DataTypeTest extends \PHPUnit\Framework\TestCase
 {
@@ -36,7 +39,7 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * testTooManyAttributes
+     * testTooManyAttributes.
      */
     public function testTooManyAttributes()
     {
@@ -47,7 +50,7 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * testNoChildrenAllowedException
+     * testNoChildrenAllowedException.
      */
     public function testNoChildrenAllowedException()
     {
@@ -58,7 +61,7 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * testCircularReferenceException
+     * testCircularReferenceException.
      */
     public function testCircularReferenceException()
     {
@@ -70,8 +73,8 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
 
     public function testToString()
     {
-        $str = "";
+        $str = '';
         $str .= $this->datatype;
-        $this->assertEquals("DataType", $str);
+        $this->assertEquals('DataType', $str);
     }
 }

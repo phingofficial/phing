@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,14 +33,31 @@ class EventObject
      * Constructs a prototypical Event.
      *
      * @param  $source
+     *
      * @throws Exception
      */
     public function __construct($source)
     {
-        if ($source === null) {
-            throw new Exception("Null source");
+        if (null === $source) {
+            throw new Exception('Null source');
         }
         $this->source = $source;
+    }
+
+    /**
+     * Returns a String representation of this EventObject.
+     */
+    public function __toString()
+    {
+        if (method_exists($this->getSource(), 'toString')) {
+            return get_class($this) . '[source=' . $this->getSource()->toString() . ']';
+        }
+
+        if (method_exists($this->getSource(), '__toString')) {
+            return get_class($this) . '[source=' . $this->getSource() . ']';
+        }
+
+        return get_class($this) . '[source=' . get_class($this->getSource()) . ']';
     }
 
     /**
@@ -48,21 +66,5 @@ class EventObject
     public function getSource()
     {
         return $this->source;
-    }
-
-    /**
-     * Returns a String representation of this EventObject.
-     */
-    public function __toString()
-    {
-        if (method_exists($this->getSource(), "toString")) {
-            return get_class($this) . "[source=" . $this->getSource()->toString() . "]";
-        }
-
-        if (method_exists($this->getSource(), "__toString")) {
-            return get_class($this) . "[source=" . $this->getSource() . "]";
-        }
-
-        return get_class($this) . "[source=" . get_class($this->getSource()) . "]";
     }
 }

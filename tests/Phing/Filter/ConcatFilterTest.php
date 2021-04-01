@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,6 +25,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class ConcatFilterTest extends BuildFileTest
 {
@@ -31,21 +35,21 @@ class ConcatFilterTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/concatfilter.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/concatfilter.xml');
         $this->fu = new FileUtils();
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testConcatFilter()
     {
-        $this->executeTarget("testConcatFilter");
+        $this->executeTarget('testConcatFilter');
 
-        $expected = $this->getProject()->resolveFile("expected/concatfilter.test");
-        $result = $this->getProject()->resolveFile("result/concatfilter.test");
+        $expected = $this->getProject()->resolveFile('expected/concatfilter.test');
+        $result = $this->getProject()->resolveFile('result/concatfilter.test');
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

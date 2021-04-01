@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -48,6 +49,7 @@ use Phing\Task\System\Condition\OsCondition;
  */
 class Commandline implements Countable
 {
+    public const DISCLAIMER = "The ' characters around the executable and arguments are not part of the command.";
     /**
      * @var CommandlineArgument[]
      */
@@ -59,17 +61,16 @@ class Commandline implements Countable
      * @var string
      */
     public $executable; // public so "inner" class can access
-
-    public const DISCLAIMER = "The ' characters around the executable and arguments are not part of the command.";
     private $escape = false;
 
     /**
      * @param string $to_process
+     *
      * @throws BuildException
      */
     public function __construct($to_process = null)
     {
-        if ($to_process !== null) {
+        if (null !== $to_process) {
             $tmp = static::translateCommandline($to_process);
             if ($tmp) {
                 $this->setExecutable(array_shift($tmp)); // removes first el
@@ -81,14 +82,38 @@ class Commandline implements Countable
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        try {
+            $cmd = $this->toString($this->getCommandline());
+        } catch (BuildException $be) {
+            $cmd = '';
+        }
+
+        return $cmd;
+    }
+
+    /**
+     * @throws BuildException
+     */
+    public function __clone()
+    {
+        $c = new self();
+        $c->addArguments($this->getArguments());
+    }
+
+    /**
      * Creates an argument object and adds it to our list of args.
      *
      * <p>Each commandline object has at most one instance of the
      * argument class.</p>
      *
      * @param bool $insertAtStart if true, the argument is inserted at the
-     *                                beginning of the list of args, otherwise
-     *                                it is appended.
+     *                            beginning of the list of args, otherwise
+     *                            it is appended
+     *
      * @return CommandlineArgument
      */
     public function createArgument($insertAtStart = false)
@@ -107,11 +132,11 @@ class Commandline implements Countable
      * Sets the executable to run.
      *
      * @param string $executable
-     * @param bool $translateFileSeparator
+     * @param bool   $translateFileSeparator
      */
     public function setExecutable($executable, $translateFileSeparator = true): void
     {
-        if ($executable === null || $executable === '') {
+        if (null === $executable || '' === $executable) {
             return;
         }
         $this->executable = $translateFileSeparator
@@ -136,12 +161,11 @@ class Commandline implements Countable
 
     /**
      * Returns the executable and all defined arguments.
-     *
      */
     public function getCommandline(): array
     {
         $args = $this->getArguments();
-        if ($this->executable !== null && $this->executable !== '') {
+        if (null !== $this->executable && '' !== $this->executable) {
             array_unshift($args, $this->executable);
         }
 
@@ -157,7 +181,7 @@ class Commandline implements Countable
         $result = [];
         foreach ($this->arguments as $arg) {
             $parts = $arg->getParts();
-            if ($parts !== null) {
+            if (null !== $parts) {
                 foreach ($parts as $part) {
                     $result[] = $part;
                 }
@@ -173,20 +197,6 @@ class Commandline implements Countable
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        try {
-            $cmd = $this->toString($this->getCommandline());
-        } catch (BuildException $be) {
-            $cmd = '';
-        }
-
-        return $cmd;
-    }
-
-    /**
      * Put quotes around the given String if necessary.
      *
      * <p>If the argument doesn't include spaces or quotes, return it
@@ -194,12 +204,12 @@ class Commandline implements Countable
      * surround the argument by double quotes.</p>
      *
      * @param string $argument
-     * @param bool $escape
-     *
-     * @return string
+     * @param bool   $escape
      *
      * @throws BuildException if the argument contains both, single
-     *                           and double quotes.
+     *                        and double quotes
+     *
+     * @return string
      */
     public static function quoteArgument($argument, $escape = false)
     {
@@ -207,8 +217,8 @@ class Commandline implements Countable
             return escapeshellarg($argument);
         }
 
-        if (strpos($argument, '"') !== false) {
-            if (strpos($argument, "'") !== false) {
+        if (false !== strpos($argument, '"')) {
+            if (false !== strpos($argument, "'")) {
                 throw new BuildException("Can't handle single and double quotes in same argument");
             }
 
@@ -216,11 +226,11 @@ class Commandline implements Countable
         }
 
         if (
-            strpos($argument, "'") !== false
-            || strpos($argument, ' ') !== false
+            false !== strpos($argument, "'")
+            || false !== strpos($argument, ' ')
             // WIN9x uses a bat file for executing commands
             || (OsCondition::isFamily('win32')
-                && strpos($argument, ';') !== false)
+                && false !== strpos($argument, ';'))
         ) {
             return '"' . $argument . '"';
         }
@@ -229,45 +239,18 @@ class Commandline implements Countable
     }
 
     /**
-     * Quotes the parts of the given array in way that makes them
-     * usable as command line arguments.
-     *
-     * @param array $lines
-     *
-     *
-     * @throws BuildException
-     */
-    private function toString($lines = null): string
-    {
-        // empty path return empty string
-        if ($lines === null || count($lines) === 0) {
-            return '';
-        }
-
-        return implode(
-            ' ',
-            array_map(
-                function ($arg) {
-                    return self::quoteArgument($arg, $this->escape);
-                },
-                $lines
-            )
-        );
-    }
-
-    /**
      * Crack a command line.
      *
-     * @param string $toProcess the command line to process.
+     * @param string $toProcess the command line to process
+     *
+     * @throws BuildException
      *
      * @return string[] the command line broken into strings.
      *                  An empty or null toProcess parameter results in a zero sized array.
-     *
-     * @throws BuildException
      */
     public static function translateCommandline(string $toProcess = null): array
     {
-        if ($toProcess === null || $toProcess === '') {
+        if (null === $toProcess || '' === $toProcess) {
             return [];
         }
 
@@ -279,7 +262,7 @@ class Commandline implements Countable
 
         $state = $normal;
         $args = [];
-        $current = "";
+        $current = '';
         $lastTokenHasBeenQuoted = false;
 
         $tokens = preg_split('/(["\' ])/', $toProcess, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
@@ -292,34 +275,39 @@ class Commandline implements Countable
                     } else {
                         $current .= $nextTok;
                     }
+
                     break;
+
                 case $inDoubleQuote:
-                    if ("\"" === $nextTok) {
+                    if ('"' === $nextTok) {
                         $lastTokenHasBeenQuoted = true;
                         $state = $normal;
                     } else {
                         $current .= $nextTok;
                     }
+
                     break;
+
                 default:
                     if ("'" === $nextTok) {
                         $state = $inQuote;
-                    } elseif ("\"" === $nextTok) {
+                    } elseif ('"' === $nextTok) {
                         $state = $inDoubleQuote;
-                    } elseif (" " === $nextTok) {
-                        if ($lastTokenHasBeenQuoted || $current !== '') {
+                    } elseif (' ' === $nextTok) {
+                        if ($lastTokenHasBeenQuoted || '' !== $current) {
                             $args[] = $current;
-                            $current = "";
+                            $current = '';
                         }
                     } else {
                         $current .= $nextTok;
                     }
                     $lastTokenHasBeenQuoted = false;
+
                     break;
             }
         }
 
-        if ($lastTokenHasBeenQuoted || $current !== '') {
+        if ($lastTokenHasBeenQuoted || '' !== $current) {
             $args[] = $current;
         }
 
@@ -331,20 +319,11 @@ class Commandline implements Countable
     }
 
     /**
-     * @return int Number of components in current commandline.
+     * @return int number of components in current commandline
      */
     public function count(): int
     {
         return count($this->getCommandline());
-    }
-
-    /**
-     * @throws BuildException
-     */
-    public function __clone()
-    {
-        $c = new self();
-        $c->addArguments($this->getArguments());
     }
 
     /**
@@ -370,11 +349,12 @@ class Commandline implements Countable
      * executable to run.</p>
      *
      * @param array|Commandline $args CommandlineArgument[] to use
+     *
      * @return string
      */
     public function describeCommand($args = null)
     {
-        if ($args === null) {
+        if (null === $args) {
             $args = $this->getCommandline();
         } elseif ($args instanceof self) {
             $args = $args->getCommandline();
@@ -400,32 +380,59 @@ class Commandline implements Countable
     /**
      * Returns a String that describes the arguments suitable for
      * verbose output before a call to
-     * <code>Runtime.exec(String[])</code>
+     * <code>Runtime.exec(String[])</code>.
      *
-     * @param array $args arguments to use (default is to use current class args)
-     * @param int $offset ignore entries before this index
+     * @param array $args   arguments to use (default is to use current class args)
+     * @param int   $offset ignore entries before this index
+     *
      * @return string
      */
     public function describeArguments(array $args = null, $offset = 0)
     {
-        if ($args === null) {
+        if (null === $args) {
             $args = $this->getArguments();
         }
 
-        if ($args === null || count($args) <= $offset) {
+        if (null === $args || count($args) <= $offset) {
             return '';
         }
 
-        $buf = "argument";
+        $buf = 'argument';
         if (count($args) > $offset) {
-            $buf .= "s";
+            $buf .= 's';
         }
-        $buf .= ":" . PHP_EOL;
-        for ($i = $offset, $alen = count($args); $i < $alen; $i++) {
+        $buf .= ':' . PHP_EOL;
+        for ($i = $offset, $alen = count($args); $i < $alen; ++$i) {
             $buf .= "'" . $args[$i] . "'" . PHP_EOL;
         }
         $buf .= self::DISCLAIMER;
 
         return $buf;
+    }
+
+    /**
+     * Quotes the parts of the given array in way that makes them
+     * usable as command line arguments.
+     *
+     * @param array $lines
+     *
+     * @throws BuildException
+     */
+    private function toString($lines = null): string
+    {
+        // empty path return empty string
+        if (null === $lines || 0 === count($lines)) {
+            return '';
+        }
+
+        return implode(
+            ' ',
+            array_map(
+                function ($arg) {
+                    return self::quoteArgument($arg, $this->escape);
+                },
+                $lines
+            )
+        );
     }
 }

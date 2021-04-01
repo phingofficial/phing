@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,19 +24,21 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/610
- * - AdhocTaskdefTask fails when creating a task that extends from an existing task
+ * - AdhocTaskdefTask fails when creating a task that extends from an existing task.
  *
+ * @internal
+ * @coversNothing
  */
 class AdhocTaskdefTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/610/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/610/build.xml');
     }
 
     public function testPhingCallTask()
     {
-        $this->executeTarget("main");
-        $this->assertInLogs("doThisTask success!");
+        $this->executeTarget('main');
+        $this->assertInLogs('doThisTask success!');
     }
 }

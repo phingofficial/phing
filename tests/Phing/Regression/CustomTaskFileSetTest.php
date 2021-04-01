@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,19 +24,21 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/337
- * - "Cannot access protected property" error when using custom task that contains a fileset with include
+ * - "Cannot access protected property" error when using custom task that contains a fileset with include.
  *
+ * @internal
+ * @coversNothing
  */
 class CustomTaskFileSetTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/337/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/337/build.xml');
     }
 
     public function testCustomTask()
     {
-        $this->executeTarget("main");
-        $this->assertInLogs("TestPhpLintTask.php: No syntax errors detected");
+        $this->executeTarget('main');
+        $this->assertInLogs('TestPhpLintTask.php: No syntax errors detected');
     }
 }

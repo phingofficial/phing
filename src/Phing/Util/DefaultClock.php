@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,21 +26,21 @@ namespace Phing\Util;
 class DefaultClock implements Clock
 {
     /**
-     * start time
+     * start time.
      *
      * @var float
      */
     protected $stime;
 
     /**
-     * end time
+     * end time.
      *
      * @var float
      */
     protected $etime;
 
     /**
-     * is the timer running
+     * is the timer running.
      *
      * @var bool
      */
@@ -47,7 +48,6 @@ class DefaultClock implements Clock
 
     /**
      * Starts the timer and sets the class variable $stime to the current time in microseconds.
-     *
      */
     public function start()
     {
@@ -57,7 +57,6 @@ class DefaultClock implements Clock
 
     /**
      * Stops the timer and sets the class variable $etime to the current time in microseconds.
-     *
      */
     public function stop()
     {
@@ -74,14 +73,14 @@ class DefaultClock implements Clock
      *
      * @param int $places decimal place precision of elapsed time (default is 5)
      *
-     * @return string Properly formatted time.
+     * @return string properly formatted time
      */
     public function getElapsedTime($places = 5)
     {
         $etime = $this->etime - $this->stime;
-        $format = "%0." . $places . "f";
+        $format = '%0.' . $places . 'f';
 
-        return (sprintf($format, $etime));
+        return sprintf($format, $etime);
     }
 
     /**

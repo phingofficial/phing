@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,9 +23,12 @@ namespace Phing\Test\Type\Selector;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Class SelectorUtilsTest
+ * Class SelectorUtilsTest.
  *
  * Test cases for SelectorUtils
+ *
+ * @internal
+ * @coversNothing
  */
 class DateSelectorTest extends BuildFileTest
 {
@@ -37,6 +41,7 @@ class DateSelectorTest extends BuildFileTest
 
     /**
      * {@inheritDoc}
+     *
      * @see \PHPUnit\Framework\TestCase::setUpBeforeClass()
      */
     public static function setUpBeforeClass(): void
@@ -55,13 +60,9 @@ class DateSelectorTest extends BuildFileTest
         self::$fileStateMsgs['After'][false] = 'After file should exist in the output directory';
     }
 
-    private static function getFileStateMsg(string $file, bool $isNot): string
-    {
-        return self::$fileStateMsgs[$file][$isNot];
-    }
-
     /**
      * {@inheritDoc}
+     *
      * @see \PHPUnit\Framework\TestCase::tearDownAfterClass()
      */
     public static function tearDownAfterClass(): void
@@ -84,29 +85,6 @@ class DateSelectorTest extends BuildFileTest
     public function tearDown(): void
     {
         $this->executeTarget('clean');
-    }
-
-    /**
-     * Creates a test file in the specified directory with the specified
-     * creation time.
-     *
-     * @param string $dir The directory where the test file should be created.
-     * @param int $timestamp The timestamp to touch the file with (in seconds
-     *              since the epoch).
-     *
-     * @return string The fully qualified name of the test file.
-     */
-    private function createTestFile(string $dir, int $timestamp): string
-    {
-        $file = tempnam($dir, 'dst');
-        $writeCnt = file_put_contents($file, 'DateSelectorTest file');
-        if (false !== $writeCnt) {
-            touch($file, $timestamp);
-        } else {
-            $this->fail('Unable to create test file: ' . $file);
-        }
-
-        return $file;
     }
 
     /*
@@ -450,43 +428,61 @@ class DateSelectorTest extends BuildFileTest
         $this->expectBuildException(__FUNCTION__, 'seconds has invalid value');
     }
 
-    /*
-     * Test using datetime attribute with and invalid value
-     */
+    // Test using datetime attribute with and invalid value
     public function testDateTimeInvalidDateTime()
     {
         $this->expectBuildException(__FUNCTION__, 'datetime has invalid value');
     }
 
-    /*
-     * Test using invalid datetime attribute
-     */
+    // Test using invalid datetime attribute
     public function testDateTimeNotDateTime()
     {
         $this->expectBuildException(__FUNCTION__, 'datetime has invalid value');
     }
 
-    /*
-     * Test using invalid millis attribute
-     */
+    // Test using invalid millis attribute
     public function testMillisInvalidMillis()
     {
         $this->expectBuildException(__FUNCTION__, 'millis has invalid value');
     }
 
-    /*
-     * Test using an invalid when value
-     */
+    // Test using an invalid when value
     public function testInvalidWhen()
     {
         $this->expectBuildException(__FUNCTION__, 'when attribute has invalid value');
     }
 
-    /*
-     * Test using an invalid when value
-     */
+    // Test using an invalid when value
     public function testInvalidAttribute()
     {
         $this->expectBuildException(__FUNCTION__, 'invalid attribute for task');
+    }
+
+    private static function getFileStateMsg(string $file, bool $isNot): string
+    {
+        return self::$fileStateMsgs[$file][$isNot];
+    }
+
+    /**
+     * Creates a test file in the specified directory with the specified
+     * creation time.
+     *
+     * @param string $dir       the directory where the test file should be created
+     * @param int    $timestamp the timestamp to touch the file with (in seconds
+     *                          since the epoch)
+     *
+     * @return string the fully qualified name of the test file
+     */
+    private function createTestFile(string $dir, int $timestamp): string
+    {
+        $file = tempnam($dir, 'dst');
+        $writeCnt = file_put_contents($file, 'DateSelectorTest file');
+        if (false !== $writeCnt) {
+            touch($file, $timestamp);
+        } else {
+            $this->fail('Unable to create test file: ' . $file);
+        }
+
+        return $file;
     }
 }

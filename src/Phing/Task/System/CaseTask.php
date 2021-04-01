@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +27,7 @@ use Phing\Task;
  */
 class CaseTask extends SequentialTask
 {
-    private $value = null;
+    private $value;
 
     /**
      * @param mixed $value

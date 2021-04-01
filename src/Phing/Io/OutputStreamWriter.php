@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +26,6 @@ namespace Phing\Io;
  * Unlike the Java counterpart, this class does not (yet) handle
  * character set transformations.  This will be an important function
  * of this class with move to supporting PHP6.
- *
  */
 class OutputStreamWriter extends Writer
 {
@@ -46,7 +46,6 @@ class OutputStreamWriter extends Writer
 
     /**
      * Close the stream.
-     *
      */
     public function close()
     {
@@ -57,8 +56,8 @@ class OutputStreamWriter extends Writer
      * Write char data to stream.
      *
      * @param string $buf
-     * @param int $off
-     * @param int $len
+     * @param int    $off
+     * @param int    $len
      */
     public function write($buf, $off = null, $len = null)
     {

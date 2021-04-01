@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +28,6 @@ use Phing\Io\FileOutputStream;
 use Phing\Io\IOException;
 use Phing\Io\OutputStream;
 use Phing\Io\OutputStreamWriter;
-use Phing\Phing;
 use Phing\Project;
 use Phing\Util\Clock;
 use Phing\Util\DefaultClock;
@@ -45,60 +45,64 @@ class XmlLogger implements BuildLogger
     /**
      * XML element name for a build.
      */
-    public const BUILD_TAG = "build";
+    public const BUILD_TAG = 'build';
 
     /**
      * XML element name for a target.
      */
-    public const TARGET_TAG = "target";
+    public const TARGET_TAG = 'target';
 
     /**
      * XML element name for a task.
      */
-    public const TASK_TAG = "task";
+    public const TASK_TAG = 'task';
 
     /**
      * XML element name for a message.
      */
-    public const MESSAGE_TAG = "message";
+    public const MESSAGE_TAG = 'message';
 
     /**
      * XML attribute name for a name.
      */
-    public const NAME_ATTR = "name";
+    public const NAME_ATTR = 'name';
 
     /**
      * XML attribute name for a time.
      */
-    public const TIME_ATTR = "time";
+    public const TIME_ATTR = 'time';
 
     /**
      * XML attribute name for a message priority.
      */
-    public const PRIORITY_ATTR = "priority";
+    public const PRIORITY_ATTR = 'priority';
 
     /**
      * XML attribute name for a file location.
      */
-    public const LOCATION_ATTR = "location";
+    public const LOCATION_ATTR = 'location';
 
     /**
      * XML attribute name for an error description.
      */
-    public const ERROR_ATTR = "error";
+    public const ERROR_ATTR = 'error';
 
     /**
      * XML element name for a stack trace.
      */
-    public const STACKTRACE_TAG = "stacktrace";
+    public const STACKTRACE_TAG = 'stacktrace';
+    /**
+     * @var Clock|DefaultClock
+     */
+    protected $clock;
 
     /**
-     * @var DOMDocument The XML document created by this logger.
+     * @var DOMDocument the XML document created by this logger
      */
     private $doc;
 
     /**
-     * @var int Start time for entire build.
+     * @var int start time for entire build
      */
     private $buildTimerStart = 0;
 
@@ -108,12 +112,12 @@ class XmlLogger implements BuildLogger
     private $buildElement;
 
     /**
-     * @var array DOMElement[] The parent of the element being processed.
+     * @var array DOMElement[] The parent of the element being processed
      */
     private $elementStack = [];
 
     /**
-     * @var array int[] Array of millisecond times for the various elements being processed.
+     * @var array int[] Array of millisecond times for the various elements being processed
      */
     private $timesStack = [];
 
@@ -123,35 +127,31 @@ class XmlLogger implements BuildLogger
     private $msgOutputLevel = Project::MSG_DEBUG;
 
     /**
-     * @var OutputStream Stream to use for standard output.
+     * @var OutputStream stream to use for standard output
      */
     private $out;
 
     /**
-     * @var OutputStream Stream to use for error output.
+     * @var OutputStream stream to use for error output
      */
     private $err;
 
     /**
-     * @var string Name of filename to create.
+     * @var string name of filename to create
      */
     private $outFilename;
-    /**
-     * @var Clock|DefaultClock
-     */
-    protected $clock;
 
     /**
      *  Constructs a new BuildListener that logs build events to an XML file.
      */
     public function __construct(Clock $clock = null)
     {
-        if ($clock === null) {
+        if (null === $clock) {
             $this->clock = new DefaultClock();
         } else {
             $this->clock = $clock;
         }
-        $this->doc = new DOMDocument("1.0", "UTF-8");
+        $this->doc = new DOMDocument('1.0', 'UTF-8');
         $this->doc->formatOutput = true;
     }
 
@@ -159,7 +159,7 @@ class XmlLogger implements BuildLogger
      * Fired when the build starts, this builds the top-level element for the
      * document and remembers the time of the start of the build.
      *
-     * @param BuildEvent Ignored.
+     * @param BuildEvent ignored
      */
     public function buildStarted(BuildEvent $event)
     {
@@ -173,18 +173,19 @@ class XmlLogger implements BuildLogger
      * Fired when the build finishes, this adds the time taken and any
      * error stacktrace to the build element and writes the document to disk.
      *
-     * @param  BuildEvent $event An event with any relevant extra information.
-     *                           Will not be <code>null</code>.
+     * @param BuildEvent $event An event with any relevant extra information.
+     *                          Will not be <code>null</code>.
+     *
      * @throws BuildException
      */
     public function buildFinished(BuildEvent $event)
     {
-        $xslUri = $event->getProject()->getProperty("phing.XmlLogger.stylesheet.uri");
-        if ($xslUri === null) {
-            $xslUri = "";
+        $xslUri = $event->getProject()->getProperty('phing.XmlLogger.stylesheet.uri');
+        if (null === $xslUri) {
+            $xslUri = '';
         }
 
-        if ($xslUri !== '') {
+        if ('' !== $xslUri) {
             $xslt = $this->doc->createProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="' . $xslUri . '"');
             $this->doc->appendChild($xslt);
         }
@@ -193,7 +194,7 @@ class XmlLogger implements BuildLogger
 
         $this->buildElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 
-        if ($event->getException() != null) {
+        if (null != $event->getException()) {
             $this->buildElement->setAttribute(XmlLogger::ERROR_ATTR, $event->getException()->getMessage());
             $errText = $this->doc->createCDATASection($event->getException()->getTraceAsString());
             $stacktrace = $this->doc->createElement(XmlLogger::STACKTRACE_TAG);
@@ -203,15 +204,15 @@ class XmlLogger implements BuildLogger
 
         $this->doc->appendChild($this->buildElement);
 
-        $outFilename = $event->getProject()->getProperty("XmlLogger.file");
-        if ($outFilename == null) {
-            $outFilename = "log.xml";
+        $outFilename = $event->getProject()->getProperty('XmlLogger.file');
+        if (null == $outFilename) {
+            $outFilename = 'log.xml';
         }
 
         $stream = $this->getOut();
 
         try {
-            if ($stream === null) {
+            if (null === $stream) {
                 $stream = new FileOutputStream($outFilename);
             }
 
@@ -225,7 +226,8 @@ class XmlLogger implements BuildLogger
                 $stream->close(); // in case there is a stream open still ...
             } catch (Exception $x) {
             }
-            throw new BuildException("Unable to write log file.", $exc);
+
+            throw new BuildException('Unable to write log file.', $exc);
         }
 
         // cleanup:remove the buildElement
@@ -328,16 +330,23 @@ class XmlLogger implements BuildLogger
 
         switch ($priority) {
             case Project::MSG_ERR:
-                $name = "error";
+                $name = 'error';
+
                 break;
+
             case Project::MSG_WARN:
-                $name = "warn";
+                $name = 'warn';
+
                 break;
+
             case Project::MSG_INFO:
-                $name = "info";
+                $name = 'info';
+
                 break;
+
             default:
-                $name = "debug";
+                $name = 'debug';
+
                 break;
         }
 
@@ -377,7 +386,8 @@ class XmlLogger implements BuildLogger
      *
      *  The default message level for DefaultLogger is Project::MSG_ERR.
      *
-     * @param int $level The logging level for the logger.
+     * @param int $level the logging level for the logger
+     *
      * @see   BuildLogger#setMessageOutputLevel()
      */
     public function setMessageOutputLevel($level)
@@ -409,7 +419,7 @@ class XmlLogger implements BuildLogger
      * Sets this logger to produce emacs (and other editor) friendly output.
      *
      * @param bool $emacsMode true if output is to be unadorned so that emacs and other editors
-     *                        can parse files names, etc.
+     *                        can parse files names, etc
      */
     public function setEmacsMode($emacsMode)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,6 +27,7 @@ use Phing\Util\StringHelper;
  * Plain text formatter for PDO results.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
+ *
  * @since   2.3.0
  */
 class PlainPDOResultFormatter extends PDOResultFormatter
@@ -33,24 +35,24 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     /**
      * Have column headers been printed?
      *
-     * @var boolean
+     * @var bool
      */
     private $colsprinted = false;
 
     /**
      * Whether to show headers.
      *
-     * @var boolean
+     * @var bool
      */
     private $showheaders = true;
 
     /**
      * Column delimiter.
-     * Defaults to ','
+     * Defaults to ','.
      *
      * @var string
      */
-    private $coldelimiter = ",";
+    private $coldelimiter = ',';
 
     /**
      * Row delimiter.
@@ -93,11 +95,11 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     /**
      * Processes a specific row from PDO result set.
      *
-     * @param array $row Row of PDO result set.
+     * @param array $row row of PDO result set
      */
     public function processRow($row)
     {
-        $line = "";
+        $line = '';
 
         if (!$this->colsprinted && $this->showheaders) {
             $first = true;
@@ -105,7 +107,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
                 if ($first) {
                     $first = false;
                 } else {
-                    $line .= ",";
+                    $line .= ',';
                 }
                 $line .= $fieldName;
             }
@@ -113,13 +115,13 @@ class PlainPDOResultFormatter extends PDOResultFormatter
             $this->out->write($line);
             $this->out->write(PHP_EOL);
 
-            $line = "";
+            $line = '';
             $colsprinted = true;
         } // if show headers
 
         $first = true;
         foreach ($row as $columnValue) {
-            if ($columnValue != null) {
+            if (null != $columnValue) {
                 $columnValue = trim($columnValue);
             }
 

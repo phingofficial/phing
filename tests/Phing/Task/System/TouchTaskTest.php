@@ -25,9 +25,12 @@ use Phing\Exception\BuildException;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Touch Task
+ * Tests the Touch Task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class TouchTaskTest extends BuildFileTest
 {
@@ -35,14 +38,14 @@ class TouchTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/TouchTaskTest.xml"
+            . '/etc/tasks/system/TouchTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testSimpleTouch()
@@ -50,7 +53,7 @@ class TouchTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/simple-file"
+            . '/etc/tasks/system/tmp/simple-file'
         );
     }
 
@@ -59,7 +62,7 @@ class TouchTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/this/is/a/test/file"
+            . '/etc/tasks/system/tmp/this/is/a/test/file'
         );
     }
 
@@ -72,7 +75,7 @@ class TouchTaskTest extends BuildFileTest
 
         $this->assertFileDoesNotExist(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/this/is/a/test/file"
+            . '/etc/tasks/system/tmp/this/is/a/test/file'
         );
     }
 
@@ -81,7 +84,7 @@ class TouchTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/simple-file"
+            . '/etc/tasks/system/tmp/simple-file'
         );
     }
 
@@ -90,7 +93,7 @@ class TouchTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/simple-file"
+            . '/etc/tasks/system/tmp/simple-file'
         );
     }
 
@@ -104,7 +107,7 @@ class TouchTaskTest extends BuildFileTest
     }
 
     /**
-     * test the mapped file list
+     * test the mapped file list.
      */
     public function testMappedFilelist()
     {
@@ -114,7 +117,7 @@ class TouchTaskTest extends BuildFileTest
     }
 
     /**
-     * test millis attribute
+     * test millis attribute.
      */
     public function testMillis()
     {
@@ -124,14 +127,14 @@ class TouchTaskTest extends BuildFileTest
             $testFile = $this->getProject()->getProperty('tmp.dir') . '/millis-file';
             $this->assertFileExists($testFile);
 
-            $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+            $this->assertEquals('December 31 1999 23:59:59', date('F d Y H:i:s', filemtime($testFile)));
         } else {
             $this->markTestSkipped('Test cannot run on 32-bit systems, epoch millis would have a max of ~25 days');
         }
     }
 
     /**
-     * test seconds attribute
+     * test seconds attribute.
      */
     public function testSeconds()
     {
@@ -139,11 +142,11 @@ class TouchTaskTest extends BuildFileTest
         $testFile = $this->getProject()->getProperty('tmp.dir') . '/seconds-file';
         $this->assertFileExists($testFile);
 
-        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+        $this->assertEquals('December 31 1999 23:59:59', date('F d Y H:i:s', filemtime($testFile)));
     }
 
     /**
-     * test datetime attribute
+     * test datetime attribute.
      */
     public function testDatetime()
     {
@@ -151,11 +154,11 @@ class TouchTaskTest extends BuildFileTest
         $testFile = $this->getProject()->getProperty('tmp.dir') . '/datetime-file';
         $this->assertFileExists($testFile);
 
-        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+        $this->assertEquals('December 31 1999 23:59:59', date('F d Y H:i:s', filemtime($testFile)));
     }
 
     /**
-     * test datetime with improper datetime
+     * test datetime with improper datetime.
      */
     public function testNotDateTime()
     {

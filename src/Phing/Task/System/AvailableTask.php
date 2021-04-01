@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -47,25 +48,25 @@ class AvailableTask extends Task implements Condition
     /**
      * Value property should be set to.
      */
-    private $value = "true";
+    private $value = 'true';
 
     /**
-     * File/directory to check existence
+     * File/directory to check existence.
      */
     private $file;
 
     /**
-     * Resource to check for
+     * Resource to check for.
      */
     private $resource;
 
     /**
-     * Extension to check if is loaded
+     * Extension to check if is loaded.
      */
     private $extension;
 
-    private $type = null;
-    private $filepath = null;
+    private $type;
+    private $filepath;
 
     private $followSymlinks = false;
 
@@ -107,11 +108,11 @@ class AvailableTask extends Task implements Condition
     /**
      * Set the path to use when looking for a file.
      *
-     * @param Path $filepath a Path instance containing the search path for files.
+     * @param Path $filepath a Path instance containing the search path for files
      */
     public function setFilepath(Path $filepath)
     {
-        if ($this->filepath === null) {
+        if (null === $this->filepath) {
             $this->filepath = $filepath;
         } else {
             $this->filepath->append($filepath);
@@ -119,13 +120,13 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * Creates a path to be configured
+     * Creates a path to be configured.
      *
      * @return Path
      */
     public function createFilepath()
     {
-        if ($this->filepath === null) {
+        if (null === $this->filepath) {
             $this->filepath = new Path($this->project);
         }
 
@@ -134,8 +135,8 @@ class AvailableTask extends Task implements Condition
 
     public function main()
     {
-        if ($this->property === null) {
-            throw new BuildException("property attribute is required", $this->getLocation());
+        if (null === $this->property) {
+            throw new BuildException('property attribute is required', $this->getLocation());
         }
         if ($this->evaluate()) {
             $this->project->setProperty($this->property, $this->value);
@@ -143,40 +144,41 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @return bool
      * @throws BuildException
+     *
+     * @return bool
      */
     public function evaluate()
     {
-        if ($this->file === null && $this->resource === null && $this->extension === null) {
-            throw new BuildException("At least one of (file|resource|extension) is required", $this->getLocation());
+        if (null === $this->file && null === $this->resource && null === $this->extension) {
+            throw new BuildException('At least one of (file|resource|extension) is required', $this->getLocation());
         }
 
-        if ($this->type !== null && ($this->type !== "file" && $this->type !== "dir")) {
-            throw new BuildException("Type must be one of either dir or file", $this->getLocation());
+        if (null !== $this->type && ('file' !== $this->type && 'dir' !== $this->type)) {
+            throw new BuildException('Type must be one of either dir or file', $this->getLocation());
         }
 
-        if (($this->file !== null) && !$this->checkFile()) {
+        if ((null !== $this->file) && !$this->checkFile()) {
             $this->log(
-                "Unable to find " . $this->file->__toString() . " to set property " . $this->property,
+                'Unable to find ' . $this->file->__toString() . ' to set property ' . $this->property,
                 Project::MSG_VERBOSE
             );
 
             return false;
         }
 
-        if (($this->resource !== null) && !$this->checkResource($this->resource)) {
+        if ((null !== $this->resource) && !$this->checkResource($this->resource)) {
             $this->log(
-                "Unable to load resource " . $this->resource . " to set property " . $this->property,
+                'Unable to load resource ' . $this->resource . ' to set property ' . $this->property,
                 Project::MSG_VERBOSE
             );
 
             return false;
         }
 
-        if ($this->extension !== null && !extension_loaded($this->extension)) {
+        if (null !== $this->extension && !extension_loaded($this->extension)) {
             $this->log(
-                "Unable to load extension " . $this->extension . " to set property " . $this->property,
+                'Unable to load extension ' . $this->extension . ' to set property ' . $this->property,
                 Project::MSG_VERBOSE
             );
 
@@ -193,13 +195,13 @@ class AvailableTask extends Task implements Condition
      */
     private function checkFile()
     {
-        if ($this->filepath === null) {
+        if (null === $this->filepath) {
             return $this->checkFile1($this->file);
         }
 
         $paths = $this->filepath->listPaths();
         foreach ($paths as $path) {
-            $this->log("Searching " . $path, Project::MSG_VERBOSE);
+            $this->log('Searching ' . $path, Project::MSG_VERBOSE);
             $tmp = new File($path, $this->file->getName());
             if ($tmp->isFile()) {
                 return true;
@@ -210,8 +212,9 @@ class AvailableTask extends Task implements Condition
     }
 
     /**
-     * @return bool
      * @throws IOException
+     *
+     * @return bool
      */
     private function checkFile1(File $file)
     {
@@ -231,12 +234,12 @@ class AvailableTask extends Task implements Condition
             }
         }
 
-        if ($this->type !== null) {
-            if ($this->type === "dir") {
+        if (null !== $this->type) {
+            if ('dir' === $this->type) {
                 return $file->isDirectory();
             }
 
-            if ($this->type === "file") {
+            if ('file' === $this->type) {
                 return $file->isFile();
             }
         }

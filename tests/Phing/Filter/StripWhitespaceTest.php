@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,26 +24,29 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class StripWhitespaceTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/stripwhitespace.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/stripwhitespace.xml');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testStripWhitespace()
     {
         $this->executeTarget(__FUNCTION__);
 
-        $resultFile = $this->getProject()->resolveFile("result/stripwhitespace.test");
+        $resultFile = $this->getProject()->resolveFile('result/stripwhitespace.test');
 
-        $expected = <<<EXPECTED
+        $expected = <<<'EXPECTED'
             <?php
             class { public function __construct() { return ''; } }
             EXPECTED;

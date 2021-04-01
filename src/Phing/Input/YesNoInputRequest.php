@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +30,7 @@ use Phing\Util\StringHelper;
 class YesNoInputRequest extends MultipleChoiceInputRequest
 {
     /**
-     * @return bool true if the input is one of the allowed values.
+     * @return bool true if the input is one of the allowed values
      */
     public function isInputValid()
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,19 +24,21 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/204
- * - PHPUnit task fails with formatter type 'xml'
+ * - PHPUnit task fails with formatter type 'xml'.
  *
+ * @internal
+ * @coversNothing
  */
 class PearStyleNamingTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/204/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/204/build.xml');
     }
 
     public function testPhingCallTask()
     {
-        $this->executeTarget("main");
-        $this->assertInLogs("SampleTask executed!");
+        $this->executeTarget('main');
+        $this->assertInLogs('SampleTask executed!');
     }
 }

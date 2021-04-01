@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -34,14 +35,14 @@ class GlobMapper implements FileNameMapper
      *
      * @var string
      */
-    private $fromPrefix = null;
+    private $fromPrefix;
 
     /**
      * Part of &quot;from&quot; pattern after the <code>.*</code>.
      *
      * @var string
      */
-    private $fromPostfix = null;
+    private $fromPostfix;
 
     /**
      * Length of the prefix (&quot;from&quot; pattern).
@@ -62,14 +63,14 @@ class GlobMapper implements FileNameMapper
      *
      * @var string
      */
-    private $toPrefix = null;
+    private $toPrefix;
 
     /**
      * Part of &quot;to&quot; pattern after the <code>*.</code>.
      *
      * @var string
      */
-    private $toPostfix = null;
+    private $toPostfix;
 
     private $fromContainsStar = false;
     private $toContainsStar = false;
@@ -80,7 +81,7 @@ class GlobMapper implements FileNameMapper
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
      *
-     * @param bool $handleDirSep a boolean, default is false.
+     * @param bool $handleDirSep a boolean, default is false
      */
     public function setHandleDirSep($handleDirSep)
     {
@@ -100,7 +101,7 @@ class GlobMapper implements FileNameMapper
      * Attribute specifying whether to ignore the case difference
      * in the names.
      *
-     * @param bool $caseSensitive a boolean, default is false.
+     * @param bool $caseSensitive a boolean, default is false
      */
     public function setCaseSensitive($caseSensitive)
     {
@@ -110,13 +111,13 @@ class GlobMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     * @return array|null
+     * @return null|array
      */
     public function main($sourceFileName)
     {
         $modName = $this->modifyName($sourceFileName);
         if (
-            $this->fromPrefix === null
+            null === $this->fromPrefix
             || (strlen($sourceFileName) < ($this->prefixLength + $this->postfixLength)
                 || (!$this->fromContainsStar
                     && !$modName === $this->modifyName($this->fromPrefix)))
@@ -126,6 +127,7 @@ class GlobMapper implements FileNameMapper
         ) {
             return null;
         }
+
         return [
             $this->toPrefix . (
                 $this->toContainsStar
@@ -142,15 +144,15 @@ class GlobMapper implements FileNameMapper
      */
     public function setFrom($from)
     {
-        if ($from === null) {
+        if (null === $from) {
             throw new BuildException("this mapper requires a 'from' attribute");
         }
 
         $index = strrpos($from, '*');
 
-        if ($index === false) {
+        if (false === $index) {
             $this->fromPrefix = $from;
-            $this->fromPostfix = "";
+            $this->fromPostfix = '';
         } else {
             $this->fromPrefix = substr($from, 0, $index);
             $this->fromPostfix = substr($from, $index + 1);
@@ -168,14 +170,14 @@ class GlobMapper implements FileNameMapper
      */
     public function setTo($to)
     {
-        if ($to === null) {
+        if (null === $to) {
             throw new BuildException("this mapper requires a 'to' attribute");
         }
 
         $index = strrpos($to, '*');
-        if ($index === false) {
+        if (false === $index) {
             $this->toPrefix = $to;
-            $this->toPostfix = "";
+            $this->toPostfix = '';
         } else {
             $this->toPrefix = substr($to, 0, $index);
             $this->toPostfix = substr($to, $index + 1);
@@ -187,6 +189,7 @@ class GlobMapper implements FileNameMapper
      * Extracts the variable part.
      *
      * @param string $name
+     *
      * @return string
      */
     private function extractVariablePart($name)
@@ -195,9 +198,10 @@ class GlobMapper implements FileNameMapper
     }
 
     /**
-     * modify string based on dir char mapping and case sensitivity
+     * modify string based on dir char mapping and case sensitivity.
      *
      * @param string $name the name to convert
+     *
      * @return string the converted name
      */
     private function modifyName($name)
@@ -206,7 +210,7 @@ class GlobMapper implements FileNameMapper
             $name = strtolower($name);
         }
         if ($this->handleDirSep) {
-            if (strpos('\\', $name) !== false) {
+            if (false !== strpos('\\', $name)) {
                 $name = str_replace('\\', '/', $name);
             }
         }

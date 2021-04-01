@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -34,6 +35,7 @@ abstract class Reader
      * otherwise stream is read until EOF.
      *
      * @param int $len
+     *
      * @throws IOException
      */
     abstract public function read($len = null);

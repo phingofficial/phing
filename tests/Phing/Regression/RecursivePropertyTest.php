@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,27 +24,29 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/269
- * - Allow properties to be recursively named
+ * - Allow properties to be recursively named.
  *
+ * @internal
+ * @coversNothing
  */
 class RecursivePropertyTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/269/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/269/build.xml');
     }
 
     public function tearDown(): void
     {
-        @unlink(PHING_TEST_BASE . "/etc/regression/269/testoutput");
+        @unlink(PHING_TEST_BASE . '/etc/regression/269/testoutput');
     }
 
     public function testCopyTask()
     {
-        $this->executeTarget("main");
+        $this->executeTarget('main');
 
-        $contents = file_get_contents(PHING_TEST_BASE . "/etc/regression/269/testoutput");
+        $contents = file_get_contents(PHING_TEST_BASE . '/etc/regression/269/testoutput');
 
-        $this->assertEquals("staging-user1", $contents);
+        $this->assertEquals('staging-user1', $contents);
     }
 }

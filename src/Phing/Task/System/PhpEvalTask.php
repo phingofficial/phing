@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -45,7 +46,7 @@ class PhpEvalTask extends Task
     protected $expression; // Expression to evaluate
     protected $function; // Function to execute
     protected $class; // Class containing function to execute
-    protected $returnProperty = null; // name of property to set to return value
+    protected $returnProperty; // name of property to set to return value
     protected $params = []; // parameters for function calls
 
     public function init()
@@ -58,105 +59,33 @@ class PhpEvalTask extends Task
      */
     public function main()
     {
-        if ($this->function === null && $this->expression === null) {
+        if (null === $this->function && null === $this->expression) {
             throw new BuildException(
-                "You must specify a function to execute or PHP expression to evalute.",
+                'You must specify a function to execute or PHP expression to evalute.',
                 $this->getLocation()
             );
         }
 
-        if ($this->function !== null && $this->expression !== null) {
-            throw new BuildException("You can specify function or expression, but not both.", $this->getLocation());
+        if (null !== $this->function && null !== $this->expression) {
+            throw new BuildException('You can specify function or expression, but not both.', $this->getLocation());
         }
 
-        if ($this->expression !== null && !empty($this->params)) {
+        if (null !== $this->expression && !empty($this->params)) {
             throw new BuildException(
-                "You cannot use nested <param> tags when evaluationg a PHP expression.",
+                'You cannot use nested <param> tags when evaluationg a PHP expression.',
                 $this->getLocation()
             );
         }
 
-        if ($this->function !== null) {
+        if (null !== $this->function) {
             $this->callFunction();
-        } elseif ($this->expression !== null) {
+        } elseif (null !== $this->expression) {
             $this->evalExpression();
         }
     }
 
     /**
-     * Simplifies a Parameter object of arbitrary complexity into string or
-     * array, retaining only the value of the parameter
-     *
-     */
-    protected function simplifyParameter(Parameter $param)
-    {
-        if (empty($children = $param->getParams())) {
-            return $param->getValue();
-        }
-
-        $simplified = [];
-        foreach ($children as $child) {
-            $simplified[] = $this->simplifyParameter($child);
-        }
-
-        return $simplified;
-    }
-
-    /**
-     * Calls function and stores results in property
-     */
-    protected function callFunction()
-    {
-        if ($this->class !== null) {
-            // import the classname & unqualify it, if necessary
-            $this->class = Phing::import($this->class);
-
-            $user_func = [$this->class, $this->function];
-            $h_func = $this->class . '::' . $this->function; // human-readable (for log)
-        } else {
-            $user_func = $this->function;
-            $h_func = $user_func; // human-readable (for log)
-        }
-
-        // put parameters into simple array
-        $params = [];
-        foreach ($this->params as $p) {
-            $params[] = $this->simplifyParameter($p);
-        }
-
-        $this->log("Calling PHP function: " . $h_func . "()", $this->logLevel);
-        foreach ($params as $p) {
-            $this->log("  param: " . print_r($p, true), Project::MSG_VERBOSE);
-        }
-
-        $return = call_user_func_array($user_func, $params);
-
-        if ($this->returnProperty !== null) {
-            $this->project->setProperty($this->returnProperty, $return);
-        }
-    }
-
-    /**
-     * Evaluates expression and sets property to resulting value.
-     */
-    protected function evalExpression()
-    {
-        $this->log("Evaluating PHP expression: " . $this->expression, $this->logLevel);
-        if (!StringHelper::endsWith(';', trim($this->expression))) {
-            $this->expression .= ';';
-        }
-
-        if ($this->returnProperty !== null) {
-            $retval = null;
-            eval('$retval = ' . $this->expression);
-            $this->project->setProperty($this->returnProperty, $retval);
-        } else {
-            eval($this->expression);
-        }
-    }
-
-    /**
-     * Set function to execute
+     * Set function to execute.
      *
      * @param string $function
      */
@@ -166,7 +95,7 @@ class PhpEvalTask extends Task
     }
 
     /**
-     * Set [static] class which contains function to execute
+     * Set [static] class which contains function to execute.
      *
      * @param string $class
      */
@@ -211,5 +140,76 @@ class PhpEvalTask extends Task
     public function addParam(Parameter $p)
     {
         $this->params[] = $p;
+    }
+
+    /**
+     * Simplifies a Parameter object of arbitrary complexity into string or
+     * array, retaining only the value of the parameter.
+     */
+    protected function simplifyParameter(Parameter $param)
+    {
+        if (empty($children = $param->getParams())) {
+            return $param->getValue();
+        }
+
+        $simplified = [];
+        foreach ($children as $child) {
+            $simplified[] = $this->simplifyParameter($child);
+        }
+
+        return $simplified;
+    }
+
+    /**
+     * Calls function and stores results in property.
+     */
+    protected function callFunction()
+    {
+        if (null !== $this->class) {
+            // import the classname & unqualify it, if necessary
+            $this->class = Phing::import($this->class);
+
+            $user_func = [$this->class, $this->function];
+            $h_func = $this->class . '::' . $this->function; // human-readable (for log)
+        } else {
+            $user_func = $this->function;
+            $h_func = $user_func; // human-readable (for log)
+        }
+
+        // put parameters into simple array
+        $params = [];
+        foreach ($this->params as $p) {
+            $params[] = $this->simplifyParameter($p);
+        }
+
+        $this->log('Calling PHP function: ' . $h_func . '()', $this->logLevel);
+        foreach ($params as $p) {
+            $this->log('  param: ' . print_r($p, true), Project::MSG_VERBOSE);
+        }
+
+        $return = call_user_func_array($user_func, $params);
+
+        if (null !== $this->returnProperty) {
+            $this->project->setProperty($this->returnProperty, $return);
+        }
+    }
+
+    /**
+     * Evaluates expression and sets property to resulting value.
+     */
+    protected function evalExpression()
+    {
+        $this->log('Evaluating PHP expression: ' . $this->expression, $this->logLevel);
+        if (!StringHelper::endsWith(';', trim($this->expression))) {
+            $this->expression .= ';';
+        }
+
+        if (null !== $this->returnProperty) {
+            $retval = null;
+            eval('$retval = ' . $this->expression);
+            $this->project->setProperty($this->returnProperty, $retval);
+        } else {
+            eval($this->expression);
+        }
     }
 }

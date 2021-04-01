@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>
+ * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>.
  *
  * All rights reserved.
  *
@@ -32,26 +33,33 @@
  * PHP version 5
  *
  * @category   Tasks
+ *
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link       https://github.com/llaville/phing-GrowlNotifyTask
+ *
+ * @see       https://github.com/llaville/phing-GrowlNotifyTask
  */
 
 namespace Phing\Test\Task\Optional;
 
-use Phing\Task\Optional\GrowlNotifyTask;
 use Net_Growl;
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Task\Optional\GrowlNotifyTask;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests for GrowlNotifyTask
+ * Tests for GrowlNotifyTask.
  *
  * @category   Tasks
+ *
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link       https://github.com/llaville/phing-GrowlNotifyTask
+ *
+ * @see       https://github.com/llaville/phing-GrowlNotifyTask
+ *
+ * @internal
+ * @coversNothing
  */
 class GrowlNotifyTaskTest extends BuildFileTest
 {
@@ -64,12 +72,11 @@ class GrowlNotifyTaskTest extends BuildFileTest
 
     /**
      * Sets up the fixture.
-     *
      */
     public function setUp(): void
     {
         if (!class_exists('Net_Growl')) {
-            $this->markTestSkipped("Need Net_Growl installed to test");
+            $this->markTestSkipped('Need Net_Growl installed to test');
 
             return;
         }
@@ -87,12 +94,12 @@ class GrowlNotifyTaskTest extends BuildFileTest
         $gntpMock->addResponse(
             "GNTP/1.0 -OK NONE\r\n" .
             "Response-Action: REGISTER\r\n" .
-            ""
+            ''
         );
         $gntpMock->addResponse(
             "GNTP/1.0 -OK NONE\r\n" .
             "Response-Action: NOTIFY\r\n" .
-            ""
+            ''
         );
         $this->mockTask = new GrowlNotifyTask($gntpMock);
         $this->mockTask->setProject($this->project);
@@ -102,8 +109,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     }
 
     /**
-     * Test for required message attribute
-     *
+     * Test for required message attribute.
      */
     public function testEmptyMessage()
     {
@@ -114,8 +120,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     }
 
     /**
-     * Test a single message notification
-     *
+     * Test a single message notification.
      */
     public function testSingleNotification()
     {
@@ -126,8 +131,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     }
 
     /**
-     * Test a single message notification that sould be sticky
-     *
+     * Test a single message notification that sould be sticky.
      */
     public function testSingleStickyNotification()
     {
@@ -139,8 +143,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     }
 
     /**
-     * Test a single notification with custom application icon
-     *
+     * Test a single notification with custom application icon.
      */
     public function testSingleCustomAppIconNotification()
     {
@@ -152,8 +155,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     }
 
     /**
-     * Test a single notification with custom notification type
-     *
+     * Test a single notification with custom notification type.
      */
     public function testSingleNotificationType()
     {
@@ -165,8 +167,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     }
 
     /**
-     * Test a single notification with custom title
-     *
+     * Test a single notification with custom title.
      */
     public function testSingleNotificationTitled()
     {
@@ -178,8 +179,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     }
 
     /**
-     * Test broadcasting message
-     *
+     * Test broadcasting message.
      */
     public function testBroadcastNotification()
     {
@@ -191,8 +191,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     }
 
     /**
-     * Test a single notification with priority defined
-     *
+     * Test a single notification with priority defined.
      */
     public function testSingleNotificationWithPriority()
     {
@@ -207,8 +206,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     }
 
     /**
-     * Test a single notification with custom application and message icons
-     *
+     * Test a single notification with custom application and message icons.
      */
     public function testSingleCustomIconNotification()
     {

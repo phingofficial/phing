@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,20 +32,19 @@ use Phing\Io\Reader;
  * Or:
  * <pre><filterreader classname="phing.filters.HeadFilter">
  *    <param name="lines" value="3"/>
- * </filterreader></pre>
+ * </filterreader></pre>.
  *
  * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author hans lellelid, hans@velum.net
  *
  * @see FilterReader
- *
  */
 class HeadFilter extends BaseParamFilterReader implements ChainableReader
 {
     /**
      * Parameter name for the number of lines to be returned.
      */
-    public const LINES_KEY = "lines";
+    public const LINES_KEY = 'lines';
 
     /**
      * Parameter name for the number of lines to be skipped.
@@ -54,14 +54,14 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Number of lines currently read in.
      *
-     * @var integer
+     * @var int
      */
     private $linesRead = 0;
 
     /**
      * Number of lines to be returned in the filtered stream.
      *
-     * @var integer
+     * @var int
      */
     private $lines = 10;
 
@@ -74,7 +74,8 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      * Returns first n lines of stream.
      *
      * @param int $len
-     * @return string|int the resulting stream, or -1
+     *
+     * @return int|string the resulting stream, or -1
      *                    if the end of the resulting stream has been reached
      */
     public function read($len = null)
@@ -90,7 +91,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
         if ($this->linesRead < $this->lines) {
             $buffer = $this->in->read($len);
 
-            if ($buffer === -1) {
+            if (-1 === $buffer) {
                 return -1;
             }
 
@@ -115,8 +116,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the number of lines to be returned in the filtered stream.
      *
-     * @param int $lines the number of lines to be returned in the filtered stream.
-     *
+     * @param int $lines the number of lines to be returned in the filtered stream
      */
     public function setLines($lines)
     {
@@ -126,7 +126,7 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns the number of lines to be returned in the filtered stream.
      *
-     * @return int The number of lines to be returned in the filtered stream.
+     * @return int the number of lines to be returned in the filtered stream
      */
     public function getLines()
     {
@@ -144,24 +144,14 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * Returns the number of lines to be skipped in the filtered stream.
-     *
-     * @return int the number of lines to be skipped in the filtered stream
-     */
-    private function getSkip()
-    {
-        return $this->skip;
-    }
-
-    /**
      * Creates a new HeadFilter using the passed in
      * Reader for instantiation.
      *
      * @param Reader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
-     * @return HeadFilter A new filter based on this configuration, but filtering
-     *                    the specified reader.
+     * @return HeadFilter a new filter based on this configuration, but filtering
+     *                    the specified reader
      */
     public function chain(Reader $reader): Reader
     {
@@ -175,21 +165,32 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
+     * Returns the number of lines to be skipped in the filtered stream.
+     *
+     * @return int the number of lines to be skipped in the filtered stream
+     */
+    private function getSkip()
+    {
+        return $this->skip;
+    }
+
+    /**
      * Scans the parameters list for the "lines" parameter and uses
      * it to set the number of lines to be returned in the filtered stream.
-     *
      */
     private function initialize()
     {
         $params = $this->getParameters();
-        if ($params !== null) {
+        if (null !== $params) {
             foreach ($params as $param) {
                 if (self::LINES_KEY === $param->getName()) {
                     $this->lines = (int) $param->getValue();
+
                     continue;
                 }
                 if (self::SKIP_KEY === $param->getName()) {
                     $this->lines = (int) $param->getValue();
+
                     continue;
                 }
             }

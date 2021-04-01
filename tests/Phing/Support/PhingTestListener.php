@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,7 @@ use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 
 /**
- * our own personal build listener
+ * our own personal build listener.
  *
  * @author Nico Seessle <nico@seessle.de>
  * @author Conor MacNeill

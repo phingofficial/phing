@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,12 +28,14 @@ use Phing\Test\Support\BuildFileTest;
  * Unit test for ForeachTask.
  *
  * @author  Laurent Laville <pear@laurent-laville.org>
+ *
+ * @internal
+ * @coversNothing
  */
 class ForeachTaskTest extends BuildFileTest
 {
     /**
      * Sets up the fixture.
-     *
      */
     public function setUp(): void
     {
@@ -41,8 +44,7 @@ class ForeachTaskTest extends BuildFileTest
     }
 
     /**
-     * Test for required attributes
-     *
+     * Test for required attributes.
      */
     public function testRequiredParameters()
     {
@@ -52,8 +54,7 @@ class ForeachTaskTest extends BuildFileTest
     }
 
     /**
-     * Test list of values to process without the 'param' attribute
-     *
+     * Test list of values to process without the 'param' attribute.
      */
     public function testListWithoutParam()
     {
@@ -63,8 +64,7 @@ class ForeachTaskTest extends BuildFileTest
     }
 
     /**
-     * Test list of values to process without the 'target' attribute
-     *
+     * Test list of values to process without the 'target' attribute.
      */
     public function testListWithoutCalleeTarget()
     {
@@ -74,8 +74,7 @@ class ForeachTaskTest extends BuildFileTest
     }
 
     /**
-     * Test to get the right log message on fileset usage
-     *
+     * Test to get the right log message on fileset usage.
      */
     public function testLogMessageWithFileset()
     {
@@ -84,8 +83,7 @@ class ForeachTaskTest extends BuildFileTest
     }
 
     /**
-     * Test to get the right log message on fileset usage
-     *
+     * Test to get the right log message on fileset usage.
      */
     public function testLogMessageWithDirset()
     {
@@ -94,8 +92,7 @@ class ForeachTaskTest extends BuildFileTest
     }
 
     /**
-     * Test to get the right log message on list usage with multiple entries
-     *
+     * Test to get the right log message on list usage with multiple entries.
      */
     public function testLogMessageWithList()
     {
@@ -104,8 +101,7 @@ class ForeachTaskTest extends BuildFileTest
     }
 
     /**
-     * Test to get the right log message on list usage with a single entry
-     *
+     * Test to get the right log message on list usage with a single entry.
      */
     public function testLogMessageWithListUniqueEntry()
     {
@@ -114,8 +110,7 @@ class ForeachTaskTest extends BuildFileTest
     }
 
     /**
-     * Test to get the right log message on fileset usage
-     *
+     * Test to get the right log message on fileset usage.
      */
     public function testLogMessageWithPath()
     {

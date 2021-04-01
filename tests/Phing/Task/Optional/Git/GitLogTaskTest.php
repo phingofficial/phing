@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,6 +25,9 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @requires OS ^(?:(?!Win).)*$
+ *
+ * @internal
+ * @coversNothing
  */
 class GitLogTaskTest extends BuildFileTest
 {
@@ -94,7 +98,6 @@ class GitLogTaskTest extends BuildFileTest
             'Date' => 'Mon, 24 Jan 2011 09:58:33 +0300',
             'Subject' => '[PATCH] Added file5',
         ],
-
     ];
 
     public function setUp(): void

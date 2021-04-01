@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,7 +34,7 @@ use Phing\Exception\BuildException;
 class TaskAdapter extends Task implements TypeAdapter
 {
     /**
-     * target object
+     * target object.
      */
     private $proxy;
 
@@ -45,26 +46,28 @@ class TaskAdapter extends Task implements TypeAdapter
      */
     public function main()
     {
-        if (method_exists($this->proxy, "setLocation")) {
+        if (method_exists($this->proxy, 'setLocation')) {
             try { // try to set location
                 $this->proxy->setLocation($this->getLocation());
             } catch (Exception $ex) {
-                $this->log("Error setting location in " . get_class($this->proxy) . Project::MSG_ERR);
+                $this->log('Error setting location in ' . get_class($this->proxy) . Project::MSG_ERR);
+
                 throw new BuildException($ex);
             }
         } else {
-            throw new Exception("Error setting location in class " . get_class($this->proxy));
+            throw new Exception('Error setting location in class ' . get_class($this->proxy));
         }
 
-        if (method_exists($this->proxy, "setProject")) {
+        if (method_exists($this->proxy, 'setProject')) {
             try { // try to set project
                 $this->proxy->setProject($this->project);
             } catch (Exception $ex) {
-                $this->log("Error setting project in " . get_class($this->proxy) . Project::MSG_ERR);
+                $this->log('Error setting project in ' . get_class($this->proxy) . Project::MSG_ERR);
+
                 throw new BuildException($ex);
             }
         } else {
-            throw new Exception("Error setting project in class " . get_class($this->proxy));
+            throw new Exception('Error setting project in class ' . get_class($this->proxy));
         }
 
         try { //try to call main
@@ -72,8 +75,9 @@ class TaskAdapter extends Task implements TypeAdapter
         } catch (BuildException $be) {
             throw $be;
         } catch (Exception $ex) {
-            $this->log("Error in " . get_class($this->proxy), Project::MSG_ERR);
-            throw new BuildException("Error in " . get_class($this->proxy), $ex);
+            $this->log('Error in ' . get_class($this->proxy), Project::MSG_ERR);
+
+            throw new BuildException('Error in ' . get_class($this->proxy), $ex);
         }
     }
 

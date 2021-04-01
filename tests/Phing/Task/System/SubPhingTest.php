@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,9 +26,12 @@ use Phing\Listener\BuildListener;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the SubPhing Task
+ * Tests the SubPhing Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class SubPhingTest extends BuildFileTest
 {
@@ -90,7 +94,7 @@ class SubPhingTest extends BuildFileTest
 
     private function baseDirs(string $target, array $dirs): void
     {
-        $bc = new class($dirs) implements BuildListener {
+        $bc = new class ($dirs) implements BuildListener {
             private $expectedBasedirs;
             private $calls = 0;
             private $error;
@@ -126,10 +130,10 @@ class SubPhingTest extends BuildFileTest
 
             public function targetStarted(BuildEvent $event)
             {
-                if ($event->getTarget()->getName() === '') {
+                if ('' === $event->getTarget()->getName()) {
                     return;
                 }
-                if ($this->error === null) {
+                if (null === $this->error) {
                     try {
                         BuildFileTest::assertEquals(
                             $this->expectedBasedirs[$this->calls++],
@@ -149,7 +153,7 @@ class SubPhingTest extends BuildFileTest
         $this->getProject()->addBuildListener($bc);
         $this->executeTarget($target);
         $ae = $bc->getError();
-        if ($ae !== null) {
+        if (null !== $ae) {
             throw $ae;
         }
         $this->getProject()->removeBuildListener($bc);

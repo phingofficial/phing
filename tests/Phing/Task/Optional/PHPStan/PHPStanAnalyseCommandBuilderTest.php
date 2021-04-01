@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,6 +26,10 @@ use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanAnalyseCommandBuilder;
 use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PHPStanAnalyseCommandBuilderTest extends TestCase
 {
     /** @var PHPStanAnalyseCommandBuilder */
@@ -51,7 +56,7 @@ class PHPStanAnalyseCommandBuilderTest extends TestCase
         $task->setPaths('path1 path2');
 
         $this->builder->build($task);
-        $expectedCommand = <<< CMD
+        $expectedCommand = <<< 'CMD'
             Executing 'phpstan' with arguments:
             'analyse'
             '--configuration=anyConfiguration'

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -86,51 +87,14 @@ class HtmlColorLogger extends DefaultLogger
     }
 
     /**
-     * Set the colors to use from a property file specified in the
-     * special phing property file "etc/default.listeners.properties".
-     */
-    private function setColors()
-    {
-        $systemColorFile = new File(Phing::getResourcePath("etc/default.listeners.properties"));
-
-        try {
-            $prop = new Properties();
-
-            $prop->load($systemColorFile);
-
-            $err = $prop->getProperty("HtmlColorLogger.ERROR_CLASS");
-            $warn = $prop->getProperty("HtmlColorLogger.WARNING_CLASS");
-            $info = $prop->getProperty("HtmlColorLogger.INFO_CLASS");
-            $verbose = $prop->getProperty("HtmlColorLogger.VERBOSE_CLASS");
-            $debug = $prop->getProperty("HtmlColorLogger.DEBUG_CLASS");
-            if ($err !== null) {
-                $this->errColor = self::PREFIX . $err . self::SUFFIX;
-            }
-            if ($warn !== null) {
-                $this->warnColor = self::PREFIX . $warn . self::SUFFIX;
-            }
-            if ($info !== null) {
-                $this->infoColor = self::PREFIX . $info . self::SUFFIX;
-            }
-            if ($verbose !== null) {
-                $this->verboseColor = self::PREFIX . $verbose . self::SUFFIX;
-            }
-            if ($debug !== null) {
-                $this->debugColor = self::PREFIX . $debug . self::SUFFIX;
-            }
-        } catch (IOException $ioe) {
-            //Ignore exception - we will use the defaults.
-        }
-    }
-
-    /**
      * @see   DefaultLogger#printMessage
-     * @param string       $message
-     * @param int          $priority
+     *
+     * @param string $message
+     * @param int    $priority
      */
     final protected function printMessage($message, OutputStream $stream, $priority)
     {
-        if ($message !== null) {
+        if (null !== $message) {
             if (!$this->colorsSet) {
                 $this->setColors();
                 $this->colorsSet = true;
@@ -147,7 +111,7 @@ class HtmlColorLogger extends DefaultLogger
             if (preg_match('@^( +)([^ ].+)@', $message, $matches)) {
                 $len = strlen($matches[1]);
                 $space = '&nbsp;';
-                for ($i = 1; $i < $len; $i++) {
+                for ($i = 1; $i < $len; ++$i) {
                     $space .= '&nbsp;';
                 }
                 $message = $space . $matches[2];
@@ -156,22 +120,69 @@ class HtmlColorLogger extends DefaultLogger
             switch ($priority) {
                 case Project::MSG_ERR:
                     $message = $this->errColor . $message . self::END_COLOR;
+
                     break;
+
                 case Project::MSG_WARN:
                     $message = $this->warnColor . $message . self::END_COLOR;
+
                     break;
+
                 case Project::MSG_INFO:
                     $message = $this->infoColor . $message . self::END_COLOR;
+
                     break;
+
                 case Project::MSG_VERBOSE:
                     $message = $this->verboseColor . $message . self::END_COLOR;
+
                     break;
+
                 case Project::MSG_DEBUG:
                     $message = $this->debugColor . $message . self::END_COLOR;
+
                     break;
             }
 
             $stream->write($message . '<br/>');
+        }
+    }
+
+    /**
+     * Set the colors to use from a property file specified in the
+     * special phing property file "etc/default.listeners.properties".
+     */
+    private function setColors()
+    {
+        $systemColorFile = new File(Phing::getResourcePath('etc/default.listeners.properties'));
+
+        try {
+            $prop = new Properties();
+
+            $prop->load($systemColorFile);
+
+            $err = $prop->getProperty('HtmlColorLogger.ERROR_CLASS');
+            $warn = $prop->getProperty('HtmlColorLogger.WARNING_CLASS');
+            $info = $prop->getProperty('HtmlColorLogger.INFO_CLASS');
+            $verbose = $prop->getProperty('HtmlColorLogger.VERBOSE_CLASS');
+            $debug = $prop->getProperty('HtmlColorLogger.DEBUG_CLASS');
+            if (null !== $err) {
+                $this->errColor = self::PREFIX . $err . self::SUFFIX;
+            }
+            if (null !== $warn) {
+                $this->warnColor = self::PREFIX . $warn . self::SUFFIX;
+            }
+            if (null !== $info) {
+                $this->infoColor = self::PREFIX . $info . self::SUFFIX;
+            }
+            if (null !== $verbose) {
+                $this->verboseColor = self::PREFIX . $verbose . self::SUFFIX;
+            }
+            if (null !== $debug) {
+                $this->debugColor = self::PREFIX . $debug . self::SUFFIX;
+            }
+        } catch (IOException $ioe) {
+            //Ignore exception - we will use the defaults.
         }
     }
 }

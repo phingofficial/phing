@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,11 +21,10 @@
 namespace Phing\Task\System\Property;
 
 use Phing\Exception\BuildException;
-use Phing\Task\System\Property\AbstractPropertySetterTask;
 use Phing\Type\RegularExpression;
 
 /**
- * PropertySelector Task
+ * PropertySelector Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
@@ -34,7 +34,7 @@ class PropertySelector extends AbstractPropertySetterTask
      * @var RegularExpression
      */
     private $match;
-    private $select = "$0";
+    private $select = '$0';
     private $delim = ',';
     private $caseSensitive = true;
     private $distinct = false;
@@ -65,14 +65,6 @@ class PropertySelector extends AbstractPropertySetterTask
         $this->distinct = $distinct;
     }
 
-    protected function validate()
-    {
-        parent::validate();
-        if ($this->match === null) {
-            throw new BuildException("No match expression specified.");
-        }
-    }
-
     public function main()
     {
         $this->validate();
@@ -88,7 +80,7 @@ class PropertySelector extends AbstractPropertySetterTask
                 $output = $groups[ltrim($this->select, '$')];
                 if (!($this->distinct && in_array($output, $used))) {
                     $used[] = $output;
-                    if ($buf !== '') {
+                    if ('' !== $buf) {
                         $buf .= $this->delim;
                     }
                     $buf .= $output;
@@ -96,8 +88,16 @@ class PropertySelector extends AbstractPropertySetterTask
             }
         }
 
-        if ($buf !== '') {
+        if ('' !== $buf) {
             $this->setPropertyValue($buf);
+        }
+    }
+
+    protected function validate()
+    {
+        parent::validate();
+        if (null === $this->match) {
+            throw new BuildException('No match expression specified.');
         }
     }
 }

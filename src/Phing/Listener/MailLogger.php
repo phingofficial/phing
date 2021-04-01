@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -45,7 +46,7 @@ class MailLogger extends DefaultLogger
     private $tolist;
 
     /**
-     * Construct new MailLogger
+     * Construct new MailLogger.
      */
     public function __construct()
     {
@@ -63,19 +64,7 @@ class MailLogger extends DefaultLogger
     }
 
     /**
-     * @param string       $message
-     * @param int          $priority
-     * @see   DefaultLogger::printMessage
-     */
-    final protected function printMessage($message, OutputStream $stream, $priority)
-    {
-        if ($message !== null) {
-            $this->mailMessage .= $message . "\n";
-        }
-    }
-
-    /**
-     * Sends the mail
+     * Sends the mail.
      *
      * @see   DefaultLogger#buildFinished
      */
@@ -103,7 +92,7 @@ class MailLogger extends DefaultLogger
             $properties['key'] = $project->replaceProperties($value);
         }
 
-        $success = $event->getException() === null;
+        $success = null === $event->getException();
         $prefix = $success ? 'success' : 'failure';
         $headers = [];
 
@@ -138,8 +127,21 @@ class MailLogger extends DefaultLogger
     }
 
     /**
-     * @param string $name
+     * @param string $message
+     * @param int    $priority
      *
+     * @see   DefaultLogger::printMessage
+     */
+    final protected function printMessage($message, OutputStream $stream, $priority)
+    {
+        if (null !== $message) {
+            $this->mailMessage .= $message . "\n";
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param mixed  $defaultValue
      *
      * @throws BadMethodCallException
      */
@@ -147,12 +149,13 @@ class MailLogger extends DefaultLogger
     {
         $propertyName = 'phing.log.mail.' . $name;
         $value = $properties[$propertyName];
-        if ($value === null) {
+        if (null === $value) {
             $value = $defaultValue;
         }
-        if ($value === null) {
+        if (null === $value) {
             throw new BadMethodCallException('Missing required parameter: ' . $propertyName);
         }
+
         return $value;
     }
 }

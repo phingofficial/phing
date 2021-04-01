@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,9 +27,12 @@ use Phing\Io\IOException;
 use Phing\Io\YamlFileParser;
 
 /**
- * Unit test for YamlFileParser
+ * Unit test for YamlFileParser.
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
+ *
+ * @internal
+ * @coversNothing
  */
 class YamlFileParserTest extends \PHPUnit\Framework\TestCase
 {
@@ -48,21 +52,22 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     private $incorrectYamlFileStub;
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function setUp(): void
     {
         if (!class_exists('\Symfony\Component\Yaml\Parser')) {
             $this->markTestSkipped('Yaml parser is not installed.');
+
             exit;
         }
-        $this->yamlFileStub = PHING_TEST_BASE . "/etc/system/io/config.yml";
-        $this->incorrectYamlFileStub = PHING_TEST_BASE . "/etc/system/io/config_wrong.yml";
+        $this->yamlFileStub = PHING_TEST_BASE . '/etc/system/io/config.yml';
+        $this->incorrectYamlFileStub = PHING_TEST_BASE . '/etc/system/io/config_wrong.yml';
         $this->objectToTest = new YamlFileParser();
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function tearDown(): void
     {
@@ -70,11 +75,11 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers IniFileParser::parseFile
+     * @covers \IniFileParser::parseFile
      */
     public function testParseFileFileNotReadable()
     {
-        $tmpFile = tempnam(FileUtils::getTempDir(), "test");
+        $tmpFile = tempnam(FileUtils::getTempDir(), 'test');
         touch($tmpFile);
         $file = new File($tmpFile);
         unlink($tmpFile);
@@ -85,7 +90,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers IniFileParser::parseFile
+     * @covers \IniFileParser::parseFile
      */
     public function testParseFileFileIncorrectYaml()
     {
@@ -100,7 +105,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
      * The YamlFileParser has to provide a flattened array which then is
      * compatible to the actual behaviour of properties.
      *
-     * @covers IniFileParser::parseFile
+     * @covers \IniFileParser::parseFile
      */
     public function testParseFileFile()
     {

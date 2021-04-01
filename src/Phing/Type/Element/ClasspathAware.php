@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,13 +32,12 @@ trait ClasspathAware
     protected $classpath;
 
     /**
-     * Refid to already defined classpath
+     * Refid to already defined classpath.
      */
     protected $classpathId;
 
     /**
      * Returns the classpath.
-     *
      */
     public function getClasspath(): ?Path
     {
@@ -45,12 +45,11 @@ trait ClasspathAware
     }
 
     /**
-     *
      * @throws BuildException
      */
     public function setClasspath(Path $classpath): void
     {
-        if ($this->classpath === null) {
+        if (null === $this->classpath) {
             $this->classpath = $classpath;
         } else {
             $this->classpath->append($classpath);
@@ -58,12 +57,11 @@ trait ClasspathAware
     }
 
     /**
-     *
      * @throws BuildException
      */
     public function createClasspath(): Path
     {
-        if ($this->classpath === null) {
+        if (null === $this->classpath) {
             $this->classpath = new Path();
         }
 
@@ -72,7 +70,6 @@ trait ClasspathAware
 
     /**
      * Reference to a classpath to use when loading the files.
-     *
      *
      * @throws BuildException
      */

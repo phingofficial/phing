@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,6 +30,8 @@ class IHCreatorFail1
 {
     /**
      * cannot take param!
+     *
+     * @param mixed $param
      */
     public function createBlah($param)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,6 +17,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
 declare(strict_types=1);
 
 namespace Phing\Util;
@@ -23,7 +25,7 @@ namespace Phing\Util;
 use Phing\Exception\BuildException;
 
 /**
- * SizeHelper class
+ * SizeHelper class.
  *
  * @author Jawira Portugal <dev@tugal.be>
  */
@@ -32,15 +34,15 @@ class SizeHelper
     public const B = 'B';
     public const KILO = 1000;
     public const KIBI = 1024;
-    public const SI = [1 => ['kB', 'kilo', 'kilobyte',],
-        2 => ['MB', 'mega', 'megabyte',],
-        3 => ['GB', 'giga', 'gigabyte',],
-        4 => ['TB', 'tera', 'terabyte',],];
-    public const IEC = [0 => [self::B,],
-        1 => ['k', 'Ki', 'KiB', 'kibi', 'kibibyte',],
-        2 => ['M', 'Mi', 'MiB', 'mebi', 'mebibyte',],
-        3 => ['G', 'Gi', 'GiB', 'gibi', 'gibibyte',],
-        4 => ['T', 'Ti', 'TiB', 'tebi', 'tebibyte',],];
+    public const SI = [1 => ['kB', 'kilo', 'kilobyte'],
+        2 => ['MB', 'mega', 'megabyte'],
+        3 => ['GB', 'giga', 'gigabyte'],
+        4 => ['TB', 'tera', 'terabyte'], ];
+    public const IEC = [0 => [self::B],
+        1 => ['k', 'Ki', 'KiB', 'kibi', 'kibibyte'],
+        2 => ['M', 'Mi', 'MiB', 'mebi', 'mebibyte'],
+        3 => ['G', 'Gi', 'GiB', 'gibi', 'gibibyte'],
+        4 => ['T', 'Ti', 'TiB', 'tebi', 'tebibyte'], ];
 
     /**
      * Converts strings like '512K', '0.5G', '50M' to bytes.
@@ -72,9 +74,9 @@ class SizeHelper
      * - It can also handle negative values '-1M'.
      * - Parsing is not locale aware, this means that '.' (dot) is always used as decimal separator.
      *
-     * @param string $human Filesize as a human writes it.
+     * @param string $human filesize as a human writes it
      *
-     * @return array{0: float, 1: string} First element is size, and second is the unit.
+     * @return array{0: float, 1: string} First element is size, and second is the unit
      */
     protected static function parseHuman(string $human): array
     {
@@ -84,7 +86,7 @@ class SizeHelper
         }
         $parsed = sscanf($human, '%f%s');
         if (empty($parsed[0])) {
-            throw new BuildException("Invalid size '$human'");
+            throw new BuildException("Invalid size '{$human}'");
         }
 
         return $parsed;
@@ -105,6 +107,7 @@ class SizeHelper
                 return pow(self::KILO, $exponent);
             }
         }
-        throw new BuildException("Invalid unit '$unit'");
+
+        throw new BuildException("Invalid unit '{$unit}'");
     }
 }

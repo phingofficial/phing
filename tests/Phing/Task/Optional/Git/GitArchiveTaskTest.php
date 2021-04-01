@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @requires OS ^(?:(?!Win).)*$
+ *
+ * @internal
+ * @coversNothing
  */
 class GitArchiveTaskTest extends BuildFileTest
 {

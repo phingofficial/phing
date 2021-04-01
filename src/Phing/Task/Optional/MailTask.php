@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +25,7 @@ use Phing\Task;
 use Phing\Type\Element\FileSetAware;
 
 /**
- * Send an e-mail message
+ * Send an e-mail message.
  *
  * <mail tolist="user@example.org" subject="build complete">The build process is a success...</mail>
  *
@@ -35,10 +36,10 @@ class MailTask extends Task
 {
     use FileSetAware;
 
-    protected $tolist = null;
-    protected $subject = null;
-    protected $msg = null;
-    protected $from = null;
+    protected $tolist;
+    protected $subject;
+    protected $msg;
+    protected $from;
 
     protected $backend = 'mail';
     protected $backendParams = [];
@@ -58,6 +59,122 @@ class MailTask extends Task
         }
 
         mail($this->tolist, $this->subject, $this->msg, "From: {$this->from}\n");
+    }
+
+    /**
+     * Setter for message.
+     *
+     * @param $msg
+     */
+    public function setMsg($msg)
+    {
+        $this->setMessage($msg);
+    }
+
+    /**
+     * Alias setter.
+     *
+     * @param $msg
+     */
+    public function setMessage($msg)
+    {
+        $this->msg = (string) $msg;
+    }
+
+    /**
+     * Setter for subject.
+     *
+     * @param $subject
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = (string) $subject;
+    }
+
+    /**
+     * Setter for tolist.
+     *
+     * @param $tolist
+     */
+    public function setToList($tolist)
+    {
+        $this->tolist = $tolist;
+    }
+
+    /**
+     * Alias for (deprecated) recipient.
+     *
+     * @param $recipient
+     */
+    public function setRecipient($recipient)
+    {
+        $this->tolist = (string) $recipient;
+    }
+
+    /**
+     * Alias for to.
+     *
+     * @param $to
+     */
+    public function setTo($to)
+    {
+        $this->tolist = (string) $to;
+    }
+
+    /**
+     * Supports the <mail>Message</mail> syntax.
+     *
+     * @param $msg
+     */
+    public function addText($msg)
+    {
+        $this->msg = (string) $msg;
+    }
+
+    /**
+     * Sets email address of sender.
+     *
+     * @param $from
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+    }
+
+    /**
+     * Sets PEAR Mail backend to use.
+     *
+     * @param $backend
+     */
+    public function setBackend($backend)
+    {
+        $this->backend = $backend;
+    }
+
+    /**
+     * Sets PEAR Mail backend params to use.
+     *
+     * @param $backendParams
+     */
+    public function setBackendParams($backendParams)
+    {
+        $params = explode(',', $backendParams);
+
+        foreach ($params as $param) {
+            $values = explode('=', $param);
+
+            if (count($values) < 1) {
+                continue;
+            }
+
+            if (1 == count($values)) {
+                $this->backendParams[] = $values[0];
+            } else {
+                $key = $values[0];
+                $value = $values[1];
+                $this->backendParams[$key] = $value;
+            }
+        }
     }
 
     protected function sendFilesets()
@@ -91,121 +208,5 @@ class MailTask extends Task
 
         $mail = \Mail::factory($this->backend, $this->backendParams);
         $mail->send($this->tolist, $hdrs, $body);
-    }
-
-    /**
-     * Setter for message
-     *
-     * @param $msg
-     */
-    public function setMsg($msg)
-    {
-        $this->setMessage($msg);
-    }
-
-    /**
-     * Alias setter
-     *
-     * @param $msg
-     */
-    public function setMessage($msg)
-    {
-        $this->msg = (string) $msg;
-    }
-
-    /**
-     * Setter for subject
-     *
-     * @param $subject
-     */
-    public function setSubject($subject)
-    {
-        $this->subject = (string) $subject;
-    }
-
-    /**
-     * Setter for tolist
-     *
-     * @param $tolist
-     */
-    public function setToList($tolist)
-    {
-        $this->tolist = $tolist;
-    }
-
-    /**
-     * Alias for (deprecated) recipient
-     *
-     * @param $recipient
-     */
-    public function setRecipient($recipient)
-    {
-        $this->tolist = (string) $recipient;
-    }
-
-    /**
-     * Alias for to
-     *
-     * @param $to
-     */
-    public function setTo($to)
-    {
-        $this->tolist = (string) $to;
-    }
-
-    /**
-     * Supports the <mail>Message</mail> syntax.
-     *
-     * @param $msg
-     */
-    public function addText($msg)
-    {
-        $this->msg = (string) $msg;
-    }
-
-    /**
-     * Sets email address of sender
-     *
-     * @param $from
-     */
-    public function setFrom($from)
-    {
-        $this->from = $from;
-    }
-
-    /**
-     * Sets PEAR Mail backend to use
-     *
-     * @param $backend
-     */
-    public function setBackend($backend)
-    {
-        $this->backend = $backend;
-    }
-
-    /**
-     * Sets PEAR Mail backend params to use
-     *
-     * @param $backendParams
-     */
-    public function setBackendParams($backendParams)
-    {
-        $params = explode(',', $backendParams);
-
-        foreach ($params as $param) {
-            $values = explode('=', $param);
-
-            if (count($values) < 1) {
-                continue;
-            }
-
-            if (count($values) == 1) {
-                $this->backendParams[] = $values[0];
-            } else {
-                $key = $values[0];
-                $value = $values[1];
-                $this->backendParams[$key] = $value;
-            }
-        }
     }
 }

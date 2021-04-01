@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +29,7 @@ use Phing\Type\Mapper;
 
 /**
  * A mapping selector is an abstract class adding mapping support to the
- * base selector
+ * base selector.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
@@ -53,7 +54,7 @@ abstract class MappingSelector extends BaseSelector
      * The name of the file or directory which is checked for out-of-date
      * files.
      *
-     * @param File $targetdir the directory to scan looking for files.
+     * @param File $targetdir the directory to scan looking for files
      */
     public function setTargetdir(File $targetdir)
     {
@@ -63,15 +64,17 @@ abstract class MappingSelector extends BaseSelector
     /**
      * Defines the FileNameMapper to use (nested mapper element).
      *
-     * @return Mapper a mapper to be configured
      * @throws BuildException if more than one mapper defined
+     *
+     * @return Mapper a mapper to be configured
      */
     public function createMapper()
     {
-        if ($this->map !== null || $this->mapperElement !== null) {
+        if (null !== $this->map || null !== $this->mapperElement) {
             throw new BuildException('Cannot define more than one mapper');
         }
         $this->mapperElement = new Mapper($this->getProject());
+
         return $this->mapperElement;
     }
 
@@ -84,7 +87,7 @@ abstract class MappingSelector extends BaseSelector
      */
     public function addConfigured(FileNameMapper $fileNameMapper)
     {
-        if ($this->map !== null || $this->mapperElement !== null) {
+        if (null !== $this->map || null !== $this->mapperElement) {
             throw new BuildException('Cannot define more than one mapper');
         }
         $this->map = $fileNameMapper;
@@ -96,16 +99,16 @@ abstract class MappingSelector extends BaseSelector
      */
     public function verifySettings()
     {
-        if ($this->targetdir === null) {
-            $this->setError("The targetdir attribute is required.");
+        if (null === $this->targetdir) {
+            $this->setError('The targetdir attribute is required.');
         }
-        if ($this->map === null) {
-            if ($this->mapperElement === null) {
+        if (null === $this->map) {
+            if (null === $this->mapperElement) {
                 $this->map = new IdentityMapper();
             } else {
                 $this->map = $this->mapperElement->getImplementation();
-                if ($this->map === null) {
-                    $this->setError("Could not set <mapper> element.");
+                if (null === $this->map) {
+                    $this->setError('Could not set <mapper> element.');
                 }
             }
         }
@@ -115,17 +118,16 @@ abstract class MappingSelector extends BaseSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param File $basedir the base directory the scan is being done from
+     * @param File   $basedir  the base directory the scan is being done from
      * @param string $filename is the name of the file to check
-     * @param File $file is a java.io.File object the selector can use
-     *
-     * @return bool whether the file should be selected or not
+     * @param File   $file     is a java.io.File object the selector can use
      *
      * @throws BuildException
+     *
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(File $basedir, $filename, File $file)
     {
-
         // throw BuildException on error
         $this->validate();
 
@@ -137,7 +139,7 @@ abstract class MappingSelector extends BaseSelector
             return false;
         }
         // Sanity check
-        if (count($destfiles) !== 1 || $destfiles[0] === null) {
+        if (1 !== count($destfiles) || null === $destfiles[0]) {
             throw new BuildException(
                 'Invalid destination file results for '
                 . $this->targetdir->getName() . ' with filename ' . $filename
@@ -151,10 +153,11 @@ abstract class MappingSelector extends BaseSelector
     }
 
     /**
-     * this test is our selection test that compared the file with the destfile
+     * this test is our selection test that compared the file with the destfile.
      *
-     * @param File $srcfile file to test; may be null
+     * @param File $srcfile  file to test; may be null
      * @param File $destfile destination file
+     *
      * @return true if source file compares with destination file
      */
     abstract protected function selectionTest(File $srcfile, File $destfile);

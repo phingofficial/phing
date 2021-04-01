@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,9 +23,12 @@ namespace Phing\Test\Task\System;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the LoadFile Task
+ * Tests the LoadFile Task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class LoadFileTaskTest extends BuildFileTest
 {
@@ -32,19 +36,19 @@ class LoadFileTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/LoadFileTest.xml"
+            . '/etc/tasks/system/LoadFileTest.xml'
         );
     }
 
     public function testVersionPropertySet()
     {
-        $this->executeTarget("test-version");
+        $this->executeTarget('test-version');
         $this->assertInLogs('Property ${version} => 1.0.1');
     }
 
     public function testFilterChain()
     {
-        $this->executeTarget("test-filterchain");
+        $this->executeTarget('test-filterchain');
         $this->assertInLogs('<property>filterchain-test-123</property');
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,12 +23,12 @@ namespace Phing\Type;
 /**
  * Subclass as hint for supporting tasks that the included directories
  * instead of files should be used.
- *
  */
 class DirSet extends AbstractFileSet
 {
     /**
      * @param array $options
+     *
      * @return array
      */
     protected function getFiles(...$options)

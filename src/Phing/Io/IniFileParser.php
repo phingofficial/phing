@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,13 +36,13 @@ class IniFileParser implements FileParserInterface
     public function parseFile(File $file)
     {
         if (($lines = @file($file, FILE_IGNORE_NEW_LINES)) === false) {
-            throw new IOException("Unable to parse contents of $file");
+            throw new IOException("Unable to parse contents of {$file}");
         }
 
         // concatenate lines ending with backslash
         $linesCount = count($lines);
-        for ($i = 0; $i < $linesCount; $i++) {
-            if (substr((string) $lines[$i], -1, 1) === '\\') {
+        for ($i = 0; $i < $linesCount; ++$i) {
+            if ('\\' === substr((string) $lines[$i], -1, 1)) {
                 $lines[$i + 1] = substr((string) $lines[$i], 0, -1) . ltrim($lines[$i + 1]);
                 $lines[$i] = '';
             }
@@ -50,9 +51,9 @@ class IniFileParser implements FileParserInterface
         $properties = [];
         foreach ($lines as $line) {
             // strip comments and leading/trailing spaces
-            $line = trim(preg_replace("/\s+[;#]\s.+$/", "", $line));
+            $line = trim(preg_replace('/\\s+[;#]\\s.+$/', '', $line));
 
-            if (empty($line) || $line[0] == ';' || $line[0] == '#') {
+            if (empty($line) || ';' == $line[0] || '#' == $line[0]) {
                 continue;
             }
 
@@ -70,18 +71,20 @@ class IniFileParser implements FileParserInterface
 
     /**
      * Process values when being read in from properties file.
-     * does things like convert "true" => true
+     * does things like convert "true" => true.
      *
-     * @param string $val Trimmed value.
+     * @param string $val trimmed value
+     *
      * @return mixed The new property value (may be boolean, etc.)
      */
     protected function inVal($val)
     {
-        if ($val === "true") {
+        if ('true' === $val) {
             $val = true;
-        } elseif ($val === "false") {
+        } elseif ('false' === $val) {
             $val = false;
         }
+
         return $val;
     }
 }

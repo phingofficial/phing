@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,18 +24,18 @@ use Phing\Project;
 use Phing\Task;
 
 /**
- * Extends the Writer class to output messages to Phing's log
+ * Extends the Writer class to output messages to Phing's log.
  *
  * @author  Michiel Rook <mrook@php.net>
  */
 class LogWriter extends Writer
 {
-    private $task = null;
+    private $task;
 
-    private $level = null;
+    private $level;
 
     /**
-     * Constructs a new LogWriter object
+     * Constructs a new LogWriter object.
      *
      * @param int $level
      */
@@ -46,8 +47,9 @@ class LogWriter extends Writer
 
     /**
      * @param string $buf
-     * @param null $off
-     * @param null $len
+     * @param null   $off
+     * @param null   $len
+     *
      * @see Writer::write()
      */
     public function write($buf, $off = null, $len = null)
@@ -55,7 +57,7 @@ class LogWriter extends Writer
         $lines = explode("\n", $buf);
 
         foreach ($lines as $line) {
-            if ($line == "") {
+            if ('' == $line) {
                 continue;
             }
 

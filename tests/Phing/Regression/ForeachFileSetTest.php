@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,20 +25,22 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/252
- * - foreach on a fileset
+ * - foreach on a fileset.
  *
+ * @internal
+ * @coversNothing
  */
 class ForeachFileSetTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/252/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/252/build.xml');
     }
 
     public function testCustomTask()
     {
-        $f = new File(PHING_TEST_BASE . "/etc/regression/252/build.xml");
-        $this->executeTarget("main");
-        $this->assertInLogs("calling target(s) [default] in build file " . $f->getAbsolutePath());
+        $f = new File(PHING_TEST_BASE . '/etc/regression/252/build.xml');
+        $this->executeTarget('main');
+        $this->assertInLogs('calling target(s) [default] in build file ' . $f->getAbsolutePath());
     }
 }

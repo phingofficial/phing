@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,7 +36,7 @@ class CutDirsMapper implements FileNameMapper
     /**
      * Empty implementation.
      *
-     * @param mixed $ignore ignored.
+     * @param mixed $ignore ignored
      */
     public function setFrom($ignore)
     {
@@ -63,11 +64,11 @@ class CutDirsMapper implements FileNameMapper
         $fileSepCorrected = str_replace(['/', '\\'], $fileSep, $sourceFileName);
         $nthMatch = strpos($fileSepCorrected, $fileSep);
 
-        for ($n = 1; $nthMatch > -1 && $n < $this->dirs; $n++) {
+        for ($n = 1; $nthMatch > -1 && $n < $this->dirs; ++$n) {
             $nthMatch = strpos($fileSepCorrected, $fileSep, $nthMatch + 1);
         }
 
-        if ($nthMatch === false) {
+        if (false === $nthMatch) {
             return null;
         }
 

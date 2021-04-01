@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,10 +21,9 @@
 namespace Phing\Task\System\Property;
 
 use Phing\Exception\BuildException;
-use Phing\Task\System\Property\AbstractPropertySetterTask;
 
 /**
- * PropertyCopy
+ * PropertyCopy.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
@@ -39,9 +39,7 @@ class PropertyCopy extends AbstractPropertySetterTask
      */
     private $silent;
 
-    /***
-     * Default Constructor
-     */
+    // Default Constructor
     public function __construct()
     {
         parent::__construct();
@@ -65,26 +63,26 @@ class PropertyCopy extends AbstractPropertySetterTask
         $this->silent = $silent;
     }
 
-    protected function validate()
-    {
-        parent::validate();
-        if ($this->from === null) {
-            throw new BuildException("Missing the 'from' attribute.");
-        }
-    }
-
     public function main()
     {
         $this->validate();
 
         $value = $this->getProject()->getProperty($this->from);
 
-        if ($value === null && !$this->silent) {
+        if (null === $value && !$this->silent) {
             throw new BuildException("Property '{$this->from}' is not defined.");
         }
 
-        if ($value !== null) {
+        if (null !== $value) {
             $this->setPropertyValue($value);
+        }
+    }
+
+    protected function validate()
+    {
+        parent::validate();
+        if (null === $this->from) {
+            throw new BuildException("Missing the 'from' attribute.");
         }
     }
 }

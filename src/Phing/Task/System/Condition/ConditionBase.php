@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,12 +21,12 @@
 namespace Phing\Task\System\Condition;
 
 use IteratorAggregate;
-use Phing\Task\System\Pdo\PDOSQLExecTask;
 use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreator;
 use Phing\Project;
 use Phing\ProjectComponent;
 use Phing\Task\System\AvailableTask;
+use Phing\Task\System\Pdo\PDOSQLExecTask;
 
 /**
  * Abstract baseclass for the <condition> task as well as several
@@ -65,7 +66,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     /**
      * Returns the name to use in logging messages.
      *
-     * @return string the name to use in logging messages.
+     * @return string the name to use in logging messages
      */
     public function getTaskName()
     {
@@ -81,7 +82,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     }
 
     /**
-     * Required for \IteratorAggregate
+     * Required for \IteratorAggregate.
      */
     public function getIterator(): ConditionEnumeration
     {
@@ -302,8 +303,10 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
     }
 
     /**
-     * @param  string $elementName
+     * @param string $elementName
+     *
      * @throws BuildException
+     *
      * @return Condition
      */
     public function customChildCreator($elementName, Project $project)

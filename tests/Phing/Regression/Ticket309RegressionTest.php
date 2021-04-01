@@ -20,6 +20,9 @@ use Phing\Test\Support\BuildFileTest;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ *
+ * @internal
+ * @coversNothing
  */
 class Ticket309RegressionTest extends BuildFileTest
 {
@@ -37,12 +40,12 @@ class Ticket309RegressionTest extends BuildFileTest
      */
     public function testPhingCallTask()
     {
-        $testBasedir = str_replace('/', DIRECTORY_SEPARATOR, PHING_TEST_BASE . "/etc/regression/309");
+        $testBasedir = str_replace('/', DIRECTORY_SEPARATOR, PHING_TEST_BASE . '/etc/regression/309');
 
         foreach (['basedir-dot.xml', 'basedir-default.xml', 'sub/basedir-dotdot.xml'] as $buildfile) {
-            $this->configureProject("$testBasedir/$buildfile");
-            $this->executeTarget("main");
-            $this->assertInLogs("project.basedir: $testBasedir");
+            $this->configureProject("{$testBasedir}/{$buildfile}");
+            $this->executeTarget('main');
+            $this->assertInLogs("project.basedir: {$testBasedir}");
         }
     }
 }

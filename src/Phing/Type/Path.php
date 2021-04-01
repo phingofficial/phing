@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -72,25 +73,42 @@ class Path extends DataType
      * Constructor for internally instantiated objects sets project.
      *
      * @param Project $project
-     * @param string $path (for use by IntrospectionHelper)
+     * @param string  $path    (for use by IntrospectionHelper)
      */
     public function __construct($project = null, $path = null)
     {
         parent::__construct();
-        if ($project !== null) {
+        if (null !== $project) {
             $this->setProject($project);
         }
-        if ($path !== null) {
+        if (null !== $path) {
             $this->createPathElement()->setPath($path);
         }
+    }
+
+    /**
+     * Returns a textual representation of the path, which can be used as
+     * CLASSPATH or PATH environment variable definition.
+     *
+     * @return string a textual representation of the path
+     */
+    public function __toString()
+    {
+        $list = $this->listPaths();
+
+        // empty path return empty string
+        if (empty($list)) {
+            return '';
+        }
+
+        return implode(PATH_SEPARATOR, $list);
     }
 
     /**
      * Adds a element definition to the path.
      *
      * @param File $location the location of the element to add (must not be
-     *                            <code>null</code> nor empty.
-     *
+     *                       <code>null</code> nor empty
      *
      * @throws BuildException
      */
@@ -105,7 +123,7 @@ class Path extends DataType
     /**
      * Parses a path definition and creates single PathElements.
      *
-     * @param string $path the path definition.
+     * @param string $path the path definition
      *
      * @throws BuildException
      */
@@ -123,8 +141,6 @@ class Path extends DataType
      * <p>You must not set another attribute or nest elements inside
      * this element if you make it a reference.</p>
      *
-     *
-     *
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -139,9 +155,9 @@ class Path extends DataType
     /**
      * Creates the nested <code>&lt;pathelement&gt;</code> element.
      *
-     * @return PathElement
-     *
      * @throws BuildException
+     *
+     * @return PathElement
      */
     public function createPathElement()
     {
@@ -157,8 +173,6 @@ class Path extends DataType
     /**
      * Adds a nested <code>&lt;filelist&gt;</code> element.
      *
-     *
-     *
      * @throws BuildException
      */
     public function addFilelist(FileList $fl)
@@ -172,8 +186,6 @@ class Path extends DataType
 
     /**
      * Adds a nested <code>&lt;fileset&gt;</code> element.
-     *
-     *
      *
      * @throws BuildException
      */
@@ -189,8 +201,6 @@ class Path extends DataType
     /**
      * Adds a nested <code>&lt;dirset&gt;</code> element.
      *
-     *
-     *
      * @throws BuildException
      */
     public function addDirset(DirSet $dset)
@@ -205,9 +215,9 @@ class Path extends DataType
     /**
      * Creates a nested <code>&lt;path&gt;</code> element.
      *
-     * @return Path
-     *
      * @throws BuildException
+     *
+     * @return Path
      */
     public function createPath()
     {
@@ -224,13 +234,11 @@ class Path extends DataType
     /**
      * Append the contents of the other Path instance to this.
      *
-     *
-     *
      * @throws BuildException
      */
     public function append(Path $other)
     {
-        if ($other === null) {
+        if (null === $other) {
             return;
         }
         $l = $other->listPaths();
@@ -245,15 +253,14 @@ class Path extends DataType
      * Adds the components on the given path which exist to this
      * Path. Components that don't exist, aren't added.
      *
-     * @param Path $source - Source path whose components are examined for existence.
-     *
+     * @param path $source - Source path whose components are examined for existence
      */
     public function addExisting(Path $source)
     {
         $list = $source->listPaths();
         foreach ($list as $el) {
             $f = null;
-            if ($this->project !== null) {
+            if (null !== $this->project) {
                 $f = $this->project->resolveFile($el);
             } else {
                 $f = new File($el);
@@ -263,7 +270,7 @@ class Path extends DataType
                 $this->setDir($f);
             } else {
                 $this->log(
-                    "dropping " . $f->__toString() . " from path as it doesn't exist",
+                    'dropping ' . $f->__toString() . " from path as it doesn't exist",
                     Project::MSG_VERBOSE
                 );
             }
@@ -274,9 +281,11 @@ class Path extends DataType
      * Returns all path elements defined by this and nested path objects.
      *
      * @param bool $preserveDuplicates
-     * @return array List of path elements.
+     *
      * @throws IOException
      * @throws \InvalidArgumentException
+     *
+     * @return array list of path elements
      */
     public function listPaths($preserveDuplicates = false)
     {
@@ -288,7 +297,7 @@ class Path extends DataType
         }
 
         $result = [];
-        for ($i = 0, $elSize = count($this->elements); $i < $elSize; $i++) {
+        for ($i = 0, $elSize = count($this->elements); $i < $elSize; ++$i) {
             $o = $this->elements[$i];
             if ($o instanceof Reference) {
                 $refId = $o->getRefId();
@@ -296,6 +305,7 @@ class Path extends DataType
                 // we only support references to paths right now
                 if (!($o instanceof Path)) {
                     $msg = $refId . " doesn't denote a path";
+
                     throw new BuildException($msg);
                 }
             }
@@ -304,10 +314,10 @@ class Path extends DataType
                 $result[] = $o;
             } elseif ($o instanceof PathElement) {
                 $parts = $o->getParts();
-                if ($parts === null) {
+                if (null === $parts) {
                     throw new BuildException(
-                        "You must either set location or"
-                        . " path on <pathelement>"
+                        'You must either set location or'
+                        . ' path on <pathelement>'
                     );
                 }
                 foreach ($parts as $part) {
@@ -315,7 +325,7 @@ class Path extends DataType
                 }
             } elseif ($o instanceof Path) {
                 $p = $o;
-                if ($p->getProject() === null) {
+                if (null === $p->getProject()) {
                     $p->setProject($this->getProject());
                 }
                 $parts = $p->listPaths();
@@ -355,24 +365,6 @@ class Path extends DataType
     }
 
     /**
-     * Returns a textual representation of the path, which can be used as
-     * CLASSPATH or PATH environment variable definition.
-     *
-     * @return string A textual representation of the path.
-     */
-    public function __toString()
-    {
-        $list = $this->listPaths();
-
-        // empty path return empty string
-        if (empty($list)) {
-            return "";
-        }
-
-        return implode(PATH_SEPARATOR, $list);
-    }
-
-    /**
      * Splits a PATH (with : or ; as separators) into its parts.
      *
      * @param string $source
@@ -381,7 +373,7 @@ class Path extends DataType
      */
     public static function translatePath(Project $project, $source)
     {
-        if ($source == null) {
+        if (null == $source) {
             return [];
         }
 
@@ -389,16 +381,17 @@ class Path extends DataType
         $tok = new PathTokenizer($source);
         while ($tok->hasMoreTokens()) {
             $pathElement = $tok->nextToken();
+
             try {
                 $element = self::resolveFile($project, $pathElement);
-                for ($i = 0, $_i = strlen($element); $i < $_i; $i++) {
+                for ($i = 0, $_i = strlen($element); $i < $_i; ++$i) {
                     self::translateFileSep($element, $i);
                 }
                 $result[] = $element;
             } catch (BuildException $e) {
                 $project->log(
-                    "Dropping path element " . $pathElement
-                    . " as it is not valid relative to the project",
+                    'Dropping path element ' . $pathElement
+                    . ' as it is not valid relative to the project',
                     Project::MSG_VERBOSE
                 );
             }
@@ -417,37 +410,16 @@ class Path extends DataType
      */
     public static function translateFile($source)
     {
-        if ($source == null) {
-            return "";
+        if (null == $source) {
+            return '';
         }
 
         $result = $source;
-        for ($i = 0, $_i = strlen($source); $i < $_i; $i++) {
+        for ($i = 0, $_i = strlen($source); $i < $_i; ++$i) {
             self::translateFileSep($result, $i);
         }
 
         return $result;
-    }
-
-    /**
-     * Translates all occurrences of / or \ to correct separator of the
-     * current platform and returns whether it had to do any
-     * replacements.
-     *
-     * @param string $buffer
-     * @param int $pos
-     *
-     * @return bool
-     */
-    protected static function translateFileSep(&$buffer, $pos)
-    {
-        if ($buffer[$pos] == '/' || $buffer[$pos] == '\\') {
-            $buffer[$pos] = DIRECTORY_SEPARATOR;
-
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -466,9 +438,8 @@ class Path extends DataType
      * Overrides the version of DataType to recurse on all DataType
      * child elements that may have been added.
      *
-     * @param array $stk
+     * @param array   $stk
      * @param Project $p
-     *
      *
      * @throws BuildException
      */
@@ -499,6 +470,27 @@ class Path extends DataType
     }
 
     /**
+     * Translates all occurrences of / or \ to correct separator of the
+     * current platform and returns whether it had to do any
+     * replacements.
+     *
+     * @param string $buffer
+     * @param int    $pos
+     *
+     * @return bool
+     */
+    protected static function translateFileSep(&$buffer, $pos)
+    {
+        if ('/' == $buffer[$pos] || '\\' == $buffer[$pos]) {
+            $buffer[$pos] = DIRECTORY_SEPARATOR;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Resolve a filename with Project's help - if we know one that is.
      *
      * <p>Assume the filename is absolute if project is null.</p>
@@ -509,7 +501,7 @@ class Path extends DataType
      */
     private static function resolveFile(Project $project, $relativeName)
     {
-        if ($project !== null) {
+        if (null !== $project) {
             $f = $project->resolveFile($relativeName);
 
             return $f->getAbsolutePath();

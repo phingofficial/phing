@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,7 +32,7 @@ use Phing\Target;
 class MonologListener implements BuildListener
 {
     /**
-     * log category we log into
+     * log category we log into.
      */
     public const LOG_PHING = 'phing';
 
@@ -41,7 +42,7 @@ class MonologListener implements BuildListener
     private $log;
 
     /**
-     * Construct the listener
+     * Construct the listener.
      */
     public function __construct()
     {
@@ -65,7 +66,7 @@ class MonologListener implements BuildListener
     public function buildFinished(BuildEvent $event)
     {
         $log = $this->log->withName(Project::class);
-        if ($event->getException() === null) {
+        if (null === $event->getException()) {
             $log->info('Build finished.');
         } else {
             $log->error('Build finished with error. ' . $event->getException());
@@ -90,7 +91,7 @@ class MonologListener implements BuildListener
     {
         $targetName = $event->getTarget()->getName();
         $cat = $this->log->withName(Target::class);
-        if ($event->getException() === null) {
+        if (null === $event->getException()) {
             $cat->info("Target \"{$targetName}\" finished.");
         } else {
             $cat->error("Target \"{$targetName}\" finished with error. " . $event->getException());
@@ -116,7 +117,7 @@ class MonologListener implements BuildListener
     {
         $task = $event->getTask();
         $log = $this->log->withName(get_class($task));
-        if ($event->getException() === null) {
+        if (null === $event->getException()) {
             $log->info("Task \"{$task->getTaskName()}\" finished.");
         } else {
             $log->error("Task \"{$task->getTaskName()}\" finished with error. {$event->getException()}");
@@ -130,27 +131,35 @@ class MonologListener implements BuildListener
     public function messageLogged(BuildEvent $event)
     {
         $categoryObject = $event->getTask();
-        if ($categoryObject === null) {
+        if (null === $categoryObject) {
             $categoryObject = $event->getTarget();
-            if ($categoryObject === null) {
+            if (null === $categoryObject) {
                 $categoryObject = $event->getProject();
             }
         }
 
         $log = $this->log->withName(get_class($categoryObject));
+
         switch ($event->getPriority()) {
             case Project::MSG_WARN:
                 $log->warning($event->getMessage());
+
                 break;
+
             case Project::MSG_INFO:
                 $log->info($event->getMessage());
+
                 break;
+
             case Project::MSG_VERBOSE:
             case Project::MSG_DEBUG:
                 $log->debug($event->getMessage());
+
                 break;
+
             default:
                 $log->error($event->getMessage());
+
                 break;
         }
     }

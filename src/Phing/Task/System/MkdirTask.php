@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -39,39 +40,40 @@ class MkdirTask extends Task
     private $dir;
 
     /**
-     * Mode to create directory with
+     * Mode to create directory with.
      *
-     * @var integer|null
+     * @var null|int
      */
-    private $mode = null;
+    private $mode;
 
     /**
-     * create the directory and all parents
+     * create the directory and all parents.
      *
-     * @throws BuildException if dir is somehow invalid, or creation failed.
+     * @throws BuildException if dir is somehow invalid, or creation failed
      */
     public function main()
     {
-        if ($this->dir === null) {
-            throw new BuildException("dir attribute is required", $this->getLocation());
+        if (null === $this->dir) {
+            throw new BuildException('dir attribute is required', $this->getLocation());
         }
         if ($this->dir->isFile()) {
             throw new BuildException(
-                "Unable to create directory as a file already exists with that name: " . $this->dir->getAbsolutePath()
+                'Unable to create directory as a file already exists with that name: ' . $this->dir->getAbsolutePath()
             );
         }
         if (!$this->dir->exists()) {
             $result = $this->dir->mkdirs($this->mode);
             if (!$result) {
                 if ($this->dir->exists()) {
-                    $this->log("A different process or task has already created " . $this->dir->getAbsolutePath());
+                    $this->log('A different process or task has already created ' . $this->dir->getAbsolutePath());
 
                     return;
                 }
-                $msg = "Directory " . $this->dir->getAbsolutePath() . " creation was not successful for an unknown reason";
+                $msg = 'Directory ' . $this->dir->getAbsolutePath() . ' creation was not successful for an unknown reason';
+
                 throw new BuildException($msg, $this->getLocation());
             }
-            $this->log("Created dir: " . $this->dir->getAbsolutePath());
+            $this->log('Created dir: ' . $this->dir->getAbsolutePath());
         } else {
             $this->log(
                 'Skipping ' . $this->dir->getAbsolutePath() . ' because it already exists.',
@@ -82,7 +84,6 @@ class MkdirTask extends Task
 
     /**
      * The directory to create; required.
-     *
      */
     public function setDir(File $dir)
     {
@@ -90,8 +91,9 @@ class MkdirTask extends Task
     }
 
     /**
-     * Sets mode to create directory with
+     * Sets mode to create directory with.
      *
+     * @param mixed $mode
      */
     public function setMode($mode)
     {

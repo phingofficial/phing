@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,19 +25,15 @@ use Phing\Exception\BuildException;
 
 /**
  * @author Alexey Borzov <avb@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class HttpRequestTaskTest extends BaseHttpTaskTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/http/httprequest.xml");
-    }
-
-    protected function createRequestWithMockAdapter()
-    {
-        $this->createMockHandler([
-            new Response(200, [], "The response containing a 'foo' string"),
-        ]);
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/http/httprequest.xml');
     }
 
     public function testMatchesRegexp()
@@ -117,5 +114,12 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
 
         $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
         $this->assertEquals($options['timeout'], $this->traces[0]['options']['timeout']);
+    }
+
+    protected function createRequestWithMockAdapter()
+    {
+        $this->createMockHandler([
+            new Response(200, [], "The response containing a 'foo' string"),
+        ]);
     }
 }

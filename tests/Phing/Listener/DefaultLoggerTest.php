@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,15 +30,12 @@ use Phing\Project;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class DefaultLoggerTest extends TestCase
 {
-    private static function msg(Throwable $error, bool $verbose): string
-    {
-        $m = '';
-        DefaultLogger::throwableMessage($m, $error, $verbose);
-        return $m;
-    }
-
     /**
      * @test
      */
@@ -83,7 +81,7 @@ class DefaultLoggerTest extends TestCase
     public function buildFinished()
     {
         $event = new BuildEvent(new Project());
-        $logger = new class() extends DefaultLogger {
+        $logger = new class () extends DefaultLogger {
             public function printMessage($message, ?OutputStream $stream = null, $priority = null)
             {
                 echo $message;
@@ -101,6 +99,8 @@ class DefaultLoggerTest extends TestCase
 
     /**
      * @dataProvider formatTimeProvider
+     *
+     * @param mixed $seconds
      */
     public function testFormatTime($seconds, string $expectedText)
     {
@@ -132,5 +132,13 @@ class DefaultLoggerTest extends TestCase
             [210546.8614, '2 days  10 hours  29 minutes  6.86 seconds'],
             [3938279.8591, '45 days  13 hours  57 minutes  59.86 seconds'],
         ];
+    }
+
+    private static function msg(Throwable $error, bool $verbose): string
+    {
+        $m = '';
+        DefaultLogger::throwableMessage($m, $error, $verbose);
+
+        return $m;
     }
 }

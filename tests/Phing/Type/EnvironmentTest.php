@@ -22,6 +22,9 @@ use Phing\Type\EnvVariable;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ *
+ * @internal
+ * @coversNothing
  */
 class EnvironmentTest extends \PHPUnit\Framework\TestCase
 {
@@ -41,7 +44,7 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
     public function testVariablesObjectIsArrayObject()
     {
         $variablesObj = $this->environment->getVariablesObject();
-        $this->assertEquals("ArrayObject", get_class($variablesObj));
+        $this->assertEquals('ArrayObject', get_class($variablesObj));
     }
 
     public function testValidateWithoutKeyAndValueSetRaisesException()
@@ -57,10 +60,10 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
     public function testValuesAgainstGetContent()
     {
         $ev = new EnvVariable();
-        $ev->setKey(" key ");
-        $ev->setValue(" value ");
+        $ev->setKey(' key ');
+        $ev->setValue(' value ');
         $ev->validate();
         $content = $ev->getContent();
-        $this->assertEquals("key=value", $content);
+        $this->assertEquals('key=value', $content);
     }
 }

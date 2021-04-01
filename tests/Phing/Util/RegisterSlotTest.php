@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,13 +23,16 @@ namespace Phing\Test\Util;
 use Phing\Util\RegisterSlot;
 
 /**
- * Unit test for RegisterSlot
+ * Unit test for RegisterSlot.
  *
  * @author Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class RegisterSlotTest extends \PHPUnit\Framework\TestCase
 {
-    private $slot = null;
+    private $slot;
 
     public function setUp(): void
     {

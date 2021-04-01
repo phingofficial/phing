@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,12 +25,15 @@ use Phing\Exception\BuildException;
 
 /**
  * @author Alexey Borzov <avb@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class HttpGetTaskTest extends BaseHttpTaskTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/http/httpget.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/http/httpget.xml');
     }
 
     public function testMissingDir()
@@ -73,7 +77,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         );
         $this->assertStringEqualsFile(
             PHING_TEST_BASE . '/tmp/httpget/foo.bar',
-            "This file is named according to an URL part"
+            'This file is named according to an URL part'
         );
 
         $this->executeTarget('rmdir');

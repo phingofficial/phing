@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +31,7 @@ use Phing\Task;
 class RunTargetTask extends Task
 {
     /**
-     * The target attribute
+     * The target attribute.
      *
      * @param string $target the name of a target to execute
      */
@@ -40,13 +41,13 @@ class RunTargetTask extends Task
     }
 
     /**
-     * execute the target
+     * execute the target.
      *
      * @throws BuildException if a target is not specified
      */
     public function main()
     {
-        if ($this->target == null) {
+        if (null == $this->target) {
             throw new BuildException('target property required');
         }
 

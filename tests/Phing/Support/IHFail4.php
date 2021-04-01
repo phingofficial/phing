@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,6 +30,9 @@ class IHFail4
 {
     /**
      * 2 params!
+     *
+     * @param mixed $blah
+     * @param mixed $blah2
      */
     public function setBlah($blah, $blah2)
     {

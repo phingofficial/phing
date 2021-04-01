@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -45,7 +46,7 @@ class TargetHandler extends AbstractHandler
     private $target;
 
     /**
-     * The phing project configurator object
+     * The phing project configurator object.
      *
      * @var ProjectConfigurator
      */
@@ -57,7 +58,7 @@ class TargetHandler extends AbstractHandler
     private $context;
 
     /**
-     * Constructs a new TargetHandler
+     * Constructs a new TargetHandler.
      *
      * @internal param the $object ExpatParser object
      * @internal param the $object parent handler that invoked this handler
@@ -84,20 +85,22 @@ class TargetHandler extends AbstractHandler
      * <li>calling the setters for attributes</li>
      * <li>adding the target to the project</li>
      * <li>adding a reference to the target (if id attribute is given)</li>
-     * </ul>
+     * </ul>.
      *
-     * @param    $tag
-     * @param    $attrs
-     * @throws   BuildException
-     * @throws   ExpatParseException
+     * @param $tag
+     * @param $attrs
+     *
+     * @throws BuildException
+     * @throws ExpatParseException
+     *
      * @internal param the $string tag that comes in
      * @internal param attributes $array the tag carries
      */
     public function init($tag, $attrs)
     {
         $name = null;
-        $depends = "";
-        $extensionPoint = null;//'fail';
+        $depends = '';
+        $extensionPoint = null; //'fail';
         $extensionPointMissing = null;
         $ifCond = null;
         $unlessCond = null;
@@ -108,47 +111,67 @@ class TargetHandler extends AbstractHandler
 
         foreach ($attrs as $key => $value) {
             switch ($key) {
-                case "name":
+                case 'name':
                     $name = (string) $value;
+
                     break;
-                case "depends":
+
+                case 'depends':
                     $depends = (string) $value;
+
                     break;
-                case "if":
+
+                case 'if':
                     $ifCond = (string) $value;
+
                     break;
-                case "unless":
+
+                case 'unless':
                     $unlessCond = (string) $value;
+
                     break;
-                case "id":
+
+                case 'id':
                     $id = (string) $value;
+
                     break;
-                case "hidden":
-                    $isHidden = ($value === 'true' || $value === '1');
+
+                case 'hidden':
+                    $isHidden = ('true' === $value || '1' === $value);
+
                     break;
-                case "description":
+
+                case 'description':
                     $description = (string) $value;
+
                     break;
-                case "logskipped":
+
+                case 'logskipped':
                     $logskipped = $value;
+
                     break;
-                case "extensionof":
+
+                case 'extensionof':
                     $extensionPoint = $value;
+
                     break;
-                case "onmissingextensionpoint":
+
+                case 'onmissingextensionpoint':
                     if (!in_array($value, ['fail', 'warn', 'ignore'], true)) {
                         throw new BuildException('Invalid onMissingExtensionPoint ' . $value);
                     }
                     $extensionPointMissing = $value;
+
                     break;
+
                 default:
-                    throw new ExpatParseException("Unexpected attribute '$key'", $this->parser->getLocation());
+                    throw new ExpatParseException("Unexpected attribute '{$key}'", $this->parser->getLocation());
             }
         }
 
-        if ($name === null) {
+        if (null === $name) {
             throw new ExpatParseException(
-                "target element appears without a name attribute",
+                'target element appears without a name attribute',
                 $this->parser->getLocation()
             );
         }
@@ -159,12 +182,12 @@ class TargetHandler extends AbstractHandler
         // check to see if this target is a dup within the same file
         if (isset($this->context->getCurrentTargets()[$name])) {
             throw new BuildException(
-                "Duplicate target: $name",
+                "Duplicate target: {$name}",
                 $this->parser->getLocation()
             );
         }
 
-        $this->target = $tag === 'target' ? new Target() : new ExtensionPoint();
+        $this->target = 'target' === $tag ? new Target() : new ExtensionPoint();
         $this->target->setProject($project);
         $this->target->setLocation($this->parser->getLocation());
         $this->target->setHidden($isHidden);
@@ -173,7 +196,7 @@ class TargetHandler extends AbstractHandler
         $this->target->setDescription($description);
         $this->target->setLogSkipped(StringHelper::booleanValue($logskipped));
         // take care of dependencies
-        if ($depends !== '') {
+        if ('' !== $depends) {
             $this->target->setDepends($depends);
         }
 
@@ -182,21 +205,21 @@ class TargetHandler extends AbstractHandler
         if (isset($projectTargets[$name])) {
             if (
                 $this->configurator->isIgnoringProjectTag()
-                && $this->configurator->getCurrentProjectName() != null
-                && strlen($this->configurator->getCurrentProjectName()) != 0
+                && null != $this->configurator->getCurrentProjectName()
+                && 0 != strlen($this->configurator->getCurrentProjectName())
             ) {
                 // In an impored file (and not completely
                 // ignoring the project tag)
-                $newName = $this->configurator->getCurrentProjectName() . "." . $name;
+                $newName = $this->configurator->getCurrentProjectName() . '.' . $name;
                 $project->log(
-                    "Already defined in main or a previous import, " .
+                    'Already defined in main or a previous import, ' .
                     "define {$name} as {$newName}",
                     Project::MSG_VERBOSE
                 );
                 $name = $newName;
             } else {
                 $project->log(
-                    "Already defined in main or a previous import, " .
+                    'Already defined in main or a previous import, ' .
                     "ignore {$name}",
                     Project::MSG_VERBOSE
                 );
@@ -204,24 +227,24 @@ class TargetHandler extends AbstractHandler
             }
         }
 
-        if ($name !== null) {
+        if (null !== $name) {
             $this->target->setName($name);
             $project->addOrReplaceTarget($name, $this->target);
-            if ($id !== null && $id !== "") {
+            if (null !== $id && '' !== $id) {
                 $project->addReference($id, $this->target);
             }
         }
 
-        if ($extensionPointMissing !== null && $extensionPoint === null) {
+        if (null !== $extensionPointMissing && null === $extensionPoint) {
             throw new BuildException(
-                "onMissingExtensionPoint attribute cannot " .
-                "be specified unless extensionOf is specified",
+                'onMissingExtensionPoint attribute cannot ' .
+                'be specified unless extensionOf is specified',
                 $this->target->getLocation()
             );
         }
-        if ($extensionPoint !== null) {
+        if (null !== $extensionPoint) {
             foreach (Target::parseDepends($extensionPoint, $name, 'extensionof') as $extPointName) {
-                if ($extensionPointMissing === null) {
+                if (null === $extensionPointMissing) {
                     $extensionPointMissing = 'fail';
                 }
                 $this->context->addExtensionPoint([
@@ -238,8 +261,8 @@ class TargetHandler extends AbstractHandler
      * Checks for nested tags within the current one. Creates and calls
      * handlers respectively.
      *
-     * @param string $name the tag that comes in
-     * @param array $attrs attributes the tag carries
+     * @param string $name  the tag that comes in
+     * @param array  $attrs attributes the tag carries
      */
     public function startElement($name, $attrs)
     {

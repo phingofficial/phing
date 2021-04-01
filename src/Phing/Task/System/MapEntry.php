@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +25,7 @@ use Phing\Util\StringHelper;
 
 /**
  * Helper class, holds the nested &lt;map&gt; values. Elements will look like
- * this: &lt;map from=&quot;d:&quot; to=&quot;/foo&quot;/&gt;
+ * this: &lt;map from=&quot;d:&quot; to=&quot;/foo&quot;/&gt;.
  *
  * When running on windows, the prefix comparison will be case
  * insensitive.
@@ -46,6 +47,8 @@ class MapEntry
      * Note that this value is case-insensitive when the build is
      * running on a Windows platform and case-sensitive when running on
      * a Unix platform.
+     *
+     * @param mixed $from
      */
     public function setFrom($from)
     {
@@ -58,19 +61,20 @@ class MapEntry
     }
 
     /**
-     * Apply this map entry to a given path element
+     * Apply this map entry to a given path element.
      *
-     * @param  string $elem Path element to process
-     * @return string Updated path element after mapping
+     * @param string $elem Path element to process
      *
      * @throws BuildException
+     *
+     * @return string Updated path element after mapping
      */
     public function apply($elem)
     {
-        if ($this->outer->from === null || $this->outer->to === null) {
+        if (null === $this->outer->from || null === $this->outer->to) {
             throw new BuildException(
                 "Both 'from' and 'to' must be set "
-                . "in a map entry"
+                . 'in a map entry'
             );
         }
 

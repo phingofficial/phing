@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -55,13 +56,14 @@ class InputRequest
     protected $hidden = false;
 
     /**
-     * @param  string $prompt The prompt to show to the user.  Must not be null.
+     * @param string $prompt The prompt to show to the user.  Must not be null.
+     *
      * @throws BuildException
      */
     public function __construct($prompt)
     {
-        if ($prompt === null) {
-            throw new BuildException("prompt must not be null");
+        if (null === $prompt) {
+            throw new BuildException('prompt must not be null');
         }
         $this->prompt = $prompt;
     }
@@ -103,6 +105,7 @@ class InputRequest
     /**
      * Set the default value to use.
      *
+     * @param mixed $v
      */
     public function setDefaultValue($v)
     {
@@ -111,7 +114,6 @@ class InputRequest
 
     /**
      * Return the default value to use.
-     *
      */
     public function getDefaultValue()
     {

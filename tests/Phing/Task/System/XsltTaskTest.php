@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,11 +23,14 @@ namespace Phing\Test\Task\System;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Xslt Task
+ * Tests the Xslt Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @requires extension xsl
  * @requires extension dom
+ *
+ * @internal
+ * @coversNothing
  */
 class XsltTaskTest extends BuildFileTest
 {

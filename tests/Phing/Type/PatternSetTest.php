@@ -23,6 +23,9 @@ use Phing\Type\Reference;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ *
+ * @internal
+ * @coversNothing
  */
 class PatternSetTest extends \PHPUnit\Framework\TestCase
 {
@@ -35,8 +38,8 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
 
     public function testBothEmpty()
     {
-        $s = "" . $this->patternset;
-        $this->assertEquals($s, "patternSet{ includes: empty  excludes: empty }");
+        $s = '' . $this->patternset;
+        $this->assertEquals($s, 'patternSet{ includes: empty  excludes: empty }');
         $this->assertEquals(false, $this->patternset->hasPatterns());
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +28,7 @@ namespace Phing\Listener;
  */
 class NoBannerLogger extends DefaultLogger
 {
-    private $targetName = null;
+    private $targetName;
 
     public function targetStarted(BuildEvent $event)
     {
@@ -45,12 +46,12 @@ class NoBannerLogger extends DefaultLogger
         if (
             $event->getPriority() > $this->msgOutputLevel
             || null === $event->getMessage()
-            || trim($event->getMessage()) === ''
+            || '' === trim($event->getMessage())
         ) {
             return;
         }
 
-        if ($this->targetName !== null) {
+        if (null !== $this->targetName) {
             $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $this->targetName . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());
             $this->targetName = null;

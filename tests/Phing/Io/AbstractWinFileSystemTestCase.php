@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -37,8 +38,6 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
         $this->fs = $this->createFileSystem();
     }
 
-    abstract protected function createFileSystem();
-
     public function testGetSeparatorReturnsCorrect()
     {
         $this->assertSame('\\', $this->fs->getSeparator());
@@ -51,6 +50,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider normaliseDataProvider
+     *
      * @param string $expected
      * @param string $path
      */
@@ -78,7 +78,8 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider prefixLengthDataPRovider
-     * @param int $expected
+     *
+     * @param int    $expected
      * @param string $pathname
      */
     public function testPrefixLength($expected, $pathname)
@@ -104,6 +105,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider resolveDataProvider
+     *
      * @param string $expected
      * @param string $parent
      * @param string $child
@@ -129,6 +131,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider resolveFileDataProvider
+     *
      * @param string $expected
      * @param string $path
      * @param string $prefix
@@ -150,7 +153,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
         $driveLetter = '';
         // This is a bit weird, but it lets us run the win tests on unix machines. Might be better
         // to find an abstraction for drive letter within file system
-        if (substr(PHP_OS, 0, 3) === 'WIN') {
+        if ('WIN' === substr(PHP_OS, 0, 3)) {
             $colonPos = strpos($cwd, ':');
             $driveLetter = substr($cwd, 0, $colonPos) . ':';
         } else {
@@ -188,6 +191,7 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider fromURIPathDataProvider
+     *
      * @param string $expected
      * @param string $path
      */
@@ -211,9 +215,10 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider isAbsoluteDataProvider
-     * @param bool $expected
+     *
+     * @param bool   $expected
      * @param string $path
-     * @param int $prefix
+     * @param int    $prefix
      */
     public function testIsAbsolute($expected, $path, $prefix)
     {
@@ -236,4 +241,6 @@ abstract class AbstractWinFileSystemTestCase extends \PHPUnit\Framework\TestCase
             'relative' => [false, 'file.txt', 0],
         ];
     }
+
+    abstract protected function createFileSystem();
 }

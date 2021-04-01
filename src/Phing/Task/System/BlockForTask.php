@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,7 +23,7 @@ namespace Phing\Task\System;
 use Phing\Exception\BuildTimeoutException;
 
 /**
- *  Based on Apache Ant Block For:
+ *  Based on Apache Ant Block For:.
  *
  *  Licensed to the Apache Software Foundation (ASF) under one or more
  *  contributor license agreements.  See the NOTICE file distributed with
@@ -44,24 +45,13 @@ use Phing\Exception\BuildTimeoutException;
 class BlockForTask extends WaitForTask
 {
     /**
-     * Text to include in a message
+     * Text to include in a message.
      */
     private $text;
 
     public function __construct($taskName = 'blockfor')
     {
         parent::__construct($taskName);
-    }
-
-    /**
-     * If the wait fails, a BuildException is thrown. All the superclasses actions are called first.
-     *
-     * @throws BuildTimeoutException on timeout, using the text in {@link #text}
-     */
-    protected function processTimeout()
-    {
-        parent::processTimeout();
-        throw new BuildTimeoutException($this->text);
     }
 
     /**
@@ -72,5 +62,17 @@ class BlockForTask extends WaitForTask
     public function addText($message)
     {
         $this->text = $this->getProject()->replaceProperties($message);
+    }
+
+    /**
+     * If the wait fails, a BuildException is thrown. All the superclasses actions are called first.
+     *
+     * @throws BuildTimeoutException on timeout, using the text in {@link #text}
+     */
+    protected function processTimeout()
+    {
+        parent::processTimeout();
+
+        throw new BuildTimeoutException($this->text);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,14 +22,14 @@ namespace Phing\Io;
 
 /**
  * Convenience class for reading files.
- *
  */
 class FileReader extends InputStreamReader
 {
     /**
      * Construct a new FileReader.
      *
-     * @param  mixed $file PhingFile or string pathname.
+     * @param mixed $file phingFile or string pathname
+     *
      * @throws IOException
      */
     public function __construct($file)

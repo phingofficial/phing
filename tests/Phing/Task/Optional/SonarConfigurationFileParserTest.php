@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,8 +25,10 @@ use Phing\Task\Ext\Sonar\SonarConfigurationFileParser;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
+ *
+ * @internal
+ * @coversNothing
  */
 class SonarConfigurationFileParserTest extends BuildFileTest
 {
@@ -33,14 +36,6 @@ class SonarConfigurationFileParserTest extends BuildFileTest
     {
         $buildXmlFile = PHING_TEST_BASE . '/etc/tasks/ext/sonar/ConfigurationFileParserTest.xml';
         $this->configureProject($buildXmlFile);
-    }
-
-    private function initParser($fileName)
-    {
-        $fullFileName = PHING_TEST_BASE . '/etc/tasks/ext/sonar/properties/' . $fileName . '.properties';
-        $parser = new SonarConfigurationFileParser($fullFileName, $this->getProject());
-
-        return $parser;
     }
 
     public function testConstructFileIsNullThrowsException()
@@ -238,5 +233,12 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         } else {
             $this->fail('Failed to create temporary file');
         }
+    }
+
+    private function initParser($fileName)
+    {
+        $fullFileName = PHING_TEST_BASE . '/etc/tasks/ext/sonar/properties/' . $fileName . '.properties';
+
+        return new SonarConfigurationFileParser($fullFileName, $this->getProject());
     }
 }

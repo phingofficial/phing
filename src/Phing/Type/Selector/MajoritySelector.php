@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -42,11 +43,11 @@ class MajoritySelector extends BaseSelectorContainer
      */
     public function __toString()
     {
-        $buf = "";
+        $buf = '';
         if ($this->hasSelectors()) {
-            $buf .= "{majorityselect: ";
+            $buf .= '{majorityselect: ';
             $buf .= parent::__toString();
-            $buf .= "}";
+            $buf .= '}';
         }
 
         return $buf;
@@ -62,10 +63,11 @@ class MajoritySelector extends BaseSelectorContainer
      * agree. In case of a tie, go by the allowtie setting. That defaults
      * to true, meaning in case of a tie, the file is selected.
      *
-     * @param File $basedir the base directory the scan is being done from
+     * @param File   $basedir  the base directory the scan is being done from
      * @param string $filename is the name of the file to check
-     * @param File $file is a PhingFile object for the filename that the selector
-     *                            can use
+     * @param File   $file     is a PhingFile object for the filename that the selector
+     *                         can use
+     *
      * @return bool whether the file should be selected or not
      */
     public function isSelected(File $basedir, $filename, File $file)
@@ -76,7 +78,7 @@ class MajoritySelector extends BaseSelectorContainer
         $novotes = 0;
 
         $selectors = $this->selectorElements();
-        for ($i = 0, $size = count($selectors); $i < $size; $i++) {
+        for ($i = 0, $size = count($selectors); $i < $size; ++$i) {
             $result = $selectors[$i]->isSelected($basedir, $filename, $file);
             if ($result) {
                 ++$yesvotes;

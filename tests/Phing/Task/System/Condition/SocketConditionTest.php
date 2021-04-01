@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,10 +23,12 @@ namespace Phing\Test\Task\System\Condition;
 use Phing\Task\System\Condition\SocketCondition;
 
 /**
- * Tests for the <socket> condition
- *
+ * Tests for the <socket> condition.
  *
  * @requires extension sockets
+ *
+ * @internal
+ * @coversNothing
  */
 class SocketConditionTest extends \PHPUnit\Framework\TestCase
 {

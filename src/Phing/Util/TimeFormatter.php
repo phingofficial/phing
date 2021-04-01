@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +27,8 @@ class TimeFormatter
 {
     public function format($time)
     {
-        $format = "%0.5f";
+        $format = '%0.5f';
+
         return sprintf($format, $time) . ' sec';
     }
 }

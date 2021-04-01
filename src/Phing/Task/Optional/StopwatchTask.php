@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -54,34 +55,18 @@ class StopwatchTask extends DispatchTask
 
     /**
      * Initialize Task.
-     *
      */
     public function init()
     {
         if (!class_exists('\\Symfony\\Component\\Stopwatch\\Stopwatch')) {
-            throw new BuildException("StopwatchTask requires symfony/stopwatch to be installed.");
+            throw new BuildException('StopwatchTask requires symfony/stopwatch to be installed.');
         }
 
         $this->setAction('start');
     }
 
     /**
-     * Get the stopwatch instance.
-     *
-     * @return Stopwatch
-     */
-    private function getStopwatchInstance()
-    {
-        if (self::$timer === null) {
-            self::$timer = new Stopwatch();
-        }
-
-        return self::$timer;
-    }
-
-    /**
      * Start timer.
-     *
      */
     public function start()
     {
@@ -91,7 +76,6 @@ class StopwatchTask extends DispatchTask
 
     /**
      * Stop timer.
-     *
      */
     public function stop()
     {
@@ -116,7 +100,6 @@ class StopwatchTask extends DispatchTask
 
     /**
      * Measure lap time.
-     *
      */
     public function lap()
     {
@@ -128,7 +111,6 @@ class StopwatchTask extends DispatchTask
      * Set the name of the stopwatch.
      *
      * @param string $name the name of the stopwatch timer
-     *
      */
     public function setName($name)
     {
@@ -139,7 +121,6 @@ class StopwatchTask extends DispatchTask
      * Set the category of the stopwatch.
      *
      * @param string $category
-     *
      */
     public function setCategory($category)
     {
@@ -147,25 +128,44 @@ class StopwatchTask extends DispatchTask
     }
 
     /**
-     * The main entry point
-     *
+     * The main entry point.
      *
      * @throws BuildException
      */
     public function main()
     {
         switch ($this->getAction()) {
-            case "start":
+            case 'start':
                 $this->start();
+
                 break;
-            case "stop":
+
+            case 'stop':
                 $this->stop();
+
                 break;
-            case "lap":
+
+            case 'lap':
                 $this->lap();
+
                 break;
+
             default:
                 throw new BuildException('action should be one of start, stop, lap.');
         }
+    }
+
+    /**
+     * Get the stopwatch instance.
+     *
+     * @return Stopwatch
+     */
+    private function getStopwatchInstance()
+    {
+        if (null === self::$timer) {
+            self::$timer = new Stopwatch();
+        }
+
+        return self::$timer;
     }
 }

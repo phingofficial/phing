@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,13 +34,14 @@ class FirstMatchMapper extends ContainerMapper
     public function main($sourceFileName)
     {
         foreach ($this->getMappers() as $mapper) {
-            if ($mapper !== null) {
+            if (null !== $mapper) {
                 $mapped = $mapper->getImplementation()->main($sourceFileName);
-                if ($mapped !== null) {
+                if (null !== $mapped) {
                     return $mapped;
                 }
             }
         }
+
         return null;
     }
 }

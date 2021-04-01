@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 
 /**
- * Class ChecksumAlgorithm
+ * Class ChecksumAlgorithm.
  */
 class HashfileAlgorithm implements Algorithm
 {
@@ -33,8 +34,17 @@ class HashfileAlgorithm implements Algorithm
     private $algorithm = 'md5';
 
     /**
+     * @return string some information about this algorithm
+     */
+    public function __toString(): string
+    {
+        return sprintf('<%s:algorithm=%s>', __CLASS__, $this->algorithm);
+    }
+
+    /**
      * Specifies the algorithm to be used to compute the checksum.
      * Defaults to "CRC". Other popular algorithms like "ADLER" may be used as well.
+     *
      * @param string $algorithm the digest algorithm to use
      */
     public function setAlgorithm(string $algorithm): void
@@ -44,7 +54,8 @@ class HashfileAlgorithm implements Algorithm
 
     /**
      * This algorithm supports `hash_algos()`.
-     * @return bool <i>true</i> if all is ok, otherwise <i>false</i>.
+     *
+     * @return bool <i>true</i> if all is ok, otherwise <i>false</i>
      */
     public function isValid(): bool
     {
@@ -53,8 +64,10 @@ class HashfileAlgorithm implements Algorithm
 
     /**
      * Computes a value for a file content with the specified checksum algorithm.
-     * @param File $file File object for which the value should be evaluated.
-     * @return string|null The value for that file
+     *
+     * @param File $file file object for which the value should be evaluated
+     *
+     * @return null|string The value for that file
      */
     public function getValue(File $file): ?string
     {
@@ -65,14 +78,7 @@ class HashfileAlgorithm implements Algorithm
         if ($file->canRead()) {
             return hash_file($this->algorithm, $file->getAbsolutePath());
         }
-        return null;
-    }
 
-    /**
-     * @return string some information about this algorithm.
-     */
-    public function __toString(): string
-    {
-        return sprintf('<%s:algorithm=%s>', __CLASS__, $this->algorithm);
+        return null;
     }
 }

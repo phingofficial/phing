@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,8 +21,8 @@
 namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
-use Phing\Io\FileWriter;
 use Phing\Io\File;
+use Phing\Io\FileWriter;
 use Phing\Project;
 use Phing\Task;
 use Phing\Task\System\Element\LogLevelAware;
@@ -47,14 +48,14 @@ class PhpLintTask extends Task
     protected $badFiles = [];
     protected $interpreter = ''; // php interpreter to use for linting
 
-    protected $cache = null;
+    protected $cache;
 
-    protected $tofile = null;
+    protected $tofile;
 
     protected $deprecatedAsError = false;
 
     /**
-     * Initialize the interpreter with the Phing property php.interpreter
+     * Initialize the interpreter with the Phing property php.interpreter.
      */
     public function init()
     {
@@ -62,22 +63,23 @@ class PhpLintTask extends Task
     }
 
     /**
-     * Override default php interpreter
+     * Override default php interpreter.
      *
      * @param string $sPhp
+     *
      * @todo  Do some sort of checking if the path is correct but would
      *          require traversing the systems executeable path too
      */
     public function setInterpreter($sPhp)
     {
-        if (strpos($sPhp, ' ') !== false) {
+        if (false !== strpos($sPhp, ' ')) {
             $sPhp = escapeshellarg($sPhp);
         }
         $this->interpreter = $sPhp;
     }
 
     /**
-     * The haltonfailure property
+     * The haltonfailure property.
      *
      * @param bool $aValue
      */
@@ -87,8 +89,7 @@ class PhpLintTask extends Task
     }
 
     /**
-     * File to be performed syntax check on
-     *
+     * File to be performed syntax check on.
      */
     public function setFile(File $file)
     {
@@ -106,8 +107,7 @@ class PhpLintTask extends Task
     }
 
     /**
-     * Whether to store last-modified times in cache
-     *
+     * Whether to store last-modified times in cache.
      */
     public function setCacheFile(File $file)
     {
@@ -115,7 +115,7 @@ class PhpLintTask extends Task
     }
 
     /**
-     * File to save error messages to
+     * File to save error messages to.
      *
      * @internal param PhingFile $file
      */
@@ -125,7 +125,7 @@ class PhpLintTask extends Task
     }
 
     /**
-     * Sets whether to treat deprecated warnings (introduced in PHP 5.3) as errors
+     * Sets whether to treat deprecated warnings (introduced in PHP 5.3) as errors.
      *
      * @param bool $deprecatedAsError
      */
@@ -135,11 +135,11 @@ class PhpLintTask extends Task
     }
 
     /**
-     * Execute lint check against PhingFile or a FileSet
+     * Execute lint check against PhingFile or a FileSet.
      */
     public function main()
     {
-        if (!isset($this->file) and count($this->filesets) == 0) {
+        if (!isset($this->file) and 0 == count($this->filesets)) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
@@ -163,7 +163,7 @@ class PhpLintTask extends Task
 
             foreach ($this->badFiles as $file => $messages) {
                 foreach ($messages as $msg) {
-                    $writer->write($file . "=" . $msg . PHP_EOL);
+                    $writer->write($file . '=' . $msg . PHP_EOL);
                 }
             }
 
@@ -173,7 +173,7 @@ class PhpLintTask extends Task
         $message = '';
         foreach ($this->badFiles as $file => $messages) {
             foreach ($messages as $msg) {
-                $message .= $file . "=" . $msg . PHP_EOL;
+                $message .= $file . '=' . $msg . PHP_EOL;
             }
         }
 
@@ -192,18 +192,19 @@ class PhpLintTask extends Task
     }
 
     /**
-     * Performs the actual syntax check
+     * Performs the actual syntax check.
      *
      * @param string $file
+     *
      * @throws BuildException
      */
     protected function lint($file)
     {
-        $command = $this->interpreter == ''
+        $command = '' == $this->interpreter
             ? 'php'
             : $this->interpreter;
 
-        if (strpos($command, 'hhvm') !== false) {
+        if (false !== strpos($command, 'hhvm')) {
             $command .= ' --no-config -l';
         } else {
             if ($this->deprecatedAsError) {
@@ -236,16 +237,16 @@ class PhpLintTask extends Task
 
         exec($command . '"' . $file . '" 2>&1', $messages);
 
-        for ($i = 0, $messagesCount = count($messages); $i < $messagesCount; $i++) {
+        for ($i = 0, $messagesCount = count($messages); $i < $messagesCount; ++$i) {
             $message = $messages[$i];
-            if (trim($message) == '') {
+            if ('' == trim($message)) {
                 continue;
             }
 
             if (
-                (!preg_match('/^(.*)Deprecated:/', $message) ||
-                    $this->deprecatedAsError) &&
-                !preg_match('/^No syntax errors detected/', $message)
+                (!preg_match('/^(.*)Deprecated:/', $message)
+                    || $this->deprecatedAsError)
+                && !preg_match('/^No syntax errors detected/', $message)
             ) {
                 $this->log($message, Project::MSG_ERR);
 
@@ -256,7 +257,7 @@ class PhpLintTask extends Task
                 $this->badFiles[$file][] = $message;
 
                 $this->hasErrors = true;
-                $errorCount++;
+                ++$errorCount;
             }
         }
 

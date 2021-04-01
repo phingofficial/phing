@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,7 +23,6 @@ namespace Phing\Task\System\Property;
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Project;
-use Phing\Task\System\Property\AbstractPropertySetterTask;
 use Phing\Util\Regexp;
 
 /**
@@ -132,11 +132,12 @@ class RegexTask extends AbstractPropertySetterTask
 
     /**
      * @param string $pattern
+     *
      * @throws BuildException
      */
     public function setPattern($pattern)
     {
-        if ($this->pattern !== null) {
+        if (null !== $this->pattern) {
             throw new BuildException(
                 'Cannot specify more than one regular expression'
             );
@@ -149,16 +150,17 @@ class RegexTask extends AbstractPropertySetterTask
 
     /**
      * @param string $replace
+     *
      * @throws BuildException
      */
     public function setReplace($replace)
     {
-        if ($this->replace !== null) {
+        if (null !== $this->replace) {
             throw new BuildException(
                 'Cannot specify more than one replace expression'
             );
         }
-        if ($this->match !== null) {
+        if (null !== $this->match) {
             throw new BuildException(
                 'You cannot specify both a select and replace expression'
             );
@@ -171,11 +173,12 @@ class RegexTask extends AbstractPropertySetterTask
 
     /**
      * @param string $match
+     *
      * @throws BuildException
      */
     public function setMatch($match)
     {
-        if ($this->match !== null) {
+        if (null !== $this->match) {
             throw new BuildException(
                 'Cannot specify more than one match expression'
             );
@@ -191,18 +194,39 @@ class RegexTask extends AbstractPropertySetterTask
      */
     public function setCaseSensitive($caseSensitive)
     {
-        $this->log("Set case-sensitive to $caseSensitive", Project::MSG_DEBUG);
+        $this->log("Set case-sensitive to {$caseSensitive}", Project::MSG_DEBUG);
 
         $this->caseSensitive = $caseSensitive;
     }
 
     /**
-     * @return mixed|string
      * @throws BuildException
+     */
+    public function main()
+    {
+        $this->validate();
+
+        $output = $this->match;
+
+        if (null !== $this->replace) {
+            $output = $this->doReplace();
+        } else {
+            $output = $this->doSelect();
+        }
+
+        if (null !== $output) {
+            $this->setPropertyValue($output);
+        }
+    }
+
+    /**
+     * @throws BuildException
+     *
+     * @return mixed|string
      */
     protected function doReplace()
     {
-        if ($this->replace === null) {
+        if (null === $this->replace) {
             throw new BuildException('No replace expression specified.');
         }
         $this->reg->setPattern($this->pattern);
@@ -221,9 +245,9 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @return string
-     *
      * @throws BuildException
+     *
+     * @return string
      */
     protected function doSelect()
     {
@@ -249,33 +273,13 @@ class RegexTask extends AbstractPropertySetterTask
      */
     protected function validate()
     {
-        if ($this->pattern === null) {
+        if (null === $this->pattern) {
             throw new BuildException('No match expression specified.');
         }
-        if ($this->replace === null && $this->match === null) {
+        if (null === $this->replace && null === $this->match) {
             throw new BuildException(
                 'You must specify either a preg_replace or preg_match pattern'
             );
-        }
-    }
-
-    /**
-     * @throws BuildException
-     */
-    public function main()
-    {
-        $this->validate();
-
-        $output = $this->match;
-
-        if ($this->replace !== null) {
-            $output = $this->doReplace();
-        } else {
-            $output = $this->doSelect();
-        }
-
-        if ($output !== null) {
-            $this->setPropertyValue($output);
         }
     }
 }

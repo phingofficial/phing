@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,13 +32,13 @@ class EnvVariable
 {
     /**
      * env key and value pair; everything gets expanded to a string
-     * during assignment
+     * during assignment.
      */
     private $key;
     private $value;
 
     /**
-     * set the key
+     * set the key.
      *
      * @param string $key string
      */
@@ -47,7 +48,7 @@ class EnvVariable
     }
 
     /**
-     * set the value
+     * set the value.
      *
      * @param string $value
      */
@@ -57,7 +58,7 @@ class EnvVariable
     }
 
     /**
-     * key accessor
+     * key accessor.
      *
      * @return string key
      */
@@ -67,7 +68,7 @@ class EnvVariable
     }
 
     /**
-     * value accessor
+     * value accessor.
      *
      * @return string value
      */
@@ -79,8 +80,7 @@ class EnvVariable
     /**
      * stringify path and assign to the value.
      * The value will contain all path elements separated by the appropriate
-     * separator
-     *
+     * separator.
      */
     public function setPath(Path $path)
     {
@@ -88,7 +88,7 @@ class EnvVariable
     }
 
     /**
-     * get the absolute path of a file and assign it to the value
+     * get the absolute path of a file and assign it to the value.
      *
      * @param File $file file to use as the value
      */
@@ -102,12 +102,14 @@ class EnvVariable
      * This is not ready for insertion into a property file without following
      * the escaping rules of the properties class.
      *
-     * @return string of the form key=value.
      * @throws BuildException if key or value are unassigned
+     *
+     * @return string of the form key=value
      */
     public function getContent()
     {
         $this->validate();
+
         return trim($this->key) . '=' . trim($this->value);
     }
 
@@ -118,7 +120,7 @@ class EnvVariable
      */
     public function validate()
     {
-        if ($this->key === null || $this->value === null) {
+        if (null === $this->key || null === $this->value) {
             throw new BuildException('key and value must be specified for environment variables.');
         }
     }

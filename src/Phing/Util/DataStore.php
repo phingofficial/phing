@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,10 +32,10 @@ use Phing\Io\FileWriter;
 class DataStore
 {
     private $data = [];
-    private $file = null;
+    private $file;
 
     /**
-     * Constructs a new data store
+     * Constructs a new data store.
      *
      * @param File $file object pointing to the data store on disk
      */
@@ -48,7 +49,7 @@ class DataStore
     }
 
     /**
-     * Destructor
+     * Destructor.
      */
     public function __destruct()
     {
@@ -56,7 +57,7 @@ class DataStore
     }
 
     /**
-     * Retrieves a value from the data store
+     * Retrieves a value from the data store.
      *
      * @param string $key the key
      *
@@ -72,13 +73,12 @@ class DataStore
     }
 
     /**
-     * Adds a value to the data store
+     * Adds a value to the data store.
      *
-     * @param string  $key        the key
-     * @param mixed   $value      the value
-     * @param bool $autocommit whether to auto-commit (write)
-     *                            the data store to disk
-     *
+     * @param string $key        the key
+     * @param mixed  $value      the value
+     * @param bool   $autocommit whether to auto-commit (write)
+     *                           the data store to disk
      */
     public function put($key, $value, $autocommit = false)
     {
@@ -90,11 +90,11 @@ class DataStore
     }
 
     /**
-     * Remove a value from the data store
+     * Remove a value from the data store.
      *
-     * @param string  $key        the key
-     * @param bool $autocommit whether to auto-commit (write)
-     *                            the data store to disk
+     * @param string $key        the key
+     * @param bool   $autocommit whether to auto-commit (write)
+     *                           the data store to disk
      */
     public function remove($key, $autocommit = false)
     {
@@ -106,8 +106,7 @@ class DataStore
     }
 
     /**
-     * Commits data store to disk
-     *
+     * Commits data store to disk.
      */
     public function commit()
     {
@@ -115,7 +114,7 @@ class DataStore
     }
 
     /**
-     * Internal function to read data store from file
+     * Internal function to read data store from file.
      *
      * @throws BuildException
      */
@@ -134,7 +133,7 @@ class DataStore
     }
 
     /**
-     * Internal function to write data store to file
+     * Internal function to write data store to file.
      *
      * @throws BuildException
      */

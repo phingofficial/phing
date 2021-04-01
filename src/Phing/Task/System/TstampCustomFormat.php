@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,15 +24,15 @@ use Phing\Exception\BuildException;
 
 class TstampCustomFormat
 {
-    private $propertyName = "";
-    private $pattern = "";
-    private $locale = "";
-    private $timezone = "";
+    private $propertyName = '';
+    private $pattern = '';
+    private $locale = '';
+    private $timezone = '';
 
     /**
-     * The property to receive the date/time string in the given pattern
+     * The property to receive the date/time string in the given pattern.
      *
-     * @param string $propertyName the name of the property.
+     * @param string $propertyName the name of the property
      */
     public function setProperty($propertyName)
     {
@@ -70,20 +71,23 @@ class TstampCustomFormat
     /**
      * validate parameter and execute the format.
      *
-     * @param  TstampTask $tstamp reference to task
+     * @param TstampTask $tstamp   reference to task
+     * @param mixed      $d
+     * @param mixed      $location
+     *
      * @throws BuildException
      */
     public function execute(TstampTask $tstamp, $d, $location)
     {
         if (empty($this->propertyName)) {
-            throw new BuildException("property attribute must be provided", $location);
+            throw new BuildException('property attribute must be provided', $location);
         }
 
         if (empty($this->pattern)) {
-            throw new BuildException("pattern attribute must be provided", $location);
+            throw new BuildException('pattern attribute must be provided', $location);
         }
 
-        $oldlocale = "";
+        $oldlocale = '';
         if (!empty($this->locale)) {
             $oldlocale = setlocale(LC_ALL, 0);
             setlocale(LC_ALL, $this->locale);

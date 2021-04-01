@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -53,7 +54,8 @@ class OsCondition implements Condition
      * Determines if the OS on which Ant is executing matches the
      * given OS family.
      *
-     * @param  string $family the family to check for
+     * @param string $family the family to check for
+     *
      * @return true if the OS matches
      */
     public static function isFamily($family)
@@ -63,41 +65,44 @@ class OsCondition implements Condition
 
     /**
      * @param string $family
-     * @return bool
+     *
      * @throws BuildException
+     *
+     * @return bool
      */
     public static function isOS($family)
     {
         $osName = strtolower(Phing::getProperty('os.name'));
 
-        if ($family !== null) {
+        if (null !== $family) {
             $isWindows = StringHelper::startsWith('win', $osName);
 
-            if ($family === 'windows') {
+            if ('windows' === $family) {
                 return $isWindows;
             }
 
-            if ($family === 'win32') {
-                return $isWindows && $osName === 'win32';
+            if ('win32' === $family) {
+                return $isWindows && 'win32' === $osName;
             }
 
-            if ($family === 'winnt') {
-                return $isWindows && $osName === 'winnt';
+            if ('winnt' === $family) {
+                return $isWindows && 'winnt' === $osName;
             }
 
-            if ($family === self::FAMILY_MAC) {
-                return (strpos($osName, self::FAMILY_MAC) !== false || strpos($osName, self::DARWIN) !== false);
+            if (self::FAMILY_MAC === $family) {
+                return false !== strpos($osName, self::FAMILY_MAC) || false !== strpos($osName, self::DARWIN);
             }
 
-            if ($family === self::FAMILY_UNIX) {
-                return (
-                    StringHelper::endsWith('ix', $osName) ||
-                    StringHelper::endsWith('ux', $osName) ||
-                    StringHelper::endsWith('bsd', $osName) ||
-                    StringHelper::startsWith('sunos', $osName) ||
-                    StringHelper::startsWith(self::DARWIN, $osName)
-                );
+            if (self::FAMILY_UNIX === $family) {
+                return
+                    StringHelper::endsWith('ix', $osName)
+                    || StringHelper::endsWith('ux', $osName)
+                    || StringHelper::endsWith('bsd', $osName)
+                    || StringHelper::startsWith('sunos', $osName)
+                    || StringHelper::startsWith(self::DARWIN, $osName)
+                ;
             }
+
             throw new BuildException("Don't know how to detect os family '" . $family . "'");
         }
 

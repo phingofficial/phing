@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,8 +31,9 @@ interface FileNameMapper
     /**
      * The mapper implementation.
      *
-     * @param mixed $sourceFileName The data the mapper works on.
-     * @return array The data after the mapper has been applied; must be in array format (for some reason).
+     * @param mixed $sourceFileName the data the mapper works on
+     *
+     * @return array the data after the mapper has been applied; must be in array format (for some reason)
      */
     public function main($sourceFileName);
 
@@ -46,7 +48,7 @@ interface FileNameMapper
     /**
      * Accessor. Sets the from property. What this mapper should
      * recognize. The actual implementation is dependent upon the
-     * child class
+     * child class.
      *
      * @param string $from On what this mapper should work
      */

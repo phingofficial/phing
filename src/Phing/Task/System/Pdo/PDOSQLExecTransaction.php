@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,9 +20,9 @@
 
 namespace Phing\Task\System\Pdo;
 
+use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
-use Phing\Io\File;
 use Phing\Io\StringReader;
 use Phing\Project;
 
@@ -30,12 +31,11 @@ use Phing\Project;
  * Transactions allow several files or blocks of statements
  * to be executed using the same JDBC connection and commit
  * operation in between.
- *
  */
 class PDOSQLExecTransaction
 {
-    private $tSrcFile = null;
-    private $tSqlCommand = "";
+    private $tSrcFile;
+    private $tSqlCommand = '';
     private $parent;
 
     public function __construct(PDOSQLExecTask $parent)
@@ -63,13 +63,13 @@ class PDOSQLExecTransaction
     public function runTransaction()
     {
         if (!empty($this->tSqlCommand)) {
-            $this->parent->log("Executing commands", Project::MSG_INFO);
+            $this->parent->log('Executing commands', Project::MSG_INFO);
             $this->parent->runStatements(new StringReader($this->tSqlCommand));
         }
 
-        if ($this->tSrcFile !== null) {
+        if (null !== $this->tSrcFile) {
             $this->parent->log(
-                "Executing file: " . $this->tSrcFile->getAbsolutePath(),
+                'Executing file: ' . $this->tSrcFile->getAbsolutePath(),
                 Project::MSG_INFO
             );
             $reader = new FileReader($this->tSrcFile);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -64,7 +65,6 @@ use Phing\Util\Register;
  *     <filelist dir="book/" listfile="book/PhingGuide.book"/>
  * </append>
  * </code>
- *
  */
 class AppendTask extends Task
 {
@@ -83,7 +83,7 @@ class AppendTask extends Task
     private $file;
 
     /**
-     * Text to append. (cannot be used in conjunction w/ files or filesets)
+     * Text to append. (cannot be used in conjunction w/ files or filesets).
      */
     private $text;
 
@@ -122,8 +122,6 @@ class AppendTask extends Task
 
     /**
      * The more conventional naming for method to set destination file.
-     *
-     *
      */
     public function setDestFile(File $f)
     {
@@ -136,7 +134,7 @@ class AppendTask extends Task
      * {@link Appendable} resource; otherwise existing content will be
      * overwritten. Defaults to <code>false</code>.
      *
-     * @param bool $append if true append output.
+     * @param bool $append if true append output
      */
     public function setAppend($append)
     {
@@ -149,16 +147,16 @@ class AppendTask extends Task
      * is used in conjunction with fixlastline.
      *
      * @param string $crlf the type of new line to add -
-     *              cr, mac, lf, unix, crlf, or dos
+     *                     cr, mac, lf, unix, crlf, or dos
      */
     public function setEol($crlf)
     {
         $s = $crlf;
-        if ($s === "cr" || $s === "mac") {
+        if ('cr' === $s || 'mac' === $s) {
             $this->eolString = "\r";
-        } elseif ($s === "lf" || $s === "unix") {
+        } elseif ('lf' === $s || 'unix' === $s) {
             $this->eolString = "\n";
-        } elseif ($s === "crlf" || $s === "dos") {
+        } elseif ('crlf' === $s || 'dos' === $s) {
             $this->eolString = "\r\n";
         } else {
             $this->eolString = $this->getProject()->getProperty('line.separator');
@@ -167,7 +165,6 @@ class AppendTask extends Task
 
     /**
      * Sets specific file to append.
-     *
      */
     public function setFile(File $f)
     {
@@ -178,6 +175,7 @@ class AppendTask extends Task
     {
         $path = new Path($this->getProject());
         $this->filesets[] = $path;
+
         return $path;
     }
 
@@ -185,7 +183,6 @@ class AppendTask extends Task
      * Sets text to append.  (cannot be used in conjunction w/ files or filesets).
      *
      * @param string $txt
-     *
      */
     public function setText($txt)
     {
@@ -196,7 +193,6 @@ class AppendTask extends Task
      * Sets text to append. Supports CDATA.
      *
      * @param string $txt
-     *
      */
     public function addText($txt)
     {
@@ -235,17 +231,17 @@ class AppendTask extends Task
         $this->validate();
 
         try {
-            if ($this->to !== null) {
+            if (null !== $this->to) {
                 // create a file writer to append to "to" file.
                 $writer = new FileWriter($this->to, $this->append);
             } else {
                 $writer = new LogWriter($this);
             }
 
-            if ($this->text !== null) {
+            if (null !== $this->text) {
                 // simply append the text
                 if ($this->to instanceof File) {
-                    $this->log("Appending string to " . $this->to->getPath());
+                    $this->log('Appending string to ' . $this->to->getPath());
                 }
 
                 $text = $this->text;
@@ -259,12 +255,12 @@ class AppendTask extends Task
                 $writer->write($text);
             } else {
                 // append explicitly-specified file
-                if ($this->file !== null) {
+                if (null !== $this->file) {
                     try {
                         $this->appendFile($writer, $this->file);
                     } catch (Exception $ioe) {
                         $this->log(
-                            "Unable to append contents of file " . $this->file->getAbsolutePath() . ": " . $ioe->getMessage(),
+                            'Unable to append contents of file ' . $this->file->getAbsolutePath() . ': ' . $ioe->getMessage(),
                             Project::MSG_WARN
                         );
                     }
@@ -281,7 +277,7 @@ class AppendTask extends Task
                             $this->appendFiles($writer, $files, $fs->getDir($this->project));
                         }
                     } catch (BuildException $be) {
-                        if (strpos($be->getMessage(), 'is the same as the output file') === false) {
+                        if (false === strpos($be->getMessage(), 'is the same as the output file')) {
                             $this->log($be->getMessage(), Project::MSG_WARN);
                         } else {
                             throw new BuildException($be->getMessage());
@@ -309,7 +305,7 @@ class AppendTask extends Task
     private function appendHeader($string)
     {
         $result = $string;
-        if ($this->header !== null) {
+        if (null !== $this->header) {
             $header = $this->header->getValue();
             if ($this->header->filtering) {
                 $fr = $this->getFilteredReader(new StringReader($header));
@@ -325,7 +321,7 @@ class AppendTask extends Task
     private function appendFooter($string)
     {
         $result = $string;
-        if ($this->footer !== null) {
+        if (null !== $this->footer) {
             $footer = $this->footer->getValue();
             if ($this->footer->filtering) {
                 $fr = $this->getFilteredReader(new StringReader($footer));
@@ -334,6 +330,7 @@ class AppendTask extends Task
 
             $result = $string . $footer;
         }
+
         return $result;
     }
 
@@ -341,12 +338,12 @@ class AppendTask extends Task
     {
         $this->sanitizeText();
 
-        if ($this->file === null && $this->text === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
-            throw new BuildException("You must specify a file, use a filelist/fileset, or specify a text value.");
+        if (null === $this->file && null === $this->text && 0 === count($this->filesets) && 0 === count($this->filelists)) {
+            throw new BuildException('You must specify a file, use a filelist/fileset, or specify a text value.');
         }
 
-        if ($this->text !== null && ($this->file !== null || count($this->filesets) > 0)) {
-            throw new BuildException("Cannot use text attribute in conjunction with file or fileset");
+        if (null !== $this->text && (null !== $this->file || count($this->filesets) > 0)) {
+            throw new BuildException('Cannot use text attribute in conjunction with file or fileset');
         }
 
         if (!$this->eolString) {
@@ -356,7 +353,7 @@ class AppendTask extends Task
 
     private function sanitizeText()
     {
-        if ($this->text !== null && "" === trim($this->text)) {
+        if (null !== $this->text && '' === trim($this->text)) {
             $this->text = null;
         }
     }
@@ -369,28 +366,27 @@ class AppendTask extends Task
     /**
      * Append an array of files in a directory.
      *
-     * @param Writer $writer The FileWriter that is appending to target file.
-     * @param array $files array of files to delete; can be of zero length
-     * @param File $dir directory to work from
-     *
+     * @param Writer $writer the FileWriter that is appending to target file
+     * @param array  $files  array of files to delete; can be of zero length
+     * @param File   $dir    directory to work from
      */
     private function appendFiles(Writer $writer, $files, File $dir = null)
     {
         if (!empty($files)) {
             $this->log(
-                "Attempting to append " . count(
+                'Attempting to append ' . count(
                     $files
-                ) . " files" . ($dir !== null ? ", using basedir " . $dir->getPath() : "")
+                ) . ' files' . (null !== $dir ? ', using basedir ' . $dir->getPath() : '')
             );
-            $basenameSlot = Register::getSlot("task.append.current_file");
-            $pathSlot = Register::getSlot("task.append.current_file.path");
+            $basenameSlot = Register::getSlot('task.append.current_file');
+            $pathSlot = Register::getSlot('task.append.current_file.path');
             foreach ($files as $file) {
                 try {
                     if (!$this->checkFilename($file, $dir)) {
                         continue;
                     }
 
-                    if ($dir !== null) {
+                    if (null !== $dir) {
                         $file = is_string($file) ? new File($dir->getPath(), $file) : $file;
                     } else {
                         $file = is_string($file) ? new File($file) : $file;
@@ -400,12 +396,12 @@ class AppendTask extends Task
                     $this->appendFile($writer, $file);
                 } catch (IOException $ioe) {
                     $this->log(
-                        "Unable to append contents of file " . $file . ": " . $ioe->getMessage(),
+                        'Unable to append contents of file ' . $file . ': ' . $ioe->getMessage(),
                         Project::MSG_WARN
                     );
                 } catch (\InvalidArgumentException $npe) {
                     $this->log(
-                        "Unable to append contents of file " . $file . ": " . $npe->getMessage(),
+                        'Unable to append contents of file ' . $file . ': ' . $npe->getMessage(),
                         Project::MSG_WARN
                     );
                 }
@@ -415,31 +411,33 @@ class AppendTask extends Task
 
     private function checkFilename($filename, $dir = null)
     {
-        if ($dir !== null) {
+        if (null !== $dir) {
             $f = new File($dir, $filename);
         } else {
             $f = new File($filename);
         }
 
         if (!$f->exists()) {
-            $this->log("File " . (string) $f . " does not exist.", Project::MSG_ERR);
+            $this->log('File ' . (string) $f . ' does not exist.', Project::MSG_ERR);
+
             return false;
         }
-        if ($this->to !== null && $f->equals($this->to)) {
+        if (null !== $this->to && $f->equals($this->to)) {
             throw new BuildException(
-                "Input file \""
-                . $f . "\" "
-                . "is the same as the output file."
+                'Input file "'
+                . $f . '" '
+                . 'is the same as the output file.'
             );
         }
 
         if (
-            $this->to !== null
+            null !== $this->to
             && !$this->overwrite
             && $this->to->exists()
             && $f->lastModified() > $this->to->lastModified()
         ) {
-            $this->log((string) $this->to . " is up-to-date.", Project::MSG_VERBOSE);
+            $this->log((string) $this->to . ' is up-to-date.', Project::MSG_VERBOSE);
+
             return false;
         }
 
@@ -448,7 +446,6 @@ class AppendTask extends Task
 
     /**
      * @param FileWriter $writer
-     *
      */
     private function appendFile(Writer $writer, File $f)
     {
@@ -458,7 +455,7 @@ class AppendTask extends Task
         while (-1 !== ($buffer = $in->read())) { // -1 indicates EOF
             $text .= $buffer;
         }
-        if ($this->fixLastLine && ($text[strlen($text) - 1] !== "\n" || $text[strlen($text) - 1] !== "\r")) {
+        if ($this->fixLastLine && ("\n" !== $text[strlen($text) - 1] || "\r" !== $text[strlen($text) - 1])) {
             $text .= $this->eolString;
         }
 
@@ -466,7 +463,7 @@ class AppendTask extends Task
         $text = $this->appendFooter($text);
         $writer->write($text);
         if ($f instanceof File && $this->to instanceof File) {
-            $this->log("Appending contents of " . $f->getPath() . " to " . $this->to->getPath());
+            $this->log('Appending contents of ' . $f->getPath() . ' to ' . $this->to->getPath());
         }
     }
 }

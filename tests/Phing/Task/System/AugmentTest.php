@@ -6,9 +6,12 @@ use Phing\Test\Support\BuildFileTest;
 use Phing\Type\FileSet;
 
 /**
- * Tests the AugmentReference Task
+ * Tests the AugmentReference Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class AugmentTest extends BuildFileTest
 {

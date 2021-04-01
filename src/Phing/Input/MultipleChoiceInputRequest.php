@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,6 @@ namespace Phing\Input;
  * Encapsulates an input request.
  *
  * @author Stefan Bodewig <stefan.bodewig@epost.de>
- *
  */
 class MultipleChoiceInputRequest extends InputRequest
 {
@@ -44,7 +44,7 @@ class MultipleChoiceInputRequest extends InputRequest
     }
 
     /**
-     * @return array The possible values.
+     * @return array the possible values
      */
     public function getChoices()
     {
@@ -52,7 +52,7 @@ class MultipleChoiceInputRequest extends InputRequest
     }
 
     /**
-     * @return bool true if the input is one of the allowed values.
+     * @return bool true if the input is one of the allowed values
      */
     public function isInputValid()
     {

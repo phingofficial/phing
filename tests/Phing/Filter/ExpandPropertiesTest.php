@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,6 +25,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class ExpandPropertiesTest extends BuildFileTest
 {
@@ -31,21 +35,21 @@ class ExpandPropertiesTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/expandproperties.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/expandproperties.xml');
         $this->fu = new FileUtils();
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testExpandProperties()
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/expandproperties.test");
-        $result = $this->getProject()->resolveFile("result/expandproperties.test");
+        $expected = $this->getProject()->resolveFile('expected/expandproperties.test');
+        $result = $this->getProject()->resolveFile('result/expandproperties.test');
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

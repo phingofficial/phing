@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -36,6 +37,7 @@ use Phing\Util\StringHelper;
  * </filterreader></pre>
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
  * @see     FilterReader
  */
 class SuffixLines extends BaseParamFilterReader implements ChainableReader
@@ -45,14 +47,14 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    public const SUFFIX_KEY = "suffix";
+    public const SUFFIX_KEY = 'suffix';
 
     /**
      * The suffix to be used.
      *
      * @var string
      */
-    private $suffix = null;
+    private $suffix;
 
     /** @var string */
     private $queuedData;
@@ -61,6 +63,7 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      * Adds a suffix to each line of input stream and returns resulting stream.
      *
      * @param int $len
+     *
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -72,22 +75,22 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
 
         $ch = -1;
 
-        if ($this->queuedData !== null && $this->queuedData === '') {
+        if (null !== $this->queuedData && '' === $this->queuedData) {
             $this->queuedData = null;
         }
 
-        if ($this->queuedData !== null) {
+        if (null !== $this->queuedData) {
             $ch = $this->queuedData[0];
             $this->queuedData = substr($this->queuedData, 1);
-            if ($this->queuedData === '') {
+            if ('' === $this->queuedData) {
                 $this->queuedData = null;
             }
         } else {
             $this->queuedData = $this->readLine();
-            if ($this->queuedData === null) {
+            if (null === $this->queuedData) {
                 $ch = -1;
             } else {
-                if ($this->suffix !== null) {
+                if (null !== $this->suffix) {
                     $lf = '';
                     if (StringHelper::endsWith($this->queuedData, "\r\n")) {
                         $lf = "\r\n";
@@ -96,9 +99,11 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
                     }
                     $this->queuedData = substr($this->queuedData, 0, strlen($this->queuedData) - strlen($lf)) . $this->suffix . $lf;
                 }
+
                 return $this->read();
             }
         }
+
         return $ch;
     }
 
@@ -129,7 +134,8 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
      * Reader for instantiation.
      *
      * @return SuffixLines A new filter based on this configuration, but filtering
-     *                the specified reader
+     *                     the specified reader
+     *
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      */
@@ -149,10 +155,11 @@ class SuffixLines extends BaseParamFilterReader implements ChainableReader
     private function initialize()
     {
         $params = $this->getParameters();
-        if ($params !== null) {
-            for ($i = 0, $_i = count($params); $i < $_i; $i++) {
+        if (null !== $params) {
+            for ($i = 0, $_i = count($params); $i < $_i; ++$i) {
                 if (self::SUFFIX_KEY == $params[$i]->getName()) {
                     $this->suffix = (string) $params[$i]->getValue();
+
                     break;
                 }
             }

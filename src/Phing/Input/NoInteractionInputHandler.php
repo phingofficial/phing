@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,7 +22,6 @@ namespace Phing\Input;
 
 /**
  * Plugin to Phing to disable user input.
- *
  */
 class NoInteractionInputHandler implements InputHandler
 {

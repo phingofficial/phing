@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,9 +25,12 @@ use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * UTs for ExtensionPoint component
+ * UTs for ExtensionPoint component.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class ExtensionPointTest extends BuildFileTest
 {
@@ -34,7 +38,7 @@ class ExtensionPointTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/components/ExtensionPoint/ExtensionPoint.xml"
+            . '/etc/components/ExtensionPoint/ExtensionPoint.xml'
         );
     }
 
@@ -51,6 +55,7 @@ class ExtensionPointTest extends BuildFileTest
     public function testExtensionPointMustBeEmpty()
     {
         $this->expectNotToPerformAssertions();
+
         try {
             $this->executeTarget(__FUNCTION__);
         } catch (BuildException $e) {

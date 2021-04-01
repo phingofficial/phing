@@ -22,21 +22,23 @@ use Phing\Type\Reference;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ *
+ * @internal
+ * @coversNothing
  */
 class ReferenceTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Test getProject method
+     * Test getProject method.
      *
      * Test that getProject method works conclusively by setting random
      * description and checking for that as the description of the retrieved
      * project - e g not a default/hardcoded description.
-     *
      */
     public function testGetProject()
     {
         $project = new Project();
-        $description = "desc" . rand();
+        $description = 'desc' . rand();
         $project->setDescription($description);
         $reference = new Reference($project);
         $retrieved = $reference->getProject();
@@ -46,7 +48,7 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
     public function testGetReferencedObjectThrowsExceptionIfReferenceNotSet()
     {
         $project = new Project();
-        $reference = new Reference($project, "refOne");
+        $reference = new Reference($project, 'refOne');
 
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Reference refOne not found.');

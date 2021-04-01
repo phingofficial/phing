@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -49,17 +50,15 @@ class ExecTask extends Task
 
     public const INVALID = PHP_INT_MAX;
 
-    private $exitValue = self::INVALID;
-
     /**
-     * Command to be executed
+     * Command to be executed.
      *
      * @var string
      */
     protected $realCommand;
 
     /**
-     * Commandline managing object
+     * Commandline managing object.
      *
      * @var Commandline
      */
@@ -84,7 +83,7 @@ class ExecTask extends Task
     /**
      * Whether to escape shell command using escapeshellcmd().
      *
-     * @var boolean
+     * @var bool
      */
     protected $escape = false;
 
@@ -96,16 +95,16 @@ class ExecTask extends Task
     protected $output;
 
     /**
-     * Whether to use PHP's passthru() function instead of exec()
+     * Whether to use PHP's passthru() function instead of exec().
      *
-     * @var boolean
+     * @var bool
      */
     protected $passthru = false;
 
     /**
-     * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
+     * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE.
      *
-     * @var boolean
+     * @var bool
      */
     protected $logOutput = false;
 
@@ -119,7 +118,7 @@ class ExecTask extends Task
     /**
      * If spawn is set then [unix] programs will redirect stdout and add '&'.
      *
-     * @var boolean
+     * @var bool
      */
     protected $spawn = false;
 
@@ -140,9 +139,11 @@ class ExecTask extends Task
     /**
      * Whether to check the return code.
      *
-     * @var boolean
+     * @var bool
      */
     protected $checkreturn = false;
+
+    private $exitValue = self::INVALID;
 
     private $osFamily;
     private $executable;
@@ -186,6 +187,251 @@ class ExecTask extends Task
     }
 
     /**
+     * @param int $exitValue
+     *
+     * @return bool
+     */
+    public function isFailure($exitValue = null)
+    {
+        if (null === $exitValue) {
+            $exitValue = $this->getExitValue();
+        }
+
+        return 0 !== $exitValue;
+    }
+
+    /**
+     * Query the exit value of the process.
+     *
+     * @return int the exit value or self::INVALID if no exit value has
+     *             been received
+     */
+    public function getExitValue(): int
+    {
+        return $this->exitValue;
+    }
+
+    /**
+     * The command to use.
+     *
+     * @param string $command String or string-compatible (e.g. w/ __toString()).
+     *
+     * @throws BuildException
+     */
+    public function setCommand($command): void
+    {
+        $this->log(
+            "The command attribute is deprecated.\nPlease use the executable attribute and nested arg elements.",
+            Project::MSG_WARN
+        );
+        $this->commandline = new Commandline($command);
+        $this->executable = $this->commandline->getExecutable();
+    }
+
+    /**
+     * The executable to use.
+     *
+     * @param bool|string $value String or string-compatible (e.g. w/ __toString()).
+     */
+    public function setExecutable($value): void
+    {
+        if (is_bool($value)) {
+            $value = true === $value ? 'true' : 'false';
+        }
+        $this->executable = $value;
+        $this->commandline->setExecutable($value);
+    }
+
+    /**
+     * Whether to use escapeshellcmd() to escape command.
+     *
+     * @param bool $escape If the command shall be escaped or not
+     */
+    public function setEscape(bool $escape): void
+    {
+        $this->escape = $escape;
+    }
+
+    /**
+     * Specify the working directory for executing this command.
+     *
+     * @param File $dir Working directory
+     */
+    public function setDir(File $dir): void
+    {
+        $this->dir = $dir;
+    }
+
+    /**
+     * Specify OS (or multiple OS) that must match in order to execute this command.
+     *
+     * @param string $os Operating system string (e.g. "Linux")
+     */
+    public function setOs($os): void
+    {
+        $this->os = (string) $os;
+    }
+
+    /**
+     * List of operating systems on which the command may be executed.
+     */
+    public function getOs(): string
+    {
+        return $this->os;
+    }
+
+    /**
+     * Restrict this execution to a single OS Family.
+     *
+     * @param string $osFamily the family to restrict to
+     */
+    public function setOsFamily($osFamily): void
+    {
+        $this->osFamily = strtolower($osFamily);
+    }
+
+    /**
+     * Restrict this execution to a single OS Family.
+     */
+    public function getOsFamily()
+    {
+        return $this->osFamily;
+    }
+
+    /**
+     * File to which output should be written.
+     *
+     * @param File $f Output log file
+     */
+    public function setOutput(File $f): void
+    {
+        $this->output = $f;
+    }
+
+    /**
+     * File to which error output should be written.
+     *
+     * @param File $f Error log file
+     */
+    public function setError(File $f): void
+    {
+        $this->error = $f;
+    }
+
+    /**
+     * Whether to use PHP's passthru() function instead of exec().
+     *
+     * @param bool $passthru If passthru shall be used
+     */
+    public function setPassthru($passthru): void
+    {
+        $this->passthru = $passthru;
+    }
+
+    /**
+     * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE.
+     *
+     * @param bool $logOutput If output shall be logged visibly
+     */
+    public function setLogoutput($logOutput): void
+    {
+        $this->logOutput = $logOutput;
+    }
+
+    /**
+     * Whether to suppress all output and run in the background.
+     *
+     * @param bool $spawn If the command is to be run in the background
+     */
+    public function setSpawn($spawn): void
+    {
+        $this->spawn = $spawn;
+    }
+
+    /**
+     * Whether to check the return code.
+     *
+     * @param bool $checkreturn If the return code shall be checked
+     */
+    public function setCheckreturn($checkreturn): void
+    {
+        $this->checkreturn = $checkreturn;
+    }
+
+    /**
+     * The name of property to set to return value from exec() call.
+     *
+     * @param string $prop Property name
+     */
+    public function setReturnProperty($prop): void
+    {
+        $this->returnProperty = $prop;
+    }
+
+    /**
+     * The name of property to set to output value from exec() call.
+     *
+     * @param string $prop Property name
+     */
+    public function setOutputProperty($prop): void
+    {
+        $this->outputProperty = $prop;
+    }
+
+    /**
+     * Add an environment variable to the launched process.
+     *
+     * @param EnvVariable $var new environment variable
+     */
+    public function addEnv(EnvVariable $var)
+    {
+        $this->env->addVariable($var);
+    }
+
+    /**
+     * Creates a nested <arg> tag.
+     *
+     * @return CommandlineArgument Argument object
+     */
+    public function createArg()
+    {
+        return $this->commandline->createArgument();
+    }
+
+    /**
+     * Set whether to attempt to resolve the executable to a file.
+     *
+     * @param bool $resolveExecutable if true, attempt to resolve the
+     *                                path of the executable
+     */
+    public function setResolveExecutable($resolveExecutable): void
+    {
+        $this->resolveExecutable = $resolveExecutable;
+    }
+
+    /**
+     * Set whether to search nested, then
+     * system PATH environment variables for the executable.
+     *
+     * @param bool $searchPath if true, search PATHs
+     */
+    public function setSearchPath($searchPath): void
+    {
+        $this->searchPath = $searchPath;
+    }
+
+    /**
+     * Indicates whether to attempt to resolve the executable to a
+     * file.
+     *
+     * @return bool the resolveExecutable flag
+     */
+    public function getResolveExecutable(): bool
+    {
+        return $this->resolveExecutable;
+    }
+
+    /**
      * Prepares the command building and execution, i.e.
      * changes to the specified directory.
      *
@@ -193,11 +439,11 @@ class ExecTask extends Task
      */
     protected function prepare()
     {
-        if ($this->dir === null) {
+        if (null === $this->dir) {
             $this->dir = $this->getProject()->getBasedir();
         }
 
-        if ($this->commandline->getExecutable() === null) {
+        if (null === $this->commandline->getExecutable()) {
             throw new BuildException(
                 'ExecTask: Please provide "executable"'
             );
@@ -227,27 +473,15 @@ class ExecTask extends Task
     }
 
     /**
-     * @param int $exitValue
-     * @return bool
-     */
-    public function isFailure($exitValue = null)
-    {
-        if ($exitValue === null) {
-            $exitValue = $this->getExitValue();
-        }
-
-        return $exitValue !== 0;
-    }
-
-    /**
      * Builds the full command to execute and stores it in $command.
      *
      * @throws BuildException
+     *
      * @uses   $command
      */
     protected function buildCommand()
     {
-        if ($this->error !== null) {
+        if (null !== $this->error) {
             $this->realCommand .= ' 2> ' . escapeshellarg($this->error->getPath());
             $this->log(
                 'Writing error output to: ' . $this->error->getPath(),
@@ -255,7 +489,7 @@ class ExecTask extends Task
             );
         }
 
-        if ($this->output !== null) {
+        if (null !== $this->output) {
             $this->realCommand .= ' 1> ' . escapeshellarg($this->output->getPath());
             $this->log(
                 'Writing standard output to: ' . $this->output->getPath(),
@@ -270,7 +504,7 @@ class ExecTask extends Task
         // then we'll redirect error to stdout so that we can dump
         // it to screen below.
 
-        if ($this->output === null && $this->error === null && $this->passthru === false) {
+        if (null === $this->output && null === $this->error && false === $this->passthru) {
             $this->realCommand .= ' 2>&1';
         }
 
@@ -281,7 +515,7 @@ class ExecTask extends Task
 
         $envString = '';
         $environment = $this->env->getVariables();
-        if ($environment !== null) {
+        if (null !== $environment) {
             foreach ($environment as $variable) {
                 if ($this->isPath($variable)) {
                     continue;
@@ -301,8 +535,9 @@ class ExecTask extends Task
     /**
      * Executes the command and returns return code and output.
      *
-     * @return array array(return code, array with output)
      * @throws BuildException
+     *
+     * @return array array(return code, array with output)
      */
     protected function executeCommand()
     {
@@ -326,16 +561,16 @@ class ExecTask extends Task
      * Runs all tasks after command execution:
      * - change working directory back
      * - log output
-     * - verify return value
+     * - verify return value.
      *
-     * @param int $return Return code
+     * @param int   $return Return code
      * @param array $output Array with command output
      *
      * @throws BuildException
      */
     protected function cleanup($return, $output): void
     {
-        if ($this->dir !== null) {
+        if (null !== $this->dir) {
             @chdir($this->currdir);
         }
 
@@ -355,7 +590,7 @@ class ExecTask extends Task
 
         $this->setExitValue($return);
 
-        if ($return !== 0) {
+        if (0 !== $return) {
             if ($this->checkreturn) {
                 throw new BuildException($this->getTaskType() . ' returned: ' . $return, $this->getLocation());
             }
@@ -366,190 +601,11 @@ class ExecTask extends Task
     /**
      * Set the exit value.
      *
-     * @param int $value exit value of the process.
+     * @param int $value exit value of the process
      */
     protected function setExitValue($value): void
     {
         $this->exitValue = $value;
-    }
-
-    /**
-     * Query the exit value of the process.
-     *
-     * @return int the exit value or self::INVALID if no exit value has
-     *             been received.
-     */
-    public function getExitValue(): int
-    {
-        return $this->exitValue;
-    }
-
-    /**
-     * The command to use.
-     *
-     * @param string $command String or string-compatible (e.g. w/ __toString()).
-     *
-     * @throws BuildException
-     */
-    public function setCommand($command): void
-    {
-        $this->log(
-            "The command attribute is deprecated.\nPlease use the executable attribute and nested arg elements.",
-            Project::MSG_WARN
-        );
-        $this->commandline = new Commandline($command);
-        $this->executable = $this->commandline->getExecutable();
-    }
-
-    /**
-     * The executable to use.
-     *
-     * @param string|bool $value String or string-compatible (e.g. w/ __toString()).
-     *
-     */
-    public function setExecutable($value): void
-    {
-        if (is_bool($value)) {
-            $value = $value === true ? 'true' : 'false';
-        }
-        $this->executable = $value;
-        $this->commandline->setExecutable($value);
-    }
-
-    /**
-     * Whether to use escapeshellcmd() to escape command.
-     *
-     * @param bool $escape If the command shall be escaped or not
-     *
-     */
-    public function setEscape(bool $escape): void
-    {
-        $this->escape = $escape;
-    }
-
-    /**
-     * Specify the working directory for executing this command.
-     *
-     * @param File $dir Working directory
-     *
-     */
-    public function setDir(File $dir): void
-    {
-        $this->dir = $dir;
-    }
-
-    /**
-     * Specify OS (or multiple OS) that must match in order to execute this command.
-     *
-     * @param string $os Operating system string (e.g. "Linux")
-     *
-     */
-    public function setOs($os): void
-    {
-        $this->os = (string) $os;
-    }
-
-    /**
-     * List of operating systems on which the command may be executed.
-     */
-    public function getOs(): string
-    {
-        return $this->os;
-    }
-
-    /**
-     * Restrict this execution to a single OS Family
-     *
-     * @param string $osFamily the family to restrict to.
-     */
-    public function setOsFamily($osFamily): void
-    {
-        $this->osFamily = strtolower($osFamily);
-    }
-
-    /**
-     * Restrict this execution to a single OS Family
-     */
-    public function getOsFamily()
-    {
-        return $this->osFamily;
-    }
-
-    /**
-     * File to which output should be written.
-     *
-     * @param File $f Output log file
-     *
-     */
-    public function setOutput(File $f): void
-    {
-        $this->output = $f;
-    }
-
-    /**
-     * File to which error output should be written.
-     *
-     * @param File $f Error log file
-     *
-     */
-    public function setError(File $f): void
-    {
-        $this->error = $f;
-    }
-
-    /**
-     * Whether to use PHP's passthru() function instead of exec()
-     *
-     * @param bool $passthru If passthru shall be used
-     *
-     */
-    public function setPassthru($passthru): void
-    {
-        $this->passthru = $passthru;
-    }
-
-    /**
-     * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
-     *
-     * @param bool $logOutput If output shall be logged visibly
-     *
-     */
-    public function setLogoutput($logOutput): void
-    {
-        $this->logOutput = $logOutput;
-    }
-
-    /**
-     * Whether to suppress all output and run in the background.
-     *
-     * @param bool $spawn If the command is to be run in the background
-     *
-     */
-    public function setSpawn($spawn): void
-    {
-        $this->spawn = $spawn;
-    }
-
-    /**
-     * Whether to check the return code.
-     *
-     * @param bool $checkreturn If the return code shall be checked
-     *
-     */
-    public function setCheckreturn($checkreturn): void
-    {
-        $this->checkreturn = $checkreturn;
-    }
-
-    /**
-     * The name of property to set to return value from exec() call.
-     *
-     * @param string $prop Property name
-     *
-     */
-    public function setReturnProperty($prop): void
-    {
-        $this->returnProperty = $prop;
     }
 
     protected function maybeSetReturnPropertyValue(int $return)
@@ -560,108 +616,46 @@ class ExecTask extends Task
     }
 
     /**
-     * The name of property to set to output value from exec() call.
-     *
-     * @param string $prop Property name
-     *
-     */
-    public function setOutputProperty($prop): void
-    {
-        $this->outputProperty = $prop;
-    }
-
-    /**
-     * Add an environment variable to the launched process.
-     *
-     * @param EnvVariable $var new environment variable.
-     */
-    public function addEnv(EnvVariable $var)
-    {
-        $this->env->addVariable($var);
-    }
-
-    /**
-     * Creates a nested <arg> tag.
-     *
-     * @return CommandlineArgument Argument object
-     */
-    public function createArg()
-    {
-        return $this->commandline->createArgument();
-    }
-
-    /**
      * Is this the OS the user wanted?
      *
      * @return bool.
-     * <ul>
-     * <li>
-     * <li><code>true</code> if the os and osfamily attributes are null.</li>
-     * <li><code>true</code> if osfamily is set, and the os family and must match
-     * that of the current OS, according to the logic of
-     * {@link Os#isOs(String, String, String, String)}, and the result of the
-     * <code>os</code> attribute must also evaluate true.
-     * </li>
-     * <li>
-     * <code>true</code> if os is set, and the system.property os.name
-     * is found in the os attribute,</li>
-     * <li><code>false</code> otherwise.</li>
-     * </ul>
+     *               <ul>
+     *               <li>
+     *               <li><code>true</code> if the os and osfamily attributes are null.</li>
+     *               <li><code>true</code> if osfamily is set, and the os family and must match
+     *               that of the current OS, according to the logic of
+     *               {@link Os#isOs(String, String, String, String)}, and the result of the
+     *               <code>os</code> attribute must also evaluate true.
+     *               </li>
+     *               <li>
+     *               <code>true</code> if os is set, and the system.property os.name
+     *               is found in the os attribute,</li>
+     *               <li><code>false</code> otherwise.</li>
+     *               </ul>
      */
     protected function isValidOs(): bool
     {
         //hand osfamily off to OsCondition class, if set
-        if ($this->osFamily !== null && !OsCondition::isFamily($this->osFamily)) {
+        if (null !== $this->osFamily && !OsCondition::isFamily($this->osFamily)) {
             return false;
         }
         //the Exec OS check is different from Os.isOs(), which
         //probes for a specific OS. Instead it searches the os field
         //for the current os.name
-        $myos = Phing::getProperty("os.name");
-        $this->log("Current OS is " . $myos, Project::MSG_VERBOSE);
-        if (($this->os !== null) && (strpos($this->os, $myos) === false)) {
+        $myos = Phing::getProperty('os.name');
+        $this->log('Current OS is ' . $myos, Project::MSG_VERBOSE);
+        if ((null !== $this->os) && (false === strpos($this->os, $myos))) {
             // this command will be executed only on the specified OS
             $this->log(
-                "This OS, " . $myos
-                . " was not found in the specified list of valid OSes: " . $this->os,
+                'This OS, ' . $myos
+                . ' was not found in the specified list of valid OSes: ' . $this->os,
                 Project::MSG_VERBOSE
             );
+
             return false;
         }
+
         return true;
-    }
-
-    /**
-     * Set whether to attempt to resolve the executable to a file.
-     *
-     * @param bool $resolveExecutable if true, attempt to resolve the
-     * path of the executable.
-     */
-    public function setResolveExecutable($resolveExecutable): void
-    {
-        $this->resolveExecutable = $resolveExecutable;
-    }
-
-    /**
-     * Set whether to search nested, then
-     * system PATH environment variables for the executable.
-     *
-     * @param bool $searchPath if true, search PATHs.
-     */
-    public function setSearchPath($searchPath): void
-    {
-        $this->searchPath = $searchPath;
-    }
-
-    /**
-     * Indicates whether to attempt to resolve the executable to a
-     * file.
-     *
-     * @return bool the resolveExecutable flag
-     */
-    public function getResolveExecutable(): bool
-    {
-        return $this->resolveExecutable;
     }
 
     /**
@@ -669,14 +663,15 @@ class ExecTask extends Task
      * the full path. We first try basedir, then the exec dir, and then
      * fallback to the straight executable name (i.e. on the path).
      *
-     * @param string $exec the name of the executable.
-     * @param bool $mustSearchPath if true, the executable will be looked up in
+     * @param string $exec           the name of the executable
+     * @param bool   $mustSearchPath if true, the executable will be looked up in
      *                               the PATH environment and the absolute path
-     *                               is returned.
+     *                               is returned
      *
-     * @return string the executable as a full path if it can be determined.
      * @throws BuildException
      * @throws IOException
+     *
+     * @return string the executable as a full path if it can be determined
      */
     protected function resolveExecutable($exec, $mustSearchPath): ?string
     {
@@ -689,7 +684,7 @@ class ExecTask extends Task
             return $executableFile->getAbsolutePath();
         }
         // now try to resolve against the dir if given
-        if ($this->dir !== null) {
+        if (null !== $this->dir) {
             $executableFile = (new FileUtils())->resolveFile($this->dir, $exec);
             if ($executableFile->exists()) {
                 return $executableFile->getAbsolutePath();
@@ -699,18 +694,19 @@ class ExecTask extends Task
         if ($mustSearchPath) {
             $p = null;
             $environment = $this->env->getVariables();
-            if ($environment !== null) {
+            if (null !== $environment) {
                 foreach ($environment as $env) {
                     if ($this->isPath($env)) {
                         $p = new Path($this->getProject(), $this->getPath($env));
+
                         break;
                     }
                 }
             }
-            if ($p === null) {
+            if (null === $p) {
                 $p = new Path($this->getProject(), getenv('path'));
             }
-            if ($p !== null) {
+            if (null !== $p) {
                 $dirs = $p->listPaths();
                 foreach ($dirs as $dir) {
                     $executableFile = (new FileUtils())->resolveFile(new File($dir), $exec);
@@ -732,11 +728,12 @@ class ExecTask extends Task
     private function getPath($value)
     {
         if (is_string($value)) {
-            return StringHelper::substring($value, strlen("PATH="));
+            return StringHelper::substring($value, strlen('PATH='));
         }
 
         if (is_array($value)) {
             $p = $value['PATH'];
+
             return $p ?? $value['Path'];
         }
 

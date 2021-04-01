@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,24 +24,35 @@ namespace Phing\Type;
  * Class for holding nested excludes elements (file, class, method).
  *
  * @author  Benjamin Schultz <bschultz@proqrent.de>
+ *
  * @since   2.4.6
  */
 class ExcludesNameEntry
 {
     /**
-     * Holds the name of a file, class or method or a file pattern
+     * Holds the name of a file, class or method or a file pattern.
      *
      * @var string
      */
     private $name;
 
     /**
+     * Gets a string representation of this name or pattern.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
      * An alias for the setName() method.
      * Set the name of a file pattern.
      *
      * @param string $pattern The file pattern
-     * @see setName()
      *
+     * @see setName()
      */
     public function addText($pattern)
     {
@@ -48,7 +60,7 @@ class ExcludesNameEntry
     }
 
     /**
-     * Set the name of a file, class or method
+     * Set the name of a file, class or method.
      *
      * @param string $name
      */
@@ -58,21 +70,11 @@ class ExcludesNameEntry
     }
 
     /**
-     * Get the name of a file, class or method or the file pattern
+     * Get the name of a file, class or method or the file pattern.
      *
      * @return string The name of a file, class or method or the file pattern
      */
     public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Gets a string representation of this name or pattern.
-     *
-     * @return string
-     */
-    public function __toString()
     {
         return $this->name;
     }

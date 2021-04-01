@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,6 +29,9 @@ use Phing\Io\IOException;
  * Unit test for FileOutputStream.
  *
  * @author Hans Lellelid <hans@xmpl.org>
+ *
+ * @internal
+ * @coversNothing
  */
 class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
 {
@@ -43,7 +47,7 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
 
     public function setUp(): void
     {
-        $this->tmpFile = new File(PHING_TEST_BASE . "/tmp/" . get_class($this) . ".txt");
+        $this->tmpFile = new File(PHING_TEST_BASE . '/tmp/' . get_class($this) . '.txt');
         $this->outStream = new FileOutputStream($this->tmpFile);
     }
 
@@ -67,7 +71,7 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
 
     public function testWrite()
     {
-        $string = "0123456789";
+        $string = '0123456789';
         $this->outStream->write($string);
 
         $this->assertFileContents($string);
@@ -90,13 +94,13 @@ class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
     public function testFlush()
     {
         $this->expectNotToPerformAssertions();
-        $this->outStream->write("Some data");
+        $this->outStream->write('Some data');
         $this->outStream->flush();
         $this->outStream->close();
 
         try {
             $this->outStream->flush();
-            $this->fail("Expected IOException when attempting to flush a closed stream.");
+            $this->fail('Expected IOException when attempting to flush a closed stream.');
         } catch (IOException $ioe) {
             // exception is expected
         }

@@ -6,9 +6,12 @@ use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests PDOSQLExecTask as condition
+ * Tests PDOSQLExecTask as condition.
  *
  * @author  Jawira Portugal <dev@tugal.be>
+ *
+ * @internal
+ * @coversNothing
  */
 class PDOSQLExecTaskConditionTest extends BuildFileTest
 {

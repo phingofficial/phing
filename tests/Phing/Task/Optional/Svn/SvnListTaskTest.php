@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,6 +22,9 @@ namespace Phing\Test\Task\Optional\Svn;
 
 /**
  * @author Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class SvnListTaskTest extends AbstractSvnTaskTest
 {
@@ -39,13 +43,13 @@ class SvnListTaskTest extends AbstractSvnTaskTest
         $this->executeTarget('getList');
         $this->assertPropertyEquals(
             'svn.list',
-            "1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | VERSION.TXT
+            '1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | VERSION.TXT
 1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | coverage-frames.xsl
 1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | log.xsl
 1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | phing-grammar.rng
 1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | phpunit-frames.xsl
 1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | phpunit-noframes.xsl
-1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | str.replace.function.xsl"
+1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | str.replace.function.xsl'
         );
     }
 }

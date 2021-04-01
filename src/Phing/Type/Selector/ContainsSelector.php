@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,11 +36,11 @@ use Phing\Task\System\Condition\OsCondition;
  */
 class ContainsSelector extends BaseExtendSelector
 {
-    private $contains = null;
+    public const CONTAINS_KEY = 'text';
+    public const CASE_KEY = 'casesensitive';
+    public const WHITESPACE_KEY = 'ignorewhitespace';
+    private $contains;
     private $casesensitive = true;
-    public const CONTAINS_KEY = "text";
-    public const CASE_KEY = "casesensitive";
-    public const WHITESPACE_KEY = "ignorewhitespace";
     private $ignorewhitespace = false;
 
     /**
@@ -47,21 +48,21 @@ class ContainsSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        $buf = "{containsselector text: ";
+        $buf = '{containsselector text: ';
         $buf .= $this->contains;
-        $buf .= " casesensitive: ";
+        $buf .= ' casesensitive: ';
         if ($this->casesensitive) {
-            $buf .= "true";
+            $buf .= 'true';
         } else {
-            $buf .= "false";
+            $buf .= 'false';
         }
-        $buf .= " ignorewhitespace: ";
+        $buf .= ' ignorewhitespace: ';
         if ($this->ignorewhitespace) {
-            $buf .= "true";
+            $buf .= 'true';
         } else {
-            $buf .= "false";
+            $buf .= 'false';
         }
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -69,7 +70,7 @@ class ContainsSelector extends BaseExtendSelector
     /**
      * The string to search for within a file.
      *
-     * @param string $contains the string that a file must contain to be selected.
+     * @param string $contains the string that a file must contain to be selected
      */
     public function setText($contains)
     {
@@ -103,21 +104,28 @@ class ContainsSelector extends BaseExtendSelector
     public function setParameters(array $parameters): void
     {
         parent::setParameters($parameters);
-        if ($parameters !== null) {
-            for ($i = 0, $size = count($parameters); $i < $size; $i++) {
+        if (null !== $parameters) {
+            for ($i = 0, $size = count($parameters); $i < $size; ++$i) {
                 $paramname = $parameters[$i]->getName();
+
                 switch (strtolower($paramname)) {
                     case self::CONTAINS_KEY:
                         $this->setText($parameters[$i]->getValue());
+
                         break;
+
                     case self::CASE_KEY:
                         $this->setCasesensitive($parameters[$i]->getValue());
+
                         break;
+
                     case self::WHITESPACE_KEY:
                         $this->setIgnoreWhitespace($parameters[$i]->getValue());
+
                         break;
+
                     default:
-                        $this->setError("Invalid parameter " . $paramname);
+                        $this->setError('Invalid parameter ' . $paramname);
                 }
             } // for each param
         } // if params
@@ -129,8 +137,8 @@ class ContainsSelector extends BaseExtendSelector
      */
     public function verifySettings()
     {
-        if ($this->contains === null) {
-            $this->setError("The text attribute is required");
+        if (null === $this->contains) {
+            $this->setError('The text attribute is required');
         }
     }
 
@@ -140,12 +148,12 @@ class ContainsSelector extends BaseExtendSelector
      *
      * @param string $filename
      *
-     * @return bool whether the file should be selected or not
      * @throws BuildException
+     *
+     * @return bool whether the file should be selected or not
      *
      * @internal param is $filename the name of the file to check
      * @internal param a $file PhingFile object the selector can use
-     *
      * @internal param the $basedir base directory the scan is being done from
      */
     public function isSelected(File $basedir, $filename, File $file)
@@ -173,17 +181,18 @@ class ContainsSelector extends BaseExtendSelector
         }
 
         $in = null;
+
         try {
             $in = new BufferedReader(new FileReader($file));
             $teststr = $in->readLine();
-            while ($teststr !== null) {
+            while (null !== $teststr) {
                 if (!$this->casesensitive) {
                     $teststr = strtolower($teststr);
                 }
                 if ($this->ignorewhitespace) {
                     $teststr = SelectorUtils::removeWhitespace($teststr);
                 }
-                if (strpos($teststr, $userstr) !== false) {
+                if (false !== strpos($teststr, $userstr)) {
                     return true;
                 }
                 $teststr = $in->readLine();
@@ -196,7 +205,8 @@ class ContainsSelector extends BaseExtendSelector
             if ($in) {
                 $in->close();
             }
-            throw new BuildException("Could not read file " . $filename);
+
+            throw new BuildException('Could not read file ' . $filename);
         }
     }
 }

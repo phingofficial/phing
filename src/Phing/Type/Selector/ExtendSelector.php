@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -55,7 +56,7 @@ class ExtendSelector extends BaseSelector
      */
     public function selectorCreate()
     {
-        if ($this->classname !== null && $this->classname !== "") {
+        if (null !== $this->classname && '' !== $this->classname) {
             try {
                 // assume it's fully qualified, import it
                 $cls = Phing::import($this->classname);
@@ -64,16 +65,16 @@ class ExtendSelector extends BaseSelector
                 if (class_exists($cls)) {
                     $this->dynselector = new $cls();
                 } else {
-                    $this->setError("Selector " . $this->classname . " not initialized, no such class");
+                    $this->setError('Selector ' . $this->classname . ' not initialized, no such class');
                 }
             } catch (Exception $e) {
                 $this->setError(
-                    "Selector " . $this->classname . " not initialized, could not create class.",
+                    'Selector ' . $this->classname . ' not initialized, could not create class.',
                     $e
                 );
             }
         } else {
-            $this->setError("There is no classname specified");
+            $this->setError('There is no classname specified');
         }
     }
 
@@ -97,18 +98,18 @@ class ExtendSelector extends BaseSelector
         // Creation is done here rather than in isSelected() because some
         // containers may do a validation pass before running isSelected(),
         // but we need to check for the existence of the created class.
-        if ($this->dynselector === null) {
+        if (null === $this->dynselector) {
             $this->selectorCreate();
         }
 
         if (empty($this->classname)) {
-            $this->setError("The classname attribute is required");
-        } elseif ($this->dynselector === null) {
-            $this->setError("Internal Error: The custom selector was not created");
+            $this->setError('The classname attribute is required');
+        } elseif (null === $this->dynselector) {
+            $this->setError('Internal Error: The custom selector was not created');
         } elseif (!($this->dynselector instanceof ExtendFileSelector) && (count($this->parameters) > 0)) {
             $this->setError(
-                "Cannot set parameters on custom selector that does not "
-                . "implement ExtendFileSelector."
+                'Cannot set parameters on custom selector that does not '
+                . 'implement ExtendFileSelector.'
             );
         }
     }
@@ -118,8 +119,10 @@ class ExtendSelector extends BaseSelector
      * is also where the Parameters are passed to the custom selector.
      *
      * @param string $filename The filename
-     * @return bool
+     *
      * @throws BuildException
+     *
+     * @return bool
      */
     public function isSelected(File $basedir, $filename, File $file)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -46,7 +47,6 @@ class HttpCondition extends ProjectComponent implements Condition
      * Set the url attribute.
      *
      * @param string $url the url of the request
-     *
      */
     public function setUrl($url)
     {
@@ -57,7 +57,6 @@ class HttpCondition extends ProjectComponent implements Condition
      * Set the errorsBeginAt attribute.
      *
      * @param string $errorsBeginAt number at which errors begin at, default is 400
-     *
      */
     public function setErrorsBeginAt($errorsBeginAt)
     {
@@ -68,12 +67,12 @@ class HttpCondition extends ProjectComponent implements Condition
      * Sets the method to be used when issuing the HTTP request.
      *
      * @param string $method The HTTP request method to use. Valid values are
-     *               "GET", "HEAD", "TRACE", etc. The default
-     *               if not specified is "GET".
+     *                       "GET", "HEAD", "TRACE", etc. The default
+     *                       if not specified is "GET".
      */
     public function setRequestMethod($method)
     {
-        $this->requestMethod = $method === null ? self::DEFAULT_REQUEST_METHOD : strtoupper($method);
+        $this->requestMethod = null === $method ? self::DEFAULT_REQUEST_METHOD : strtoupper($method);
     }
 
     /**
@@ -96,24 +95,24 @@ class HttpCondition extends ProjectComponent implements Condition
     /**
      * {@inheritdoc}
      *
-     * @return true if the HTTP request succeeds
-     *
      * @throws BuildException if an error occurs
+     *
+     * @return true if the HTTP request succeeds
      */
     public function evaluate()
     {
-        if ($this->url === null) {
-            throw new BuildException("No url specified in http condition");
+        if (null === $this->url) {
+            throw new BuildException('No url specified in http condition');
         }
 
         if (!filter_var($this->url, FILTER_VALIDATE_URL)) {
             $this->log(
-                "Possible malformed URL: " . $this->url,
+                'Possible malformed URL: ' . $this->url,
                 $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN
             );
         }
 
-        $this->log("Checking for " . $this->url, Project::MSG_VERBOSE);
+        $this->log('Checking for ' . $this->url, Project::MSG_VERBOSE);
 
         $handle = curl_init($this->url);
         curl_setopt($handle, CURLOPT_NOBODY, true);
@@ -122,7 +121,7 @@ class HttpCondition extends ProjectComponent implements Condition
 
         if (!curl_exec($handle)) {
             $this->log(
-                "No response received from URL: " . $this->url,
+                'No response received from URL: ' . $this->url,
                 $this->quiet ? Project::MSG_VERBOSE : Project::MSG_ERR
             );
 
@@ -132,7 +131,7 @@ class HttpCondition extends ProjectComponent implements Condition
         $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         curl_close($handle);
 
-        $this->log("Result code for " . $this->url . " was " . $httpCode, Project::MSG_VERBOSE);
+        $this->log('Result code for ' . $this->url . ' was ' . $httpCode, Project::MSG_VERBOSE);
 
         $result = false;
         if ($httpCode > 0 && $httpCode < $this->errorsBeginAt) {

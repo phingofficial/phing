@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +30,7 @@ use Phing\Task;
 use Phing\Type\Element\FilterChainAware;
 
 /**
- * LoadFileTask
+ * LoadFileTask.
  *
  * Loads a (text) file and stores the contents in a property.
  * Supports filterchains.
@@ -41,14 +42,14 @@ class LoadFileTask extends Task
     use FilterChainAware;
 
     /**
-     * File to read
+     * File to read.
      *
      * @var File file
      */
     private $file;
 
     /**
-     * Property to be set
+     * Property to be set.
      *
      * @var string
      */
@@ -78,7 +79,7 @@ class LoadFileTask extends Task
     }
 
     /**
-     * Set file to read
+     * Set file to read.
      */
     public function setFile(File $file)
     {
@@ -86,7 +87,7 @@ class LoadFileTask extends Task
     }
 
     /**
-     * Convenience setter to maintain Ant compatibility (@see setFile())
+     * Convenience setter to maintain Ant compatibility (@see setFile()).
      */
     public function setSrcFile(File $srcFile)
     {
@@ -94,7 +95,7 @@ class LoadFileTask extends Task
     }
 
     /**
-     * Set name of property to be set
+     * Set name of property to be set.
      *
      * @param string $property
      */
@@ -104,7 +105,7 @@ class LoadFileTask extends Task
     }
 
     /**
-     * Main method
+     * Main method.
      *
      * @throws BuildException
      */
@@ -118,7 +119,7 @@ class LoadFileTask extends Task
             throw new BuildException("Attribute 'property' required", $this->getLocation());
         }
         if ($this->quiet && $this->failOnError) {
-            throw new BuildException("quiet and failonerror cannot both be set to true");
+            throw new BuildException('quiet and failonerror cannot both be set to true');
         }
 
         try {
@@ -132,12 +133,13 @@ class LoadFileTask extends Task
                 }
 
                 $this->log($message, $this->quiet ? Project::MSG_WARN : Project::MSG_ERR);
+
                 return;
             }
 
-            $this->log("loading " . (string) $this->file . " into property " . $this->property, Project::MSG_VERBOSE);
+            $this->log('loading ' . (string) $this->file . ' into property ' . $this->property, Project::MSG_VERBOSE);
             // read file (through filterchains)
-            $contents = "";
+            $contents = '';
 
             if ($this->file->length() > 0) {
                 $reader = FileUtils::getChainedReader(new FileReader($this->file), $this->filterChains, $this->project);
@@ -147,19 +149,19 @@ class LoadFileTask extends Task
                 $reader->close();
             } else {
                 $this->log(
-                    "Do not set property " . $this->property . " as its length is 0.",
+                    'Do not set property ' . $this->property . ' as its length is 0.',
                     $this->quiet ? Project::MSG_VERBOSE : Project::MSG_INFO
                 );
             }
 
             // publish as property
-            if ($contents !== '') {
+            if ('' !== $contents) {
                 $this->project->setNewProperty($this->property, $contents);
-                $this->log("loaded " . strlen($contents) . " characters", Project::MSG_VERBOSE);
-                $this->log($this->property . " := " . $contents, Project::MSG_DEBUG);
+                $this->log('loaded ' . strlen($contents) . ' characters', Project::MSG_VERBOSE);
+                $this->log($this->property . ' := ' . $contents, Project::MSG_DEBUG);
             }
         } catch (IOException $ioe) {
-            $message = "Unable to load resource: " . $ioe->getMessage();
+            $message = 'Unable to load resource: ' . $ioe->getMessage();
             if ($this->failOnError) {
                 throw new BuildException($message, $ioe, $this->getLocation());
             }

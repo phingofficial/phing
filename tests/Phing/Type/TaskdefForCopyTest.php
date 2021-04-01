@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,47 +22,51 @@ namespace Phing\Test\Type;
 
 use Phing\Test\Support\BuildFileTest;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class TaskdefForCopyTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/types/mapper.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/types/mapper.xml');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function test1()
     {
         $this->expectNotToPerformAssertions();
-        $this->executeTarget("test1");
+        $this->executeTarget('test1');
     }
 
     public function test2()
     {
         $this->expectNotToPerformAssertions();
-        $this->executeTarget("test2");
+        $this->executeTarget('test2');
     }
 
     public function test3()
     {
-        $this->executeTarget("test3");
+        $this->executeTarget('test3');
         $this->assertInLogs('php1');
         $this->assertInLogs('php2');
     }
 
     public function test4()
     {
-        $this->executeTarget("test4");
+        $this->executeTarget('test4');
         $this->assertNotInLogs('.php1');
         $this->assertInLogs('.php2');
     }
 
     public function testCutDirsMapper()
     {
-        $this->executeTarget("testCutDirsMapper");
+        $this->executeTarget('testCutDirsMapper');
         $outputDir = $this->getProject()->getProperty('output');
         $this->assertFileExists($outputDir . '/D');
         $this->assertFileExists($outputDir . '/c/E');

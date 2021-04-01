@@ -20,13 +20,19 @@ use Phing\Test\Support\BuildFileTest;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ *
+ * @internal
+ * @coversNothing
  */
 class DescriptionTest extends BuildFileTest
 {
     /**
-     * Test that the aaddText method appends text to description w/o any spaces
+     * Test that the aaddText method appends text to description w/o any spaces.
      *
      * @dataProvider getFiles
+     *
+     * @param mixed $fileName
+     * @param mixed $outcome
      */
     public function test($fileName, $outcome)
     {

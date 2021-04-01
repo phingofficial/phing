@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,7 +23,6 @@ namespace Phing\Type\Selector;
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Type\DataType;
-use Phing\Util\StringHelper;
 
 /**
  * A convenience base class that you can subclass Selectors from. It
@@ -33,14 +33,13 @@ use Phing\Util\StringHelper;
  * {@inheritdoc}
  *
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
- *
  */
 abstract class BaseSelector extends DataType implements FileSelector
 {
     /**
      * @var string
      */
-    private $errmsg = null;
+    private $errmsg;
 
     /**
      * @var Exception
@@ -51,12 +50,12 @@ abstract class BaseSelector extends DataType implements FileSelector
      * Allows all selectors to indicate a setup error. Note that only
      * the first error message is recorded.
      *
-     * @param string $msg The error message any BuildException should throw.
+     * @param string    $msg   the error message any BuildException should throw
      * @param Exception $cause
      */
     public function setError($msg, Exception $cause = null)
     {
-        if ($this->errmsg === null) {
+        if (null === $this->errmsg) {
             $this->errmsg = $msg;
             $this->cause = $cause;
         }
@@ -77,7 +76,7 @@ abstract class BaseSelector extends DataType implements FileSelector
      * state. So long as they call validate() from isSelected(), this will
      * be called automatically (unless they override validate()).</p>
      * <p>Implementations should check for incorrect settings and call
-     * setError() as necessary.</p>
+     * setError() as necessary.</p>.
      *
      * @throws BuildException
      */
@@ -96,10 +95,10 @@ abstract class BaseSelector extends DataType implements FileSelector
      */
     public function validate()
     {
-        if ($this->getError() === null) {
+        if (null === $this->getError()) {
             $this->verifySettings();
         }
-        if ($this->getError() !== null) {
+        if (null !== $this->getError()) {
             throw new BuildException($this->errmsg, $this->cause);
         }
     }

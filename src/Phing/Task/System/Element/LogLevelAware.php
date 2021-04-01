@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,7 +32,7 @@ trait LogLevelAware
     protected $logLevelName = 'verbose';
 
     /**
-     * Set level of log messages generated (default = verbose)
+     * Set level of log messages generated (default = verbose).
      *
      * @param string $level
      */
@@ -41,23 +42,33 @@ trait LogLevelAware
             case 'error':
                 $this->logLevel = Project::MSG_ERR;
                 $this->logLevelName = 'error';
+
                 break;
+
             case 'warning':
                 $this->logLevel = Project::MSG_WARN;
                 $this->logLevelName = 'warning';
+
                 break;
+
             case 'info':
                 $this->logLevel = Project::MSG_INFO;
                 $this->logLevelName = 'info';
+
                 break;
+
             case 'verbose':
                 $this->logLevel = Project::MSG_VERBOSE;
                 $this->logLevelName = 'verbose';
+
                 break;
+
             case 'debug':
                 $this->logLevel = Project::MSG_DEBUG;
                 $this->logLevelName = 'debug';
+
                 break;
+
             default:
                 throw new BuildException(
                     sprintf('Unknown log level "%s"', $level)

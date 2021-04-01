@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -37,7 +38,7 @@ use UnexpectedValueException;
 
 /**
  * Executes a command on the (filtered) file list/set.
- * (Loosely based on the "Ant Apply" task - http://ant.apache.org/manual/Tasks/apply.html)
+ * (Loosely based on the "Ant Apply" task - http://ant.apache.org/manual/Tasks/apply.html).
  *
  * @author  Utsav Handa <handautsav at hotmail dot com>
  *
@@ -51,9 +52,9 @@ class ApplyTask extends ExecTask
     protected $currentdirectory;
 
     /**
-     * Whether output should be appended to or overwrite an existing file
+     * Whether output should be appended to or overwrite an existing file.
      *
-     * @var boolean
+     * @var bool
      */
     protected $appendoutput = false;
 
@@ -61,21 +62,21 @@ class ApplyTask extends ExecTask
      * Runs the command only once, appending all files as arguments
      * else command will be executed once for every file.
      *
-     * @var boolean
+     * @var bool
      */
     protected $parallel = false;
 
     /**
-     * Whether source file name should be added to the end of command automatically
+     * Whether source file name should be added to the end of command automatically.
      *
-     * @var boolean
+     * @var bool
      */
     protected $addsourcefile = true;
 
     /**
-     * Whether the filenames should be passed on the command line as relative pathnames (relative to the base directory of the corresponding fileset/list)
+     * Whether the filenames should be passed on the command line as relative pathnames (relative to the base directory of the corresponding fileset/list).
      *
-     * @var boolean
+     * @var bool
      */
     protected $relative = false;
 
@@ -83,24 +84,24 @@ class ApplyTask extends ExecTask
     protected $osvariant;
 
     /**
-     * Logging level for status messages
+     * Logging level for status messages.
      *
-     * @var integer
+     * @var int
      */
-    protected $loglevel = null;
+    protected $loglevel;
 
     /**
-     * Whether to use forward-slash as file-separator on the file names
+     * Whether to use forward-slash as file-separator on the file names.
      *
-     * @var boolean
+     * @var bool
      */
     protected $forwardslash = false;
 
     /**
      * Limit the amount of parallelism by passing at most this many sourcefiles at once
-     * (Set it to <= 0 for unlimited)
+     * (Set it to <= 0 for unlimited).
      *
-     * @var integer
+     * @var int
      */
     protected $maxparallel = 0;
 
@@ -137,7 +138,7 @@ class ApplyTask extends ExecTask
      * no source files have been found or are newer than their
      * corresponding target files, the command will not be run.
      *
-     * @param bool $skip whether to skip empty filesets.
+     * @param bool $skip whether to skip empty filesets
      */
     public function setSkipEmptyFilesets(bool $skip)
     {
@@ -147,7 +148,7 @@ class ApplyTask extends ExecTask
     /**
      * Specify the directory where target files are to be placed.
      *
-     * @param File $dest the File object representing the destination directory.
+     * @param File $dest the File object representing the destination directory
      */
     public function setDest(File $dest)
     {
@@ -160,10 +161,9 @@ class ApplyTask extends ExecTask
     }
 
     /**
-     * Run the command only once, appending all files as arguments
+     * Run the command only once, appending all files as arguments.
      *
      * @param bool $parallel Identifier for files as arguments appending
-     *
      */
     public function setParallel(bool $parallel)
     {
@@ -171,10 +171,9 @@ class ApplyTask extends ExecTask
     }
 
     /**
-     * To add the source filename at the end of command of automatically
+     * To add the source filename at the end of command of automatically.
      *
      * @param bool $addsourcefile Identifier for adding source file at the end of command
-     *
      */
     public function setAddsourcefile(bool $addsourcefile)
     {
@@ -183,7 +182,7 @@ class ApplyTask extends ExecTask
 
     /**
      * Whether the filenames should be passed on the command line as relative
-     * pathnames (relative to the base directory of the corresponding fileset/list)
+     * pathnames (relative to the base directory of the corresponding fileset/list).
      */
     public function setRelative(bool $relative)
     {
@@ -191,10 +190,9 @@ class ApplyTask extends ExecTask
     }
 
     /**
-     * Fail on command exits with a returncode other than zero
+     * Fail on command exits with a returncode other than zero.
      *
      * @param bool $failonerror Indicator to fail on error
-     *
      */
     public function setFailonerror(bool $failonerror)
     {
@@ -202,10 +200,9 @@ class ApplyTask extends ExecTask
     }
 
     /**
-     * Whether to use forward-slash as file-separator on the file names
+     * Whether to use forward-slash as file-separator on the file names.
      *
      * @param bool $forwardslash Indicator to use forward-slash
-     *
      */
     public function setForwardslash(bool $forwardslash)
     {
@@ -213,7 +210,7 @@ class ApplyTask extends ExecTask
     }
 
     /**
-     * Limit the amount of parallelism by passing at most this many sourcefiles at once
+     * Limit the amount of parallelism by passing at most this many sourcefiles at once.
      */
     public function setMaxparallel(int $max)
     {
@@ -228,7 +225,7 @@ class ApplyTask extends ExecTask
     /**
      * Set whether the command works only on files, directories or both.
      *
-     * @param string $type a FileDirBoth EnumeratedAttribute.
+     * @param string $type a FileDirBoth EnumeratedAttribute
      */
     public function setType(string $type)
     {
@@ -238,21 +235,22 @@ class ApplyTask extends ExecTask
     /**
      * Supports embedded <targetfile> element.
      *
-     * @return CommandlineMarker
      * @throws BuildException
+     *
+     * @return CommandlineMarker
      */
     public function createTargetfile()
     {
-        if ($this->targetFilePos !== null) {
+        if (null !== $this->targetFilePos) {
             throw new BuildException(
-                $this->getTaskType() . " doesn\'t support multiple "
-                . "targetfile elements.",
+                $this->getTaskType() . " doesn\\'t support multiple "
+                . 'targetfile elements.',
                 $this->getLocation()
             );
         }
 
         $this->targetFilePos = $this->commandline->createMarker();
-        $this->srcIsFirst = ($this->srcFilePos !== null);
+        $this->srcIsFirst = (null !== $this->srcFilePos);
 
         return $this->targetFilePos;
     }
@@ -260,45 +258,47 @@ class ApplyTask extends ExecTask
     /**
      * Supports embedded <srcfile> element.
      *
-     * @return CommandlineMarker
      * @throws BuildException
+     *
+     * @return CommandlineMarker
      */
     public function createSrcfile()
     {
-        if ($this->srcFilePos !== null) {
+        if (null !== $this->srcFilePos) {
             throw new BuildException(
-                $this->getTaskType() . " doesn\'t support multiple "
-                . "srcfile elements.",
+                $this->getTaskType() . " doesn\\'t support multiple "
+                . 'srcfile elements.',
                 $this->getLocation()
             );
         }
 
         $this->srcFilePos = $this->commandline->createMarker();
+
         return $this->srcFilePos;
     }
 
     /**
-     * @return Mapper
      * @throws BuildException
+     *
+     * @return Mapper
      */
     public function createMapper()
     {
-        if ($this->mapperElement !== null) {
+        if (null !== $this->mapperElement) {
             throw new BuildException(
                 'Cannot define more than one mapper',
                 $this->getLocation()
             );
         }
         $this->mapperElement = new Mapper($this->getProject());
+
         return $this->mapperElement;
     }
 
-    /**********************************************************************************/
-    /**************************** T A S K  M E T H O D S ******************************/
-    /**********************************************************************************/
+    // T A S K  M E T H O D S
 
     /**
-     * Do work
+     * Do work.
      *
      * @throws BuildException
      */
@@ -325,10 +325,10 @@ class ApplyTask extends ExecTask
                     if ($fs instanceof DirSet) {
                         if ($this->type !== self::$types['DIR']) {
                             $this->log(
-                                "Found a nested dirset but type is $this->type . "
-                                . "Temporarily switching to type=\"dir\" on the"
-                                . " assumption that you really did mean"
-                                . " <dirset> not <fileset>.",
+                                "Found a nested dirset but type is {$this->type} . "
+                                . 'Temporarily switching to type="dir" on the'
+                                . ' assumption that you really did mean'
+                                . ' <dirset> not <fileset>.',
                                 Project::MSG_DEBUG
                             );
                             $currentType = 'dir';
@@ -339,7 +339,7 @@ class ApplyTask extends ExecTask
                     if ($currentType !== self::$types['DIR']) {
                         $s = $this->getFiles($base, $ds);
                         foreach ($s as $fileName) {
-                            $totalFiles++;
+                            ++$totalFiles;
                             $fileNames[] = $fileName;
                             $baseDirs[] = $base;
                         }
@@ -347,13 +347,14 @@ class ApplyTask extends ExecTask
                     if ($currentType !== self::$types['FILE']) {
                         $s = $this->getDirs($base, $ds);
                         foreach ($s as $fileName) {
-                            $totalDirs++;
+                            ++$totalDirs;
                             $fileNames[] = $fileName;
                             $baseDirs[] = $base;
                         }
                     }
-                    if (count($fileNames) === 0 && $this->skipEmpty) {
+                    if (0 === count($fileNames) && $this->skipEmpty) {
                         $this->logSkippingFileset($currentType, $ds, $base);
+
                         continue;
                     }
                     $this->process(
@@ -368,7 +369,7 @@ class ApplyTask extends ExecTask
                  * @var FileList $fl
                  */
                 foreach ($this->filelists as $fl) {
-                    $totalFiles++;
+                    ++$totalFiles;
                     $this->process($fl->getFiles($this->project), $fl->getDir($this->project));
                     $haveExecuted = true;
                 }
@@ -376,11 +377,11 @@ class ApplyTask extends ExecTask
             }
             if ($haveExecuted) {
                 $this->log(
-                    "Applied " . $this->commandline->getExecutable() . " to "
-                    . $totalFiles . " file"
-                    . ($totalFiles !== 1 ? "s" : "") . " and "
-                    . $totalDirs . " director"
-                    . ($totalDirs !== 1 ? "ies" : "y") . ".",
+                    'Applied ' . $this->commandline->getExecutable() . ' to '
+                    . $totalFiles . ' file'
+                    . (1 !== $totalFiles ? 's' : '') . ' and '
+                    . $totalDirs . ' director'
+                    . (1 !== $totalDirs ? 'ies' : 'y') . '.',
                     $this->loglevel
                 );
             }
@@ -393,9 +394,37 @@ class ApplyTask extends ExecTask
         }
     }
 
-    /**********************************************************************************/
-    /********************** T A S K  C O R E  M E T H O D S ***************************/
-    /**********************************************************************************/
+    /**
+     * Prepares the filename per base directory and relative path information.
+     *
+     * @param array|string $filename
+     * @param string       $basedir
+     * @param string       $relative
+     *
+     * @throws IOException
+     *
+     * @return mixed processed filenames
+     */
+    public function getFilePath($filename, $basedir, $relative)
+    {
+        // Validating the 'file' information
+        $files = (array) $filename;
+
+        // Processing the file information
+        foreach ($files as $index => $file) {
+            $absolutefilename = ((false === $relative) ? ($basedir . FileUtils::getSeparator()) : '');
+            $absolutefilename .= $file;
+            if (false === $relative) {
+                $files[$index] = (new FileUtils())->normalize($absolutefilename);
+            } else {
+                $files[$index] = $absolutefilename;
+            }
+        }
+
+        return is_array($filename) ? $files : $files[0];
+    }
+
+    // T A S K  C O R E  M E T H O D S
 
     protected function getFiles(File $baseDir, DirectoryScanner $ds)
     {
@@ -410,29 +439,16 @@ class ApplyTask extends ExecTask
     protected function restrict($s, File $baseDir)
     {
         $sfs = new SourceFileScanner($this);
-        return ($this->mapper === null || $this->force)
+
+        return (null === $this->mapper || $this->force)
             ? $s
             : $sfs->restrict($s, $baseDir, $this->destDir, $this->mapper);
-    }
-
-    private function logSkippingFileset($currentType, DirectoryScanner $ds, File $base)
-    {
-        $includedCount = (
-            ($currentType !== self::$types['DIR']) ? $ds->getIncludedFilesCount() : 0
-        ) + (
-            ($currentType !== self::$types['FILES']) ? $ds->getIncludedDirectoriesCount() : 0
-        );
-        $this->log(
-            "Skipping fileset for directory " . $base . ". It is "
-            . (($includedCount > 0) ? "up to date." : "empty."),
-            $this->loglevel
-        );
     }
 
     /**
      * Initializes the task operations, i.e.
      * - Required information validation
-     * - Working directory
+     * - Working directory.
      *
      * @throws BuildException
      * @throws IOException
@@ -449,7 +465,7 @@ class ApplyTask extends ExecTask
         }
 
         // Executable
-        if ($this->commandline->getExecutable() === null) {
+        if (null === $this->commandline->getExecutable()) {
             $this->throwBuildException('Please provide "executable" information');
         }
 
@@ -457,7 +473,7 @@ class ApplyTask extends ExecTask
         $this->currentdirectory = getcwd();
 
         // Directory (in which the command should be executed)
-        if ($this->dir !== null) {
+        if (null !== $this->dir) {
             // Try expanding (any) symbolic links
             if (!$this->dir->getCanonicalFile()->isDirectory()) {
                 $this->throwBuildException("'" . $this->dir . "' is not a valid directory");
@@ -493,26 +509,26 @@ class ApplyTask extends ExecTask
         // Log
         $this->log('Operating System variant identified : ' . $this->osvariant, $this->loglevel);
 
-        if (count($this->filesets) === 0 && count($this->filelists) === 0 && count($this->getDirSets()) === 0) {
+        if (0 === count($this->filesets) && 0 === count($this->filelists) && 0 === count($this->getDirSets())) {
             throw new BuildException(
-                "no resources specified",
+                'no resources specified',
                 $this->getLocation()
             );
         }
-        if ($this->targetFilePos !== null && $this->mapperElement === null) {
+        if (null !== $this->targetFilePos && null === $this->mapperElement) {
             throw new BuildException(
-                "targetfile specified without mapper",
+                'targetfile specified without mapper',
                 $this->getLocation()
             );
         }
-        if ($this->destDir !== null && $this->mapperElement === null) {
+        if (null !== $this->destDir && null === $this->mapperElement) {
             throw new BuildException(
-                "dest specified without mapper",
+                'dest specified without mapper',
                 $this->getLocation()
             );
         }
 
-        if ($this->mapperElement !== null) {
+        if (null !== $this->mapperElement) {
             $this->mapper = $this->mapperElement->getImplementation();
             $this->log('Mapper identified : ' . get_class($this->mapper), $this->loglevel);
         }
@@ -526,12 +542,10 @@ class ApplyTask extends ExecTask
     /**
      * Builds the full command to execute and stores it in $realCommand.
      *
-     *
      * @throws BuildException
      */
     protected function buildCommand()
     {
-
         // Log
         $this->log('Command building started ', $this->loglevel);
 
@@ -542,12 +556,12 @@ class ApplyTask extends ExecTask
 
         // Adding the source filename at the end of command, validating the existing
         // sourcefile position explicit mentioning
-        if ($this->addsourcefile === true) {
+        if (true === $this->addsourcefile) {
             $this->realCommand .= ' ' . self::SOURCEFILE_ID;
         }
 
         // Setting command output redirection with content appending
-        if ($this->output !== null) {
+        if (null !== $this->output) {
             $this->additionalCmds .= sprintf(
                 ' 1>%s %s',
                 $this->appendoutput ? '>' : '',
@@ -556,11 +570,11 @@ class ApplyTask extends ExecTask
         } elseif ($this->spawn) { // Validating the 'spawn' configuration, and redirecting the output to 'null'
             $this->additionalCmds .= sprintf(' %s', 'WIN' === $this->osvariant ? '> NUL' : '1>/dev/null');
 
-            $this->log("For process spawning, setting Output nullification ", $this->loglevel);
+            $this->log('For process spawning, setting Output nullification ', $this->loglevel);
         }
 
         // Setting command error redirection with content appending
-        if ($this->error !== null) {
+        if (null !== $this->error) {
             $this->additionalCmds .= sprintf(
                 ' 2>%s %s',
                 $this->appendoutput ? '>' : '',
@@ -588,10 +602,39 @@ class ApplyTask extends ExecTask
     }
 
     /**
-     * Processes the files list with provided information for execution
+     * Runs cleanup tasks post execution
+     * - Restore working directory.
      *
-     * @param array $srcFiles File list for processing
-     * @param string $basedir Base directory of the file list
+     * @param null|mixed $return
+     * @param null|mixed $output
+     */
+    protected function cleanup($return = null, $output = null): void
+    {
+        // Restore working directory
+        if (null !== $this->dir) {
+            @chdir($this->currentdirectory);
+        }
+    }
+
+    private function logSkippingFileset($currentType, DirectoryScanner $ds, File $base)
+    {
+        $includedCount = (
+            ($currentType !== self::$types['DIR']) ? $ds->getIncludedFilesCount() : 0
+        ) + (
+            ($currentType !== self::$types['FILES']) ? $ds->getIncludedDirectoriesCount() : 0
+        );
+        $this->log(
+            'Skipping fileset for directory ' . $base . '. It is '
+            . (($includedCount > 0) ? 'up to date.' : 'empty.'),
+            $this->loglevel
+        );
+    }
+
+    /**
+     * Processes the files list with provided information for execution.
+     *
+     * @param array  $srcFiles File list for processing
+     * @param string $basedir  Base directory of the file list
      *
      * @throws BuildException
      * @throws IOException
@@ -600,21 +643,21 @@ class ApplyTask extends ExecTask
     private function process($srcFiles, $basedir)
     {
         // Log
-        $this->log("Processing files with base directory ($basedir) ", $this->loglevel);
+        $this->log("Processing files with base directory ({$basedir}) ", $this->loglevel);
         $targets = [];
-        if ($this->targetFilePos !== null) {
+        if (null !== $this->targetFilePos) {
             $addedFiles = [];
             foreach ($srcFiles as $count => $file) {
-                if ($this->mapper !== null) {
+                if (null !== $this->mapper) {
                     $subTargets = $this->mapper->main($file);
-                    if ($subTargets !== null) {
+                    if (null !== $subTargets) {
                         foreach ($subTargets as $subTarget) {
                             if ($this->relative) {
                                 $name = $subTarget;
                             } else {
                                 $name = (new File($this->destDir, $subTarget))->getAbsolutePath();
                             }
-                            if ($this->forwardslash && FileUtils::getSeparator() !== '/') {
+                            if ($this->forwardslash && '/' !== FileUtils::getSeparator()) {
                                 $name = str_replace(FileUtils::getSeparator(), '/', $name);
                             }
                             if (!isset($addedFiles[$name])) {
@@ -635,10 +678,10 @@ class ApplyTask extends ExecTask
         $result = []; // range(0,count($orig) + count($srcFiles) + count($targetFiles));
 
         $srcIndex = count($orig);
-        if ($this->srcFilePos !== null) {
+        if (null !== $this->srcFilePos) {
             $srcIndex = $this->srcFilePos->getPosition();
         }
-        if ($this->targetFilePos !== null) {
+        if (null !== $this->targetFilePos) {
             $targetIndex = $this->targetFilePos->getPosition();
 
             if ($srcIndex < $targetIndex || ($srcIndex === $targetIndex && $this->srcIsFirst)) {
@@ -650,7 +693,7 @@ class ApplyTask extends ExecTask
 
                 $result[] = $orig;
                 $result[] = $targetFiles;
-                $result = array_merge(... $result);
+                $result = array_merge(...$result);
 
                 // targetIndex --> end
                 $result = array_merge(
@@ -666,7 +709,7 @@ class ApplyTask extends ExecTask
                 // 0 --> targetIndex
                 $result[] = $orig;
                 $result[] = $targetFiles;
-                $result = array_merge(... $result);
+                $result = array_merge(...$result);
 
                 // targetIndex --> srcIndex
                 $result = array_merge(
@@ -707,13 +750,13 @@ class ApplyTask extends ExecTask
             } else {
                 $src = (new File($basedir, $file))->getAbsolutePath();
             }
-            if ($this->forwardslash && FileUtils::getSeparator() !== '/') {
+            if ($this->forwardslash && '/' !== FileUtils::getSeparator()) {
                 $src = str_replace(FileUtils::getSeparator(), '/', $src);
             }
             if (
-                $this->srcFilePos !== null
-                && ($this->srcFilePos->getPrefix() !== ''
-                    || $this->srcFilePos->getSuffix() !== '')
+                null !== $this->srcFilePos
+                && ('' !== $this->srcFilePos->getPrefix()
+                    || '' !== $this->srcFilePos->getSuffix())
             ) {
                 $src = $this->srcFilePos->getPrefix() . $src . $this->srcFilePos->getSuffix();
             }
@@ -738,63 +781,17 @@ class ApplyTask extends ExecTask
         }
 
         // Validating the 'return-code'
-        if ($this->checkreturn && ($returncode !== 0)) {
-            $this->throwBuildException("Task exited with code ($returncode)");
+        if ($this->checkreturn && (0 !== $returncode)) {
+            $this->throwBuildException("Task exited with code ({$returncode})");
         }
     }
 
     /**
-     * Runs cleanup tasks post execution
-     * - Restore working directory
-     *
-     * @param null|mixed $return
-     * @param null|mixed $output
-     */
-    protected function cleanup($return = null, $output = null): void
-    {
-        // Restore working directory
-        if ($this->dir !== null) {
-            @chdir($this->currentdirectory);
-        }
-    }
-
-    /**
-     * Prepares the filename per base directory and relative path information
-     *
-     * @param array|string $filename
-     * @param string $basedir
-     * @param string $relative
-     *
-     * @return mixed processed filenames
-     *
-     * @throws IOException
-     */
-    public function getFilePath($filename, $basedir, $relative)
-    {
-        // Validating the 'file' information
-        $files = (array) $filename;
-
-        // Processing the file information
-        foreach ($files as $index => $file) {
-            $absolutefilename = (($relative === false) ? ($basedir . FileUtils::getSeparator()) : '');
-            $absolutefilename .= $file;
-            if ($relative === false) {
-                $files[$index] = (new FileUtils())->normalize($absolutefilename);
-            } else {
-                $files[$index] = $absolutefilename;
-            }
-        }
-
-        return (is_array($filename) ? $files : $files[0]);
-    }
-
-    /**
-     * Throws the exception with specified information
+     * Throws the exception with specified information.
      *
      * @param string $information Exception information
      *
      * @throws BuildException
-     *
      */
     private function throwBuildException($information): void
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,9 +25,12 @@ use Phing\Io\FileSystem;
 use Phing\Io\UnixFileSystem;
 
 /**
- * Unit test for UnixFileSystem
+ * Unit test for UnixFileSystem.
  *
  * @author Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class UnixFileSystemTest extends \PHPUnit\Framework\TestCase
 {

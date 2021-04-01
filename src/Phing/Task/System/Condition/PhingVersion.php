@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,21 +31,21 @@ use Phing\Task;
  */
 class PhingVersion extends Task implements Condition
 {
-    private $atLeast = null;
-    private $exactly = null;
-    private $propertyname = null;
+    private $atLeast;
+    private $exactly;
+    private $propertyname;
 
     /**
      * Run as a task.
      *
-     * @throws BuildException if an error occurs.
+     * @throws BuildException if an error occurs
      */
     public function main()
     {
-        if ($this->propertyname == null) {
+        if (null == $this->propertyname) {
             throw new BuildException("'property' must be set.");
         }
-        if ($this->atLeast != null || $this->exactly != null) {
+        if (null != $this->atLeast || null != $this->exactly) {
             // If condition values are set, evaluate the condition
             if ($this->evaluate()) {
                 $this->getProject()->setNewProperty($this->propertyname, $this->getVersion());
@@ -58,8 +59,9 @@ class PhingVersion extends Task implements Condition
     /**
      * Evaluate the condition.
      *
-     * @return true if the condition is true.
-     * @throws BuildException if an error occurs.
+     * @throws BuildException if an error occurs
+     *
+     * @return true if the condition is true
      */
     public function evaluate()
     {
@@ -76,27 +78,10 @@ class PhingVersion extends Task implements Condition
         return false;
     }
 
-    private function validate()
-    {
-        if ($this->atLeast != null && $this->exactly != null) {
-            throw new BuildException("Only one of atleast or exactly may be set.");
-        }
-        if (null == $this->atLeast && null == $this->exactly) {
-            throw new BuildException("One of atleast or exactly must be set.");
-        }
-    }
-
-    private function getVersion()
-    {
-        $p = new Project();
-
-        return $p->getPhingVersion();
-    }
-
     /**
      * Get the atleast attribute.
      *
-     * @return string the atleast attribute.
+     * @return string the atleast attribute
      */
     public function getAtLeast()
     {
@@ -108,7 +93,7 @@ class PhingVersion extends Task implements Condition
      * This is of the form major.minor.point.
      * For example 1.7.0.
      *
-     * @param string $atLeast the version to check against.
+     * @param string $atLeast the version to check against
      */
     public function setAtLeast($atLeast)
     {
@@ -118,7 +103,7 @@ class PhingVersion extends Task implements Condition
     /**
      * Get the exactly attribute.
      *
-     * @return string the exactly attribute.
+     * @return string the exactly attribute
      */
     public function getExactly()
     {
@@ -130,7 +115,7 @@ class PhingVersion extends Task implements Condition
      * This is of the form major.minor.point.
      * For example 1.7.0.
      *
-     * @param string $exactly the version to check against.
+     * @param string $exactly the version to check against
      */
     public function setExactly($exactly)
     {
@@ -140,7 +125,7 @@ class PhingVersion extends Task implements Condition
     /**
      * Get the name of the property to hold the phing version.
      *
-     * @return string the name of the property.
+     * @return string the name of the property
      */
     public function getProperty()
     {
@@ -150,10 +135,27 @@ class PhingVersion extends Task implements Condition
     /**
      * Set the name of the property to hold the phing version.
      *
-     * @param string $propertyname the name of the property.
+     * @param string $propertyname the name of the property
      */
     public function setProperty($propertyname)
     {
         $this->propertyname = $propertyname;
+    }
+
+    private function validate()
+    {
+        if (null != $this->atLeast && null != $this->exactly) {
+            throw new BuildException('Only one of atleast or exactly may be set.');
+        }
+        if (null == $this->atLeast && null == $this->exactly) {
+            throw new BuildException('One of atleast or exactly must be set.');
+        }
+    }
+
+    private function getVersion()
+    {
+        $p = new Project();
+
+        return $p->getPhingVersion();
     }
 }

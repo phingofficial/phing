@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -46,8 +47,7 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
      * the filter to an uninitialized status.
      *
      * @param array $parameters Array of parameters to be used by this filter.
-     *              Should not be <code>null</code>.
-     *
+     *                          Should not be <code>null</code>.
      *
      * @throws Exception
      */

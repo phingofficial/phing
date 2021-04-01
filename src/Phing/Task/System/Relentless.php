@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -51,24 +52,25 @@ class Relentless extends Task implements TaskContainer
     {
         $failCount = 0;
         $taskNo = 0;
-        if (count($this->taskList) === 0) {
+        if (0 === count($this->taskList)) {
             throw new BuildException('No tasks specified for <relentless>.');
         }
         $this->log('Relentlessly executing: ' . $this->getDescription());
         foreach ($this->taskList as $t) {
-            $taskNo++;
+            ++$taskNo;
             $desc = $t->getDescription();
-            if ($desc === null) {
+            if (null === $desc) {
                 $desc = 'task ' . $taskNo;
             }
             if (!$this->terse) {
                 $this->log('Executing: ' . $desc);
             }
+
             try {
                 $t->perform();
             } catch (BuildException $x) {
                 $this->log('Task ' . $desc . ' failed: ' . $x->getMessage());
-                $failCount++;
+                ++$failCount;
             }
         }
         if ($failCount > 0) {
@@ -90,6 +92,8 @@ class Relentless extends Task implements TaskContainer
 
     /**
      * Set this to true to reduce the amount of output generated.
+     *
+     * @param mixed $terse
      */
     public function setTerse($terse)
     {

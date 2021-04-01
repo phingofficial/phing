@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -69,12 +70,12 @@ class TempFile extends Task
     private $suffix = '';
 
     /**
-     * deleteOnExit flag
+     * deleteOnExit flag.
      */
     private $deleteOnExit;
 
     /**
-     * createFile flag
+     * createFile flag.
      */
     private $createFile;
 
@@ -92,7 +93,7 @@ class TempFile extends Task
      * Sets the destination directory. If not set,
      * the basedir directory is used instead.
      *
-     * @param string|File $destDir The new destDir value
+     * @param File|string $destDir The new destDir value
      */
     public function setDestDir($destDir)
     {
@@ -127,7 +128,7 @@ class TempFile extends Task
      * Set whether the tempfile created by this task should be set
      * for deletion on normal VM exit.
      *
-     * @param bool $deleteOnExit bool flag.
+     * @param bool $deleteOnExit bool flag
      */
     public function setDeleteOnExit($deleteOnExit)
     {
@@ -137,7 +138,7 @@ class TempFile extends Task
     /**
      * Learn whether deleteOnExit is set for this tempfile task.
      *
-     * @return bool deleteOnExit flag.
+     * @return bool deleteOnExit flag
      */
     public function isDeleteOnExit()
     {
@@ -147,7 +148,7 @@ class TempFile extends Task
     /**
      * If set the file is actually created, if not just a name is created.
      *
-     * @param bool $createFile bool flag.
+     * @param bool $createFile bool flag
      */
     public function setCreateFile($createFile)
     {
@@ -157,7 +158,7 @@ class TempFile extends Task
     /**
      * Learn whether createFile flag is set for this tempFile task.
      *
-     * @return bool the createFile flag.
+     * @return bool the createFile flag
      */
     public function isCreateFile()
     {
@@ -171,10 +172,10 @@ class TempFile extends Task
      */
     public function main()
     {
-        if ($this->property === '') {
+        if ('' === $this->property) {
             throw new BuildException('no property specified');
         }
-        if ($this->destDir === null) {
+        if (null === $this->destDir) {
             $this->destDir = $this->getProject()->resolveFile('.');
         }
         $fu = new FileUtils();

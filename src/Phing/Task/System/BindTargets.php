@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +27,7 @@ use Phing\Target;
 use Phing\Task;
 
 /**
- * Simple task which bind some targets to some defined extension point
+ * Simple task which bind some targets to some defined extension point.
  *
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  */
@@ -48,7 +49,7 @@ class BindTargets extends Task
     public function setOnMissingExtensionPoint(string $onMissingExtensionPoint)
     {
         if (!in_array($onMissingExtensionPoint, ['fail', 'warn', 'ignore'], true)) {
-            throw new BuildException("Invalid onMissingExtensionPoint: " . $onMissingExtensionPoint);
+            throw new BuildException('Invalid onMissingExtensionPoint: ' . $onMissingExtensionPoint);
         }
         $this->onMissingExtensionPoint = $onMissingExtensionPoint;
     }
@@ -60,11 +61,11 @@ class BindTargets extends Task
 
     public function main()
     {
-        if ($this->extensionPoint === null) {
+        if (null === $this->extensionPoint) {
             throw new BuildException('extensionPoint required', $this->getLocation());
         }
 
-        if ($this->getOwningTarget() === null || "" !== $this->getOwningTarget()->getName()) {
+        if (null === $this->getOwningTarget() || '' !== $this->getOwningTarget()->getName()) {
             throw new BuildException('bindtargets only allowed as a top-level task');
         }
 

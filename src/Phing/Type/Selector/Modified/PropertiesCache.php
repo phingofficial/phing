@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +27,7 @@ use Phing\Io\File;
 use Phing\Util\Properties;
 
 /**
- * Class PropertiesfileCache
+ * Class PropertiesfileCache.
  */
 class PropertiesCache implements Cache
 {
@@ -35,6 +36,7 @@ class PropertiesCache implements Cache
 
     /**
      * Object for storing the key-value-pairs.
+     *
      * @var Properties
      */
     private $cache;
@@ -47,6 +49,7 @@ class PropertiesCache implements Cache
 
     /**
      * Constructor.
+     *
      * @param File $cachefile set the cachefile
      */
     public function __construct(File $cachefile = null)
@@ -56,8 +59,26 @@ class PropertiesCache implements Cache
     }
 
     /**
+     * @return string information about this cache
+     */
+    public function __toString(): string
+    {
+        if (!$this->cacheLoaded) {
+            $this->load();
+        }
+
+        return sprintf(
+            '<%s:cachefile=%s;noOfEntries=%d>',
+            __CLASS__,
+            $this->cachefile,
+            count($this->cache->keys())
+        );
+    }
+
+    /**
      * Getter.
-     * @return File|null the cachefile
+     *
+     * @return null|File the cachefile
      */
     public function getCachefile(): ?File
     {
@@ -66,6 +87,7 @@ class PropertiesCache implements Cache
 
     /**
      * Setter.
+     *
      * @param File $file new value
      */
     public function setCachefile(File $file): void
@@ -75,11 +97,12 @@ class PropertiesCache implements Cache
 
     /**
      * This cache is valid if the cachefile is set.
+     *
      * @return true if all is ok false otherwise
      */
     public function isValid(): bool
     {
-        return $this->cachefile !== null;
+        return null !== $this->cachefile;
     }
 
     /**
@@ -94,7 +117,7 @@ class PropertiesCache implements Cache
         if (!$this->cacheDirty) {
             return;
         }
-        if ($this->cachefile !== null && count($this->cache->propertyNames()) > 0) {
+        if (null !== $this->cachefile && count($this->cache->propertyNames()) > 0) {
             $this->cache->store($this->cachefile);
         }
         $this->cacheDirty = false;
@@ -111,7 +134,9 @@ class PropertiesCache implements Cache
 
     /**
      * Returns a value for a given key from the cache.
+     *
      * @param string $key the key
+     *
      * @return mixed the stored value
      */
     public function get($key)
@@ -128,7 +153,7 @@ class PropertiesCache implements Cache
      */
     public function load(): void
     {
-        if ($this->cachefile !== null && $this->cachefile->isFile() && $this->cachefile->canRead()) {
+        if (null !== $this->cachefile && $this->cachefile->isFile() && $this->cachefile->canRead()) {
             try {
                 $this->cache->load($this->cachefile);
             } catch (Exception $e) {
@@ -142,7 +167,8 @@ class PropertiesCache implements Cache
 
     /**
      * Saves a key-value-pair in the cache.
-     * @param string $key the key
+     *
+     * @param string $key   the key
      * @param string $value the value
      */
     public function put($key, $value): void
@@ -153,26 +179,11 @@ class PropertiesCache implements Cache
 
     /**
      * Returns an iterator over the keys in the cache.
-     * @return Iterator An iterator over the keys.
+     *
+     * @return Iterator an iterator over the keys
      */
     public function getIterator(): Iterator
     {
         return new ArrayIterator($this->cache->propertyNames());
-    }
-
-    /**
-     * @return string information about this cache
-     */
-    public function __toString(): string
-    {
-        if (!$this->cacheLoaded) {
-            $this->load();
-        }
-        return sprintf(
-            '<%s:cachefile=%s;noOfEntries=%d>',
-            __CLASS__,
-            $this->cachefile,
-            count($this->cache->keys())
-        );
     }
 }

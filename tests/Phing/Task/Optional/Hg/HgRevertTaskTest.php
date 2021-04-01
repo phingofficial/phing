@@ -21,6 +21,9 @@ use Phing\Test\Support\BuildFileTest;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ *
+ * @internal
+ * @coversNothing
  */
 class HgRevertTaskTest extends BuildFileTest
 {
@@ -39,25 +42,25 @@ class HgRevertTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testFileNotSpecified()
     {
         $this->expectBuildExceptionContaining(
             'fileNotSpecified',
-            "fileNotSpecified",
-            "abort: no files or directories specified"
+            'fileNotSpecified',
+            'abort: no files or directories specified'
         );
         $this->assertInLogs('Executing: hg revert', Project::MSG_INFO);
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testRevertAll()
     {
-        $this->executeTarget("revertAll");
+        $this->executeTarget('revertAll');
         $this->assertInLogs('Executing: hg revert --all', Project::MSG_INFO);
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testRevertAllRevSet()
@@ -67,6 +70,6 @@ class HgRevertTaskTest extends BuildFileTest
             'revertAllWithRevisionSet',
             "abort: unknown revision 'deadbeef0a0b'!"
         );
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 }

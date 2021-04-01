@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @requires OS ^(?:(?!Win).)*$
+ *
+ * @internal
+ * @coversNothing
  */
 class GitBaseTest extends BuildFileTest
 {
@@ -34,7 +38,7 @@ class GitBaseTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/ext/git/GitBaseTest.xml"
+            . '/etc/tasks/ext/git/GitBaseTest.xml'
         );
         $this->mock = $this->getMockForAbstractClass(GitBaseTask::class);
     }

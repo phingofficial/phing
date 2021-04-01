@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,12 +29,14 @@ use Phing\Phing;
 use ReflectionClass;
 
 /**
- * Unit test for FileSystem
+ * Unit test for FileSystem.
  *
+ * @internal
+ * @coversNothing
  */
 class FileSystemTest extends \PHPUnit\Framework\TestCase
 {
-    private $oldFsType = "";
+    private $oldFsType = '';
 
     public function setUp(): void
     {
@@ -44,14 +47,6 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
     {
         Phing::setProperty('host.fstype', $this->oldFsType);
         $this->resetFileSystem();
-    }
-
-    protected function resetFileSystem()
-    {
-        $refClass = new ReflectionClass(FileSystem::class);
-        $refProperty = $refClass->getProperty('fs');
-        $refProperty->setAccessible(true);
-        $refProperty->setValue(null);
     }
 
     public function testGetFileSystemWithUnknownTypeKeyThrowsException()
@@ -67,6 +62,9 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider fileSystemMappingsDataProvider
+     *
+     * @param mixed $expectedFileSystemClass
+     * @param mixed $fsTypeKey
      */
     public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey)
     {
@@ -118,5 +116,13 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
         foreach ($contents as $filename) {
             self::assertIsString($filename);
         }
+    }
+
+    protected function resetFileSystem()
+    {
+        $refClass = new ReflectionClass(FileSystem::class);
+        $refProperty = $refClass->getProperty('fs');
+        $refProperty->setAccessible(true);
+        $refProperty->setValue(null);
     }
 }

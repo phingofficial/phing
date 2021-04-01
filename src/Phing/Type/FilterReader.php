@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,6 +28,7 @@ use Phing\Io\FilterReader as IoFilterReader;
  * and configuration of a Configurable FilterReader.
  *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
+ *
  * @see     IoFilterReader
  */
 class FilterReader extends DataType
@@ -60,7 +62,7 @@ class FilterReader extends DataType
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if ($this->classPath === null) {
+        if (null === $this->classPath) {
             $this->classPath = $classpath;
         } else {
             $this->classPath->append($classpath);
@@ -78,7 +80,7 @@ class FilterReader extends DataType
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
         }
-        if ($this->classPath === null) {
+        if (null === $this->classPath) {
             $this->classPath = new Path($this->project);
         }
 
@@ -121,7 +123,7 @@ class FilterReader extends DataType
     {
         // We return a COPY
         $ret = [];
-        for ($i = 0, $size = count($this->parameters); $i < $size; $i++) {
+        for ($i = 0, $size = count($this->parameters); $i < $size; ++$i) {
             $ret[] = clone $this->parameters[$i];
         }
 
@@ -138,12 +140,13 @@ class FilterReader extends DataType
      * @param Reference $r the reference to which this instance is associated
      * @throws BuildException if this instance already has been configured.
     */
+
     /**
      * @throws BuildException
      */
     public function setRefid(Reference $r)
     {
-        if ((count($this->parameters) !== 0) || ($this->className !== null)) {
+        if ((0 !== count($this->parameters)) || (null !== $this->className)) {
             throw $this->tooManyAttributes();
         }
         $o = $r->getReferencedObject($this->getProject());
@@ -154,7 +157,8 @@ class FilterReader extends DataType
                 $this->addParam($p);
             }
         } else {
-            $msg = $r->getRefId() . " is not a " . self::class;
+            $msg = $r->getRefId() . ' is not a ' . self::class;
+
             throw new BuildException($msg);
         }
 

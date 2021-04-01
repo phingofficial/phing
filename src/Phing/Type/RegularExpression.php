@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,6 +34,7 @@ use Phing\Util\StringHelper;
  * regular expression type you are using.
  *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ *
  * @see     phing.util.regex.RegexMatcher
  */
 class RegularExpression extends DataType
@@ -40,7 +42,7 @@ class RegularExpression extends DataType
     /**
      * @var Regexp
      */
-    private $regexp = null;
+    private $regexp;
 
     public function __construct()
     {
@@ -66,8 +68,10 @@ class RegularExpression extends DataType
 
     /**
      * @param Project $p
-     * @return string
+     *
      * @throws BuildException
+     *
+     * @return string
      */
     public function getPattern($p)
     {
@@ -82,8 +86,10 @@ class RegularExpression extends DataType
 
     /**
      * @param Project $p
-     * @return string
+     *
      * @throws BuildException
+     *
+     * @return string
      */
     public function getReplace($p)
     {
@@ -145,8 +151,9 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @return null|Regexp
      * @throws BuildException
+     *
+     * @return null|Regexp
      */
     public function getRegexp(Project $p)
     {
@@ -165,6 +172,7 @@ class RegularExpression extends DataType
     public function getRef(Project $p)
     {
         $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+
         return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 }
