@@ -33,7 +33,7 @@ class PhpEvalTaskTest extends BuildFileTest
         );
 
         $arraySum = '';
-        array_walk_recursive($arr, function ($item) use (&$arraySum) {
+        array_walk_recursive($arr, static function ($item) use (&$arraySum) {
             $arraySum .= $item;
         });
 
