@@ -30,8 +30,6 @@ use Phing\Test\Support\BuildFileTest;
  */
 class DefaultExcludesTest extends BuildFileTest
 {
-    private $output;
-
     public function setUp(): void
     {
         $this->configureProject(

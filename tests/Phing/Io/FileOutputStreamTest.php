@@ -24,13 +24,14 @@ use Phing\Io\File;
 use Phing\Io\FileOutputStream;
 use Phing\Io\FileSystem;
 use Phing\Io\IOException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for FileOutputStream.
  *
  * @author Hans Lellelid <hans@xmpl.org>
  */
-class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
+class FileOutputStreamTest extends TestCase
 {
     /**
      * @var FileOutputStream

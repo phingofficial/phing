@@ -3,6 +3,7 @@
 namespace Phing\Test\Io;
 
 use Phing\Io\File;
+use PHPUnit\Framework\TestCase;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -21,7 +22,7 @@ use Phing\Io\File;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-class PhingFileTest extends \PHPUnit\Framework\TestCase
+class PhingFileTest extends TestCase
 {
     /**
      * @var File

@@ -21,13 +21,14 @@
 namespace Phing\Test\Util;
 
 use Phing\Util\RegisterSlot;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for RegisterSlot.
  *
  * @author Michiel Rook <mrook@php.net>
  */
-class RegisterSlotTest extends \PHPUnit\Framework\TestCase
+class RegisterSlotTest extends TestCase
 {
     private $slot;
 
@@ -45,20 +46,20 @@ class RegisterSlotTest extends \PHPUnit\Framework\TestCase
     {
         $this->slot->setValue('test123');
 
-        $this->assertEquals((string) $this->slot, 'test123');
+        $this->assertEquals('test123', (string) $this->slot);
     }
 
     public function testArrayToString()
     {
         $this->slot->setValue(['test1', 'test2', 'test3']);
 
-        $this->assertEquals((string) $this->slot, '{test1,test2,test3}');
+        $this->assertEquals('{test1,test2,test3}', (string) $this->slot);
     }
 
     public function testMultiArrayToString()
     {
         $this->slot->setValue(['test1', 'test2', ['test4', 'test5', ['test6', 'test7']], 'test3']);
 
-        $this->assertEquals((string) $this->slot, '{test1,test2,{test4,test5,{test6,test7}},test3}');
+        $this->assertEquals('{test1,test2,{test4,test5,{test6,test7}},test3}', (string) $this->slot);
     }
 }

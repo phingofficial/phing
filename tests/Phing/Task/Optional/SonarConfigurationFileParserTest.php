@@ -179,7 +179,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         $fh = fopen($tmpFile, 'w');
 
         if (false !== $fh) {
-            register_shutdown_function(function () use ($tmpFile) {
+            register_shutdown_function(static function () use ($tmpFile) {
                 unlink($tmpFile);
             });
 
@@ -211,7 +211,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
 
         $fh = fopen($tmpFile, 'w');
         if (false !== $fh) {
-            register_shutdown_function(function () use ($tmpFile) {
+            register_shutdown_function(static function () use ($tmpFile) {
                 unlink($tmpFile);
             });
 
@@ -232,7 +232,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         }
     }
 
-    private function initParser($fileName)
+    private function initParser($fileName): SonarConfigurationFileParser
     {
         $fullFileName = PHING_TEST_BASE . '/etc/tasks/ext/sonar/properties/' . $fileName . '.properties';
 

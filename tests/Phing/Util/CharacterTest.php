@@ -21,13 +21,14 @@
 namespace Phing\Test\Util;
 
 use Phing\Util\Character;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for Character.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class CharacterTest extends \PHPUnit\Framework\TestCase
+class CharacterTest extends TestCase
 {
     /** @var Character */
     private $char;

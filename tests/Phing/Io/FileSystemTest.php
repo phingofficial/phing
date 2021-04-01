@@ -26,12 +26,13 @@ use Phing\Io\IOException;
 use Phing\Io\UnixFileSystem;
 use Phing\Io\WindowsFileSystem;
 use Phing\Phing;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 /**
  * Unit test for FileSystem.
  */
-class FileSystemTest extends \PHPUnit\Framework\TestCase
+class FileSystemTest extends TestCase
 {
     private $oldFsType = '';
 
@@ -62,6 +63,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
      *
      * @param mixed $expectedFileSystemClass
      * @param mixed $fsTypeKey
+     * @throws IOException
      */
     public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey)
     {
@@ -74,7 +76,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf($expectedFileSystemClass, $system);
     }
 
-    public function fileSystemMappingsDataProvider()
+    public function fileSystemMappingsDataProvider(): array
     {
         return [
             [UnixFileSystem::class, 'UNIX'],
@@ -86,21 +88,21 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which(42);
-        $this->assertEquals($path, false);
+        $this->assertEquals(false, $path);
     }
 
     public function testWhichFailsDueToUnusualExecutableName()
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which('tasword.bin');
-        $this->assertEquals($path, false);
+        $this->assertEquals(false, $path);
     }
 
     public function testWhichHinkyExecutableNameWithSeparator()
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which('zx:\tasword.bin');
-        $this->assertEquals($path, false);
+        $this->assertEquals(false, $path);
     }
 
     public function testListContentsWithNumericName()

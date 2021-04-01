@@ -121,7 +121,7 @@ class AppendTaskTest extends BuildFileTest
         $this->executeTarget('testnooverwrite');
         $file2 = new File($this->getProject()->getBasedir(), $this->tempFile2);
         $size = $file2->length();
-        $this->assertEquals($size, 0);
+        $this->assertEquals(0, $size);
     }
 
     public function testheaderfooter()

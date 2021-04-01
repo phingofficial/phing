@@ -22,13 +22,14 @@ namespace Phing\Test\Task\Optional;
 
 use Phing\Task\Optional\SymfonyConsoleArg;
 use Phing\Task\Optional\SymfonyConsoleTask;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test class for the SymfonyConsoleTask.
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
  */
-class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
+class SymfonyConsoleTest extends TestCase
 {
     /**
      * @var SymfonyConsoleTask

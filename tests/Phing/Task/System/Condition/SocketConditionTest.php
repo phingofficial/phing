@@ -21,13 +21,14 @@
 namespace Phing\Test\Task\System\Condition;
 
 use Phing\Task\System\Condition\SocketCondition;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for the <socket> condition.
  *
  * @requires extension sockets
  */
-class SocketConditionTest extends \PHPUnit\Framework\TestCase
+class SocketConditionTest extends TestCase
 {
     public function testShouldReturnFalseForNonExistingListener()
     {

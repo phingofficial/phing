@@ -313,7 +313,7 @@ class DateSelectorTest extends BuildFileTest
     public function testMillisWithDefaults()
     {
         $epochSeconds = time();
-        $epochMillis = ($epochSeconds * 1000) + rand(0, 999);
+        $epochMillis = ($epochSeconds * 1000) + random_int(0, 999);
 
         $this->getProject()->setProperty('epoch.millis', $epochMillis);
 
@@ -336,7 +336,7 @@ class DateSelectorTest extends BuildFileTest
     public function testMillisWithWhenAfter()
     {
         $epochSeconds = time();
-        $epochMillis = ($epochSeconds * 1000) + rand(0, 999);
+        $epochMillis = ($epochSeconds * 1000) + random_int(0, 999);
 
         $this->getProject()->setProperty('epoch.millis', $epochMillis);
 
@@ -359,7 +359,7 @@ class DateSelectorTest extends BuildFileTest
     public function testMillisWithWhenBefore()
     {
         $epochSeconds = time();
-        $epochMillis = ($epochSeconds * 1000) + rand(0, 999);
+        $epochMillis = ($epochSeconds * 1000) + random_int(0, 999);
 
         $this->getProject()->setProperty('epoch.millis', $epochMillis);
 
@@ -382,7 +382,7 @@ class DateSelectorTest extends BuildFileTest
     public function testMillisGranularitySixSeconds()
     {
         $epochSeconds = time();
-        $epochMillis = ($epochSeconds * 1000) + rand(0, 999);
+        $epochMillis = ($epochSeconds * 1000) + random_int(0, 999);
 
         $this->getProject()->setProperty('epoch.millis', $epochMillis);
 

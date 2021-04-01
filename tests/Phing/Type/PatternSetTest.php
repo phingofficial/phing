@@ -6,6 +6,7 @@ use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Type\PatternSet;
 use Phing\Type\Reference;
+use PHPUnit\Framework\TestCase;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -24,7 +25,7 @@ use Phing\Type\Reference;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-class PatternSetTest extends \PHPUnit\Framework\TestCase
+class PatternSetTest extends TestCase
 {
     private $patternset;
 
@@ -36,7 +37,7 @@ class PatternSetTest extends \PHPUnit\Framework\TestCase
     public function testBothEmpty()
     {
         $s = '' . $this->patternset;
-        $this->assertEquals($s, 'patternSet{ includes: empty  excludes: empty }');
+        $this->assertEquals('patternSet{ includes: empty  excludes: empty }', $s);
         $this->assertEquals(false, $this->patternset->hasPatterns());
     }
 

@@ -38,7 +38,7 @@ class IHProjectComponent
         $this->text .= $text;
     }
 
-    public function createOne()
+    public function createOne(): string
     {
         return 'test';
     }

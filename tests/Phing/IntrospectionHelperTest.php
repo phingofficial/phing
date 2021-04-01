@@ -29,6 +29,7 @@ use Phing\Test\Support\IHCreatorFail2;
 use Phing\Test\Support\IHCreatorFail3;
 use Phing\Test\Support\IHProjectComponent;
 use Phing\Type\FileSet;
+use PHPUnit\Framework\TestCase;
 
 /**
  * testcases for phing.IntrospectionHelper.
@@ -36,7 +37,7 @@ use Phing\Type\FileSet;
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  */
-class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
+class IntrospectionHelperTest extends TestCase
 {
     /** @var Project */
     private $p;
@@ -78,19 +79,19 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
     public function testElementCreators()
     {
         try {
-            $ihtmp = IntrospectionHelper::getHelper(IHCreatorFail1::class);
+            IntrospectionHelper::getHelper(IHCreatorFail1::class);
             $this->fail('create cannot take param');
         } catch (BuildException $be) {
         }
 
         try {
-            $ihtmp = IntrospectionHelper::getHelper(IHCreatorFail2::class);
+            IntrospectionHelper::getHelper(IHCreatorFail2::class);
             $this->fail('no class hint for add');
         } catch (BuildException $be) {
         }
 
         try {
-            $ihtmp = IntrospectionHelper::getHelper(IHCreatorFail3::class);
+            IntrospectionHelper::getHelper(IHCreatorFail3::class);
             $this->fail('no class hint for addconfigured');
         } catch (BuildException $be) {
         }

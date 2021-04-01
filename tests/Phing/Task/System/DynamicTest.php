@@ -42,7 +42,6 @@ class DynamicTest extends BuildFileTest
     {
         $this->executeTarget('simple');
 
-        /** @var Project $project */
         $project = $this->getProject();
 
         $this->assertSame('1', $project->getProperty('prop1'));

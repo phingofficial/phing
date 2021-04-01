@@ -296,7 +296,7 @@ class RSTTaskTest extends BuildFileTest
      *
      * @param string $file relative file path
      */
-    protected function assertFileCreated($file)
+    protected function assertFileCreated(string $file)
     {
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/rst/' . $file,

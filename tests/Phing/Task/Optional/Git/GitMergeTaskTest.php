@@ -51,7 +51,6 @@ class GitMergeTaskTest extends BuildFileTest
 
     public function testAllParamsSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-merge: replaying "merge-test-1 merge-test-2" commits');
         $this->assertInLogs('git-merge output: Already up');
@@ -59,7 +58,6 @@ class GitMergeTaskTest extends BuildFileTest
 
     public function testNoCommitSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('noCommitSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up');
@@ -67,7 +65,6 @@ class GitMergeTaskTest extends BuildFileTest
 
     public function testRemoteSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('remoteSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up');
@@ -75,7 +72,6 @@ class GitMergeTaskTest extends BuildFileTest
 
     public function testFastForwardCommitSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('fastForwardCommitSet');
         $this->assertInLogs('git-merge command: LC_ALL=C && git merge --no-ff \'origin/master\'');
         $this->assertInLogs('git-merge: replaying "origin/master" commits');

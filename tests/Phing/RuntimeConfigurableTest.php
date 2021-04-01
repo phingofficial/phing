@@ -5,6 +5,7 @@ namespace Phing\Test;
 use Phing\Project;
 use Phing\RuntimeConfigurable;
 use Phing\Test\Support\Proxy;
+use PHPUnit\Framework\TestCase;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -23,7 +24,7 @@ use Phing\Test\Support\Proxy;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-class RuntimeConfigurableTest extends \PHPUnit\Framework\TestCase
+class RuntimeConfigurableTest extends TestCase
 {
     public function testLiteral0ShouldBeKept()
     {

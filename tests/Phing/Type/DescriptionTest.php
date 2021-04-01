@@ -37,7 +37,7 @@ class DescriptionTest extends BuildFileTest
         $this->assertEquals($outcome, $this->getProject()->getDescription());
     }
 
-    public function getFiles()
+    public function getFiles(): array
     {
         return [
             'Single' => ['description1', 'Test Project Description'],

@@ -31,7 +31,7 @@ use Phing\Io\WindowsFileSystem;
  */
 class WindowsFileSystemTest extends AbstractWinFileSystemTestCase
 {
-    protected function createFileSystem()
+    protected function createFileSystem(): WindowsFileSystem
     {
         return new WindowsFileSystem();
     }

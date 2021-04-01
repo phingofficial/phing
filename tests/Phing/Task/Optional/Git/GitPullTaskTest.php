@@ -76,7 +76,6 @@ class GitPullTaskTest extends BuildFileTest
 
     public function testAllReposSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allReposSet');
         $this->assertInLogs('git-pull: fetching from all remotes');
         $this->assertInLogs('git-pull: complete');
@@ -96,7 +95,6 @@ class GitPullTaskTest extends BuildFileTest
 
     public function testAppendSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('appendSet');
         $this->assertInLogs('git-pull: fetching from all remotes');
         $this->assertInLogs('git-pull: complete');

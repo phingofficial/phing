@@ -21,6 +21,7 @@
 namespace Phing\Test\Task\System\Condition;
 
 use Phing\Task\System\Condition\EqualsCondition;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Testcase for the &lt;equals&gt; condition.
@@ -28,7 +29,7 @@ use Phing\Task\System\Condition\EqualsCondition;
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  */
-class EqualsConditionTest extends \PHPUnit\Framework\TestCase
+class EqualsConditionTest extends TestCase
 {
     public function testTrim()
     {

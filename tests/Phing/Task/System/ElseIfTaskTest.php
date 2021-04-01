@@ -39,7 +39,6 @@ class ElseIfTaskTest extends BuildFileTest
     /**
      * Test the 'elseif' conditional of the if-task.
      *
-     * @test
      */
     public function testAddThen()
     {
@@ -54,7 +53,6 @@ class ElseIfTaskTest extends BuildFileTest
      * Test that evaluating a correct elseif condition gives the
      * expected result.
      *
-     * @test
      */
     public function testEvaluate()
     {
@@ -69,7 +67,6 @@ class ElseIfTaskTest extends BuildFileTest
      * test that a BuildException is thrown when we've got two
      * conditions inside an elseif-task.
      *
-     * @test
      */
     public function testMultipleConditions()
     {
@@ -85,7 +82,6 @@ class ElseIfTaskTest extends BuildFileTest
      * test that a BuildException is thrown when we've got
      * no conditions inside an elseif-task.
      *
-     * @test
      */
     public function testNoConditions()
     {

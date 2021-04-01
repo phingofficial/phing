@@ -4,6 +4,7 @@ namespace Phing\Test\Type;
 
 use Phing\Type\Parameter;
 use Phing\Util\RegisterSlot;
+use PHPUnit\Framework\TestCase;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -22,7 +23,7 @@ use Phing\Util\RegisterSlot;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-class ParameterTest extends \PHPUnit\Framework\TestCase
+class ParameterTest extends TestCase
 {
     private $parameter;
 

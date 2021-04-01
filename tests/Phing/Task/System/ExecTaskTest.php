@@ -26,6 +26,7 @@ use Phing\Io\File;
 use Phing\Io\FileSystem;
 use Phing\Io\FileUtils;
 use Phing\Project;
+use Phing\Target;
 use Phing\Task;
 use Phing\Task\System\ExecTask;
 use Phing\Test\Support\BuildFileTest;
@@ -52,7 +53,7 @@ class ExecTaskTest extends BuildFileTest
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/ExecTest.xml'
         );
-        $this->windows = 'WIN' == strtoupper(substr(PHP_OS, 0, 3));
+        $this->windows = 'WIN' === strtoupper(substr(PHP_OS, 0, 3));
     }
 
     public function testPropertySetCommandline()
@@ -325,7 +326,6 @@ class ExecTaskTest extends BuildFileTest
 
     public function testEscapedArgWithoutWhitespace()
     {
-        $arg = 'foo|bar';
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs($this->windows ? '"echo" "foo|bar" 2>&1' : '\'echo\' \'foo|bar\' 2>&1');
         $this->assertNotInLogs($this->windows ? 'echo " foo|bar " 2>&1' : 'echo \' foo|bar \' 2>&1');
@@ -347,7 +347,7 @@ class ExecTaskTest extends BuildFileTest
         $this->expectPropertySet(__FUNCTION__, 'outputProperty', 'hello world');
     }
 
-    protected function getTargetByName($name)
+    protected function getTargetByName($name): Target
     {
         foreach ($this->project->getTargets() as $target) {
             if ($target->getName() == $name) {
@@ -358,7 +358,7 @@ class ExecTaskTest extends BuildFileTest
         throw new Exception(sprintf('Target "%s" not found', $name));
     }
 
-    protected function getTaskFromTarget($target, $taskname, $pos = 0)
+    protected function getTaskFromTarget($target, $taskname, $pos = 0): Task
     {
         $rchildren = new ReflectionProperty(get_class($target), 'children');
         $rchildren->setAccessible(true);
@@ -374,7 +374,7 @@ class ExecTaskTest extends BuildFileTest
         );
     }
 
-    protected function getConfiguredTask($target, $task, $pos = 0)
+    protected function getConfiguredTask($target, $task, $pos = 0): Task
     {
         $target = $this->getTargetByName($target);
         $task = $this->getTaskFromTarget($target, $task);

@@ -36,7 +36,6 @@ class SvnListTaskTest extends AbstractSvnTaskTest
 
     public function testGetList()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getList');
         $this->assertPropertyEquals(
             'svn.list',

@@ -21,7 +21,6 @@
 namespace Phing\Test\Task\Optional;
 
 use Phing\Task\Optional\SymfonyConsoleArg;
-use Phing\Task\OptionalSymfonyConsoleArg;
 use PHPUnit\Framework\TestCase;
 
 /**

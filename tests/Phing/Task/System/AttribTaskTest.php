@@ -50,7 +50,6 @@ class AttribTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
 
-        /** @var Project $project */
         $project = $this->getProject();
         $input = $project->getProperty('input');
 

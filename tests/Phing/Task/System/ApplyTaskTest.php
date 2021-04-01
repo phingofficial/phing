@@ -28,6 +28,7 @@ use Phing\Task;
 use Phing\Task\System\ApplyTask;
 use Phing\Test\Support\BuildFileTest;
 use Phing\UnknownElement;
+use ReflectionException;
 use ReflectionProperty;
 
 /**
@@ -53,7 +54,7 @@ class ApplyTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ApplyTest.xml');
 
         // Identifying the running environment
-        $this->windows = 'WIN' == strtoupper(substr(PHP_OS, 0, 3));
+        $this->windows = 'WIN' === strtoupper(substr(PHP_OS, 0, 3));
     }
 
     // T E S T S
@@ -465,11 +466,10 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * @param string $name
      *
-     * @throws Exception
-     *
      * @return Target
+     * @throws Exception
      */
-    protected function getTargetByName($name)
+    protected function getTargetByName(string $name): Target
     {
         foreach ($this->project->getTargets() as $target) {
             if ($target->getName() == $name) {
@@ -481,15 +481,14 @@ class ApplyTaskTest extends BuildFileTest
     }
 
     /**
-     * @param string $target
+     * @param $target
      * @param string $taskName
-     * @param int    $pos
-     *
-     * @throws Exception
+     * @param int $pos
      *
      * @return Task
+     * @throws Exception
      */
-    protected function getTaskFromTarget($target, $taskName, $pos = 0)
+    protected function getTaskFromTarget($target, string $taskName, $pos = 0): Task
     {
         $rchildren = new ReflectionProperty(get_class($target), 'children');
         $rchildren->setAccessible(true);
@@ -508,8 +507,9 @@ class ApplyTaskTest extends BuildFileTest
      * @param string $task
      *
      * @return Task
+     * @throws Exception
      */
-    protected function getConfiguredTask($target, $task)
+    protected function getConfiguredTask(string $target, string $task): Task
     {
         $target = $this->getTargetByName($target);
         $task = $this->getTaskFromTarget($target, $task);
@@ -524,10 +524,11 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * @param string $property
-     * @param string $propertyName
-     * @param mixed  $value
+     * @param mixed $value
+     * @param null $propertyName
+     * @throws ReflectionException
      */
-    protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
+    protected function assertAttributeIsSetTo(string $property, $value, $propertyName = null)
     {
         $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), ApplyTask::class);
 

@@ -22,6 +22,8 @@ namespace Phing\Test\Task\System;
 
 use Phing\Task\System\VersionTask;
 use Phing\Test\Support\BuildFileTest;
+use ReflectionException;
+use ReflectionObject;
 
 /**
  * @author Michiel Rook <mrook@php.net>
@@ -95,13 +97,15 @@ class VersionTaskTest extends BuildFileTest
      * @param mixed $releaseType
      * @param mixed $version
      * @param mixed $expectedVersion
+     * @throws ReflectionException
+     * @throws ReflectionException
      */
     public function testGetVersionMethod($releaseType, $version, $expectedVersion)
     {
         $versionTask = new VersionTask();
         $versionTask->setReleasetype($releaseType);
 
-        $reflector = new \ReflectionObject($versionTask);
+        $reflector = new ReflectionObject($versionTask);
         $method = $reflector->getMethod('getVersion');
         $method->setAccessible(true);
 
@@ -109,7 +113,7 @@ class VersionTaskTest extends BuildFileTest
         $this->assertSame($expectedVersion, $newVersion);
     }
 
-    public function versionProvider()
+    public function versionProvider(): array
     {
         return [
             [VersionTask::RELEASETYPE_MAJOR, null, '1.0.0'],

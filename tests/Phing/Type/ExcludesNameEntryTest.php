@@ -38,22 +38,22 @@ class ExcludesNameEntryTest extends TestCase
     public function testSetName()
     {
         $this->entry->setName('test');
-        $this->assertEquals($this->entry->getName(), 'test');
+        $this->assertEquals('test', $this->entry->getName());
         $this->entry->setName('test2');
-        $this->assertEquals($this->entry->getName(), 'test2');
+        $this->assertEquals('test2', $this->entry->getName());
     }
 
     public function testAddText()
     {
         $this->entry->addText('test');
-        $this->assertEquals($this->entry->getName(), 'test');
+        $this->assertEquals('test', $this->entry->getName());
         $this->entry->addText('test2');
-        $this->assertEquals($this->entry->getName(), 'test2');
+        $this->assertEquals('test2', $this->entry->getName());
     }
 
     public function testToString()
     {
         $this->entry->addText('test');
-        $this->assertEquals('' . $this->entry, 'test');
+        $this->assertEquals('test', '' . $this->entry);
     }
 }

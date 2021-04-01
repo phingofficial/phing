@@ -104,7 +104,7 @@ class DefaultLoggerTest extends TestCase
         $this->assertSame($formattedText, $expectedText);
     }
 
-    public function formatTimeProvider()
+    public function formatTimeProvider(): array
     {
         return [
             [0.0005, '0.0005 seconds'],

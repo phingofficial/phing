@@ -24,12 +24,13 @@ use org\bovigo\vfs\vfsStream;
 use Phing\Io\File;
 use Phing\Io\IniFileParser;
 use Phing\Io\IOException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @requires OS ^(?:(?!Win).)*$
  */
-class IniFileParserTest extends \PHPUnit\Framework\TestCase
+class IniFileParserTest extends TestCase
 {
     private $parser;
     private $root;
@@ -47,6 +48,8 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
      *
      * @param mixed $data
      * @param mixed $expected
+     * @throws IOException
+     * @throws IOException
      */
     public function testParseFile($data, $expected)
     {
@@ -72,7 +75,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function provideIniFiles()
+    public function provideIniFiles(): array
     {
         return [
             [

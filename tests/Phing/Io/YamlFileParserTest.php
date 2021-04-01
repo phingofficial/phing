@@ -25,13 +25,14 @@ use Phing\Io\FileParserInterface;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
 use Phing\Io\YamlFileParser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for YamlFileParser.
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  */
-class YamlFileParserTest extends \PHPUnit\Framework\TestCase
+class YamlFileParserTest extends TestCase
 {
     /**
      * @var FileParserInterface

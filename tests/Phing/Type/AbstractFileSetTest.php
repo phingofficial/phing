@@ -25,13 +25,14 @@ use Phing\Io\File;
 use Phing\Project;
 use Phing\Type\FileSet;
 use Phing\Type\Reference;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit tests for AbstractFileSet.
  *
  * @author Hans Lellelid <hans@xmpl.org>
  */
-abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
+abstract class AbstractFileSetTest extends TestCase
 {
     /** @var Project */
     private $project;
@@ -300,7 +301,7 @@ abstract class AbstractFileSetTest extends \PHPUnit\Framework\TestCase
 
     abstract protected function getInstance();
 
-    final protected function getProject()
+    final protected function getProject(): Project
     {
         return $this->project;
     }
