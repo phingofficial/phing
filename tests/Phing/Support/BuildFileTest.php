@@ -323,16 +323,16 @@ abstract class BuildFileTest extends TestCase
      *
      * @param string $target target to run
      * @param string $cause information string to reader of report
-     * @param string $msg the message value of the build exception we are waiting for
+     * @param string|null $msg the message value of the build exception we are waiting for
      *                       set to null for any build exception to be valid
      */
-    protected function expectSpecificBuildException(string $target, string $cause, string $msg)
+    protected function expectSpecificBuildException(string $target, string $cause, ?string $msg): void
     {
         try {
             $this->executeTarget($target);
         } catch (BuildException $ex) {
             $this->buildException = $ex;
-            if ((null !== $msg) && ($ex->getMessage() != $msg)) {
+            if ((null !== $msg) && ($ex->getMessage() !== $msg)) {
                 $this->fail(
                     "Should throw BuildException because '" . $cause
                     . "' with message '" . $msg
