@@ -19,10 +19,9 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\Sass;
+namespace Phing\Test\Task\Optional\Sass;
 
 use Phing\Exception\BuildException;
-use Phing\Task\Optional\Sass\FileSystemWhichStub;
 use PHPUnit\Framework\TestCase;
 use Phing\Task\Ext\SassCompiler;
 use Phing\Task\Ext\SassTask;

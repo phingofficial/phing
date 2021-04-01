@@ -1,8 +1,10 @@
 <?php
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
 use Phing\Exception\BuildException;
+use Phing\Type\Environment;
+use Phing\Type\EnvVariable;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

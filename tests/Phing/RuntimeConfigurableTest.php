@@ -1,8 +1,10 @@
 <?php
 
-namespace Phing;
+namespace Phing\Test;
 
-use Phing\Support\Proxy;
+use Phing\Project;
+use Phing\RuntimeConfigurable;
+use Phing\Test\Support\Proxy;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

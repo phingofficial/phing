@@ -1,7 +1,8 @@
 <?php
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
+use Phing\Type\Parameter;
 use Phing\Util\RegisterSlot;
 
 /**

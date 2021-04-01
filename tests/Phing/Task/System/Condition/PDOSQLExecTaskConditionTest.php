@@ -1,9 +1,9 @@
 <?php
 
-namespace Phing\Task\System\Condition;
+namespace Phing\Test\Task\System\Condition;
 
 use Phing\Project;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Tests PDOSQLExecTask as condition

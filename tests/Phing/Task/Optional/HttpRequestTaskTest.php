@@ -17,9 +17,8 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
-use Phing\Task\Optional\BaseHttpTaskTest;
 use GuzzleHttp\Psr7\Response;
 use Phing\Exception\BuildException;
 

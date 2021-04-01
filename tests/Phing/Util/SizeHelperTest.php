@@ -17,9 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Util;
+namespace Phing\Test\Util;
 
 use Phing\Exception\BuildException;
+use Phing\Util\SizeHelper;
 use PHPUnit\Framework\TestCase;
 
 class SizeHelperTest extends TestCase

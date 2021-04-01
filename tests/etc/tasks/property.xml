@@ -40,7 +40,7 @@
     </property>
   </target>
 
-  <taskdef name="hangdetectorproperty" classname="Phing\Support\HangDetectorPropertyTask" />
+  <taskdef name="hangdetectorproperty" classname="Phing\Test\Support\HangDetectorPropertyTask" />
   <target name="testCircularDefinition1">
     <property name="testprop2" value="${testprop1}"  />
     <hangdetectorproperty file="property2.properties"/>

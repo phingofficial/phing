@@ -17,10 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Regression;
+namespace Phing\Test\Regression;
 
 use Phing\Io\File;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/252

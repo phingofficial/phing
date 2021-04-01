@@ -17,9 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 class TaskdefForCopyTest extends BuildFileTest
 {

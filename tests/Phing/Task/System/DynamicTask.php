@@ -17,14 +17,13 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Phing\Parser\DynamicConfigurator;
 use Phing\Project;
 use Phing\Task;
 
 /**
- *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
 class DynamicTask extends Task implements DynamicConfigurator

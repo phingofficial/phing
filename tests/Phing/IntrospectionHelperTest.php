@@ -17,14 +17,16 @@
  * <http://phing.info>.
  */
 
-namespace Phing;
+namespace Phing\Test;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Support\IHCreatorFail1;
-use Phing\Support\IHCreatorFail2;
-use Phing\Support\IHCreatorFail3;
-use Phing\Support\IHProjectComponent;
+use Phing\IntrospectionHelper;
+use Phing\Project;
+use Phing\Test\Support\IHCreatorFail1;
+use Phing\Test\Support\IHCreatorFail2;
+use Phing\Test\Support\IHCreatorFail3;
+use Phing\Test\Support\IHProjectComponent;
 use Phing\Type\FileSet;
 
 /**

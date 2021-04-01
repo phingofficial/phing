@@ -17,8 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Listener;
+namespace Phing\Test\Listener;
 
+use Phing\Listener\BuildEvent;
+use Phing\Listener\StatisticsListener;
 use Phing\Project;
 use PHPUnit\Framework\TestCase;
 

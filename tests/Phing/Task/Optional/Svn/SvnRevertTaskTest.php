@@ -17,10 +17,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional\Svn;
-
-use Phing\Task\Optional\Svn\AbstractSvnTaskTest;
-use Phing\Task\Optional\Svn\SvnTaskTestSkip;
+namespace Phing\Test\Task\Optional\Svn;
 
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Phing\Task\System\Condition;
+namespace Phing\Test\Task\System\Condition;
 
 use Phing\Exception\BuildException;
 

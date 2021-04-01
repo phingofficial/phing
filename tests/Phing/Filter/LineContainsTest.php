@@ -17,10 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Filter;
+namespace Phing\Test\Filter;
 
 use Phing\Io\FileUtils;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>

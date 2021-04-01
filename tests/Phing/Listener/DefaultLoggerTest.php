@@ -17,10 +17,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Listener;
+namespace Phing\Test\Listener;
 
 use Phing\Exception\BuildException;
 use Phing\Io\OutputStream;
+use Phing\Listener\BuildEvent;
+use Phing\Listener\DefaultLogger;
 use Phing\Parser\Location;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Project;

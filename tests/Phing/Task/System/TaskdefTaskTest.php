@@ -17,12 +17,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Phing\Exception\BuildException;
 use Phing\Exception\ConfigurationException;
-use Phing\Support\BuildFileTest;
-use Phing\Support\TaskdefTestSimpleTask;
+use Phing\Test\Support\BuildFileTest;
+use Phing\Test\Support\TaskdefTestSimpleTask;
 
 class TaskdefTaskTest extends BuildFileTest
 {

@@ -17,11 +17,14 @@
  * <http://phing.info>.
  */
 
-namespace Phing;
+namespace Phing\Test;
 
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
+use Phing\RuntimeConfigurable;
+use Phing\Target;
+use Phing\Task;
 use Phing\Task\System\EchoTask;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * UTs for Target component

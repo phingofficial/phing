@@ -19,7 +19,7 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\Sass;
+namespace Phing\Test\Task\Optional\Sass;
 
 use Phing\Io\FileSystem;
 

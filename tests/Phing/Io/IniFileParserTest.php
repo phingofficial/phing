@@ -17,7 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
+
+use Phing\Io\File;
+use Phing\Io\IniFileParser;
+use Phing\Io\IOException;
 
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>

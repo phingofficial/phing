@@ -17,11 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Phing\Exception\BuildException;
 use Phing\Project;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Unit test for ForeachTask.

@@ -37,12 +37,12 @@
  * @link       https://github.com/llaville/phing-GrowlNotifyTask
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
 use Phing\Task\Optional\GrowlNotifyTask;
 use Net_Growl;
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Tests for GrowlNotifyTask that raised error

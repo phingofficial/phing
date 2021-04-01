@@ -17,8 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
+use Phing\Task\Optional\SymfonyConsoleArg;
 use Phing\Task\Optional\SymfonyConsoleTask;
 
 /**

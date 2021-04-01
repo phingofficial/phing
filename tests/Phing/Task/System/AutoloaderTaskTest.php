@@ -17,9 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Task\System\AutoloaderTask;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>

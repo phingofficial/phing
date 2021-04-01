@@ -17,7 +17,13 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
+
+use Phing\Io\File;
+use Phing\Io\FileParserInterface;
+use Phing\Io\FileUtils;
+use Phing\Io\IOException;
+use Phing\Io\YamlFileParser;
 
 /**
  * Unit test for YamlFileParser

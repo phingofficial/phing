@@ -1,8 +1,8 @@
 <?php
 
-namespace Phing\Regression;
+namespace Phing\Test\Regression;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

@@ -1,8 +1,8 @@
 <?php
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 use Phing\Type\FileSet;
 
 /**

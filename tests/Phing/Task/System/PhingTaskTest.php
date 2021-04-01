@@ -17,13 +17,13 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use AssertionError;
 use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 use Phing\Type\Path;
 
 /**

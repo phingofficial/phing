@@ -17,9 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional\Git;
+namespace Phing\Test\Task\Optional\Git;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>

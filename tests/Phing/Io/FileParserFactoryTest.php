@@ -17,7 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
+
+use Phing\Io\FileParserFactory;
+use Phing\Io\IniFileParser;
+use Phing\Io\YamlFileParser;
 
 /**
  * Unit test for FileParserFactory

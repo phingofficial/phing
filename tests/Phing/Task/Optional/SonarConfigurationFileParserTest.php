@@ -17,11 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
 use Phing\Task\Ext\Sonar\SonarConfigurationFileParser;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  *

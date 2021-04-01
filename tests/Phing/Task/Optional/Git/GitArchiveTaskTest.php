@@ -17,10 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional\Git;
+namespace Phing\Test\Task\Optional\Git;
 
 use Phing\Project;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>

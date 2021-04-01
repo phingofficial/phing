@@ -17,9 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System\Condition;
+namespace Phing\Test\Task\System\Condition;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Tests the XorCondition

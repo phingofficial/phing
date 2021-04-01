@@ -17,8 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
+use Phing\Type\ExcludesNameEntry;
 use PHPUnit\Framework\TestCase;
 
 class ExcludesNameEntryTest extends TestCase

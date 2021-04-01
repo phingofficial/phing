@@ -17,9 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Listener;
+namespace Phing\Test\Listener;
 
 use Phing\Io\OutputStream;
+use Phing\Listener\BuildEvent;
+use Phing\Listener\TimestampedLogger;
 use Phing\Project;
 use PHPUnit\Framework\TestCase;
 

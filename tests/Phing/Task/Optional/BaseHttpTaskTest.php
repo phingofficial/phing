@@ -17,14 +17,14 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use Phing\Task\Ext\HttpTask;
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Alexey Borzov <avb@php.net>

@@ -17,9 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Tests the IniFileTokenReader class

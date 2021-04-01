@@ -1,10 +1,10 @@
 <?php
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
 use Phing\Task\Optional\NotifySendTask;
 use Phing\Project;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

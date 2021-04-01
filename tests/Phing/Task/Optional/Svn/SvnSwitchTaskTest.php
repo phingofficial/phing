@@ -17,10 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional\Svn;
+namespace Phing\Test\Task\Optional\Svn;
 
-use Phing\Support\BuildFileTest;
-use Phing\Task\Optional\Svn\SvnTaskTestSkip;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Michiel Rook <mrook@php.net>

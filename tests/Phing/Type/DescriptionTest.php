@@ -1,8 +1,8 @@
 <?php
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

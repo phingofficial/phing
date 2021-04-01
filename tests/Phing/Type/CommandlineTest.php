@@ -17,9 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
 use Phing\Exception\BuildException;
+use Phing\Type\Commandline;
+use Phing\Type\CommandlineMarker;
 
 /**
  * Unit test for mappers.

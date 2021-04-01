@@ -17,7 +17,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
+
+use Phing\Io\File;
+use Phing\Io\FileOutputStream;
+use Phing\Io\FileSystem;
+use Phing\Io\IOException;
 
 /**
  * Unit test for FileOutputStream.

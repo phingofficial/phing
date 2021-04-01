@@ -17,7 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
+
+use Phing\Io\File;
+use Phing\Io\FileSystem;
+use Phing\Io\UnixFileSystem;
 
 /**
  * Unit test for UnixFileSystem

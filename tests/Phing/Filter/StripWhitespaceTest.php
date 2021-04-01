@@ -17,9 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Filter;
+namespace Phing\Test\Filter;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>

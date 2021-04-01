@@ -1,6 +1,9 @@
 <?php
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
+
+use Phing\Type\Commandline;
+use Phing\Type\CommandlineArgument;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
