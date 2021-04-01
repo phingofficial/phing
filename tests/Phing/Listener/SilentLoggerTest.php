@@ -27,10 +27,6 @@ use Phing\Listener\SilentLogger;
 use Phing\Project;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class SilentLoggerTest extends TestCase
 {
     /**

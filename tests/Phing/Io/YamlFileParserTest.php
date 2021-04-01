@@ -55,8 +55,6 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     {
         if (!class_exists('\Symfony\Component\Yaml\Parser')) {
             $this->markTestSkipped('Yaml parser is not installed.');
-
-            exit;
         }
         $this->yamlFileStub = PHING_TEST_BASE . '/etc/system/io/config.yml';
         $this->incorrectYamlFileStub = PHING_TEST_BASE . '/etc/system/io/config_wrong.yml';
@@ -72,7 +70,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \IniFileParser::parseFile
+     * @covers IniFileParser::parseFile
      */
     public function testParseFileFileNotReadable()
     {
@@ -87,7 +85,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \IniFileParser::parseFile
+     * @covers IniFileParser::parseFile
      */
     public function testParseFileFileIncorrectYaml()
     {
@@ -102,7 +100,7 @@ class YamlFileParserTest extends \PHPUnit\Framework\TestCase
      * The YamlFileParser has to provide a flattened array which then is
      * compatible to the actual behaviour of properties.
      *
-     * @covers \IniFileParser::parseFile
+     * @covers IniFileParser::parseFile
      */
     public function testParseFileFile()
     {

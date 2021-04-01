@@ -26,10 +26,6 @@ use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanListCommandBuilder;
 use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class PHPStanListCommandBuilderTest extends TestCase
 {
     /** @var PHPStanListCommandBuilder */

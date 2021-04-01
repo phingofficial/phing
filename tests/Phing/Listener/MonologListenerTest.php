@@ -25,10 +25,6 @@ use Phing\Listener\MonologListener;
 use Phing\Project;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class MonologListenerTest extends TestCase
 {
     /**

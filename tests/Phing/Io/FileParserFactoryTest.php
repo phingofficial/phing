@@ -23,13 +23,14 @@ namespace Phing\Test\Io;
 use Phing\Io\FileParserFactory;
 use Phing\Io\IniFileParser;
 use Phing\Io\YamlFileParser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for FileParserFactory.
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  */
-class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
+class FileParserFactoryTest extends TestCase
 {
     /**
      * @var FileParserFactory
@@ -58,7 +59,7 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers       \FileParserFactory::createParser
+     * @covers       FileParserFactory::createParser
      * @dataProvider parserTypeProvider
      *
      * @param mixed $parserName
