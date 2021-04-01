@@ -27,9 +27,6 @@ use Phing\Task\System\Condition\EqualsCondition;
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- *
- * @internal
- * @coversNothing
  */
 class EqualsConditionTest extends \PHPUnit\Framework\TestCase
 {

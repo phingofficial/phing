@@ -26,9 +26,6 @@ use Phing\Util\PregEngine;
  * Class PregEngineTest.
  *
  * Test cases for phing/util/regexp/PregEngine
- *
- * @internal
- * @coversNothing
  */
 class PregEngineTest extends \PHPUnit\Framework\TestCase
 {

@@ -28,9 +28,6 @@ use Phing\Io\WindowsFileSystem;
  * @author Daniel Holmes
  *
  * @requires OS WIN32|WINNT
- *
- * @internal
- * @coversNothing
  */
 class WindowsFileSystemTest extends AbstractWinFileSystemTestCase
 {

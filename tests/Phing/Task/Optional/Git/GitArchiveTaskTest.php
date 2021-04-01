@@ -26,9 +26,6 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @requires OS ^(?:(?!Win).)*$
- *
- * @internal
- * @coversNothing
  */
 class GitArchiveTaskTest extends BuildFileTest
 {

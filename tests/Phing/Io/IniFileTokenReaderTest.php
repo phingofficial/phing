@@ -26,9 +26,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the IniFileTokenReader class.
  *
  * @author  Michiel Rook <mrook@php.net>
- *
- * @internal
- * @coversNothing
  */
 class IniFileTokenReaderTest extends BuildFileTest
 {

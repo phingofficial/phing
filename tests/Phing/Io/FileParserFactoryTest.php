@@ -28,9 +28,6 @@ use Phing\Io\YamlFileParser;
  * Unit test for FileParserFactory.
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
- *
- * @internal
- * @coversNothing
  */
 class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
 {

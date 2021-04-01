@@ -25,9 +25,6 @@ use Phing\Type\DataType;
 
 /**
  * Unit test for DataType.
- *
- * @internal
- * @coversNothing
  */
 class DataTypeTest extends \PHPUnit\Framework\TestCase
 {

@@ -26,9 +26,6 @@ use Phing\Util\RegisterSlot;
  * Unit test for RegisterSlot.
  *
  * @author Michiel Rook <mrook@php.net>
- *
- * @internal
- * @coversNothing
  */
 class RegisterSlotTest extends \PHPUnit\Framework\TestCase
 {

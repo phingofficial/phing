@@ -26,9 +26,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the IsFileSelected Condition.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- *
- * @internal
- * @coversNothing
  */
 class IsFileSelectedTest extends BuildFileTest
 {

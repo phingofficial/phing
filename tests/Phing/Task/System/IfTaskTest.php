@@ -26,9 +26,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the If Task.
  *
  * @author  Paul Edenburg <pauledenburg@gmail.com>
- *
- * @internal
- * @coversNothing
  */
 class IfTaskTest extends BuildFileTest
 {

@@ -28,9 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @requires extension xsl
  * @requires extension dom
- *
- * @internal
- * @coversNothing
  */
 class XsltTaskTest extends BuildFileTest
 {

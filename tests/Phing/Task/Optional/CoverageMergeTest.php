@@ -25,9 +25,6 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @requires extension xdebug
- *
- * @internal
- * @coversNothing
  */
 class CoverageMergeTest extends BuildFileTest
 {

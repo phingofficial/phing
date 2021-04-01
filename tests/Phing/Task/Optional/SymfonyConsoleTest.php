@@ -27,9 +27,6 @@ use Phing\Task\Optional\SymfonyConsoleTask;
  * Test class for the SymfonyConsoleTask.
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
- *
- * @internal
- * @coversNothing
  */
 class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
 {
