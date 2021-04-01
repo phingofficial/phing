@@ -29,9 +29,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the SubPhing Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- *
- * @internal
- * @coversNothing
  */
 class SubPhingTest extends BuildFileTest
 {

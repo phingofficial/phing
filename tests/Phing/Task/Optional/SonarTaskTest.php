@@ -28,9 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  *
  * @requires OSFAMILY Windows|Linux
- *
- * @internal
- * @coversNothing
  */
 class SonarTaskTest extends BuildFileTest
 {

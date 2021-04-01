@@ -26,9 +26,6 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
- *
- * @internal
- * @coversNothing
  */
 class SonarConfigurationFileParserTest extends BuildFileTest
 {

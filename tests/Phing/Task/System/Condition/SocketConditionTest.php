@@ -26,9 +26,6 @@ use Phing\Task\System\Condition\SocketCondition;
  * Tests for the <socket> condition.
  *
  * @requires extension sockets
- *
- * @internal
- * @coversNothing
  */
 class SocketConditionTest extends \PHPUnit\Framework\TestCase
 {

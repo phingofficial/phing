@@ -34,9 +34,6 @@ use ReflectionProperty;
  * Tests the Apply Task.
  *
  * @author  Utsav Handa <handautsav at hotmail dot com>
- *
- * @internal
- * @coversNothing
  */
 class ApplyTaskTest extends BuildFileTest
 {

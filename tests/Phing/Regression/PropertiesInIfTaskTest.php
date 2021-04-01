@@ -25,9 +25,6 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/1041
  * - Properties within then/else blocks are not expanded.
- *
- * @internal
- * @coversNothing
  */
 class PropertiesInIfTaskTest extends BuildFileTest
 {

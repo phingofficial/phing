@@ -34,9 +34,6 @@ use Phing\Test\Support\BuildFileTest;
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  *
  * @see       http://www.phing.info/
- *
- * @internal
- * @coversNothing
  */
 class RSTTaskMultipleMappersTest extends BuildFileTest
 {

@@ -25,9 +25,6 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
- *
- * @internal
- * @coversNothing
  */
 class LineContainsTest extends BuildFileTest
 {

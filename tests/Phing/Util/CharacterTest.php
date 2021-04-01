@@ -26,9 +26,6 @@ use Phing\Util\Character;
  * Unit test for Character.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- *
- * @internal
- * @coversNothing
  */
 class CharacterTest extends \PHPUnit\Framework\TestCase
 {

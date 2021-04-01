@@ -28,9 +28,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class PosixPermissionsSelectorTest.
- *
- * @internal
- * @coversNothing
  */
 class PosixPermissionsSelectorTest extends TestCase
 {

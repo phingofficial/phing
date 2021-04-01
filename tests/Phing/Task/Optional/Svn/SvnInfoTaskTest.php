@@ -22,9 +22,6 @@ namespace Phing\Test\Task\Optional\Svn;
 
 /**
  * @author Michiel Rook <mrook@php.net>
- *
- * @internal
- * @coversNothing
  */
 class SvnInfoTaskTest extends AbstractSvnTaskTest
 {

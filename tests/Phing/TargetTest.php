@@ -32,9 +32,6 @@ use Phing\Test\Support\BuildFileTest;
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @author Daniel Holmes
- *
- * @internal
- * @coversNothing
  */
 class TargetTest extends BuildFileTest
 {

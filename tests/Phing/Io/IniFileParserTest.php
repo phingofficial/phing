@@ -27,9 +27,6 @@ use Phing\Io\IOException;
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @requires OS ^(?:(?!Win).)*$
- *
- * @internal
- * @coversNothing
  */
 class IniFileParserTest extends \PHPUnit\Framework\TestCase
 {

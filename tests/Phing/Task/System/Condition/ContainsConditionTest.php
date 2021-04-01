@@ -25,9 +25,6 @@ namespace Phing\Test\Task\System\Condition;
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- *
- * @internal
- * @coversNothing
  */
 class ContainsConditionTest extends \PHPUnit\Framework\TestCase
 {

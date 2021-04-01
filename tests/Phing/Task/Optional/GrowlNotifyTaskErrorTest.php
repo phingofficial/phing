@@ -56,9 +56,6 @@ use Phing\Test\Support\BuildFileTest;
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  *
  * @see       https://github.com/llaville/phing-GrowlNotifyTask
- *
- * @internal
- * @coversNothing
  */
 class GrowlNotifyTaskErrorTest extends BuildFileTest
 {

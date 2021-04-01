@@ -28,9 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * Test cases for symlink selectors.
  *
  * @requires OS Linux
- *
- * @internal
- * @coversNothing
  */
 class SymlinkSelectorTest extends BuildFileTest
 {

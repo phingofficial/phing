@@ -25,9 +25,6 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Bryan Davis <bpd@keynetics.com>
- *
- * @internal
- * @coversNothing
  */
 class ImportTaskTest extends BuildFileTest
 {

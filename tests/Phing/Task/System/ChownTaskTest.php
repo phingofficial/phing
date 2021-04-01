@@ -28,9 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Michiel Rook <mrook@php.net>
  *
  * @requires OS ^(?:(?!Win).)*$
- *
- * @internal
- * @coversNothing
  */
 class ChownTaskTest extends BuildFileTest
 {

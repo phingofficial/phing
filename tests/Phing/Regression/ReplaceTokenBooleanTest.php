@@ -25,9 +25,6 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/376
  * - ReplaceToken boolean problems.
- *
- * @internal
- * @coversNothing
  */
 class ReplaceTokenBooleanTest extends BuildFileTest
 {

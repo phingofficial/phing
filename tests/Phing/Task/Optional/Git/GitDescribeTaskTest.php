@@ -24,9 +24,6 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @requires OS ^(?:(?!Win).)*$
- *
- * @internal
- * @coversNothing
  */
 class GitDescribeTaskTest extends BuildFileTest
 {

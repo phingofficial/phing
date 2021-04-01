@@ -28,9 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * Testcases for phing.util.FileUtils.
  *
  * @author  Siad Ardroumli |siad.ardroumli@gmail.com>
- *
- * @internal
- * @coversNothing
  */
 class FileUtilsTest extends BuildFileTest
 {

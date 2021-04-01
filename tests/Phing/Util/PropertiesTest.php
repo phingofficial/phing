@@ -27,9 +27,6 @@ use Phing\Util\Properties;
  * Unit test for Properties class.
  *
  * @author Michiel Rook <mrook@php.net>
- *
- * @internal
- * @coversNothing
  */
 class PropertiesTest extends \PHPUnit\Framework\TestCase
 {
