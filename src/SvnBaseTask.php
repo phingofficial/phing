@@ -76,10 +76,10 @@ abstract class SvnBaseTask extends Task
      */
     public function init()
     {
-        $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
         if (!class_exists('VersionControl_SVN')) {
             throw new Exception("The SVN tasks depend on the pear/versioncontrol_svn package being installed.");
         }
+        $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
     }
 
     /**
