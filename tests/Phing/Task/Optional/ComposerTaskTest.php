@@ -31,9 +31,6 @@ use ReflectionProperty;
  * Test class for the ComposerTask.
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
- *
- * @internal
- * @coversNothing
  */
 class ComposerTaskTest extends \PHPUnit\Framework\TestCase
 {

@@ -28,9 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * Test cases for isExecutable selectors.
  *
  * @requires OS Linux
- *
- * @internal
- * @coversNothing
  */
 class ExecutableTest extends BuildFileTest
 {

@@ -26,9 +26,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the RunTarget Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- *
- * @internal
- * @coversNothing
  */
 class RunTargetTaskTest extends BuildFileTest
 {

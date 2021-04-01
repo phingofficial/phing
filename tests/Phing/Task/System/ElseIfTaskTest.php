@@ -26,9 +26,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the ElseIf Task.
  *
  * @author  Paul Edenburg <pauledenburg@gmail.com>
- *
- * @internal
- * @coversNothing
  */
 class ElseIfTaskTest extends BuildFileTest
 {

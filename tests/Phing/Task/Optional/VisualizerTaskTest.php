@@ -24,9 +24,6 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @requires extension xsl
- *
- * @internal
- * @coversNothing
  */
 class VisualizerTaskTest extends BuildFileTest
 {

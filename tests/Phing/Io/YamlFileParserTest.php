@@ -30,9 +30,6 @@ use Phing\Io\YamlFileParser;
  * Unit test for YamlFileParser.
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
- *
- * @internal
- * @coversNothing
  */
 class YamlFileParserTest extends \PHPUnit\Framework\TestCase
 {

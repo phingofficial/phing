@@ -26,9 +26,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the IsPropertyTrue/-False Tasks.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- *
- * @internal
- * @coversNothing
  */
 class IsPropertyTrueConditionTest extends BuildFileTest
 {

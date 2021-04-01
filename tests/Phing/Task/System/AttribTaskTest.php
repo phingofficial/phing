@@ -29,9 +29,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Siad Ardroumli
  *
  * @requires OS WIN32|WINNT
- *
- * @internal
- * @coversNothing
  */
 class AttribTaskTest extends BuildFileTest
 {

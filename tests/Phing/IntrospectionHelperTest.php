@@ -35,9 +35,6 @@ use Phing\Type\FileSet;
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- *
- * @internal
- * @coversNothing
  */
 class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
 {

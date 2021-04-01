@@ -25,9 +25,6 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/204
  * - PHPUnit task fails with formatter type 'xml'.
- *
- * @internal
- * @coversNothing
  */
 class PearStyleNamingTest extends BuildFileTest
 {

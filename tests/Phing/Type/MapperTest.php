@@ -33,9 +33,6 @@ use Phing\Type\Reference;
  *
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- *
- * @internal
- * @coversNothing
  */
 class MapperTest extends \PHPUnit\Framework\TestCase
 {

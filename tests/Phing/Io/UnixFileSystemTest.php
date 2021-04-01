@@ -28,9 +28,6 @@ use Phing\Io\UnixFileSystem;
  * Unit test for UnixFileSystem.
  *
  * @author Michiel Rook <mrook@php.net>
- *
- * @internal
- * @coversNothing
  */
 class UnixFileSystemTest extends \PHPUnit\Framework\TestCase
 {

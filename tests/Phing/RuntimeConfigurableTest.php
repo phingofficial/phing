@@ -22,9 +22,6 @@ use Phing\Test\Support\Proxy;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- *
- * @internal
- * @coversNothing
  */
 class RuntimeConfigurableTest extends \PHPUnit\Framework\TestCase
 {

@@ -29,9 +29,6 @@ use Phing\Type\CommandlineMarker;
  *
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- *
- * @internal
- * @coversNothing
  */
 class CommandlineTest extends \PHPUnit\Framework\TestCase
 {

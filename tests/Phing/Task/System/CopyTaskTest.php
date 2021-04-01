@@ -26,9 +26,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Copy Task.
  *
  * @author  Michiel Rook <mrook@php.net>
- *
- * @internal
- * @coversNothing
  */
 class CopyTaskTest extends BuildFileTest
 {

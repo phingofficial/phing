@@ -26,9 +26,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Delete Task.
  *
  * @author  Michiel Rook <mrook@php.net>
- *
- * @internal
- * @coversNothing
  */
 class DeleteTaskTest extends BuildFileTest
 {

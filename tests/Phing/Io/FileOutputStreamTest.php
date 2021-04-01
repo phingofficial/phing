@@ -29,9 +29,6 @@ use Phing\Io\IOException;
  * Unit test for FileOutputStream.
  *
  * @author Hans Lellelid <hans@xmpl.org>
- *
- * @internal
- * @coversNothing
  */
 class FileOutputStreamTest extends \PHPUnit\Framework\TestCase
 {
