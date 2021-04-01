@@ -36,7 +36,7 @@
         </php>
     </target>
     <target name="testStaticMethodWithMultiDimArrayParam">
-        <php class="Phing\Task\System\PhpEvalTaskTest"
+        <php class="Phing\Test\Task\System\PhpEvalTaskTest"
              function="recursiveProcess" returnProperty="result">
             <param>
                 <param value="a" />
