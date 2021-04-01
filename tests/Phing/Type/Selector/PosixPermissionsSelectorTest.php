@@ -17,11 +17,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type\Selector;
+namespace Phing\Test\Type\Selector;
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Task\System\Condition\OsCondition as Os;
+use Phing\Type\Selector\PosixPermissionsSelector;
 use PHPUnit\Framework\TestCase;
 
 /**

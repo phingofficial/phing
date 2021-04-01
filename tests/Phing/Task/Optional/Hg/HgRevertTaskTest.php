@@ -1,9 +1,9 @@
 <?php
 
-namespace Phing\Task\Optional\Hg;
+namespace Phing\Test\Task\Optional\Hg;
 
 use Phing\Project;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

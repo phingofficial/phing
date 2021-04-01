@@ -17,7 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
+
+use Phing\Type\FileSet;
 
 /**
  * Unit tests for FileSet -- including Selectors.

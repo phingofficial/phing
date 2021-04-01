@@ -17,10 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Regression;
+namespace Phing\Test\Regression;
 
 use Exception;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for tickets

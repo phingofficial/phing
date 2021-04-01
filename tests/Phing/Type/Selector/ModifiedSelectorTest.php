@@ -17,10 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type\Selector;
+namespace Phing\Test\Type\Selector;
 
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
+use Phing\Type\Selector\ModifiedSelector;
 
 /**
  * Class ModifiedSelectorTest

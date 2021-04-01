@@ -17,9 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
 use Phing\Project;
+use Phing\Type\DirSet;
 
 /**
  * Unit tests for DirSet -- including Selectors.

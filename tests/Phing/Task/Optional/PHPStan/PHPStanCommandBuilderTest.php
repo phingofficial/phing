@@ -19,10 +19,9 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\PHPStan;
+namespace Phing\Test\Task\Optional\PHPStan;
 
 use Phing\Exception\BuildException;
-use Phing\Task\Optional\PHPStan\PHPStanCommandBuilderFake;
 use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 

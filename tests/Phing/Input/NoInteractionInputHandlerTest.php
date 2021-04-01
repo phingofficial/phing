@@ -19,8 +19,12 @@
 
 declare(strict_types=1);
 
-namespace Phing\Input;
+namespace Phing\Test\Input;
 
+use Phing\Input\InputRequest;
+use Phing\Input\MultipleChoiceInputRequest;
+use Phing\Input\NoInteractionInputHandler;
+use Phing\Input\YesNoInputRequest;
 use PHPUnit\Framework\TestCase;
 
 class NoInteractionInputHandlerTest extends TestCase

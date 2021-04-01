@@ -17,10 +17,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Listener;
+namespace Phing\Test\Listener;
 
 use Exception;
 use Phing\Io\OutputStream;
+use Phing\Listener\BuildEvent;
+use Phing\Listener\SilentLogger;
 use Phing\Project;
 use PHPUnit\Framework\TestCase;
 

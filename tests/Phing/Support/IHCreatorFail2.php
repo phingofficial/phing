@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Support;
+namespace Phing\Test\Support;
 
 /**
  * testcases for phing.IntrospectionHelper.

@@ -19,7 +19,7 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\PHPStan;
+namespace Phing\Test\Task\Optional\PHPStan;
 
 use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanAnalyseCommandBuilder;
 use Phing\Task\Ext\Phpstan\PHPStanTask;

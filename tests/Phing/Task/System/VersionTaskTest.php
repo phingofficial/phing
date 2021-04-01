@@ -17,9 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Task\System\VersionTask;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Michiel Rook <mrook@php.net>

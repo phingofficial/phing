@@ -17,11 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
 use Phing\Task\Optional\WikiPublishTask;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * WikiPublish task test

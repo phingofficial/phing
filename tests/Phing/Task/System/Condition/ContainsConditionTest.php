@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System\Condition;
+namespace Phing\Test\Task\System\Condition;
 
 /**
  * Testcase for the &lt;contains&gt; condition.

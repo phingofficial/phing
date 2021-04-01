@@ -1,9 +1,10 @@
 <?php
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Type\Reference;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

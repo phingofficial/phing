@@ -17,7 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System\Condition;
+namespace Phing\Test\Task\System\Condition;
+
+use Phing\Task\System\Condition\EqualsCondition;
 
 /**
  * Testcase for the &lt;equals&gt; condition.

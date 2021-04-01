@@ -17,9 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Listener;
+namespace Phing\Test\Listener;
 
 use Exception;
+use Phing\Listener\EventObject;
 use stdClass;
 
 /**

@@ -17,10 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type\Selector;
+namespace Phing\Test\Type\Selector;
 
 use Phing\Io\File;
 use Phing\Io\FileUtils;
+use Phing\Type\Selector\SelectorUtils;
 use PHPUnit\Framework\TestCase;
 
 /**

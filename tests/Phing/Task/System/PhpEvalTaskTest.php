@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Mahmoud Al-Husseiny <mahmoud@alhusseiny.io>

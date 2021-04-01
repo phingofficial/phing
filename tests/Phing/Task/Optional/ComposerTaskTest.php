@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
 use Phing\Task\Optional\ComposerTask;
 use Phing\Io\FileSystem;

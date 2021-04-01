@@ -17,9 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
 use Phing\Exception\BuildException;
+use Phing\Type\DataType;
 
 /**
  * Unit test for DataType

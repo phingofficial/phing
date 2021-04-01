@@ -1,6 +1,6 @@
 <?php
 
-namespace Phing\Support;
+namespace Phing\Test\Support;
 
 use Phing\Type\DataType;
 

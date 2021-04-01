@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Exception;
 use Phing\Exception\BuildException;
@@ -25,8 +25,9 @@ use Phing\Io\File;
 use Phing\Io\FileSystem;
 use Phing\Io\FileUtils;
 use Phing\Project;
-use Phing\Support\BuildFileTest;
 use Phing\Task;
+use Phing\Task\System\ExecTask;
+use Phing\Test\Support\BuildFileTest;
 use Phing\Type\Commandline;
 use Phing\UnknownElement;
 use ReflectionProperty;

@@ -17,12 +17,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use AssertionError;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Tests the SubPhing Task

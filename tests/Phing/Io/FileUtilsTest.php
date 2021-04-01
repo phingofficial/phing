@@ -18,9 +18,11 @@
  *
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
 
-use Phing\Support\BuildFileTest;
+use Phing\Io\File;
+use Phing\Io\FileUtils;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Testcases for phing.util.FileUtils

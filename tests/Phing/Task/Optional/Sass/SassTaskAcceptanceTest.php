@@ -17,13 +17,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional\Sass;
+namespace Phing\Test\Task\Optional\Sass;
 
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
 use Phing\Project;
-use Phing\Support\BuildFileTest;
-use Phing\Task\Optional\Sass\SassCleaner;
+use Phing\Test\Support\BuildFileTest;
 
 class SassTaskAcceptanceTest extends BuildFileTest
 {

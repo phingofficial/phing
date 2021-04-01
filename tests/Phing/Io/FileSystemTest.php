@@ -17,8 +17,13 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
 
+use Phing\Io\File;
+use Phing\Io\FileSystem;
+use Phing\Io\IOException;
+use Phing\Io\UnixFileSystem;
+use Phing\Io\WindowsFileSystem;
 use Phing\Phing;
 use ReflectionClass;
 

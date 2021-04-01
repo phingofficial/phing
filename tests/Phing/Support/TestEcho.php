@@ -1,6 +1,6 @@
 <?php
 
-namespace Phing\Support;
+namespace Phing\Test\Support;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

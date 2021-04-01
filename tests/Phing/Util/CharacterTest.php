@@ -17,7 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Util;
+namespace Phing\Test\Util;
+
+use Phing\Util\Character;
 
 /**
  * Unit test for Character

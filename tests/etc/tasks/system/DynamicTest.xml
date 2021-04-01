@@ -7,7 +7,7 @@
 
     <target name="simple">
         <taskdef name="dyna"
-                 classname="Phing\Task\System\DynamicTask">
+                 classname="Phing\Test\Task\System\DynamicTask">
             <classpath refid="testclasses"/>
         </taskdef>
         <dyna prop1="1" prop2="2">

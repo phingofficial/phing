@@ -17,12 +17,15 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Mapper\GlobMapper;
 use Phing\Project;
+use Phing\Type\Mapper;
+use Phing\Type\Path;
+use Phing\Type\Reference;
 
 /**
  * Unit test for mappers.

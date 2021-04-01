@@ -17,8 +17,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing;
+namespace Phing\Test;
 
+use Phing\Project;
+use Phing\PropertyHelper;
 use PHPUnit\Framework\TestCase;
 
 class PropertyHelperTest extends TestCase

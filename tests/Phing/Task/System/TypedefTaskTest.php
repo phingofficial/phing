@@ -17,12 +17,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Phing\Exception\BuildException;
 use Phing\Exception\ConfigurationException;
-use Phing\Support\BuildFileTest;
-use Phing\Support\TypedefTestType;
+use Phing\Test\Support\BuildFileTest;
+use Phing\Test\Support\TypedefTestType;
 
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)

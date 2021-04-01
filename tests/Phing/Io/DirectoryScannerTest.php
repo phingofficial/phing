@@ -18,10 +18,12 @@
  *
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
 
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
+use Phing\Io\DirectoryScanner;
+use Phing\Io\FileSystem;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Testcases for phing.util.DirectoryScanner

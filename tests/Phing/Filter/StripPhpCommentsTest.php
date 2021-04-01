@@ -17,11 +17,11 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Filter;
+namespace Phing\Test\Filter;
 
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author  Michiel Rook <mrook@php.net>

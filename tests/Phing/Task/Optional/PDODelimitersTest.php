@@ -18,11 +18,11 @@
  *
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
 use Phing\Task\System\Pdo\PDOSQLExecTask;
 use Phing\Io\File;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Alexey Borzov <avb@php.net>

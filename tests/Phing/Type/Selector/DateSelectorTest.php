@@ -17,9 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type\Selector;
+namespace Phing\Test\Type\Selector;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Class SelectorUtilsTest

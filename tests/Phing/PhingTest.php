@@ -17,10 +17,14 @@
  * <http://phing.info>.
  */
 
-namespace Phing;
+namespace Phing\Test;
 
 use Phing\Io\OutputStream;
+use Phing\Phing;
+use Phing\Project;
+use Phing\Target;
 use Phing\Util\DefaultClock;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Core Phing class test
@@ -30,7 +34,7 @@ use Phing\Util\DefaultClock;
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  */
-class PhingTest extends \PHPUnit\Framework\TestCase
+class PhingTest extends TestCase
 {
     private const NAMESPACED_CLASS = 'Vendor\\Package\\FullSeparatedClass';
     private const SEPARATED_CLASS = 'Vendor_Package_SeparatedClass';

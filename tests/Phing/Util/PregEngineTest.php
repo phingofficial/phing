@@ -18,7 +18,9 @@
  *
  */
 
-namespace Phing\Util;
+namespace Phing\Test\Util;
+
+use Phing\Util\PregEngine;
 
 /**
  * Class PregEngineTest

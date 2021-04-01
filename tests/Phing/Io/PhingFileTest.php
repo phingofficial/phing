@@ -1,6 +1,8 @@
 <?php
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
+
+use Phing\Io\File;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

@@ -19,11 +19,11 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\PHPStan;
+namespace Phing\Test\Task\Optional\PHPStan;
 
 use Phing\Exception\BuildException;
 use Phing\Project;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 class PHPStanTaskTest extends BuildFileTest
 {

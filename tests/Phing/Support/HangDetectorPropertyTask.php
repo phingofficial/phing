@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Support;
+namespace Phing\Test\Support;
 
 use Phing\Io\File;
 use Phing\Task\System\PropertyTask;

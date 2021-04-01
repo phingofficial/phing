@@ -17,9 +17,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System\Property;
+namespace Phing\Test\Task\System\Property;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Tests the PropertyRegexTask Task
