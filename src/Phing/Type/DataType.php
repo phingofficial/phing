@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -34,10 +35,19 @@ use Phing\ProjectComponent;
  * nested inside elements of the same type (i.e. patternset but not path)
  *
  * {@inheritdoc}
- *
  */
 class DataType extends ProjectComponent
 {
+    /**
+     * Are we sure we don't hold circular references?
+     *
+     * Subclasses are responsible for setting this value to false
+     * if we'd need to investigate this condition (usually because a
+     * child element has been added that is a subclass of DataType).
+     *
+     * @var bool
+     */
+    protected $checked = true;
     /**
      * Value to the refid attribute.
      *
@@ -46,15 +56,16 @@ class DataType extends ProjectComponent
     private $ref;
 
     /**
-     * Are we sure we don't hold circular references?
+     * Basic DataType toString().
      *
-     * Subclasses are responsible for setting this value to false
-     * if we'd need to investigate this condition (usually because a
-     * child element has been added that is a subclass of DataType).
-     *
-     * @var boolean
+     * @return string this DataType formatted as a String
      */
-    protected $checked = true;
+    public function __toString()
+    {
+        $d = $this->getDescription();
+
+        return null === $d ? $this->getDataTypeName() : $this->getDataTypeName() . ' ' . $d;
+    }
 
     /**
      * Has the refid attribute of this element been set?
@@ -63,15 +74,15 @@ class DataType extends ProjectComponent
      */
     public function isReference()
     {
-        return ($this->ref !== null);
+        return null !== $this->ref;
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getRefId()
     {
-        return ($this->ref !== null ? $this->ref->getRefId() : null);
+        return null !== $this->ref ? $this->ref->getRefId() : null;
     }
 
     /**
@@ -80,8 +91,6 @@ class DataType extends ProjectComponent
      * Subclasses may need to check whether any other attributes
      * have been set as well or child elements have been created and
      * thus override this method. if they do they must call parent::setRefid()
-     *
-     *
      */
     public function setRefid(Reference $r)
     {
@@ -111,9 +120,8 @@ class DataType extends ProjectComponent
      * The general contract of this method is that it shouldn't do
      * anything if checked is true and set it to true on exit.
      *
-     * @param array $stk
+     * @param array   $stk
      * @param Project $p
-     *
      *
      * @throws BuildException
      */
@@ -189,7 +197,7 @@ class DataType extends ProjectComponent
      */
     public function tooManyAttributes()
     {
-        return new BuildException("You must not specify more than one attribute when using refid");
+        return new BuildException('You must not specify more than one attribute when using refid');
     }
 
     /**
@@ -200,7 +208,7 @@ class DataType extends ProjectComponent
      */
     public function noChildrenAllowed()
     {
-        return new BuildException("You must not specify nested elements when using refid");
+        return new BuildException('You must not specify nested elements when using refid');
     }
 
     /**
@@ -211,7 +219,7 @@ class DataType extends ProjectComponent
      */
     public function circularReference()
     {
-        return new BuildException("This data type contains a circular reference.");
+        return new BuildException('This data type contains a circular reference.');
     }
 
     /**
@@ -219,7 +227,6 @@ class DataType extends ProjectComponent
      * parsed completely.
      *
      * {@inheritdoc}
-     *
      */
     public function parsingComplete()
     {
@@ -228,21 +235,10 @@ class DataType extends ProjectComponent
     /**
      * Gets as descriptive as possible a name used for this datatype instance.
      *
-     * @return string name.
+     * @return string name
      */
     protected function getDataTypeName()
     {
         return ComponentHelper::getElementName($this->getProject(), $this, true);
-    }
-
-    /**
-     * Basic DataType toString().
-     *
-     * @return string this DataType formatted as a String.
-     */
-    public function __toString()
-    {
-        $d = $this->getDescription();
-        return $d === null ? $this->getDataTypeName() : $this->getDataTypeName() . " " . $d;
     }
 }

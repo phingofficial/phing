@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,11 +23,12 @@ namespace Phing\Util;
 class Character
 {
     /**
-     * @param  string $char
+     * @param string $char
+     *
      * @return bool
      */
     public static function isLetter($char)
     {
-        return strlen($char) === 1 && ctype_alpha($char);
+        return 1 === strlen($char) && ctype_alpha($char);
     }
 }

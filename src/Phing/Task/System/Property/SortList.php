@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,12 +21,11 @@
 namespace Phing\Task\System\Property;
 
 use Phing\Exception\BuildException;
-use Phing\Task\System\Property\AbstractPropertySetterTask;
 use Phing\Task\System\PropertyTask;
 use Phing\Type\Reference;
 
 /**
- * SortList Task
+ * SortList Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
@@ -44,7 +44,7 @@ class SortList extends AbstractPropertySetterTask
     /**
      * @var string
      */
-    private $delimiter = ",";
+    private $delimiter = ',';
 
     /**
      * @var array
@@ -61,7 +61,7 @@ class SortList extends AbstractPropertySetterTask
     /**
      * @var string
      */
-    private $flags = "";
+    private $flags = '';
 
     public function setValue($value)
     {
@@ -91,7 +91,7 @@ class SortList extends AbstractPropertySetterTask
         $this->validate();
 
         $val = $this->value;
-        if ($val === null && $this->ref !== null) {
+        if (null === $val && null !== $this->ref) {
             /**
              * @var PropertyTask $propTask
              */
@@ -99,7 +99,7 @@ class SortList extends AbstractPropertySetterTask
             $val = $propTask->getValue();
         }
 
-        if ($val === null) {
+        if (null === $val) {
             throw new BuildException("Either the 'value' or 'refid' attribute must be set.");
         }
 

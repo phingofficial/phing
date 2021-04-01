@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,16 +34,17 @@ use Phing\Exception\BuildException;
 class NotCondition extends ConditionBase implements Condition
 {
     /**
-     * @return bool
      * @throws BuildException
+     *
+     * @return bool
      */
     public function evaluate()
     {
         if ($this->countConditions() > 1) {
-            throw new BuildException("You must not nest more than one condition into <not>");
+            throw new BuildException('You must not nest more than one condition into <not>');
         }
         if ($this->countConditions() < 1) {
-            throw new BuildException("You must nest a condition into <not>");
+            throw new BuildException('You must nest a condition into <not>');
         }
         $conds = $this->getIterator();
 

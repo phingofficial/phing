@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -46,6 +47,7 @@ use Phing\Util\RegexpException;
  *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@xmpl.org>
+ *
  * @see     FilterReader
  */
 class LineContainsRegexp extends BaseParamFilterReader implements ChainableReader
@@ -55,7 +57,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      *
      * @var string
      */
-    public const REGEXP_KEY = "regexp";
+    public const REGEXP_KEY = 'regexp';
     public const NEGATE_KEY = 'negate';
     public const CS_KEY = 'casesensitive';
 
@@ -80,9 +82,11 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * Returns all lines in a buffer that contain specified strings.
      *
      * @param int $len
-     * @return mixed buffer, -1 on EOF
+     *
      * @throws IOException
      * @throws RegexpException
+     *
+     * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
     {
@@ -93,7 +97,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
         $buffer = $this->in->read($len);
 
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
 
@@ -102,17 +106,18 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
         $regexpsSize = count($this->regexps);
         foreach ($lines as $line) {
-            for ($i = 0; $i < $regexpsSize; $i++) {
+            for ($i = 0; $i < $regexpsSize; ++$i) {
                 $regexp = $this->regexps[$i];
                 $re = $regexp->getRegexp($this->getProject());
                 $re->setIgnoreCase(!$this->casesensitive);
                 $matches = $re->matches($line);
                 if (!$matches) {
                     $line = null;
+
                     break;
                 }
             }
-            if ($line !== null) {
+            if (null !== $line) {
                 $matched[] = $line;
             }
         }
@@ -136,7 +141,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Find out whether we match casesensitevly.
      *
-     * @return bool negation flag.
+     * @return bool negation flag
      */
     public function isCaseSensitive()
     {
@@ -146,7 +151,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Set the negation mode.  Default false (no negation).
      *
-     * @param bool $b the bool negation mode to set.
+     * @param bool $b the bool negation mode to set
      */
     public function setNegate(bool $b)
     {
@@ -156,7 +161,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Find out whether we have been negated.
      *
-     * @return bool negation flag.
+     * @return bool negation flag
      */
     public function isNegated()
     {
@@ -166,7 +171,7 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     /**
      * Adds a <code>regexp</code> element.
      *
-     * @return object regExp The <code>regexp</code> element added.
+     * @return object regExp The <code>regexp</code> element added
      */
     public function createRegexp()
     {
@@ -181,7 +186,9 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * filter.
      *
      * @param array $regexps
-     * @throws   Exception
+     *
+     * @throws Exception
+     *
      * @internal param An $regexps array of regular expressions which must be contained
      *                within a line in order for it to match in this filter. Must not be
      *                <code>null</code>.
@@ -212,6 +219,8 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
 
     /**
      * Set the regular expression as an attribute.
+     *
+     * @param mixed $pattern
      */
     public function setRegexp($pattern)
     {
@@ -224,9 +233,11 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
      * Creates a new LineContainsRegExp using the passed in
      * Reader for instantiation.
      *
-     * @return LineContainsRegexp A new filter based on this configuration, but filtering
-     *                the specified reader
      * @throws Exception
+     *
+     * @return LineContainsRegexp A new filter based on this configuration, but filtering
+     *                            the specified reader
+     *
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      */
@@ -248,8 +259,8 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     private function initialize()
     {
         $params = $this->getParameters();
-        if ($params !== null) {
-            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
+        if (null !== $params) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; ++$i) {
                 if (self::REGEXP_KEY === $params[$i]->getType()) {
                     $pattern = $params[$i]->getValue();
                     $regexp = new RegularExpression();

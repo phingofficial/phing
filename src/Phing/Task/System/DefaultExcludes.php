@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,25 +36,25 @@ class DefaultExcludes extends Task
     /**
      * @var string
      */
-    private $add = "";
+    private $add = '';
 
     /**
      * @var string
      */
-    private $remove = "";
+    private $remove = '';
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $defaultrequested = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $echo = false;
 
     /**
-     * by default, messages are always displayed
+     * by default, messages are always displayed.
      *
      * @var int
      */
@@ -66,34 +67,34 @@ class DefaultExcludes extends Task
      */
     public function main()
     {
-        if (!$this->defaultrequested && $this->add === "" && $this->remove === "" && !$this->echo) {
+        if (!$this->defaultrequested && '' === $this->add && '' === $this->remove && !$this->echo) {
             throw new BuildException(
-                "<defaultexcludes> task must set at least one attribute (echo=\"false\")"
+                '<defaultexcludes> task must set at least one attribute (echo="false")'
                 . " doesn't count since that is the default"
             );
         }
         if ($this->defaultrequested) {
             DirectoryScanner::resetDefaultExcludes();
         }
-        if ($this->add !== "") {
+        if ('' !== $this->add) {
             DirectoryScanner::addDefaultExclude($this->add);
         }
-        if ($this->remove !== "") {
+        if ('' !== $this->remove) {
             DirectoryScanner::removeDefaultExclude($this->remove);
         }
         if ($this->echo) {
             $lineSep = Phing::getProperty('line.separator');
-            $message = "Current Default Excludes:";
+            $message = 'Current Default Excludes:';
             $message .= $lineSep;
             $excludes = DirectoryScanner::getDefaultExcludes();
-            $message .= "  ";
-            $message .= implode($lineSep . "  ", $excludes);
+            $message .= '  ';
+            $message .= implode($lineSep . '  ', $excludes);
             $this->log($message, $this->logLevel);
         }
     }
 
     /**
-     * go back to standard default patterns
+     * go back to standard default patterns.
      *
      * @param bool $def if true go back to default patterns
      */
@@ -103,9 +104,9 @@ class DefaultExcludes extends Task
     }
 
     /**
-     * Pattern to add to the default excludes
+     * Pattern to add to the default excludes.
      *
-     * @param string $add Sets the value for the pattern to exclude.
+     * @param string $add sets the value for the pattern to exclude
      */
     public function setAdd($add)
     {
@@ -115,8 +116,8 @@ class DefaultExcludes extends Task
     /**
      * Pattern to remove from the default excludes.
      *
-     * @param string $remove Sets the value for the pattern that
-     *                       should no longer be excluded.
+     * @param string $remove sets the value for the pattern that
+     *                       should no longer be excluded
      */
     public function setRemove($remove)
     {
@@ -127,7 +128,7 @@ class DefaultExcludes extends Task
      * If true, echo the default excludes.
      *
      * @param bool $echo whether or not to echo the contents of
-     *                      the default excludes.
+     *                   the default excludes
      */
     public function setEcho($echo)
     {

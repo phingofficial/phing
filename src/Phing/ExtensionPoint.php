@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +30,7 @@ use Phing\Exception\BuildException;
  */
 class ExtensionPoint extends Target
 {
-    private const NO_CHILDREN_ALLOWED = "you must not nest child elements into an extension-point";
+    private const NO_CHILDREN_ALLOWED = 'you must not nest child elements into an extension-point';
 
     /**
      * Throws an exception.
@@ -44,7 +45,8 @@ class ExtensionPoint extends Target
     /**
      * Throws an exception.
      *
-     * @param  RuntimeConfigurable $r
+     * @param RuntimeConfigurable $r
+     *
      * @throws BuildException
      */
     public function addDataType($r)

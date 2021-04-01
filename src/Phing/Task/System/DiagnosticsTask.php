@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -37,7 +38,7 @@ class DiagnosticsTask extends Task
      * Execute the task.
      * This delegates to the Diagnostics class.
      *
-     * @throws BuildException on error.
+     * @throws BuildException on error
      */
     public function main()
     {

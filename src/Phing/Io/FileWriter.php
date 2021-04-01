@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,15 +22,14 @@ namespace Phing\Io;
 
 /**
  * Convenience class for performing file write operations.
- *
  */
 class FileWriter extends OutputStreamWriter
 {
     /**
      * Construct a new FileWriter.
      *
-     * @param mixed   $file   PhingFile or string pathname.
-     * @param bool $append Append to existing file?
+     * @param mixed $file   phingFile or string pathname
+     * @param bool  $append Append to existing file?
      */
     public function __construct($file, $append = false)
     {

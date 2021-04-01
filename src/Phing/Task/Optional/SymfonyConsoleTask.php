@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,14 +20,13 @@
 
 namespace Phing\Task\Optional;
 
-use Phing\Task\Optional\SymfonyConsoleArg;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 use Phing\Type\Commandline;
 
 /**
- * Symfony Console Task
+ * Symfony Console Task.
  *
  * @author  nuno costa <nuno@francodacosta.com>
  * @license GPL
@@ -34,40 +34,36 @@ use Phing\Type\Commandline;
 class SymfonyConsoleTask extends Task
 {
     /**
-     *
      * @var SymfonyConsoleArg[] a collection of Arg objects
      */
     private $args = [];
 
     /**
-     *
      * @var string the Symfony console command to execute
      */
-    private $command = null;
+    private $command;
 
     /**
-     *
      * @var string path to symfony console application
      */
     private $console = 'bin/console';
 
     /**
-     *
      * @var string property to be set
      */
-    private $propertyName = null;
+    private $propertyName;
 
     /**
      * Whether to check the return code.
      *
-     * @var boolean
+     * @var bool
      */
     private $checkreturn = false;
 
     /**
-     * Is the symfony cli debug mode set? (true by default)
+     * Is the symfony cli debug mode set? (true by default).
      *
-     * @var boolean
+     * @var bool
      */
     private $debug = true;
 
@@ -77,7 +73,7 @@ class SymfonyConsoleTask extends Task
     private $silent = false;
 
     /**
-     * sets the symfony console command to execute
+     * sets the symfony console command to execute.
      *
      * @param string $command
      */
@@ -87,7 +83,7 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * return the symfony console command to execute
+     * return the symfony console command to execute.
      *
      * @return string
      */
@@ -97,7 +93,7 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * sets the path to symfony console application
+     * sets the path to symfony console application.
      *
      * @param string $console
      */
@@ -107,7 +103,7 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * returns the path to symfony console application
+     * returns the path to symfony console application.
      *
      * @return string
      */
@@ -117,7 +113,7 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * Set the name of the property to store the application output in
+     * Set the name of the property to store the application output in.
      *
      * @param  $property
      */
@@ -130,7 +126,6 @@ class SymfonyConsoleTask extends Task
      * Whether to check the return code.
      *
      * @param bool $checkreturn If the return code shall be checked
-     *
      */
     public function setCheckreturn(bool $checkreturn)
     {
@@ -138,10 +133,9 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * Whether to set the symfony cli debug mode
+     * Whether to set the symfony cli debug mode.
      *
      * @param bool $debug If the symfony cli debug mode is set
-     *
      */
     public function setDebug(bool $debug)
     {
@@ -149,7 +143,7 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * Get if the symfony cli debug mode is set
+     * Get if the symfony cli debug mode is set.
      *
      * @return bool
      */
@@ -169,11 +163,10 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * appends an arg tag to the arguments stack
+     * appends an arg tag to the arguments stack.
      *
      * @return SymfonyConsoleArg Argument object
      */
-
     public function createArg()
     {
         $num = array_push($this->args, new SymfonyConsoleArg());
@@ -182,7 +175,7 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * return the argumments passed to this task
+     * return the argumments passed to this task.
      *
      * @return array of Arg()
      */
@@ -192,23 +185,7 @@ class SymfonyConsoleTask extends Task
     }
 
     /**
-     * Check if the no-debug option was added via args
-     *
-     * @return bool
-     */
-    private function isNoDebugArgPresent()
-    {
-        foreach ($this->args as $arg) {
-            if ($arg->getName() == "no-debug") {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Gets the command string to be executed
+     * Gets the command string to be executed.
      *
      * @return string
      */
@@ -216,26 +193,25 @@ class SymfonyConsoleTask extends Task
     {
         // Add no-debug arg if it isn't already present
         if (!$this->debug && !$this->isNoDebugArgPresent()) {
-            $this->createArg()->setName("no-debug");
+            $this->createArg()->setName('no-debug');
         }
         $cmd = [
             Commandline::quoteArgument($this->console),
             $this->command,
             implode(' ', $this->args),
         ];
-        $cmd = implode(' ', $cmd);
 
-        return $cmd;
+        return implode(' ', $cmd);
     }
 
     /**
-     * executes the synfony console application
+     * executes the synfony console application.
      */
     public function main()
     {
         $cmd = $this->getCmdString();
 
-        $this->silent ?: $this->log("executing $cmd");
+        $this->silent ?: $this->log("executing {$cmd}");
         $return = null;
         $output = [];
         exec($cmd, $output, $return);
@@ -244,13 +220,30 @@ class SymfonyConsoleTask extends Task
 
         $this->silent ?: $this->log($lines, Project::MSG_INFO);
 
-        if ($this->propertyName != null) {
+        if (null != $this->propertyName) {
             $this->project->setProperty($this->propertyName, $lines);
         }
 
-        if ($return != 0 && $this->checkreturn) {
+        if (0 != $return && $this->checkreturn) {
             $this->log('Task exited with code: ' . $return, Project::MSG_ERR);
-            throw new BuildException("SymfonyConsole execution failed");
+
+            throw new BuildException('SymfonyConsole execution failed');
         }
+    }
+
+    /**
+     * Check if the no-debug option was added via args.
+     *
+     * @return bool
+     */
+    private function isNoDebugArgPresent()
+    {
+        foreach ($this->args as $arg) {
+            if ('no-debug' == $arg->getName()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

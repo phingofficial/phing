@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,6 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
-use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
 use Phing\Type\Element\FileListAware;
@@ -34,7 +34,6 @@ use Phing\Type\Mapper;
  * Touch a file and/or fileset(s); corresponds to the Unix touch command.
  *
  * If the file to touch doesn't exist, an empty one is created.
- *
  */
 class TouchTask extends Task
 {
@@ -63,7 +62,6 @@ class TouchTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
-     *
      */
     public function setFile(File $file)
     {
@@ -86,17 +84,17 @@ class TouchTask extends Task
             if ($millis >= 1000) {
                 $this->seconds = (int) $millis / 1000;
             } else {
-                throw new BuildException("Millis less than 1000 would be treated as 0");
+                throw new BuildException('Millis less than 1000 would be treated as 0');
             }
         } else {
-            throw new BuildException("Millis attribute cannot be negative");
+            throw new BuildException('Millis attribute cannot be negative');
         }
     }
 
     /**
      * the new modification time of the file
      * in seconds since midnight Jan 1 1970.
-     * Optional, default=now
+     * Optional, default=now.
      *
      * @param int $seconds
      */
@@ -105,14 +103,14 @@ class TouchTask extends Task
         if ($seconds >= 0) {
             $this->seconds = (int) $seconds;
         } else {
-            throw new BuildException("Seconds attribute cannot be negative");
+            throw new BuildException('Seconds attribute cannot be negative');
         }
     }
 
     /**
      * the new modification time of the file
      * in the format MM/DD/YYYY HH:MM AM or PM;
-     * Optional, default=now
+     * Optional, default=now.
      *
      * @param string $dateTime
      */
@@ -123,7 +121,7 @@ class TouchTask extends Task
             $this->dateTime = (string) $dateTime;
             $this->setSeconds($timestmap);
         } else {
-            throw new BuildException("Date of ${dateTime} cannot be parsed correctly. It should be in a format parsable by PHP's strtotime() function." . PHP_EOL);
+            throw new BuildException("Date of {$dateTime} cannot be parsed correctly. It should be in a format parsable by PHP's strtotime() function." . PHP_EOL);
         }
     }
 
@@ -131,7 +129,7 @@ class TouchTask extends Task
      * Set whether nonexistent parent directories should be created
      * when touching new files.
      *
-     * @param bool $mkdirs whether to create parent directories.
+     * @param bool $mkdirs whether to create parent directories
      */
     public function setMkdirs($mkdirs)
     {
@@ -142,7 +140,7 @@ class TouchTask extends Task
      * Set whether the touch task will report every file it creates;
      * defaults to <code>true</code>.
      *
-     * @param bool $verbose flag.
+     * @param bool $verbose flag
      */
     public function setVerbose($verbose)
     {
@@ -157,36 +155,17 @@ class TouchTask extends Task
      */
     public function createMapper()
     {
-        if ($this->mapperElement !== null) {
-            throw new BuildException("Cannot define more than one mapper", $this->getLocation());
+        if (null !== $this->mapperElement) {
+            throw new BuildException('Cannot define more than one mapper', $this->getLocation());
         }
         $this->mapperElement = new Mapper($this->project);
 
         return $this->mapperElement;
     }
 
-    protected function checkConfiguration()
-    {
-        $savedSeconds = $this->seconds;
-
-        if ($this->file === null && count($this->filesets) === 0 && count($this->filelists) === 0) {
-            throw new BuildException("Specify at least one source - a file, a fileset or a filelist.");
-        }
-
-        if ($this->file !== null && $this->file->exists() && $this->file->isDirectory()) {
-            throw new BuildException("Use a fileset to touch directories.");
-        }
-
-        $this->log(
-            "Setting seconds to " . $savedSeconds . " from datetime attribute",
-            ($this->seconds < 0 ? Project::MSG_DEBUG : Project::MSG_VERBOSE)
-        );
-
-        $this->seconds = $savedSeconds;
-    }
-
     /**
      * Execute the touch operation.
+     *
      * @throws BuildException
      */
     public function main()
@@ -195,22 +174,43 @@ class TouchTask extends Task
         $this->touch();
     }
 
+    protected function checkConfiguration()
+    {
+        $savedSeconds = $this->seconds;
+
+        if (null === $this->file && 0 === count($this->filesets) && 0 === count($this->filelists)) {
+            throw new BuildException('Specify at least one source - a file, a fileset or a filelist.');
+        }
+
+        if (null !== $this->file && $this->file->exists() && $this->file->isDirectory()) {
+            throw new BuildException('Use a fileset to touch directories.');
+        }
+
+        $this->log(
+            'Setting seconds to ' . $savedSeconds . ' from datetime attribute',
+            ($this->seconds < 0 ? Project::MSG_DEBUG : Project::MSG_VERBOSE)
+        );
+
+        $this->seconds = $savedSeconds;
+    }
+
     /**
      * Does the actual work.
      */
     private function touch()
     {
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             if (!$this->file->exists()) {
                 $this->log(
-                    "Creating " . $this->file,
+                    'Creating ' . $this->file,
                     $this->verbose ? Project::MSG_INFO : Project::MSG_VERBOSE
                 );
+
                 try { // try to create file
                     $this->file->createNewFile($this->mkdirs);
                 } catch (IOException  $ioe) {
                     throw new BuildException(
-                        "Error creating new file " . $this->file,
+                        'Error creating new file ' . $this->file,
                         $ioe,
                         $this->getLocation()
                     );
@@ -225,7 +225,7 @@ class TouchTask extends Task
             $this->seconds = microtime(true);
         }
 
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             $this->touchFile($this->file);
         }
 
@@ -237,13 +237,13 @@ class TouchTask extends Task
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs = $ds->getIncludedDirectories();
 
-            for ($j = 0, $_j = count($srcFiles); $j < $_j; $j++) {
+            for ($j = 0, $_j = count($srcFiles); $j < $_j; ++$j) {
                 foreach ($this->getMappedFileNames((string) $srcFiles[$j]) as $fileName) {
                     $this->touchFile(new File($fromDir, $fileName));
                 }
             }
 
-            for ($j = 0, $_j = count($srcDirs); $j < $_j; $j++) {
+            for ($j = 0, $_j = count($srcDirs); $j < $_j; ++$j) {
                 foreach ($this->getMappedFileNames((string) $srcDirs[$j]) as $fileName) {
                     $this->touchFile(new File($fromDir, $fileName));
                 }
@@ -256,7 +256,7 @@ class TouchTask extends Task
 
             $srcFiles = $fl->getFiles($this->getProject());
 
-            for ($j = 0, $_j = count($srcFiles); $j < $_j; $j++) {
+            for ($j = 0, $_j = count($srcFiles); $j < $_j; ++$j) {
                 foreach ($this->getMappedFileNames((string) $srcFiles[$j]) as $fileName) {
                     $this->touchFile(new File($fromDir, $fileName));
                 }
@@ -270,10 +270,10 @@ class TouchTask extends Task
 
     private function getMappedFileNames($file)
     {
-        if ($this->mapperElement !== null) {
+        if (null !== $this->mapperElement) {
             $mapper = $this->mapperElement->getImplementation();
             $results = $mapper->main($file);
-            if ($results === null) {
+            if (null === $results) {
                 return '';
             }
             $fileNames = $results;
@@ -290,7 +290,7 @@ class TouchTask extends Task
     private function touchFile(File $file)
     {
         if (!$file->canWrite()) {
-            throw new BuildException("Can not change modification date of read-only file " . (string) $file);
+            throw new BuildException('Can not change modification date of read-only file ' . (string) $file);
         }
         $file->setLastModified($this->seconds);
     }

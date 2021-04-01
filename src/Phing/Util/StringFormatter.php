@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,17 +28,13 @@ class StringFormatter
     public function center($value, $fixedLength)
     {
         $spacesBeforeValue = $this->calculateSpaceBeforeValue($value, $fixedLength);
+
         return $this->toSpaces($spacesBeforeValue) . $value;
     }
 
     public function left($value, $fixedLength)
     {
         return $value . $this->toSpaces($fixedLength - strlen($value) + 4);
-    }
-
-    private function calculateSpaceBeforeValue($value, $fixedLength)
-    {
-        return $fixedLength / 2 - strlen($value) / 2;
     }
 
     public function toSpaces($size)
@@ -48,9 +45,15 @@ class StringFormatter
     public function toChars($ch, $size)
     {
         $sb = '';
-        for ($i = 0; $i < $size; $i++) {
+        for ($i = 0; $i < $size; ++$i) {
             $sb .= $ch;
         }
+
         return $sb;
+    }
+
+    private function calculateSpaceBeforeValue($value, $fixedLength)
+    {
+        return $fixedLength / 2 - strlen($value) / 2;
     }
 }

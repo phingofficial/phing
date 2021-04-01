@@ -1,6 +1,7 @@
 <?php
+
 /**
- *  Patches a file by applying a 'diff' file to it
+ *  Patches a file by applying a 'diff' file to it.
  *
  *  Requires "patch" to be on the execution path.
  *
@@ -25,25 +26,24 @@
 namespace Phing\Task\Optional;
 
 use Phing\Exception\BuildException;
-use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Task;
 use Phing\Task\System\ExecTask;
 use Phing\Type\Commandline;
 
 /**
- * Patches a file by applying a 'diff' file to it
+ * Patches a file by applying a 'diff' file to it.
  *
  * Requires "patch" to be on the execution path.
- *
  */
 class PatchTask extends Task
 {
     private static $PATCH = 'patch';
 
     /**
-     * File to be patched
+     * File to be patched.
      *
      * @var File
      */
@@ -78,11 +78,12 @@ class PatchTask extends Task
     }
 
     /**
-     * The file containing the diff output
+     * The file containing the diff output.
      *
      * Required.
      *
      * @param File $file File containing the diff output
+     *
      * @throws BuildException if $file not exists
      */
     public function setPatchFile(File $file)
@@ -96,7 +97,7 @@ class PatchTask extends Task
     }
 
     /**
-     * flag to create backups; optional, default=false
+     * flag to create backups; optional, default=false.
      *
      * @param bool $backups if true create backups
      */
@@ -108,7 +109,7 @@ class PatchTask extends Task
     }
 
     /**
-     * flag to ignore whitespace differences; default=false
+     * flag to ignore whitespace differences; default=false.
      *
      * @param bool $ignore if true ignore whitespace differences
      */
@@ -120,7 +121,7 @@ class PatchTask extends Task
     }
 
     /**
-     * The file to patch
+     * The file to patch.
      *
      * Optional if it can be inferred from the diff file.
      *
@@ -133,7 +134,7 @@ class PatchTask extends Task
 
     /**
      * The name of a file to send the output to, instead of patching
-     * the file(s) in place
+     * the file(s) in place.
      *
      * Optional.
      *
@@ -152,6 +153,7 @@ class PatchTask extends Task
      * patch's <i>--strip</i> option.
      *
      * @param int $num number of lines to strip
+     *
      * @throws BuildException if num is < 0, or other errors
      */
     public function setStrip($num)
@@ -160,11 +162,11 @@ class PatchTask extends Task
             throw new BuildException('strip has to be >= 0');
         }
 
-        $this->cmd->createArgument()->setValue("--strip $num");
+        $this->cmd->createArgument()->setValue("--strip {$num}");
     }
 
     /**
-     * Work silently unless an error occurs
+     * Work silently unless an error occurs.
      *
      * Optional, default - false
      *
@@ -178,7 +180,7 @@ class PatchTask extends Task
     }
 
     /**
-     * Assume patch was created with old and new files swapped
+     * Assume patch was created with old and new files swapped.
      *
      * Optional, default - false
      *
@@ -192,7 +194,7 @@ class PatchTask extends Task
     }
 
     /**
-     * The directory to run the patch command in
+     * The directory to run the patch command in.
      *
      * Defaults to the project's base directory.
      *
@@ -204,7 +206,7 @@ class PatchTask extends Task
     }
 
     /**
-     * Ignore patches that seem to be reversed or already applied
+     * Ignore patches that seem to be reversed or already applied.
      *
      * @param bool $flag If true set the -N (--forward) option
      */
@@ -216,7 +218,7 @@ class PatchTask extends Task
     }
 
     /**
-     * Set the maximum fuzz factor
+     * Set the maximum fuzz factor.
      *
      * Defaults to 0
      *
@@ -224,7 +226,7 @@ class PatchTask extends Task
      */
     public function setFuzz($value)
     {
-        $this->cmd->createArgument()->setValue("-F $value");
+        $this->cmd->createArgument()->setValue("-F {$value}");
     }
 
     /**
@@ -246,7 +248,7 @@ class PatchTask extends Task
     }
 
     /**
-     * Main task method
+     * Main task method.
      *
      * @throws BuildException when it all goes a bit pear shaped
      */
@@ -259,7 +261,7 @@ class PatchTask extends Task
         $toExecute = $this->cmd;
         $toExecute->setExecutable(self::$PATCH);
 
-        if ($this->originalFile !== null) {
+        if (null !== $this->originalFile) {
             $toExecute->createArgument()->setFile($this->originalFile);
         }
 
@@ -269,7 +271,7 @@ class PatchTask extends Task
         $exe->setExecutable($toExecute->getExecutable());
 
         try {
-            if ($this->directory === null) {
+            if (null === $this->directory) {
                 $exe->setDir($this->getProject()->getBasedir());
             } else {
                 if (!$this->directory->isDirectory()) {

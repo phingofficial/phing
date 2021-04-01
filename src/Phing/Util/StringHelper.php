@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,19 +28,18 @@ namespace Phing\Util;
  * classpaths.  (e.g. "phing.util.StringHelper").
  *
  * @author Hans Lellelid <hans@xmpl.org>
- *
  */
 class StringHelper
 {
     /**
      * @var array
      */
-    private static $TRUE_VALUES = ["on", "true", "t", "yes", "1"];
+    private static $TRUE_VALUES = ['on', 'true', 't', 'yes', '1'];
 
     /**
      * @var array
      */
-    private static $FALSE_VALUES = ["off", "false", "f", "no", "0"];
+    private static $FALSE_VALUES = ['off', 'false', 'f', 'no', '0'];
 
     /**
      * @param bool|string $s
@@ -58,7 +58,7 @@ class StringHelper
     }
 
     /**
-     * tests if a string is a representative of a boolean
+     * tests if a string is a representative of a boolean.
      *
      * @param bool|string $s
      *
@@ -70,7 +70,7 @@ class StringHelper
             return true; // it already is boolean
         }
 
-        if ($s === "" || $s === null || !is_string($s)) {
+        if ('' === $s || null === $s || !is_string($s)) {
             return false; // not a valid string for testing
         }
 
@@ -80,7 +80,7 @@ class StringHelper
     }
 
     /**
-     * tests if a string starts with a given string
+     * tests if a string starts with a given string.
      *
      * @param string $check
      * @param string $string
@@ -89,15 +89,15 @@ class StringHelper
      */
     public static function startsWith($check, $string)
     {
-        if ($check === "" || $check === $string) {
+        if ('' === $check || $check === $string) {
             return true;
         }
 
-        return strpos((string) $string, $check) === 0;
+        return 0 === strpos((string) $string, $check);
     }
 
     /**
-     * tests if a string ends with a given string
+     * tests if a string ends with a given string.
      *
      * @param string $check
      * @param string $string
@@ -106,16 +106,16 @@ class StringHelper
      */
     public static function endsWith($check, $string)
     {
-        if ($check === "" || $check === $string) {
+        if ('' === $check || $check === $string) {
             return true;
         }
 
-        return strpos(strrev($string), strrev($check)) === 0;
+        return 0 === strpos(strrev($string), strrev($check));
     }
 
     /**
      * a natural way of getting a subtring, php's circular string buffer and strange
-     * return values suck if you want to program strict as of C or friends
+     * return values suck if you want to program strict as of C or friends.
      *
      * @param string $string
      * @param int    $startpos
@@ -126,12 +126,12 @@ class StringHelper
     public static function substring($string, $startpos, $endpos = -1)
     {
         $len = strlen($string);
-        $endpos = (int) (($endpos === -1) ? $len - 1 : $endpos);
+        $endpos = (int) ((-1 === $endpos) ? $len - 1 : $endpos);
         if ($startpos > $len - 1 || $startpos < 0) {
-            trigger_error("substring(), Startindex out of bounds must be 0<n<$len", E_USER_ERROR);
+            trigger_error("substring(), Startindex out of bounds must be 0<n<{$len}", E_USER_ERROR);
         }
         if ($endpos > $len - 1 || $endpos < $startpos) {
-            trigger_error("substring(), Endindex out of bounds must be $startpos<n<" . ($len - 1), E_USER_ERROR);
+            trigger_error("substring(), Endindex out of bounds must be {$startpos}<n<" . ($len - 1), E_USER_ERROR);
         }
         if ($startpos === $endpos) {
             return (string) $string[$startpos];
@@ -152,7 +152,7 @@ class StringHelper
     public static function isSlotVar($value)
     {
         $value = trim($value);
-        if ($value === "") {
+        if ('' === $value) {
             return false;
         }
 
@@ -160,11 +160,11 @@ class StringHelper
     }
 
     /**
-     * Extracts the variable name for a slot var in the format %{task.current_file}
+     * Extracts the variable name for a slot var in the format %{task.current_file}.
      *
-     * @param string $var The var from build file.
+     * @param string $var the var from build file
      *
-     * @return string Extracted name part.
+     * @return string extracted name part
      */
     public static function slotVar($var)
     {

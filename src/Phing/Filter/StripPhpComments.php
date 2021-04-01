@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,6 +33,7 @@ use Phing\Io\Reader;
  *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
+ *
  * @see     FilterReader
  */
 class StripPhpComments extends BaseFilterReader implements ChainableReader
@@ -39,15 +41,17 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
     /**
      * Returns the  stream without Php comments.
      *
-     * @param int|null $len
-     * @return string the resulting stream, or -1
-     *             if the end of the resulting stream has been reached
+     * @param null|int $len
+     *
      * @throws IOException
+     *
+     * @return string the resulting stream, or -1
+     *                if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
         $buffer = $this->in->read($len);
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
         $newStr = '';
@@ -65,6 +69,7 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
 
                     default:
                         $newStr .= $text;
+
                         continue 2;
                 }
             }
@@ -79,8 +84,10 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      * Reader for instantiation.
      *
      * @param A|Reader $reader
+     *
      * @return $this a new filter based on this configuration, but filtering
-     *           the specified reader
+     *               the specified reader
+     *
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      */

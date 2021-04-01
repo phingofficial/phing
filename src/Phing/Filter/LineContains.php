@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -48,6 +49,7 @@ use Phing\Type\FilterReader;
  *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@velum.net>
+ *
  * @see     FilterReader
  */
 class LineContains extends BaseParamFilterReader implements ChainableReader
@@ -90,10 +92,10 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      *
      * @param int|int $len
      *
-     * @return int|string  the next character in the resulting stream, or -1
-     *                     if the end of the resulting stream has been reached
-     *
      * @throws IOException if the underlying stream throws an IOException during reading
+     *
+     * @return int|string the next character in the resulting stream, or -1
+     *                    if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
@@ -104,21 +106,21 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
 
         $ch = -1;
 
-        if ($this->line !== null) {
+        if (null !== $this->line) {
             $ch = $this->line[0] ?? -1;
-            if (strlen($this->line) === 1) {
+            if (1 === strlen($this->line)) {
                 $this->line = null;
             } else {
                 $part = substr($this->line, 1);
 
-                $this->line = $part !== false ? $part : null;
+                $this->line = false !== $part ? $part : null;
             }
         } else {
-            for ($this->line = $this->readLine(); $this->line !== null; $this->line = $this->readLine()) {
+            for ($this->line = $this->readLine(); null !== $this->line; $this->line = $this->readLine()) {
                 $matches = true;
                 foreach ($this->contains as $iValue) {
                     $containsStr = $iValue->getValue();
-                    if ($containsStr === '') {
+                    if ('' === $containsStr) {
                         $this->log(
                             'The value of <contents> is evaluated to an empty string.',
                             Project::MSG_DEBUG
@@ -131,6 +133,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                         if ($this->matchAny) {
                             continue;
                         }
+
                         break;
                     }
 
@@ -142,7 +145,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                     break;
                 }
             }
-            if ($this->line !== null) {
+            if (null !== $this->line) {
                 return $this->read();
             }
         }
@@ -153,7 +156,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     /**
      * Set the negation mode.  Default false (no negation).
      *
-     * @param bool $b the bool negation mode to set.
+     * @param bool $b the bool negation mode to set
      */
     public function setNegate(bool $b)
     {
@@ -163,7 +166,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
     /**
      * Find out whether we have been negated.
      *
-     * @return bool negation flag.
+     * @return bool negation flag
      */
     public function isNegated(): bool
     {
@@ -181,20 +184,6 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
         $num = array_push($this->contains, new Contains());
 
         return $this->contains[$num - 1];
-    }
-
-    /**
-     * Sets the array of words which must be contained within a line read
-     * from the original stream in order for it to match this filter.
-     *
-     * @param array $contains An array of words which must be contained
-     *                        within a line in order for it to match in this filter.
-     *                        Must not be <code>null</code>.
-     * @throws Exception
-     */
-    private function setContains(array $contains)
-    {
-        $this->contains = $contains;
     }
 
     /**
@@ -218,9 +207,10 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * @param Reader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
+     * @throws Exception
+     *
      * @return LineContains A new filter based on this configuration, but filtering
      *                      the specified reader
-     * @throws Exception
      */
     public function chain(Reader $reader): Reader
     {
@@ -234,13 +224,38 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
         return $newFilter;
     }
 
+    public function setMatchAny(bool $matchAny): void
+    {
+        $this->matchAny = $matchAny;
+    }
+
+    public function isMatchAny(): bool
+    {
+        return $this->matchAny;
+    }
+
+    /**
+     * Sets the array of words which must be contained within a line read
+     * from the original stream in order for it to match this filter.
+     *
+     * @param array $contains An array of words which must be contained
+     *                        within a line in order for it to match in this filter.
+     *                        Must not be <code>null</code>.
+     *
+     * @throws Exception
+     */
+    private function setContains(array $contains)
+    {
+        $this->contains = $contains;
+    }
+
     /**
      * Parses the parameters to add user-defined contains strings.
      */
     private function initialize()
     {
         $params = $this->getParameters();
-        if ($params !== null) {
+        if (null !== $params) {
             foreach ($params as $param) {
                 if (self::CONTAINS_KEY === $param->getType()) {
                     $cont = new Contains();
@@ -251,15 +266,5 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                 }
             }
         }
-    }
-
-    public function setMatchAny(bool $matchAny): void
-    {
-        $this->matchAny = $matchAny;
-    }
-
-    public function isMatchAny(): bool
-    {
-        return $this->matchAny;
     }
 }

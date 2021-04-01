@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,6 +29,7 @@ use Phing\Util\DefaultClock;
 use Phing\Util\ProjectTimer;
 use Phing\Util\ProjectTimerMap;
 use Phing\Util\StringHelper;
+
 use function end;
 use function fmod;
 use function intdiv;
@@ -41,6 +43,7 @@ use function vsprintf;
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
+ *
  * @see       BuildEvent
  */
 class DefaultLogger implements StreamRequiredBuildLogger
@@ -76,19 +79,19 @@ class DefaultLogger implements StreamRequiredBuildLogger
     protected $msgOutputLevel = Project::MSG_ERR;
 
     /**
-     *  Time that the build started
+     *  Time that the build started.
      *
      * @var int
      */
     protected $startTime;
 
     /**
-     * @var OutputStream Stream to use for standard output.
+     * @var OutputStream stream to use for standard output
      */
     protected $out;
 
     /**
-     * @var OutputStream Stream to use for error output.
+     * @var OutputStream stream to use for error output
      */
     protected $err;
 
@@ -108,7 +111,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
     public function __construct(Clock $clock = null)
     {
         $this->projectTimerMap = new ProjectTimerMap();
-        if ($clock === null) {
+        if (null === $clock) {
             $this->clock = new DefaultClock();
         } else {
             $this->clock = $clock;
@@ -134,7 +137,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      *  The default message level for DefaultLogger is Project::MSG_ERR.
      *
-     * @param int $level The logging level for the logger.
+     * @param int $level the logging level for the logger
+     *
      * @see   BuildLogger#setMessageOutputLevel()
      */
     public function setMessageOutputLevel($level)
@@ -166,7 +170,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      * Sets this logger to produce emacs (and other editor) friendly output.
      *
      * @param bool $emacsMode <code>true</code> if output is to be unadorned so that
-     *                        emacs and other editors can parse files names, etc.
+     *                        emacs and other editors can parse files names, etc
      */
     public function setEmacsMode($emacsMode)
     {
@@ -176,14 +180,13 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Sets the start-time when the build started. Used for calculating
      *  the build-time.
-     *
      */
     public function buildStarted(BuildEvent $event)
     {
         $this->findInitialProjectTimer()->start();
         if ($this->msgOutputLevel >= Project::MSG_INFO) {
             $this->printMessage(
-                "Buildfile: " . $event->getProject()->getProperty("phing.file"),
+                'Buildfile: ' . $event->getProject()->getProperty('phing.file'),
                 $this->out,
                 Project::MSG_INFO
             );
@@ -204,15 +207,15 @@ class DefaultLogger implements StreamRequiredBuildLogger
         $msg = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
         $error = $event->getException();
 
-        if ($error !== null) {
+        if (null !== $error) {
             $msg = PHP_EOL . $this->getBuildFailedMessage() . PHP_EOL;
 
             self::throwableMessage($msg, $error, Project::MSG_VERBOSE <= $this->msgOutputLevel);
         }
-        $msg .= PHP_EOL . "Total time: "
+        $msg .= PHP_EOL . 'Total time: '
             . static::formatTime($projectTimer->getTime()) . PHP_EOL;
 
-        $error === null
+        null === $error
             ? $this->printMessage($msg, $this->out, Project::MSG_VERBOSE)
             : $this->printMessage($msg, $this->err, Project::MSG_ERR);
     }
@@ -221,7 +224,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
     {
         while ($error instanceof BuildException) {
             $cause = $error->getPrevious();
-            if ($cause === null) {
+            if (null === $cause) {
                 break;
             }
             $msg1 = trim($error);
@@ -241,7 +244,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
             $msg .= '[' . get_class($error) . '] ' . $error->getMessage() . PHP_EOL
                 . $error->getTraceAsString() . PHP_EOL;
         } else {
-            $msg .= ($error instanceof BuildException ? $error->getLocation() . " " : "")
+            $msg .= ($error instanceof BuildException ? $error->getLocation() . ' ' : '')
                 . $error->getMessage() . PHP_EOL;
         }
 
@@ -255,27 +258,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
     }
 
     /**
-     * Get the message to return when a build failed.
-     *
-     * @return string The classic "BUILD FAILED"
-     */
-    protected function getBuildFailedMessage()
-    {
-        return "BUILD FAILED";
-    }
-
-    /**
-     * Get the message to return when a build succeeded.
-     *
-     * @return string The classic "BUILD FINISHED"
-     */
-    protected function getBuildSuccessfulMessage()
-    {
-        return "BUILD FINISHED";
-    }
-
-    /**
-     *  Prints the current target name
+     *  Prints the current target name.
      *
      * @see   BuildEvent::getTarget()
      */
@@ -283,9 +266,9 @@ class DefaultLogger implements StreamRequiredBuildLogger
     {
         if (
             Project::MSG_INFO <= $this->msgOutputLevel
-            && $event->getTarget()->getName() != ''
+            && '' != $event->getTarget()->getName()
         ) {
-            $showLongTargets = $event->getProject()->getProperty("phing.showlongtargets");
+            $showLongTargets = $event->getProject()->getProperty('phing.showlongtargets');
             $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName()
                 . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());
@@ -317,6 +300,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  event. So the methods are empty.
      *
      * @param BuildEvent $event The BuildEvent
+     *
      * @see   BuildEvent::getException()
      */
     public function taskFinished(BuildEvent $event)
@@ -332,16 +316,16 @@ class DefaultLogger implements StreamRequiredBuildLogger
     {
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
-            $msg = "";
-            if ($event->getTask() !== null && !$this->emacsMode) {
+            $msg = '';
+            if (null !== $event->getTask() && !$this->emacsMode) {
                 $name = $event->getTask();
                 $name = $name->getTaskName();
-                $msg = str_pad("[$name] ", self::LEFT_COLUMN_SIZE, " ", STR_PAD_LEFT);
+                $msg = str_pad("[{$name}] ", self::LEFT_COLUMN_SIZE, ' ', STR_PAD_LEFT);
             }
 
             $msg .= $event->getMessage();
 
-            if ($priority != Project::MSG_ERR) {
+            if (Project::MSG_ERR != $priority) {
                 $this->printMessage($msg, $this->out, $priority);
             } else {
                 $this->printMessage($msg, $this->err, $priority);
@@ -352,44 +336,48 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      * Formats time (expressed in seconds) to a human readable format.
      *
-     * @param float $seconds Time to convert, can have decimals.
-     * @return string
+     * @param float $seconds time to convert, can have decimals
      * @noinspection PhpMissingBreakStatementInspection
      */
     public static function formatTime(float $seconds): string
     {
-        /** @var int|float $number */
+        /** @var float|int $number */
         $getPlural = function ($number): string {
-            return $number == 1 ? '' : 's';
+            return 1 == $number ? '' : 's';
         };
-        $chunks    = [];
-        $format    = '';
+        $chunks = [];
+        $format = '';
         $precision = 4;
+
         switch (true) {
             // Days
-            case ($seconds >= self::A_DAY):
+            case $seconds >= self::A_DAY:
                 $chunks[] = intdiv($seconds, self::A_DAY);
                 $chunks[] = $getPlural(end($chunks));
-                $seconds  = fmod($seconds, self::A_DAY);
-                $format   .= '%u day%s  ';
+                $seconds = fmod($seconds, self::A_DAY);
+                $format .= '%u day%s  ';
             // Hours
-            case ($seconds >= self::AN_HOUR):
+            // no break
+            case $seconds >= self::AN_HOUR:
                 $chunks[] = intdiv($seconds, self::AN_HOUR);
                 $chunks[] = $getPlural(end($chunks));
-                $seconds  = fmod($seconds, self::AN_HOUR);
-                $format   .= '%u hour%s  ';
+                $seconds = fmod($seconds, self::AN_HOUR);
+                $format .= '%u hour%s  ';
             // Minutes
-            case ($seconds >= self::A_MINUTE):
-                $chunks[]  = intdiv($seconds, self::A_MINUTE);
-                $chunks[]  = $getPlural(end($chunks));
-                $seconds   = fmod($seconds, self::A_MINUTE);
-                $format    .= '%u minute%s  ';
+            // no break
+            case $seconds >= self::A_MINUTE:
+                $chunks[] = intdiv($seconds, self::A_MINUTE);
+                $chunks[] = $getPlural(end($chunks));
+                $seconds = fmod($seconds, self::A_MINUTE);
+                $format .= '%u minute%s  ';
                 $precision = 2;
             // Seconds
+            // no break
             default:
                 $chunks[] = $seconds;
                 $chunks[] = $getPlural(end($chunks));
-                $format   .= "%.{$precision}F second%s";
+                $format .= "%.{$precision}F second%s";
+
                 break;
         }
 
@@ -397,15 +385,36 @@ class DefaultLogger implements StreamRequiredBuildLogger
     }
 
     /**
+     * Get the message to return when a build failed.
+     *
+     * @return string The classic "BUILD FAILED"
+     */
+    protected function getBuildFailedMessage()
+    {
+        return 'BUILD FAILED';
+    }
+
+    /**
+     * Get the message to return when a build succeeded.
+     *
+     * @return string The classic "BUILD FINISHED"
+     */
+    protected function getBuildSuccessfulMessage()
+    {
+        return 'BUILD FINISHED';
+    }
+
+    /**
      * Prints a message to console.
      *
-     * @param  string                $message  The message to print.
-     *                                         Should not be
-     *                                         <code>null</code>.
-     * @param  OutputStream|resource $stream   The stream to use for message printing.
-     * @param  int                   $priority The priority of the message.
-     *                                         (Ignored in this
-     *                                         implementation.)
+     * @param string                $message  The message to print.
+     *                                        Should not be
+     *                                        <code>null</code>.
+     * @param OutputStream|resource $stream   the stream to use for message printing
+     * @param int                   $priority The priority of the message.
+     *                                        (Ignored in this
+     *                                        implementation.)
+     *
      * @throws IOException
      */
     protected function printMessage($message, OutputStream $stream, $priority)
@@ -413,15 +422,16 @@ class DefaultLogger implements StreamRequiredBuildLogger
         $stream->write($message . PHP_EOL);
     }
 
-    private function findProjectTimer(BuildEvent $buildEvent)
-    {
-        $project = $buildEvent->getProject();
-        return $this->projectTimerMap->find($project, $this->clock);
-    }
-
     protected function findInitialProjectTimer()
     {
         return $this->projectTimerMap->find('', $this->clock);
+    }
+
+    private function findProjectTimer(BuildEvent $buildEvent)
+    {
+        $project = $buildEvent->getProject();
+
+        return $this->projectTimerMap->find($project, $this->clock);
     }
 
     private function updateDurationWithInitialProjectTimer(ProjectTimer $projectTimer)

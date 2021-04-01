@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,6 @@ use Phing\Io\File;
 
 /**
  * Helper class, holds the nested <code>&lt;pathelement&gt;</code> values.
- *
  */
 class PathElement
 {
@@ -49,7 +49,6 @@ class PathElement
 
     /**
      * @param string $path
-     *
      */
     public function setPath($path)
     {

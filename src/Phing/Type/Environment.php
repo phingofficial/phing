@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,14 +31,14 @@ use Phing\Exception\BuildException;
 class Environment
 {
     /**
-     * a vector of type EnvVariable
+     * a vector of type EnvVariable.
      *
-     * @type EnvVariable[]
+     * @var EnvVariable[]
      */
     protected $variables;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct()
     {
@@ -49,7 +50,7 @@ class Environment
      * Validity checking is <i>not</i> performed at this point. Duplicates
      * are not caught either.
      *
-     * @param EnvVariable $var new variable.
+     * @param EnvVariable $var new variable
      */
     public function addVariable(EnvVariable $var)
     {
@@ -57,16 +58,18 @@ class Environment
     }
 
     /**
-     * get the variable list as an array
+     * get the variable list as an array.
+     *
+     * @throws BuildException if any variable is misconfigured
      *
      * @return array of key=value assignment strings
-     * @throws BuildException if any variable is misconfigured
      */
     public function getVariables()
     {
-        if ($this->variables->count() === 0) {
+        if (0 === $this->variables->count()) {
             return null;
         }
+
         return array_map(
             function (EnvVariable $env) {
                 return $env->getContent();
@@ -79,7 +82,7 @@ class Environment
      * Get the raw vector of variables. This is not a clone.
      *
      * @return ArrayObject a potentially empty (but never null) vector of elements of type
-     * Variable
+     *                     Variable
      */
     public function getVariablesObject(): ArrayObject
     {

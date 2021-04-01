@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -42,8 +43,7 @@ class XmlLintTask extends Task
     protected $haltonfailure = true;
 
     /**
-     * File to be performed syntax check on
-     *
+     * File to be performed syntax check on.
      */
     public function setFile(File $file)
     {
@@ -51,8 +51,7 @@ class XmlLintTask extends Task
     }
 
     /**
-     * XML Schema Description file to validate against
-     *
+     * XML Schema Description file to validate against.
      */
     public function setSchema(File $schema)
     {
@@ -60,7 +59,7 @@ class XmlLintTask extends Task
     }
 
     /**
-     * Use RNG instead of DTD schema validation
+     * Use RNG instead of DTD schema validation.
      *
      * @param bool $bool
      */
@@ -70,9 +69,7 @@ class XmlLintTask extends Task
     }
 
     /**
-     * Sets the haltonfailure attribute
-     *
-     *
+     * Sets the haltonfailure attribute.
      */
     public function setHaltonfailure(bool $haltonfailure)
     {
@@ -85,14 +82,13 @@ class XmlLintTask extends Task
      * {@inheritdoc}
      *
      * @throws BuildException
-     *
      */
     public function main()
     {
         if (isset($this->schema) && !file_exists($this->schema->getPath())) {
-            throw new BuildException("Schema file not found: " . $this->schema->getPath());
+            throw new BuildException('Schema file not found: ' . $this->schema->getPath());
         }
-        if (!isset($this->file) and count($this->filesets) == 0) {
+        if (!isset($this->file) and 0 == count($this->filesets)) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
@@ -114,8 +110,23 @@ class XmlLintTask extends Task
     }
 
     /**
-     * @param $message
+     * Local error handler to catch validation errors and log them through Phing.
      *
+     * @param int    $level
+     * @param string $message
+     * @param string $file
+     * @param int    $line
+     * @param mixed  $context
+     */
+    public function errorHandler($level, $message, $file, $line, $context)
+    {
+        $matches = [];
+        preg_match('/^.*\(\): (.*)$/', $message, $matches);
+        $this->log($matches[1], Project::MSG_ERR);
+    }
+
+    /**
+     * @param $message
      *
      * @throws BuildException
      */
@@ -129,17 +140,16 @@ class XmlLintTask extends Task
     }
 
     /**
-     * Performs validation
+     * Performs validation.
      *
      * @param string $file
-     *
      */
     protected function lint($file)
     {
         if (file_exists($file)) {
             if (is_readable($file)) {
                 $dom = new DOMDocument();
-                if ($dom->load($file) === false) {
+                if (false === $dom->load($file)) {
                     $error = libxml_get_last_error();
                     $this->logError($file . ' is not well-formed (See messages above)');
                 } else {
@@ -170,21 +180,5 @@ class XmlLintTask extends Task
         } else {
             $this->logError('File not found: ' . $file);
         }
-    }
-
-    /**
-     * Local error handler to catch validation errors and log them through Phing
-     *
-     * @param int $level
-     * @param string $message
-     * @param string $file
-     * @param int $line
-     *
-     */
-    public function errorHandler($level, $message, $file, $line, $context)
-    {
-        $matches = [];
-        preg_match('/^.*\(\): (.*)$/', $message, $matches);
-        $this->log($matches[1], Project::MSG_ERR);
     }
 }

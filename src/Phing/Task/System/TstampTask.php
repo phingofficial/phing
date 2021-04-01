@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,36 +27,37 @@ use Phing\Task;
 
 /**
  * Sets properties to the current time, or offsets from the current time.
- * The default properties are TSTAMP, DSTAMP and TODAY;
+ * The default properties are TSTAMP, DSTAMP and TODAY;.
  *
  * Based on Ant's Tstamp task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
  * @since   2.2.0
  */
 class TstampTask extends Task
 {
     private $customFormats = [];
 
-    private $prefix = "";
+    private $prefix = '';
 
     /**
      * Set a prefix for the properties. If the prefix does not end with a "."
      * one is automatically added.
      *
-     * @param string $prefix the prefix to use.
+     * @param string $prefix the prefix to use
      */
     public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
 
         if (!empty($this->prefix)) {
-            $this->prefix .= ".";
+            $this->prefix .= '.';
         }
     }
 
     /**
-     * Adds a custom format
+     * Adds a custom format.
      *
      * @param TstampCustomFormat $cf custom format
      */
@@ -104,7 +106,7 @@ class TstampTask extends Task
     {
         $property = $this->getProject()->getProperty('phing.tstamp.now.iso');
 
-        if ($property !== null && $property !== '') {
+        if (null !== $property && '' !== $property) {
             try {
                 $dateTime = new DateTime($property);
             } catch (Exception $e) {
@@ -119,9 +121,9 @@ class TstampTask extends Task
 
         $dateTime = (new DateTime())->getTimestamp();
 
-        if ($property !== null && $property !== '') {
+        if (null !== $property && '' !== $property) {
             $dateTime = DateTime::createFromFormat('U', $property);
-            if ($dateTime === false) {
+            if (false === $dateTime) {
                 $this->log('magic property phing.tstamp.now ignored as ' . $property . ' is not a valid number');
             } else {
                 $dateTime = $dateTime->getTimestamp();

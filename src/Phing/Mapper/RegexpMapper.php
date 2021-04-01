@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +28,6 @@ use Phing\Util\Regexp;
  *
  * @author Andreas Aderhold <andi@binarycloud.com>
  * @author Hans Lellelid <hans@velum.net>
- *
  */
 class RegexpMapper implements FileNameMapper
 {
@@ -59,7 +59,7 @@ class RegexpMapper implements FileNameMapper
      * Attribute specifying whether to ignore the difference
      * between / and \ (the two common directory characters).
      *
-     * @param bool $handleDirSep a boolean, default is false.
+     * @param bool $handleDirSep a boolean, default is false
      */
     public function setHandleDirSep($handleDirSep)
     {
@@ -79,7 +79,7 @@ class RegexpMapper implements FileNameMapper
      * Attribute specifying whether to ignore the case difference
      * in the names.
      *
-     * @param bool $caseSensitive a boolean, default is false.
+     * @param bool $caseSensitive a boolean, default is false
      */
     public function setCaseSensitive($caseSensitive)
     {
@@ -91,11 +91,10 @@ class RegexpMapper implements FileNameMapper
      * {@inheritdoc}
      *
      * @param string $from
-     *
      */
     public function setFrom($from)
     {
-        if ($from === null) {
+        if (null === $from) {
             throw new BuildException("this mapper requires a 'from' attribute");
         }
 
@@ -109,13 +108,12 @@ class RegexpMapper implements FileNameMapper
      *
      * @param string $to
      *
-     *
      * @intern [HL] I'm changing the way this works for now to just use string
      *              <code>$this->to = StringHelper::toCharArray($to);</code>
      */
     public function setTo($to)
     {
-        if ($to === null) {
+        if (null === $to) {
             throw new BuildException("this mapper requires a 'to' attribute");
         }
 
@@ -125,17 +123,16 @@ class RegexpMapper implements FileNameMapper
     /**
      * {@inheritdoc}
      *
-     *
-     * @return array|null
+     * @return null|array
      */
     public function main($sourceFileName)
     {
         if ($this->handleDirSep) {
-            if (strpos('\\', $sourceFileName) !== false) {
+            if (false !== strpos('\\', $sourceFileName)) {
                 $sourceFileName = str_replace('\\', '/', $sourceFileName);
             }
         }
-        if ($this->reg === null || $this->to === null || !$this->reg->matches((string) $sourceFileName)) {
+        if (null === $this->reg || null === $this->to || !$this->reg->matches((string) $sourceFileName)) {
             return null;
         }
 
@@ -146,9 +143,9 @@ class RegexpMapper implements FileNameMapper
      * Replace all backreferences in the to pattern with the matched groups.
      * groups of the source.
      *
-     * @param string $source The source filename.
+     * @param string $source the source filename
      *
-     * @return array|null|string
+     * @return null|array|string
      *
      * FIXME Can't we just use engine->replace() to handle this?  the Preg engine will automatically convert \1 references to $1
      *
@@ -164,7 +161,7 @@ class RegexpMapper implements FileNameMapper
     /**
      * Gets the matched group from the Regexp engine.
      *
-     * @param array $matches Matched elements.
+     * @param array $matches matched elements
      *
      * @return string
      */

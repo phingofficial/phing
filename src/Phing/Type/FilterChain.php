@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -207,12 +208,6 @@ class FilterChain extends DataType
         $this->add($o);
     }
 
-    private function add(BaseFilterReader $o)
-    {
-        $o->setProject($this->project);
-        $this->filterReaders[] = $o;
-    }
-
     /*
      * Makes this instance in effect a reference to another FilterChain
      * instance.
@@ -223,12 +218,13 @@ class FilterChain extends DataType
      * @param  $r the reference to which this instance is associated
      * @throws BuildException if this instance already has been configured.
     */
+
     /**
      * @throws BuildException
      */
     public function setRefid(Reference $r)
     {
-        if (count($this->filterReaders) !== 0) {
+        if (0 !== count($this->filterReaders)) {
             throw $this->tooManyAttributes();
         }
 
@@ -240,5 +236,11 @@ class FilterChain extends DataType
             throw new BuildException($r->getRefId() . " doesn't refer to a FilterChain");
         }
         parent::setRefid($r);
+    }
+
+    private function add(BaseFilterReader $o)
+    {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,27 +21,29 @@
 namespace Phing\Type\Selector\Modified;
 
 /**
- * Class EqualComparator
+ * Class EqualComparator.
  */
 class EqualComparator implements Comparator
 {
+    public function __toString(): string
+    {
+        return 'EqualComparator';
+    }
+
     /**
      * @param object $o1
      * @param object $o2
      */
     public function compare($o1, $o2): int
     {
-        if ($o1 === null) {
-            if ($o2 === null) {
+        if (null === $o1) {
+            if (null === $o2) {
                 return 1;
             }
+
             return 0;
         }
-        return ($o1 === $o2) ? 0 : 1;
-    }
 
-    public function __toString(): string
-    {
-        return 'EqualComparator';
+        return ($o1 === $o2) ? 0 : 1;
     }
 }

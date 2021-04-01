@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -71,28 +72,28 @@ class EchoProperties extends Task
     /**
      * the properties element.
      */
-    private static $PROPERTIES = "properties";
+    private static $PROPERTIES = 'properties';
 
     /**
      * the property element.
      */
-    private static $PROPERTY = "property";
+    private static $PROPERTY = 'property';
 
     /**
      * name attribute for property, testcase and testsuite elements.
      */
-    private static $ATTR_NAME = "name";
+    private static $ATTR_NAME = 'name';
 
     /**
      * value attribute for property elements.
      */
-    private static $ATTR_VALUE = "value";
+    private static $ATTR_VALUE = 'value';
     /**
      * the input file.
      *
      * @var File
      */
-    private $inFile = null;
+    private $inFile;
 
     /**
      * File object pointing to the output file. If this is null, then
@@ -100,21 +101,21 @@ class EchoProperties extends Task
      *
      * @var File
      */
-    private $destfile = null;
+    private $destfile;
 
     /**
      * If this is true, then errors generated during file output will become
      * build errors, and if false, then such errors will be logged, but not
      * thrown.
      *
-     * @var boolean
+     * @var bool
      */
     private $failonerror = true;
 
     /**
      * @var string
      */
-    private $format = "text";
+    private $format = 'text';
 
     /**
      * @var string
@@ -129,7 +130,7 @@ class EchoProperties extends Task
     /**
      * Sets the input file.
      *
-     * @param string|File $file the input file
+     * @param File|string $file the input file
      */
     public function setSrcfile($file)
     {
@@ -144,7 +145,7 @@ class EchoProperties extends Task
      *  Set a file to store the property output.  If this is never specified,
      *  then the output will be sent to the Phing log.
      *
-     * @param string|File $destfile file to store the property output
+     * @param File|string $destfile file to store the property output
      */
     public function setDestfile($destfile)
     {
@@ -168,7 +169,7 @@ class EchoProperties extends Task
      *  If the prefix is set, then only properties which start with this
      *  prefix string will be recorded. If regex is not set and  if this
      *  is never set, or it is set to an empty string or <tt>null</tt>,
-     *  then all properties will be recorded. <P>
+     *  then all properties will be recorded. <P>.
      *
      *  For example, if the attribute is set as:
      *    <PRE>&lt;echoproperties  prefix="phing." /&gt;</PRE>
@@ -179,7 +180,7 @@ class EchoProperties extends Task
      */
     public function setPrefix($prefix)
     {
-        if ($prefix != null && strlen($prefix) != 0) {
+        if (null != $prefix && 0 != strlen($prefix)) {
             $this->prefix = $prefix;
         }
     }
@@ -188,7 +189,7 @@ class EchoProperties extends Task
      *  If the regex is set, then only properties whose names match it
      *  will be recorded.  If prefix is not set and if this is never set,
      *  or it is set to an empty string or <tt>null</tt>, then all
-     *  properties will be recorded.<P>
+     *  properties will be recorded.<P>.
      *
      *  For example, if the attribute is set as:
      *    <PRE>&lt;echoproperties  prefix=".*phing.*" /&gt;</PRE>
@@ -199,7 +200,7 @@ class EchoProperties extends Task
      */
     public function setRegex($regex)
     {
-        if ($regex != null && strlen($regex) != 0) {
+        if (null != $regex && 0 != strlen($regex)) {
             $this->regex = $regex;
         }
     }
@@ -217,31 +218,33 @@ class EchoProperties extends Task
     /**
      *  Run the task.
      *
-     * @throws BuildException  trouble, probably file IO
+     * @throws BuildException trouble, probably file IO
      */
     public function main()
     {
-        if ($this->prefix != null && $this->regex != null) {
-            throw new BuildException("Please specify either prefix or regex, but not both", $this->getLocation());
+        if (null != $this->prefix && null != $this->regex) {
+            throw new BuildException('Please specify either prefix or regex, but not both', $this->getLocation());
         }
 
         //copy the properties file
         $allProps = [];
 
-        /* load properties from file if specified, otherwise use Phing's properties */
-        if ($this->inFile == null) {
+        // load properties from file if specified, otherwise use Phing's properties
+        if (null == $this->inFile) {
             // add phing properties
             $allProps = $this->getProject()->getProperties();
-        } elseif ($this->inFile != null) {
+        } elseif (null != $this->inFile) {
             if ($this->inFile->exists() && $this->inFile->isDirectory()) {
-                $message = "srcfile is a directory!";
+                $message = 'srcfile is a directory!';
                 $this->failOnErrorAction(null, $message, Project::MSG_ERR);
+
                 return;
             }
 
             if ($this->inFile->exists() && !$this->inFile->canRead()) {
-                $message = "Can not read from the specified srcfile!";
+                $message = 'Can not read from the specified srcfile!';
                 $this->failOnErrorAction(null, $message, Project::MSG_ERR);
+
                 return;
             }
 
@@ -250,28 +253,32 @@ class EchoProperties extends Task
                 $props->load(new File($this->inFile));
                 $allProps = $props->getProperties();
             } catch (IOException $ioe) {
-                $message = "Could not read file " . $this->inFile->getAbsolutePath();
+                $message = 'Could not read file ' . $this->inFile->getAbsolutePath();
                 $this->failOnErrorAction($ioe, $message, Project::MSG_WARN);
+
                 return;
             }
         }
 
         $os = null;
+
         try {
-            if ($this->destfile == null) {
+            if (null == $this->destfile) {
                 $os = Phing::getOutputStream();
                 $this->saveProperties($allProps, $os);
                 $this->log($os);
             } else {
                 if ($this->destfile->exists() && $this->destfile->isDirectory()) {
-                    $message = "destfile is a directory!";
+                    $message = 'destfile is a directory!';
                     $this->failOnErrorAction(null, $message, Project::MSG_ERR);
+
                     return;
                 }
 
                 if ($this->destfile->exists() && !$this->destfile->canWrite()) {
-                    $message = "Can not write to the specified destfile!";
+                    $message = 'Can not write to the specified destfile!';
                     $this->failOnErrorAction(null, $message, Project::MSG_ERR);
+
                     return;
                 }
                 $os = new FileOutputStream($this->destfile);
@@ -283,50 +290,28 @@ class EchoProperties extends Task
     }
 
     /**
-     * @param Exception $exception
-     * @param string $message
-     * @param int $level
-     * @throws BuildException
-     */
-    private function failOnErrorAction(Exception $exception = null, $message = '', $level = Project::MSG_INFO)
-    {
-        if ($this->failonerror) {
-            throw new BuildException(
-                $exception ?? $message,
-                $this->getLocation()
-            );
-        }
-
-        $this->log(
-            $exception !== null && $message === ''
-                ? $exception->getMessage()
-                : $message,
-            $level
-        );
-    }
-
-    /**
      *  Send the key/value pairs in the hashtable to the given output stream.
      *  Only those properties matching the <tt>prefix</tt> constraint will be
      *  sent to the output stream.
      *  The output stream will be closed when this method returns.
      *
-     * @param  array $allProps propfile to save
-     * @param  OutputStream $os output stream
-     * @throws IOException      on output errors
-     * @throws BuildException   on other errors
+     * @param array        $allProps propfile to save
+     * @param OutputStream $os       output stream
+     *
+     * @throws IOException    on output errors
+     * @throws BuildException on other errors
      */
     protected function saveProperties($allProps, $os)
     {
         ksort($allProps);
         $props = new Properties();
 
-        if ($this->regex !== '') {
+        if ('' !== $this->regex) {
             $a = new ArrayIterator($allProps);
             $i = new RegexIterator($a, $this->regex, RegexIterator::MATCH, RegexIterator::USE_KEY);
             $allProps = iterator_to_array($i);
         }
-        if ($this->prefix !== '') {
+        if ('' !== $this->prefix) {
             $a = new ArrayIterator($allProps);
             $i = new RegexIterator(
                 $a,
@@ -341,9 +326,9 @@ class EchoProperties extends Task
             $props->setProperty($name, $value);
         }
 
-        if ($this->format === "text") {
-            $this->textSaveProperties($props, $os, "Phing properties");
-        } elseif ($this->format === "xml") {
+        if ('text' === $this->format) {
+            $this->textSaveProperties($props, $os, 'Phing properties');
+        } elseif ('xml' === $this->format) {
             $this->xmlSaveProperties($props, $os);
         }
     }
@@ -351,8 +336,9 @@ class EchoProperties extends Task
     /**
      * Output the properties as xml output.
      *
-     * @param  Properties $props the properties to save
-     * @param  OutputStream $os the output stream to write to (Note this gets closed)
+     * @param Properties   $props the properties to save
+     * @param OutputStream $os    the output stream to write to (Note this gets closed)
+     *
      * @throws BuildException
      */
     protected function xmlSaveProperties(Properties $props, OutputStream $os)
@@ -374,15 +360,16 @@ class EchoProperties extends Task
             $doc->appendChild($rootElement);
             $os->write($doc->saveXML());
         } catch (IOException $ioe) {
-            throw new BuildException("Unable to write XML file", $ioe);
+            throw new BuildException('Unable to write XML file', $ioe);
         }
     }
 
     /**
-     * @param Properties $props the properties to record
-     * @param OutputStream $os record the properties to this output stream
-     * @param string $header prepend this header to the property output
-     * @throws BuildException on an I/O error during a write.
+     * @param Properties   $props  the properties to record
+     * @param OutputStream $os     record the properties to this output stream
+     * @param string       $header prepend this header to the property output
+     *
+     * @throws BuildException on an I/O error during a write
      */
     protected function textSaveProperties(Properties $props, OutputStream $os, $header)
     {
@@ -391,5 +378,29 @@ class EchoProperties extends Task
         } catch (IOException $ioe) {
             throw new BuildException($ioe, $this->getLocation());
         }
+    }
+
+    /**
+     * @param Exception $exception
+     * @param string    $message
+     * @param int       $level
+     *
+     * @throws BuildException
+     */
+    private function failOnErrorAction(Exception $exception = null, $message = '', $level = Project::MSG_INFO)
+    {
+        if ($this->failonerror) {
+            throw new BuildException(
+                $exception ?? $message,
+                $this->getLocation()
+            );
+        }
+
+        $this->log(
+            null !== $exception && '' === $message
+                ? $exception->getMessage()
+                : $message,
+            $level
+        );
     }
 }

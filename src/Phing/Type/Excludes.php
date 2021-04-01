@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,33 +27,34 @@ use Phing\Project;
  * Datatype which handles excluded files, classes and methods.
  *
  * @author  Benjamin Schultz <bschultz@proqrent.de>
+ *
  * @since   2.4.6
  */
 class Excludes extends DataType
 {
     /**
-     * The directory scanner for getting the excluded files
+     * The directory scanner for getting the excluded files.
      *
      * @var DirectoryScanner
      */
-    private $directoryScanner = null;
+    private $directoryScanner;
 
     /**
-     * Holds the excluded file patterns
+     * Holds the excluded file patterns.
      *
      * @var ExcludesNameEntry[]
      */
     private $files = [];
 
     /**
-     * Holds the excluded classes
+     * Holds the excluded classes.
      *
      * @var ExcludesNameEntry[]
      */
     private $classes = [];
 
     /**
-     * Holds the excluded methods
+     * Holds the excluded methods.
      *
      * @var ExcludesNameEntry[]
      */
@@ -66,7 +68,7 @@ class Excludes extends DataType
     }
 
     /**
-     * Add a name entry on the exclude file list
+     * Add a name entry on the exclude file list.
      *
      * @return ExcludesNameEntry Reference to object
      */
@@ -76,7 +78,7 @@ class Excludes extends DataType
     }
 
     /**
-     * Add a name entry on the exclude class list
+     * Add a name entry on the exclude class list.
      *
      * @return ExcludesNameEntry Reference to object
      */
@@ -86,7 +88,7 @@ class Excludes extends DataType
     }
 
     /**
-     * Add a name entry on the exclude method list
+     * Add a name entry on the exclude method list.
      *
      * @return ExcludesNameEntry Reference to object
      */
@@ -96,22 +98,7 @@ class Excludes extends DataType
     }
 
     /**
-     * Adds a new ExcludesNameEntry to the given exclusion list.
-     *
-     * @param ExcludesNameEntry[] $excludesNameEntryList
-     *
-     * @return ExcludesNameEntry Reference to the created ExcludesNameEntry instance
-     */
-    private function addExcludesNameEntry(&$excludesNameEntryList)
-    {
-        $excludesNameEntry = new ExcludesNameEntry();
-        $excludesNameEntryList[] = $excludesNameEntry;
-
-        return $excludesNameEntry;
-    }
-
-    /**
-     * Returns the excluded files
+     * Returns the excluded files.
      *
      * @return array
      */
@@ -138,7 +125,7 @@ class Excludes extends DataType
     }
 
     /**
-     * Returns the excluded class names
+     * Returns the excluded class names.
      *
      * @return array
      */
@@ -154,7 +141,7 @@ class Excludes extends DataType
     }
 
     /**
-     * Returns the excluded method names
+     * Returns the excluded method names.
      *
      * @return array
      */
@@ -171,5 +158,20 @@ class Excludes extends DataType
         }
 
         return $excludedMethods;
+    }
+
+    /**
+     * Adds a new ExcludesNameEntry to the given exclusion list.
+     *
+     * @param ExcludesNameEntry[] $excludesNameEntryList
+     *
+     * @return ExcludesNameEntry Reference to the created ExcludesNameEntry instance
+     */
+    private function addExcludesNameEntry(&$excludesNameEntryList)
+    {
+        $excludesNameEntry = new ExcludesNameEntry();
+        $excludesNameEntryList[] = $excludesNameEntry;
+
+        return $excludesNameEntry;
     }
 }

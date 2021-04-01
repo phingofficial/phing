@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,15 +31,14 @@ use Phing\Project;
  */
 class TypeSelector extends BaseExtendSelector
 {
+    /**
+     * Key to used for parameterized custom selector.
+     */
+    public const TYPE_KEY = 'type';
     private $type;
 
     /**
-     * Key to used for parameterized custom selector
-     */
-    public const TYPE_KEY = "type";
-
-    /**
-     * Valid types
+     * Valid types.
      */
     private static $types = ['file', 'dir', 'link'];
 
@@ -47,7 +47,7 @@ class TypeSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        return "{typeselector type: " . $this->type . "}";
+        return '{typeselector type: ' . $this->type . '}';
     }
 
     /**
@@ -69,13 +69,13 @@ class TypeSelector extends BaseExtendSelector
     public function setParameters(array $parameters): void
     {
         parent::setParameters($parameters);
-        if ($parameters !== null) {
-            for ($i = 0, $size = count($parameters); $i < $size; $i++) {
+        if (null !== $parameters) {
+            for ($i = 0, $size = count($parameters); $i < $size; ++$i) {
                 $paramname = $parameters[$i]->getName();
                 if (self::TYPE_KEY == strtolower($paramname)) {
                     $this->setType($parameters[$i]->getValue());
                 } else {
-                    $this->setError("Invalid parameter " . $paramname);
+                    $this->setError('Invalid parameter ' . $paramname);
                 }
             }
         }
@@ -87,10 +87,10 @@ class TypeSelector extends BaseExtendSelector
      */
     public function verifySettings()
     {
-        if ($this->type === null) {
-            $this->setError("The type attribute is required");
+        if (null === $this->type) {
+            $this->setError('The type attribute is required');
         } elseif (!in_array($this->type, self::$types, true)) {
-            $this->setError("Invalid type specified; must be one of (" . implode(self::$types) . ")");
+            $this->setError('Invalid type specified; must be one of (' . implode(self::$types) . ')');
         }
     }
 
@@ -98,10 +98,11 @@ class TypeSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param File $basedir the base directory the scan is being done from
+     * @param File   $basedir  the base directory the scan is being done from
      * @param string $filename is the name of the file to check
-     * @param File $file is a PhingFile object the selector can use
-     * @return bool   Whether the file should be selected or not
+     * @param File   $file     is a PhingFile object the selector can use
+     *
+     * @return bool Whether the file should be selected or not
      */
     public function isSelected(File $basedir, $filename, File $file)
     {
@@ -109,21 +110,21 @@ class TypeSelector extends BaseExtendSelector
         $this->validate();
 
         if ($file->isLink()) {
-            if ($this->type == 'link') {
+            if ('link' == $this->type) {
                 return true;
             }
 
             $this->log(
-                $file->getAbsolutePath() . " is a link, proceeding with " . $file->getCanonicalPath() . " instead.",
+                $file->getAbsolutePath() . ' is a link, proceeding with ' . $file->getCanonicalPath() . ' instead.',
                 Project::MSG_DEBUG
             );
             $file = new File($file->getCanonicalPath());
         }
 
         if ($file->isDirectory()) {
-            return $this->type === 'dir';
+            return 'dir' === $this->type;
         }
 
-        return $this->type === 'file';
+        return 'file' === $this->type;
     }
 }

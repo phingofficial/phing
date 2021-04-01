@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,8 +22,7 @@ namespace Phing\Type;
 
 /**
  * Class to hold a property value
- *  Class only required to make it possible to add a property as reference
- *
+ *  Class only required to make it possible to add a property as reference.
  */
 class PropertyValue
 {
@@ -38,9 +38,17 @@ class PropertyValue
      */
     public function __construct($value = null)
     {
-        if ($value !== null) {
+        if (null !== $value) {
             $this->setValue($value);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getValue();
     }
 
     /**
@@ -59,13 +67,5 @@ class PropertyValue
     public function getValue()
     {
         return $this->value;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getValue();
     }
 }

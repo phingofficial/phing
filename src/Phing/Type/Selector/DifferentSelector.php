@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -59,7 +60,7 @@ class DifferentSelector extends MappingSelector
     private $ignoreContents = false;
 
     /**
-     * This flag tells the selector to ignore file times in the comparison
+     * This flag tells the selector to ignore file times in the comparison.
      *
      * @param bool $ignoreFileTimes if true ignore file times
      */
@@ -69,7 +70,7 @@ class DifferentSelector extends MappingSelector
     }
 
     /**
-     * This flag tells the selector to ignore contents
+     * This flag tells the selector to ignore contents.
      *
      * @param bool $ignoreContents if true ignore contents
      */
@@ -81,11 +82,12 @@ class DifferentSelector extends MappingSelector
     /**
      * This test is our selection test that compared the file with the destfile.
      *
-     * @param File $srcfile the source file
+     * @param File $srcfile  the source file
      * @param File $destfile the destination file
-     * @return bool true if the files are different
      *
      * @throws BuildException
+     *
+     * @return bool true if the files are different
      */
     protected function selectionTest(File $srcfile, File $destfile)
     {
@@ -114,7 +116,7 @@ class DifferentSelector extends MappingSelector
                 return !$fu->contentEquals($srcfile, $destfile);
             }
         } catch (IOException $e) {
-            throw new BuildException("while comparing $srcfile and $destfile", $e);
+            throw new BuildException("while comparing {$srcfile} and {$destfile}", $e);
         }
 
         return false;

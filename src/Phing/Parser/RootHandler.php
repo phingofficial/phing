@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,7 +32,7 @@ namespace Phing\Parser;
 class RootHandler extends AbstractHandler
 {
     /**
-     * The phing project configurator object
+     * The phing project configurator object.
      */
     private $configurator;
 
@@ -41,7 +42,7 @@ class RootHandler extends AbstractHandler
     private $context;
 
     /**
-     * Constructs a new RootHandler
+     * Constructs a new RootHandler.
      *
      * The root filter is required so the parser knows what to do. It's
      * called by the ExpatParser that is instatiated in ProjectConfigurator.
@@ -49,8 +50,8 @@ class RootHandler extends AbstractHandler
      * It receives the expat parse object ref and a reference to the
      * configurator
      *
-     * @param AbstractSAXParser $parser The ExpatParser object.
-     * @param ProjectConfigurator $configurator The ProjectConfigurator object.
+     * @param AbstractSAXParser   $parser       the ExpatParser object
+     * @param ProjectConfigurator $configurator the ProjectConfigurator object
      */
     public function __construct(AbstractSAXParser $parser, ProjectConfigurator $configurator, XmlContext $context)
     {
@@ -68,19 +69,20 @@ class RootHandler extends AbstractHandler
      * to handle any nested tags & attributes of the &lt;project&gt; tag,
      * and calls init.
      *
-     * @param string $tag The xml tagname
-     * @param array $attrs The attributes of the tag
+     * @param string $tag   The xml tagname
+     * @param array  $attrs The attributes of the tag
+     *
      * @throws ExpatParseException if the first element within our build file
-     *                                   is not the &gt;project&lt; element
+     *                             is not the &gt;project&lt; element
      */
     public function startElement($tag, $attrs)
     {
-        if ($tag === "project") {
+        if ('project' === $tag) {
             $ph = new ProjectHandler($this->parser, $this, $this->configurator, $this->context);
             $ph->init($tag, $attrs);
         } else {
             throw new ExpatParseException(
-                "Unexpected tag <$tag> in top-level of build file.",
+                "Unexpected tag <{$tag}> in top-level of build file.",
                 $this->parser->getLocation()
             );
         }

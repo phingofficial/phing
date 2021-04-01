@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -42,7 +43,7 @@ class TruncateTask extends Task
     /**
      * Set a single target File.
      *
-     * @param  File $f the single File
+     * @param File $f the single File
      */
     public function setFile(File $f): void
     {
@@ -53,7 +54,7 @@ class TruncateTask extends Task
      * Set the amount by which files' lengths should be adjusted.
      * It is permissible to append b / k / m / g / t.
      *
-     * @param string $adjust (positive or negative) adjustment amount.
+     * @param string $adjust (positive or negative) adjustment amount
      */
     public function setAdjust(string $adjust)
     {
@@ -64,14 +65,14 @@ class TruncateTask extends Task
      * Set the length to which files should be set.
      * It is permissible to append k / m / g.
      *
-     * @param string $length (positive) adjustment amount.
+     * @param string $length (positive) adjustment amount
      *
      * @throws BuildException
      */
     public function setLength(string $length)
     {
         $this->length = SizeHelper::fromHumanToBytes($length);
-        if ($this->length !== null && $this->length < 0) {
+        if (null !== $this->length && $this->length < 0) {
             throw new BuildException('Cannot truncate to length ' . $this->length);
         }
     }
@@ -79,7 +80,7 @@ class TruncateTask extends Task
     /**
      * Set whether to create nonexistent files.
      *
-     * @param bool $create default <code>true</code>.
+     * @param bool $create default <code>true</code>
      */
     public function setCreate($create)
     {
@@ -90,7 +91,7 @@ class TruncateTask extends Task
      * Set whether, when creating nonexistent files, nonexistent directories
      * should also be created.
      *
-     * @param bool $mkdirs default <code>false</code>.
+     * @param bool $mkdirs default <code>false</code>
      */
     public function setMkdirs($mkdirs)
     {
@@ -104,15 +105,15 @@ class TruncateTask extends Task
      */
     public function main()
     {
-        if ($this->length !== null && $this->adjust !== null) {
+        if (null !== $this->length && null !== $this->adjust) {
             throw new BuildException(
                 'length and adjust are mutually exclusive options'
             );
         }
-        if ($this->length === null && $this->adjust === null) {
+        if (null === $this->length && null === $this->adjust) {
             $this->length = 0;
         }
-        if ($this->file === null) {
+        if (null === $this->file) {
             throw new BuildException('No files specified.');
         }
 
@@ -122,8 +123,9 @@ class TruncateTask extends Task
     }
 
     /**
-     * @return bool
      * @throws BuildException
+     *
+     * @return bool
      */
     private function shouldProcess(File $f)
     {
@@ -134,6 +136,7 @@ class TruncateTask extends Task
             return false;
         }
         $exception = null;
+
         try {
             if ($f->createNewFile($this->mkdirs)) {
                 return true;
@@ -141,11 +144,13 @@ class TruncateTask extends Task
         } catch (IOException $e) {
             $exception = $e;
         }
-        $msg = "Unable to create " . $f;
-        if ($exception === null) {
+        $msg = 'Unable to create ' . $f;
+        if (null === $exception) {
             $this->log($msg, Project::MSG_WARN);
+
             return false;
         }
+
         throw new BuildException($msg, $exception);
     }
 
@@ -162,7 +167,7 @@ class TruncateTask extends Task
         $splFile = new SplFileObject($f->getPath(), 'a+');
 
         if (!$splFile->ftruncate((int) $newLength)) {
-            throw new BuildException("Exception working with " . (string) $splFile);
+            throw new BuildException('Exception working with ' . (string) $splFile);
         }
 
         $splFile->rewind();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,19 +32,19 @@ use Phing\Task;
 class WikiPublishTask extends Task
 {
     /**
-     * Wiki API url
+     * Wiki API url.
      *
      * @var string
      */
     private $apiUrl;
     /**
-     * Wiki API user name
+     * Wiki API user name.
      *
      * @var string
      */
     private $apiUser;
     /**
-     * Wiki API password
+     * Wiki API password.
      *
      * @var string
      */
@@ -55,13 +56,13 @@ class WikiPublishTask extends Task
      */
     private $id;
     /**
-     * Wiki document title
+     * Wiki document title.
      *
      * @var string
      */
     private $title;
     /**
-     * Wiki document content
+     * Wiki document content.
      *
      * @var string
      */
@@ -73,7 +74,7 @@ class WikiPublishTask extends Task
      */
     private $mode = 'append';
     /**
-     * Publish modes map
+     * Publish modes map.
      *
      * @var array
      */
@@ -83,23 +84,36 @@ class WikiPublishTask extends Task
         'prepend' => 'prependtext',
     ];
     /**
-     * Curl handler
+     * Curl handler.
      *
      * @var resource
      */
     private $curl;
     /**
-     * Wiki api edit token
+     * Wiki api edit token.
      *
      * @var string
      */
     private $apiEditToken;
     /**
-     * Temporary cookies file
+     * Temporary cookies file.
      *
      * @var string
      */
     private $cookiesFile;
+
+    /**
+     * Close curl connection and clean up.
+     */
+    public function __destruct()
+    {
+        if (null !== $this->curl && is_resource($this->curl)) {
+            curl_close($this->curl);
+        }
+        if (null !== $this->cookiesFile && file_exists($this->cookiesFile)) {
+            unlink($this->cookiesFile);
+        }
+    }
 
     /**
      * @param string $apiPassword
@@ -167,6 +181,7 @@ class WikiPublishTask extends Task
 
     /**
      * @param string $mode
+     *
      * @throws BuildException
      */
     public function setMode($mode)
@@ -223,7 +238,7 @@ class WikiPublishTask extends Task
     }
 
     /**
-     * Prepare CURL object
+     * Prepare CURL object.
      *
      * @throws BuildException
      */
@@ -242,7 +257,7 @@ class WikiPublishTask extends Task
     }
 
     /**
-     * The main entry point method
+     * The main entry point method.
      */
     public function main()
     {
@@ -252,119 +267,14 @@ class WikiPublishTask extends Task
     }
 
     /**
-     * Close curl connection and clean up
-     */
-    public function __destruct()
-    {
-        if (null !== $this->curl && is_resource($this->curl)) {
-            curl_close($this->curl);
-        }
-        if (null !== $this->cookiesFile && file_exists($this->cookiesFile)) {
-            unlink($this->cookiesFile);
-        }
-    }
-
-    /**
-     * Validates attributes coming in from XML
+     * Call Wiki webapi.
+     *
+     * @param string     $queryString
+     * @param null|array $postData
      *
      * @throws BuildException
-     */
-    private function validateAttributes()
-    {
-        if (null === $this->apiUrl) {
-            throw new BuildException('Wiki apiUrl is required');
-        }
-
-        if (null === $this->id && null === $this->title) {
-            throw new BuildException('Wiki page id or title is required');
-        }
-    }
-
-    /**
-     * Call Wiki webapi login action
-     *
-     * @param string|null $token
-     *
-     * @throws BuildException
-     */
-    private function callApiLogin($token = null)
-    {
-        $postData = ['lgname' => $this->apiUser, 'lgpassword' => $this->apiPassword];
-        if (null !== $token) {
-            $postData['lgtoken'] = $token;
-        }
-
-        $result = $this->callApi('action=login', $postData);
-        try {
-            $this->checkApiResponseResult('login', $result);
-        } catch (BuildException $e) {
-            if (null !== $token) {
-                throw $e;
-            }
-            // if token is required then call login again with token
-            $this->checkApiResponseResult('login', $result, 'NeedToken');
-            if (isset($result['login']) && isset($result['login']['token'])) {
-                $this->callApiLogin($result['login']['token']);
-            } else {
-                throw $e;
-            }
-        }
-    }
-
-    /**
-     * Call Wiki webapi edit action
-     */
-    private function callApiEdit()
-    {
-        $this->callApiTokens();
-        $result = $this->callApi('action=edit&token=' . urlencode($this->apiEditToken), $this->getApiEditData());
-        $this->checkApiResponseResult('edit', $result);
-    }
-
-    /**
-     * Return prepared data for Wiki webapi edit action
      *
      * @return array
-     */
-    private function getApiEditData()
-    {
-        $result = [
-            'minor' => '',
-        ];
-        if (null !== $this->title) {
-            $result['title'] = $this->title;
-        }
-        if (null !== $this->id) {
-            $result['pageid'] = $this->id;
-        }
-        $result[$this->modeMap[$this->mode]] = $this->content;
-
-        return $result;
-    }
-
-    /**
-     * Call Wiki webapi tokens action
-     *
-     * @throws BuildException
-     */
-    private function callApiTokens()
-    {
-        $result = $this->callApi('action=tokens&type=edit');
-        if (false == isset($result['tokens']) || false == isset($result['tokens']['edittoken'])) {
-            throw new BuildException('Wiki token not found');
-        }
-
-        $this->apiEditToken = $result['tokens']['edittoken'];
-    }
-
-    /**
-     * Call Wiki webapi
-     *
-     * @param string $queryString
-     * @param array|null $postData
-     *
-     * @return array
-     * @throws BuildException
      */
     protected function callApi($queryString, $postData = null)
     {
@@ -390,9 +300,103 @@ class WikiPublishTask extends Task
     }
 
     /**
-     * Set POST data for curl call
+     * Validates attributes coming in from XML.
      *
-     * @param array|null $data
+     * @throws BuildException
+     */
+    private function validateAttributes()
+    {
+        if (null === $this->apiUrl) {
+            throw new BuildException('Wiki apiUrl is required');
+        }
+
+        if (null === $this->id && null === $this->title) {
+            throw new BuildException('Wiki page id or title is required');
+        }
+    }
+
+    /**
+     * Call Wiki webapi login action.
+     *
+     * @param null|string $token
+     *
+     * @throws BuildException
+     */
+    private function callApiLogin($token = null)
+    {
+        $postData = ['lgname' => $this->apiUser, 'lgpassword' => $this->apiPassword];
+        if (null !== $token) {
+            $postData['lgtoken'] = $token;
+        }
+
+        $result = $this->callApi('action=login', $postData);
+
+        try {
+            $this->checkApiResponseResult('login', $result);
+        } catch (BuildException $e) {
+            if (null !== $token) {
+                throw $e;
+            }
+            // if token is required then call login again with token
+            $this->checkApiResponseResult('login', $result, 'NeedToken');
+            if (isset($result['login'], $result['login']['token'])) {
+                $this->callApiLogin($result['login']['token']);
+            } else {
+                throw $e;
+            }
+        }
+    }
+
+    /**
+     * Call Wiki webapi edit action.
+     */
+    private function callApiEdit()
+    {
+        $this->callApiTokens();
+        $result = $this->callApi('action=edit&token=' . urlencode($this->apiEditToken), $this->getApiEditData());
+        $this->checkApiResponseResult('edit', $result);
+    }
+
+    /**
+     * Return prepared data for Wiki webapi edit action.
+     *
+     * @return array
+     */
+    private function getApiEditData()
+    {
+        $result = [
+            'minor' => '',
+        ];
+        if (null !== $this->title) {
+            $result['title'] = $this->title;
+        }
+        if (null !== $this->id) {
+            $result['pageid'] = $this->id;
+        }
+        $result[$this->modeMap[$this->mode]] = $this->content;
+
+        return $result;
+    }
+
+    /**
+     * Call Wiki webapi tokens action.
+     *
+     * @throws BuildException
+     */
+    private function callApiTokens()
+    {
+        $result = $this->callApi('action=tokens&type=edit');
+        if (false == isset($result['tokens']) || false == isset($result['tokens']['edittoken'])) {
+            throw new BuildException('Wiki token not found');
+        }
+
+        $this->apiEditToken = $result['tokens']['edittoken'];
+    }
+
+    /**
+     * Set POST data for curl call.
+     *
+     * @param null|array $data
      */
     private function setPostData($data = null)
     {
@@ -405,17 +409,17 @@ class WikiPublishTask extends Task
         foreach ($data as $key => $value) {
             $postData .= urlencode($key) . '=' . urlencode($value) . '&';
         }
-        if ($postData != '') {
+        if ('' != $postData) {
             curl_setopt($this->curl, CURLOPT_POST, true);
             curl_setopt($this->curl, CURLOPT_POSTFIELDS, substr($postData, 0, -1));
         }
     }
 
     /**
-     * Validate Wiki webapi response
+     * Validate Wiki webapi response.
      *
      * @param string $action
-     * @param array $response
+     * @param array  $response
      * @param string $expect
      *
      * @throws BuildException

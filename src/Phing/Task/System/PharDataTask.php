@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +26,6 @@ use PharData;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
-use Phing\Task\System\MatchingTask;
 use Phing\Type\FileSet;
 use UnexpectedValueException;
 
@@ -65,6 +65,7 @@ class PharDataTask extends MatchingTask
     {
         $this->fileset = new FileSet();
         $this->filesets[] = $this->fileset;
+
         return $this->fileset;
     }
 
@@ -75,16 +76,18 @@ class PharDataTask extends MatchingTask
      */
     public function setCompression($compression)
     {
-        /**
-         * If we don't support passed compression, leave old one.
-         */
+        // If we don't support passed compression, leave old one.
         switch ($compression) {
             case 'gzip':
                 $this->compression = Phar::GZ;
+
                 break;
+
             case 'bzip2':
                 $this->compression = Phar::BZ2;
+
                 break;
+
             default:
                 break;
         }
@@ -92,7 +95,6 @@ class PharDataTask extends MatchingTask
 
     /**
      * Destination (output) file.
-     *
      */
     public function setDestFile(File $destinationFile)
     {
@@ -102,7 +104,6 @@ class PharDataTask extends MatchingTask
     /**
      * Base directory, which will be deleted from each included file (from path).
      * Paths with deleted basedir part are local paths in archive.
-     *
      */
     public function setBaseDir(File $baseDirectory)
     {
@@ -122,13 +123,11 @@ class PharDataTask extends MatchingTask
                 Project::MSG_INFO
             );
 
-            /**
-             * Delete old archive, if exists.
-             */
+            // Delete old archive, if exists.
             if ($this->destinationFile->exists()) {
                 $isDeleted = $this->destinationFile->delete();
                 if (!$isDeleted) {
-                    $this->log("Could not delete destination file $this->destinationFile", Project::MSG_WARN);
+                    $this->log("Could not delete destination file {$this->destinationFile}", Project::MSG_WARN);
                 }
             }
 
@@ -143,7 +142,7 @@ class PharDataTask extends MatchingTask
                 $pharData->buildFromIterator($fileset->getIterator(), $fileset->getDir($this->project));
             }
 
-            if ($this->compression !== Phar::NONE && $pharData->canCompress($this->compression)) {
+            if (Phar::NONE !== $this->compression && $pharData->canCompress($this->compression)) {
                 try {
                     $pharData->compress($this->compression);
                 } catch (UnexpectedValueException $uve) {
@@ -173,19 +172,19 @@ class PharDataTask extends MatchingTask
         }
 
         if (null === $this->destinationFile) {
-            throw new BuildException("destfile attribute must be set!", $this->getLocation());
+            throw new BuildException('destfile attribute must be set!', $this->getLocation());
         }
 
         if ($this->destinationFile->exists() && $this->destinationFile->isDirectory()) {
-            throw new BuildException("destfile is a directory!", $this->getLocation());
+            throw new BuildException('destfile is a directory!', $this->getLocation());
         }
 
         if (!$this->destinationFile->canWrite()) {
-            throw new BuildException("Can not write to the specified destfile!", $this->getLocation());
+            throw new BuildException('Can not write to the specified destfile!', $this->getLocation());
         }
 
         if (null === $this->baseDirectory) {
-            throw new BuildException("basedir cattribute must be set", $this->getLocation());
+            throw new BuildException('basedir cattribute must be set', $this->getLocation());
         }
 
         if (!$this->baseDirectory->exists()) {

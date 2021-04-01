@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,6 +32,7 @@ use Phing\Util\StringHelper;
  * Reads input from the InputHandler.
  *
  * @see     Project::getInputHandler()
+ *
  * @author  Hans Lellelid <hans@xmpl.org> (Phing)
  * @author  Ulrich Schmidt <usch@usch.net> (Ant)
  * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
@@ -45,7 +47,7 @@ class InputTask extends Task
     /**
      * @var string
      */
-    private $message = ""; // required
+    private $message = ''; // required
 
     /**
      * @var string
@@ -73,7 +75,7 @@ class InputTask extends Task
      * to reenter it. Validargs are case sensitive. If you want 'a' and 'A' to
      * be accepted you need to define both values as accepted arguments.
      *
-     * @param string $validargs A comma separated String defining valid input args.
+     * @param string $validargs a comma separated String defining valid input args
      */
     public function setValidargs($validargs)
     {
@@ -93,7 +95,7 @@ class InputTask extends Task
     /**
      * Sets the Message which gets displayed to the user during the build run.
      *
-     * @param string $message The message to be displayed.
+     * @param string $message the message to be displayed
      */
     public function setMessage($message)
     {
@@ -145,24 +147,25 @@ class InputTask extends Task
      */
     public function main()
     {
-        if ($this->propertyName === null) {
-            throw new BuildException("You must specify a value for propertyName attribute.");
+        if (null === $this->propertyName) {
+            throw new BuildException('You must specify a value for propertyName attribute.');
         }
 
-        if ($this->message === "") {
-            throw new BuildException("You must specify a message for input task.");
+        if ('' === $this->message) {
+            throw new BuildException('You must specify a message for input task.');
         }
 
-        if ($this->validargs !== null) {
+        if (null !== $this->validargs) {
             $accept = preg_split('/[\s,]+/', $this->validargs);
 
             // is it a bool (yes/no) inputrequest?
             $yesno = false;
-            if (count($accept) == 2) {
+            if (2 == count($accept)) {
                 $yesno = true;
                 foreach ($accept as $ans) {
                     if (!StringHelper::isBoolean($ans)) {
                         $yesno = false;
+
                         break;
                     }
                 }
@@ -182,7 +185,7 @@ class InputTask extends Task
         $request->setHidden($this->hidden);
 
         // unless overridden...
-        if ($this->defaultValue !== null) {
+        if (null !== $this->defaultValue) {
             $request->setDefaultValue($this->defaultValue);
         }
 
@@ -190,7 +193,7 @@ class InputTask extends Task
 
         $value = $request->getInput();
 
-        if ($value !== null) {
+        if (null !== $value) {
             $this->project->setUserProperty($this->propertyName, $value);
         }
     }

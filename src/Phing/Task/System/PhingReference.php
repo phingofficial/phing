@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,11 +25,10 @@ use Phing\Type\Reference;
 /**
  * Helper class that implements the nested <reference>
  * element of <phing> and <phingcall>.
- *
  */
 class PhingReference extends Reference
 {
-    private $targetid = null;
+    private $targetid;
 
     /**
      * Set the id that this reference to be stored under in the
@@ -43,9 +43,9 @@ class PhingReference extends Reference
 
     /**
      * Get the id under which this reference will be stored in the new
-     * project
+     * project.
      *
-     * @return string the id of the reference in the new project.
+     * @return string the id of the reference in the new project
      */
     public function getToRefid()
     {

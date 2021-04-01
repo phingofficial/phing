@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,7 +36,7 @@ use Phing\Parser\ProjectConfigurator;
  */
 class RuntimeConfigurable
 {
-    private $elementTag = null;
+    private $elementTag;
 
     /**
      * @var array
@@ -45,7 +46,7 @@ class RuntimeConfigurable
     /**
      * @var object|Task
      */
-    private $wrappedObject = null;
+    private $wrappedObject;
 
     /**
      * @var array
@@ -55,7 +56,7 @@ class RuntimeConfigurable
     /**
      * @var string
      */
-    private $characters = "";
+    private $characters = '';
 
     /**
      * @var bool
@@ -63,8 +64,8 @@ class RuntimeConfigurable
     private $proxyConfigured = false;
 
     /**
-     * @param Task|object $proxy
-     * @param mixed $elementTag The element to wrap.
+     * @param object|Task $proxy
+     * @param mixed       $elementTag the element to wrap
      */
     public function __construct($proxy, $elementTag)
     {
@@ -86,7 +87,6 @@ class RuntimeConfigurable
 
     /**
      * @param object|Task $proxy
-     *
      */
     public function setProxy($proxy)
     {
@@ -98,7 +98,6 @@ class RuntimeConfigurable
      * Set's the attributes for the wrapped element.
      *
      * @param array $attributes
-     *
      */
     public function setAttributes($attributes)
     {
@@ -117,8 +116,6 @@ class RuntimeConfigurable
 
     /**
      * Adds child elements to the wrapped element.
-     *
-     *
      */
     public function addChild(RuntimeConfigurable $child)
     {
@@ -126,7 +123,7 @@ class RuntimeConfigurable
     }
 
     /**
-     * Returns the child with index
+     * Returns the child with index.
      *
      * @param int $index
      *
@@ -146,7 +143,6 @@ class RuntimeConfigurable
      * Add characters from #PCDATA areas to the wrapped element.
      *
      * @param string $data
-     *
      */
     public function addText($data)
     {
@@ -158,7 +154,7 @@ class RuntimeConfigurable
      * concatenated, there is no way (currently) of keeping track of
      * multiple fragments.
      *
-     * @return string the text content of this element.
+     * @return string the text content of this element
      */
     public function getText()
     {
@@ -173,7 +169,7 @@ class RuntimeConfigurable
     /**
      * Reconfigure the element, even if it has already been configured.
      *
-     * @param Project $p the project instance for this configuration.
+     * @param Project $p the project instance for this configuration
      */
     public function reconfigure(Project $p)
     {
@@ -183,8 +179,6 @@ class RuntimeConfigurable
 
     /**
      * Configure the wrapped element and all children.
-     *
-     *
      *
      * @throws BuildException
      * @throws Exception
@@ -197,17 +191,17 @@ class RuntimeConfigurable
 
         $id = null;
 
-        if ($this->attributes || (isset($this->characters) && $this->characters !== '')) {
+        if ($this->attributes || (isset($this->characters) && '' !== $this->characters)) {
             ProjectConfigurator::configure($this->wrappedObject, $this->attributes, $project);
 
-            if (isset($this->attributes["id"])) {
-                $id = $this->attributes["id"];
+            if (isset($this->attributes['id'])) {
+                $id = $this->attributes['id'];
             }
 
-            if ($this->characters !== '') {
+            if ('' !== $this->characters) {
                 ProjectConfigurator::addText($project, $this->wrappedObject, $this->characters);
             }
-            if ($id !== null) {
+            if (null !== $id) {
                 $project->addReference($id, $this->wrappedObject);
             }
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,14 +32,17 @@ interface Algorithm
 {
     /**
      * Checks its prerequisites.
-     * @return bool <i>true</i> if all is ok, otherwise <i>false</i>.
+     *
+     * @return bool <i>true</i> if all is ok, otherwise <i>false</i>
      */
     public function isValid(): bool;
 
     /**
      * Get the value for a file.
-     * @param File $file File object for which the value should be evaluated.
-     * @return string|null The value for that file
+     *
+     * @param File $file file object for which the value should be evaluated
+     *
+     * @return null|string The value for that file
      */
     public function getValue(File $file): ?string;
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,27 +22,37 @@ namespace Phing\Io;
 
 /**
  * Wrapper class for PHP stream that supports write operations.
- *
  */
 class OutputStream
 {
     /**
-     * @var resource The configured PHP stream.
+     * @var resource the configured PHP stream
      */
     protected $stream;
 
     /**
      * Construct a new OutputStream.
      *
-     * @param resource $stream Configured PHP stream for writing.
+     * @param resource $stream configured PHP stream for writing
+     *
      * @throws IOException
      */
     public function __construct($stream)
     {
         if (!is_resource($stream)) {
-            throw new IOException("Passed argument is not a valid stream.");
+            throw new IOException('Passed argument is not a valid stream.');
         }
         $this->stream = $stream;
+    }
+
+    /**
+     * Returns a string representation of the attached PHP stream.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->stream;
     }
 
     /**
@@ -51,7 +62,7 @@ class OutputStream
      */
     public function close()
     {
-        if ($this->stream === null) {
+        if (null === $this->stream) {
             return;
         }
         $this->flush();
@@ -60,8 +71,9 @@ class OutputStream
             $lastError = error_get_last();
             $errormsg = $lastError['message'];
             $metaData = stream_get_meta_data($this->stream);
-            $resource = $metaData["uri"];
-            $msg = "Cannot close " . $resource . ": $errormsg";
+            $resource = $metaData['uri'];
+            $msg = 'Cannot close ' . $resource . ": {$errormsg}";
+
             throw new IOException($msg);
         }
         $this->stream = null;
@@ -75,28 +87,30 @@ class OutputStream
     public function flush()
     {
         error_clear_last();
-        if ($this->stream === null || false === @fflush($this->stream)) {
+        if (null === $this->stream || false === @fflush($this->stream)) {
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'no stream';
-            throw new IOException("Could not flush stream: " . $errormsg);
+
+            throw new IOException('Could not flush stream: ' . $errormsg);
         }
     }
 
     /**
      * Writes data to stream.
      *
-     * @param string $buf Binary/character data to write.
-     * @param int $off (Optional) offset.
-     * @param int $len (Optional) number of bytes/chars to write.
+     * @param string $buf binary/character data to write
+     * @param int    $off (Optional) offset
+     * @param int    $len (Optional) number of bytes/chars to write
+     *
      * @throws IOException - if there is an error writing to stream
      */
     public function write($buf, $off = null, $len = null)
     {
-        if ($off === null && $len === null) {
+        if (null === $off && null === $len) {
             $to_write = $buf;
-        } elseif ($off !== null && $len === null) {
+        } elseif (null !== $off && null === $len) {
             $to_write = substr($buf, $off);
-        } elseif ($off === null && $len !== null) {
+        } elseif (null === $off && null !== $len) {
             $to_write = substr($buf, 0, $len);
         } else {
             $to_write = substr($buf, $off, $len);
@@ -104,18 +118,8 @@ class OutputStream
 
         $result = @fwrite($this->stream, $to_write);
 
-        if ($result === false) {
-            throw new IOException("Error writing to stream.");
+        if (false === $result) {
+            throw new IOException('Error writing to stream.');
         }
-    }
-
-    /**
-     * Returns a string representation of the attached PHP stream.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->stream;
     }
 }

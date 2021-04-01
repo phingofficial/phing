@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -36,18 +37,19 @@ class ChainedMapper extends ContainerMapper
         $mapper = null;
 
         foreach ($this->getMappers() as $mapper) {
-            if ($mapper !== null) {
+            if (null !== $mapper) {
                 $inputs = $results;
                 $results = [];
 
                 foreach ($inputs as $input) {
                     $mapped = $mapper->getImplementation()->main($input);
-                    if ($mapped != null) {
+                    if (null != $mapped) {
                         $results = $mapped;
                     }
                 }
             }
         }
+
         return !empty($results) ? $results : null;
     }
 }

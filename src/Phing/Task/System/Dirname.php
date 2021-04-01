@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -52,7 +53,8 @@ class Dirname extends Task
     /**
      * Path to take the dirname of.
      *
-     * @param string|File $file a <code>File</code> value
+     * @param File|string $file a <code>File</code> value
+     *
      * @throws \InvalidArgumentException
      * @throws IOException
      */
@@ -82,11 +84,11 @@ class Dirname extends Task
      */
     public function main()
     {
-        if ($this->property == null) {
-            throw new BuildException("property attribute required", $this->getLocation());
+        if (null == $this->property) {
+            throw new BuildException('property attribute required', $this->getLocation());
         }
-        if ($this->file == null) {
-            throw new BuildException("file attribute required", $this->getLocation());
+        if (null == $this->file) {
+            throw new BuildException('file attribute required', $this->getLocation());
         }
 
         $value = $this->file->getAbsoluteFile()->getParent();

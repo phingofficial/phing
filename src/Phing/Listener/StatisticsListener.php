@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,12 +32,11 @@ use Phing\Util\StatisticsReport;
  */
 class StatisticsListener implements SubBuildListener
 {
-    private static $BUILDEVENT_PROJECT_NAME_HAS_NULL_VALUE = true;
-
     /**
      * @var ProjectTimerMap
      */
     protected $projectTimerMap;
+    private static $BUILDEVENT_PROJECT_NAME_HAS_NULL_VALUE = true;
 
     /**
      * @var Clock
@@ -52,7 +52,7 @@ class StatisticsListener implements SubBuildListener
     {
         $this->projectTimerMap = new ProjectTimerMap();
         $this->statisticsReport = new StatisticsReport();
-        if ($clock === null) {
+        if (null === $clock) {
             $this->clock = new DefaultClock();
         } else {
             $this->clock = $clock;
@@ -109,15 +109,16 @@ class StatisticsListener implements SubBuildListener
         $this->buildFinishedTimer($projectTimer);
     }
 
-    private function findProjectTimer(BuildEvent $buildEvent)
-    {
-        $project = $buildEvent->getProject();
-        return $this->projectTimerMap->find($project, $this->clock);
-    }
-
     protected function findInitialProjectTimer()
     {
         return $this->projectTimerMap->find('', $this->clock);
+    }
+
+    private function findProjectTimer(BuildEvent $buildEvent)
+    {
+        $project = $buildEvent->getProject();
+
+        return $this->projectTimerMap->find($project, $this->clock);
     }
 
     /**
@@ -128,6 +129,7 @@ class StatisticsListener implements SubBuildListener
         $projectTimer = $this->findProjectTimer($buildEvent);
         $target = $buildEvent->getTarget();
         $name = $target->getName();
+
         return $projectTimer->getTargetTimer($name);
     }
 
@@ -139,6 +141,7 @@ class StatisticsListener implements SubBuildListener
         $projectTimer = $this->findProjectTimer($buildEvent);
         $task = $buildEvent->getTask();
         $name = $task->getTaskName();
+
         return $projectTimer->getTaskTimer($name);
     }
 

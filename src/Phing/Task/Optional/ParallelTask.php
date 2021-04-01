@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -15,7 +16,6 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- *
  */
 
 namespace Phing\Task\Optional;
@@ -30,20 +30,21 @@ use Phing\Task\System\SequentialTask;
  * WARNING: this task is highly experimental!
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
  * @see     https://github.com/phpdocumentor/Parallel
  * @since   2.4.10
  */
 class ParallelTask extends SequentialTask
 {
     /**
-     * Maximum number of threads / processes
+     * Maximum number of threads / processes.
      *
      * @var int
      */
     private $threadCount = 2;
 
     /**
-     * Sets the maximum number of threads / processes to use
+     * Sets the maximum number of threads / processes to use.
      *
      * @param int $threadCount
      */
@@ -83,7 +84,7 @@ class ParallelTask extends SequentialTask
          * @var MehrAlsNix\Parallel\Worker $nestedTask
          */
         foreach ($mgr as $nestedTask) {
-            if ($nestedTask->getError() === "") {
+            if ('' === $nestedTask->getError()) {
                 continue;
             }
 

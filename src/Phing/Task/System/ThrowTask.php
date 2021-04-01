@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +21,6 @@
 namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
-use Phing\Task\System\FailTask;
 use Phing\Type\Reference;
 
 /**
@@ -35,16 +35,16 @@ class ThrowTask extends FailTask
     /**
      * @var Reference
      */
-    private $reference = null;
+    private $reference;
 
     /**
      * @throws BuildException
      */
     public function main()
     {
-        $reffed = $this->reference !== null ? $this->reference->getReferencedObject($this->getProject()) : null;
+        $reffed = null !== $this->reference ? $this->reference->getReferencedObject($this->getProject()) : null;
 
-        if ($reffed !== null && $reffed instanceof BuildException) {
+        if (null !== $reffed && $reffed instanceof BuildException) {
             throw $reffed;
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -37,7 +38,7 @@ use Phing\Task;
 class AdhocTask extends Task
 {
     /**
-     * The PHP script
+     * The PHP script.
      *
      * @var string
      */
@@ -46,18 +47,28 @@ class AdhocTask extends Task
     protected $newClasses = [];
 
     /**
-     * Main entry point
+     * Main entry point.
      */
     public function main()
     {
         $this->execute();
         if ($this->newClasses) {
             foreach ($this->newClasses as $classname) {
-                $this->log("Added adhoc class " . $classname, Project::MSG_VERBOSE);
+                $this->log('Added adhoc class ' . $classname, Project::MSG_VERBOSE);
             }
         } else {
-            $this->log("Adhoc task executed but did not result in any new classes.", Project::MSG_VERBOSE);
+            $this->log('Adhoc task executed but did not result in any new classes.', Project::MSG_VERBOSE);
         }
+    }
+
+    /**
+     * Set the script.
+     *
+     * @param string $script
+     */
+    public function addText($script)
+    {
+        $this->script = $script;
     }
 
     /**
@@ -73,22 +84,12 @@ class AdhocTask extends Task
     /**
      * Load the adhoc class, and perform any core validation.
      *
-     * @throws BuildException - if more than one class is defined.
+     * @throws buildException - if more than one class is defined
      */
     protected function execute()
     {
         $classes = get_declared_classes();
         eval($this->script);
         $this->newClasses = array_diff(get_declared_classes(), $classes);
-    }
-
-    /**
-     * Set the script.
-     *
-     * @param string $script
-     */
-    public function addText($script)
-    {
-        $this->script = $script;
     }
 }

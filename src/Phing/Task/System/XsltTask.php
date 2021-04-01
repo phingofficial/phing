@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -36,12 +37,12 @@ use Phing\Type\FilterChain;
 class XsltTask extends CopyTask
 {
     /**
-     * @var XsltFilter object that we use to handle transformation.
+     * @var XsltFilter object that we use to handle transformation
      */
     private $xsltFilter;
 
     /**
-     * @var XsltParam[] parameters to pass to XSLT processor.
+     * @var XsltParam[] parameters to pass to XSLT processor
      */
     private $parameters = [];
 
@@ -58,13 +59,13 @@ class XsltTask extends CopyTask
     }
 
     /**
-     * Set any XSLT Param and invoke CopyTask::main()
+     * Set any XSLT Param and invoke CopyTask::main().
      *
      * @see CopyTask::main()
      */
     public function main()
     {
-        $this->log("Doing XSLT transformation using stylesheet " . $this->xsltFilter->getStyle(), Project::MSG_VERBOSE);
+        $this->log('Doing XSLT transformation using stylesheet ' . $this->xsltFilter->getStyle(), Project::MSG_VERBOSE);
         $this->xsltFilter->setParams($this->parameters);
         parent::main();
     }
@@ -76,7 +77,6 @@ class XsltTask extends CopyTask
 
     /**
      * Set the stylesheet to use.
-     *
      */
     public function setStyle(File $style)
     {
@@ -85,7 +85,6 @@ class XsltTask extends CopyTask
 
     /**
      * Whether to resolve entities in the XML document.
-     *
      *
      * @since 2.4
      */
@@ -96,7 +95,6 @@ class XsltTask extends CopyTask
 
     /**
      * Whether to resolve entities in the stylesheet.
-     *
      *
      * @since 2.4
      */

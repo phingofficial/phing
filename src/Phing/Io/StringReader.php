@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,7 +22,6 @@ namespace Phing\Io;
 
 /**
  * Dummy class for reading from string of characters.
- *
  */
 class StringReader extends Reader
 {
@@ -56,12 +56,13 @@ class StringReader extends Reader
     }
 
     /**
-     * @param  null $len
+     * @param null $len
+     *
      * @return int|string
      */
     public function read($len = null)
     {
-        if ($len === null) {
+        if (null === $len) {
             return $this->string;
         }
 

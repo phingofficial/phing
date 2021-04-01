@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,19 +22,18 @@ namespace Phing;
 
 /**
  *  Abstract interface for objects which can contain tasks (targets)
- *  Used to check if a class can contain tasks (via instanceof)
+ *  Used to check if a class can contain tasks (via instanceof).
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- *
  */
 interface TaskContainer
 {
     /**
      * Adds a task to this task container. Must be implemented
-     * by derived class
+     * by derived class.
      *
-     * @param Task $task The task to be added to the container.
+     * @param Task $task the task to be added to the container
      */
     public function addTask(Task $task);
 }

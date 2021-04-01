@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +28,7 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 
 /**
- * Uses Symfony Console to present questions
+ * Uses Symfony Console to present questions.
  *
  * @author  Michiel Rook <mrook@php.net>
  */
@@ -46,7 +47,7 @@ class ConsoleInputHandler implements InputHandler
     /**
      * ConsoleInputHandler constructor.
      *
-     * @param resource        $inputStream
+     * @param resource $inputStream
      */
     public function __construct($inputStream, OutputInterface $output)
     {
@@ -62,7 +63,6 @@ class ConsoleInputHandler implements InputHandler
      *
      * <p>Postcondition: request.getInput will return a non-null
      * value, request.isInputValid will return true.</p>
-     *
      */
     public function handleInput(InputRequest $request)
     {
@@ -113,7 +113,7 @@ class ConsoleInputHandler implements InputHandler
         $prompt = $inputRequest->getPrompt();
         $defaultValue = $inputRequest->getDefaultValue();
 
-        if ($defaultValue !== null) {
+        if (null !== $defaultValue) {
             if ($inputRequest instanceof YesNoInputRequest) {
                 $defaultValue = $inputRequest->getChoices()[$defaultValue];
             }

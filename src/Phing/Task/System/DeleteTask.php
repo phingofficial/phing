@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +29,6 @@ use Phing\Type\Element\ResourceAware;
 
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
- *
  */
 class DeleteTask extends Task
 {
@@ -44,7 +44,6 @@ class DeleteTask extends Task
 
     /**
      * Set the name of a single file to be removed.
-     *
      */
     public function setFile(File $file)
     {
@@ -53,7 +52,6 @@ class DeleteTask extends Task
 
     /**
      * Set the directory from which files are to be deleted.
-     *
      */
     public function setDir(File $dir)
     {
@@ -80,9 +78,9 @@ class DeleteTask extends Task
      * This means that if a file or directory cannot be deleted,
      * then no error is reported. This setting emulates the
      * -f option to the Unix rm command. Default is false
-     * meaning things are verbose
+     * meaning things are verbose.
      *
-     * @param  bool $bool
+     * @param bool $bool
      */
     public function setQuiet($bool)
     {
@@ -93,9 +91,9 @@ class DeleteTask extends Task
     }
 
     /**
-     * this flag means 'note errors to the output, but keep going'
+     * this flag means 'note errors to the output, but keep going'.
      *
-     * @param   bool $bool
+     * @param bool $bool
      * @retujrn void
      */
     public function setFailOnError($bool)
@@ -106,7 +104,7 @@ class DeleteTask extends Task
     /**
      * Used to delete empty directories.
      *
-     * @param  bool $includeEmpty
+     * @param bool $includeEmpty
      */
     public function setIncludeEmptyDirs($includeEmpty)
     {
@@ -121,34 +119,35 @@ class DeleteTask extends Task
     public function main()
     {
         if (
-            $this->file === null
-            && $this->dir === null
-            && count($this->dirsets) === 0
-            && count($this->filesets) === 0
-            && count($this->filelists) === 0
+            null === $this->file
+            && null === $this->dir
+            && 0 === count($this->dirsets)
+            && 0 === count($this->filesets)
+            && 0 === count($this->filelists)
         ) {
             throw new BuildException(
-                "At least one of the file or dir attributes, or a fileset, filelist or dirset element must be set."
+                'At least one of the file or dir attributes, or a fileset, filelist or dirset element must be set.'
             );
         }
 
         if ($this->quiet && $this->failonerror) {
-            throw new BuildException("quiet and failonerror cannot both be set to true", $this->getLocation());
+            throw new BuildException('quiet and failonerror cannot both be set to true', $this->getLocation());
         }
 
         // delete a single file
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             if ($this->file->exists()) {
                 if ($this->file->isDirectory()) {
                     $this->log(
-                        "Directory " . $this->file->__toString() . " cannot be removed using the file attribute. Use dir instead."
+                        'Directory ' . $this->file->__toString() . ' cannot be removed using the file attribute. Use dir instead.'
                     );
                 } else {
-                    $this->log("Deleting: " . $this->file->__toString());
+                    $this->log('Deleting: ' . $this->file->__toString());
+
                     try {
                         $this->file->delete();
                     } catch (Exception $e) {
-                        $message = "Unable to delete file " . $this->file->__toString() . ": " . $e->getMessage();
+                        $message = 'Unable to delete file ' . $this->file->__toString() . ': ' . $e->getMessage();
                         if ($this->failonerror) {
                             throw new BuildException($message);
                         }
@@ -157,7 +156,7 @@ class DeleteTask extends Task
                     }
                 }
             } else {
-                $message = "Could not find file " . $this->file->getAbsolutePath() . " to delete.";
+                $message = 'Could not find file ' . $this->file->getAbsolutePath() . ' to delete.';
 
                 if ($this->failonerror) {
                     throw new BuildException($message);
@@ -167,7 +166,7 @@ class DeleteTask extends Task
             }
         }
 
-        if ($this->dir !== null) {
+        if (null !== $this->dir) {
             $this->dirsets[] = $this->dir;
         }
         foreach ($this->dirsets as $dirset) {
@@ -183,12 +182,12 @@ class DeleteTask extends Task
                     $dir = new File($baseDir, $dir);
                 }
                 if ($dir->exists() && $dir->isDirectory()) {
-                    if ($this->verbosity === Project::MSG_VERBOSE) {
-                        $this->log("Deleting directory " . $dir->__toString());
+                    if (Project::MSG_VERBOSE === $this->verbosity) {
+                        $this->log('Deleting directory ' . $dir->__toString());
                     }
                     $this->removeDir($dir);
                 } else {
-                    $message = "Directory " . $dir->getAbsolutePath() . " does not exist or is not a directory.";
+                    $message = 'Directory ' . $dir->getAbsolutePath() . ' does not exist or is not a directory.';
 
                     if ($this->failonerror) {
                         throw new BuildException($message);
@@ -236,13 +235,14 @@ class DeleteTask extends Task
     /**
      * Recursively removes a directory.
      *
-     * @param  File $d The directory to remove.
+     * @param File $d the directory to remove
+     *
      * @throws BuildException
      */
     private function removeDir($d)
     {
         $list = $d->listDir();
-        if ($list === null) {
+        if (null === $list) {
             $list = [];
         }
 
@@ -251,11 +251,12 @@ class DeleteTask extends Task
             if ($f->isDirectory()) {
                 $this->removeDir($f);
             } else {
-                $this->log("Deleting " . $f->__toString(), $this->verbosity);
+                $this->log('Deleting ' . $f->__toString(), $this->verbosity);
+
                 try {
                     $f->delete();
                 } catch (Exception $e) {
-                    $message = "Unable to delete file " . $f->__toString() . ": " . $e->getMessage();
+                    $message = 'Unable to delete file ' . $f->__toString() . ': ' . $e->getMessage();
                     if ($this->failonerror) {
                         throw new BuildException($message);
                     }
@@ -264,11 +265,12 @@ class DeleteTask extends Task
                 }
             }
         }
-        $this->log("Deleting directory " . $d->getAbsolutePath(), $this->verbosity);
+        $this->log('Deleting directory ' . $d->getAbsolutePath(), $this->verbosity);
+
         try {
             $d->delete();
         } catch (Exception $e) {
-            $message = "Unable to delete directory " . $d->__toString() . ": " . $e->getMessage();
+            $message = 'Unable to delete directory ' . $d->__toString() . ': ' . $e->getMessage();
             if ($this->failonerror) {
                 throw new BuildException($message);
             }
@@ -279,24 +281,26 @@ class DeleteTask extends Task
 
     /**
      * remove an array of files in a directory, and a list of subdirectories
-     * which will only be deleted if 'includeEmpty' is true
+     * which will only be deleted if 'includeEmpty' is true.
      *
-     * @param  File $d directory to work from
-     * @param  array     $files array of files to delete; can be of zero length
-     * @param  array     $dirs array of directories to delete; can of zero length
+     * @param File  $d     directory to work from
+     * @param array $files array of files to delete; can be of zero length
+     * @param array $dirs  array of directories to delete; can of zero length
+     *
      * @throws BuildException
      */
     private function removeFiles(File $d, &$files, &$dirs)
     {
         if (count($files) > 0) {
-            $this->log("Deleting " . count($files) . " files from " . $d->__toString());
-            for ($j = 0, $_j = count($files); $j < $_j; $j++) {
+            $this->log('Deleting ' . count($files) . ' files from ' . $d->__toString());
+            for ($j = 0, $_j = count($files); $j < $_j; ++$j) {
                 $f = new File($d, $files[$j]);
-                $this->log("Deleting " . $f->getAbsolutePath(), $this->verbosity);
+                $this->log('Deleting ' . $f->getAbsolutePath(), $this->verbosity);
+
                 try {
                     $f->delete();
                 } catch (Exception $e) {
-                    $message = "Unable to delete file " . $f->__toString() . ": " . $e->getMessage();
+                    $message = 'Unable to delete file ' . $f->__toString() . ': ' . $e->getMessage();
                     if ($this->failonerror) {
                         throw new BuildException($message);
                     }
@@ -311,13 +315,14 @@ class DeleteTask extends Task
             for ($j = count($dirs) - 1; $j >= 0; --$j) {
                 $dir = new File($d, $dirs[$j]);
                 $dirFiles = $dir->listDir();
-                if ($dirFiles === null || count($dirFiles) === 0) {
-                    $this->log("Deleting " . $dir->__toString(), $this->verbosity);
+                if (null === $dirFiles || 0 === count($dirFiles)) {
+                    $this->log('Deleting ' . $dir->__toString(), $this->verbosity);
+
                     try {
                         $dir->delete();
-                        $dirCount++;
+                        ++$dirCount;
                     } catch (Exception $e) {
-                        $message = "Unable to delete directory " . $dir->__toString();
+                        $message = 'Unable to delete directory ' . $dir->__toString();
                         if ($this->failonerror) {
                             throw new BuildException($message);
                         }
@@ -327,7 +332,7 @@ class DeleteTask extends Task
                 }
             }
             if ($dirCount > 0) {
-                $this->log("Deleted $dirCount director" . ($dirCount == 1 ? "y" : "ies") . " from " . $d->__toString());
+                $this->log("Deleted {$dirCount} director" . (1 == $dirCount ? 'y' : 'ies') . ' from ' . $d->__toString());
             }
         }
     }

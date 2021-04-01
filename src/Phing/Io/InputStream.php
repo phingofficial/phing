@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,43 +22,54 @@ namespace Phing\Io;
 
 /**
  * Wrapper class for PHP stream that supports read operations.
- *
  */
 class InputStream
 {
     /**
-     * @var resource The attached PHP stream.
+     * @var resource the attached PHP stream
      */
     protected $stream;
 
     /**
-     * @var int Position of stream cursor.
+     * @var int position of stream cursor
      */
     protected $currentPosition = 0;
 
     /**
-     * @var int Marked position of stream cursor.
+     * @var int marked position of stream cursor
      */
     protected $mark = 0;
 
     /**
      * Construct a new InputStream.
      *
-     * @param resource $stream Configured PHP stream for writing.
+     * @param resource $stream configured PHP stream for writing
+     *
      * @throws IOException
      */
     public function __construct($stream)
     {
         if (!is_resource($stream)) {
-            throw new IOException("Passed argument is not a valid stream.");
+            throw new IOException('Passed argument is not a valid stream.');
         }
         $this->stream = $stream;
+    }
+
+    /**
+     * Returns string representation of attached stream.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->stream;
     }
 
     /**
      * Skip over $n bytes.
      *
      * @param int $n
+     *
      * @return int
      */
     public function skip($n)
@@ -65,7 +77,7 @@ class InputStream
         $start = $this->currentPosition;
 
         $ret = @fseek($this->stream, $n, SEEK_CUR);
-        if ($ret === -1) {
+        if (-1 === $ret) {
             return -1;
         }
 
@@ -84,7 +96,8 @@ class InputStream
      * Read data from stream until $len chars or EOF.
      *
      * @param int $len Num chars to read.  If not specified this stream will read until EOF.
-     * @return mixed chars read or -1 if eof.
+     *
+     * @return mixed chars read or -1 if eof
      */
     public function read($len = null)
     {
@@ -92,8 +105,8 @@ class InputStream
             return -1;
         }
 
-        if ($len === null) { // we want to keep reading until we get an eof
-            $out = "";
+        if (null === $len) { // we want to keep reading until we get an eof
+            $out = '';
             while (!$this->eof()) {
                 $out .= fread($this->stream, 8192);
                 $this->currentPosition = ftell($this->stream);
@@ -109,12 +122,12 @@ class InputStream
     /**
      * Marks the current position in this input stream.
      *
-     * @throws IOException - if the underlying stream doesn't support this method.
+     * @throws IOException - if the underlying stream doesn't support this method
      */
     public function mark()
     {
         if (!$this->markSupported()) {
-            throw new IOException(get_class($this) . " does not support mark() and reset() methods.");
+            throw new IOException(get_class($this) . ' does not support mark() and reset() methods.');
         }
         $this->mark = $this->currentPosition;
     }
@@ -132,12 +145,12 @@ class InputStream
     /**
      * Repositions this stream to the position at the time the mark method was last called on this input stream.
      *
-     * @throws IOException - if the underlying stream doesn't support this method.
+     * @throws IOException - if the underlying stream doesn't support this method
      */
     public function reset()
     {
         if (!$this->markSupported()) {
-            throw new IOException(get_class($this) . " does not support mark() and reset() methods.");
+            throw new IOException(get_class($this) . ' does not support mark() and reset() methods.');
         }
         // goes back to last mark, by default this would be 0 (i.e. rewind file).
         fseek($this->stream, SEEK_SET, $this->mark);
@@ -151,7 +164,7 @@ class InputStream
      */
     public function close()
     {
-        if ($this->stream === null) {
+        if (null === $this->stream) {
             return;
         }
         error_clear_last();
@@ -159,7 +172,8 @@ class InputStream
             $lastError = error_get_last();
             $errormsg = $lastError['message'];
             // FAILED.
-            $msg = "Cannot fclose " . $this->__toString() . " $errormsg";
+            $msg = 'Cannot fclose ' . $this->__toString() . " {$errormsg}";
+
             throw new IOException($msg);
         }
         $this->stream = null;
@@ -173,15 +187,5 @@ class InputStream
     public function eof()
     {
         return feof($this->stream);
-    }
-
-    /**
-     * Returns string representation of attached stream.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->stream;
     }
 }

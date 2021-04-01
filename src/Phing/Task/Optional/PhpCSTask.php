@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -38,18 +39,18 @@ class PhpCSTask extends Task
     use FileSetAware;
 
     /**
-     * A php source code filename or directory
-     *
-     * @var File
-     */
-    private $file;
-
-    /**
-     * The
+     * The.
      *
      * @var array
      */
     protected $files = [];
+
+    /**
+     * A php source code filename or directory.
+     *
+     * @var File
+     */
+    private $file;
 
     /** @var Commandline */
     private $cmd;
@@ -105,10 +106,10 @@ class PhpCSTask extends Task
 
     public function main()
     {
-        if ($this->file === null && count($this->filesets) == 0) {
+        if (null === $this->file && 0 == count($this->filesets)) {
             throw new BuildException('Missing both attribute "file" and "fileset".');
         }
-        if ($this->file === null) {
+        if (null === $this->file) {
             // check filesets, and compile a list of files for phpcs to analyse
             foreach ($this->filesets as $fileset) {
                 $files = $fileset->getIterator();
@@ -128,7 +129,7 @@ class PhpCSTask extends Task
             $toExecute->createArgument()->setValue('--ignore-annotations');
         }
 
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             $toExecute->createArgument()->setFile($this->file);
         } else {
             foreach ($this->files as $file) {

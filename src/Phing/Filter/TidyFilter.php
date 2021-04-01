@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -41,7 +42,7 @@ use tidy;
 class TidyFilter extends BaseParamFilterReader implements ChainableReader
 {
     /**
-     * @var string Encoding of resulting document.
+     * @var string encoding of resulting document
      */
     private $encoding = 'utf8';
 
@@ -64,6 +65,8 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      * Sets the config params.
      *
      * @param array Parameter[]
+     * @param mixed $params
+     *
      * @see   chain()
      */
     public function setConfigParameters($params)
@@ -84,26 +87,13 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * Converts the Parameter objects being used to store configuration into a simle assoc array.
-     *
-     * @return array
-     */
-    private function getDistilledConfig()
-    {
-        $config = [];
-        foreach ($this->configParameters as $p) {
-            $config[$p->getName()] = $p->getValue();
-        }
-
-        return $config;
-    }
-
-    /**
      * Reads input and returns Tidy-filtered output.
      *
      * @param int $len
-     * @return string Characters read, or -1 if the end of the stream has been reached
+     *
      * @throws BuildException
+     *
+     * @return string Characters read, or -1 if the end of the stream has been reached
      */
     public function read($len = null)
     {
@@ -117,7 +107,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         $buffer = $this->in->read($len);
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
 
@@ -134,7 +124,8 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
      * Creates a new TidyFilter using the passed in Reader for instantiation.
      *
      * @param Reader $reader Reader object providing the underlying stream.
-     *                    Must not be <code>null</code>.
+     *                       Must not be <code>null</code>.
+     *
      * @return TidyFilter a new filter based on this configuration, but filtering the specified reader
      */
     public function chain(Reader $reader): Reader
@@ -148,6 +139,21 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
+     * Converts the Parameter objects being used to store configuration into a simle assoc array.
+     *
+     * @return array
+     */
+    private function getDistilledConfig()
+    {
+        $config = [];
+        foreach ($this->configParameters as $p) {
+            $config[$p->getName()] = $p->getValue();
+        }
+
+        return $config;
+    }
+
+    /**
      * Initializes any parameters (e.g. config options).
      * This method is only called when this filter is used through a <filterreader> tag in build file.
      */
@@ -156,10 +162,10 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
         $params = $this->getParameters();
         if (!empty($params)) {
             foreach ($params as $param) {
-                if ($param->getType() == "config") {
+                if ('config' == $param->getType()) {
                     $this->configParameters[] = $param;
                 } else {
-                    if ($param->getName() == "encoding") {
+                    if ('encoding' == $param->getName()) {
                         $this->setEncoding($param->getValue());
                     }
                 }

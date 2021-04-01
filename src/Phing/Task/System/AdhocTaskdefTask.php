@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -68,12 +69,12 @@ class AdhocTaskdefTask extends AdhocTask
     }
 
     /**
-     * Main entry point
+     * Main entry point.
      */
     public function main()
     {
-        if ($this->name === null) {
-            throw new BuildException("The name attribute is required for adhoc task definition.", $this->getLocation());
+        if (null === $this->name) {
+            throw new BuildException('The name attribute is required for adhoc task definition.', $this->getLocation());
         }
 
         $taskdefs = $this->getProject()->getTaskDefinitions();
@@ -85,22 +86,24 @@ class AdhocTaskdefTask extends AdhocTask
 
             if (count($classes) < 1) {
                 throw new BuildException(
-                    "You must define at least one class that is a sub-class of " . Task::class,
+                    'You must define at least one class that is a sub-class of ' . Task::class,
                     $this->getLocation()
                 );
             }
 
             $classname = array_shift($classes);
 
-            $this->log("Task " . $this->name . " will be handled by class " . $classname, Project::MSG_VERBOSE);
+            $this->log('Task ' . $this->name . ' will be handled by class ' . $classname, Project::MSG_VERBOSE);
             $this->project->addTaskDefinition($this->name, $classname);
         }
     }
 
     /**
      * @param string[] $classes
-     * @return string[]
+     *
      * @throws ReflectionException
+     *
+     * @return string[]
      */
     private function filterValidTasks(array $classes): array
     {

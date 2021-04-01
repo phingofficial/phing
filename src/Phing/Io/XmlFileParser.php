@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -59,11 +60,11 @@ class XmlFileParser implements FileParserInterface
     }
 
     /**
-     * Parses an XML file and returns properties
+     * Parses an XML file and returns properties.
      *
+     * @throws IOException
      *
      * @return Properties
-     * @throws IOException
      */
     private function getProperties(File $file)
     {
@@ -72,15 +73,15 @@ class XmlFileParser implements FileParserInterface
         // an array
 
         if ((@file($file)) === false) {
-            throw new IOException("Unable to parse contents of $file");
+            throw new IOException("Unable to parse contents of {$file}");
         }
 
         $prop = new Properties();
 
         $xml = simplexml_load_string(file_get_contents($file));
 
-        if ($xml === false) {
-            throw new IOException("Unable to parse XML file $file");
+        if (false === $xml) {
+            throw new IOException("Unable to parse XML file {$file}");
         }
 
         $path = [];
@@ -99,7 +100,7 @@ class XmlFileParser implements FileParserInterface
                 if ($this->collapseAttr) {
                     $prop->setProperty($prefix . (string) $attribute, (string) $val);
                 } else {
-                    $prop->setProperty($prefix . "($attribute)", (string) $val);
+                    $prop->setProperty($prefix . "({$attribute})", (string) $val);
                 }
             }
         }
@@ -110,28 +111,27 @@ class XmlFileParser implements FileParserInterface
     }
 
     /**
-     * Adds an XML node
+     * Adds an XML node.
      *
      * @param SimpleXMLElement $node
-     * @param array $path Path to this node
-     * @param Properties $prop Properties will be added as they are found (by reference here)
-     *
+     * @param array            $path Path to this node
+     * @param Properties       $prop Properties will be added as they are found (by reference here)
      */
     private function addNode($node, $path, $prop)
     {
         foreach ($node as $tag => $value) {
             $prefix = implode('.', $path);
 
-            if ($prefix !== '') {
+            if ('' !== $prefix) {
                 $prefix .= '.';
             }
 
             // Check for attributes
             foreach ($value->attributes() as $attribute => $val) {
                 if ($this->collapseAttr) {
-                    $prop->setProperty($prefix . "$tag.$attribute", (string) $val);
+                    $prop->setProperty($prefix . "{$tag}.{$attribute}", (string) $val);
                 } else {
-                    $prop->setProperty($prefix . "$tag($attribute)", (string) $val);
+                    $prop->setProperty($prefix . "{$tag}({$attribute})", (string) $val);
                 }
             }
 

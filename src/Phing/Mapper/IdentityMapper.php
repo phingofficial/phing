@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +21,7 @@
 namespace Phing\Mapper;
 
 /**
- * This mapper does nothing ;)
+ * This mapper does nothing ;).
  *
  * @author  Andreas Aderhold <andi@binarycloud.com>
  * @author  Hans Lellelid <hans@xmpl.org>
@@ -30,8 +31,9 @@ class IdentityMapper implements FileNameMapper
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
-     * @param string $sourceFileName The data the mapper works on.
-     * @return array  The data after the mapper has been applied
+     * @param string $sourceFileName the data the mapper works on
+     *
+     * @return array The data after the mapper has been applied
      */
     public function main($sourceFileName)
     {

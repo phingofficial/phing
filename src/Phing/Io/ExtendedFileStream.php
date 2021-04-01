@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,35 +23,24 @@ namespace Phing\Io;
 use Phing\Exception\BuildException;
 
 /**
- * Extended file stream wrapper class which auto-creates directories
+ * Extended file stream wrapper class which auto-creates directories.
  *
  * @author  Michiel Rook <mrook@php.net>
  */
 class ExtendedFileStream
 {
-    private $fp = null;
+    private $fp;
 
     public static function registerStream()
     {
-        if (!in_array("efile", stream_get_wrappers())) {
-            stream_wrapper_register("efile", "ExtendedFileStream");
+        if (!in_array('efile', stream_get_wrappers())) {
+            stream_wrapper_register('efile', 'ExtendedFileStream');
         }
     }
 
     public static function unregisterStream()
     {
-        stream_wrapper_unregister("efile");
-    }
-
-    /**
-     * @param $path
-     */
-    private function createDirectories($path)
-    {
-        $f = new File($path);
-        if (!$f->exists()) {
-            $f->mkdirs();
-        }
+        stream_wrapper_unregister('efile');
     }
 
     // @codingStandardsIgnoreStart
@@ -60,13 +50,15 @@ class ExtendedFileStream
      * @param $mode
      * @param $options
      * @param $opened_path
-     * @return bool
+     *
      * @throws IOException
+     *
+     * @return bool
      */
     public function stream_open($path, $mode, $options, &$opened_path)
     {
         // if we're on Windows, urldecode() the path again
-        if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+        if ('\\' == FileSystem::getFileSystem()->getSeparator()) {
             $path = urldecode($path);
         }
 
@@ -91,6 +83,7 @@ class ExtendedFileStream
 
     /**
      * @param $count
+     *
      * @return string
      */
     public function stream_read($count)
@@ -100,6 +93,7 @@ class ExtendedFileStream
 
     /**
      * @param $data
+     *
      * @return int
      */
     public function stream_write($data)
@@ -126,6 +120,7 @@ class ExtendedFileStream
     /**
      * @param $offset
      * @param $whence
+     *
      * @return int
      */
     public function stream_seek($offset, $whence)
@@ -148,10 +143,12 @@ class ExtendedFileStream
     {
         return fstat($this->fp);
     }
+
     // @codingStandardsIgnoreEnd
 
     /**
      * @param  $path
+     *
      * @return bool
      */
     public function unlink($path)
@@ -162,6 +159,7 @@ class ExtendedFileStream
     /**
      * @param  $path_from
      * @param  $path_to
+     *
      * @return bool
      */
     public function rename($path_from, $path_to)
@@ -173,6 +171,7 @@ class ExtendedFileStream
      * @param  $path
      * @param  $mode
      * @param  $options
+     *
      * @return bool
      */
     public function mkdir($path, $mode, $options)
@@ -183,10 +182,22 @@ class ExtendedFileStream
     /**
      * @param  $path
      * @param  $options
+     *
      * @return bool
      */
     public function rmdir($path, $options)
     {
         return false;
+    }
+
+    /**
+     * @param $path
+     */
+    private function createDirectories($path)
+    {
+        $f = new File($path);
+        if (!$f->exists()) {
+            $f->mkdirs();
+        }
     }
 }

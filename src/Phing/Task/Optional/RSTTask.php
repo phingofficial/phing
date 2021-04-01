@@ -1,21 +1,24 @@
 <?php
+
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
  *
  * PHP version 5
  *
  * @category Tasks
+ *
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     http://www.phing.info/
+ *
+ * @see     http://www.phing.info/
  */
 
 namespace Phing\Task\Optional;
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Io\FileSystem;
 use Phing\Io\FileUtils;
-use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
@@ -28,9 +31,11 @@ use Phing\Type\Mapper;
  * PHP version 5
  *
  * @category Tasks
+ *
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     http://www.phing.info/
+ *
+ * @see     http://www.phing.info/
  */
 class RSTTask extends Task
 {
@@ -52,9 +57,10 @@ class RSTTask extends Task
     protected $format = 'html';
 
     /**
-     * Array of supported output formats
+     * Array of supported output formats.
      *
      * @var array
+     *
      * @see $format
      * @see $targetExt
      */
@@ -68,7 +74,7 @@ class RSTTask extends Task
     ];
 
     /**
-     * Maps formats to file extensions
+     * Maps formats to file extensions.
      *
      * @var array
      */
@@ -83,48 +89,48 @@ class RSTTask extends Task
 
     /**
      * Input file in rST format.
-     * Required
+     * Required.
      *
      * @var string
      */
-    protected $file = null;
+    protected $file;
 
     /**
      * Additional rst2* tool parameters.
      *
      * @var string
      */
-    protected $toolParam = null;
+    protected $toolParam;
 
     /**
-     * Full path to the tool, i.e. /usr/local/bin/rst2html
+     * Full path to the tool, i.e. /usr/local/bin/rst2html.
      *
      * @var string
      */
-    protected $toolPath = null;
+    protected $toolPath;
 
     /**
      * Output file or directory. May be omitted.
-     * When it ends with a slash, it is considered to be a directory
+     * When it ends with a slash, it is considered to be a directory.
      *
      * @var string
      */
-    protected $destination = null;
+    protected $destination;
 
-    protected $mapperElement = null;
+    protected $mapperElement;
 
     /**
-     * mode to create directories with
+     * mode to create directories with.
      *
-     * @var integer
+     * @var int
      */
     protected $mode = 0;
 
     /**
      * Only render files whole source files are newer than the
-     * target files
+     * target files.
      *
-     * @var boolean
+     * @var bool
      */
     protected $uptodate = false;
 
@@ -154,7 +160,7 @@ class RSTTask extends Task
             $this->fileUtils = new FileUtils();
         }
 
-        if ($this->file != '') {
+        if ('' != $this->file) {
             $file = $this->file;
             $targetFile = $this->getTargetFile($file, $this->destination);
             $this->render($tool, $file, $targetFile);
@@ -170,7 +176,7 @@ class RSTTask extends Task
 
         // process filesets
         $mapper = null;
-        if ($this->mapperElement !== null) {
+        if (null !== $this->mapperElement) {
             $mapper = $this->mapperElement->getImplementation();
         }
 
@@ -182,9 +188,9 @@ class RSTTask extends Task
 
             foreach ($srcFiles as $src) {
                 $file = new File($fromDir, $src);
-                if ($mapper !== null) {
+                if (null !== $mapper) {
                     $results = $mapper->main($file);
-                    if ($results === null) {
+                    if (null === $results) {
                         throw new BuildException(
                             sprintf(
                                 'No filename mapper found for "%s"',
@@ -202,17 +208,158 @@ class RSTTask extends Task
     }
 
     /**
-     * Renders a single file and applies filters on it
+     * Determines and returns the target file name from the
+     * input file and the configured destination name.
      *
-     * @param string $tool conversion tool to use
-     * @param string $source rST source file
+     * @param string $file        Input file
+     * @param string $destination Destination file or directory name,
+     *                            may be null
+     *
+     * @return string Target file name
+     *
+     * @uses $format
+     * @uses $targetExt
+     */
+    public function getTargetFile($file, $destination = null)
+    {
+        if (
+            '' != $destination
+            && '/' !== substr($destination, -1)
+            && '\\' !== substr($destination, -1)
+        ) {
+            return $destination;
+        }
+
+        if ('.rst' == strtolower(substr($file, -4))) {
+            $file = substr($file, 0, -4);
+        }
+
+        return $destination . $file . '.' . self::$targetExt[$this->format];
+    }
+
+    /**
+     * The setter for the attribute "file".
+     *
+     * @param string $file Path of file to render
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * The setter for the attribute "format".
+     *
+     * @param string $format Output format
+     *
+     * @throws BuildException When the format is not supported
+     */
+    public function setFormat($format)
+    {
+        if (!in_array($format, self::$supportedFormats)) {
+            throw new BuildException(
+                sprintf(
+                    'Invalid output format "%s", allowed are: %s',
+                    $format,
+                    implode(', ', self::$supportedFormats)
+                )
+            );
+        }
+        $this->format = $format;
+    }
+
+    /**
+     * The setter for the attribute "destination".
+     *
+     * @param string $destination Output file or directory. When it ends
+     *                            with a slash, it is taken as directory.
+     */
+    public function setDestination($destination)
+    {
+        $this->destination = $destination;
+    }
+
+    /**
+     * The setter for the attribute "toolparam".
+     *
+     * @param string $param Additional rst2* tool parameters
+     */
+    public function setToolparam($param)
+    {
+        $this->toolParam = $param;
+    }
+
+    /**
+     * The setter for the attribute "toolpath".
+     *
+     * @param $path
+     *
+     * @throws BuildException
+     *
+     * @internal param string $param Full path to tool path, i.e. /usr/local/bin/rst2html
+     */
+    public function setToolpath($path)
+    {
+        if (!file_exists($path)) {
+            $fs = FileSystem::getFileSystem();
+            $fullpath = $fs->which($path);
+            if (false === $fullpath) {
+                throw new BuildException(
+                    'Tool does not exist. Path: ' . $path
+                );
+            }
+            $path = $fullpath;
+        }
+        if (!is_executable($path)) {
+            throw new BuildException(
+                'Tool not executable. Path: ' . $path
+            );
+        }
+        $this->toolPath = $path;
+    }
+
+    /**
+     * The setter for the attribute "uptodate".
+     *
+     * @param string $uptodate True/false
+     */
+    public function setUptodate($uptodate)
+    {
+        $this->uptodate = (bool) $uptodate;
+    }
+
+    /**
+     * Nested creator, creates one Mapper for this task.
+     *
+     * @throws BuildException
+     *
+     * @return Mapper The created Mapper type object
+     */
+    public function createMapper()
+    {
+        if (null !== $this->mapperElement) {
+            throw new BuildException(
+                'Cannot define more than one mapper',
+                $this->getLocation()
+            );
+        }
+        $this->mapperElement = new Mapper($this->project);
+
+        return $this->mapperElement;
+    }
+
+    /**
+     * Renders a single file and applies filters on it.
+     *
+     * @param string $tool       conversion tool to use
+     * @param string $source     rST source file
      * @param string $targetFile target file name
-     *
      */
     protected function render($tool, $source, $targetFile)
     {
-        if (count($this->filterChains) == 0) {
+        if (0 == count($this->filterChains)) {
             $this->renderFile($tool, $source, $targetFile);
+
             return;
         }
 
@@ -234,10 +381,9 @@ class RSTTask extends Task
     /**
      * Renders a single file with the rST tool.
      *
-     * @param string $tool conversion tool to use
-     * @param string $source rST source file
+     * @param string $tool       conversion tool to use
+     * @param string $source     rST source file
      * @param string $targetFile target file name
-     *
      *
      * @throws BuildException When the conversion fails
      */
@@ -254,7 +400,7 @@ class RSTTask extends Task
         //work around a bug in php by replacing /./ with /
         $targetDir = str_replace('/./', '/', dirname($targetFile));
         if (!is_dir($targetDir)) {
-            $this->log("Creating directory '$targetDir'", Project::MSG_VERBOSE);
+            $this->log("Creating directory '{$targetDir}'", Project::MSG_VERBOSE);
             mkdir($targetDir, $this->mode, true);
         }
 
@@ -267,25 +413,26 @@ class RSTTask extends Task
 
         $this->log('command: ' . $cmd, Project::MSG_VERBOSE);
         exec($cmd, $arOutput, $retval);
-        if ($retval != 0) {
+        if (0 != $retval) {
             $this->log(implode("\n", $arOutput), Project::MSG_INFO);
+
             throw new BuildException('Rendering rST failed');
         }
         $this->log(implode("\n", $arOutput), Project::MSG_DEBUG);
     }
 
     /**
-     * Finds the rst2* binary path
+     * Finds the rst2* binary path.
      *
      * @param string $format Output format
      *
-     * @return string Full path to rst2$format
-     *
      * @throws BuildException When the tool cannot be found
+     *
+     * @return string Full path to rst2$format
      */
     protected function getToolPath($format)
     {
-        if ($this->toolPath !== null) {
+        if (null !== $this->toolPath) {
             return $this->toolPath;
         }
 
@@ -299,150 +446,5 @@ class RSTTask extends Task
         }
 
         return $path;
-    }
-
-    /**
-     * Determines and returns the target file name from the
-     * input file and the configured destination name.
-     *
-     * @param string $file Input file
-     * @param string $destination Destination file or directory name,
-     *                            may be null
-     *
-     * @return string Target file name
-     *
-     * @uses $format
-     * @uses $targetExt
-     */
-    public function getTargetFile($file, $destination = null)
-    {
-        if (
-            $destination != ''
-            && substr($destination, -1) !== '/'
-            && substr($destination, -1) !== '\\'
-        ) {
-            return $destination;
-        }
-
-        if (strtolower(substr($file, -4)) == '.rst') {
-            $file = substr($file, 0, -4);
-        }
-
-        return $destination . $file . '.' . self::$targetExt[$this->format];
-    }
-
-    /**
-     * The setter for the attribute "file"
-     *
-     * @param string $file Path of file to render
-     *
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-    }
-
-    /**
-     * The setter for the attribute "format"
-     *
-     * @param string $format Output format
-     *
-     *
-     * @throws BuildException When the format is not supported
-     */
-    public function setFormat($format)
-    {
-        if (!in_array($format, self::$supportedFormats)) {
-            throw new BuildException(
-                sprintf(
-                    'Invalid output format "%s", allowed are: %s',
-                    $format,
-                    implode(', ', self::$supportedFormats)
-                )
-            );
-        }
-        $this->format = $format;
-    }
-
-    /**
-     * The setter for the attribute "destination"
-     *
-     * @param string $destination Output file or directory. When it ends
-     *                            with a slash, it is taken as directory.
-     *
-     */
-    public function setDestination($destination)
-    {
-        $this->destination = $destination;
-    }
-
-    /**
-     * The setter for the attribute "toolparam"
-     *
-     * @param string $param Additional rst2* tool parameters
-     *
-     */
-    public function setToolparam($param)
-    {
-        $this->toolParam = $param;
-    }
-
-    /**
-     * The setter for the attribute "toolpath"
-     *
-     * @param    $path
-     * @throws   BuildException
-     * @internal param string $param Full path to tool path, i.e. /usr/local/bin/rst2html
-     *
-     */
-    public function setToolpath($path)
-    {
-        if (!file_exists($path)) {
-            $fs = FileSystem::getFileSystem();
-            $fullpath = $fs->which($path);
-            if ($fullpath === false) {
-                throw new BuildException(
-                    'Tool does not exist. Path: ' . $path
-                );
-            }
-            $path = $fullpath;
-        }
-        if (!is_executable($path)) {
-            throw new BuildException(
-                'Tool not executable. Path: ' . $path
-            );
-        }
-        $this->toolPath = $path;
-    }
-
-    /**
-     * The setter for the attribute "uptodate"
-     *
-     * @param string $uptodate True/false
-     *
-     */
-    public function setUptodate($uptodate)
-    {
-        $this->uptodate = (bool) $uptodate;
-    }
-
-    /**
-     * Nested creator, creates one Mapper for this task
-     *
-     * @return Mapper The created Mapper type object
-     *
-     * @throws BuildException
-     */
-    public function createMapper()
-    {
-        if ($this->mapperElement !== null) {
-            throw new BuildException(
-                'Cannot define more than one mapper',
-                $this->getLocation()
-            );
-        }
-        $this->mapperElement = new Mapper($this->project);
-
-        return $this->mapperElement;
     }
 }

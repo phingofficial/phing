@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,8 +32,9 @@ interface DynamicAttribute
     /**
      * Set a named attribute to the given value.
      *
-     * @param string $name the name of the attribute
+     * @param string $name  the name of the attribute
      * @param string $value the new value of the attribute
+     *
      * @throws BuildException when any error occurs
      */
     public function setDynamicAttribute(string $name, string $value): void;

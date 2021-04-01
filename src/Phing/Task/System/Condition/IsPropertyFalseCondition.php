@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,13 +33,12 @@ use Phing\Project;
 class IsPropertyFalseCondition extends ConditionBase implements Condition
 {
     /**
-     * @var string|null
+     * @var null|string
      */
-    private $property = null;
+    private $property;
 
     /**
      * @param string $property
-     *
      */
     public function setProperty($property)
     {
@@ -46,17 +46,17 @@ class IsPropertyFalseCondition extends ConditionBase implements Condition
     }
 
     /**
-     * @return bool
-     *
      * @throws BuildException
+     *
+     * @return bool
      */
     public function evaluate()
     {
-        if ($this->property === null) {
+        if (null === $this->property) {
             throw new BuildException('Property name must be set.');
         }
         $value = $this->getProject()->getProperty($this->property);
 
-        return $value === null || !Project::toBoolean($value);
+        return null === $value || !Project::toBoolean($value);
     }
 }

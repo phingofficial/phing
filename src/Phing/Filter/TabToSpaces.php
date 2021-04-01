@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -37,6 +38,7 @@ use Phing\Io\Reader;
  *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@xmpl.org>
+ *
  * @see     BaseParamFilterReader
  */
 class TabToSpaces extends BaseParamFilterReader implements ChainableReader
@@ -53,7 +55,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    public const TAB_LENGTH_KEY = "tablength";
+    public const TAB_LENGTH_KEY = 'tablength';
 
     /**
      * Tab length in this filter.
@@ -66,11 +68,12 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      * Returns stream after converting tabs to the specified number of spaces.
      *
      * @param int $len
-     * @return int the resulting stream, or -1
-     *             if the end of the resulting stream has been reached
      *
      * @throws IOException if the underlying stream throws an IOException
-     *            during reading
+     *                     during reading
+     *
+     * @return int the resulting stream, or -1
+     *             if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
@@ -81,19 +84,17 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
 
         $buffer = $this->in->read($len);
 
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
 
-        $buffer = str_replace("\t", str_repeat(' ', $this->tabLength), $buffer);
-
-        return $buffer;
+        return str_replace("\t", str_repeat(' ', $this->tabLength), $buffer);
     }
 
     /**
      * Sets the tab length.
      *
-     * @param int $tabLength The number of spaces to be used when converting a tab.
+     * @param int $tabLength the number of spaces to be used when converting a tab
      */
     public function setTablength($tabLength)
     {
@@ -118,7 +119,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      *                       Must not be <code>null</code>.
      *
      * @return TabToSpaces A new filter based on this configuration, but filtering
-     *                the specified reader
+     *                     the specified reader
      */
     public function chain(Reader $reader): Reader
     {
@@ -136,10 +137,11 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
     private function initialize()
     {
         $params = $this->getParameters();
-        if ($params !== null) {
-            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
+        if (null !== $params) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; ++$i) {
                 if (self::TAB_LENGTH_KEY === $params[$i]->getName()) {
                     $this->tabLength = $params[$i]->getValue();
+
                     break;
                 }
             }

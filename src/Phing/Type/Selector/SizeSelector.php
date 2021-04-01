@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,10 +32,14 @@ use Phing\Util\SizeHelper;
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
- *
  */
 class SizeSelector extends BaseExtendSelector
 {
+    private const VALUE_KEY = 'value';
+    private const WHEN_KEY = 'when';
+    private const WHEN = [-1 => 'less',
+        0 => 'equal',
+        1 => 'more', ];
     /**
      * @var float
      */
@@ -46,27 +51,21 @@ class SizeSelector extends BaseExtendSelector
     private $value = '';
 
     /**
-     * @var string 'less', 'equal' or 'more'.
+     * @var string 'less', 'equal' or 'more'
      */
     private $when = self::WHEN[0];
-
-    private const VALUE_KEY = 'value';
-    private const WHEN_KEY = 'when';
-    private const WHEN = [-1 => 'less',
-        0 => 'equal',
-        1 => 'more',];
 
     public function __toString(): string
     {
         $format = '{%s value: %s compare: %s}';
+
         return sprintf($format, __CLASS__, $this->value, $this->when);
     }
 
     /**
-     * Filesize
+     * Filesize.
      *
-     * @param string $value Values like '1024', '5000B', '300M', '2G'.
-     *
+     * @param string $value values like '1024', '5000B', '300M', '2G'
      */
     public function setValue(string $value)
     {
@@ -78,12 +77,11 @@ class SizeSelector extends BaseExtendSelector
      * This specifies when the file should be selected, whether it be
      * when the file matches a particular size, when it is smaller,
      * or whether it is larger.
-     *
      */
     public function setWhen(string $when): void
     {
         if (!in_array($when, self::WHEN, true)) {
-            throw new BuildException("Invalid 'when' value '$when'");
+            throw new BuildException("Invalid 'when' value '{$when}'");
         }
         $this->when = $when;
     }
@@ -96,7 +94,6 @@ class SizeSelector extends BaseExtendSelector
      *
      * @param Parameter[] $parameters the complete set of parameters for this selector
      *
-     *
      * @throws BuildException
      */
     public function setParameters(array $parameters): void
@@ -107,10 +104,14 @@ class SizeSelector extends BaseExtendSelector
                 switch (strtolower($param->getName())) {
                     case self::VALUE_KEY:
                         $this->setValue($param->getValue());
+
                         break;
+
                     case self::WHEN_KEY:
                         $this->setWhen($param->getValue());
+
                         break;
+
                     default:
                         throw new BuildException(sprintf('Invalid parameter %s', $param->getName()));
                 }
@@ -128,14 +129,13 @@ class SizeSelector extends BaseExtendSelector
      * fail due to a programming error.
      * </p>
      * <p>If a problem is detected, the setError() method is called.
-     * </p>
+     * </p>.
      *
      * {@inheritdoc}
-     *
      */
     public function verifySettings()
     {
-        if ($this->value === '') {
+        if ('' === $this->value) {
             $this->setError("The 'value' attribute is required");
         }
         if ($this->bytes < 0) {
@@ -149,12 +149,13 @@ class SizeSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @param File $basedir A PhingFile object for the base directory
+     * @param File   $basedir  A PhingFile object for the base directory
      * @param string $filename The name of the file to check
-     * @param File $file A PhingFile object for this filename
+     * @param File   $file     A PhingFile object for this filename
+     *
+     * @throws IOException
      *
      * @return bool whether the file should be selected or not
-     * @throws IOException
      */
     public function isSelected(File $basedir, $filename, File $file): bool
     {

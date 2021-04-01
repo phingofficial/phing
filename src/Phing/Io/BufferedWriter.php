@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,7 +33,7 @@ class BufferedWriter extends Writer
     private $bufferSize = 0;
 
     /**
-     * @var Writer The Writer we are buffering output to.
+     * @var Writer the Writer we are buffering output to
      */
     private $out;
 
@@ -47,8 +48,8 @@ class BufferedWriter extends Writer
 
     /**
      * @param string $buf
-     * @param int $off
-     * @param int $len
+     * @param int    $off
+     * @param int    $len
      */
     public function write($buf, $off = null, $len = null)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,16 +24,19 @@ use Phing\Io\File;
 use Phing\Util\Properties;
 
 /**
- * Unit test for Properties class
+ * Unit test for Properties class.
  *
  * @author Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class PropertiesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Properties
      */
-    private $props = null;
+    private $props;
 
     public function setUp(): void
     {
@@ -46,7 +50,7 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
 
     public function testComments()
     {
-        $file = new File(PHING_TEST_BASE . "/etc/system/util/comments.properties");
+        $file = new File(PHING_TEST_BASE . '/etc/system/util/comments.properties');
         $this->props->load($file);
 
         $this->assertEquals(
@@ -75,12 +79,12 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
     {
         $this->props->put('a', 'b');
 
-        $this->assertEquals("a=b" . PHP_EOL, (string) $this->props);
+        $this->assertEquals('a=b' . PHP_EOL, (string) $this->props);
     }
 
     public function testStore()
     {
-        $file = new File(PHING_TEST_BASE . "/tmp/props");
+        $file = new File(PHING_TEST_BASE . '/tmp/props');
         $this->props->put('t', 'a');
         $this->props->store($file, 'header');
         $this->assertFileExists($file->getPath());

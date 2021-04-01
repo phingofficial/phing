@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +21,7 @@
 namespace Phing\Parser;
 
 /**
- * Stores the file name and line number of a XML file
+ * Stores the file name and line number of a XML file.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
@@ -33,27 +34,49 @@ class Location
     private $fileName;
 
     /**
-     * @var int|null
+     * @var null|int
      */
     private $lineNumber;
 
     /**
-     * @var int|null
+     * @var null|int
      */
     private $columnNumber;
 
     /**
-     * Constructs the location consisting of a file name and line number
+     * Constructs the location consisting of a file name and line number.
      *
-     * @param string $fileName the filename
-     * @param int $lineNumber the line number
-     * @param int $columnNumber the column number
+     * @param string $fileName     the filename
+     * @param int    $lineNumber   the line number
+     * @param int    $columnNumber the column number
      */
     public function __construct($fileName = null, $lineNumber = null, $columnNumber = null)
     {
         $this->fileName = $fileName;
         $this->lineNumber = $lineNumber;
         $this->columnNumber = $columnNumber;
+    }
+
+    /**
+     * Returns the file name, line number and a trailing space.
+     *
+     * An error message can be appended easily. For unknown locations,
+     * returns empty string.
+     *
+     * @return string the string representation of this Location object
+     */
+    public function __toString()
+    {
+        $buf = '';
+        if (null !== $this->fileName) {
+            $buf .= $this->fileName;
+            if (null !== $this->lineNumber) {
+                $buf .= ':' . $this->lineNumber;
+            }
+            $buf .= ':' . $this->columnNumber;
+        }
+
+        return (string) $buf;
     }
 
     /**
@@ -78,27 +101,5 @@ class Location
     public function getColumnNumber()
     {
         return $this->columnNumber;
-    }
-
-    /**
-     * Returns the file name, line number and a trailing space.
-     *
-     * An error message can be appended easily. For unknown locations,
-     * returns empty string.
-     *
-     * @return string the string representation of this Location object
-     */
-    public function __toString()
-    {
-        $buf = "";
-        if ($this->fileName !== null) {
-            $buf .= $this->fileName;
-            if ($this->lineNumber !== null) {
-                $buf .= ":" . $this->lineNumber;
-            }
-            $buf .= ":" . $this->columnNumber;
-        }
-
-        return (string) $buf;
     }
 }

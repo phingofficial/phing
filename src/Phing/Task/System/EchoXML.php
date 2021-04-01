@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,7 @@ use Phing\Exception\BuildException;
 use Phing\Util\XMLFragment;
 
 /**
- * Echos a message to the logging system or to a file
+ * Echos a message to the logging system or to a file.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
@@ -34,8 +35,7 @@ class EchoXML extends XMLFragment
     private $append = false;
 
     /**
-     * setter for file
-     *
+     * setter for file.
      */
     public function setFile(string $file): void
     {
@@ -43,8 +43,7 @@ class EchoXML extends XMLFragment
     }
 
     /**
-     * setter for append
-     *
+     * setter for append.
      */
     public function setAppend(bool $append): void
     {
@@ -54,13 +53,13 @@ class EchoXML extends XMLFragment
     public function main()
     {
         $n = $this->getFragment()->firstChild;
-        if ($n === null) {
+        if (null === $n) {
             throw new BuildException('No nested XML specified');
         }
         $doc = $this->getDoc();
         $doc->formatOutput = true;
         $xml = $doc->saveXML($n);
-        if ($xml === false) {
+        if (false === $xml) {
             throw new BuildException('Error in xml detected');
         }
         if (empty($this->file)) {

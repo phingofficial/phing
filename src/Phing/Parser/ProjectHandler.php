@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -44,11 +45,11 @@ class ProjectHandler extends AbstractHandler
     private $context;
 
     /**
-     * Constructs a new ProjectHandler
+     * Constructs a new ProjectHandler.
      *
-     * @param ExpatParser $parser the ExpatParser object
-     * @param AbstractHandler $parentHandler the parent handler that invoked this handler
-     * @param ProjectConfigurator $configurator the ProjectConfigurator object
+     * @param ExpatParser         $parser        the ExpatParser object
+     * @param AbstractHandler     $parentHandler the parent handler that invoked this handler
+     * @param ProjectConfigurator $configurator  the ProjectConfigurator object
      */
     public function __construct(
         ExpatParser $parser,
@@ -66,8 +67,9 @@ class ProjectHandler extends AbstractHandler
      * Executes initialization actions required to setup the project. Usually
      * this method handles the attributes of a tag.
      *
-     * @param string $tag the tag that comes in
-     * @param array $attrs attributes the tag carries
+     * @param string $tag   the tag that comes in
+     * @param array  $attrs attributes the tag carries
+     *
      * @throws ExpatParseException if attributes are incomplete or invalid
      */
     public function init($tag, $attrs)
@@ -85,22 +87,22 @@ class ProjectHandler extends AbstractHandler
         $buildFileParent = $this->configurator->buildFileParent;
 
         foreach ($attrs as $key => $value) {
-            if ($key === "default") {
+            if ('default' === $key) {
                 $def = $value;
-            } elseif ($key === "name") {
+            } elseif ('name' === $key) {
                 $name = $value;
-            } elseif ($key === "id") {
+            } elseif ('id' === $key) {
                 $id = $value;
-            } elseif ($key === "basedir") {
+            } elseif ('basedir' === $key) {
                 $baseDir = $value;
-            } elseif ($key === "description") {
+            } elseif ('description' === $key) {
                 $desc = $value;
-            } elseif ($key === "phingVersion") {
+            } elseif ('phingVersion' === $key) {
                 $ver = $value;
-            } elseif ($key === 'strict') {
+            } elseif ('strict' === $key) {
                 $strict = $value;
             } else {
-                throw new ExpatParseException("Unexpected attribute '$key'");
+                throw new ExpatParseException("Unexpected attribute '{$key}'");
             }
         }
         // these things get done no matter what
@@ -118,39 +120,39 @@ class ProjectHandler extends AbstractHandler
             return;
         }
 
-        if ($def === null) {
+        if (null === $def) {
             throw new ExpatParseException(
-                "The default attribute of project is required"
+                'The default attribute of project is required'
             );
         }
 
         $project->setDefaultTarget($def);
 
-        if ($name !== null) {
+        if (null !== $name) {
             $project->setName($name);
             $project->addReference($name, $project);
         }
 
-        if ($id !== null) {
+        if (null !== $id) {
             $project->addReference($id, $project);
         }
 
-        if ($desc !== null) {
+        if (null !== $desc) {
             $project->setDescription($desc);
         }
 
-        if ($ver !== null) {
+        if (null !== $ver) {
             $project->setPhingVersion($ver);
         }
 
-        if ($strict !== null) {
+        if (null !== $strict) {
             $project->setStrictMode(StringHelper::booleanValue($strict));
         }
 
-        if ($project->getProperty("project.basedir") !== null) {
-            $project->setBasedir($project->getProperty("project.basedir"));
+        if (null !== $project->getProperty('project.basedir')) {
+            $project->setBasedir($project->getProperty('project.basedir'));
         } else {
-            if ($baseDir === null) {
+            if (null === $baseDir) {
                 $project->setBasedir($buildFileParent->getAbsolutePath());
             } else {
                 // check whether the user has specified an absolute path
@@ -163,15 +165,16 @@ class ProjectHandler extends AbstractHandler
             }
         }
 
-        $project->addTarget("", $this->context->getImplicitTarget());
+        $project->addTarget('', $this->context->getImplicitTarget());
     }
 
     /**
      * Handles start elements within the <project> tag by creating and
      * calling the required handlers for the detected element.
      *
-     * @param string $name the tag that comes in
-     * @param array $attrs attributes the tag carries
+     * @param string $name  the tag that comes in
+     * @param array  $attrs attributes the tag carries
+     *
      * @throws ExpatParseException if a unxepected element occurs
      */
     public function startElement($name, $attrs)
@@ -179,7 +182,7 @@ class ProjectHandler extends AbstractHandler
         $project = $this->configurator->project;
         $types = $project->getDataTypeDefinitions();
 
-        if ($name === "target" || $name === "extension-point") {
+        if ('target' === $name || 'extension-point' === $name) {
             $tf = new TargetHandler($this->parser, $this, $this->configurator, $this->context);
             $tf->init($name, $attrs);
         } else {

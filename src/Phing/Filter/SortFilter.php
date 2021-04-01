@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +28,7 @@ use Phing\Util\StringHelper;
 /**
  * <p>
  * Sort a file before and/or after the file.
- * </p>
+ * </p>.
  *
  * <p>
  * Examples:
@@ -67,14 +68,13 @@ use Phing\Util\StringHelper;
  * @author Siad.ardroumli <siad.ardroumli@gmail.com>
  *
  * @see BaseParamFilterReader
- *
  */
 class SortFilter extends BaseParamFilterReader implements ChainableReader
 {
     /**
      * Parameter name for reverse order.
      */
-    private static $REVERSE_KEY = "reverse";
+    private static $REVERSE_KEY = 'reverse';
 
     /**
      * Controls if the sorting process will be in ascendant/descendant order. If
@@ -93,8 +93,8 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * Creates a new filtered reader.
      *
      * @param Reader $in
-     *            A Reader object providing the underlying stream. Must not be
-     *            <code>null</code>.
+     *                   A Reader object providing the underlying stream. Must not be
+     *                   <code>null</code>.
      */
     public function __construct(Reader $in = null)
     {
@@ -108,12 +108,14 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * and returned.
      *
      * @param int $len
-     * @return    string the next character in the resulting stream, or -1 if the end of
-     *         the resulting stream has been reached
-     * @throws    BuildException
+     *
+     * @throws BuildException
      * @throws IOException
-     *                if the underlying stream throws an IOException during
-     *                reading
+     *                        if the underlying stream throws an IOException during
+     *                        reading
+     *
+     * @return string the next character in the resulting stream, or -1 if the end of
+     *                the resulting stream has been reached
      */
     public function read($len = null)
     {
@@ -124,7 +126,7 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
 
         $buffer = $this->in->read($len);
 
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
 
@@ -139,17 +141,18 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * Creates a new SortReader using the passed in Reader for instantiation.
      *
      * @param Reader $reader
-     *            A Reader object providing the underlying stream. Must not be
-     *            <code>null</code>.
+     *                       A Reader object providing the underlying stream. Must not be
+     *                       <code>null</code>.
      *
      * @return SortFilter a new filter based on this configuration, but filtering the
-     *         specified reader
+     *                    specified reader
      */
     public function chain(Reader $reader): Reader
     {
         $newFilter = new SortFilter($reader);
         $newFilter->setReverse($this->isReverse());
         $newFilter->setInitialized(true);
+
         return $newFilter;
     }
 
@@ -158,7 +161,7 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * order, otherwise the sorting process will be in ascendant order.
      *
      * @return bool <code>true</code> if the sorting process will be in reverse
-     *                 order, otherwise the sorting process will be in ascendant order.
+     *              order, otherwise the sorting process will be in ascendant order
      */
     public function isReverse()
     {
@@ -170,7 +173,7 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
      * or to descendant (<code>reverse=true</code>).
      *
      * @param bool $reverse
-     *            bool representing reverse ordering process.
+     *                      bool representing reverse ordering process
      */
     public function setReverse($reverse)
     {
@@ -178,7 +181,7 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * Scans the parameters list
+     * Scans the parameters list.
      */
     private function initialize()
     {
@@ -189,6 +192,7 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
             $paramName = $param->getName();
             if (self::$REVERSE_KEY === $paramName) {
                 $this->setReverse(StringHelper::booleanValue($param->getValue()));
+
                 continue;
             }
         }

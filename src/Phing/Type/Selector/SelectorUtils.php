@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +29,7 @@ use Phing\Util\StringHelper;
  * DirectoryScanner exposed these as protected methods. Thus we have to
  * support any subclasses of DirectoryScanner that may access these methods.
  * </p>
- * <p>This is a Singleton.</p>
+ * <p>This is a Singleton.</p>.
  *
  * @author  Hans Lellelid, hans@xmpl.org (Phing)
  * @author  Arnout J. Kuiper, ajkuiper@wxs.nl (Ant)
@@ -61,21 +62,20 @@ class SelectorUtils
      *
      * @param string $pattern
      * @param string $str
-     * @param bool $isCaseSensitive
+     * @param bool   $isCaseSensitive
      *
      * @return bool whether or not a given path matches the start of a given
-     *                 pattern up to the first "**".
+     *              pattern up to the first "**"
+     *
      * @internal param The $str path to match, as a String. Must not be
      *                <code>null</code>.
      * @internal param Whether $isCaseSensitive or not matching should be performed
-     *                        case sensitively.
-     *
+     *                        case sensitively
      * @internal param The $pattern pattern to match against. Must not be
      *                <code>null</code>.
      */
     public static function matchPatternStart($pattern, $str, $isCaseSensitive = true)
     {
-
         // When str starts with a DIRECTORY_SEPARATOR, pattern has to start with a
         // DIRECTORY_SEPARATOR.
         // When pattern starts with a DIRECTORY_SEPARATOR, str has to start with a
@@ -100,14 +100,14 @@ class SelectorUtils
         // up to first '**'
         while ($patIdxStart <= $patIdxEnd && $strIdxStart <= $strIdxEnd) {
             $patDir = $patDirs[$patIdxStart];
-            if ($patDir == "**") {
+            if ('**' == $patDir) {
                 break;
             }
             if (!self::match($patDir, $strDirs[$strIdxStart], $isCaseSensitive)) {
                 return false;
             }
-            $patIdxStart++;
-            $strIdxStart++;
+            ++$patIdxStart;
+            ++$strIdxStart;
         }
 
         if ($strIdxStart > $strIdxEnd) {
@@ -128,16 +128,16 @@ class SelectorUtils
     /**
      * Tests whether or not a given path matches a given pattern.
      *
-     * @param string $pattern The pattern to match against. Must not be <code>null</code>.
-     * @param string $str The path to match, as a String. Must not be <code>null</code>.
-     * @param bool $isCaseSensitive Whether or not matching should be performed case sensitively.
+     * @param string $pattern         The pattern to match against. Must not be <code>null</code>.
+     * @param string $str             The path to match, as a String. Must not be <code>null</code>.
+     * @param bool   $isCaseSensitive whether or not matching should be performed case sensitively
      *
      * @return bool <code>true</code> if the pattern matches against the string,
      */
     public static function matchPath($pattern, $str, $isCaseSensitive = true)
     {
         // explicitly exclude directory itself
-        if ($str == '' && $pattern == '**/*') {
+        if ('' == $str && '**/*' == $pattern) {
             return false;
         }
 
@@ -162,23 +162,23 @@ class SelectorUtils
      * Tests whether or not a string matches against a pattern.
      * The pattern may contain two special characters:<br>
      * '*' means zero or more characters<br>
-     * '?' means one and only one character
+     * '?' means one and only one character.
      *
-     * @param string $pattern The pattern to match against.
+     * @param string $pattern         The pattern to match against.
      *                                Must not be
      *                                <code>null</code>.
-     * @param string $str The string which must be matched against the pattern.
+     * @param string $str             The string which must be matched against the pattern.
      *                                Must not be <code>null</code>.
-     * @param bool $isCaseSensitive Whether or not matching should be performed
+     * @param bool   $isCaseSensitive Whether or not matching should be performed
      *                                case sensitively.case sensitively.
      *
      * @return bool <code>true</code> if the string matches against the pattern,
-     *                           or <code>false</code> otherwise.
+     *              or <code>false</code> otherwise
      */
     public static function match($pattern, $str, $isCaseSensitive = true)
     {
         $rePattern = preg_quote($pattern, '/');
-        $rePattern = str_replace(["\*", "\?"], ['.*', '.'], $rePattern);
+        $rePattern = str_replace(['\\*', '\\?'], ['.*', '.'], $rePattern);
         $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
 
         return (bool) preg_match($rePattern, $str);
@@ -192,10 +192,11 @@ class SelectorUtils
      * false if the src file doesn't even exist, since how could the
      * target then be out of date.
      *
-     * @param File $src the original file
-     * @param File $target the file being compared against
-     * @param int $granularity the amount in seconds of slack we will give in
-     *                                determining out of dateness
+     * @param File $src         the original file
+     * @param File $target      the file being compared against
+     * @param int  $granularity the amount in seconds of slack we will give in
+     *                          determining out of dateness
+     *
      * @return bool whether   the target is out of date
      */
     public static function isOutOfDate(File $src, File $target, $granularity)
@@ -215,6 +216,7 @@ class SelectorUtils
 
     /**
      * @param string $string
+     *
      * @return string
      */
     public static function removeWhitespace($string)

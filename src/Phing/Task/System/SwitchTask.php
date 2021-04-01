@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -76,7 +77,7 @@ use Phing\Task;
  */
 class SwitchTask extends Task
 {
-    private $value = null;
+    private $value;
 
     /**
      * @var array
@@ -86,14 +87,14 @@ class SwitchTask extends Task
     /**
      * @var SequentialTask
      */
-    private $defaultCase = null;
+    private $defaultCase;
 
     /**
      * @var bool
      */
     private $caseInsensitive = false;
 
-    /***
+    /*
      * Sets the value being switched on.
      *
      * @param mixed $value
@@ -107,8 +108,6 @@ class SwitchTask extends Task
 
     /**
      * Adds a CaseTask.
-     *
-     *
      */
     public function addCase(CaseTask $case)
     {
@@ -117,7 +116,6 @@ class SwitchTask extends Task
 
     /**
      * @param bool $caseInsensitive
-     *
      */
     public function setCaseInsensitive($caseInsensitive)
     {
@@ -125,12 +123,12 @@ class SwitchTask extends Task
     }
 
     /**
-     * Creates the `<default>` tag
+     * Creates the `<default>` tag.
      */
     public function addDefault(SequentialTask $res)
     {
-        if ($this->defaultCase !== null) {
-            throw new BuildException("Cannot specify multiple default cases");
+        if (null !== $this->defaultCase) {
+            throw new BuildException('Cannot specify multiple default cases');
         }
 
         $this->defaultCase = $res;
@@ -138,12 +136,12 @@ class SwitchTask extends Task
 
     public function main()
     {
-        if ($this->value === null) {
-            throw new BuildException("Value is missing <switch>");
+        if (null === $this->value) {
+            throw new BuildException('Value is missing <switch>');
         }
 
-        if (empty($this->cases) && $this->defaultCase === null) {
-            throw new BuildException("No cases supplied <switch>");
+        if (empty($this->cases) && null === $this->defaultCase) {
+            throw new BuildException('No cases supplied <switch>');
         }
 
         $selectedCase = $this->defaultCase;
@@ -155,7 +153,7 @@ class SwitchTask extends Task
             $cValue = $case->getValue();
 
             if (empty($case)) {
-                throw new BuildException("Value is required for case.");
+                throw new BuildException('Value is required for case.');
             }
 
             $mValue = $this->value;
@@ -169,8 +167,8 @@ class SwitchTask extends Task
             }
         }
 
-        if ($selectedCase === null) {
-            throw new BuildException("No case matched the value " . $this->value . " and no default has been specified.");
+        if (null === $selectedCase) {
+            throw new BuildException('No case matched the value ' . $this->value . ' and no default has been specified.');
         }
 
         $selectedCase->perform();

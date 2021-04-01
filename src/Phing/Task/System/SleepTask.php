@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -42,28 +43,28 @@ use Throwable;
 class SleepTask extends Task
 {
     /**
-     * failure flag
+     * failure flag.
      *
      * @var bool
      */
     private $failOnError = true;
 
     /**
-     * sleep seconds
+     * sleep seconds.
      */
     private $seconds = 0;
 
     /**
-     * sleep hours
+     * sleep hours.
      */
     private $hours = 0;
     /**
-     * sleep minutes
+     * sleep minutes.
      */
     private $minutes = 0;
 
     /**
-     * sleep milliseconds
+     * sleep milliseconds.
      */
     private $milliseconds = 0;
 
@@ -120,28 +121,6 @@ class SleepTask extends Task
         return $this->seconds;
     }
 
-    /**
-     * return time to sleep
-     *
-     * @return int time. if below 0 then there is an error
-     */
-    private function getSleepTime()
-    {
-        return ((($this->hours * 60) + $this->minutes) * 60 + $this->seconds) * 1000 + $this->milliseconds;
-    }
-
-    /**
-     * verify parameters
-     *
-     * @throws BuildException if something is invalid
-     */
-    private function validateAttributes()
-    {
-        if ($this->getSleepTime() < 0) {
-            throw new BuildException('Negative sleep periods are not supported');
-        }
-    }
-
     public function main()
     {
         try {
@@ -152,6 +131,28 @@ class SleepTask extends Task
             if ($this->failOnError) {
                 throw new BuildException($e);
             }
+        }
+    }
+
+    /**
+     * return time to sleep.
+     *
+     * @return int time. if below 0 then there is an error
+     */
+    private function getSleepTime()
+    {
+        return ((($this->hours * 60) + $this->minutes) * 60 + $this->seconds) * 1000 + $this->milliseconds;
+    }
+
+    /**
+     * verify parameters.
+     *
+     * @throws BuildException if something is invalid
+     */
+    private function validateAttributes()
+    {
+        if ($this->getSleepTime() < 0) {
+            throw new BuildException('Negative sleep periods are not supported');
         }
     }
 }

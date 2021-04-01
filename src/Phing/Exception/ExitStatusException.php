@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +30,7 @@ use Phing\Parser\Location;
 class ExitStatusException extends BuildException
 {
     /**
-     * Status code
+     * Status code.
      */
     protected $code;
 
@@ -37,19 +38,19 @@ class ExitStatusException extends BuildException
      * Constructs an <code>ExitStatusException</code>.
      *
      * @param null|int|string $arg1
-     * @param int $arg2
-     * @param Location $arg3
+     * @param int             $arg2
+     * @param Location        $arg3
      */
     public function __construct($arg1 = null, $arg2 = 0, Location $arg3 = null)
     {
         $methodArgsNum = func_num_args();
-        if ($methodArgsNum === 1) {
+        if (1 === $methodArgsNum) {
             parent::__construct();
             $this->code = (int) $arg1;
-        } elseif ($methodArgsNum === 2 && is_string($arg1) && is_int($arg2)) {
+        } elseif (2 === $methodArgsNum && is_string($arg1) && is_int($arg2)) {
             parent::__construct($arg1);
             $this->code = $arg2;
-        } elseif ($methodArgsNum === 3 && is_string($arg1) && is_int($arg2)) {
+        } elseif (3 === $methodArgsNum && is_string($arg1) && is_int($arg2)) {
             parent::__construct($arg1, $arg3);
             $this->code = $arg2;
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -41,17 +42,17 @@ abstract class DispatchTask extends Task implements Dispatchable
     /**
      * Get the action parameter name.
      *
-     * @return string the <code>String</code> "action" by default (can be overridden).
+     * @return string the <code>String</code> "action" by default (can be overridden)
      */
     public function getActionParameterName()
     {
-        return "action";
+        return 'action';
     }
 
     /**
      * Set the action.
      *
-     * @param string $action the method name.
+     * @param string $action the method name
      */
     public function setAction($action)
     {
@@ -61,7 +62,7 @@ abstract class DispatchTask extends Task implements Dispatchable
     /**
      * Get the action.
      *
-     * @return string the action.
+     * @return string the action
      */
     public function getAction()
     {

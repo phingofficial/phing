@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,6 +36,7 @@ use Phing\Io\Reader;
  *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
+ *
  * @see     BaseParamFilterReader
  */
 class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
@@ -51,7 +53,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    public const LINES_BREAKS_KEY = "linebreaks";
+    public const LINES_BREAKS_KEY = 'linebreaks';
 
     /**
      * The characters that are recognized as line breaks.
@@ -65,11 +67,12 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * characters not in the set of line-breaking characters.
      *
      * @param int $len
-     * @return mixed the resulting stream, or -1
-     *               if the end of the resulting stream has been reached.
      *
      * @throws IOException if the underlying stream throws an IOException
-     *            during reading
+     *                     during reading
+     *
+     * @return mixed the resulting stream, or -1
+     *               if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
@@ -79,20 +82,18 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
         }
 
         $buffer = $this->in->read($len);
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
 
-        $buffer = preg_replace("/[" . $this->lineBreaks . "]/", '', $buffer);
-
-        return $buffer;
+        return preg_replace('/[' . $this->lineBreaks . ']/', '', $buffer);
     }
 
     /**
      * Sets the line-breaking characters.
      *
-     * @param string $lineBreaks A String containing all the characters to be
-     *                           considered as line-breaking.
+     * @param string $lineBreaks a String containing all the characters to be
+     *                           considered as line-breaking
      */
     public function setLineBreaks($lineBreaks)
     {
@@ -102,7 +103,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
     /**
      * Gets the line-breaking characters.
      *
-     * @return string A String containing all the characters that are considered as line-breaking.
+     * @return string a String containing all the characters that are considered as line-breaking
      */
     public function getLineBreaks()
     {
@@ -114,7 +115,8 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * Reader for instantiation.
      *
      * @return StripLineBreaks A new filter based on this configuration, but filtering
-     *                the specified reader
+     *                         the specified reader
+     *
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      */
@@ -135,16 +137,17 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
     {
         $userDefinedLineBreaks = null;
         $params = $this->getParameters();
-        if ($params !== null) {
-            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
+        if (null !== $params) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; ++$i) {
                 if (self::LINES_BREAKS_KEY === $params[$i]->getName()) {
                     $userDefinedLineBreaks = $params[$i]->getValue();
+
                     break;
                 }
             }
         }
 
-        if ($userDefinedLineBreaks !== null) {
+        if (null !== $userDefinedLineBreaks) {
             $this->lineBreaks = $userDefinedLineBreaks;
         }
     }

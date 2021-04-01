@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +26,6 @@ namespace Phing\Type;
  * <p>This class is there to support the srcfile and targetfile
  * elements of &lt;execon&gt; and &lt;transform&gt; - don't know
  * whether there might be additional use cases.</p> --SB
- *
  */
 class CommandlineMarker
 {
@@ -55,9 +55,9 @@ class CommandlineMarker
      */
     public function getPosition()
     {
-        if ($this->realPos === -1) {
-            $this->realPos = ($this->outer->executable === null ? 0 : 1);
-            for ($i = 0; $i < $this->position; $i++) {
+        if (-1 === $this->realPos) {
+            $this->realPos = (null === $this->outer->executable ? 0 : 1);
+            for ($i = 0; $i < $this->position; ++$i) {
                 $arg = $this->outer->arguments[$i];
                 $this->realPos += count($arg->getParts());
             }
@@ -69,7 +69,7 @@ class CommandlineMarker
     /**
      * Set the prefix to be placed in front of the inserted argument.
      *
-     * @param string $prefix fixed prefix string.
+     * @param string $prefix fixed prefix string
      */
     public function setPrefix($prefix)
     {
@@ -87,7 +87,7 @@ class CommandlineMarker
     /**
      * Set the suffix to be placed at the end of the inserted argument.
      *
-     * @param string $suffix fixed suffix string.
+     * @param string $suffix fixed suffix string
      */
     public function setSuffix($suffix)
     {

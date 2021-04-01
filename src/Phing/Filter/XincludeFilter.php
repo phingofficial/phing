@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,12 +34,13 @@ use Phing\Project;
  * Uses PHP DOM XML support
  *
  * @author  Bill Karwin <bill@karwin.com>
+ *
  * @see     FilterReader
  */
 class XincludeFilter extends BaseParamFilterReader implements ChainableReader
 {
     /** @var File */
-    private $basedir = null;
+    private $basedir;
 
     /**
      * @var bool
@@ -93,17 +95,19 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      * Reads stream, applies XSLT and returns resulting stream.
      *
      * @param int $len
-     * @return string         transformed buffer.
+     *
      * @throws IOException
      * @throws BuildException
+     *
+     * @return string transformed buffer
      */
     public function read($len = null)
     {
         if (!class_exists('DOMDocument')) {
-            throw new BuildException("Could not find the DOMDocument class. Make sure PHP has been compiled/configured to support DOM XML.");
+            throw new BuildException('Could not find the DOMDocument class. Make sure PHP has been compiled/configured to support DOM XML.');
         }
 
-        if ($this->processed === true) {
+        if (true === $this->processed) {
             return -1; // EOF
         }
 
@@ -113,19 +117,20 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
             $_xml .= $data;
         }
 
-        if ($_xml === null) { // EOF?
+        if (null === $_xml) { // EOF?
             return -1;
         }
 
         if (empty($_xml)) {
-            $this->log("XML file is empty!", Project::MSG_WARN);
+            $this->log('XML file is empty!', Project::MSG_WARN);
 
             return '';
         }
 
-        $this->log("Transforming XML " . $this->in->getResource() . " using Xinclude ", Project::MSG_VERBOSE);
+        $this->log('Transforming XML ' . $this->in->getResource() . ' using Xinclude ', Project::MSG_VERBOSE);
 
         $out = '';
+
         try {
             $out = $this->process($_xml);
             $this->processed = true;
@@ -137,9 +142,29 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * Try to process the Xinclude transformation
+     * Creates a new XincludeFilter using the passed in
+     * Reader for instantiation.
      *
-     * @param string  XML to process.
+     * @param Reader A Reader object providing the underlying stream.
+     *               Must not be <code>null</code>.
+     *
+     * @return XincludeFilter A new filter based on this configuration, but filtering
+     *                        the specified reader
+     */
+    public function chain(Reader $reader): Reader
+    {
+        $newFilter = new self($reader);
+        $newFilter->setProject($this->getProject());
+        $newFilter->setBasedir($this->getBasedir());
+
+        return $newFilter;
+    }
+
+    /**
+     * Try to process the Xinclude transformation.
+     *
+     * @param string  XML to process
+     * @param mixed $xml
      *
      * @return string
      */
@@ -163,24 +188,5 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         return $xmlDom->saveXML();
-    }
-
-    /**
-     * Creates a new XincludeFilter using the passed in
-     * Reader for instantiation.
-     *
-     * @param Reader A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
-     *
-     * @return XincludeFilter A new filter based on this configuration, but filtering
-     *                the specified reader
-     */
-    public function chain(Reader $reader): Reader
-    {
-        $newFilter = new self($reader);
-        $newFilter->setProject($this->getProject());
-        $newFilter->setBasedir($this->getBasedir());
-
-        return $newFilter;
     }
 }

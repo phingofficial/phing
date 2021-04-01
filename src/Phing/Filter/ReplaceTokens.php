@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -43,6 +44,7 @@ use Phing\Type\TokenSource;
  *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
+ *
  * @see     BaseParamFilterReader
  */
 class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
@@ -52,14 +54,14 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    public const DEFAULT_BEGIN_TOKEN = "@";
+    public const DEFAULT_BEGIN_TOKEN = '@';
 
     /**
      * Default "end token" character.
      *
      * @var string
      */
-    public const DEFAULT_END_TOKEN = "@";
+    public const DEFAULT_END_TOKEN = '@';
 
     /**
      * Array to hold the replacee-replacer pairs (String to String).
@@ -70,7 +72,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Array to hold the token sources that make tokens from
-     * different sources available
+     * different sources available.
      *
      * @var array
      */
@@ -80,80 +82,31 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Array holding all tokens given directly to the Filter and
      * those passed via a TokenSource.
      *
-     * @var array|null
+     * @var null|array
      */
-    private $alltokens = null;
+    private $alltokens;
 
     /**
      * Character marking the beginning of a token.
      *
      * @var string
      */
-    private $beginToken = "@"; // self::DEFAULT_BEGIN_TOKEN;
+    private $beginToken = '@'; // self::DEFAULT_BEGIN_TOKEN;
 
     /**
      * Character marking the end of a token.
      *
      * @var string
      */
-    private $endToken = "@"; //self::DEFAULT_END_TOKEN;
-
-    /**
-     * Performs lookup on key and returns appropriate replacement string.
-     *
-     * @param array $matches Array of 1 el containing key to search for.
-     * @return string Text with which to replace key or value of key if none is found.
-     */
-    private function replaceTokenCallback($matches)
-    {
-        $key = $matches[1];
-
-        /* Get tokens from tokensource and merge them with the
-         * tokens given directly via build file. This should be
-         * done a bit more elegantly
-         */
-        if ($this->alltokens === null) {
-            $this->alltokens = [];
-
-            $count = count($this->tokensources);
-            for ($i = 0; $i < $count; $i++) {
-                $source = $this->tokensources[$i];
-                $this->alltokens = array_merge($this->alltokens, $source->getTokens());
-            }
-
-            $this->alltokens = array_merge($this->tokens, $this->alltokens);
-        }
-
-        $tokens = $this->alltokens;
-
-        $replaceWith = null;
-        $count = count($tokens);
-
-        for ($i = 0; $i < $count; $i++) {
-            if ($tokens[$i]->getKey() === $key) {
-                $replaceWith = $tokens[$i]->getValue();
-            }
-        }
-
-        if ($replaceWith === null) {
-            $replaceWith = $this->beginToken . $key . $this->endToken;
-            $this->log("No token defined for key \"" . $this->beginToken . $key . $this->endToken . "\"");
-        } else {
-            $this->log(
-                "Replaced \"" . $this->beginToken . $key . $this->endToken . "\" with \"" . $replaceWith . "\"",
-                Project::MSG_VERBOSE
-            );
-        }
-
-        return $replaceWith;
-    }
+    private $endToken = '@'; //self::DEFAULT_END_TOKEN;
 
     /**
      * Returns stream with tokens having been replaced with appropriate values.
      * If a replacement value is not found for a token, the token is left in the stream.
      *
      * @param int $len
-     * @return mixed filtered stream, -1 on EOF.
+     *
+     * @return mixed filtered stream, -1 on EOF
      */
     public function read($len = null)
     {
@@ -165,24 +118,22 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
         // read from next filter up the chain
         $buffer = $this->in->read($len);
 
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
 
         // filter buffer
-        $buffer = preg_replace_callback(
-            "/" . preg_quote($this->beginToken, '/') . "([\w\.\-:]+?)" . preg_quote($this->endToken, '/') . "/",
+        return preg_replace_callback(
+            '/' . preg_quote($this->beginToken, '/') . '([\\w\\.\\-:]+?)' . preg_quote($this->endToken, '/') . '/',
             [$this, 'replaceTokenCallback'],
             $buffer
         );
-
-        return $buffer;
     }
 
     /**
      * Sets the "begin token" character.
      *
-     * @param string $beginToken the character used to denote the beginning of a token.
+     * @param string $beginToken the character used to denote the beginning of a token
      */
     public function setBeginToken($beginToken)
     {
@@ -192,7 +143,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Returns the "begin token" character.
      *
-     * @return string The character used to denote the beginning of a token.
+     * @return string the character used to denote the beginning of a token
      */
     public function getBeginToken()
     {
@@ -235,7 +186,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Adds a token source to the sources of this filter.
      *
-     * @return object A Reference to the source just added.
+     * @return object a Reference to the source just added
      */
     public function createTokensource()
     {
@@ -246,11 +197,12 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Sets the map of tokens to replace.
-     * ; used by ReplaceTokens::chain()
+     * ; used by ReplaceTokens::chain().
      *
-     * @param    array $tokens A $array map (String->String) of token keys to replacement
-     *              values. Must not be <code>null</code>.
-     * @throws   Exception
+     * @param array $tokens A $array map (String->String) of token keys to replacement
+     *                      values. Must not be <code>null</code>.
+     *
+     * @throws Exception
      */
     public function setTokens($tokens)
     {
@@ -264,9 +216,9 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Returns the map of tokens which will be replaced.
-     * ; used by ReplaceTokens::chain()
+     * ; used by ReplaceTokens::chain().
      *
-     * @return array A map (String->String) of token keys to replacement values.
+     * @return array a map (String->String) of token keys to replacement values
      */
     public function getTokens()
     {
@@ -274,11 +226,13 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * Sets the tokensources to use; used by ReplaceTokens::chain()
+     * Sets the tokensources to use; used by ReplaceTokens::chain().
      *
-     * @param    $sources
-     * @throws   Exception
-     * @internal param An $array array of token sources.
+     * @param $sources
+     *
+     * @throws Exception
+     *
+     * @internal param An $array array of token sources
      */
     public function setTokensources($sources)
     {
@@ -290,7 +244,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * Returns the token sources used by this filter; used by ReplaceTokens::chain()
+     * Returns the token sources used by this filter; used by ReplaceTokens::chain().
      *
      * @return array
      */
@@ -303,9 +257,11 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Creates a new ReplaceTokens using the passed in
      * Reader for instantiation.
      *
-     * @return ReplaceTokens A new filter based on this configuration, but filtering
-     *                the specified reader
      * @throws Exception
+     *
+     * @return ReplaceTokens A new filter based on this configuration, but filtering
+     *                       the specified reader
+     *
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      */
@@ -323,6 +279,57 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
+     * Performs lookup on key and returns appropriate replacement string.
+     *
+     * @param array $matches array of 1 el containing key to search for
+     *
+     * @return string text with which to replace key or value of key if none is found
+     */
+    private function replaceTokenCallback($matches)
+    {
+        $key = $matches[1];
+
+        /* Get tokens from tokensource and merge them with the
+         * tokens given directly via build file. This should be
+         * done a bit more elegantly
+         */
+        if (null === $this->alltokens) {
+            $this->alltokens = [];
+
+            $count = count($this->tokensources);
+            for ($i = 0; $i < $count; ++$i) {
+                $source = $this->tokensources[$i];
+                $this->alltokens = array_merge($this->alltokens, $source->getTokens());
+            }
+
+            $this->alltokens = array_merge($this->tokens, $this->alltokens);
+        }
+
+        $tokens = $this->alltokens;
+
+        $replaceWith = null;
+        $count = count($tokens);
+
+        for ($i = 0; $i < $count; ++$i) {
+            if ($tokens[$i]->getKey() === $key) {
+                $replaceWith = $tokens[$i]->getValue();
+            }
+        }
+
+        if (null === $replaceWith) {
+            $replaceWith = $this->beginToken . $key . $this->endToken;
+            $this->log('No token defined for key "' . $this->beginToken . $key . $this->endToken . '"');
+        } else {
+            $this->log(
+                'Replaced "' . $this->beginToken . $key . $this->endToken . '" with "' . $replaceWith . '"',
+                Project::MSG_VERBOSE
+            );
+        }
+
+        return $replaceWith;
+    }
+
+    /**
      * Initializes tokens and loads the replacee-replacer hashtable.
      * This method is only called when this filter is used through
      * a <filterreader> tag in build file.
@@ -330,21 +337,21 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     private function initialize()
     {
         $params = $this->getParameters();
-        if ($params !== null) {
-            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
-                if ($params[$i] !== null) {
+        if (null !== $params) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; ++$i) {
+                if (null !== $params[$i]) {
                     $type = $params[$i]->getType();
-                    if ($type === "tokenchar") {
+                    if ('tokenchar' === $type) {
                         $name = $params[$i]->getName();
-                        if ($name === "begintoken") {
+                        if ('begintoken' === $name) {
                             $this->beginToken = substr($params[$i]->getValue(), 0, strlen($params[$i]->getValue()));
                         } else {
-                            if ($name === "endtoken") {
+                            if ('endtoken' === $name) {
                                 $this->endToken = substr($params[$i]->getValue(), 0, strlen($params[$i]->getValue()));
                             }
                         }
                     } else {
-                        if ($type === "token") {
+                        if ('token' === $type) {
                             $name = $params[$i]->getName();
                             $value = $params[$i]->getValue();
 
@@ -354,7 +361,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
                             $this->tokens[] = $tok;
                         } else {
-                            if ($type === "tokensource") {
+                            if ('tokensource' === $type) {
                                 // Store data from nested tags in local array
                                 $arr = [];
 
@@ -365,13 +372,13 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
 
                                 // Create TokenSource
                                 $tokensource = new TokenSource();
-                                if (isset($arr["classname"])) {
-                                    $tokensource->setClassname($arr["classname"]);
+                                if (isset($arr['classname'])) {
+                                    $tokensource->setClassname($arr['classname']);
                                 }
 
                                 // Copy other parameters 1:1 to freshly created TokenSource
                                 foreach ($arr as $key => $value) {
-                                    if (strtolower($key) === "classname") {
+                                    if ('classname' === strtolower($key)) {
                                         continue;
                                     }
                                     $param = $tokensource->createParam();

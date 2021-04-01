@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +30,7 @@ use Phing\Type\CommandlineArgument;
 use SplFileInfo;
 
 /**
- * Composer Task
+ * Composer Task.
  *
  * Run composer straight from phing
  *
@@ -39,28 +40,28 @@ use SplFileInfo;
 class ComposerTask extends Task
 {
     /**
-     * Path to php interpreter
+     * Path to php interpreter.
      *
      * @var string
      */
     private $php = '';
 
     /**
-     * Composer command to execute
+     * Composer command to execute.
      *
      * @var string
      */
-    private $command = null;
+    private $command;
 
     /**
-     * Commandline object
+     * Commandline object.
      *
      * @var Commandline
      */
-    private $commandLine = null;
+    private $commandLine;
 
     /**
-     * Path to Composer application
+     * Path to Composer application.
      *
      * @var string
      */
@@ -138,8 +139,9 @@ class ComposerTask extends Task
      *
      * If the filepath is non existent, try to find it on the system.
      *
-     * @return string
      * @throws IOException
+     *
+     * @return string
      */
     public function getComposer()
     {
@@ -154,6 +156,7 @@ class ComposerTask extends Task
                 $this->setComposer($composerLocation);
             }
         }
+
         return $this->composer;
     }
 
@@ -162,17 +165,33 @@ class ComposerTask extends Task
      *
      * @return CommandlineArgument
      */
-
     public function createArg()
     {
         return $this->commandLine->createArgument();
     }
 
     /**
+     * Executes the Composer task.
+     *
+     * @throws IOException
+     */
+    public function main()
+    {
+        $commandLine = $this->prepareCommandLine();
+        $this->log('Executing ' . $commandLine);
+        passthru($commandLine, $returnCode);
+
+        if ($returnCode > 0) {
+            throw new BuildException('Composer execution failed');
+        }
+    }
+
+    /**
      * Prepares the command string to be executed.
      *
-     * @return string
      * @throws IOException
+     *
+     * @return string
      */
     private function prepareCommandLine()
     {
@@ -189,21 +208,5 @@ class ComposerTask extends Task
         $this->commandLine = new Commandline();
 
         return $commandLine;
-    }
-
-    /**
-     * Executes the Composer task.
-     *
-     * @throws IOException
-     */
-    public function main()
-    {
-        $commandLine = $this->prepareCommandLine();
-        $this->log("Executing " . $commandLine);
-        passthru($commandLine, $returnCode);
-
-        if ($returnCode > 0) {
-            throw new BuildException("Composer execution failed");
-        }
     }
 }

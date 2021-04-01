@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,9 +21,9 @@
 namespace Phing\Task\System\Pdo;
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Io\FileWriter;
 use Phing\Io\LogWriter;
-use Phing\Io\File;
 use Phing\Io\Writer;
 use Phing\Parser\Location;
 use Phing\Phing;
@@ -35,6 +36,7 @@ use Phing\Type\Parameter;
  * This class is inspired by the similarly-named class in the PHPUnit tasks.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
+ *
  * @since   2.3.0
  */
 class PDOSQLExecFormatterElement
@@ -49,12 +51,12 @@ class PDOSQLExecFormatterElement
      *
      * @var string
      */
-    private $type = "";
+    private $type = '';
 
     /**
      * Whether to use file (or write output to phing log).
      *
-     * @var boolean
+     * @var bool
      */
     private $useFile = true;
 
@@ -68,14 +70,14 @@ class PDOSQLExecFormatterElement
     /**
      * Print header columns.
      *
-     * @var boolean
+     * @var bool
      */
     private $showheaders = true;
 
     /**
      * Whether to format XML output.
      *
-     * @var boolean
+     * @var bool
      */
     private $formatoutput = true;
 
@@ -88,11 +90,11 @@ class PDOSQLExecFormatterElement
 
     /**
      * Column delimiter.
-     * Defaults to ','
+     * Defaults to ','.
      *
      * @var string
      */
-    private $coldelimiter = ",";
+    private $coldelimiter = ',';
 
     /**
      * Row delimiter.
@@ -105,7 +107,7 @@ class PDOSQLExecFormatterElement
     /**
      * Append to an existing file or overwrite it?
      *
-     * @var boolean
+     * @var bool
      */
     private $append = false;
 
@@ -133,7 +135,6 @@ class PDOSQLExecFormatterElement
 
     /**
      * Construct a new PDOSQLExecFormatterElement with parent task.
-     *
      */
     public function __construct(PDOSQLExecTask $parentTask)
     {
@@ -153,25 +154,6 @@ class PDOSQLExecFormatterElement
     }
 
     /**
-     * Gets a configured output writer.
-     *
-     * @return Writer
-     */
-    private function getOutputWriter()
-    {
-        if ($this->useFile) {
-            $of = $this->getOutfile();
-            if (!$of) {
-                $of = new File($this->formatter->getPreferredOutfile());
-            }
-
-            return new FileWriter($of, $this->append);
-        }
-
-        return $this->getDefaultOutput();
-    }
-
-    /**
      * Configures wrapped formatter class with any attributes on this element.
      *
      * @throws BuildException
@@ -179,12 +161,12 @@ class PDOSQLExecFormatterElement
     public function prepare(Location $location)
     {
         if (!$this->formatter) {
-            throw new BuildException("No formatter specified (use type or classname attribute)", $location);
+            throw new BuildException('No formatter specified (use type or classname attribute)', $location);
         }
 
         $out = $this->getOutputWriter();
 
-        $this->parentTask->log("Setting output writer to: " . get_class($out), Project::MSG_VERBOSE);
+        $this->parentTask->log('Setting output writer to: ' . get_class($out), Project::MSG_VERBOSE);
         $this->formatter->setOutput($out);
 
         if ($this->formatter instanceof PlainPDOResultFormatter) {
@@ -203,9 +185,9 @@ class PDOSQLExecFormatterElement
             $method = 'set' . $param->getName();
             if (!method_exists($this->formatter, $param->getName())) {
                 throw new BuildException(
-                    "Formatter " . get_class(
+                    'Formatter ' . get_class(
                         $this->formatter
-                    ) . " does not have a $method method.",
+                    ) . " does not have a {$method} method.",
                     $location
                 );
             }
@@ -216,15 +198,16 @@ class PDOSQLExecFormatterElement
     /**
      * Sets the formatter type.
      *
-     * @param  string $type
+     * @param string $type
+     *
      * @throws BuildException
      */
     public function setType($type)
     {
         $this->type = $type;
-        if ($this->type === "xml") {
+        if ('xml' === $this->type) {
             $this->formatter = new XMLPDOResultFormatter();
-        } elseif ($this->type === "plain") {
+        } elseif ('plain' === $this->type) {
             $this->formatter = new PlainPDOResultFormatter();
         } else {
             throw new BuildException("Formatter '" . $this->type . "' not implemented");
@@ -353,16 +336,6 @@ class PDOSQLExecFormatterElement
     }
 
     /**
-     * Gets a default output writer for this task.
-     *
-     * @return Writer
-     */
-    private function getDefaultOutput()
-    {
-        return new LogWriter($this->parentTask);
-    }
-
-    /**
      * Gets the formatter that has been configured based on this element.
      *
      * @return PDOResultFormatter
@@ -370,5 +343,34 @@ class PDOSQLExecFormatterElement
     public function getFormatter()
     {
         return $this->formatter;
+    }
+
+    /**
+     * Gets a configured output writer.
+     *
+     * @return Writer
+     */
+    private function getOutputWriter()
+    {
+        if ($this->useFile) {
+            $of = $this->getOutfile();
+            if (!$of) {
+                $of = new File($this->formatter->getPreferredOutfile());
+            }
+
+            return new FileWriter($of, $this->append);
+        }
+
+        return $this->getDefaultOutput();
+    }
+
+    /**
+     * Gets a default output writer for this task.
+     *
+     * @return Writer
+     */
+    private function getDefaultOutput()
+    {
+        return new LogWriter($this->parentTask);
     }
 }

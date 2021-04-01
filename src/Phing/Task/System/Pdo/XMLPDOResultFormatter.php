@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -43,6 +44,7 @@ use Phing\Io\File;
  * with PDO.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
+ *
  * @since   2.3.0
  */
 class XMLPDOResultFormatter extends PDOResultFormatter
@@ -60,14 +62,14 @@ class XMLPDOResultFormatter extends PDOResultFormatter
     private $rootNode;
 
     /**
-     * XML document encoding
+     * XML document encoding.
      *
      * @var string
      */
     private $encoding;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $formatOutput = true;
 
@@ -91,7 +93,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
 
     public function initialize()
     {
-        $this->doc = new DOMDocument("1.0", $this->encoding);
+        $this->doc = new DOMDocument('1.0', $this->encoding);
         $this->rootNode = $this->doc->createElement('results');
         $this->doc->appendChild($this->rootNode);
         $this->doc->formatOutput = $this->formatOutput;
@@ -100,7 +102,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
     /**
      * Processes a specific row from PDO result set.
      *
-     * @param array $row Row of PDO result set.
+     * @param array $row row of PDO result set
      */
     public function processRow($row)
     {
@@ -111,7 +113,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
             $colNode = $this->doc->createElement('column');
             $colNode->setAttribute('name', $columnName);
 
-            if ($columnValue != null) {
+            if (null != $columnValue) {
                 $columnValue = trim($columnValue);
                 $colNode->nodeValue = $columnValue;
             }

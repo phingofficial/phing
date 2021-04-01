@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,13 +32,14 @@ use Phing\ProjectComponent;
 class IsTrueCondition extends ProjectComponent implements Condition
 {
     /**
-     * what we eval
+     * what we eval.
      */
     private $value;
 
     /**
      * Set the value to be tested.
      *
+     * @param mixed $value
      */
     public function setValue($value)
     {
@@ -45,14 +47,14 @@ class IsTrueCondition extends ProjectComponent implements Condition
     }
 
     /**
-     * return the inverted value;
+     * return the inverted value;.
      *
      * @throws BuildException if someone forgot to spec a value
      */
     public function evaluate()
     {
-        if ($this->value === null) {
-            throw new BuildException("Nothing to test for falsehood");
+        if (null === $this->value) {
+            throw new BuildException('Nothing to test for falsehood');
         }
 
         return $this->value;

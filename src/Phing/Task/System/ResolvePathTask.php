@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -65,7 +66,7 @@ class ResolvePathTask extends Task
     /**
      * Set the name of the property to set.
      *
-     * @param  string $v Property name
+     * @param string $v Property name
      */
     public function setPropertyName($v)
     {
@@ -74,7 +75,6 @@ class ResolvePathTask extends Task
 
     /**
      * Sets a base dir to use for resolution.
-     *
      */
     public function setDir(File $d)
     {
@@ -87,6 +87,7 @@ class ResolvePathTask extends Task
      * clear that you can also use it to set directory.
      *
      * @param string $f
+     *
      * @see   setFile()
      */
     public function setPath($f)
@@ -110,12 +111,12 @@ class ResolvePathTask extends Task
     public function main()
     {
         if (!$this->propertyName) {
-            throw new BuildException("You must specify the propertyName attribute", $this->getLocation());
+            throw new BuildException('You must specify the propertyName attribute', $this->getLocation());
         }
 
         // Currently only files are supported
-        if ($this->file === null) {
-            throw new BuildException("You must specify a path to resolve", $this->getLocation());
+        if (null === $this->file) {
+            throw new BuildException('You must specify a path to resolve', $this->getLocation());
         }
 
         $fs = FileSystem::getFileSystem();
@@ -123,13 +124,13 @@ class ResolvePathTask extends Task
         // if dir attribute was specified then we should
         // use that as basedir to which file was relative.
         // -- unless the file specified is an absolute path
-        if ($this->dir !== null && !$fs->isAbsolute(new File($this->file))) {
+        if (null !== $this->dir && !$fs->isAbsolute(new File($this->file))) {
             $this->file = new File($this->dir->getPath(), $this->file);
         }
 
         $resolved = $this->project->resolveFile($this->file);
 
-        $this->log("Resolved " . $this->file . " to " . $resolved->getAbsolutePath(), $this->logLevel);
+        $this->log('Resolved ' . $this->file . ' to ' . $resolved->getAbsolutePath(), $this->logLevel);
         $this->project->setProperty($this->propertyName, $resolved->getAbsolutePath());
     }
 }

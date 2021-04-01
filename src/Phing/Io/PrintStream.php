@@ -22,6 +22,10 @@ namespace Phing\Io;
 class PrintStream
 {
     /**
+     * @var OutputStream
+     */
+    protected $out;
+    /**
      * @var bool
      */
     private $autoFlush = false;
@@ -30,11 +34,6 @@ class PrintStream
      * @var BufferedWriter
      */
     private $textOut;
-
-    /**
-     * @var OutputStream
-     */
-    protected $out;
 
     /**
      * @param bool $autoFlush
@@ -56,7 +55,7 @@ class PrintStream
     public function prints($value)
     {
         if (is_bool($value)) {
-            $value = $value === true ? 'true' : 'false';
+            $value = true === $value ? 'true' : 'false';
         }
 
         $this->write((string) $value);
@@ -73,8 +72,8 @@ class PrintStream
 
     /**
      * @param string $buf
-     * @param int $off
-     * @param int $len
+     * @param int    $off
+     * @param int    $len
      */
     private function write($buf, $off = null, $len = null)
     {

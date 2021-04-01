@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -67,9 +68,10 @@ class Series
 
     public function getAverageTime()
     {
-        if (count($this->list) === 0) {
+        if (0 === count($this->list)) {
             return 0;
         }
+
         return $this->getTotalTime() / count($this->list);
     }
 
@@ -83,6 +85,7 @@ class Series
         if ($this->stack->isEmpty()) {
             $this->stack->push(new Duration());
         }
+
         return $this->stack->top();
     }
 }

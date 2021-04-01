@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +26,6 @@ use Phing\Project;
  * Abstract class for TokenReaders.
  *
  * @author Manuel Holtgewe
- *
  */
 abstract class TokenReader
 {
@@ -39,7 +39,7 @@ abstract class TokenReader
     /**
      * Constructor.
      *
-     * @param Project $project Reference to the project the TokenReader is used in.
+     * @param Project $project reference to the project the TokenReader is used in
      */
     public function __construct(Project $project)
     {
@@ -51,7 +51,6 @@ abstract class TokenReader
      *
      * @param $level
      * @param $msg
-     *
      */
     public function log($level, $msg)
     {
@@ -61,9 +60,9 @@ abstract class TokenReader
     /**
      * Reads the next token from the Reader.
      *
-     * @return string
      * @throws IOException - On error
      *
+     * @return string
      */
     abstract public function readToken();
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,6 +22,7 @@ namespace Phing\Task\System;
 
 /**
  * @author Alexey Shockov <alexey@shockov.com>
+ *
  * @since 2.4.0
  */
 class PharMetadataElement extends PharMetadata
@@ -59,24 +61,22 @@ class PharMetadataElement extends PharMetadata
     }
 
     /**
-     * Return array of
+     * Return array of.
      *
-     * @return string|array
+     * @return array|string
      */
     public function getValue()
     {
-        /*
-         * Elements first!
-         */
+        // Elements first!
 
-        return (empty($this->elements) ? $this->value : $this->elements);
+        return empty($this->elements) ? $this->value : $this->elements;
     }
 
     /**
-     * @return string|array
+     * @return array|string
      */
     public function toArray()
     {
-        return (empty($this->elements) ? $this->value : parent::toArray());
+        return empty($this->elements) ? $this->value : parent::toArray();
     }
 }

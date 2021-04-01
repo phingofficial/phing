@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,6 +31,7 @@ use Phing\Type\FileSet;
  * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
  *
  * @author  Alexey Shockov <alexey@shockov.com>
+ *
  * @since   2.4.0
  */
 class PharPackageTask extends MatchingTask
@@ -93,7 +95,7 @@ class PharPackageTask extends MatchingTask
     /**
      * @var PharMetadata
      */
-    private $metadata = null;
+    private $metadata;
 
     /**
      * @var string
@@ -105,7 +107,7 @@ class PharPackageTask extends MatchingTask
      */
     public function createMetadata()
     {
-        return ($this->metadata = new PharMetadata());
+        return $this->metadata = new PharMetadata();
     }
 
     /**
@@ -127,25 +129,33 @@ class PharPackageTask extends MatchingTask
      */
     public function setSignature($algorithm)
     {
-        /*
-         * If we don't support passed algprithm, leave old one.
-         */
+        // If we don't support passed algprithm, leave old one.
         switch ($algorithm) {
             case 'md5':
                 $this->signatureAlgorithm = Phar::MD5;
+
                 break;
+
             case 'sha1':
                 $this->signatureAlgorithm = Phar::SHA1;
+
                 break;
+
             case 'sha256':
                 $this->signatureAlgorithm = Phar::SHA256;
+
                 break;
+
             case 'sha512':
                 $this->signatureAlgorithm = Phar::SHA512;
+
                 break;
+
             case 'openssl':
                 $this->signatureAlgorithm = Phar::OPENSSL;
+
                 break;
+
             default:
                 break;
         }
@@ -158,16 +168,18 @@ class PharPackageTask extends MatchingTask
      */
     public function setCompression($compression)
     {
-        /**
-         * If we don't support passed compression, leave old one.
-         */
+        // If we don't support passed compression, leave old one.
         switch ($compression) {
             case 'gzip':
                 $this->compression = Phar::GZ;
+
                 break;
+
             case 'bzip2':
                 $this->compression = Phar::BZ2;
+
                 break;
+
             default:
                 break;
         }
@@ -175,7 +187,6 @@ class PharPackageTask extends MatchingTask
 
     /**
      * Destination (output) file.
-     *
      */
     public function setDestFile(File $destinationFile)
     {
@@ -185,7 +196,6 @@ class PharPackageTask extends MatchingTask
     /**
      * Base directory, which will be deleted from each included file (from path).
      * Paths with deleted basedir part are local paths in package.
-     *
      */
     public function setBaseDir(File $baseDirectory)
     {
@@ -195,7 +205,6 @@ class PharPackageTask extends MatchingTask
     /**
      * Relative path within the phar package to run,
      * if accessed on the command line.
-     *
      */
     public function setCliStub(File $stubFile)
     {
@@ -205,7 +214,6 @@ class PharPackageTask extends MatchingTask
     /**
      * Relative path within the phar package to run,
      * if accessed through a web browser.
-     *
      */
     public function setWebStub(File $stubFile)
     {
@@ -235,7 +243,7 @@ class PharPackageTask extends MatchingTask
     /**
      * Sets the private key to use to sign the Phar with.
      *
-     * @param File $key Private key to sign the Phar with.
+     * @param File $key private key to sign the Phar with
      */
     public function setKey(File $key)
     {
@@ -265,13 +273,9 @@ class PharPackageTask extends MatchingTask
                 Project::MSG_INFO
             );
 
-            /**
-             * Delete old package, if exists.
-             */
+            // Delete old package, if exists.
             if ($this->destinationFile->exists()) {
-                /**
-                 * TODO Check operation for errors...
-                 */
+                // TODO Check operation for errors...
                 $this->destinationFile->delete();
             }
 
@@ -291,14 +295,12 @@ class PharPackageTask extends MatchingTask
 
             $phar->stopBuffering();
 
-            /**
-             * File compression, if needed.
-             */
+            // File compression, if needed.
             if (Phar::NONE != $this->compression) {
                 $phar->compressFiles($this->compression);
             }
 
-            if ($this->signatureAlgorithm == Phar::OPENSSL) {
+            if (Phar::OPENSSL == $this->signatureAlgorithm) {
                 // Load up the contents of the key
                 $keyContents = file_get_contents($this->key);
 
@@ -336,9 +338,9 @@ class PharPackageTask extends MatchingTask
      */
     private function checkPreconditions()
     {
-        if (ini_get('phar.readonly') == "1") {
+        if ('1' == ini_get('phar.readonly')) {
             throw new BuildException(
-                "PharPackageTask require phar.readonly php.ini setting to be disabled"
+                'PharPackageTask require phar.readonly php.ini setting to be disabled'
             );
         }
 
@@ -349,15 +351,15 @@ class PharPackageTask extends MatchingTask
         }
 
         if (null === $this->destinationFile) {
-            throw new BuildException("destfile attribute must be set!", $this->getLocation());
+            throw new BuildException('destfile attribute must be set!', $this->getLocation());
         }
 
         if ($this->destinationFile->exists() && $this->destinationFile->isDirectory()) {
-            throw new BuildException("destfile is a directory!", $this->getLocation());
+            throw new BuildException('destfile is a directory!', $this->getLocation());
         }
 
         if (!$this->destinationFile->canWrite()) {
-            throw new BuildException("Can not write to the specified destfile!", $this->getLocation());
+            throw new BuildException('Can not write to the specified destfile!', $this->getLocation());
         }
         if (null !== $this->baseDirectory) {
             if (!$this->baseDirectory->exists()) {
@@ -367,16 +369,16 @@ class PharPackageTask extends MatchingTask
                 );
             }
         }
-        if ($this->signatureAlgorithm == Phar::OPENSSL) {
+        if (Phar::OPENSSL == $this->signatureAlgorithm) {
             if (!extension_loaded('openssl')) {
                 throw new BuildException(
-                    "PHP OpenSSL extension is required for OpenSSL signing of Phars!",
+                    'PHP OpenSSL extension is required for OpenSSL signing of Phars!',
                     $this->getLocation()
                 );
             }
 
             if (null === $this->key) {
-                throw new BuildException("key attribute must be set for OpenSSL signing!", $this->getLocation());
+                throw new BuildException('key attribute must be set for OpenSSL signing!', $this->getLocation());
             }
 
             if (!$this->key->exists()) {
@@ -416,7 +418,7 @@ class PharPackageTask extends MatchingTask
             $phar->setDefaultStub($cliStubFile, $webStubFile);
         }
 
-        if ($this->metadata === null) {
+        if (null === $this->metadata) {
             $this->createMetaData();
         }
 

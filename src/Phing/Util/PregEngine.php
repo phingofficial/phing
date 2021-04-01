@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,24 +29,29 @@ namespace Phing\Util;
 class PregEngine implements RegexpEngine
 {
     /**
-     * Set to null by default to distinguish between false and not set
-     *
-     * @var boolean
+     * Pattern delimiter.
      */
-    private $ignoreCase = null;
+    public const DELIMITER = '`';
+    /**
+     * Set to null by default to distinguish between false and not set.
+     *
+     * @var bool
+     */
+    private $ignoreCase;
 
     /**
-     * Set to null by default to distinguish between false and not set
+     * Set to null by default to distinguish between false and not set.
      *
-     * @var boolean
+     * @var bool
      */
-    private $multiline = null;
+    private $multiline;
 
     /**
-     * Pattern modifiers
+     * Pattern modifiers.
      *
-     * @link http://php.net/manual/en/reference.pcre.pattern.modifiers.php
-     * @var  string
+     * @see http://php.net/manual/en/reference.pcre.pattern.modifiers.php
+     *
+     * @var string
      */
     private $modifiers = '';
 
@@ -57,14 +63,9 @@ class PregEngine implements RegexpEngine
     private $limit = -1;
 
     /**
-     * Pattern delimiter.
-     */
-    public const DELIMITER = '`';
-
-    /**
-     * Sets pattern modifiers for regex engine
+     * Sets pattern modifiers for regex engine.
      *
-     * @param  string $mods Modifiers to be applied to a given regex
+     * @param string $mods Modifiers to be applied to a given regex
      */
     public function setModifiers($mods)
     {
@@ -81,25 +82,24 @@ class PregEngine implements RegexpEngine
         $mods = $this->modifiers;
         if ($this->getIgnoreCase()) {
             $mods .= 'i';
-        } elseif ($this->getIgnoreCase() === false) {
+        } elseif (false === $this->getIgnoreCase()) {
             $mods = str_replace('i', '', $mods);
         }
         if ($this->getMultiline()) {
             $mods .= 's';
-        } elseif ($this->getMultiline() === false) {
+        } elseif (false === $this->getMultiline()) {
             $mods = str_replace('s', '', $mods);
         }
         // filter out duplicates
         $mods = preg_split('//', $mods, -1, PREG_SPLIT_NO_EMPTY);
-        $mods = implode('', array_unique($mods));
 
-        return $mods;
+        return implode('', array_unique($mods));
     }
 
     /**
      * Sets whether or not regex operation is case sensitive.
      *
-     * @param  bool $bit
+     * @param bool $bit
      */
     public function setIgnoreCase($bit)
     {
@@ -157,10 +157,59 @@ class PregEngine implements RegexpEngine
     }
 
     /**
+     * Matches pattern against source string and sets the matches array.
+     *
+     * @param string $pattern the regex pattern to match
+     * @param string $source  the source string
+     * @param array  $matches the array in which to store matches
+     *
+     * @return bool success of matching operation
+     */
+    public function match($pattern, $source, &$matches)
+    {
+        return preg_match($this->preparePattern($pattern), $source, $matches) > 0;
+    }
+
+    /**
+     * Matches all patterns in source string and sets the matches array.
+     *
+     * @param string $pattern the regex pattern to match
+     * @param string $source  the source string
+     * @param array  $matches the array in which to store matches
+     *
+     * @return bool success of matching operation
+     */
+    public function matchAll($pattern, $source, &$matches)
+    {
+        return preg_match_all($this->preparePattern($pattern), $source, $matches) > 0;
+    }
+
+    /**
+     * Replaces $pattern with $replace in $source string.
+     * References to \1 group matches will be replaced with more preg-friendly
+     * $1.
+     *
+     * @param string $pattern the regex pattern to match
+     * @param string $replace the string with which to replace matches
+     * @param string $source  the source string
+     *
+     * @return string the replaced source string
+     */
+    public function replace($pattern, $replace, $source)
+    {
+        // convert \1 -> $1, because we want to use the more generic \1 in the XML
+        // but PREG prefers $1 syntax.
+        $replace = preg_replace('/\\\(\d+)/', '\$$1', $replace);
+
+        return preg_replace($this->preparePattern($pattern), $replace, $source, $this->limit);
+    }
+
+    /**
      * The pattern needs to be converted into PREG style -- which includes adding expression delims & any flags, etc.
      *
-     * @param  string $pattern
-     * @return string prepared pattern.
+     * @param string $pattern
+     *
+     * @return string prepared pattern
      */
     private function preparePattern($pattern)
     {
@@ -183,50 +232,5 @@ class PregEngine implements RegexpEngine
         }
 
         return self::DELIMITER . $pattern . self::DELIMITER . $this->getModifiers();
-    }
-
-    /**
-     * Matches pattern against source string and sets the matches array.
-     *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $source  The source string.
-     * @param  array  $matches The array in which to store matches.
-     * @return bool Success of matching operation.
-     */
-    public function match($pattern, $source, &$matches)
-    {
-        return preg_match($this->preparePattern($pattern), $source, $matches) > 0;
-    }
-
-    /**
-     * Matches all patterns in source string and sets the matches array.
-     *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $source  The source string.
-     * @param  array  $matches The array in which to store matches.
-     * @return bool Success of matching operation.
-     */
-    public function matchAll($pattern, $source, &$matches)
-    {
-        return preg_match_all($this->preparePattern($pattern), $source, $matches) > 0;
-    }
-
-    /**
-     * Replaces $pattern with $replace in $source string.
-     * References to \1 group matches will be replaced with more preg-friendly
-     * $1.
-     *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $replace The string with which to replace matches.
-     * @param  string $source  The source string.
-     * @return string The replaced source string.
-     */
-    public function replace($pattern, $replace, $source)
-    {
-        // convert \1 -> $1, because we want to use the more generic \1 in the XML
-        // but PREG prefers $1 syntax.
-        $replace = preg_replace('/\\\(\d+)/', '\$$1', $replace);
-
-        return preg_replace($this->preparePattern($pattern), $replace, $source, $this->limit);
     }
 }

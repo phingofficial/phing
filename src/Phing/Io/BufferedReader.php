@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,12 +26,11 @@ namespace Phing\Io;
  * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  *
  * @see FilterReader
- *
  */
 class BufferedReader extends Reader
 {
     private $bufferSize = 0;
-    private $buffer = null;
+    private $buffer;
     private $bufferPos = 0;
 
     /**
@@ -41,9 +41,8 @@ class BufferedReader extends Reader
     private $in;
 
     /**
-     *
-     * @param InputStreamReader $reader The reader (e.g. FileReader).
-     * @param int $buffsize The size of the buffer we should use for reading files.
+     * @param InputStreamReader $reader   The reader (e.g. FileReader).
+     * @param int               $buffsize The size of the buffer we should use for reading files.
      *                                    A large buffer ensures that most files (all scripts?)
      *                                    are parsed in 1 buffer.
      */
@@ -57,13 +56,13 @@ class BufferedReader extends Reader
      * Reads and returns a chunk of data.
      *
      * @param int $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
-     * @return mixed buffer or -1 if EOF.
+     *
+     * @return mixed buffer or -1 if EOF
      */
     public function read($len = null)
     {
-
         // if $len is specified, we'll use that; otherwise, use the configured buffer size.
-        if ($len === null) {
+        if (null === $len) {
             $len = $this->bufferSize;
         }
 
@@ -92,6 +91,7 @@ class BufferedReader extends Reader
 
     /**
      * @param int $n
+     *
      * @return int
      */
     public function skip($n)
@@ -116,16 +116,17 @@ class BufferedReader extends Reader
     {
         $line = null;
         while (($ch = $this->readChar()) !== -1) {
-            if ($ch === "\n") {
+            if ("\n" === $ch) {
                 $line = rtrim((string) $line);
+
                 break;
             }
             $line .= $ch;
         }
 
         // Warning : Not considering an empty line as an EOF
-        if ($line === null && $ch !== -1) {
-            return "";
+        if (null === $line && -1 !== $ch) {
+            return '';
         }
 
         return $line;
@@ -134,14 +135,14 @@ class BufferedReader extends Reader
     /**
      * Reads a single char from the reader.
      *
-     * @return string single char or -1 if EOF.
+     * @return string single char or -1 if EOF
      */
     public function readChar()
     {
-        if ($this->buffer === null) {
+        if (null === $this->buffer) {
             // Buffer is empty, fill it ...
             $read = $this->in->read($this->bufferSize);
-            if ($read === -1) {
+            if (-1 === $read) {
                 $ch = -1;
             } else {
                 $this->buffer = $read;
@@ -152,8 +153,8 @@ class BufferedReader extends Reader
             // Get next buffered char ...
             // handle case where buffer is read-in, but is empty.  The next readChar() will return -1 EOF,
             // so we just return empty string (char) at this point.  (Probably could also return -1 ...?)
-            $ch = ($this->buffer !== "") ? $this->buffer[$this->bufferPos] : '';
-            $this->bufferPos++;
+            $ch = ('' !== $this->buffer) ? $this->buffer[$this->bufferPos] : '';
+            ++$this->bufferPos;
             if ($this->bufferPos >= strlen($this->buffer)) {
                 $this->buffer = null;
                 $this->bufferPos = 0;

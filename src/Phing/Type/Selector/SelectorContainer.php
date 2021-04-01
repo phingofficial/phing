@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +26,6 @@ use Phing\Project;
  * This is the interface for selectors that can contain other selectors.
  *
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
- *
  */
 interface SelectorContainer
 {
@@ -37,7 +37,7 @@ interface SelectorContainer
     public function hasSelectors();
 
     /**
-     * Gives the count of the number of selectors in this container
+     * Gives the count of the number of selectors in this container.
      *
      * @return int the number of selectors in this container
      */
@@ -45,7 +45,6 @@ interface SelectorContainer
 
     /**
      * Returns a *copy* of the set of selectors as an array.
-     *
      *
      * @return BaseSelectorContainer[] an array of selectors in this container
      */
@@ -65,137 +64,115 @@ interface SelectorContainer
      */
     public function appendSelector(FileSelector $selector);
 
-    /* Methods below all add specific selectors */
+    // Methods below all add specific selectors
 
     /**
-     * add a "Select" selector entry on the selector list
-     *
+     * add a "Select" selector entry on the selector list.
      */
     public function addSelector(SelectSelector $selector);
 
     /**
-     * add an "And" selector entry on the selector list
-     *
+     * add an "And" selector entry on the selector list.
      */
     public function addAnd(AndSelector $selector);
 
     /**
-     * add an "Or" selector entry on the selector list
-     *
+     * add an "Or" selector entry on the selector list.
      */
     public function addOr(OrSelector $selector);
 
     /**
-     * add a "Not" selector entry on the selector list
-     *
+     * add a "Not" selector entry on the selector list.
      */
     public function addNot(NotSelector $selector);
 
     /**
-     * add a "None" selector entry on the selector list
-     *
+     * add a "None" selector entry on the selector list.
      */
     public function addNone(NoneSelector $selector);
 
     /**
-     * add a majority selector entry on the selector list
-     *
+     * add a majority selector entry on the selector list.
      */
     public function addMajority(MajoritySelector $selector);
 
     /**
-     * add a selector date entry on the selector list
-     *
+     * add a selector date entry on the selector list.
      */
     public function addDate(DateSelector $selector);
 
     /**
-     * add a selector size entry on the selector list
-     *
+     * add a selector size entry on the selector list.
      */
     public function addSize(SizeSelector $selector);
 
     /**
-     * add a selector filename entry on the selector list
-     *
+     * add a selector filename entry on the selector list.
      */
     public function addFilename(FilenameSelector $selector);
 
     /**
-     * add an extended selector entry on the selector list
-     *
+     * add an extended selector entry on the selector list.
      */
     public function addCustom(ExtendSelector $selector);
 
     /**
-     * add a contains selector entry on the selector list
-     *
+     * add a contains selector entry on the selector list.
      */
     public function addContains(ContainsSelector $selector);
 
     /**
-     * add a contains selector entry on the selector list
-     *
+     * add a contains selector entry on the selector list.
      */
     public function addContainsRegexp(ContainsRegexpSelector $selector);
 
     /**
-     * add a present selector entry on the selector list
-     *
+     * add a present selector entry on the selector list.
      */
     public function addPresent(PresentSelector $selector);
 
     /**
-     * add a depth selector entry on the selector list
-     *
+     * add a depth selector entry on the selector list.
      */
     public function addDepth(DepthSelector $selector);
 
     /**
-     * add a depends selector entry on the selector list
-     *
+     * add a depends selector entry on the selector list.
      */
     public function addDepend(DependSelector $selector);
 
     /**
-     * add a different selector entry on the selector list
-     *
+     * add a different selector entry on the selector list.
      */
     public function addDifferent(DifferentSelector $selector);
 
     /**
-     * add a modified selector entry on the selector list
-     *
+     * add a modified selector entry on the selector list.
      */
     public function addModified(ModifiedSelector $selector);
 
     /**
-     * add a type selector entry on the selector list
-     *
+     * add a type selector entry on the selector list.
      */
     public function addType(TypeSelector $selector);
 
     /**
-     * add a executable selector entry on the selector list
-     *
+     * add a executable selector entry on the selector list.
      */
     public function addExecutable(ExecutableSelector $selector);
 
     /**
-     * add a readable selector entry on the selector list
-     *
+     * add a readable selector entry on the selector list.
      */
     public function addReadable(ReadableSelector $selector);
 
     /**
-     * add a writable selector entry on the selector list
-     *
+     * add a writable selector entry on the selector list.
      */
     public function addWritable(WritableSelector $selector);
 
     /**
-     * add a symlink selector entry on the selector list
-     *
+     * add a symlink selector entry on the selector list.
      */
     public function addSymlink(SymlinkSelector $selector);
 }

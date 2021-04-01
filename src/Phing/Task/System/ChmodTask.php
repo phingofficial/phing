@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -47,7 +48,7 @@ class ChmodTask extends Task
     private $verbose = true;
 
     /**
-     * This flag means 'note errors to the output, but keep going'
+     * This flag means 'note errors to the output, but keep going'.
      *
      * @see   setQuiet()
      */
@@ -58,6 +59,7 @@ class ChmodTask extends Task
 
     /**
      * Set quiet mode, which suppresses warnings if chmod() fails.
+     *
      * @see   setFailonerror()
      */
     public function setQuiet(bool $quiet)
@@ -108,33 +110,32 @@ class ChmodTask extends Task
      */
     private function checkParams()
     {
-        if ($this->file === null && empty($this->filesets) && empty($this->dirsets)) {
+        if (null === $this->file && empty($this->filesets) && empty($this->dirsets)) {
             throw new BuildException(
-                "Specify at least one source - a file, dirset or a fileset."
+                'Specify at least one source - a file, dirset or a fileset.'
             );
         }
 
-        if ($this->mode === null) {
-            throw new BuildException("You have to specify an octal mode for chmod.");
+        if (null === $this->mode) {
+            throw new BuildException('You have to specify an octal mode for chmod.');
         }
 
         // check for mode to be in the correct format
         if (!preg_match('/^([0-7]){3,4}$/', $this->mode)) {
-            throw new BuildException("You have specified an invalid mode.");
+            throw new BuildException('You have specified an invalid mode.');
         }
     }
 
     /**
      * Does the actual work.
-     *
      */
     private function chmod()
     {
-        if (strlen($this->mode) === 4) {
+        if (4 === strlen($this->mode)) {
             $mode = octdec($this->mode);
         } else {
             // we need to prepend the 0 before converting
-            $mode = octdec("0" . $this->mode);
+            $mode = octdec('0' . $this->mode);
         }
 
         // counters for non-verbose output
@@ -142,7 +143,7 @@ class ChmodTask extends Task
         $total_dirs = 0;
 
         // one file
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             $total_files = 1;
             $this->chmodFile($this->file, $mode);
         }
@@ -159,13 +160,13 @@ class ChmodTask extends Task
 
             $filecount = count($srcFiles);
             $total_files += $filecount;
-            for ($j = 0; $j < $filecount; $j++) {
+            for ($j = 0; $j < $filecount; ++$j) {
                 $this->chmodFile(new File($fromDir, $srcFiles[$j]), $mode);
             }
 
             $dircount = count($srcDirs);
             $total_dirs += $dircount;
-            for ($j = 0; $j < $dircount; $j++) {
+            for ($j = 0; $j < $dircount; ++$j) {
                 $this->chmodFile(new File($fromDir, $srcDirs[$j]), $mode);
             }
         }
@@ -179,20 +180,21 @@ class ChmodTask extends Task
     /**
      * Actually change the mode for the file.
      *
-     * @param  int $mode
+     * @param int $mode
+     *
      * @throws BuildException
      * @throws Exception
      */
     private function chmodFile(File $file, $mode)
     {
         if (!$file->exists()) {
-            throw new BuildException("The file " . $file->__toString() . " does not exist");
+            throw new BuildException('The file ' . $file->__toString() . ' does not exist');
         }
 
         try {
             $file->setMode($mode);
             if ($this->verbose) {
-                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf("%o", [$mode]));
+                $this->log("Changed file mode on '" . $file->__toString() . "' to " . vsprintf('%o', [$mode]));
             }
         } catch (Exception $e) {
             if ($this->failonerror) {

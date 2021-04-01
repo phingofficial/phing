@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -39,7 +40,7 @@ abstract class ContainerMapper implements FileNameMapper
     /**
      * Add a <code>Mapper</code>.
      *
-     * @param Mapper $mapper the <code>Mapper</code> to add.
+     * @param Mapper $mapper the <code>Mapper</code> to add
      */
     public function addMapper(Mapper $mapper)
     {
@@ -54,7 +55,7 @@ abstract class ContainerMapper implements FileNameMapper
      * addConfigured method has been added to allow
      * chaining to work correctly.
      *
-     * @param FileNameMapper $fileNameMapper a <code>FileNameMapper</code>.
+     * @param FileNameMapper $fileNameMapper a <code>FileNameMapper</code>
      */
     public function addConfigured(FileNameMapper $fileNameMapper)
     {
@@ -64,37 +65,20 @@ abstract class ContainerMapper implements FileNameMapper
     /**
      * Add a <code>FileNameMapper</code>.
      *
-     * @param FileNameMapper $fileNameMapper a <code>FileNameMapper</code>.
+     * @param FileNameMapper $fileNameMapper a <code>FileNameMapper</code>
+     *
      * @throws BadMethodCallException if attempting to add this
-     *         <code>ContainerMapper</code> to itself, or if the specified
-     *         <code>FileNameMapper</code> is itself a <code>ContainerMapper</code>
-     *         that contains this <code>ContainerMapper</code>.
+     *                                <code>ContainerMapper</code> to itself, or if the specified
+     *                                <code>FileNameMapper</code> is itself a <code>ContainerMapper</code>
+     *                                that contains this <code>ContainerMapper</code>
      */
     public function add(Mapper $fileNameMapper)
     {
         if ($this == $fileNameMapper || ($fileNameMapper instanceof ContainerMapper && $fileNameMapper->contains($this))) {
-            throw new BadMethodCallException("Circular mapper containment condition detected");
+            throw new BadMethodCallException('Circular mapper containment condition detected');
         }
 
         $this->mappers[] = $fileNameMapper;
-    }
-
-    /**
-     * Return <code>true</code> if this <code>ContainerMapper</code> or any of
-     * its sub-elements contains the specified <code>FileNameMapper</code>.
-     *
-     * @param FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to search for.
-     * @return bool
-     */
-    protected function contains(FileNameMapper $fileNameMapper)
-    {
-        $foundit = false;
-        for ($iter = new ArrayIterator($this->mappers); $iter->valid() && !$foundit;) {
-            $iter->next();
-            $next = $iter->current();
-            $foundit = ($next == $fileNameMapper || ($next instanceof ContainerMapper && $next->contains($fileNameMapper)));
-        }
-        return $foundit;
     }
 
     /**
@@ -110,7 +94,7 @@ abstract class ContainerMapper implements FileNameMapper
     /**
      * Empty implementation.
      *
-     * @param string $ignore ignored.
+     * @param string $ignore ignored
      */
     public function setFrom($ignore)
     {
@@ -120,10 +104,30 @@ abstract class ContainerMapper implements FileNameMapper
     /**
      * Empty implementation.
      *
-     * @param string $ignore ignored.
+     * @param string $ignore ignored
      */
     public function setTo($ignore)
     {
         //Empty
+    }
+
+    /**
+     * Return <code>true</code> if this <code>ContainerMapper</code> or any of
+     * its sub-elements contains the specified <code>FileNameMapper</code>.
+     *
+     * @param FileNameMapper $fileNameMapper the <code>FileNameMapper</code> to search for
+     *
+     * @return bool
+     */
+    protected function contains(FileNameMapper $fileNameMapper)
+    {
+        $foundit = false;
+        for ($iter = new ArrayIterator($this->mappers); $iter->valid() && !$foundit;) {
+            $iter->next();
+            $next = $iter->current();
+            $foundit = ($next == $fileNameMapper || ($next instanceof ContainerMapper && $next->contains($fileNameMapper)));
+        }
+
+        return $foundit;
     }
 }

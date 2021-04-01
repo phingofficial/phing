@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -34,17 +35,12 @@ class TimerMap
     public function find($name, Clock $clock)
     {
         $timer = $this->map[$name] ?? null;
-        if ($timer === null) {
+        if (null === $timer) {
             $timer = $this->createTimer($name, $clock);
             $this->map[$name] = $timer;
         }
 
         return $timer;
-    }
-
-    protected function createTimer($name, Clock $clock)
-    {
-        return new SeriesTimer($name, $clock);
     }
 
     public function toSeriesMap()
@@ -55,5 +51,10 @@ class TimerMap
         }
 
         return $seriesMap;
+    }
+
+    protected function createTimer($name, Clock $clock)
+    {
+        return new SeriesTimer($name, $clock);
     }
 }

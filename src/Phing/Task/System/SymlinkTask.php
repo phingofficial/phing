@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,15 +21,15 @@
 namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
-use Phing\Io\FileSystem;
 use Phing\Io\File;
+use Phing\Io\FileSystem;
 use Phing\Project;
 use Phing\Task;
 use Phing\Type\FileSet;
 
 /**
  * Generates symlinks based on a target / link combination.
- * Can also symlink contents of a directory, individually
+ * Can also symlink contents of a directory, individually.
  *
  * Single target symlink example:
  * <code>
@@ -52,26 +53,26 @@ use Phing\Type\FileSet;
 class SymlinkTask extends Task
 {
     /**
-     * What we're symlinking from
+     * What we're symlinking from.
      *
      * (default value: null)
      *
      * @var string
      */
-    private $linkTarget = null;
+    private $linkTarget;
 
     /**
-     * Symlink location
+     * Symlink location.
      *
      * (default value: null)
      *
      * @var string
      */
-    private $link = null;
+    private $link;
 
     /**
      * Collection of filesets
-     * Used when linking contents of a directory
+     * Used when linking contents of a directory.
      *
      * (default value: array())
      *
@@ -81,23 +82,23 @@ class SymlinkTask extends Task
 
     /**
      * Whether to override the symlink if it exists but points
-     * to a different location
+     * to a different location.
      *
      * (default value: false)
      *
-     * @var boolean
+     * @var bool
      */
     private $overwrite = false;
 
     /**
-     * Whether to create relative symlinks
+     * Whether to create relative symlinks.
      *
-     * @var boolean
+     * @var bool
      */
     private $relative = false;
 
     /**
-     * setter for linkTarget
+     * setter for linkTarget.
      *
      * @param string $linkTarget
      */
@@ -107,7 +108,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * setter for _link
+     * setter for _link.
      *
      * @param string $link
      */
@@ -117,7 +118,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * creator for _filesets
+     * creator for _filesets.
      *
      * @return FileSet
      */
@@ -129,7 +130,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * setter for _overwrite
+     * setter for _overwrite.
      *
      * @param bool $overwrite
      */
@@ -147,14 +148,15 @@ class SymlinkTask extends Task
     }
 
     /**
-     * getter for linkTarget
+     * getter for linkTarget.
+     *
+     * @throws BuildException
      *
      * @return string
-     * @throws BuildException
      */
     public function getTarget()
     {
-        if ($this->linkTarget === null) {
+        if (null === $this->linkTarget) {
             throw new BuildException('Target not set');
         }
 
@@ -162,14 +164,15 @@ class SymlinkTask extends Task
     }
 
     /**
-     * getter for _link
+     * getter for _link.
+     *
+     * @throws BuildException
      *
      * @return string
-     * @throws BuildException
      */
     public function getLink()
     {
-        if ($this->link === null) {
+        if (null === $this->link) {
             throw new BuildException('Link not set');
         }
 
@@ -177,7 +180,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * getter for _filesets
+     * getter for _filesets.
      *
      * @return array
      */
@@ -187,7 +190,7 @@ class SymlinkTask extends Task
     }
 
     /**
-     * getter for _overwrite
+     * getter for _overwrite.
      *
      * @return bool
      */
@@ -207,7 +210,7 @@ class SymlinkTask extends Task
     /**
      * Given an existing path, convert it to a path relative to a given starting path.
      *
-     * @param string $endPath Absolute path of target
+     * @param string $endPath   Absolute path of target
      * @param string $startPath Absolute path where traversal begins
      *
      * @return string Path of target relative to starting path
@@ -226,7 +229,7 @@ class SymlinkTask extends Task
 
         // Find for which directory the common path stops
         $index = 0;
-        while (isset($startPathArr[$index]) && isset($endPathArr[$index]) && $startPathArr[$index] === $endPathArr[$index]) {
+        while (isset($startPathArr[$index], $endPathArr[$index]) && $startPathArr[$index] === $endPathArr[$index]) {
             ++$index;
         }
 
@@ -245,11 +248,34 @@ class SymlinkTask extends Task
     }
 
     /**
+     * Main entry point for task.
+     *
+     * @return bool
+     */
+    public function main()
+    {
+        $map = $this->getMap();
+
+        // Single file symlink
+        if (is_string($map)) {
+            return $this->symlink($map, $this->getLink());
+        }
+
+        // Multiple symlinks
+        foreach ($map as $name => $targetPath) {
+            $this->symlink($targetPath, $this->getLink() . DIRECTORY_SEPARATOR . $name);
+        }
+
+        return true;
+    }
+
+    /**
      * Generates an array of directories / files to be linked
-     * If _filesets is empty, returns getTarget()
+     * If _filesets is empty, returns getTarget().
+     *
+     * @throws BuildException
      *
      * @return array|string
-     * @throws BuildException
      */
     protected function getMap()
     {
@@ -277,6 +303,7 @@ class SymlinkTask extends Task
 
             if (!is_dir($fromDir)) {
                 $this->log('Directory doesn\'t exist: ' . $fromDir, Project::MSG_WARN);
+
                 continue;
             }
 
@@ -302,32 +329,11 @@ class SymlinkTask extends Task
     }
 
     /**
-     * Main entry point for task
-     *
-     * @return bool
-     */
-    public function main()
-    {
-        $map = $this->getMap();
-
-        // Single file symlink
-        if (is_string($map)) {
-            return $this->symlink($map, $this->getLink());
-        }
-
-        // Multiple symlinks
-        foreach ($map as $name => $targetPath) {
-            $this->symlink($targetPath, $this->getLink() . DIRECTORY_SEPARATOR . $name);
-        }
-
-        return true;
-    }
-
-    /**
-     * Create the actual link
+     * Create the actual link.
      *
      * @param string $target
      * @param string $link
+     *
      * @return bool
      */
     protected function symlink($target, $link)

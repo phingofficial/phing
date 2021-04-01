@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,6 +22,7 @@ namespace Phing\Task\System;
 
 /**
  * @author Alexey Shockov <alexey@shockov.com>
+ *
  * @since 2.4.0
  */
 class PharMetadata
@@ -35,7 +37,7 @@ class PharMetadata
      */
     public function createElement()
     {
-        return ($this->elements[] = new PharMetadataElement());
+        return $this->elements[] = new PharMetadataElement();
     }
 
     /**

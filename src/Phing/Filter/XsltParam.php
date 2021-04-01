@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,6 @@ use Phing\Util\RegisterSlot;
 
 /**
  * Class that holds an XSLT parameter.
- *
  */
 class XsltParam
 {
@@ -58,6 +58,7 @@ class XsltParam
      * Sets expression value (alias to the setExpression()) method.
      *
      * @param string $v
+     *
      * @see   setExpression()
      */
     public function setValue($v)
@@ -69,6 +70,7 @@ class XsltParam
      * Gets expression value (alias to the getExpression()) method.
      *
      * @return string
+     *
      * @see    getExpression()
      */
     public function getValue()
@@ -88,7 +90,6 @@ class XsltParam
 
     /**
      * Sets expression to dynamic register slot.
-     *
      */
     public function setListeningExpression(RegisterSlot $expr)
     {

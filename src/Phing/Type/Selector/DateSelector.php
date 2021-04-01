@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,18 +32,18 @@ use Phing\Io\File;
  */
 class DateSelector extends BaseExtendSelector
 {
+    public const MILLIS_KEY = 'millis';
+    public const SECONDS_KEY = 'seconds';
+    public const DATETIME_KEY = 'datetime';
+    public const CHECKDIRS_KEY = 'checkdirs';
+    public const GRANULARITY_KEY = 'granularity';
+    public const WHEN_KEY = 'when';
     private $seconds = -1; // millis in Ant, but PHP doesn't support that level of precision
-    private $dateTime = null;
+    private $dateTime;
     private $includeDirs = false;
     private $granularity = 0;
     private $cmp = 2;
-    public const MILLIS_KEY = "millis";
-    public const SECONDS_KEY = "seconds";
-    public const DATETIME_KEY = "datetime";
-    public const CHECKDIRS_KEY = "checkdirs";
-    public const GRANULARITY_KEY = "granularity";
-    public const WHEN_KEY = "when";
-    private static $timeComparisons = ["before", "after", "equal"];
+    private static $timeComparisons = ['before', 'after', 'equal'];
 
     public function __construct()
     {
@@ -57,25 +58,25 @@ class DateSelector extends BaseExtendSelector
      */
     public function __toString()
     {
-        $buf = "{dateselector date: ";
+        $buf = '{dateselector date: ';
         $buf .= $this->dateTime;
-        $buf .= " compare: ";
-        if ($this->cmp === 0) {
-            $buf .= "before";
-        } elseif ($this->cmp === 1) {
-            $buf .= "after";
+        $buf .= ' compare: ';
+        if (0 === $this->cmp) {
+            $buf .= 'before';
+        } elseif (1 === $this->cmp) {
+            $buf .= 'after';
         } else {
-            $buf .= "equal";
+            $buf .= 'equal';
         }
-        $buf .= " granularity: ";
+        $buf .= ' granularity: ';
         $buf .= $this->granularity;
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
 
     /**
-     * For users that prefer to express time in seconds since 1970
+     * For users that prefer to express time in seconds since 1970.
      *
      * @param int $seconds the time to compare file's last modified date to,
      *                     expressed in seconds
@@ -103,7 +104,7 @@ class DateSelector extends BaseExtendSelector
 
     /**
      * Sets the date. The user must supply it in MM/DD/YYYY HH:MM AM_PM
-     * format
+     * format.
      *
      * @param string $dateTime a string in MM/DD/YYYY HH:MM AM_PM format
      */
@@ -112,8 +113,8 @@ class DateSelector extends BaseExtendSelector
         $dt = strtotime($dateTime);
         if (false === $dt) {
             $this->setError(
-                "Date of " . $dateTime
-                . " Cannot be parsed correctly. It should be in"
+                'Date of ' . $dateTime
+                . ' Cannot be parsed correctly. It should be in'
                 . " a format parsable by PHP's strtotime() function."
             );
         } else {
@@ -153,7 +154,7 @@ class DateSelector extends BaseExtendSelector
     {
         $idx = array_search($cmp, self::$timeComparisons, true);
         if (false === $idx) {
-            $this->setError("Invalid value for " . self::WHEN_KEY . ": " . $cmp);
+            $this->setError('Invalid value for ' . self::WHEN_KEY . ': ' . $cmp);
         } else {
             $this->cmp = $idx;
         }
@@ -168,30 +169,43 @@ class DateSelector extends BaseExtendSelector
     public function setParameters(array $parameters): void
     {
         parent::setParameters($parameters);
-        if ($parameters !== null) {
-            for ($i = 0, $size = count($parameters); $i < $size; $i++) {
+        if (null !== $parameters) {
+            for ($i = 0, $size = count($parameters); $i < $size; ++$i) {
                 $paramname = $parameters[$i]->getName();
+
                 switch (strtolower($paramname)) {
                     case self::MILLIS_KEY:
                         $this->setMillis($parameters[$i]->getValue());
+
                         break;
+
                     case self::SECONDS_KEY:
                         $this->setSeconds($parameters[$i]->getValue());
+
                         break;
+
                     case self::DATETIME_KEY:
                         $this->setDatetime($parameters[$i]->getValue());
+
                         break;
+
                     case self::CHECKDIRS_KEY:
                         $this->setCheckdirs($parameters[$i]->getValue());
+
                         break;
+
                     case self::GRANULARITY_KEY:
                         $this->setGranularity($parameters[$i]->getValue());
+
                         break;
+
                     case self::WHEN_KEY:
                         $this->setWhen($parameters[$i]->getValue());
+
                         break;
+
                     default:
-                        $this->setError("Invalid parameter " . $paramname);
+                        $this->setError('Invalid parameter ' . $paramname);
                 } // switch
             }
         }
@@ -203,15 +217,15 @@ class DateSelector extends BaseExtendSelector
      */
     public function verifySettings()
     {
-        if ($this->dateTime === null && $this->seconds < 0) {
+        if (null === $this->dateTime && $this->seconds < 0) {
             $this->setError(
-                "You must provide a datetime or the number of seconds."
+                'You must provide a datetime or the number of seconds.'
             );
         } elseif ($this->seconds < 0) {
             $this->setError(
-                "Date of " . $this->dateTime
-                . " results in negative seconds"
-                . " value relative to epoch (January 1, 1970, 00:00:00 GMT)."
+                'Date of ' . $this->dateTime
+                . ' results in negative seconds'
+                . ' value relative to epoch (January 1, 1970, 00:00:00 GMT).'
             );
         }
     }
@@ -220,25 +234,26 @@ class DateSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param File $basedir the base directory the scan is being done from
+     * @param File   $basedir  the base directory the scan is being done from
      * @param string $filename is the name of the file to check
-     * @param File $file is a PhingFile object the selector can use
-     * @return bool   Whether the file should be selected or not
+     * @param File   $file     is a PhingFile object the selector can use
+     *
+     * @return bool Whether the file should be selected or not
      */
     public function isSelected(File $basedir, $filename, File $file)
     {
         $this->validate();
-        if ($file->isDirectory() && ($this->includeDirs === false)) {
+        if ($file->isDirectory() && (false === $this->includeDirs)) {
             return true;
         }
-        if ($this->cmp === 0) {
-            return (($file->lastModified() - $this->granularity) < $this->seconds);
+        if (0 === $this->cmp) {
+            return ($file->lastModified() - $this->granularity) < $this->seconds;
         }
 
-        if ($this->cmp === 1) {
-            return (($file->lastModified() - $this->granularity) > $this->seconds);
+        if (1 === $this->cmp) {
+            return ($file->lastModified() - $this->granularity) > $this->seconds;
         }
 
-        return (abs($file->lastModified() - $this->seconds) <= $this->granularity);
+        return abs($file->lastModified() - $this->seconds) <= $this->granularity;
     }
 }

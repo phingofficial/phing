@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -44,50 +45,51 @@ use Phing\Task;
 class BuildEvent extends EventObject
 {
     /**
-     * A reference to the project
+     * A reference to the project.
      *
      * @var Project
      */
     protected $project;
 
     /**
-     * A reference to the target
+     * A reference to the target.
      *
      * @var Target
      */
     protected $target;
 
     /**
-     * A reference to the task
+     * A reference to the task.
      *
      * @var Task
      */
     protected $task;
 
     /**
-     * The message of this event, if the event is a message
+     * The message of this event, if the event is a message.
      *
      * @var string
      */
-    protected $message = null;
+    protected $message;
 
     /**
-     * The priority of the message
+     * The priority of the message.
      *
      * @var int
+     *
      * @see $message
      */
     protected $priority = Project::MSG_VERBOSE;
 
     /**
-     * The exception that caused the event, if any
+     * The exception that caused the event, if any.
      *
      * @var Exception
      */
-    protected $exception = null;
+    protected $exception;
 
     /**
-     * Construct a BuildEvent for a project, task or target source event
+     * Construct a BuildEvent for a project, task or target source event.
      *
      * @param Project|Target|Task $source
      *
@@ -109,7 +111,7 @@ class BuildEvent extends EventObject
             $this->target = $source->getOwningTarget();
             $this->task = $source;
         } else {
-            throw new Exception("Can not construct BuildEvent, unknown source given.");
+            throw new Exception('Can not construct BuildEvent, unknown source given.');
         }
     }
 
@@ -118,6 +120,8 @@ class BuildEvent extends EventObject
      *
      * @param string   The string message of the event
      * @param int  The priority this message should have
+     * @param mixed $message
+     * @param mixed $priority
      */
     public function setMessage($message, $priority)
     {
@@ -129,6 +133,7 @@ class BuildEvent extends EventObject
      * Set the exception that was the cause of this event.
      *
      * @param Exception The exception that caused the event
+     * @param mixed $exception
      */
     public function setException($exception)
     {
@@ -202,6 +207,7 @@ class BuildEvent extends EventObject
      * "buildFinished" events.
      *
      * @return Exception
+     *
      * @see    BuildListener::targetFinished()
      * @see    BuildListener::buildFinished()
      * @see    BuildListener::taskFinished()

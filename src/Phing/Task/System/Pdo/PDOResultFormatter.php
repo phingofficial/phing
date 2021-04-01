@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,9 +23,10 @@ namespace Phing\Task\System\Pdo;
 use Phing\Io\Writer;
 
 /**
- * Abstract
+ * Abstract.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
+ *
  * @since   2.3.0
  */
 abstract class PDOResultFormatter
@@ -38,7 +40,6 @@ abstract class PDOResultFormatter
 
     /**
      * Sets the output writer.
-     *
      */
     public function setOutput(Writer $out)
     {
@@ -72,7 +73,7 @@ abstract class PDOResultFormatter
     /**
      * Processes a specific row from PDO result set.
      *
-     * @param array $row Row of PDO result set.
+     * @param array $row row of PDO result set
      */
     abstract public function processRow($row);
 

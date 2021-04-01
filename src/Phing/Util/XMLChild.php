@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -49,7 +50,6 @@ class XMLChild implements DynamicConfigurator
 
     /**
      * XMLChild constructor.
-     *
      */
     public function __construct(Project $p, DOMDocument $d, DOMDocumentFragment $f, DOMElement $e)
     {
@@ -68,7 +68,7 @@ class XMLChild implements DynamicConfigurator
     {
         $s = $this->p->replaceProperties($s);
         //only text nodes that are non null after property expansion are added
-        if ($s !== null && trim($s) !== '') {
+        if (null !== $s && '' !== trim($s)) {
             $t = $this->d->createTextNode(trim($s));
             $this->e->appendChild($t);
         }
@@ -80,13 +80,14 @@ class XMLChild implements DynamicConfigurator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function customChildCreator($elementName, Project $project)
     {
         $e2 = $this->d->createElement($elementName);
 
         $this->e->appendChild($e2);
+
         return new self($this->p, $this->d, $this->f, $e2);
     }
 }

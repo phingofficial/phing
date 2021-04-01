@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -34,7 +35,7 @@ use Phing\Type\RegularExpression;
  *    <regexp pattern="\r\n" replace="\n"/>
  *    <regexp pattern="(\w+)\.xml" replace="\1.php" ignoreCase="true"/>
  * </replaceregexp>
- * </pre>
+ * </pre>.
  *
  * @author  Hans Lellelid <hans@xmpl.org>
  */
@@ -59,9 +60,10 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
 
     /**
      * Sets the current regexps.
-     * (Used when, e.g., cloning/chaining the method.)
+     * (Used when, e.g., cloning/chaining the method.).
      *
      * @param array RegularExpression[]
+     * @param mixed $regexps
      */
     public function setRegexps($regexps)
     {
@@ -70,7 +72,7 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
 
     /**
      * Gets the current regexps.
-     * (Used when, e.g., cloning/chaining the method.)
+     * (Used when, e.g., cloning/chaining the method.).
      *
      * @return array RegularExpression[]
      */
@@ -83,33 +85,34 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and the regex replace is performed.
      *
-     * @param int $len Required $len for Reader compliance.
-     *
-     * @return mixed The filtered stream, or -1 if the end of the resulting stream has been reached.
+     * @param int $len required $len for Reader compliance
      *
      * @throws IOException if the underlying stream throws an IOException
-     * during reading
+     *                     during reading
+     *
+     * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
         $buffer = $this->in->read($len);
 
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
 
         // perform regex replace here ...
         foreach ($this->regexps as $exptype) {
             $regexp = $exptype->getRegexp($this->project);
+
             try {
                 $buffer = $regexp->replace($buffer);
                 $this->log(
-                    "Performing regexp replace: /" . $regexp->getPattern() . "/" . $regexp->getReplace() . "/g" . $regexp->getModifiers(),
+                    'Performing regexp replace: /' . $regexp->getPattern() . '/' . $regexp->getReplace() . '/g' . $regexp->getModifiers(),
                     Project::MSG_VERBOSE
                 );
             } catch (Exception $e) {
                 // perhaps mismatch in params (e.g. no replace or pattern specified)
-                $this->log("Error performing regexp replace: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error performing regexp replace: ' . $e->getMessage(), Project::MSG_WARN);
             }
         }
 

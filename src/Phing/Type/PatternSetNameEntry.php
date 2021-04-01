@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,6 @@ use Phing\Project;
 
 /**
  * "Internal" class for holding an include/exclude pattern.
- *
  */
 class PatternSetNameEntry
 {
@@ -49,9 +49,34 @@ class PatternSetNameEntry
     private $unlessCond;
 
     /**
+     * Gets a string representation of this pattern.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $buf = $this->name;
+        if ((null !== $this->ifCond) || (null !== $this->unlessCond)) {
+            $buf .= ':';
+            $connector = '';
+
+            if (null !== $this->ifCond) {
+                $buf .= "if->{$this->ifCond}";
+                $connector = ';';
+            }
+            if (null !== $this->unlessCond) {
+                $buf .= "{$connector} unless->{$this->unlessCond}";
+            }
+        }
+
+        return $buf;
+    }
+
+    /**
      * An alias for the setName() method.
      *
      * @param string $pattern
+     *
      * @see   setName()
      */
     public function setPattern($pattern)
@@ -92,7 +117,7 @@ class PatternSetNameEntry
     /**
      * Get the pattern text.
      *
-     * @return string The pattern.
+     * @return string the pattern
      */
     public function getName()
     {
@@ -102,7 +127,7 @@ class PatternSetNameEntry
     /**
      * Evaluates the pattern.
      *
-     * @return string The pattern or null if it is ruled out by a condition.
+     * @return string the pattern or null if it is ruled out by a condition
      */
     public function evalName(Project $project)
     {
@@ -117,38 +142,14 @@ class PatternSetNameEntry
      */
     public function valid(Project $project)
     {
-        if ($this->ifCond !== null && $project->getProperty($this->ifCond) === null) {
+        if (null !== $this->ifCond && null === $project->getProperty($this->ifCond)) {
             return false;
         }
 
-        if ($this->unlessCond !== null && $project->getProperty($this->unlessCond) !== null) {
+        if (null !== $this->unlessCond && null !== $project->getProperty($this->unlessCond)) {
             return false;
         }
 
         return true;
-    }
-
-    /**
-     * Gets a string representation of this pattern.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        $buf = $this->name;
-        if (($this->ifCond !== null) || ($this->unlessCond !== null)) {
-            $buf .= ":";
-            $connector = "";
-
-            if ($this->ifCond !== null) {
-                $buf .= "if->{$this->ifCond}";
-                $connector = ";";
-            }
-            if ($this->unlessCond !== null) {
-                $buf .= "$connector unless->{$this->unlessCond}";
-            }
-        }
-
-        return $buf;
     }
 }

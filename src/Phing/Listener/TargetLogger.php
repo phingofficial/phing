@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,11 +20,10 @@
 
 namespace Phing\Listener;
 
-use Phing\Phing;
 use Phing\Project;
 
 /**
- * Extends AnsiColorLogger to display times for each target
+ * Extends AnsiColorLogger to display times for each target.
  *
  * @author    Patrick McAndrew <patrick@urg.name>
  * @copyright 2013. All rights reserved
@@ -43,7 +43,7 @@ class TargetLogger extends AnsiColorLogger
 
     public function targetFinished(BuildEvent $event)
     {
-        $msg = PHP_EOL . "Target time: " . self::formatTime(
+        $msg = PHP_EOL . 'Target time: ' . self::formatTime(
             $this->clock->getCurrentTime() - $this->targetStartTime
         ) . PHP_EOL;
         $event->setMessage($msg, Project::MSG_INFO);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -47,7 +48,7 @@ class Basename extends Task
     private $suffix;
 
     /**
-     * file or directory to get base name from
+     * file or directory to get base name from.
      *
      * @param File $file file or directory to get base name from
      */
@@ -77,19 +78,19 @@ class Basename extends Task
     }
 
     /**
-     * do the work
+     * do the work.
      *
      * @throws BuildException if required attributes are not supplied
      *                        property and attribute are required attributes
      */
     public function main()
     {
-        if ($this->property === null) {
-            throw new BuildException("property attribute required", $this->getLocation());
+        if (null === $this->property) {
+            throw new BuildException('property attribute required', $this->getLocation());
         }
 
-        if ($this->file === null) {
-            throw new BuildException("file attribute required", $this->getLocation());
+        if (null === $this->file) {
+            throw new BuildException('file attribute required', $this->getLocation());
         }
 
         $this->getProject()->setNewProperty(
@@ -100,7 +101,7 @@ class Basename extends Task
 
     private function removeExtension(?string $s, ?string $ext)
     {
-        if ($ext === null || !StringHelper::endsWith($ext, $s)) {
+        if (null === $ext || !StringHelper::endsWith($ext, $s)) {
             return $s;
         }
 

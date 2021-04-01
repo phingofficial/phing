@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -68,15 +69,15 @@ class ContainsCondition implements Condition
      */
     public function evaluate()
     {
-        if ($this->string === null || $this->subString === null) {
+        if (null === $this->string || null === $this->subString) {
             throw new BuildException(
-                "both string and substring are required "
-                . "in contains"
+                'both string and substring are required '
+                . 'in contains'
             );
         }
 
         return $this->caseSensitive
-            ? strpos($this->string, $this->subString) !== false
-            : stripos($this->string, $this->subString) !== false;
+            ? false !== strpos($this->string, $this->subString)
+            : false !== stripos($this->string, $this->subString);
     }
 }

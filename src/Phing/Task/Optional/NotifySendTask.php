@@ -1,50 +1,55 @@
 <?php
+
 /**
  * Utilise notify-send from within Phing.
  *
  * PHP Version 5
  *
  * @category Tasks
+ *
  * @author   Ken Guest <ken@linux.ie>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     https://github.com/kenguest/Phing-NotifySendTask
+ *
+ * @see     https://github.com/kenguest/Phing-NotifySendTask
  */
 
 namespace Phing\Task\Optional;
 
 use Phing\Exception\BuildException;
-use Phing\Io\FileSystem;
 use Phing\Io\File;
+use Phing\Io\FileSystem;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\StringHelper;
 
 /**
- * NotifySendTask
+ * NotifySendTask.
  *
  * @category Tasks
+ *
  * @author   Ken Guest <ken@linux.ie>
  * @license  LGPL (see http://www.gnu.org/licenses/lgpl.html)
- * @link     NotifySendTask.php
+ *
+ * @see     NotifySendTask.php
  */
 class NotifySendTask extends Task
 {
-    protected $msg = null;
-    protected $title = null;
+    protected $msg;
+    protected $title;
     protected $icon = 'info';
     protected $silent = false;
 
     /**
-     * Set icon attribute
+     * Set icon attribute.
      *
      * @param \Phing\Io\File $icon name/location of icon
-     *
      */
     public function setIcon(File $icon)
     {
         if ($icon->isFile()) {
             $this->log(sprintf('Using "%s" as icon.', $icon), Project::MSG_VERBOSE);
             $this->icon = $icon->getAbsoluteFile();
+
             return;
         }
 
@@ -53,7 +58,7 @@ class NotifySendTask extends Task
     }
 
     /**
-     * Get icon to be used (filename or generic name)
+     * Get icon to be used (filename or generic name).
      *
      * @return string
      */
@@ -65,8 +70,7 @@ class NotifySendTask extends Task
     /**
      * Set to a true value to not execute notifysend command.
      *
-     * @param string $silent Don't execute notifysend? Truthy value.
-     *
+     * @param string $silent don't execute notifysend? Truthy value
      */
     public function setSilent($silent)
     {
@@ -74,10 +78,9 @@ class NotifySendTask extends Task
     }
 
     /**
-     * Set title attribute
+     * Set title attribute.
      *
      * @param string $title Title to display
-     *
      */
     public function setTitle($title)
     {
@@ -85,7 +88,7 @@ class NotifySendTask extends Task
     }
 
     /**
-     * Get Title
+     * Get Title.
      *
      * @return string
      */
@@ -95,10 +98,9 @@ class NotifySendTask extends Task
     }
 
     /**
-     * Set msg attribute
+     * Set msg attribute.
      *
      * @param string $msg Message
-     *
      */
     public function setMsg($msg)
     {
@@ -126,11 +128,11 @@ class NotifySendTask extends Task
         $title = 'Phing';
         $executable = 'notify-send';
 
-        if ($this->title != '') {
+        if ('' != $this->title) {
             $title = "'" . $this->title . "'";
         }
 
-        if ($this->msg != '') {
+        if ('' != $this->msg) {
             $msg = "'" . $this->msg . "'";
         }
 
@@ -140,19 +142,19 @@ class NotifySendTask extends Task
         $this->log(sprintf("Message: '%s'", $msg), Project::MSG_DEBUG);
         $this->log($msg, Project::MSG_INFO);
 
-        $this->log(sprintf("cmd: %s", $cmd), Project::MSG_DEBUG);
+        $this->log(sprintf('cmd: %s', $cmd), Project::MSG_DEBUG);
         if (!$this->silent) {
             $fs = FileSystem::getFileSystem();
-            if ($fs->which($executable) !== false) {
+            if (false !== $fs->which($executable)) {
                 exec(escapeshellcmd($cmd), $output, $return);
-                if ($return !== 0) {
-                    throw new BuildException("Notify task failed.");
+                if (0 !== $return) {
+                    throw new BuildException('Notify task failed.');
                 }
             } else {
-                $this->log("Executable ($executable) not found", Project::MSG_DEBUG);
+                $this->log("Executable ({$executable}) not found", Project::MSG_DEBUG);
             }
         } else {
-            $this->log("Silent flag set; not executing", Project::MSG_DEBUG);
+            $this->log('Silent flag set; not executing', Project::MSG_DEBUG);
         }
     }
 }

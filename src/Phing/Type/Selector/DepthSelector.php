@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,10 +29,11 @@ use Phing\Io\File;
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
- *
  */
 class DepthSelector extends BaseExtendSelector
 {
+    public const MIN_KEY = 'min';
+    public const MAX_KEY = 'max';
     /**
      * @var int
      */
@@ -42,19 +44,16 @@ class DepthSelector extends BaseExtendSelector
      */
     public $max = -1;
 
-    public const MIN_KEY = "min";
-    public const MAX_KEY = "max";
-
     /**
      * @return string
      */
     public function __toString()
     {
-        $buf = "{depthselector min: ";
+        $buf = '{depthselector min: ';
         $buf .= $this->min;
-        $buf .= " max: ";
+        $buf .= ' max: ';
         $buf .= $this->max;
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -63,7 +62,6 @@ class DepthSelector extends BaseExtendSelector
      * The minimum depth below the basedir before a file is selected.
      *
      * @param int $min minimum directory levels below basedir to go
-     *
      */
     public function setMin($min)
     {
@@ -74,7 +72,6 @@ class DepthSelector extends BaseExtendSelector
      * The minimum depth below the basedir before a file is selected.
      *
      * @param int $max maximum directory levels below basedir to go
-     *
      */
     public function setMax($max)
     {
@@ -88,24 +85,27 @@ class DepthSelector extends BaseExtendSelector
      * {@inheritdoc}
      *
      * @param array $parameters the complete set of parameters for this selector
-     *
      */
     public function setParameters(array $parameters): void
     {
         parent::setParameters($parameters);
-        if ($parameters !== null) {
-            for ($i = 0, $size = count($parameters); $i < $size; $i++) {
+        if (null !== $parameters) {
+            for ($i = 0, $size = count($parameters); $i < $size; ++$i) {
                 $paramname = $parameters[$i]->getName();
+
                 switch (strtolower($paramname)) {
                     case self::MIN_KEY:
                         $this->setMin($parameters[$i]->getValue());
+
                         break;
+
                     case self::MAX_KEY:
                         $this->setMax($parameters[$i]->getValue());
+
                         break;
 
                     default:
-                        $this->setError("Invalid parameter " . $paramname);
+                        $this->setError('Invalid parameter ' . $paramname);
                 } // switch
             }
         }
@@ -116,18 +116,17 @@ class DepthSelector extends BaseExtendSelector
      * means that the max depth is not lower than the min depth.
      *
      * {@inheritdoc}
-     *
      */
     public function verifySettings()
     {
         if ($this->min < 0 && $this->max < 0) {
             $this->setError(
-                "You must set at least one of the min or the " .
-                "max levels."
+                'You must set at least one of the min or the ' .
+                'max levels.'
             );
         }
         if ($this->max < $this->min && $this->max > -1) {
-            $this->setError("The maximum depth is lower than the minimum.");
+            $this->setError('The maximum depth is lower than the minimum.');
         }
     }
 
@@ -140,13 +139,13 @@ class DepthSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @param File $basedir base directory the scan is being done from
+     * @param File   $basedir  base directory the scan is being done from
      * @param string $filename the name of the file to check
-     * @param File $file a PhingFile object the selector can use
+     * @param File   $file     a PhingFile object the selector can use
      *
-     * @return bool whether the file should be selected or not
      * @throws BuildException
      *
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(File $basedir, $filename, File $file)
     {
@@ -160,19 +159,19 @@ class DepthSelector extends BaseExtendSelector
         $tok_base = explode(DIRECTORY_SEPARATOR, $abs_base);
         $tok_file = explode(DIRECTORY_SEPARATOR, $abs_file);
 
-        for ($i = 0, $size = count($tok_file); $i < $size; $i++) {
+        for ($i = 0, $size = count($tok_file); $i < $size; ++$i) {
             $filetoken = $tok_file[$i];
             if (isset($tok_base[$i])) {
                 $basetoken = $tok_base[$i];
                 // Sanity check. Ditch it if you want faster performance
                 if ($basetoken !== $filetoken) {
                     throw new BuildException(
-                        "File " . $filename .
-                        " does not appear within " . $abs_base . "directory"
+                        'File ' . $filename .
+                        ' does not appear within ' . $abs_base . 'directory'
                     );
                 }
             } else { // no more basepath tokens
-                $depth++;
+                ++$depth;
                 if ($this->max > -1 && $depth > $this->max) {
                     return false;
                 }
@@ -180,8 +179,8 @@ class DepthSelector extends BaseExtendSelector
         }
         if (isset($tok_base[$i + 1])) {
             throw new BuildException(
-                "File " . $filename .
-                " is outside of " . $abs_base . "directory tree"
+                'File ' . $filename .
+                ' is outside of ' . $abs_base . 'directory tree'
             );
         }
         if ($this->min > -1 && $depth < $this->min) {

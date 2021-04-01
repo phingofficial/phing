@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,6 +31,6 @@ class ExecutableSelector implements FileSelector
 {
     public function isSelected(File $basedir, $filename, File $file)
     {
-        return $file !== null && $file->isExecutable();
+        return null !== $file && $file->isExecutable();
     }
 }
