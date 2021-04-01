@@ -1282,12 +1282,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-svn.git",
-                "reference": "78830e6421c999c69defe22d30c7a4b48a5fb586"
+                "reference": "1369d8cb67f76c3ea690b97623e2ae078a782402"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-svn/zipball/78830e6421c999c69defe22d30c7a4b48a5fb586",
-                "reference": "78830e6421c999c69defe22d30c7a4b48a5fb586",
+                "url": "https://api.github.com/repos/phingofficial/task-svn/zipball/1369d8cb67f76c3ea690b97623e2ae078a782402",
+                "reference": "1369d8cb67f76c3ea690b97623e2ae078a782402",
                 "shasum": ""
             },
             "require": {
@@ -1337,7 +1337,7 @@
                 "issues": "https://github.com/phingofficial/task-svn/issues",
                 "source": "https://github.com/phingofficial/task-svn/tree/master"
             },
-            "time": "2021-01-30T23:34:18+00:00"
+            "time": "2021-04-01T22:22:08+00:00"
         },
         {
             "name": "phing/task-visualizer",
@@ -2488,16 +2488,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.176.5",
+            "version": "3.176.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "45d69a8da4f55879f8a24b0b659a5bc7ad077725"
+                "reference": "bd3dc3d86c6c041b7eb843b808b5e7baabd41203"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/45d69a8da4f55879f8a24b0b659a5bc7ad077725",
-                "reference": "45d69a8da4f55879f8a24b0b659a5bc7ad077725",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/bd3dc3d86c6c041b7eb843b808b5e7baabd41203",
+                "reference": "bd3dc3d86c6c041b7eb843b808b5e7baabd41203",
                 "shasum": ""
             },
             "require": {
@@ -2572,9 +2572,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.176.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.176.6"
             },
-            "time": "2021-03-31T18:15:22+00:00"
+            "time": "2021-04-01T18:14:21+00:00"
         },
         {
             "name": "composer/semver",
