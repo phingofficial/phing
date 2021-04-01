@@ -90,6 +90,6 @@ class FileListTest extends TestCase
         $project = new Project();
         $project->setBasedir(__DIR__);
         $l = $f->getListFile($project);
-        $this->assertEquals($l->getPath(), 'foo.php');
+        $this->assertEquals('foo.php', $l->getPath());
     }
 }

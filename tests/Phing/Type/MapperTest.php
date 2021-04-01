@@ -27,6 +27,7 @@ use Phing\Project;
 use Phing\Type\Mapper;
 use Phing\Type\Path;
 use Phing\Type\Reference;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for mappers.
@@ -34,7 +35,7 @@ use Phing\Type\Reference;
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  */
-class MapperTest extends \PHPUnit\Framework\TestCase
+class MapperTest extends TestCase
 {
     private $project;
 
@@ -133,9 +134,9 @@ class MapperTest extends \PHPUnit\Framework\TestCase
         $m3->setTo('*.class');
 
         $fmm = $m1->getImplementation();
-        $this->assertTrue($fmm instanceof GlobMapper, 'Should be instance of GlobMapper');
+        $this->assertInstanceOf(GlobMapper::class, $fmm, 'Should be instance of GlobMapper');
         $result = $fmm->main('a.java');
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertEquals('a.class', $result[0]);
     }
 
@@ -179,10 +180,9 @@ class MapperTest extends \PHPUnit\Framework\TestCase
     {
         $m = new Mapper($this->project);
         $m->setRefid(new Reference($this->project, 'dummyref'));
-        $p = new Path($this->project);
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
-        $f = $m->createClasspath();
+        $m->createClasspath();
     }
 
     public function testCallingsetClasspathRefThrowsExceptionIfReferenceAlreadySet()

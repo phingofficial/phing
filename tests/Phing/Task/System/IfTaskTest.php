@@ -39,7 +39,6 @@ class IfTaskTest extends BuildFileTest
     /**
      * Test the 'elseif' conditional of the if-task.
      *
-     * @test
      */
     public function testAddElseIf()
     {
@@ -53,7 +52,6 @@ class IfTaskTest extends BuildFileTest
     /**
      * Test the 'then' conditional of the if-task.
      *
-     * @test
      */
     public function testAddThen()
     {
@@ -67,7 +65,6 @@ class IfTaskTest extends BuildFileTest
     /**
      * Test the 'else' conditional of the if-task.
      *
-     * @test
      */
     public function testAddElse()
     {
@@ -82,7 +79,6 @@ class IfTaskTest extends BuildFileTest
      * test that a buildexception is thrown when we've got two
      * <then> statements in an if-task.
      *
-     * @test
      */
     public function testAddDoubleThen()
     {
@@ -97,7 +93,6 @@ class IfTaskTest extends BuildFileTest
      * test that a BuildException is thrown when we've got two
      * <else> statements in an if-task.
      *
-     * @test
      */
     public function testAddDoubleElse()
     {
@@ -112,7 +107,6 @@ class IfTaskTest extends BuildFileTest
      * test that a BuildException is thrown when we've got two
      * <else> statements in an if-task.
      *
-     * @test
      */
     public function testMultipleConditions()
     {

@@ -23,7 +23,6 @@ namespace Phing\Test\Task\Optional;
 use Phing\Io\FileSystem;
 use Phing\Project;
 use Phing\Task\Optional\ComposerTask;
-use Phing\Task\OptionalComposerTask;
 use Phing\Type\CommandlineArgument;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;

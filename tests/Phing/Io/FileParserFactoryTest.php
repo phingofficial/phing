@@ -38,11 +38,6 @@ class FileParserFactoryTest extends TestCase
     private $objectToTest;
 
     /**
-     * @var string
-     */
-    private $iniFileStub;
-
-    /**
      * {@inheritDoc}
      */
     public function setUp(): void
@@ -73,7 +68,7 @@ class FileParserFactoryTest extends TestCase
     /**
      * @return array
      */
-    public function parserTypeProvider()
+    public function parserTypeProvider(): array
     {
         return [
             ['properties', IniFileParser::class],

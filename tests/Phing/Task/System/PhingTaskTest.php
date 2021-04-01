@@ -26,6 +26,7 @@ use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
 use Phing\Test\Support\BuildFileTest;
 use Phing\Type\Path;
+use Throwable;
 
 /**
  * Testcase for the Phing task/condition.
@@ -284,7 +285,7 @@ class PhingTaskTest extends BuildFileTest
                                 }
                             }
                         }
-                    } catch (\Throwable $e) {
+                    } catch (Throwable $e) {
                         $this->error = $e;
                     }
                 }

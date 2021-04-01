@@ -22,13 +22,14 @@ namespace Phing\Test\Util;
 
 use Phing\Io\File;
 use Phing\Util\Properties;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for Properties class.
  *
  * @author Michiel Rook <mrook@php.net>
  */
-class PropertiesTest extends \PHPUnit\Framework\TestCase
+class PropertiesTest extends TestCase
 {
     /**
      * @var Properties
@@ -51,13 +52,13 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
         $this->props->load($file);
 
         $this->assertEquals(
-            $this->props->getProperty('useragent'),
-            'Mozilla/5.0 (Windows NT 5.1; rv:8.0.1) Gecko/20100101 Firefox/8.0.1'
+            'Mozilla/5.0 (Windows NT 5.1; rv:8.0.1) Gecko/20100101 Firefox/8.0.1',
+            $this->props->getProperty('useragent')
         );
-        $this->assertEquals($this->props->getProperty('testline1'), 'Testline1');
-        $this->assertEquals($this->props->getProperty('testline2'), 'Testline2');
-        $this->assertEquals($this->props->getProperty('testline3'), true);
-        $this->assertEquals($this->props->getProperty('testline4'), false);
+        $this->assertEquals('Testline1', $this->props->getProperty('testline1'));
+        $this->assertEquals('Testline2', $this->props->getProperty('testline2'));
+        $this->assertEquals(true, $this->props->getProperty('testline3'));
+        $this->assertEquals(false, $this->props->getProperty('testline4'));
     }
 
     public function testEmpty()

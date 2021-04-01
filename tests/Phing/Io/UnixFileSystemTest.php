@@ -23,13 +23,14 @@ namespace Phing\Test\Io;
 use Phing\Io\File;
 use Phing\Io\FileSystem;
 use Phing\Io\UnixFileSystem;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for UnixFileSystem.
  *
  * @author Michiel Rook <mrook@php.net>
  */
-class UnixFileSystemTest extends \PHPUnit\Framework\TestCase
+class UnixFileSystemTest extends TestCase
 {
     /**
      * @var FileSystem
@@ -50,21 +51,21 @@ class UnixFileSystemTest extends \PHPUnit\Framework\TestCase
         $f1 = new File(__FILE__);
         $f2 = new File(__FILE__);
 
-        $this->assertEquals($this->fs->compare($f1, $f2), 0);
+        $this->assertEquals(0, $this->fs->compare($f1, $f2));
     }
 
     public function testHomeDirectory1()
     {
-        $this->assertEquals($this->fs->normalize('~/test'), '~/test');
+        $this->assertEquals('~/test', $this->fs->normalize('~/test'));
     }
 
     public function testHomeDirectory2()
     {
-        $this->assertEquals($this->fs->normalize('/var/~test'), '/var/~test');
+        $this->assertEquals('/var/~test', $this->fs->normalize('/var/~test'));
     }
 
     public function testHomeDirectory3()
     {
-        $this->assertEquals($this->fs->normalize('~test'), '~test');
+        $this->assertEquals('~test', $this->fs->normalize('~test'));
     }
 }

@@ -134,7 +134,7 @@ class PhingTest extends TestCase
      *
      * @return string Classpath
      */
-    protected static function getClassPath()
+    protected static function getClassPath(): string
     {
         return __DIR__ . '/../etc/importclasses';
     }

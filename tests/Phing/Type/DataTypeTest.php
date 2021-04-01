@@ -22,11 +22,12 @@ namespace Phing\Test\Type;
 
 use Phing\Exception\BuildException;
 use Phing\Type\DataType;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for DataType.
  */
-class DataTypeTest extends \PHPUnit\Framework\TestCase
+class DataTypeTest extends TestCase
 {
     private $datatype;
 

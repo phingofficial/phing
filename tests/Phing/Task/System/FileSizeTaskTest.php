@@ -59,7 +59,7 @@ class FileSizeTaskTest extends BuildFileTest
         $this->assertPropertyEquals('filesize', $expectedSize);
     }
 
-    public function unitAttributeProvider()
+    public function unitAttributeProvider(): array
     {
         return [
             ['1K', 'b', '1024B', '1024B', 1024],

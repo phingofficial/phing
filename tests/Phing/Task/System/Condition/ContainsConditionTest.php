@@ -20,17 +20,20 @@
 
 namespace Phing\Test\Task\System\Condition;
 
+use Phing\Task\System\Condition\ContainsCondition;
+use PHPUnit\Framework\TestCase;
+
 /**
  * Testcase for the &lt;contains&gt; condition.
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  */
-class ContainsConditionTest extends \PHPUnit\Framework\TestCase
+class ContainsConditionTest extends TestCase
 {
     public function testCaseSensitive()
     {
-        $con = new \Phing\Task\System\Condition\ContainsCondition();
+        $con = new ContainsCondition();
         $con->setString('abc');
         $con->setSubstring('A');
         $this->assertFalse($con->evaluate());

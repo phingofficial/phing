@@ -232,7 +232,7 @@ class SonarConfigurationFileParserTest extends BuildFileTest
         }
     }
 
-    private function initParser($fileName)
+    private function initParser($fileName): SonarConfigurationFileParser
     {
         $fullFileName = PHING_TEST_BASE . '/etc/tasks/ext/sonar/properties/' . $fileName . '.properties';
 

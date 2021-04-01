@@ -21,13 +21,14 @@
 namespace Phing\Test\Util;
 
 use Phing\Util\PregEngine;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class PregEngineTest.
  *
  * Test cases for phing/util/regexp/PregEngine
  */
-class PregEngineTest extends \PHPUnit\Framework\TestCase
+class PregEngineTest extends TestCase
 {
     /**
      * Test the default ignore-case value.

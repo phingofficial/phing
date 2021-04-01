@@ -63,7 +63,7 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', $expectedDirMode);
     }
 
-    public function umaskIsHonouredWhenNotUsingModeArgumentDataProvider()
+    public function umaskIsHonouredWhenNotUsingModeArgumentDataProvider(): array
     {
         return [
             [0000, 0777],
@@ -98,7 +98,7 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a/b', $expectedModeB);
     }
 
-    public function parentDirectoriesHaveDefaultPermissionsDataProvider()
+    public function parentDirectoriesHaveDefaultPermissionsDataProvider(): array
     {
         return [
             [
@@ -159,9 +159,9 @@ class MkdirTaskTest extends BuildFileTest
 
     /**
      * @param string $filename
-     * @param int    $mode
+     * @param int $mode
      */
-    private function assertFileModeIs($filename, $mode)
+    private function assertFileModeIs(string $filename, int $mode)
     {
         $stat = stat($filename);
 
@@ -176,7 +176,7 @@ class MkdirTaskTest extends BuildFileTest
      * @param string $filename
      * @param string $expectedAclEntry
      */
-    private function assertFileAclContains($filename, $expectedAclEntry)
+    private function assertFileAclContains(string $filename, string $expectedAclEntry)
     {
         $output = shell_exec('getfacl --omit-header --absolute-names ' . escapeshellarg($filename));
 

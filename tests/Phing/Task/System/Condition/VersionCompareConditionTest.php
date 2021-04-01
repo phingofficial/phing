@@ -3,6 +3,8 @@
 namespace Phing\Test\Task\System\Condition;
 
 use Phing\Exception\BuildException;
+use Phing\Task\System\Condition\VersionCompareCondition;
+use PHPUnit\Framework\TestCase;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -21,13 +23,13 @@ use Phing\Exception\BuildException;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-class VersionCompareConditionTest extends \PHPUnit\Framework\TestCase
+class VersionCompareConditionTest extends TestCase
 {
     protected $condition;
 
     public function setUp(): void
     {
-        $this->condition = new \Phing\Task\System\Condition\VersionCompareCondition();
+        $this->condition = new VersionCompareCondition();
     }
 
     public function testDefaultCompareIsFalseForSmallerRevision()

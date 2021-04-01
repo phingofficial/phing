@@ -21,6 +21,7 @@
 namespace Phing\Test\Task\Optional;
 
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\RedirectMiddleware;
 use Phing\Exception\BuildException;
 
 /**
@@ -97,7 +98,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
 
         $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
         $this->assertEquals($options['verify'], $this->traces[0]['options']['verify']);
-        $this->assertEquals(\GuzzleHttp\RedirectMiddleware::$defaultSettings, $this->traces[0]['options']['allow_redirects']);
+        $this->assertEquals(RedirectMiddleware::$defaultSettings, $this->traces[0]['options']['allow_redirects']);
     }
 
     public function testAuthentication()

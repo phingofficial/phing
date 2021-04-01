@@ -35,7 +35,6 @@ class SvnLogTaskTest extends AbstractSvnTaskTest
 
     public function testGetLog()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getLog');
         $this->assertPropertyEquals(
             'svn.log',

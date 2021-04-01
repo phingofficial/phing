@@ -23,6 +23,7 @@ namespace Phing\Test\Task\Optional;
 use Phing\Exception\BuildException;
 use Phing\Task\Optional\WikiPublishTask;
 use Phing\Test\Support\BuildFileTest;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * WikiPublish task test.
@@ -90,7 +91,7 @@ class WikiPublishTaskTest extends BuildFileTest
     /**
      * Creates WikiPublishTask mock.
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|WikiPublishTask
+     * @return MockObject|WikiPublishTask
      */
     private function getWikiPublishMock()
     {

@@ -38,7 +38,7 @@ class DynamicTask extends Task implements DynamicConfigurator
         $this->getProject()->setNewProperty($name, $value);
     }
 
-    public function customChildCreator($name, Project $project)
+    public function customChildCreator($name, Project $project): DynamicConfigurator
     {
         return new class ($project) implements DynamicConfigurator {
             /**

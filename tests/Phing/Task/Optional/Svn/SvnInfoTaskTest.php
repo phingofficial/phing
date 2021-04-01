@@ -35,14 +35,12 @@ class SvnInfoTaskTest extends AbstractSvnTaskTest
 
     public function testGetUrl()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getUrl');
         $this->assertPropertyEquals('svn.url', $this->project->getProperty('repo.url'));
     }
 
     public function testGetAuthor()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getAuthor');
         $this->assertPropertyEquals('svn.author', 'michiel.rook');
     }

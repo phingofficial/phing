@@ -2,9 +2,11 @@
 
 namespace Phing\Test\Type;
 
+use ArrayObject;
 use Phing\Exception\BuildException;
 use Phing\Type\Environment;
 use Phing\Type\EnvVariable;
+use PHPUnit\Framework\TestCase;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -23,7 +25,7 @@ use Phing\Type\EnvVariable;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-class EnvironmentTest extends \PHPUnit\Framework\TestCase
+class EnvironmentTest extends TestCase
 {
     private $environment;
 
@@ -41,7 +43,7 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
     public function testVariablesObjectIsArrayObject()
     {
         $variablesObj = $this->environment->getVariablesObject();
-        $this->assertEquals('ArrayObject', get_class($variablesObj));
+        $this->assertInstanceOf(ArrayObject::class, $variablesObj);
     }
 
     public function testValidateWithoutKeyAndValueSetRaisesException()

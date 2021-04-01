@@ -70,7 +70,7 @@ class PropertyTaskTest extends BuildFileTest
         $this->assertEquals('World', $this->project->getProperty('filterchain.test'));
     }
 
-    public function circularDefinitionTargets()
+    public function circularDefinitionTargets(): array
     {
         return [
             ['test3'],

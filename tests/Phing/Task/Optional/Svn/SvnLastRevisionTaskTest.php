@@ -36,7 +36,6 @@ class SvnLastRevisionTaskTest extends AbstractSvnTaskTest
 
     public function testGetLastRevision()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getLastRevision');
         $this->assertPropertyEquals('svn.lastrevision', '1560');
     }

@@ -67,7 +67,6 @@ class GitInitTaskTest extends BuildFileTest
     public function testGitInitBare()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
-        $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitInitBare');
         $this->assertInLogs('git-init: initializing (bare) "' . $repository . '" repository');
         $this->assertDirectoryExists($repository);

@@ -89,10 +89,10 @@ class SleepTaskTest extends BuildFileTest
         $this->assertLessThan(2000000000, $timer->time());
     }
 
-    private function timer()
+    private function timer(): DefaultClock
     {
         return new class () extends DefaultClock {
-            public function time()
+            public function time(): float
             {
                 return $this->etime - $this->stime;
             }

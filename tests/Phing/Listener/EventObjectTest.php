@@ -22,6 +22,7 @@ namespace Phing\Test\Listener;
 
 use Exception;
 use Phing\Listener\EventObject;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
 /**
@@ -29,7 +30,7 @@ use stdClass;
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class EventObjectTest extends \PHPUnit\Framework\TestCase
+class EventObjectTest extends TestCase
 {
     /** @var EventObject */
     private $eventObject;

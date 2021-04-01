@@ -72,7 +72,7 @@ class DependSetTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $f = new File($this->getProjectDir(), 'older.tmp');
         if ($f->exists()) {
-            $this->fail('dependset failed to remove out of date file ' . (string) $f);
+            $this->fail('dependset failed to remove out of date file ' . $f);
         }
     }
 }

@@ -65,16 +65,17 @@ class TargetTest extends BuildFileTest
     /**
      * @dataProvider setDependsValidDataProvider
      *
+     * @param array $expectedDepends
      * @param string $depends
      */
-    public function testSetDependsValid(array $expectedDepends, $depends)
+    public function testSetDependsValid(array $expectedDepends, string $depends)
     {
         $this->target->setDepends($depends);
 
         $this->assertEquals($expectedDepends, $this->target->getDependencies());
     }
 
-    public function setDependsValidDataProvider()
+    public function setDependsValidDataProvider(): array
     {
         return [
             [['target1'], 'target1'],
@@ -87,7 +88,7 @@ class TargetTest extends BuildFileTest
      *
      * @param string $depends
      */
-    public function testSetDependsInvalid($depends)
+    public function testSetDependsInvalid(string $depends)
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Syntax Error: Depend attribute for target MyTarget is malformed.');
@@ -95,7 +96,7 @@ class TargetTest extends BuildFileTest
         $this->target->setDepends($depends);
     }
 
-    public function setDependsInvalidDataProvider()
+    public function setDependsInvalidDataProvider(): array
     {
         return [
             [''],

@@ -2,6 +2,7 @@
 
 namespace Phing\Test\Task\Optional;
 
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Task\Optional\NotifySendTask;
 use Phing\Test\Support\BuildFileTest;
@@ -60,19 +61,19 @@ class NotifySendTaskTest extends BuildFileTest
 
     public function testSetStandardIcon()
     {
-        $this->object->setIcon(new \Phing\Io\File('info'));
+        $this->object->setIcon(new File('info'));
         $this->assertEquals('info', $this->object->getIcon());
 
-        $this->object->setIcon(new \Phing\Io\File('error'));
+        $this->object->setIcon(new File('error'));
         $this->assertEquals('error', $this->object->getIcon());
 
-        $this->object->setIcon(new \Phing\Io\File('warning'));
+        $this->object->setIcon(new File('warning'));
         $this->assertEquals('warning', $this->object->getIcon());
     }
 
     public function testSetNonStandardIcon()
     {
-        $this->object->setIcon(new \Phing\Io\File('informational'));
+        $this->object->setIcon(new File('informational'));
         $this->assertEquals('informational', $this->object->getIcon());
     }
 }

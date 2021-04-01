@@ -66,7 +66,7 @@ class ConsoleInputHandlerTest extends TestCase
         self::assertFalse($request->getInput());
     }
 
-    private function createStream(array $inputs)
+    private function createStream(array $inputs): bool
     {
         $stream = fopen('php://memory', 'r+', false);
         fwrite($stream, implode(PHP_EOL, $inputs));
