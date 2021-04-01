@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,6 +27,9 @@ use Phing\Io\IOException;
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @requires OS ^(?:(?!Win).)*$
+ *
+ * @internal
+ * @coversNothing
  */
 class IniFileParserTest extends \PHPUnit\Framework\TestCase
 {
@@ -40,8 +44,11 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider provideIniFiles
-     * @covers       IniFileParser::parseFile
-     * @covers       IniFileParser::inVal
+     * @covers       \IniFileParser::inVal
+     * @covers       \IniFileParser::parseFile
+     *
+     * @param mixed $data
+     * @param mixed $expected
      */
     public function testParseFile($data, $expected)
     {
@@ -53,7 +60,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers IniFileParser::parseFile
+     * @covers \IniFileParser::parseFile
      */
     public function testParseFileCouldntOpenFile()
     {
@@ -99,31 +106,31 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
             [
-                'data' => "# property = test",
+                'data' => '# property = test',
                 'expected' => [],
             ],
             [
-                'data' => "   # property = test",
+                'data' => '   # property = test',
                 'expected' => [],
             ],
             [
-                'data' => "; property = test",
+                'data' => '; property = test',
                 'expected' => [],
             ],
             [
-                'data' => "property=test",
+                'data' => 'property=test',
                 'expected' => [
                     'property' => 'test',
                 ],
             ],
             [
-                'data' => "property = true",
+                'data' => 'property = true',
                 'expected' => [
                     'property' => true,
                 ],
             ],
             [
-                'data' => "property = false",
+                'data' => 'property = false',
                 'expected' => [
                     'property' => false,
                 ],

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,6 +26,10 @@ use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanListCommandBuilder;
 use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PHPStanListCommandBuilderTest extends TestCase
 {
     /** @var PHPStanListCommandBuilder */
@@ -47,7 +52,7 @@ class PHPStanListCommandBuilderTest extends TestCase
 
         $this->builder->build($task);
 
-        $expectedCommand = <<<CMD
+        $expectedCommand = <<<'CMD'
             Executing 'phpstan' with arguments:
             'list'
             '--format=anyFormat'

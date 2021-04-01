@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,9 +24,12 @@ use Phing\Io\DirectoryScanner;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the DefaultExcludes Task
+ * Tests the DefaultExcludes Task.
  *
  * @author  Siad Ardroumli
+ *
+ * @internal
+ * @coversNothing
  */
 class DefaultExcludesTest extends BuildFileTest
 {
@@ -35,50 +39,50 @@ class DefaultExcludesTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/defaultexcludes-test.xml"
+            . '/etc/tasks/system/defaultexcludes-test.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
-        $this->executeTarget("cleanup-excludes");
+        $this->executeTarget('clean');
+        $this->executeTarget('cleanup-excludes');
     }
 
     public function test1()
     {
         $expected = [
-            "**/*~",
-            "**/#*#",
-            "**/.#*",
-            "**/%*%",
-            "**/CVS",
-            "**/CVS/**",
-            "**/.cvsignore",
-            "**/SCCS",
-            "**/SCCS/**",
-            "**/vssver.scc",
-            "**/.svn",
-            "**/.svn/**",
-            "**/._*",
-            "**/.DS_Store",
-            "**/.darcs",
-            "**/.darcs/**",
-            "**/.git",
-            "**/.git/**",
-            "**/.gitattributes",
-            "**/.gitignore",
-            "**/.gitmodules",
-            "**/.hg",
-            "**/.hg/**",
-            "**/.hgignore",
-            "**/.hgsub",
-            "**/.hgsubstate",
-            "**/.hgtags",
-            "**/.bzr",
-            "**/.bzr/**",
-            "**/.bzrignore",
+            '**/*~',
+            '**/#*#',
+            '**/.#*',
+            '**/%*%',
+            '**/CVS',
+            '**/CVS/**',
+            '**/.cvsignore',
+            '**/SCCS',
+            '**/SCCS/**',
+            '**/vssver.scc',
+            '**/.svn',
+            '**/.svn/**',
+            '**/._*',
+            '**/.DS_Store',
+            '**/.darcs',
+            '**/.darcs/**',
+            '**/.git',
+            '**/.git/**',
+            '**/.gitattributes',
+            '**/.gitignore',
+            '**/.gitmodules',
+            '**/.hg',
+            '**/.hg/**',
+            '**/.hgignore',
+            '**/.hgsub',
+            '**/.hgsubstate',
+            '**/.hgtags',
+            '**/.bzr',
+            '**/.bzr/**',
+            '**/.bzrignore',
         ];
 
         $this->executeTarget(__FUNCTION__);
@@ -93,37 +97,37 @@ class DefaultExcludesTest extends BuildFileTest
     public function test2()
     {
         $expected = [
-            "**/*~",
-            "**/#*#",
-            "**/.#*",
-            "**/%*%",
-            "**/CVS",
-            "**/CVS/**",
-            "**/.cvsignore",
-            "**/SCCS",
-            "**/SCCS/**",
-            "**/vssver.scc",
-            "**/.svn",
-            "**/.svn/**",
-            "**/._*",
-            "**/.DS_Store",
-            "**/.darcs",
-            "**/.darcs/**",
-            "**/.git",
-            "**/.git/**",
-            "**/.gitattributes",
-            "**/.gitignore",
-            "**/.gitmodules",
-            "**/.hg",
-            "**/.hg/**",
-            "**/.hgignore",
-            "**/.hgsub",
-            "**/.hgsubstate",
-            "**/.hgtags",
-            "**/.bzr",
-            "**/.bzr/**",
-            "**/.bzrignore",
-            "foo",
+            '**/*~',
+            '**/#*#',
+            '**/.#*',
+            '**/%*%',
+            '**/CVS',
+            '**/CVS/**',
+            '**/.cvsignore',
+            '**/SCCS',
+            '**/SCCS/**',
+            '**/vssver.scc',
+            '**/.svn',
+            '**/.svn/**',
+            '**/._*',
+            '**/.DS_Store',
+            '**/.darcs',
+            '**/.darcs/**',
+            '**/.git',
+            '**/.git/**',
+            '**/.gitattributes',
+            '**/.gitignore',
+            '**/.gitmodules',
+            '**/.hg',
+            '**/.hg/**',
+            '**/.hgignore',
+            '**/.hgsub',
+            '**/.hgsubstate',
+            '**/.hgtags',
+            '**/.bzr',
+            '**/.bzr/**',
+            '**/.bzrignore',
+            'foo',
         ];
 
         $this->executeTarget(__FUNCTION__);
@@ -138,36 +142,36 @@ class DefaultExcludesTest extends BuildFileTest
     public function test3()
     {
         $expected = [
-            "**/*~",
-            "**/#*#",
-            "**/.#*",
-            "**/%*%",
+            '**/*~',
+            '**/#*#',
+            '**/.#*',
+            '**/%*%',
             // CVS missing
-            "**/CVS/**",
-            "**/.cvsignore",
-            "**/SCCS",
-            "**/SCCS/**",
-            "**/vssver.scc",
-            "**/.svn",
-            "**/.svn/**",
-            "**/._*",
-            "**/.DS_Store",
-            "**/.darcs",
-            "**/.darcs/**",
-            "**/.git",
-            "**/.git/**",
-            "**/.gitattributes",
-            "**/.gitignore",
-            "**/.gitmodules",
-            "**/.hg",
-            "**/.hg/**",
-            "**/.hgignore",
-            "**/.hgsub",
-            "**/.hgsubstate",
-            "**/.hgtags",
-            "**/.bzr",
-            "**/.bzr/**",
-            "**/.bzrignore",
+            '**/CVS/**',
+            '**/.cvsignore',
+            '**/SCCS',
+            '**/SCCS/**',
+            '**/vssver.scc',
+            '**/.svn',
+            '**/.svn/**',
+            '**/._*',
+            '**/.DS_Store',
+            '**/.darcs',
+            '**/.darcs/**',
+            '**/.git',
+            '**/.git/**',
+            '**/.gitattributes',
+            '**/.gitignore',
+            '**/.gitmodules',
+            '**/.hg',
+            '**/.hg/**',
+            '**/.hgignore',
+            '**/.hgsub',
+            '**/.hgsubstate',
+            '**/.hgtags',
+            '**/.bzr',
+            '**/.bzr/**',
+            '**/.bzrignore',
         ];
 
         $this->executeTarget(__FUNCTION__);

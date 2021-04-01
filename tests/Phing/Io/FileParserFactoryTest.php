@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,9 +25,12 @@ use Phing\Io\IniFileParser;
 use Phing\Io\YamlFileParser;
 
 /**
- * Unit test for FileParserFactory
+ * Unit test for FileParserFactory.
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
+ *
+ * @internal
+ * @coversNothing
  */
 class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
 {
@@ -41,7 +45,7 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     private $iniFileStub;
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function setUp(): void
     {
@@ -49,7 +53,7 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function tearDown(): void
     {
@@ -57,8 +61,11 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers       FileParserFactory::createParser
+     * @covers       \FileParserFactory::createParser
      * @dataProvider parserTypeProvider
+     *
+     * @param mixed $parserName
+     * @param mixed $expectedType
      */
     public function testCreateParser($parserName, $expectedType)
     {

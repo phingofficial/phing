@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,9 +25,12 @@ use Phing\Listener\EventObject;
 use stdClass;
 
 /**
- * Unit test for EventObject
+ * Unit test for EventObject.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class EventObjectTest extends \PHPUnit\Framework\TestCase
 {

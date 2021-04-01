@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,9 +23,12 @@ namespace Phing\Test\Type\Selector;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Class DifferentSelectorTest
+ * Class DifferentSelectorTest.
  *
  * Test cases for different selectors.
+ *
+ * @internal
+ * @coversNothing
  */
 class DifferentSelectorTest extends BuildFileTest
 {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,14 +34,18 @@ use Phing\UnknownElement;
 use ReflectionProperty;
 
 /**
- * Tests the Exec Task
+ * Tests the Exec Task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class ExecTaskTest extends BuildFileTest
 {
     /**
-     * Whether test is being run on windows
+     * Whether test is being run on windows.
+     *
      * @var bool
      */
     protected $windows;
@@ -50,61 +55,7 @@ class ExecTaskTest extends BuildFileTest
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/ExecTest.xml'
         );
-        $this->windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
-    }
-
-    protected function getTargetByName($name)
-    {
-        foreach ($this->project->getTargets() as $target) {
-            if ($target->getName() == $name) {
-                return $target;
-            }
-        }
-        throw new Exception(sprintf('Target "%s" not found', $name));
-    }
-
-    protected function getTaskFromTarget($target, $taskname, $pos = 0)
-    {
-        $rchildren = new ReflectionProperty(get_class($target), 'children');
-        $rchildren->setAccessible(true);
-        $n = -1;
-        foreach ($rchildren->getValue($target) as $child) {
-            if ($child instanceof Task && ++$n == $pos) {
-                return $child;
-            }
-        }
-        throw new Exception(
-            sprintf('%s #%d not found in task', $taskname, $pos)
-        );
-    }
-
-    protected function getConfiguredTask($target, $task, $pos = 0)
-    {
-        $target = $this->getTargetByName($target);
-        $task = $this->getTaskFromTarget($target, $task);
-        $task->maybeConfigure();
-
-        return $task;
-    }
-
-    protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
-    {
-        $task = $this->getConfiguredTask(
-            'testPropertySet' . ucfirst($property),
-            'ExecTask'
-        );
-
-        if ($propertyName === null) {
-            $propertyName = $property;
-        }
-
-        if ($task instanceof UnknownElement) {
-            $task = $task->getRuntimeConfigurableWrapper()->getProxy();
-        }
-
-        $rprop = new ReflectionProperty(ExecTask::class, $propertyName);
-        $rprop->setAccessible(true);
-        $this->assertEquals($value, $rprop->getValue($task));
+        $this->windows = 'WIN' == strtoupper(substr(PHP_OS, 0, 3));
     }
 
     public function testPropertySetCommandline()
@@ -124,7 +75,7 @@ class ExecTaskTest extends BuildFileTest
 
     public function testPropertySetOs()
     {
-        $this->assertAttributeIsSetTo('os', "linux");
+        $this->assertAttributeIsSetTo('os', 'linux');
     }
 
     public function testPropertySetEscape()
@@ -273,7 +224,7 @@ class ExecTaskTest extends BuildFileTest
 
     public function testCheckreturnTrue()
     {
-        if (FileSystem::getFileSystem()->which('true') === false) {
+        if (false === FileSystem::getFileSystem()->which('true')) {
             $this->markTestSkipped("'true' not found.");
         }
         $this->executeTarget(__FUNCTION__);
@@ -282,7 +233,7 @@ class ExecTaskTest extends BuildFileTest
 
     public function testCheckreturnFalse()
     {
-        if (FileSystem::getFileSystem()->which('false') === false) {
+        if (false === FileSystem::getFileSystem()->which('false')) {
             $this->markTestSkipped("'false' not found.");
         }
 
@@ -315,7 +266,7 @@ class ExecTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $out = ob_get_clean();
-        $this->assertEquals("foo", rtrim($out, " \r\n"));
+        $this->assertEquals('foo', rtrim($out, " \r\n"));
         //foo should not be in logs, except for the logged command
         $this->assertInLogs('echo foo');
         $this->assertNotContains('foo', $this->logBuffer);
@@ -367,7 +318,7 @@ class ExecTaskTest extends BuildFileTest
     }
 
     /**
-     * Inspired by {@link http://www.phing.info/trac/ticket/833}
+     * Inspired by {@link http://www.phing.info/trac/ticket/833}.
      */
     public function testEscapedArg()
     {
@@ -397,5 +348,61 @@ class ExecTaskTest extends BuildFileTest
     public function testMultipleEnvVars(): void
     {
         $this->expectPropertySet(__FUNCTION__, 'outputProperty', 'hello world');
+    }
+
+    protected function getTargetByName($name)
+    {
+        foreach ($this->project->getTargets() as $target) {
+            if ($target->getName() == $name) {
+                return $target;
+            }
+        }
+
+        throw new Exception(sprintf('Target "%s" not found', $name));
+    }
+
+    protected function getTaskFromTarget($target, $taskname, $pos = 0)
+    {
+        $rchildren = new ReflectionProperty(get_class($target), 'children');
+        $rchildren->setAccessible(true);
+        $n = -1;
+        foreach ($rchildren->getValue($target) as $child) {
+            if ($child instanceof Task && ++$n == $pos) {
+                return $child;
+            }
+        }
+
+        throw new Exception(
+            sprintf('%s #%d not found in task', $taskname, $pos)
+        );
+    }
+
+    protected function getConfiguredTask($target, $task, $pos = 0)
+    {
+        $target = $this->getTargetByName($target);
+        $task = $this->getTaskFromTarget($target, $task);
+        $task->maybeConfigure();
+
+        return $task;
+    }
+
+    protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
+    {
+        $task = $this->getConfiguredTask(
+            'testPropertySet' . ucfirst($property),
+            'ExecTask'
+        );
+
+        if (null === $propertyName) {
+            $propertyName = $property;
+        }
+
+        if ($task instanceof UnknownElement) {
+            $task = $task->getRuntimeConfigurableWrapper()->getProxy();
+        }
+
+        $rprop = new ReflectionProperty(ExecTask::class, $propertyName);
+        $rprop->setAccessible(true);
+        $this->assertEquals($value, $rprop->getValue($task));
     }
 }

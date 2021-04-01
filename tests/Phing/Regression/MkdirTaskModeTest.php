@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,21 +25,23 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/745
- * - MkdirTask mode param mistake
+ * - MkdirTask mode param mistake.
  *
+ * @internal
+ * @coversNothing
  */
 class MkdirTaskModeTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/745/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/745/build.xml');
     }
 
     public function testCorrectModeSet()
     {
-        $this->executeTarget("test");
+        $this->executeTarget('test');
 
-        $dir = new File(PHING_TEST_BASE . "/etc/regression/745/testdir");
+        $dir = new File(PHING_TEST_BASE . '/etc/regression/745/testdir');
 
         $mode = $dir->getMode() & 511;
 

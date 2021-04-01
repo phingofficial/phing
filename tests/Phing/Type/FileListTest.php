@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,6 +27,10 @@ use Phing\Type\FileList;
 use Phing\Type\Reference;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class FileListTest extends TestCase
 {
     /**
@@ -54,41 +59,41 @@ class FileListTest extends TestCase
         $this->expectExceptionMessage('No files specified for filelist.');
 
         $f = new FileList();
-        $f->setDir(new File("."));
+        $f->setDir(new File('.'));
         $f->getFiles($this->project);
     }
 
     public function testSetRefidWithDirSet()
     {
         $this->expectException(BuildException::class);
-        $this->expectExceptionMessage("You must not specify more than one attribute when using refid");
+        $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
 
         $f = new FileList();
-        $f->setDir(new File("."));
+        $f->setDir(new File('.'));
         $project = new Project();
         $project->setBasedir(__DIR__);
-        $f->setRefid(new Reference($this->project, "dummy"));
+        $f->setRefid(new Reference($this->project, 'dummy'));
     }
 
     public function testSetRefidWithFileListSet()
     {
         $this->expectException(BuildException::class);
-        $this->expectExceptionMessage("You must not specify more than one attribute when using refid");
+        $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
 
         $f = new FileList();
         $f->setFiles('foo.php');
         $project = new Project();
         $project->setBasedir(__DIR__);
-        $f->setRefid(new Reference($this->project, "dummy"));
+        $f->setRefid(new Reference($this->project, 'dummy'));
     }
 
     public function testSetListfile()
     {
         $f = new FileList();
-        $f->setListFile("foo.php");
+        $f->setListFile('foo.php');
         $project = new Project();
         $project->setBasedir(__DIR__);
         $l = $f->getListFile($project);
-        $this->assertEquals($l->getPath(), "foo.php");
+        $this->assertEquals($l->getPath(), 'foo.php');
     }
 }

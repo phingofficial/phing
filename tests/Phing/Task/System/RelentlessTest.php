@@ -6,9 +6,12 @@ use Phing\Exception\BuildException;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Relentless Task
+ * Tests the Relentless Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class RelentlessTest extends BuildFileTest
 {

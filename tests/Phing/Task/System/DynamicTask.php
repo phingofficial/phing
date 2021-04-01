@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -39,7 +40,7 @@ class DynamicTask extends Task implements DynamicConfigurator
 
     public function customChildCreator($name, Project $project)
     {
-        return new class($project) implements DynamicConfigurator {
+        return new class ($project) implements DynamicConfigurator {
             /**
              * @var Project
              */

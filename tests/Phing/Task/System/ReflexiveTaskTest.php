@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,13 +20,15 @@
 
 namespace Phing\Test\Task\System;
 
-use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Copy Task
+ * Tests the Copy Task.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class ReflexiveTaskTest extends BuildFileTest
 {
@@ -33,14 +36,14 @@ class ReflexiveTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/ReflexiveTaskTest.xml"
+            . '/etc/tasks/system/ReflexiveTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function test1(): void

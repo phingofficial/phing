@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,9 +24,12 @@ use Phing\Exception\BuildTimeoutException;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the BlockFor Task
+ * Tests the BlockFor Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class BlockForTaskTest extends BuildFileTest
 {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class StripPhpCommentsTest extends BuildFileTest
 {
@@ -35,13 +39,13 @@ class StripPhpCommentsTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/stripphpcomments.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/stripphpcomments.xml');
         $this->fu = new FileUtils();
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     /**
@@ -53,8 +57,8 @@ class StripPhpCommentsTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expectedFile = $this->getProject()->resolveFile("expected/stripphpcomments.test");
-        $resultFile = $this->getProject()->resolveFile("result/stripphpcomments.test");
+        $expectedFile = $this->getProject()->resolveFile('expected/stripphpcomments.test');
+        $resultFile = $this->getProject()->resolveFile('result/stripphpcomments.test');
 
         $expected = file_get_contents($expectedFile->getAbsolutePath());
         $result = file_get_contents($resultFile->getAbsolutePath());

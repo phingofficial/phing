@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,27 +28,30 @@ use Phing\Test\Support\TypedefTestType;
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ *
+ * @internal
+ * @coversNothing
  */
 class TypedefTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/typedef.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/typedef.xml');
     }
 
     public function testEmpty()
     {
-        $this->expectBuildException("empty", "required argument not specified");
+        $this->expectBuildException('empty', 'required argument not specified');
     }
 
     public function testNoName()
     {
-        $this->expectBuildException("noName", "required argument not specified");
+        $this->expectBuildException('noName', 'required argument not specified');
     }
 
     public function testNoClassname()
     {
-        $this->expectBuildException("noClassname", "required argument not specified");
+        $this->expectBuildException('noClassname', 'required argument not specified');
     }
 
     public function testClassNotFound()
@@ -55,9 +59,9 @@ class TypedefTaskTest extends BuildFileTest
         $this->expectException(BuildException::class);
 
         try {
-            $this->executeTarget("classNotFound");
+            $this->executeTarget('classNotFound');
             $this->fail(
-                "Should throw ConfigurationException because: " .
+                'Should throw ConfigurationException because: ' .
                 "classname specified doesn't exist"
             );
         } catch (ConfigurationException $ignored) {
@@ -66,19 +70,19 @@ class TypedefTaskTest extends BuildFileTest
 
     public function testGlobal()
     {
-        $this->expectLog("testGlobal", "Adding reference: global -> " . TypedefTestType::class);
+        $this->expectLog('testGlobal', 'Adding reference: global -> ' . TypedefTestType::class);
         $refs = $this->project->getReferences();
-        $ref = $refs["global"];
-        $this->assertNotNull("ref is not null", $ref);
+        $ref = $refs['global'];
+        $this->assertNotNull('ref is not null', $ref);
         $this->assertInstanceOf(TypedefTestType::class, $ref);
     }
 
     public function testLocal()
     {
-        $this->expectLog("testLocal", "Adding reference: local -> " . TypedefTestType::class);
+        $this->expectLog('testLocal', 'Adding reference: local -> ' . TypedefTestType::class);
         $refs = $this->project->getReferences();
-        $ref = $refs["local"];
-        $this->assertNotNull("ref is not null", $ref);
+        $ref = $refs['local'];
+        $this->assertNotNull('ref is not null', $ref);
         $this->assertInstanceOf(TypedefTestType::class, $ref);
     }
 }

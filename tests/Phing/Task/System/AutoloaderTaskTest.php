@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,25 +25,28 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class AutoloaderTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/autoloader/autoloader.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/autoloader/autoloader.xml');
     }
 
     public function testDefault()
     {
         $this->expectBuildException(
-            "testDefault",
+            'testDefault',
             sprintf('Provided autoloader file "%s" is not a readable file', AutoloaderTask::DEFAULT_AUTOLOAD_PATH)
         );
     }
 
     public function testExisting()
     {
-        $this->expectLog("testExisting", 'Loading autoloader from autoload.php');
+        $this->expectLog('testExisting', 'Loading autoloader from autoload.php');
         $this->assertTrue(class_exists('Phing_Autoload_Stub', false));
     }
 }

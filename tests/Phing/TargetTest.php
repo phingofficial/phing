@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,10 +28,13 @@ use Phing\Task\System\EchoTask;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * UTs for Target component
+ * UTs for Target component.
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @author Daniel Holmes
+ *
+ * @internal
+ * @coversNothing
  */
 class TargetTest extends BuildFileTest
 {
@@ -41,7 +45,7 @@ class TargetTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/components/Target/Target.xml"
+            . '/etc/components/Target/Target.xml'
         );
 
         $this->target = new Target();
@@ -58,11 +62,12 @@ class TargetTest extends BuildFileTest
         $out = implode("\n", $out);
         $offset = strpos($out, 'Subtargets:');
         $this->assertFalse(strpos($out, 'HideInListTarget', $offset));
-        $this->assertTrue(strpos($out, 'ShowInListTarget', $offset) !== false);
+        $this->assertTrue(false !== strpos($out, 'ShowInListTarget', $offset));
     }
 
     /**
      * @dataProvider setDependsValidDataProvider
+     *
      * @param string $depends
      */
     public function testSetDependsValid(array $expectedDepends, $depends)
@@ -82,6 +87,7 @@ class TargetTest extends BuildFileTest
 
     /**
      * @dataProvider setDependsInvalidDataProvider
+     *
      * @param string $depends
      */
     public function testSetDependsInvalid($depends)
@@ -127,7 +133,8 @@ class TargetTest extends BuildFileTest
     {
         $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
         $configurable->expects($this->once())->method('maybeConfigure')->with($this->project);
         $this->target->addDataType($configurable);
 
@@ -141,7 +148,8 @@ class TargetTest extends BuildFileTest
 
         $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
         $configurable->expects($this->never())->method('maybeConfigure');
         $this->target->addDataType($configurable);
 
@@ -155,7 +163,8 @@ class TargetTest extends BuildFileTest
 
         $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
         $configurable->expects($this->never())->method('maybeConfigure');
         $this->target->addDataType($configurable);
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,8 +25,10 @@ use Phing\Io\File;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Append / Concat Task
+ * Tests the Append / Concat Task.
  *
+ * @internal
+ * @coversNothing
  */
 class AppendTaskTest extends BuildFileTest
 {
@@ -33,7 +36,7 @@ class AppendTaskTest extends BuildFileTest
     private $tempFile2 = 'concat.tmp.2';
 
     /**
-     * Setup the test
+     * Setup the test.
      */
     public function setUp(): void
     {
@@ -88,7 +91,7 @@ class AppendTaskTest extends BuildFileTest
         $file = new File($this->getProject()->getBasedir(), $this->tempFile);
         $origSize = $file->length();
 
-        $this->executeTarget("testPath");
+        $this->executeTarget('testPath');
 
         $file2 = new File($this->getProject()->getBasedir(), $this->tempFile2);
         $newSize = $file2->length();
@@ -103,7 +106,7 @@ class AppendTaskTest extends BuildFileTest
         $file = new File($this->getProject()->getBasedir(), $this->tempFile);
         $origSize = $file->length();
 
-        $this->executeTarget("testAppend");
+        $this->executeTarget('testAppend');
 
         $file2 = new File($this->getProject()->getBasedir(), $this->tempFile2);
         $newSize = $file2->length();
@@ -113,12 +116,12 @@ class AppendTaskTest extends BuildFileTest
 
     public function testFilter()
     {
-        $this->expectLog("testfilter", 'REPLACED');
+        $this->expectLog('testfilter', 'REPLACED');
     }
 
     public function testNoOverwrite()
     {
-        $this->executeTarget("testnooverwrite");
+        $this->executeTarget('testnooverwrite');
         $file2 = new File($this->getProject()->getBasedir(), $this->tempFile2);
         $size = $file2->length();
         $this->assertEquals($size, 0);
@@ -127,23 +130,23 @@ class AppendTaskTest extends BuildFileTest
     public function testheaderfooter()
     {
         $this->test3();
-        $this->expectLog("testheaderfooter", 'headerHello, World!footer');
+        $this->expectLog('testheaderfooter', 'headerHello, World!footer');
     }
 
     public function testfileheader()
     {
         $this->test3();
-        $this->expectLog("testfileheader", 'Hello, World!Hello, World!');
+        $this->expectLog('testfileheader', 'Hello, World!Hello, World!');
     }
 
     /**
-     * Expect an exception when attempting to cat an file to itself
+     * Expect an exception when attempting to cat an file to itself.
      */
     public function testsame()
     {
         $this->expectException(BuildException::class);
 
-        $this->executeTarget("samefile");
+        $this->executeTarget('samefile');
     }
 
     public function testfilterinline()
@@ -153,19 +156,19 @@ class AppendTaskTest extends BuildFileTest
 
     public function testfixlastline()
     {
-        $this->executeTarget("testfixlastline");
+        $this->executeTarget('testfixlastline');
         $this->assertStringContainsString(
-            "end of line" . $this->getProject()->getProperty("line.separator") . "This has",
-            file_get_contents($this->getProject()->getProperty("basedir") . 'concat.line4')
+            'end of line' . $this->getProject()->getProperty('line.separator') . 'This has',
+            file_get_contents($this->getProject()->getProperty('basedir') . 'concat.line4')
         );
     }
 
     public function testfixlastlineeol()
     {
-        $this->executeTarget("testfixlastlineeol");
+        $this->executeTarget('testfixlastlineeol');
         $this->assertStringContainsString(
             "end of line\rThis has",
-            file_get_contents($this->getProject()->getProperty("basedir") . 'concat.linecr')
+            file_get_contents($this->getProject()->getProperty('basedir') . 'concat.linecr')
         );
     }
 }

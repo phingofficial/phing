@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,8 +22,8 @@ declare(strict_types=1);
 
 namespace Phing\Test\Task\Optional\Sass;
 
-use PHPUnit\Framework\Assert;
 use Phing\Task\Ext\SassTask;
+use PHPUnit\Framework\Assert;
 
 class SassTaskAssert extends Assert
 {

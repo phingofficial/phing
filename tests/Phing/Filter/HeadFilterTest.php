@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,25 +24,28 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class HeadFilterTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/headfilter.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/headfilter.xml');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testHeadFilter()
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/headfilter.test");
-        $result = $this->getProject()->resolveFile("result/headfilter.test");
+        $expected = $this->getProject()->resolveFile('expected/headfilter.test');
+        $result = $this->getProject()->resolveFile('result/headfilter.test');
 
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }

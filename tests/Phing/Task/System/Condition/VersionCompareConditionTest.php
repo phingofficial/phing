@@ -20,6 +20,9 @@ use Phing\Exception\BuildException;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ *
+ * @internal
+ * @coversNothing
  */
 class VersionCompareConditionTest extends \PHPUnit\Framework\TestCase
 {

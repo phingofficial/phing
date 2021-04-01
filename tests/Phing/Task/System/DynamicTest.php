@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,9 +24,12 @@ use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests dynamics
+ * Tests dynamics.
  *
  * @author  Siad Ardroumli
+ *
+ * @internal
+ * @coversNothing
  */
 class DynamicTest extends BuildFileTest
 {
@@ -33,7 +37,7 @@ class DynamicTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/DynamicTest.xml"
+            . '/etc/tasks/system/DynamicTest.xml'
         );
     }
 

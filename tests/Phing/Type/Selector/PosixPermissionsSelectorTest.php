@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +27,10 @@ use Phing\Type\Selector\PosixPermissionsSelector;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class PosixPermissionsSelectorTest
+ * Class PosixPermissionsSelectorTest.
+ *
+ * @internal
+ * @coversNothing
  */
 class PosixPermissionsSelectorTest extends TestCase
 {
@@ -79,6 +83,7 @@ class PosixPermissionsSelectorTest extends TestCase
      * @test
      * @dataProvider illegalArgumentProvider
      * @dataProvider legalArgumentProvider
+     *
      * @param bool $throws
      */
     public function argument(string $permission, $throws = false): void

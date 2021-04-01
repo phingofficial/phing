@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,6 +27,9 @@ use Phing\Task\Optional\SymfonyConsoleTask;
  * Test class for the SymfonyConsoleTask.
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
 {
@@ -52,8 +56,8 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers SymfonyConsoleTask::setCommand
-     * @covers SymfonyConsoleTask::getCommand
+     * @covers \SymfonyConsoleTask::getCommand
+     * @covers \SymfonyConsoleTask::setCommand
      */
     public function testSetGetCommand()
     {
@@ -63,8 +67,8 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers SymfonyConsoleTask::setConsole
-     * @covers SymfonyConsoleTask::getConsole
+     * @covers \SymfonyConsoleTask::getConsole
+     * @covers \SymfonyConsoleTask::setConsole
      */
     public function testSetGetConsole()
     {
@@ -74,8 +78,8 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers SymfonyConsoleTask::setDebug
-     * @covers SymfonyConsoleTask::getDebug
+     * @covers \SymfonyConsoleTask::getDebug
+     * @covers \SymfonyConsoleTask::setDebug
      */
     public function testSetGetDebug()
     {
@@ -85,8 +89,8 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers SymfonyConsoleTask::setSilent
-     * @covers SymfonyConsoleTask::getSilent
+     * @covers \SymfonyConsoleTask::getSilent
+     * @covers \SymfonyConsoleTask::setSilent
      */
     public function testSetGetSilent()
     {
@@ -96,7 +100,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers SymfonyConsoleTask::createArg
+     * @covers \SymfonyConsoleTask::createArg
      */
     public function testCreateArg()
     {
@@ -106,7 +110,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers SymfonyConsoleTask::getArgs
+     * @covers \SymfonyConsoleTask::getArgs
      */
     public function testGetArgs()
     {
@@ -118,7 +122,8 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers SymfonyConsoleTask::getCmdString
+     * @covers \SymfonyConsoleTask::getCmdString
+     *
      * @todo Implement testMain().
      */
     public function testGetCmdString()
@@ -131,13 +136,13 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
         $o->setCommand('command');
         $o->setConsole('console');
 
-        $ret = "console command --name=value";
+        $ret = 'console command --name=value';
 
         $this->assertEquals($ret, $o->getCmdString());
     }
 
     /**
-     * @covers SymfonyConsoleTask::getCmdString
+     * @covers \SymfonyConsoleTask::getCmdString
      */
     public function testNoDebugGetCmdString()
     {
@@ -150,13 +155,13 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
         $o->setConsole('console');
         $o->setDebug(false);
 
-        $ret = "console command --name=value --no-debug";
+        $ret = 'console command --name=value --no-debug';
 
         $this->assertEquals($ret, $o->getCmdString());
     }
 
     /**
-     * @covers SymfonyConsoleTask::getCmdString
+     * @covers \SymfonyConsoleTask::getCmdString
      */
     public function testNoDebugOnlyOnce()
     {
@@ -168,7 +173,7 @@ class SymfonyConsoleTest extends \PHPUnit\Framework\TestCase
         $o->setConsole('console');
         $o->setDebug(false);
 
-        $ret = "console command --no-debug";
+        $ret = 'console command --no-debug';
 
         $this->assertEquals($ret, $o->getCmdString());
     }

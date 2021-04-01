@@ -6,11 +6,14 @@ use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests FileSizeTask
+ * Tests FileSizeTask.
  *
  * @author  Jawira Portugal <dev@tugal.be>
  * @license LGPL
  * @license https://github.com/phingofficial/phing/blob/master/LICENSE
+ *
+ * @internal
+ * @coversNothing
  */
 class FileSizeTaskTest extends BuildFileTest
 {
@@ -42,6 +45,12 @@ class FileSizeTaskTest extends BuildFileTest
 
     /**
      * @dataProvider unitAttributeProvider
+     *
+     * @param mixed $dummySize
+     * @param mixed $filesizeUnit
+     * @param mixed $logVerbose
+     * @param mixed $logInfo
+     * @param mixed $expectedSize
      */
     public function testUnitAttribute($dummySize, $filesizeUnit, $logVerbose, $logInfo, $expectedSize)
     {

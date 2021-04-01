@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,6 +25,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class LineContainsRegexpTest extends BuildFileTest
 {
@@ -31,21 +35,21 @@ class LineContainsRegexpTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/linecontainsregexp.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/linecontainsregexp.xml');
         $this->fu = new FileUtils();
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testLineContainsRegexp()
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/linecontains.test");
-        $result = $this->getProject()->resolveFile("result/linecontains.test");
+        $expected = $this->getProject()->resolveFile('expected/linecontains.test');
+        $result = $this->getProject()->resolveFile('result/linecontains.test');
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
@@ -53,8 +57,8 @@ class LineContainsRegexpTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/linecontainsregexp-negate.test");
-        $result = $this->getProject()->resolveFile("result/linecontains.test");
+        $expected = $this->getProject()->resolveFile('expected/linecontainsregexp-negate.test');
+        $result = $this->getProject()->resolveFile('result/linecontains.test');
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
@@ -62,8 +66,8 @@ class LineContainsRegexpTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
 
-        $expected = $this->getProject()->resolveFile("expected/linecontains.test");
-        $result = $this->getProject()->resolveFile("result/linecontains.test");
+        $expected = $this->getProject()->resolveFile('expected/linecontains.test');
+        $result = $this->getProject()->resolveFile('result/linecontains.test');
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

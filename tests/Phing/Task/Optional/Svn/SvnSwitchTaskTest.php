@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,6 +24,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class SvnSwitchTaskTest extends BuildFileTest
 {
@@ -57,7 +61,7 @@ class SvnSwitchTaskTest extends BuildFileTest
         $this->executeTarget('switchSimple');
         $this->assertInLogs("Checking out SVN repository to '" . $repository . "'");
         $this->assertInLogs(
-            "Switching SVN repository at '$repository' to 'https://github.com/phingofficial/phing/tags/2.10.0/etc'"
+            "Switching SVN repository at '{$repository}' to 'https://github.com/phingofficial/phing/tags/2.10.0/etc'"
         );
     }
 }

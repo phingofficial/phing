@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,9 +24,12 @@ use Phar;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Manifest Task
+ * Tests the Manifest Task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class PharDataTaskTest extends BuildFileTest
 {
@@ -36,14 +40,14 @@ class PharDataTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/ext/PharDataTaskTest.xml"
+            . '/etc/tasks/ext/PharDataTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testGenerateWithoutBasedir()
@@ -54,7 +58,7 @@ class PharDataTaskTest extends BuildFileTest
     public function testGenerateTar()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.tar");
+        $manifestFile = realpath(PHING_TEST_BASE . '/etc/tasks/ext/tmp/phar/archive.tar');
         $this->assertNotFalse($manifestFile);
     }
 
@@ -63,7 +67,7 @@ class PharDataTaskTest extends BuildFileTest
         $this->skipIfCompressionNotSupported(Phar::GZ);
 
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.tar.gz");
+        $manifestFile = realpath(PHING_TEST_BASE . '/etc/tasks/ext/tmp/phar/archive.tar.gz');
         $this->assertNotFalse($manifestFile);
     }
 
@@ -72,14 +76,14 @@ class PharDataTaskTest extends BuildFileTest
         $this->skipIfCompressionNotSupported(Phar::BZ2);
 
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.tar.bz2");
+        $manifestFile = realpath(PHING_TEST_BASE . '/etc/tasks/ext/tmp/phar/archive.tar.bz2');
         $this->assertNotFalse($manifestFile);
     }
 
     public function testGenerateZip()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.zip");
+        $manifestFile = realpath(PHING_TEST_BASE . '/etc/tasks/ext/tmp/phar/archive.zip');
         $this->assertNotFalse($manifestFile);
     }
 
@@ -88,7 +92,7 @@ class PharDataTaskTest extends BuildFileTest
         $this->skipIfCompressionNotSupported(Phar::GZ);
 
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.zip");
+        $manifestFile = realpath(PHING_TEST_BASE . '/etc/tasks/ext/tmp/phar/archive.zip');
         $this->assertNotFalse($manifestFile);
     }
 
@@ -97,7 +101,7 @@ class PharDataTaskTest extends BuildFileTest
         $this->skipIfCompressionNotSupported(Phar::BZ2);
 
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/phar/archive.zip");
+        $manifestFile = realpath(PHING_TEST_BASE . '/etc/tasks/ext/tmp/phar/archive.zip');
         $this->assertNotFalse($manifestFile);
     }
 

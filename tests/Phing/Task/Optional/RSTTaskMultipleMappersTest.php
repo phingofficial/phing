@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,9 +29,14 @@ use Phing\Test\Support\BuildFileTest;
  * PHP version 5
  *
  * @category   Tasks
+ *
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link       http://www.phing.info/
+ *
+ * @see       http://www.phing.info/
+ *
+ * @internal
+ * @coversNothing
  */
 class RSTTaskMultipleMappersTest extends BuildFileTest
 {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,10 +21,10 @@
 namespace Phing\Test\Task\Optional;
 
 use Phing\Exception\BuildException;
+use Phing\Task\Optional\RSTTask;
 use Phing\Test\Support\BuildFileTest;
 use ReflectionClass;
 use ReflectionException;
-use Phing\Task\Optional\RSTTask;
 
 /**
  * Unit test for reStructuredText rendering task.
@@ -31,9 +32,14 @@ use Phing\Task\Optional\RSTTask;
  * PHP version 5
  *
  * @category   Tasks
+ *
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link       http://www.phing.info/
+ *
+ * @see       http://www.phing.info/
+ *
+ * @internal
+ * @coversNothing
  */
 class RSTTaskTest extends BuildFileTest
 {
@@ -54,30 +60,6 @@ class RSTTaskTest extends BuildFileTest
         @unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html');
     }
 
-    protected function assertPreConditions(): void
-    {
-        try {
-            $this->testGetToolPathHtmlFormat();
-        } catch (BuildException $be) {
-            $this->markTestSkipped($be->getMessage());
-        }
-    }
-
-    /**
-     * Checks if a given file has been created and unlinks it afterwards.
-     *
-     * @param string $file relative file path
-     *
-     */
-    protected function assertFileCreated($file)
-    {
-        $this->assertFileExists(
-            PHING_TEST_BASE . '/etc/tasks/ext/rst/' . $file,
-            $file . ' has not been created'
-        );
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/' . $file);
-    }
-
     /**
      * @requires function ReflectionMethod::setAccessible
      */
@@ -95,7 +77,7 @@ class RSTTaskTest extends BuildFileTest
     }
 
     /**
-     * Get the tool path previously set with setToolpath()
+     * Get the tool path previously set with setToolpath().
      *
      * @requires function ReflectionMethod::setAccessible
      */
@@ -301,5 +283,28 @@ class RSTTaskTest extends BuildFileTest
         $this->assertStringContainsString('this is a custom css file', $cont);
         $this->assertStringContainsString('#FF8000', $cont);
         unlink($file);
+    }
+
+    protected function assertPreConditions(): void
+    {
+        try {
+            $this->testGetToolPathHtmlFormat();
+        } catch (BuildException $be) {
+            $this->markTestSkipped($be->getMessage());
+        }
+    }
+
+    /**
+     * Checks if a given file has been created and unlinks it afterwards.
+     *
+     * @param string $file relative file path
+     */
+    protected function assertFileCreated($file)
+    {
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/rst/' . $file,
+            $file . ' has not been created'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/' . $file);
     }
 }

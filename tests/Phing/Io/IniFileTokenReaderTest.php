@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,9 +23,12 @@ namespace Phing\Test\Io;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the IniFileTokenReader class
+ * Tests the IniFileTokenReader class.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class IniFileTokenReaderTest extends BuildFileTest
 {
@@ -32,20 +36,20 @@ class IniFileTokenReaderTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/filters/util/IniFileTokenReaderTest.xml"
+            . '/etc/filters/util/IniFileTokenReaderTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testFileParameterString()
     {
         $filename = PHING_TEST_BASE .
-            "/etc/filters/util/tmp/test.txt";
+            '/etc/filters/util/tmp/test.txt';
 
         $this->executeTarget(__FUNCTION__);
 

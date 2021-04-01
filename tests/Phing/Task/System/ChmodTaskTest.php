@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,11 +23,14 @@ namespace Phing\Test\Task\System;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Chmod Task
+ * Tests the Chmod Task.
  *
  * @author  Michiel Rook <mrook@php.net>
  *
  * @requires OS ^(?:(?!Win).)*$
+ *
+ * @internal
+ * @coversNothing
  */
 class ChmodTaskTest extends BuildFileTest
 {

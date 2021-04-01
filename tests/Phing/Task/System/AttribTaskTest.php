@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,11 +24,14 @@ use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Attrib Task
+ * Tests the Attrib Task.
  *
  * @author  Siad Ardroumli
  *
  * @requires OS WIN32|WINNT
+ *
+ * @internal
+ * @coversNothing
  */
 class AttribTaskTest extends BuildFileTest
 {
@@ -35,14 +39,14 @@ class AttribTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/AttribTaskTest.xml"
+            . '/etc/tasks/system/AttribTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testAttrib()

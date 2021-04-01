@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -15,7 +16,6 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- *
  */
 
 namespace Phing\Test\Io;
@@ -25,9 +25,12 @@ use Phing\Io\FileUtils;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Testcases for phing.util.FileUtils
+ * Testcases for phing.util.FileUtils.
  *
  * @author  Siad Ardroumli |siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class FileUtilsTest extends BuildFileTest
 {
@@ -37,7 +40,7 @@ class FileUtilsTest extends BuildFileTest
     public function setUp(): void
     {
         $this->fu = new FileUtils();
-        $this->configureProject(PHING_TEST_BASE . "/etc/util/fileutils.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/util/fileutils.xml');
         $this->executeTarget('dummy');
     }
 
@@ -65,6 +68,7 @@ class FileUtilsTest extends BuildFileTest
     public function copyFile()
     {
         $this->fu->copyFile(new File(__FILE__), new File('tmp/test.php'), $this->getProject());
+
         try {
             $this->assertFileExists('tmp/test.php');
         } finally {

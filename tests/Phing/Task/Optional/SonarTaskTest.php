@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,10 +25,12 @@ use Phing\Exception\BuildException;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- *
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  *
  * @requires OSFAMILY Windows|Linux
+ *
+ * @internal
+ * @coversNothing
  */
 class SonarTaskTest extends BuildFileTest
 {
@@ -35,21 +38,6 @@ class SonarTaskTest extends BuildFileTest
     {
         $buildXmlFile = PHING_TEST_BASE . '/etc/tasks/ext/sonar/SonarTaskTest.xml';
         $this->configureProject($buildXmlFile);
-    }
-
-    private function ignoreFailureIfDueToMissingParameters(Exception $e)
-    {
-        // NOTE: Execution will finally fail due to missing properties.
-        // We ignore this failure, but pass ary failures that are
-        // caused by other errors.
-        if (
-            strpos(
-                $e->getMessage(),
-                'SonarQube Scanner misses some parameters. The following properties are mandatory'
-            ) !== false
-        ) {
-            throw $e;
-        }
     }
 
     //
@@ -84,7 +72,8 @@ class SonarTaskTest extends BuildFileTest
     }
 
     /**
-     * the return code of the exec command is always 0 under windows
+     * the return code of the exec command is always 0 under windows.
+     *
      * @requires OS ^(?:(?!Win).)*$
      */
     public function testExecutableFileIsNotExecutableThrowsException()
@@ -121,6 +110,7 @@ class SonarTaskTest extends BuildFileTest
     public function testErrorsAttributeIsMissing()
     {
         $this->expectNotToPerformAssertions();
+
         try {
             $this->expectPropertySet('errors-attribute-is-missing', 'errors', 'false');
         } catch (BuildException $e) {
@@ -153,6 +143,7 @@ class SonarTaskTest extends BuildFileTest
     public function testDebugAttributeIsMissing()
     {
         $this->expectNotToPerformAssertions();
+
         try {
             $this->expectPropertySet('debug-attribute-is-missing', 'debug', 'false');
         } catch (BuildException $e) {
@@ -185,6 +176,7 @@ class SonarTaskTest extends BuildFileTest
     public function testConfigurationAttributeIsMissing()
     {
         $this->expectNotToPerformAssertions();
+
         try {
             $this->expectPropertySet('configuration-attribute-is-missing', 'configuration', null);
         } catch (BuildException $e) {
@@ -195,6 +187,7 @@ class SonarTaskTest extends BuildFileTest
     public function testConfigurationAttributeIsEmpty()
     {
         $this->expectNotToPerformAssertions();
+
         try {
             $this->expectPropertySet('configuration-attribute-is-empty', 'configuration', '');
         } catch (BuildException $e) {
@@ -231,5 +224,20 @@ class SonarTaskTest extends BuildFileTest
             'name-is-missing',
             'Property name must not be null or empty.'
         );
+    }
+
+    private function ignoreFailureIfDueToMissingParameters(Exception $e)
+    {
+        // NOTE: Execution will finally fail due to missing properties.
+        // We ignore this failure, but pass ary failures that are
+        // caused by other errors.
+        if (
+            false !== strpos(
+                $e->getMessage(),
+                'SonarQube Scanner misses some parameters. The following properties are mandatory'
+            )
+        ) {
+            throw $e;
+        }
     }
 }

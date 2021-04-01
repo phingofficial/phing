@@ -20,6 +20,9 @@ use Phing\Test\Support\BuildFileTest;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ *
+ * @internal
+ * @coversNothing
  */
 class HgAddTaskTest extends BuildFileTest
 {
@@ -34,7 +37,7 @@ class HgAddTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testWrongRepository()
@@ -42,7 +45,7 @@ class HgAddTaskTest extends BuildFileTest
         $this->expectBuildExceptionContaining(
             'wrongRepository',
             'is not a directory',
-            "does not exist"
+            'does not exist'
         );
     }
 }

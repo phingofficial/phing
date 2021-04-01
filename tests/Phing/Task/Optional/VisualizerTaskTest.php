@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,6 +24,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @requires extension xsl
+ *
+ * @internal
+ * @coversNothing
  */
 class VisualizerTaskTest extends BuildFileTest
 {
@@ -37,7 +41,7 @@ class VisualizerTaskTest extends BuildFileTest
     }
 
     /**
-     * Testing different diagram formats: png, puml, svg and eps
+     * Testing different diagram formats: png, puml, svg and eps.
      */
     public function testFormat()
     {
@@ -48,7 +52,7 @@ class VisualizerTaskTest extends BuildFileTest
     }
 
     /**
-     * Test that an exception is raised when invalid format is used
+     * Test that an exception is raised when invalid format is used.
      */
     public function testInvalidFormat()
     {
@@ -57,7 +61,7 @@ class VisualizerTaskTest extends BuildFileTest
     }
 
     /**
-     * Testing custom destination including filename
+     * Testing custom destination including filename.
      */
     public function testDestinationFile()
     {
@@ -68,7 +72,7 @@ class VisualizerTaskTest extends BuildFileTest
     }
 
     /**
-     * Testing custom destination without filename
+     * Testing custom destination without filename.
      */
     public function testDestinationDirectory()
     {
@@ -79,7 +83,7 @@ class VisualizerTaskTest extends BuildFileTest
     }
 
     /**
-     * Testing that an exception is raised when an invalid directory is used as destination
+     * Testing that an exception is raised when an invalid directory is used as destination.
      */
     public function testInvalidDestination()
     {
@@ -88,7 +92,7 @@ class VisualizerTaskTest extends BuildFileTest
     }
 
     /**
-     * Testing that exception is raised when an invalid URL is used
+     * Testing that exception is raised when an invalid URL is used.
      */
     public function testInvalidServer()
     {

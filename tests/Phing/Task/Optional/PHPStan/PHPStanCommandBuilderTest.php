@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,6 +26,10 @@ use Phing\Exception\BuildException;
 use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PHPStanCommandBuilderTest extends TestCase
 {
     /** @var PHPStanCommandBuilderFake */
@@ -43,7 +48,7 @@ class PHPStanCommandBuilderTest extends TestCase
 
         $this->builder->build($task);
 
-        $cmd = <<<CMD
+        $cmd = <<<'CMD'
             Executing 'anyExecutable' with arguments:
             'anyCommand'
             The ' characters around the executable and arguments are not part of the command.
@@ -78,7 +83,7 @@ class PHPStanCommandBuilderTest extends TestCase
 
         $this->builder->build($task);
 
-        $expectedCommand = <<<CMD
+        $expectedCommand = <<<'CMD'
             Executing 'anyExecutable' with arguments:
             'anyCommand'
             '--help'

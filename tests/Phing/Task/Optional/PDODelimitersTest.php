@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -15,17 +16,19 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- *
  */
 
 namespace Phing\Test\Task\Optional;
 
-use Phing\Task\System\Pdo\PDOSQLExecTask;
 use Phing\Io\File;
+use Phing\Task\System\Pdo\PDOSQLExecTask;
 use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Alexey Borzov <avb@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class PDODelimitersTest extends BuildFileTest
 {
@@ -35,17 +38,19 @@ class PDODelimitersTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pdo/empty.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pdo/empty.xml');
         $this->queries = [];
 
         $this->mockTask = $this->getMockBuilder(PDOSQLExecTask::class)
             ->setMethods(['getConnection', 'execSQL'])
-            ->getMock();
+            ->getMock()
+        ;
         $this->mockTask->setProject($this->project);
         // prevents calling beginTransaction() on obviously missing PDO instance
         $this->mockTask->setAutocommit(true);
         $this->mockTask->expects($this->atLeastOnce())->method('execSQL')
-            ->will($this->returnCallback([$this, 'storeQuery']));
+            ->will($this->returnCallback([$this, 'storeQuery']))
+        ;
 
         $targets = $this->project->getTargets();
         $targets['test']->addTask($this->mockTask);
@@ -64,25 +69,25 @@ class PDODelimitersTest extends BuildFileTest
     {
         // for some reason default splitter mangles spaces on subsequent lines
         $expected = [
-            <<<SQL
+            <<<'SQL'
                 insert into foo (bar, "strange;name""indeed") values ('bar''s value containing ;', 'a value for strange named column')
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 delete
                  from
                  foo where bar = 'some value'
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 update dump -- I should not be ignored
-                 set message = 'I am a string with \\\\ backslash \' escapes and semicolons;'
+                 set message = 'I am a string with \\ backslash \' escapes and semicolons;'
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 create procedure setfoo(newfoo int)
                  begin
                  set @foo = newfoo;
                  end
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 insert into dump (message) values ('I am a statement not ending with a delimiter')
                 SQL,
         ];
@@ -91,9 +96,9 @@ class PDODelimitersTest extends BuildFileTest
             $query = str_replace(["\n\n", "\r"], ["\n", ''], $query);
         }
 
-        $this->mockTask->setSrc(new File(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-normal.sql"));
+        $this->mockTask->setSrc(new File(PHING_TEST_BASE . '/etc/tasks/ext/pdo/delimiters-normal.sql'));
         $this->mockTask->setDelimiterType(PDOSQLExecTask::DELIM_NORMAL);
-        $this->project->setProperty('bar.value', "some value");
+        $this->project->setProperty('bar.value', 'some value');
         $this->project->executeTarget('test');
 
         $this->assertEquals($expected, $this->queries);
@@ -103,14 +108,14 @@ class PDODelimitersTest extends BuildFileTest
     {
         // for some reason default splitter mangles spaces on subsequent lines
         $expected = [
-            <<<SQL
+            <<<'SQL'
                 insert into "duh" (foo) values ('duh')
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 update "duh?" -- I should not be ignored
                  set foo = 'some value'
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 insert into dump (message) values ('I am a statement not ending with a delimiter')
                 SQL,
         ];
@@ -119,10 +124,10 @@ class PDODelimitersTest extends BuildFileTest
             $query = str_replace(["\n\n", "\r"], ["\n", ''], $query);
         }
 
-        $this->mockTask->setSrc(new File(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-row.sql"));
+        $this->mockTask->setSrc(new File(PHING_TEST_BASE . '/etc/tasks/ext/pdo/delimiters-row.sql'));
         $this->mockTask->setDelimiterType(PDOSQLExecTask::DELIM_ROW);
         $this->mockTask->setDelimiter('duh');
-        $this->project->setProperty('foo.value', "some value");
+        $this->project->setProperty('foo.value', 'some value');
         $this->project->executeTarget('test');
 
         $this->assertEquals($expected, $this->queries);
@@ -132,36 +137,36 @@ class PDODelimitersTest extends BuildFileTest
      * Checks that PDOSQLExecTask properly understands PostgreSQL dialect
      * (especially "dollar quoting") when working with 'pgsql:' URLs.
      *
-     * @link http://www.phing.info/trac/ticket/499
-     * @link http://www.postgresql.org/docs/9.0/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
+     * @see http://www.phing.info/trac/ticket/499
+     * @see http://www.postgresql.org/docs/9.0/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
      */
     public function testRequest499()
     {
         $expected = [
-            <<<SQL
+            <<<'SQL'
                 select 1
                 # 2
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 select 'foo'
                 // 'bar'
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 insert into foo (bar, "strange;name""indeed") values ('bar''s value containing ;', 'a value for strange named column')
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 create function foo(text)
                 returns boolean as
-                \$function$
+                $function$
                 BEGIN
-                    RETURN ($1 ~ \$q$[\\t\\r\\n\\v\\\\]\$q$);
+                    RETURN ($1 ~ $q$[\t\r\n\v\\]$q$);
                 END;
-                \$function$
+                $function$
                 language plpgsql
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 CREATE FUNCTION phingPDOtest() RETURNS "trigger"
-                    AS \$_X$
+                    AS $_X$
                 if (1)
                 {
                     # All is well - just continue
@@ -175,21 +180,21 @@ class PDODelimitersTest extends BuildFileTest
 
                     return "SKIP";
                 }
-                \$_X$
+                $_X$
                     LANGUAGE plperl
                 SQL,
             "insert into foo (bar) \nvalues ('some value')",
-            <<<SQL
-                insert into foo (bar) values ($$ a dollar-quoted string containing a few quotes ' ", a \$placeholder$ and a semicolon;$$)
+            <<<'SQL'
+                insert into foo (bar) values ($$ a dollar-quoted string containing a few quotes ' ", a $placeholder$ and a semicolon;$$)
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 create rule blah_insert
                 as on insert to blah do instead (
                     insert into foo values (new.id, 'blah');
                     insert into bar values (new.id, 'blah-blah');
                 )
                 SQL,
-            <<<SQL
+            <<<'SQL'
                 insert into dump (message) values ('I am a statement not ending with a delimiter')
                 SQL,
         ];
@@ -197,10 +202,10 @@ class PDODelimitersTest extends BuildFileTest
             $query = str_replace(["\n\n", "\r"], ["\n", ''], $query);
         }
 
-        $this->mockTask->setSrc(new File(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-pgsql.sql"));
+        $this->mockTask->setSrc(new File(PHING_TEST_BASE . '/etc/tasks/ext/pdo/delimiters-pgsql.sql'));
         $this->mockTask->setUrl('pgsql:host=localhost;dbname=phing');
         $this->mockTask->setDelimiterType(PDOSQLExecTask::DELIM_NORMAL);
-        $this->project->setProperty('bar.value', "some value");
+        $this->project->setProperty('bar.value', 'some value');
         $this->project->executeTarget('test');
 
         $this->assertEquals($expected, $this->queries);

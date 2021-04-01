@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,9 +26,12 @@ use Phing\Type\Selector\SelectorUtils;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class SelectorUtilsTest
+ * Class SelectorUtilsTest.
  *
  * Test cases for SelectorUtils
+ *
+ * @internal
+ * @coversNothing
  */
 class SelectorUtilsTest extends TestCase
 {
@@ -42,56 +46,55 @@ class SelectorUtilsTest extends TestCase
     }
 
     /**
-     * Inspired by @link https://www.phing.info/trac/ticket/796
+     * Inspired by @see https://www.phing.info/trac/ticket/796.
      */
     public function testDoNotIncludeSelfWhenMatchingSubdirectoriesAndFiles()
     {
-        $result = $this->selectorUtils->matchPath("**/*", "");
+        $result = $this->selectorUtils->matchPath('**/*', '');
         $this->assertFalse($result);
     }
 
     /**
-     * Inspired by @link https://www.phing.info/trac/ticket/1264
+     * Inspired by @see https://www.phing.info/trac/ticket/1264.
      */
     public function testDoNotIncludePrefix()
     {
         $this->assertFalse($this->selectorUtils->matchPath(
-            "**/example.php",
-            "vendor/phplot/phplot/contrib/color_range.example.php"
+            '**/example.php',
+            'vendor/phplot/phplot/contrib/color_range.example.php'
         ));
     }
 
     /**
-     * Inspired by @link https://github.com/phingofficial/phing/issues/593
+     * Inspired by @see https://github.com/phingofficial/phing/issues/593.
      */
     public function testIncludePathsInBase()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        if ('WIN' === strtoupper(substr(PHP_OS, 0, 3))) {
             $this->assertTrue($this->selectorUtils->matchPath('**\domain.ext\**', 'domain.ext\foo'));
         } else {
-            $this->assertTrue($this->selectorUtils->matchPath("**/domain.ext/**", "domain.ext/foo"));
+            $this->assertTrue($this->selectorUtils->matchPath('**/domain.ext/**', 'domain.ext/foo'));
         }
     }
 
     public function testRemoveWhitespace()
     {
-        $ret = $this->selectorUtils::removeWhitespace(" foo ");
-        $this->assertEquals("foo", $ret);
+        $ret = $this->selectorUtils::removeWhitespace(' foo ');
+        $this->assertEquals('foo', $ret);
         $ret = $this->selectorUtils::removeWhitespace("\tbar\t");
-        $this->assertEquals("bar", $ret);
+        $this->assertEquals('bar', $ret);
         $ret = $this->selectorUtils::removeWhitespace("\nfoo\t");
-        $this->assertEquals("foo", $ret);
+        $this->assertEquals('foo', $ret);
         $ret = $this->selectorUtils::removeWhitespace("\rfoo\r");
-        $this->assertEquals("foo", $ret);
+        $this->assertEquals('foo', $ret);
     }
 
     /**
-     * Non Existing Source File Causes Out Of Date To Return False
-     *
+     * Non Existing Source File Causes Out Of Date To Return False.
      */
     public function testNonExistingSourceFileCausesOutOfDateToReturnFalse()
     {
-        $sourceFile = new File("doesNotExist");
+        $sourceFile = new File('doesNotExist');
         $targetFile = new File(__FILE__);
         $ret = $this->selectorUtils::isOutOfDate($sourceFile, $targetFile, 0);
         $this->assertEquals(false, $ret);
@@ -100,14 +103,13 @@ class SelectorUtilsTest extends TestCase
     public function testNonExistingTargetFileCausesOutOfDateToReturnTrue()
     {
         $sourceFile = new File(__FILE__);
-        $targetFile = new File("doesNotExist");
+        $targetFile = new File('doesNotExist');
         $ret = $this->selectorUtils::isOutOfDate($sourceFile, $targetFile, 0);
         $this->assertEquals(true, $ret);
     }
 
     /**
-     * Test Granularity of isOutOfDate
-     *
+     * Test Granularity of isOutOfDate.
      */
     public function testOutOfDate()
     {

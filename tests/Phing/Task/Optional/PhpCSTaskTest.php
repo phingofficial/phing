@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,9 +24,12 @@ use Phing\Exception\BuildException;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests for PhpCSTask
+ * Tests for PhpCSTask.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class PhpCSTaskTest extends BuildFileTest
 {
@@ -34,7 +38,7 @@ class PhpCSTaskTest extends BuildFileTest
         if (class_exists('PHP_CodeSniffer')) {
             $this->markTestSkipped('PHP CodeSniffer 2 package available.');
         }
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/build.xml');
     }
 
     public function testPhpCs(): void

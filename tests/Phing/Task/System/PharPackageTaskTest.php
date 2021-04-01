@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,21 +24,32 @@ use Phar;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests for PharPackageTask
+ * Tests for PharPackageTask.
  *
  * @author François Poirotte <clicky@erebot.net>
  * @requires extension phar
  * @requires extension openssl
+ *
+ * @internal
+ * @coversNothing
  */
 class PharPackageTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (ini_get('phar.readonly') == "1") {
-            $this->markTestSkipped("This test require phar.readonly php.ini setting to be disabled");
+        if ('1' == ini_get('phar.readonly')) {
+            $this->markTestSkipped('This test require phar.readonly php.ini setting to be disabled');
         }
 
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pharpackage/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/build.xml');
+    }
+
+    public function tearDown(): void
+    {
+        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/priv.key');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar.pubkey');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar');
     }
 
     /**
@@ -65,13 +77,5 @@ class PharPackageTaskTest extends BuildFileTest
         $phar = new Phar($dest);
         $signature = $phar->getSignature();
         $this->assertEquals('OpenSSL', $signature['hash_type']);
-    }
-
-    public function tearDown(): void
-    {
-        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/priv.key');
-        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar.pubkey');
-        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt');
-        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar');
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,8 +23,10 @@ namespace Phing\Test\Task\System;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Mkdir Task
+ * Tests the Mkdir Task.
  *
+ * @internal
+ * @coversNothing
  */
 class MkdirTaskTest extends BuildFileTest
 {
@@ -48,10 +51,13 @@ class MkdirTaskTest extends BuildFileTest
 
     /**
      * @dataProvider umaskIsHonouredWhenNotUsingModeArgumentDataProvider
+     *
+     * @param mixed $umask
+     * @param mixed $expectedDirMode
      */
     public function testUmaskIsHonouredWhenNotUsingModeArgument($umask, $expectedDirMode)
     {
-        if ($umask !== 0) {
+        if (0 !== $umask) {
             $this->markTestSkippedIfOsIsWindows();
         }
 
@@ -78,10 +84,14 @@ class MkdirTaskTest extends BuildFileTest
 
     /**
      * @dataProvider parentDirectoriesHaveDefaultPermissionsDataProvider
+     *
+     * @param mixed $umask
+     * @param mixed $expectedModeA
+     * @param mixed $expectedModeB
      */
     public function testParentDirectoriesHaveDefaultPermissions($umask, $expectedModeA, $expectedModeB)
     {
-        if ($umask !== 0) {
+        if (0 !== $umask) {
             $this->markTestSkippedIfOsIsWindows();
         }
 
@@ -152,15 +162,15 @@ class MkdirTaskTest extends BuildFileTest
 
     /**
      * @param string $filename
-     * @param int $mode
+     * @param int    $mode
      */
     private function assertFileModeIs($filename, $mode)
     {
         $stat = stat($filename);
 
         $this->assertSame(
-            sprintf("%03o", $mode),
-            sprintf("%03o", $stat['mode'] & 0777),
+            sprintf('%03o', $mode),
+            sprintf('%03o', $stat['mode'] & 0777),
             sprintf('Failed asserting that file mode of "%s" is %03o', $filename, $mode)
         );
     }
@@ -179,6 +189,7 @@ class MkdirTaskTest extends BuildFileTest
         foreach ($aclEntries as $aclEntry) {
             if ($aclEntry === $expectedAclEntry) {
                 $matchFound = true;
+
                 break;
             }
         }
@@ -197,7 +208,7 @@ class MkdirTaskTest extends BuildFileTest
 
     private function markTestSkippedIfOsIsWindows()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        if ('WIN' === strtoupper(substr(PHP_OS, 0, 3))) {
             $this->markTestSkipped('POSIX ACL tests cannot be run on Windows.');
         }
     }
@@ -207,7 +218,7 @@ class MkdirTaskTest extends BuildFileTest
         $this->markTestSkippedIfOsIsWindows();
 
         exec('which setfacl', $dummyOutput, $exitCode);
-        if ($exitCode !== 0) {
+        if (0 !== $exitCode) {
             $this->markTestSkipped('"setfacl" command not found. POSIX ACL tests cannot be run.');
         }
     }

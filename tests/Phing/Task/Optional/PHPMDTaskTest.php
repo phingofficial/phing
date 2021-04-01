@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,14 +23,16 @@ namespace Phing\Test\Task\Optional;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Unit tests for PHPMD task
+ * Unit tests for PHPMD task.
  *
+ * @internal
+ * @coversNothing
  */
 class PHPMDTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpmd/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/build.xml');
     }
 
     /**

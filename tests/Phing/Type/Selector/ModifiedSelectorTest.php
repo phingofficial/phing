@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +25,10 @@ use Phing\Test\Support\BuildFileTest;
 use Phing\Type\Selector\ModifiedSelector;
 
 /**
- * Class ModifiedSelectorTest
+ * Class ModifiedSelectorTest.
+ *
+ * @internal
+ * @coversNothing
  */
 class ModifiedSelectorTest extends BuildFileTest
 {
@@ -60,7 +64,7 @@ class ModifiedSelectorTest extends BuildFileTest
     /** Test correct use of cache names. */
     public function testValidateWrongCache()
     {
-        $name = "this-is-not-a-valid-cache-name";
+        $name = 'this-is-not-a-valid-cache-name';
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Cache must be set');
         $sel = new ModifiedSelector();
@@ -71,7 +75,7 @@ class ModifiedSelectorTest extends BuildFileTest
     /** Test correct use of algorithm names. */
     public function testValidateWrongAlgorithm()
     {
-        $name = "this-is-not-a-valid-algorithm-name";
+        $name = 'this-is-not-a-valid-algorithm-name';
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Algorithm must be set');
         $sel = new ModifiedSelector();

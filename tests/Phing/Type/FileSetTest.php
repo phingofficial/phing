@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,6 +26,9 @@ use Phing\Type\FileSet;
  * Unit tests for FileSet -- including Selectors.
  *
  * @author Hans Lellelid <hans@xmpl.org>
+ *
+ * @internal
+ * @coversNothing
  */
 class FileSetTest extends AbstractFileSetTest
 {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,9 +23,12 @@ namespace Phing\Test\Task\System;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the EchoXML Task
+ * Tests the EchoXML Task.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class EchoXMLTest extends BuildFileTest
 {
@@ -45,7 +49,7 @@ class EchoXMLTest extends BuildFileTest
         $this->getProject()->executeTarget('testPass');
         $this->assertStringEqualsFile(
             $this->getProject()->getProperty('file'),
-            <<< XML
+            <<< 'XML'
                 <project name="failure" default="" basedir=".">
                   <fail message="foo=bar"/>
                 </project>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,10 +24,16 @@ use Phing\Exception\BuildException;
 use Phing\Util\SizeHelper;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SizeHelperTest extends TestCase
 {
     /**
      * @dataProvider fromHumanToBytesProvider
+     *
+     * @param mixed $expectedBytes
      */
     public function testFromHumanToBytes(string $humanSize, $expectedBytes)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,11 +29,14 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Core Phing class test
- * Do not know why there was no test at all
+ * Do not know why there was no test at all.
  *
  * // TODO implement all methods
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
+ *
+ * @internal
+ * @coversNothing
  */
 class PhingTest extends TestCase
 {
@@ -42,8 +46,9 @@ class PhingTest extends TestCase
     protected $classpath;
 
     /**
-     * Test a PSR-0 support of class loading
-     * @link http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+     * Test a PSR-0 support of class loading.
+     *
+     * @see http://groups.google.com/group/php-standards/web/psr-0-final-proposal
      */
     public function testImportPSR0()
     {
@@ -84,7 +89,8 @@ class PhingTest extends TestCase
         $phing::setOutputStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
         $project->expects($this->atLeastOnce())
-            ->method('log');
+            ->method('log')
+        ;
 
         $phing->printTargets($project);
     }
@@ -99,7 +105,8 @@ class PhingTest extends TestCase
         $phing::setErrorStream($stream);
 
         $stream->expects($this->once())
-            ->method('write');
+            ->method('write')
+        ;
 
         $phing::printUsage();
     }
@@ -126,7 +133,7 @@ class PhingTest extends TestCase
     }
 
     /**
-     * Get fixtures classpath
+     * Get fixtures classpath.
      *
      * @return string Classpath
      */

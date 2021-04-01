@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,19 +24,21 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/360
- * - &amp;amp; transfers into & in new created task
+ * - &amp;amp; transfers into & in new created task.
  *
+ * @internal
+ * @coversNothing
  */
 class HtmlEntitiesTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/360/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/360/build.xml');
     }
 
     public function testCopyTask()
     {
-        $this->executeTarget("main");
-        $this->assertInLogs("&amp;");
+        $this->executeTarget('main');
+        $this->assertInLogs('&amp;');
     }
 }
