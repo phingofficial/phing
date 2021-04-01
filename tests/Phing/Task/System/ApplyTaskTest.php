@@ -481,14 +481,14 @@ class ApplyTaskTest extends BuildFileTest
     }
 
     /**
-     * @param string $target
+     * @param $target
      * @param string $taskName
      * @param int $pos
      *
      * @return Task
      * @throws Exception
      */
-    protected function getTaskFromTarget(string $target, string $taskName, $pos = 0): Task
+    protected function getTaskFromTarget($target, string $taskName, $pos = 0): Task
     {
         $rchildren = new ReflectionProperty(get_class($target), 'children');
         $rchildren->setAccessible(true);
