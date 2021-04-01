@@ -400,9 +400,9 @@ abstract class BuildFileTest extends TestCase
      * assert that a property equals a value; comparison is case sensitive.
      *
      * @param string $property property name
-     * @param string $value expected value
+     * @param string|null $value expected value
      */
-    protected function assertPropertyEquals(string $property, string $value)
+    protected function assertPropertyEquals(string $property, ?string $value)
     {
         $result = $this->project->getProperty($property);
         $this->assertEquals($value, $result, 'property ' . $property);
