@@ -1282,12 +1282,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-svn.git",
-                "reference": "1369d8cb67f76c3ea690b97623e2ae078a782402"
+                "reference": "9629c46fb81c05fce675cbb161d53ff5dac3c676"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-svn/zipball/1369d8cb67f76c3ea690b97623e2ae078a782402",
-                "reference": "1369d8cb67f76c3ea690b97623e2ae078a782402",
+                "url": "https://api.github.com/repos/phingofficial/task-svn/zipball/9629c46fb81c05fce675cbb161d53ff5dac3c676",
+                "reference": "9629c46fb81c05fce675cbb161d53ff5dac3c676",
                 "shasum": ""
             },
             "require": {
@@ -1337,7 +1337,7 @@
                 "issues": "https://github.com/phingofficial/task-svn/issues",
                 "source": "https://github.com/phingofficial/task-svn/tree/master"
             },
-            "time": "2021-04-01T22:22:08+00:00"
+            "time": "2021-04-03T19:00:39+00:00"
         },
         {
             "name": "phing/task-visualizer",
@@ -2488,16 +2488,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.176.6",
+            "version": "3.176.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "bd3dc3d86c6c041b7eb843b808b5e7baabd41203"
+                "reference": "734dd0535f8e70ebb59be37f522af4e45d006ace"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/bd3dc3d86c6c041b7eb843b808b5e7baabd41203",
-                "reference": "bd3dc3d86c6c041b7eb843b808b5e7baabd41203",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/734dd0535f8e70ebb59be37f522af4e45d006ace",
+                "reference": "734dd0535f8e70ebb59be37f522af4e45d006ace",
                 "shasum": ""
             },
             "require": {
@@ -2572,9 +2572,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.176.6"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.176.7"
             },
-            "time": "2021-04-01T18:14:21+00:00"
+            "time": "2021-04-02T18:16:40+00:00"
         },
         {
             "name": "composer/semver",
@@ -4704,16 +4704,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.82",
+            "version": "0.12.83",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "3920f0fb0aff39263d3a4cb0bca120a67a1a6a11"
+                "reference": "4a967cec6efb46b500dd6d768657336a3ffe699f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/3920f0fb0aff39263d3a4cb0bca120a67a1a6a11",
-                "reference": "3920f0fb0aff39263d3a4cb0bca120a67a1a6a11",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4a967cec6efb46b500dd6d768657336a3ffe699f",
+                "reference": "4a967cec6efb46b500dd6d768657336a3ffe699f",
                 "shasum": ""
             },
             "require": {
@@ -4744,7 +4744,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.82"
+                "source": "https://github.com/phpstan/phpstan/tree/0.12.83"
             },
             "funding": [
                 {
@@ -4760,7 +4760,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-19T06:08:17+00:00"
+            "time": "2021-04-03T15:35:45+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

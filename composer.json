@@ -11,7 +11,21 @@
         },
         {
             "name": "Phing Community",
-            "homepage": "https://github.com/phingofficial/phing/blob/master/CREDITS.md"
+            "homepage": "https://github.com/phingofficial/phing/blob/main/CREDITS.md"
+        }
+    ],
+    "funding": [
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/michielrook"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/mrook"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/siad007"
         }
     ],
     "support": {
