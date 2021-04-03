@@ -86,7 +86,7 @@
 
   * Twitter: [@phingofficial](https://twitter.com/phingofficial)
   * Website: [https://www.phing.info](https://www.phing.info)
-  * Slack:   [https://www.phing.info/slack/](https://slack.phing.info)
+  * Slack:   [https://phing.slack.com/](https://slack.phing.info)
   * IRC:     Freenode, #phing
   * GitHub:  [https://www.github.com/phingofficial/phing](https://www.github.com/phingofficial/phing)
 
