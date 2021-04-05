@@ -36,7 +36,6 @@ class XmlLintTaskTest extends BuildFileTest
 
     public function testXml(): void
     {
-        $this->expectNotToPerformAssertions();
-        $this->executeTarget(__FUNCTION__);
+        $this->expectLogContaining(__FUNCTION__, 'validation end');
     }
 }
