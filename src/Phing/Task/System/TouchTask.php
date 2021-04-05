@@ -46,24 +46,18 @@ class TouchTask extends Task
     private $file;
     private $seconds = -1;
     private $dateTime;
-    private $fileUtils;
     private $mkdirs = false;
     private $verbose = true;
 
     /** @var Mapper */
     private $mapperElement;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->fileUtils = new FileUtils();
-    }
-
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
+     * @param File $file
      */
-    public function setFile(File $file)
+    public function setFile(File $file): void
     {
         $this->file = $file;
     }
@@ -78,7 +72,7 @@ class TouchTask extends Task
      *
      * @param int $millis
      */
-    public function setMillis($millis)
+    public function setMillis(int $millis): void
     {
         if ($millis >= 0) {
             if ($millis >= 1000) {
@@ -98,7 +92,7 @@ class TouchTask extends Task
      *
      * @param int $seconds
      */
-    public function setSeconds($seconds)
+    public function setSeconds($seconds): void
     {
         if ($seconds >= 0) {
             $this->seconds = (int) $seconds;
@@ -114,14 +108,18 @@ class TouchTask extends Task
      *
      * @param string $dateTime
      */
-    public function setDatetime($dateTime)
+    public function setDatetime($dateTime): void
     {
         $timestmap = strtotime($dateTime);
         if (false !== $timestmap) {
             $this->dateTime = (string) $dateTime;
             $this->setSeconds($timestmap);
         } else {
-            throw new BuildException("Date of {$dateTime} cannot be parsed correctly. It should be in a format parsable by PHP's strtotime() function." . PHP_EOL);
+            throw new BuildException(
+                "Date of {$dateTime} cannot be parsed correctly. "
+                . "It should be in a format parsable by PHP's strtotime() function."
+                . PHP_EOL
+            );
         }
     }
 
@@ -131,7 +129,7 @@ class TouchTask extends Task
      *
      * @param bool $mkdirs whether to create parent directories
      */
-    public function setMkdirs($mkdirs)
+    public function setMkdirs($mkdirs): void
     {
         $this->mkdirs = $mkdirs;
     }
@@ -142,7 +140,7 @@ class TouchTask extends Task
      *
      * @param bool $verbose flag
      */
-    public function setVerbose($verbose)
+    public function setVerbose($verbose): void
     {
         $this->verbose = $verbose;
     }
@@ -153,7 +151,7 @@ class TouchTask extends Task
      * @throws BuildException
      * @throws IOException
      */
-    public function createMapper()
+    public function createMapper(): Mapper
     {
         if (null !== $this->mapperElement) {
             throw new BuildException('Cannot define more than one mapper', $this->getLocation());
@@ -167,6 +165,7 @@ class TouchTask extends Task
      * Execute the touch operation.
      *
      * @throws BuildException
+     * @throws IOException
      */
     public function main()
     {
@@ -174,7 +173,10 @@ class TouchTask extends Task
         $this->touch();
     }
 
-    protected function checkConfiguration()
+    /**
+     * @throws IOException
+     */
+    protected function checkConfiguration(): void
     {
         $savedSeconds = $this->seconds;
 
@@ -196,8 +198,10 @@ class TouchTask extends Task
 
     /**
      * Does the actual work.
+     * @throws IOException
+     * @throws \Exception
      */
-    private function touch()
+    private function touch(): void
     {
         if (null !== $this->file) {
             if (!$this->file->exists()) {
@@ -229,10 +233,55 @@ class TouchTask extends Task
             $this->touchFile($this->file);
         }
 
-        $project = $this->getProject();
+        $this->processFileSets();
+        $this->processFileLists();
+
+        if ($resetSeconds) {
+            $this->seconds = -1;
+        }
+    }
+
+    /**
+     * @param $file
+     * @return array
+     */
+    private function getMappedFileNames($file): array
+    {
+        if (null !== $this->mapperElement) {
+            $mapper = $this->mapperElement->getImplementation();
+            $results = $mapper->main($file);
+            if (null === $results) {
+                return [];
+            }
+            $fileNames = $results;
+        } else {
+            $fileNames = [$file];
+        }
+
+        return $fileNames;
+    }
+
+    /**
+     * @param File $file
+     * @throws \Exception
+     */
+    private function touchFile(File $file): void
+    {
+        if (!$file->canWrite()) {
+            throw new BuildException('Can not change modification date of read-only file ' . (string) $file);
+        }
+        $file->setLastModified($this->seconds);
+    }
+
+    /**
+     * @throws IOException
+     * @throws \Exception
+     */
+    private function processFileSets(): void
+    {
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($project);
-            $fromDir = $fs->getDir($project);
+            $ds = $fs->getDirectoryScanner($this->getProject());
+            $fromDir = $fs->getDir($this->getProject());
 
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs = $ds->getIncludedDirectories();
@@ -249,49 +298,22 @@ class TouchTask extends Task
                 }
             }
         }
+    }
 
-        // deal with the filelists
+    /**
+     * @throws IOException
+     * @throws \Exception
+     */
+    private function processFileLists(): void
+    {
         foreach ($this->filelists as $fl) {
             $fromDir = $fl->getDir($this->getProject());
-
             $srcFiles = $fl->getFiles($this->getProject());
-
-            for ($j = 0, $_j = count($srcFiles); $j < $_j; ++$j) {
-                foreach ($this->getMappedFileNames((string) $srcFiles[$j]) as $fileName) {
+            foreach ($srcFiles as $jValue) {
+                foreach ($this->getMappedFileNames((string) $jValue) as $fileName) {
                     $this->touchFile(new File($fromDir, $fileName));
                 }
             }
         }
-
-        if ($resetSeconds) {
-            $this->seconds = -1;
-        }
-    }
-
-    private function getMappedFileNames($file)
-    {
-        if (null !== $this->mapperElement) {
-            $mapper = $this->mapperElement->getImplementation();
-            $results = $mapper->main($file);
-            if (null === $results) {
-                return '';
-            }
-            $fileNames = $results;
-        } else {
-            $fileNames = [$file];
-        }
-
-        return $fileNames;
-    }
-
-    /**
-     * @throws BuildException
-     */
-    private function touchFile(File $file)
-    {
-        if (!$file->canWrite()) {
-            throw new BuildException('Can not change modification date of read-only file ' . (string) $file);
-        }
-        $file->setLastModified($this->seconds);
     }
 }
