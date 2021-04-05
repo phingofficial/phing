@@ -1,13 +1,5 @@
 <?php
 
-namespace Phing\Test\Type;
-
-use Phing\Exception\BuildException;
-use Phing\Project;
-use Phing\Type\PatternSet;
-use Phing\Type\Reference;
-use PHPUnit\Framework\TestCase;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,6 +17,15 @@ use PHPUnit\Framework\TestCase;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+namespace Phing\Test\Type;
+
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Type\PatternSet;
+use Phing\Type\Reference;
+use PHPUnit\Framework\TestCase;
+
 class PatternSetTest extends TestCase
 {
     private $patternset;
@@ -34,14 +35,14 @@ class PatternSetTest extends TestCase
         $this->patternset = new PatternSet();
     }
 
-    public function testBothEmpty()
+    public function testBothEmpty(): void
     {
         $s = '' . $this->patternset;
         $this->assertEquals('patternSet{ includes: empty  excludes: empty }', $s);
         $this->assertEquals(false, $this->patternset->hasPatterns());
     }
 
-    public function testIfReferenceSetThenCreateIncludeThrowsException()
+    public function testIfReferenceSetThenCreateIncludeThrowsException(): void
     {
         $project = new Project();
         $reference = new Reference($project);
@@ -53,7 +54,7 @@ class PatternSetTest extends TestCase
         $this->patternset->createInclude();
     }
 
-    public function testIfReferenceSetThenCreateExcludeThrowsException()
+    public function testIfReferenceSetThenCreateExcludeThrowsException(): void
     {
         $project = new Project();
         $reference = new Reference($project);
@@ -65,7 +66,7 @@ class PatternSetTest extends TestCase
         $this->patternset->createExclude();
     }
 
-    public function testIfReferencesSetThenCreatExcludesFileThrowsException()
+    public function testIfReferencesSetThenCreatExcludesFileThrowsException(): void
     {
         $project = new Project();
         $reference = new Reference($project);
@@ -77,7 +78,7 @@ class PatternSetTest extends TestCase
         $this->patternset->createExcludesFile();
     }
 
-    public function testIfReferencesSetThenCreatIncludesFileThrowsException()
+    public function testIfReferencesSetThenCreatIncludesFileThrowsException(): void
     {
         $project = new Project();
         $reference = new Reference($project);
