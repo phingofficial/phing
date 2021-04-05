@@ -85,7 +85,7 @@ class SvnListTask extends SvnBaseTask
         $this->setup('list');
 
         if ($this->oldVersion) {
-            $this->svn->setOptions(['fetchmode' => VERSIONCONTROL_SVN_FETCHMODE_XML]);
+            $this->svn->setOptions(['fetchmode' => \VERSIONCONTROL_SVN_FETCHMODE_XML]);
             $output = $this->run(['--xml']);
 
             if (!($xmlObj = @simplexml_load_string($output))) {
