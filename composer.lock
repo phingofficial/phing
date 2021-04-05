@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "355550f232ab96d259ab5c621bbd2824",
+    "content-hash": "6cd8ff7894d724a9263b64ba42de4a63",
     "packages": [
         {
             "name": "jawira/plantuml-encoding",
@@ -1282,12 +1282,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-svn.git",
-                "reference": "9629c46fb81c05fce675cbb161d53ff5dac3c676"
+                "reference": "3319683850bbdf530da7679dae8f69fdf693fbf1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-svn/zipball/9629c46fb81c05fce675cbb161d53ff5dac3c676",
-                "reference": "9629c46fb81c05fce675cbb161d53ff5dac3c676",
+                "url": "https://api.github.com/repos/phingofficial/task-svn/zipball/3319683850bbdf530da7679dae8f69fdf693fbf1",
+                "reference": "3319683850bbdf530da7679dae8f69fdf693fbf1",
                 "shasum": ""
             },
             "require": {
@@ -1337,7 +1337,7 @@
                 "issues": "https://github.com/phingofficial/task-svn/issues",
                 "source": "https://github.com/phingofficial/task-svn/tree/master"
             },
-            "time": "2021-04-03T19:00:39+00:00"
+            "time": "2021-04-05T10:18:57+00:00"
         },
         {
             "name": "phing/task-visualizer",
@@ -7858,7 +7858,6 @@
     "platform-dev": {
         "ext-curl": "*",
         "ext-iconv": "*",
-        "ext-json": "*",
         "ext-pdo_sqlite": "*",
         "ext-simplexml": "*"
     },
