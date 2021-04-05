@@ -81,7 +81,6 @@
     "require-dev": {
         "ext-curl": "*",
         "ext-iconv": "*",
-        "ext-json": "*",
         "ext-pdo_sqlite": "*",
         "ext-simplexml": "*",
         "roave/security-advisories": "dev-master",
