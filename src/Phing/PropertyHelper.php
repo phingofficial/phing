@@ -407,10 +407,10 @@ class PropertyHelper
      *                     May be <code>null</code>, in which case
      *                     the return value is also <code>null</code>.
      *
-     * @return string|null the property value, or <code>null</code> for no match
+     * @return mixed the property value, or <code>null</code> for no match
      *                or if a <code>null</code> name is provided
      */
-    public function getProperty($ns, ?string $name): ?string
+    public function getProperty($ns, ?string $name)
     {
         if (null === $name) {
             return null;
