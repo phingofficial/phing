@@ -402,8 +402,8 @@ class PropertyHelper
      * Returns the value of a property, if it is set.  You can override
      * this method in order to plug your own storage.
      *
-     * @param string $ns   the namespace for the property (currently not used)
-     * @param string $name The name of the property.
+     * @param string $ns the namespace for the property (currently not used)
+     * @param string|null $name The name of the property.
      *                     May be <code>null</code>, in which case
      *                     the return value is also <code>null</code>.
      *

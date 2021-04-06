@@ -229,7 +229,7 @@ class Project
      * @param string $value The new value of the property.
      *                      Must not be <code>null</code>.
      */
-    public function setProperty($name, $value)
+    public function setProperty(string $name, $value): void
     {
         PropertyHelper::getPropertyHelper($this)->setProperty(null, $name, $value, true);
     }
@@ -246,7 +246,7 @@ class Project
      *
      * @since 2.0
      */
-    public function setNewProperty($name, $value)
+    public function setNewProperty(string $name, $value): void
     {
         PropertyHelper::getPropertyHelper($this)->setNewProperty(null, $name, $value);
     }
@@ -262,7 +262,7 @@ class Project
      *
      * @see   setProperty()
      */
-    public function setUserProperty($name, $value)
+    public function setUserProperty(string $name, $value): void
     {
         PropertyHelper::getPropertyHelper($this)->setUserProperty(null, $name, $value);
     }
@@ -280,7 +280,7 @@ class Project
      *
      * @see   setProperty()
      */
-    public function setInheritedProperty($name, $value)
+    public function setInheritedProperty(string $name, $value): void
     {
         PropertyHelper::getPropertyHelper($this)->setInheritedProperty(null, $name, $value);
     }
@@ -288,14 +288,14 @@ class Project
     /**
      * Returns the value of a property, if it is set.
      *
-     * @param string $name The name of the property.
+     * @param string|null $name The name of the property.
      *                     May be <code>null</code>, in which case
      *                     the return value is also <code>null</code>.
      *
-     * @return string the property value, or <code>null</code> for no match
+     * @return string|null the property value, or <code>null</code> for no match
      *                or if a <code>null</code> name is provided
      */
-    public function getProperty($name)
+    public function getProperty(?string $name): ?string
     {
         return PropertyHelper::getPropertyHelper($this)->getProperty(null, $name);
     }
