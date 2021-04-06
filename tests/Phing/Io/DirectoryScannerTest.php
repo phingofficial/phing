@@ -243,7 +243,7 @@ class DirectoryScannerTest extends BuildFileTest
 
     public function testAbsolute1()
     {
-        $base = $this->getProject()->getBasedir();
+        $base = $this->getProjectDir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . '/tmp', $base->getPrefixLength());
         $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
 
@@ -272,7 +272,7 @@ class DirectoryScannerTest extends BuildFileTest
 
     public function testAbsolute2()
     {
-        $base = $this->getProject()->getBasedir();
+        $base = $this->getProjectDir();
         $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
 
         $this->executeTarget('setup');
@@ -287,7 +287,7 @@ class DirectoryScannerTest extends BuildFileTest
 
     public function testAbsolute3()
     {
-        $base = $this->getProject()->getBasedir();
+        $base = $this->getProjectDir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . '/tmp', $base->getPrefixLength());
         $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
 
@@ -315,7 +315,7 @@ class DirectoryScannerTest extends BuildFileTest
 
     public function testAbsolute4()
     {
-        $base = $this->getProject()->getBasedir();
+        $base = $this->getProjectDir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . '/tmp', $base->getPrefixLength());
         $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
 

@@ -61,7 +61,7 @@ class AppendTaskTest extends BuildFileTest
 
     public function test3()
     {
-        $file = new File($this->getProject()->getBasedir(), $this->tempFile);
+        $file = new File($this->getProjectDir(), $this->tempFile);
         if ($file->exists()) {
             $file->delete();
         }
@@ -85,12 +85,12 @@ class AppendTaskTest extends BuildFileTest
     {
         $this->test3();
 
-        $file = new File($this->getProject()->getBasedir(), $this->tempFile);
+        $file = new File($this->getProjectDir(), $this->tempFile);
         $origSize = $file->length();
 
         $this->executeTarget('testPath');
 
-        $file2 = new File($this->getProject()->getBasedir(), $this->tempFile2);
+        $file2 = new File($this->getProjectDir(), $this->tempFile2);
         $newSize = $file2->length();
 
         $this->assertEquals($origSize, $newSize);
@@ -100,12 +100,12 @@ class AppendTaskTest extends BuildFileTest
     {
         $this->test3();
 
-        $file = new File($this->getProject()->getBasedir(), $this->tempFile);
+        $file = new File($this->getProjectDir(), $this->tempFile);
         $origSize = $file->length();
 
         $this->executeTarget('testAppend');
 
-        $file2 = new File($this->getProject()->getBasedir(), $this->tempFile2);
+        $file2 = new File($this->getProjectDir(), $this->tempFile2);
         $newSize = $file2->length();
 
         $this->assertEquals($origSize * 2, $newSize);
@@ -119,7 +119,7 @@ class AppendTaskTest extends BuildFileTest
     public function testNoOverwrite()
     {
         $this->executeTarget('testnooverwrite');
-        $file2 = new File($this->getProject()->getBasedir(), $this->tempFile2);
+        $file2 = new File($this->getProjectDir(), $this->tempFile2);
         $size = $file2->length();
         $this->assertEquals(0, $size);
     }

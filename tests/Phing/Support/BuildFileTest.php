@@ -147,7 +147,6 @@ abstract class BuildFileTest extends TestCase
      */
     protected function assertNotInLogs(
         string $message,
-        $priority = null,
         $errormsg = "Unexpected string '%s' found in logs: %s"
     ) {
         foreach ($this->logBuffer as $log) {

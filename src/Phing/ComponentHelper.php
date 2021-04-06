@@ -59,6 +59,7 @@ class ComponentHelper
 
     /**
      * ComponentHelper constructor.
+     * @param Project $project
      */
     public function __construct(Project $project)
     {
@@ -66,17 +67,12 @@ class ComponentHelper
     }
 
     /**
+     * @param Project $project
      * @return ComponentHelper
      */
-    public static function getComponentHelper(Project $project)
+    public static function getComponentHelper(Project $project): ComponentHelper
     {
-        if (null === $project) {
-            return null;
-        }
-
-        /**
-         * @var ComponentHelper $componentHelper
-         */
+        /** @var ComponentHelper $componentHelper */
         $componentHelper = $project->getReference(self::COMPONENT_HELPER_REFERENCE);
 
         if (null !== $componentHelper) {
@@ -92,7 +88,7 @@ class ComponentHelper
     /**
      * Initializes the default tasks and data types.
      */
-    public function initDefaultDefinitions()
+    public function initDefaultDefinitions(): void
     {
         $this->initDefaultTasks();
         $this->initDefaultDataTypes();
@@ -107,7 +103,7 @@ class ComponentHelper
      * @param string $class     the class path to use
      * @param string $classpath the classpat to use
      */
-    public function addTaskDefinition($name, $class, $classpath = null)
+    public function addTaskDefinition($name, $class, $classpath = null): void
     {
         if ('' === $class) {
             $this->project->log("Task {$name} has no class defined.", Project::MSG_ERR);
@@ -125,7 +121,7 @@ class ComponentHelper
      *
      * @return array
      */
-    public function getTaskDefinitions()
+    public function getTaskDefinitions(): array
     {
         return $this->taskdefs;
     }
@@ -137,7 +133,7 @@ class ComponentHelper
      * @param string $typeClass the class to use
      * @param string $classpath the classpath to use
      */
-    public function addDataTypeDefinition($typeName, $typeClass, $classpath = null)
+    public function addDataTypeDefinition($typeName, $typeClass, $classpath = null): void
     {
         if (!isset($this->typedefs[$typeName])) {
             Phing::import($typeClass, $classpath);
@@ -150,10 +146,6 @@ class ComponentHelper
 
     public static function getElementName(Project $p = null, $o = null, $brief = false)
     {
-        //if ($p === null) {
-        //    TODO Project::getProject($o)
-        //}
-
         return null === $p
             ? self::getUnmappedElementName($o, $brief)
             : self::getComponentHelper($p)->getElementName(null, $o, $brief);
@@ -164,7 +156,7 @@ class ComponentHelper
      *
      * @return array
      */
-    public function getDataTypeDefinitions()
+    public function getDataTypeDefinitions(): array
     {
         return $this->typedefs;
     }
@@ -178,7 +170,7 @@ class ComponentHelper
      *
      * @return Task A task object
      */
-    public function createTask($taskType)
+    public function createTask(string $taskType)
     {
         try {
             $classname = '';
@@ -223,11 +215,10 @@ class ComponentHelper
      *
      * @param string $conditionType
      *
-     * @throws BuildException
-     *
      * @return Condition
+     * @throws BuildException
      */
-    public function createCondition($conditionType)
+    public function createCondition(string $conditionType): ?Condition
     {
         try {
             $classname = '';
@@ -262,12 +253,10 @@ class ComponentHelper
      *
      * @param string $typeName Type name
      *
-     * @throws BuildException
-     *                        Exception
-     *
      * @return object A datatype object
+     * @throws BuildException Exception
      */
-    public function createDataType($typeName)
+    public function createDataType(string $typeName)
     {
         try {
             $cls = '';
@@ -313,7 +302,13 @@ class ComponentHelper
         }
     }
 
-    private static function getUnmappedElementName($c, $brief)
+    /**
+     * @param object|string $c
+     * @param $brief
+     * @return string
+     * @throws \ReflectionException
+     */
+    private static function getUnmappedElementName($c, $brief): string
     {
         $clazz = new ReflectionClass($c);
         $name = $clazz->getName();
@@ -342,7 +337,7 @@ class ComponentHelper
         return new $cls();
     }
 
-    private function initDefaultTasks()
+    private function initDefaultTasks(): void
     {
         $taskdefs = Phing::getResourcePath('etc/default.tasks.properties');
 
@@ -365,7 +360,7 @@ class ComponentHelper
         }
     }
 
-    private function initDefaultDataTypes()
+    private function initDefaultDataTypes(): void
     {
         $typedefs = Phing::getResourcePath('etc/default.types.properties');
 
@@ -387,7 +382,7 @@ class ComponentHelper
         }
     }
 
-    private function initCustomTasks()
+    private function initCustomTasks(): void
     {
         $taskdefs = Phing::getResourcePath('custom.task.properties');
 
@@ -408,7 +403,7 @@ class ComponentHelper
         }
     }
 
-    private function initCustomDataTypes()
+    private function initCustomDataTypes(): void
     {
         $typedefs = Phing::getResourcePath('custom.type.properties');
 
