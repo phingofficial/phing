@@ -74,7 +74,7 @@ class ChownTask extends Task
      * Set verbosity, which if set to false surpresses all but an overview
      * of what happened.
      */
-    public function setVerbose(bool $verbose)
+    public function setVerbose(bool $verbose): void
     {
         $this->verbose = $verbose;
     }
@@ -82,24 +82,27 @@ class ChownTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
+     * @param File $file
      */
-    public function setFile(File $file)
+    public function setFile(File $file): void
     {
         $this->file = $file;
     }
 
     /**
      * Sets the user.
+     * @param string $user
      */
-    public function setUser(string $user)
+    public function setUser(string $user): void
     {
         $this->user = $user;
     }
 
     /**
      * Sets the group.
+     * @param string $group
      */
-    public function setGroup(string $group)
+    public function setGroup(string $group): void
     {
         $this->group = $group;
     }
@@ -119,7 +122,7 @@ class ChownTask extends Task
      *
      * @throws BuildException
      */
-    private function checkParams()
+    private function checkParams(): void
     {
         if (null === $this->file && empty($this->filesets) && empty($this->dirsets)) {
             throw new BuildException('Specify at least one source - a file or a fileset.');
@@ -133,7 +136,7 @@ class ChownTask extends Task
     /**
      * Does the actual work.
      */
-    private function chown()
+    private function chown(): void
     {
         $userElements = explode('.', $this->user);
 
@@ -193,7 +196,7 @@ class ChownTask extends Task
      * @throws BuildException
      * @throws Exception
      */
-    private function chownFile(File $file, $user, $group = '')
+    private function chownFile(File $file, $user, $group = ''): void
     {
         if (!$file->exists()) {
             throw new BuildException('The file ' . $file->__toString() . ' does not exist');

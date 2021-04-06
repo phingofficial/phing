@@ -85,7 +85,7 @@ class VersionTask extends Task
     /**
      * @param string $startingVersion
      */
-    public function setStartingVersion($startingVersion)
+    public function setStartingVersion($startingVersion): void
     {
         $this->startingVersion = $startingVersion;
     }
@@ -95,15 +95,16 @@ class VersionTask extends Task
      *
      * @param string $releasetype
      */
-    public function setReleasetype($releasetype)
+    public function setReleasetype($releasetype): void
     {
         $this->releasetype = strtoupper($releasetype);
     }
 
     /**
      * Set Property for File containing versioninformation.
+     * @param File $file
      */
-    public function setFile(File $file)
+    public function setFile(File $file): void
     {
         $this->file = $file;
     }
@@ -113,7 +114,7 @@ class VersionTask extends Task
      *
      * @param string $property
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -121,7 +122,7 @@ class VersionTask extends Task
     /**
      * @param bool $isPropFile
      */
-    public function setPropFile($isPropFile)
+    public function setPropFile(bool $isPropFile): void
     {
         $this->propFile = $isPropFile;
     }
@@ -187,7 +188,7 @@ class VersionTask extends Task
      *
      * @return Properties the loaded properties
      */
-    private function loadProperties()
+    private function loadProperties(): Properties
     {
         try {
             $properties = new Properties();
@@ -206,7 +207,7 @@ class VersionTask extends Task
      *
      * @return string
      */
-    private function getVersion($oldVersion)
+    private function getVersion($oldVersion): string
     {
         preg_match('#^(?<PREFIX>v)?(?<MAJOR>\d+)?(?:\.(?<MINOR>\d+))?(?:\.(?<BUGFIX>\d+))?#', $oldVersion, $version);
 
@@ -243,7 +244,7 @@ class VersionTask extends Task
      *
      * @throws BuildException
      */
-    private function checkReleasetype()
+    private function checkReleasetype(): void
     {
         // check Releasetype
         if (null === $this->releasetype) {
@@ -272,7 +273,7 @@ class VersionTask extends Task
      *
      * @throws BuildException
      */
-    private function checkFile()
+    private function checkFile(): void
     {
         $fileUtils = new FileUtils();
         // check File
@@ -305,7 +306,7 @@ class VersionTask extends Task
         }
     }
 
-    private function checkProperty()
+    private function checkProperty(): void
     {
         if (null === $this->property) {
             $this->property = self::DEFAULT_PROPERTY_NAME;

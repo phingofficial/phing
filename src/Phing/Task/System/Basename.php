@@ -52,7 +52,7 @@ class Basename extends Task
      *
      * @param File $file file or directory to get base name from
      */
-    public function setFile(File $file)
+    public function setFile(File $file): void
     {
         $this->file = $file;
     }
@@ -62,7 +62,7 @@ class Basename extends Task
      *
      * @param string $property name of property
      */
-    public function setProperty($property)
+    public function setProperty(string $property): void
     {
         $this->property = $property;
     }
@@ -72,7 +72,7 @@ class Basename extends Task
      *
      * @param string $suffix suffix to remove from base name
      */
-    public function setSuffix($suffix)
+    public function setSuffix(string $suffix): void
     {
         $this->suffix = $suffix;
     }

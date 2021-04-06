@@ -68,7 +68,7 @@ class SleepTask extends Task
      */
     private $milliseconds = 0;
 
-    public function setFailOnError(bool $var)
+    public function setFailOnError(bool $var): void
     {
         $this->failOnError = $var;
     }
@@ -76,7 +76,7 @@ class SleepTask extends Task
     /**
      * @return bool
      */
-    public function getFailOnError()
+    public function getFailOnError(): bool
     {
         return $this->failOnError;
     }
@@ -91,7 +91,7 @@ class SleepTask extends Task
         return $this->hours;
     }
 
-    public function setMilliseconds($milliseconds)
+    public function setMilliseconds($milliseconds): void
     {
         $this->milliseconds = $milliseconds;
     }
@@ -101,7 +101,7 @@ class SleepTask extends Task
         return $this->milliseconds;
     }
 
-    public function setMinutes($minutes)
+    public function setMinutes($minutes): void
     {
         $this->minutes = $minutes;
     }
@@ -111,7 +111,7 @@ class SleepTask extends Task
         return $this->minutes;
     }
 
-    public function setSeconds($seconds)
+    public function setSeconds($seconds): void
     {
         $this->seconds = $seconds;
     }
@@ -149,7 +149,7 @@ class SleepTask extends Task
      *
      * @throws BuildException if something is invalid
      */
-    private function validateAttributes()
+    private function validateAttributes(): void
     {
         if ($this->getSleepTime() < 0) {
             throw new BuildException('Negative sleep periods are not supported');
