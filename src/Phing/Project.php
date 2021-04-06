@@ -292,10 +292,10 @@ class Project
      *                     May be <code>null</code>, in which case
      *                     the return value is also <code>null</code>.
      *
-     * @return string|null the property value, or <code>null</code> for no match
+     * @return mixed the property value, or <code>null</code> for no match
      *                or if a <code>null</code> name is provided
      */
-    public function getProperty(?string $name): ?string
+    public function getProperty(?string $name)
     {
         return PropertyHelper::getPropertyHelper($this)->getProperty(null, $name);
     }
