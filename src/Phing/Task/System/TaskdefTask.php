@@ -77,7 +77,7 @@ class TaskdefTask extends Task
      *
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -87,7 +87,7 @@ class TaskdefTask extends Task
      *
      * @param string $class
      */
-    public function setClassname($class)
+    public function setClassname(string $class): void
     {
         $this->classname = $class;
     }
@@ -97,7 +97,7 @@ class TaskdefTask extends Task
      *
      * @param string $file
      */
-    public function setFile($file)
+    public function setFile($file): void
     {
         $this->typeFile = $file;
     }

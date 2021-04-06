@@ -59,7 +59,7 @@ class BlockForTask extends WaitForTask
      *
      * @param string $message the text to use in a failure message
      */
-    public function addText($message)
+    public function addText($message): void
     {
         $this->text = $this->getProject()->replaceProperties($message);
     }

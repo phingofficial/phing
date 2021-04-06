@@ -140,7 +140,7 @@ class ApplyTask extends ExecTask
      *
      * @param bool $skip whether to skip empty filesets
      */
-    public function setSkipEmptyFilesets(bool $skip)
+    public function setSkipEmptyFilesets(bool $skip): void
     {
         $this->skipEmpty = $skip;
     }
@@ -150,12 +150,12 @@ class ApplyTask extends ExecTask
      *
      * @param File $dest the File object representing the destination directory
      */
-    public function setDest(File $dest)
+    public function setDest(File $dest): void
     {
         $this->destDir = $dest;
     }
 
-    public function setAppend(bool $append)
+    public function setAppend(bool $append): void
     {
         $this->appendoutput = $append;
     }
@@ -184,7 +184,7 @@ class ApplyTask extends ExecTask
      * Whether the filenames should be passed on the command line as relative
      * pathnames (relative to the base directory of the corresponding fileset/list).
      */
-    public function setRelative(bool $relative)
+    public function setRelative(bool $relative): void
     {
         $this->relative = $relative;
     }
@@ -194,7 +194,7 @@ class ApplyTask extends ExecTask
      *
      * @param bool $failonerror Indicator to fail on error
      */
-    public function setFailonerror(bool $failonerror)
+    public function setFailonerror(bool $failonerror): void
     {
         $this->checkreturn = $failonerror;
     }
@@ -204,7 +204,7 @@ class ApplyTask extends ExecTask
      *
      * @param bool $forwardslash Indicator to use forward-slash
      */
-    public function setForwardslash(bool $forwardslash)
+    public function setForwardslash(bool $forwardslash): void
     {
         $this->forwardslash = $forwardslash;
     }
@@ -217,7 +217,7 @@ class ApplyTask extends ExecTask
         $this->maxparallel = $max;
     }
 
-    public function setForce(bool $force)
+    public function setForce(bool $force): void
     {
         $this->force = $force;
     }
@@ -227,7 +227,7 @@ class ApplyTask extends ExecTask
      *
      * @param string $type a FileDirBoth EnumeratedAttribute
      */
-    public function setType(string $type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }

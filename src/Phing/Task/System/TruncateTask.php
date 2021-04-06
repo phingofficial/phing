@@ -56,7 +56,7 @@ class TruncateTask extends Task
      *
      * @param string $adjust (positive or negative) adjustment amount
      */
-    public function setAdjust(string $adjust)
+    public function setAdjust(string $adjust): void
     {
         $this->adjust = SizeHelper::fromHumanToBytes($adjust);
     }
@@ -69,7 +69,7 @@ class TruncateTask extends Task
      *
      * @throws BuildException
      */
-    public function setLength(string $length)
+    public function setLength(string $length): void
     {
         $this->length = SizeHelper::fromHumanToBytes($length);
         if (null !== $this->length && $this->length < 0) {
@@ -82,7 +82,7 @@ class TruncateTask extends Task
      *
      * @param bool $create default <code>true</code>
      */
-    public function setCreate($create)
+    public function setCreate($create): void
     {
         $this->create = $create;
     }
@@ -93,7 +93,7 @@ class TruncateTask extends Task
      *
      * @param bool $mkdirs default <code>false</code>
      */
-    public function setMkdirs($mkdirs)
+    public function setMkdirs($mkdirs): void
     {
         $this->mkdirs = $mkdirs;
     }
@@ -123,11 +123,10 @@ class TruncateTask extends Task
     }
 
     /**
-     * @throws BuildException
-     *
+     * @param File $f
      * @return bool
      */
-    private function shouldProcess(File $f)
+    private function shouldProcess(File $f): bool
     {
         if ($f->isFile()) {
             return true;
@@ -154,7 +153,7 @@ class TruncateTask extends Task
         throw new BuildException($msg, $exception);
     }
 
-    private function process(File $f)
+    private function process(File $f): void
     {
         $len = $f->length();
         $newLength = $this->length ?? $len + $this->adjust;

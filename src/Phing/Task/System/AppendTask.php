@@ -107,7 +107,7 @@ class AppendTask extends Task
 
     private $eolString;
 
-    public function setFiltering(bool $filtering)
+    public function setFiltering(bool $filtering): void
     {
         $this->filtering = $filtering;
     }
@@ -115,15 +115,16 @@ class AppendTask extends Task
     /**
      * @param bool $overwrite
      */
-    public function setOverwrite($overwrite)
+    public function setOverwrite($overwrite): void
     {
         $this->overwrite = $overwrite;
     }
 
     /**
      * The more conventional naming for method to set destination file.
+     * @param File $f
      */
-    public function setDestFile(File $f)
+    public function setDestFile(File $f): void
     {
         $this->to = $f;
     }
@@ -136,7 +137,7 @@ class AppendTask extends Task
      *
      * @param bool $append if true append output
      */
-    public function setAppend($append)
+    public function setAppend(bool $append): void
     {
         $this->append = $append;
     }
@@ -149,7 +150,7 @@ class AppendTask extends Task
      * @param string $crlf the type of new line to add -
      *                     cr, mac, lf, unix, crlf, or dos
      */
-    public function setEol($crlf)
+    public function setEol($crlf): void
     {
         $s = $crlf;
         if ('cr' === $s || 'mac' === $s) {
@@ -165,13 +166,14 @@ class AppendTask extends Task
 
     /**
      * Sets specific file to append.
+     * @param File $f
      */
-    public function setFile(File $f)
+    public function setFile(File $f): void
     {
         $this->file = $f;
     }
 
-    public function createPath()
+    public function createPath(): Path
     {
         $path = new Path($this->getProject());
         $this->filesets[] = $path;
@@ -184,9 +186,9 @@ class AppendTask extends Task
      *
      * @param string $txt
      */
-    public function setText($txt)
+    public function setText(string $txt): void
     {
-        $this->text = (string) $txt;
+        $this->text = $txt;
     }
 
     /**
@@ -194,17 +196,17 @@ class AppendTask extends Task
      *
      * @param string $txt
      */
-    public function addText($txt)
+    public function addText(string $txt): void
     {
-        $this->text .= (string) $txt;
+        $this->text .= $txt;
     }
 
-    public function addHeader(TextElement $headerToAdd)
+    public function addHeader(TextElement $headerToAdd): void
     {
         $this->header = $headerToAdd;
     }
 
-    public function addFooter(TextElement $footerToAdd)
+    public function addFooter(TextElement $footerToAdd): void
     {
         $this->footer = $footerToAdd;
     }
@@ -216,7 +218,7 @@ class AppendTask extends Task
      * @param bool $fixLastLine if true make sure each input file has
      *                          new line on the concatenated stream
      */
-    public function setFixLastLine($fixLastLine)
+    public function setFixLastLine(bool $fixLastLine): void
     {
         $this->fixLastLine = $fixLastLine;
     }
@@ -302,7 +304,7 @@ class AppendTask extends Task
         $writer->close();
     }
 
-    private function appendHeader($string)
+    private function appendHeader($string): string
     {
         $result = $string;
         if (null !== $this->header) {
@@ -318,7 +320,7 @@ class AppendTask extends Task
         return $result;
     }
 
-    private function appendFooter($string)
+    private function appendFooter($string): string
     {
         $result = $string;
         if (null !== $this->footer) {
@@ -334,7 +336,7 @@ class AppendTask extends Task
         return $result;
     }
 
-    private function validate()
+    private function validate(): void
     {
         $this->sanitizeText();
 
@@ -351,7 +353,7 @@ class AppendTask extends Task
         }
     }
 
-    private function sanitizeText()
+    private function sanitizeText(): void
     {
         if (null !== $this->text && '' === trim($this->text)) {
             $this->text = null;
@@ -370,7 +372,7 @@ class AppendTask extends Task
      * @param array  $files  array of files to delete; can be of zero length
      * @param File   $dir    directory to work from
      */
-    private function appendFiles(Writer $writer, $files, File $dir = null)
+    private function appendFiles(Writer $writer, $files, File $dir = null): void
     {
         if (!empty($files)) {
             $this->log(
@@ -409,7 +411,7 @@ class AppendTask extends Task
         }
     }
 
-    private function checkFilename($filename, $dir = null)
+    private function checkFilename($filename, $dir = null): bool
     {
         if (null !== $dir) {
             $f = new File($dir, $filename);
@@ -445,9 +447,11 @@ class AppendTask extends Task
     }
 
     /**
-     * @param FileWriter $writer
+     * @param Writer $writer
+     * @param File $f
+     * @throws IOException
      */
-    private function appendFile(Writer $writer, File $f)
+    private function appendFile(Writer $writer, File $f): void
     {
         $in = $this->getFilteredReader(new FileReader($f));
 

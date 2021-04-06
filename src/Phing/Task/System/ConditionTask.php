@@ -66,7 +66,7 @@ class ConditionTask extends ConditionBase
      *
      * @param string $p
      */
-    public function setProperty($p)
+    public function setProperty(string $p): void
     {
         $this->property = $p;
     }
@@ -76,7 +76,7 @@ class ConditionTask extends ConditionBase
      *
      * @param string $v
      */
-    public function setValue($v)
+    public function setValue($v): void
     {
         $this->value = $v;
     }
@@ -87,7 +87,7 @@ class ConditionTask extends ConditionBase
      *
      * @param string $v
      */
-    public function setElse($v)
+    public function setElse($v): void
     {
         $this->alternative = $v;
     }

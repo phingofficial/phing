@@ -66,7 +66,7 @@ class AdhocTask extends Task
      *
      * @param string $script
      */
-    public function addText($script)
+    public function addText(string $script): void
     {
         $this->script = $script;
     }
@@ -76,7 +76,7 @@ class AdhocTask extends Task
      *
      * @return array
      */
-    protected function getNewClasses()
+    protected function getNewClasses(): array
     {
         return $this->newClasses;
     }
@@ -86,7 +86,7 @@ class AdhocTask extends Task
      *
      * @throws buildException - if more than one class is defined
      */
-    protected function execute()
+    protected function execute(): void
     {
         $classes = get_declared_classes();
         eval($this->script);

@@ -234,8 +234,9 @@ class Phing
      * target or the default target.
      *
      * @param array $args command line args
+     * @throws Exception
      */
-    public static function fire($args)
+    public static function fire($args): void
     {
         self::start($args);
     }
@@ -306,7 +307,7 @@ class Phing
      *
      * @throws ConfigurationException
      */
-    public function execute($args)
+    public function execute($args): void
     {
         self::$definedProps = new Properties();
         $this->searchForThis = null;
@@ -593,7 +594,7 @@ class Phing
      * @throws ConfigurationException
      *
      */
-    public static function getPhingVersion()
+    public static function getPhingVersion(): string
     {
         $versionPath = self::getResourcePath('phing/etc/VERSION.TXT');
         if (null === $versionPath) {
@@ -623,9 +624,9 @@ class Phing
      *
      * @param string $path
      *
-     * @return string file found (null if no file found)
+     * @return string|null file found (null if no file found)
      */
-    public static function getResourcePath($path)
+    public static function getResourcePath($path): ?string
     {
         if (null === self::$importPaths) {
             self::$importPaths = self::explodeIncludePath();
@@ -688,7 +689,7 @@ class Phing
             $path = get_include_path();
         }
 
-        if (PATH_SEPARATOR == ':') {
+        if (PATH_SEPARATOR === ':') {
             // On *nix systems, include_paths which include paths with a stream
             // schema cannot be safely explode'd, so we have to be a bit more
             // intelligent in the approach.
@@ -786,7 +787,7 @@ class Phing
      *
      * @throws ConfigurationException
      */
-    protected static function initWrite($buildfilePath)
+    protected static function initWrite($buildfilePath): void
     {
         // Overwriting protection
         if (file_exists($buildfilePath)) {
@@ -811,7 +812,7 @@ class Phing
      *
      * @param OutputStream $stream the stream to use for error output
      */
-    public static function setErrorStream(OutputStream $stream)
+    public static function setErrorStream(OutputStream $stream): void
     {
         self::$err = $stream;
     }
@@ -889,7 +890,7 @@ class Phing
     /**
      * @throws IOException
      */
-    private function loadPropertyFiles()
+    private function loadPropertyFiles(): void
     {
         foreach ($this->propertyFiles as $filename) {
             $fileParserFactory = new FileParserFactory();
@@ -912,7 +913,7 @@ class Phing
      *
      * @since Phing 2.3.0
      */
-    private static function handleLogfile()
+    private static function handleLogfile(): void
     {
         if (self::$isLogFileUsed) {
             self::$err->close();
@@ -923,7 +924,7 @@ class Phing
     /**
      * Prints the message of the Exception if it's not null.
      */
-    public static function printMessage(Throwable $t)
+    public static function printMessage(Throwable $t): void
     {
         if (null === self::$err) { // Make sure our error output is initialized
             self::initializeOutputStreams();
@@ -963,7 +964,7 @@ class Phing
      *
      * @param int $exitCode code to exit with
      */
-    protected static function statusExit($exitCode)
+    protected static function statusExit($exitCode): void
     {
         Phing::shutdown();
 
@@ -1272,7 +1273,7 @@ class Phing
      *
      * @throws ConfigurationException
      */
-    private function addInputHandler(Project $project)
+    private function addInputHandler(Project $project): void
     {
         if (null === $this->inputHandlerClassname) {
             $handler = new ConsoleInputHandler(STDIN, new ConsoleOutput());
@@ -1300,7 +1301,7 @@ class Phing
      * @throws BuildException
      * @throws ConfigurationException
      */
-    private function comparePhingVersion($version)
+    private function comparePhingVersion($version): void
     {
         $current = strtolower(self::getPhingVersion());
         $current = trim(str_replace('phing', '', $current));
@@ -1322,7 +1323,7 @@ class Phing
      *
      * @throws IOException
      */
-    public function printDescription(Project $project)
+    public function printDescription(Project $project): void
     {
         if (null !== $project->getDescription()) {
             $project->log($project->getDescription());
@@ -1403,7 +1404,7 @@ class Phing
     /**
      * Unsets the current Project.
      */
-    public static function unsetCurrentProject()
+    public static function unsetCurrentProject(): void
     {
         self::$currentProject = null;
     }
@@ -1464,7 +1465,7 @@ class Phing
      * @param string $message
      * @param int $priority project::MSG_INFO, etc
      */
-    public static function log($message, $priority = Project::MSG_INFO)
+    public static function log($message, $priority = Project::MSG_INFO): void
     {
         $p = self::getCurrentProject();
         if ($p) {
@@ -1487,7 +1488,7 @@ class Phing
      *
      * @param Project $p
      */
-    public static function setCurrentProject($p)
+    public static function setCurrentProject($p): void
     {
         self::$currentProject = $p;
     }
@@ -1496,7 +1497,7 @@ class Phing
      * Begins capturing PHP errors to a buffer.
      * While errors are being captured, they are not logged.
      */
-    public static function startPhpErrorCapture()
+    public static function startPhpErrorCapture(): void
     {
         self::$phpErrorCapture = true;
         self::$capturedPhpErrors = [];
@@ -1506,7 +1507,7 @@ class Phing
      * Stops capturing PHP errors to a buffer.
      * The errors will once again be logged after calling this method.
      */
-    public static function stopPhpErrorCapture()
+    public static function stopPhpErrorCapture(): void
     {
         self::$phpErrorCapture = false;
     }
@@ -1514,7 +1515,7 @@ class Phing
     /**
      * Clears the captured errors without affecting the starting/stopping of the capture.
      */
-    public static function clearCapturedPhpErrors()
+    public static function clearCapturedPhpErrors(): void
     {
         self::$capturedPhpErrors = [];
     }
@@ -1575,7 +1576,7 @@ class Phing
     /**
      * Set System constants which can be retrieved by calling Phing::getProperty($propName).
      */
-    private static function setSystemConstants()
+    private static function setSystemConstants(): void
     {
         /*
          * PHP_OS returns on
@@ -1662,7 +1663,7 @@ class Phing
      *
      * @throws ConfigurationException - if the include_path could not be set (for some bizarre reason)
      */
-    private static function setIncludePaths()
+    private static function setIncludePaths(): void
     {
         if (defined('PHP_CLASSPATH')) {
             $result = set_include_path(PHP_CLASSPATH);
