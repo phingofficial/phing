@@ -101,10 +101,15 @@ class FileUtils
         $overwrite = false,
         $preserveLastModified = true,
         &$filterChains = null,
-        Project $project,
+        Project $project = null,
         $mode = 0755,
         $preservePermissions = true
     ) {
+        if ($project === null) {
+            // Otherwise PHP 8.0 reports:
+            // Deprecated: Required parameter $project follows optional parameter $overwrite in phing/phing/classes/phing/util/FileUtils.php on line 98
+            throw new Exception('$project cannot be null, making it optional is just a fix for PHP 8.0.');
+        }
 
         if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
             if ($destFile->exists() && $destFile->isFile()) {
