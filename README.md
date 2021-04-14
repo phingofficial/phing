@@ -12,8 +12,6 @@
 
 ## Documentation
 
-Phing User Guide:
-
 - [VisualizerTask documentation](https://www.phing.info/guide/chunkhtml/VisualizerTask.html)
 
 ## Examples
@@ -23,6 +21,17 @@ Phing User Guide:
 ![demo](resources/examples/edu-resource-center.png)
 ![demo](resources/examples/enom-pro.png)
 ![demo](resources/examples/bitpay-magento.png)
+
+## Requirements
+
+<dl>
+<dt>SimpleXML extension</dt>
+<dd><code>apt install php7.3-xml</code> <em># adapt acording to your PHP version</em></dd>
+<dt>XSL extension</dt>
+<dd><code>apt install php7.3-xsl</code> <em># adapt acording to your PHP version</em></dd>
+<dt>Guzzle</dt>
+<dd><code>composer require guzzlehttp/guzzle</code></dd>
+</dl>
 
 ## Contribute
 

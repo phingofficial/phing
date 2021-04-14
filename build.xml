@@ -7,7 +7,7 @@
     <target name="qa" description="Check code quality"
             depends="composer:validate, composer:normalize, phpstan:analyse"/>
 
-    <target name="help">
+    <target name="help" depends="visualizer">
         <exec executable="xdg-open" spawn="true">
             <arg path="build.png"/>
         </exec>
