@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,21 +18,23 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Unit tests for PHPMD task
- *
+ * Unit tests for PHPMD task.
  */
 class PHPMDTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpmd/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/build.xml');
     }
 
+    /**
+     * @requires PHP < 8.1
+     */
     public function testReportText()
     {
         $this->executeTarget(__FUNCTION__);
@@ -41,6 +44,9 @@ class PHPMDTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.txt');
     }
 
+    /**
+     * @requires PHP < 8.1
+     */
     public function testReportHtml()
     {
         $this->executeTarget(__FUNCTION__);
@@ -50,6 +56,9 @@ class PHPMDTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/phpmd-report.html');
     }
 
+    /**
+     * @requires PHP < 8.1
+     */
     public function testReportXml()
     {
         $this->executeTarget(__FUNCTION__);

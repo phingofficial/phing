@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -34,14 +35,16 @@ class PosixPermissionsSelector implements FileSelector
 
     /**
      * Sets the permissions to look for.
+     *
      * @param string $permissions the permissions string (rwxrwxrwx or octal)
      */
     public function setPermissions(string $permissions): void
     {
         $this->validate($permissions);
 
-        if (strlen($permissions) === 3) {
+        if (3 === strlen($permissions)) {
             $this->permissions = $permissions;
+
             return;
         }
 
@@ -65,22 +68,22 @@ class PosixPermissionsSelector implements FileSelector
         );
     }
 
-    private function validate(string $permissions): void
-    {
-        if (
-            preg_match('/^[0-7]{3}$/', $permissions) !== 1 &&
-            preg_match('/^[r-][w-][x-][r-][w-][x-][r-][w-][x-]$/', $permissions) !== 1
-        ) {
-            throw new BuildException("the permissions attribute {$permissions} is invalid");
-        }
-    }
-
     public function isSelected(File $basedir, $filename, File $file): bool
     {
-        if ($this->permissions === null) {
+        if (null === $this->permissions) {
             throw new BuildException('the permissions attribute is required');
         }
 
         return decoct(fileperms($file->getPath()) & 0777) === $this->permissions;
+    }
+
+    private function validate(string $permissions): void
+    {
+        if (
+            1 !== preg_match('/^[0-7]{3}$/', $permissions)
+            && 1 !== preg_match('/^[r-][w-][x-][r-][w-][x-][r-][w-][x-]$/', $permissions)
+        ) {
+            throw new BuildException("the permissions attribute {$permissions} is invalid");
+        }
     }
 }

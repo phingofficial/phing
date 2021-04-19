@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -55,13 +56,13 @@ class Retry extends Task implements TaskContainer
     /**
      * Set the task.
      *
-     * @param Task $t the task to retry.
+     * @param Task $t the task to retry
      *
      * @throws BuildException
      */
     public function addTask(Task $t)
     {
-        if ($this->nestedTask !== null) {
+        if (null !== $this->nestedTask) {
             throw new BuildException(
                 'The retry task container accepts a single nested task'
                 . ' (which may be a sequential task container)'
@@ -73,7 +74,7 @@ class Retry extends Task implements TaskContainer
     /**
      * Set the number of times to retry the task.
      *
-     * @param int $n the number to use.
+     * @param int $n the number to use
      */
     public function setRetryCount($n)
     {
@@ -83,7 +84,7 @@ class Retry extends Task implements TaskContainer
     /**
      * Set the delay between retries (in seconds).
      *
-     * @param int $retryDelay the time between retries.
+     * @param int $retryDelay the time between retries
      *
      * @throws BuildException
      */
@@ -100,14 +101,15 @@ class Retry extends Task implements TaskContainer
     /**
      * Perform the work.
      *
-     * @throws BuildException if there is an error.
+     * @throws BuildException if there is an error
      */
     public function main()
     {
         $errorMessages = '';
-        for ($i = 0; $i <= $this->retryCount; $i++) {
+        for ($i = 0; $i <= $this->retryCount; ++$i) {
             try {
                 $this->nestedTask->perform();
+
                 break;
             } catch (Exception $e) {
                 $errorMessages .= $e->getMessage();
@@ -116,8 +118,9 @@ class Retry extends Task implements TaskContainer
                     $exceptionMessage = <<<EXCEPTION_MESSAGE
                         Task [{$taskName}] failed after [{$this->retryCount}] attempts; giving up
                         Error messages:
-                        $errorMessages
+                        {$errorMessages}
                         EXCEPTION_MESSAGE;
+
                     throw new BuildException(
                         $exceptionMessage,
                         $this->getLocation()

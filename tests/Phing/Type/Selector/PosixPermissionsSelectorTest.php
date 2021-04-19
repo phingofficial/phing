@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,15 +18,16 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type\Selector;
+namespace Phing\Test\Type\Selector;
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Task\System\Condition\OsCondition as Os;
+use Phing\Type\Selector\PosixPermissionsSelector;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class PosixPermissionsSelectorTest
+ * Class PosixPermissionsSelectorTest.
  */
 class PosixPermissionsSelectorTest extends TestCase
 {
@@ -78,6 +80,7 @@ class PosixPermissionsSelectorTest extends TestCase
      * @test
      * @dataProvider illegalArgumentProvider
      * @dataProvider legalArgumentProvider
+     *
      * @param bool $throws
      */
     public function argument(string $permission, $throws = false): void

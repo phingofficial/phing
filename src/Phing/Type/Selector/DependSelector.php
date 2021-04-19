@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,9 +36,9 @@ use Phing\Type\Mapper;
  */
 class DependSelector extends BaseSelector
 {
-    private $targetdir = null;
-    private $mapperElement = null;
-    private $map = null;
+    private $targetdir;
+    private $mapperElement;
+    private $map;
     private $granularity = 0;
 
     /**
@@ -45,22 +46,22 @@ class DependSelector extends BaseSelector
      */
     public function __toString()
     {
-        $buf = "{dependselector targetdir: ";
-        if ($this->targetdir === null) {
-            $buf .= "NOT YET SET";
+        $buf = '{dependselector targetdir: ';
+        if (null === $this->targetdir) {
+            $buf .= 'NOT YET SET';
         } else {
             $buf .= $this->targetdir->getName();
         }
-        $buf .= " granularity: ";
+        $buf .= ' granularity: ';
         $buf .= $this->granularity;
-        if ($this->map !== null) {
-            $buf .= " mapper: ";
+        if (null !== $this->map) {
+            $buf .= ' mapper: ';
             $buf .= (string) $this->map;
-        } elseif ($this->mapperElement !== null) {
-            $buf .= " mapper: ";
+        } elseif (null !== $this->mapperElement) {
+            $buf .= ' mapper: ';
             $buf .= (string) $this->mapperElement;
         }
-        $buf .= "}";
+        $buf .= '}';
 
         return $buf;
     }
@@ -69,7 +70,7 @@ class DependSelector extends BaseSelector
      * The name of the file or directory which is checked for out-of-date
      * files.
      *
-     * @param File $targetdir the directory to scan looking for files.
+     * @param File $targetdir the directory to scan looking for files
      */
     public function setTargetdir(File $targetdir)
     {
@@ -94,8 +95,8 @@ class DependSelector extends BaseSelector
      */
     public function createMapper()
     {
-        if ($this->mapperElement !== null) {
-            throw new BuildException("Cannot define more than one mapper");
+        if (null !== $this->mapperElement) {
+            throw new BuildException('Cannot define more than one mapper');
         }
         $this->mapperElement = new Mapper($this->project);
 
@@ -108,16 +109,16 @@ class DependSelector extends BaseSelector
      */
     public function verifySettings()
     {
-        if ($this->targetdir === null) {
-            $this->setError("The targetdir attribute is required.");
+        if (null === $this->targetdir) {
+            $this->setError('The targetdir attribute is required.');
         }
-        if ($this->mapperElement === null) {
+        if (null === $this->mapperElement) {
             $this->map = new IdentityMapper();
         } else {
             $this->map = $this->mapperElement->getImplementation();
         }
-        if ($this->map === null) {
-            $this->setError("Could not set <mapper> element.");
+        if (null === $this->map) {
+            $this->setError('Could not set <mapper> element.');
         }
     }
 
@@ -125,13 +126,13 @@ class DependSelector extends BaseSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param File $basedir base directory the scan is being done from
+     * @param File   $basedir  base directory the scan is being done from
      * @param string $filename the name of the file to check
-     * @param File $file a PhingFile object the selector can use
+     * @param File   $file     a PhingFile object the selector can use
      *
-     * @return bool whether the file should be selected or not
      * @throws BuildException
      *
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(File $basedir, $filename, File $file)
     {
@@ -142,12 +143,12 @@ class DependSelector extends BaseSelector
 
         // If filename does not match the To attribute of the mapper
         // then filter it out of the files we are considering
-        if ($destfiles === null) {
+        if (null === $destfiles) {
             return false;
         }
         // Sanity check
-        if (count($destfiles) !== 1 || $destfiles[0] === null) {
-            throw new BuildException("Invalid destination file results for " . $this->targetdir . " with filename " . $filename);
+        if (1 !== count($destfiles) || null === $destfiles[0]) {
+            throw new BuildException('Invalid destination file results for ' . $this->targetdir . ' with filename ' . $filename);
         }
         $destname = $destfiles[0];
         $destfile = new File($this->targetdir, $destname);

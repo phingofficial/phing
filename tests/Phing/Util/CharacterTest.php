@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,14 +18,17 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Util;
+namespace Phing\Test\Util;
+
+use Phing\Util\Character;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Unit test for Character
+ * Unit test for Character.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class CharacterTest extends \PHPUnit\Framework\TestCase
+class CharacterTest extends TestCase
 {
     /** @var Character */
     private $char;
@@ -41,6 +45,8 @@ class CharacterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider getChars
+     *
+     * @param mixed $elem
      */
     public function testIsChar($elem, bool $expected)
     {

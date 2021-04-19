@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,8 +21,8 @@
 namespace Phing\Task\Optional;
 
 use Phing\Exception\BuildException;
-use Phing\Io\FileWriter;
 use Phing\Io\File;
+use Phing\Io\FileWriter;
 use Phing\Project;
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
@@ -34,7 +35,6 @@ use Phing\Util\StringHelper;
  * This class is based on Knut Urdalen's PhpLintTask.
  *
  * @author Stefan Priebsch <stefan.priebsch@e-novative.de>
- *
  */
 class JslLintTask extends Task
 {
@@ -71,6 +71,11 @@ class JslLintTask extends Task
     protected $hasWarnings = false;
 
     /**
+     * @var File
+     */
+    protected $tofile;
+
+    /**
      * @var array
      */
     private $badFiles = [];
@@ -78,25 +83,20 @@ class JslLintTask extends Task
     /**
      * @var DataStore
      */
-    private $cache = null;
+    private $cache;
 
     /**
      * @var File
      */
-    private $conf = null;
+    private $conf;
 
     /**
      * @var string
      */
-    private $executable = "jsl";
+    private $executable = 'jsl';
 
     /**
-     * @var File
-     */
-    protected $tofile = null;
-
-    /**
-     * Sets the flag if warnings should be shown
+     * Sets the flag if warnings should be shown.
      *
      * @param bool $show
      */
@@ -106,7 +106,7 @@ class JslLintTask extends Task
     }
 
     /**
-     * The haltonfailure property
+     * The haltonfailure property.
      *
      * @param bool $aValue
      */
@@ -116,7 +116,7 @@ class JslLintTask extends Task
     }
 
     /**
-     * The haltonwarning property
+     * The haltonwarning property.
      *
      * @param bool $aValue
      */
@@ -126,8 +126,7 @@ class JslLintTask extends Task
     }
 
     /**
-     * File to be performed syntax check on
-     *
+     * File to be performed syntax check on.
      */
     public function setFile(File $file)
     {
@@ -135,8 +134,7 @@ class JslLintTask extends Task
     }
 
     /**
-     * Whether to store last-modified times in cache
-     *
+     * Whether to store last-modified times in cache.
      */
     public function setCacheFile(File $file)
     {
@@ -144,8 +142,7 @@ class JslLintTask extends Task
     }
 
     /**
-     * jsl config file
-     *
+     * jsl config file.
      */
     public function setConfFile(File $file)
     {
@@ -175,8 +172,7 @@ class JslLintTask extends Task
     }
 
     /**
-     * File to save error messages to
-     *
+     * File to save error messages to.
      */
     public function setToFile(File $tofile)
     {
@@ -184,11 +180,11 @@ class JslLintTask extends Task
     }
 
     /**
-     * Execute lint check against PhingFile or a FileSet
+     * Execute lint check against PhingFile or a FileSet.
      */
     public function main()
     {
-        if (!isset($this->file) and count($this->filesets) == 0) {
+        if (!isset($this->file) and 0 == count($this->filesets)) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
@@ -216,7 +212,7 @@ class JslLintTask extends Task
 
             foreach ($this->badFiles as $file => $messages) {
                 foreach ($messages as $msg) {
-                    $writer->write($file . "=" . $msg . PHP_EOL);
+                    $writer->write($file . '=' . $msg . PHP_EOL);
                 }
             }
 
@@ -242,13 +238,13 @@ class JslLintTask extends Task
     }
 
     /**
-     * Performs the actual syntax check
+     * Performs the actual syntax check.
      *
      * @param string $file
      *
-     * @return bool|void
      * @throws BuildException
      *
+     * @return bool|void
      */
     protected function lint($file)
     {
@@ -297,10 +293,10 @@ class JslLintTask extends Task
                         $matches = [];
                         if (preg_match('/^(\.*)\^$/', $message)) {
                             $column = strlen($message);
-                            if ($last == 'error') {
+                            if ('error' == $last) {
                                 $errors[count($errors) - 1]['column'] = $column;
                             } else {
-                                if ($last == 'warning') {
+                                if ('warning' == $last) {
                                     $warnings[count($warnings) - 1]['column'] = $column;
                                 }
                             }
@@ -347,7 +343,7 @@ class JslLintTask extends Task
                     }
                     $this->hasErrors = true;
                 } else {
-                    if (!$this->showWarnings || $warningCount == 0) {
+                    if (!$this->showWarnings || 0 == $warningCount) {
                         $this->log($file . ': No syntax errors detected', Project::MSG_VERBOSE);
 
                         if ($this->cache) {

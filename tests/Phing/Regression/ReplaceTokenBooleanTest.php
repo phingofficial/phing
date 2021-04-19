@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,25 +18,24 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Regression;
+namespace Phing\Test\Regression;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/376
- * - ReplaceToken boolean problems
- *
+ * - ReplaceToken boolean problems.
  */
 class ReplaceTokenBooleanTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/376/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/376/build.xml');
     }
 
     public function testCustomTask()
     {
-        $this->executeTarget("main");
-        $this->assertInLogs("Replaced \"@TOKEN_KEY_TRUE@\" with \"true\"");
+        $this->executeTarget('main');
+        $this->assertInLogs('Replaced "@TOKEN_KEY_TRUE@" with "true"');
     }
 }

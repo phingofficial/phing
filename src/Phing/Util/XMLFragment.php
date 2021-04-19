@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -54,7 +55,7 @@ class XMLFragment extends ProjectComponent implements CustomChildCreator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function customChildCreator($elementName, Project $project)
     {
@@ -65,7 +66,7 @@ class XMLFragment extends ProjectComponent implements CustomChildCreator
     }
 
     /**
-     * Add nested text, expanding properties as we go
+     * Add nested text, expanding properties as we go.
      *
      * @param string $s the text to add
      */
@@ -73,7 +74,7 @@ class XMLFragment extends ProjectComponent implements CustomChildCreator
     {
         $s = $this->getProject()->replaceProperties($s);
         //only text nodes that are non null after property expansion are added
-        if ($s !== null && trim($s) !== '') {
+        if (null !== $s && '' !== trim($s)) {
             $t = $this->doc->createTextNode(trim($s));
             $this->fragment->appendChild($t);
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,8 +18,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing;
+namespace Phing\Test;
 
+use Phing\Project;
+use Phing\PropertyHelper;
 use PHPUnit\Framework\TestCase;
 
 class PropertyHelperTest extends TestCase

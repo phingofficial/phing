@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,49 +18,24 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Parser\DynamicConfigurator;
-use Phing\Project;
-use Phing\Task;
+use Phing\Test\Support\BuildFileTest;
 
 /**
+ * Tests the XmlLint Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class DynamicTask extends Task implements DynamicConfigurator
+class XmlLintTaskTest extends BuildFileTest
 {
-    public function main()
+    public function setUp(): void
     {
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/XmlLintTaskTest.xml');
     }
 
-    public function setDynamicAttribute(string $name, string $value): void
+    public function testXml(): void
     {
-        $this->getProject()->setNewProperty($name, $value);
-    }
-
-    public function customChildCreator($name, Project $project)
-    {
-        return new class($project) implements DynamicConfigurator {
-            /**
-             * @var Project
-             */
-            private $project;
-
-            public function __construct(Project $project)
-            {
-                $this->project = $project;
-            }
-
-            public function setDynamicAttribute(string $name, string $value): void
-            {
-                $this->project->setNewProperty($name, $value);
-            }
-
-            public function customChildCreator($name, Project $project)
-            {
-                return null;
-            }
-        };
+        $this->expectLogContaining(__FUNCTION__, 'validation end');
     }
 }

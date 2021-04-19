@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,9 +18,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional\Svn;
+namespace Phing\Test\Task\Optional\Svn;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Michiel Rook <mrook@php.net>
@@ -29,6 +30,12 @@ abstract class AbstractSvnTaskTest extends BuildFileTest
     protected $backupGlobals = false;
 
     protected $savedErrorLevel = 0;
+
+    public function tearDown(): void
+    {
+        error_reporting($this->savedErrorLevel);
+        $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
+    }
 
     protected function initialize($buildFilename, $createDirectory = true)
     {
@@ -50,11 +57,5 @@ abstract class AbstractSvnTaskTest extends BuildFileTest
             PHING_TEST_BASE
             . '/etc/tasks/ext/svn/' . $buildFilename
         );
-    }
-
-    public function tearDown(): void
-    {
-        error_reporting($this->savedErrorLevel);
-        $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 }

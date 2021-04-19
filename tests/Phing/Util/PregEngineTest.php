@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -15,17 +16,19 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- *
  */
 
-namespace Phing\Util;
+namespace Phing\Test\Util;
+
+use Phing\Util\PregEngine;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class PregEngineTest
+ * Class PregEngineTest.
  *
  * Test cases for phing/util/regexp/PregEngine
  */
-class PregEngineTest extends \PHPUnit\Framework\TestCase
+class PregEngineTest extends TestCase
 {
     /**
      * Test the default ignore-case value.
@@ -123,6 +126,7 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Test setting ignore-case through the modifier.
+     *
      * @todo This is a new test that fails due to a pre-existing condition.
      */
 //    public function testModifiersSetIgnoreCase()
@@ -135,6 +139,7 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Test setting multi-line through the modifier.
+     *
      * @todo This is a new test that fails due to a pre-existing conditions.
      */
 //    public function testModifiersSetMultiline()
@@ -224,7 +229,7 @@ class PregEngineTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test regular expressions match-all functionality
+     * Test regular expressions match-all functionality.
      */
     public function testMatchAll()
     {

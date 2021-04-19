@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -107,11 +108,11 @@ use Phing\Task\System\Condition\ConditionBase;
  */
 class IfTask extends ConditionBase
 {
-    private $thenTasks = null;
+    private $thenTasks;
     private $elseIfTasks = [];
-    private $elseTasks = null;
+    private $elseTasks;
 
-    /***
+    /*
      * A nested Else if task
      * @param ElseIfTask $ei
      */
@@ -130,8 +131,8 @@ class IfTask extends ConditionBase
      */
     public function addThen(SequentialTask $t)
     {
-        if ($this->thenTasks != null) {
-            throw new BuildException("You must not nest more than one <then> into <if>");
+        if (null != $this->thenTasks) {
+            throw new BuildException('You must not nest more than one <then> into <if>');
         }
         $this->thenTasks = $t;
     }
@@ -146,8 +147,8 @@ class IfTask extends ConditionBase
      */
     public function addElse(SequentialTask $e)
     {
-        if ($this->elseTasks != null) {
-            throw new BuildException("You must not nest more than one <else> into <if>");
+        if (null != $this->elseTasks) {
+            throw new BuildException('You must not nest more than one <else> into <if>');
         }
         $this->elseTasks = $e;
     }
@@ -155,22 +156,22 @@ class IfTask extends ConditionBase
     public function main()
     {
         if ($this->countConditions() > 1) {
-            throw new BuildException("You must not nest more than one condition into <if>");
+            throw new BuildException('You must not nest more than one condition into <if>');
         }
         if ($this->countConditions() < 1) {
-            throw new BuildException("You must nest a condition into <if>");
+            throw new BuildException('You must nest a condition into <if>');
         }
         $conditions = $this->getConditions();
         $c = $conditions[0];
 
         if ($c->evaluate()) {
-            if ($this->thenTasks != null) {
+            if (null != $this->thenTasks) {
                 $this->thenTasks->main();
             }
         } else {
             $done = false;
             $sz = count($this->elseIfTasks);
-            for ($i = 0; $i < $sz && !$done; $i++) {
+            for ($i = 0; $i < $sz && !$done; ++$i) {
                 $ei = $this->elseIfTasks[$i];
                 if ($ei->evaluate()) {
                     $done = true;
@@ -178,7 +179,7 @@ class IfTask extends ConditionBase
                 }
             }
 
-            if (!$done && $this->elseTasks != null) {
+            if (!$done && null != $this->elseTasks) {
                 $this->elseTasks->main();
             }
         }

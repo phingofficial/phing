@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,76 +22,78 @@ namespace Phing;
 
 use Phing\Exception\BuildException;
 use Phing\Parser\Location;
+
 use function array_search;
 
 /**
  * The Target component. Carries all required target data. Implements the
- * abstract class {@link TaskContainer}
+ * abstract class {@link TaskContainer}.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
+ *
  * @see       TaskContainer
  */
 class Target implements TaskContainer
 {
     /**
-     * Name of target
+     * Name of target.
      *
      * @var string
      */
     private $name;
 
     /**
-     * Dependencies
+     * Dependencies.
      *
      * @var array
      */
     private $dependencies = [];
 
     /**
-     * Holds objects of children of this target
+     * Holds objects of children of this target.
      *
      * @var array
      */
     private $children = [];
 
     /**
-     * The if condition from xml
+     * The if condition from xml.
      *
      * @var string
      */
-    private $ifCondition = "";
+    private $ifCondition = '';
 
     /**
-     * The unless condition from xml
+     * The unless condition from xml.
      *
      * @var string
      */
-    private $unlessCondition = "";
+    private $unlessCondition = '';
 
     /**
-     * Description of this target
+     * Description of this target.
      *
      * @var string
      */
     private $description;
 
     /**
-     * Whether to hide target in targets list (-list -p switches)
+     * Whether to hide target in targets list (-list -p switches).
      *
-     * @var boolean
+     * @var bool
      */
     private $hidden = false;
 
     /**
-     * Whether to log message as INFO or VERBOSE if target skipped
+     * Whether to log message as INFO or VERBOSE if target skipped.
      *
-     * @var boolean
+     * @var bool
      */
     private $logSkipped = false;
 
     /**
-     * Rreference to project
+     * Rreference to project.
      *
      * @var Project
      */
@@ -99,7 +102,7 @@ class Target implements TaskContainer
 
     public function __construct(Target $other = null)
     {
-        if ($other !== null) {
+        if (null !== $other) {
             $this->name = $other->name;
             $this->ifCondition = $other->ifCondition;
             $this->unlessCondition = $other->unlessCondition;
@@ -113,6 +116,17 @@ class Target implements TaskContainer
     }
 
     /**
+     * Returns a string representation of this target. In our case it
+     * simply returns the target name field.
+     *
+     * @return string The string representation of this target
+     */
+    public function __toString()
+    {
+        return (string) $this->name;
+    }
+
+    /**
      * References the project to the current component.
      *
      * @param Project $project The reference to the current project
@@ -123,7 +137,7 @@ class Target implements TaskContainer
     }
 
     /**
-     * Returns reference to current project
+     * Returns reference to current project.
      *
      * @return Project Reference to current porject object
      */
@@ -144,7 +158,6 @@ class Target implements TaskContainer
 
     /**
      * Get the location of this target's definition.
-     *
      */
     public function getLocation(): Location
     {
@@ -152,21 +165,22 @@ class Target implements TaskContainer
     }
 
     /**
-     * Sets the target dependencies from xml
+     * Sets the target dependencies from xml.
      *
      * @param string $depends Comma separated list of targetnames that depend on
-     *                         this target
+     *                        this target
+     *
      * @throws BuildException
      */
     public function setDepends($depends)
     {
         // explode should be faster than strtok
         $deps = explode(',', $depends);
-        for ($i = 0, $size = count($deps); $i < $size; $i++) {
+        for ($i = 0, $size = count($deps); $i < $size; ++$i) {
             $trimmed = trim($deps[$i]);
-            if ($trimmed === "") {
+            if ('' === $trimmed) {
                 throw new BuildException(
-                    "Syntax Error: Depend attribute for target " . $this->getName() . " is malformed."
+                    'Syntax Error: Depend attribute for target ' . $this->getName() . ' is malformed.'
                 );
             }
             $this->addDependency($trimmed);
@@ -174,7 +188,7 @@ class Target implements TaskContainer
     }
 
     /**
-     * Adds a singular dependent target name to the list
+     * Adds a singular dependent target name to the list.
      *
      * @param string $dependency The dependency target to add
      */
@@ -195,6 +209,7 @@ class Target implements TaskContainer
 
     /**
      * @param string $targetName Name of the target to search for
+     *
      * @return false|int|string
      */
     public function dependsOn($targetName)
@@ -203,7 +218,7 @@ class Target implements TaskContainer
     }
 
     /**
-     * Sets the name of the target
+     * Sets the name of the target.
      *
      * @param string $name Name of this target
      */
@@ -223,9 +238,10 @@ class Target implements TaskContainer
     }
 
     /**
-     * Set target status. If true, target does not come in phing -list
+     * Set target status. If true, target does not come in phing -list.
      *
      * @param bool $flag
+     *
      * @return Target
      */
     public function setHidden($flag)
@@ -236,7 +252,7 @@ class Target implements TaskContainer
     }
 
     /**
-     * Get target status. If true, target does not come in phing -list
+     * Get target status. If true, target does not come in phing -list.
      *
      * @return bool
      */
@@ -246,7 +262,7 @@ class Target implements TaskContainer
     }
 
     /**
-     * Alias for getHidden()
+     * Alias for getHidden().
      *
      * @return bool
      */
@@ -256,7 +272,7 @@ class Target implements TaskContainer
     }
 
     /**
-     * Adds a task element to the list of this targets child elements
+     * Adds a task element to the list of this targets child elements.
      *
      * @param Task $task The task object to add
      */
@@ -287,7 +303,7 @@ class Target implements TaskContainer
     public function getTasks()
     {
         $tasks = [];
-        for ($i = 0, $size = count($this->children); $i < $size; $i++) {
+        for ($i = 0, $size = count($this->children); $i < $size; ++$i) {
             $tsk = $this->children[$i];
             if ($tsk instanceof Task) {
                 // note: we're copying objects here!
@@ -300,13 +316,13 @@ class Target implements TaskContainer
 
     /**
      * Set the if-condition from the XML tag, if any. The property name given
-     * as parameter must be present so the if condition evaluates to true
+     * as parameter must be present so the if condition evaluates to true.
      *
      * @param string $property The property name that has to be present
      */
     public function setIf($property)
     {
-        $this->ifCondition = $property ?? "";
+        $this->ifCondition = $property ?? '';
     }
 
     public function getIf()
@@ -317,13 +333,13 @@ class Target implements TaskContainer
     /**
      * Set the unless-condition from the XML tag, if any. The property name
      * given as parameter must be present so the unless condition evaluates
-     * to true
+     * to true.
      *
      * @param string $property The property name that has to be present
      */
     public function setUnless($property)
     {
-        $this->unlessCondition = $property ?? "";
+        $this->unlessCondition = $property ?? '';
     }
 
     public function getUnless()
@@ -357,26 +373,15 @@ class Target implements TaskContainer
     }
 
     /**
-     * @return bool|null
+     * @return null|bool
      */
     public function getLogSkipped()
     {
-        if ($this->logSkipped === null) {
+        if (null === $this->logSkipped) {
             $this->setLogSkipped(false);
         }
 
         return $this->logSkipped;
-    }
-
-    /**
-     * Returns a string representation of this target. In our case it
-     * simply returns the target name field
-     *
-     * @return string The string representation of this target
-     */
-    public function __toString()
-    {
-        return (string) $this->name;
     }
 
     /**
@@ -424,61 +429,15 @@ class Target implements TaskContainer
         } catch (BuildException $exc) {
             // log here and rethrow
             $this->project->fireTargetFinished($this, $exc);
+
             throw $exc;
         }
     }
 
     /**
-     * Tests if the property set in ifConfiditon exists.
-     *
-     * @return bool <code>true</code> if the property specified
-     *                 in <code>$this->ifCondition</code> exists;
-     *                 <code>false</code> otherwise
-     */
-    private function testIfCondition()
-    {
-        if ($this->ifCondition === "") {
-            return true;
-        }
-
-        $properties = explode(",", $this->ifCondition);
-
-        $result = true;
-        foreach ($properties as $property) {
-            $test = $this->getProject()->replaceProperties($property);
-            $result = $result && ($this->project->getProperty($test) !== null);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Tests if the property set in unlessCondition exists.
-     *
-     * @return bool <code>true</code> if the property specified
-     *                 in <code>$this->unlessCondition</code> exists;
-     *                 <code>false</code> otherwise
-     */
-    private function testUnlessCondition()
-    {
-        if ($this->unlessCondition === "") {
-            return true;
-        }
-
-        $properties = explode(",", $this->unlessCondition);
-
-        $result = true;
-        foreach ($properties as $property) {
-            $test = $this->getProject()->replaceProperties($property);
-            $result = $result && ($this->project->getProperty($test) === null);
-        }
-
-        return $result;
-    }
-
-    /**
      * Replaces all occurrences of the given task in the list
      * of children with the replacement data type wrapper.
+     *
      * @param RuntimeConfigurable|Task $o
      */
     public function replaceChild(Task $task, $o)
@@ -493,23 +452,74 @@ class Target implements TaskContainer
      * @param string $depends
      * @param string $targetName
      * @param string $attributeName
-     * @return string[]
+     *
      * @throws BuildException
+     *
+     * @return string[]
      */
     public static function parseDepends($depends, $targetName, $attributeName)
     {
         $list = [];
-        if ($depends !== '') {
+        if ('' !== $depends) {
             $list = explode(',', $depends);
             array_walk($list, 'trim');
-            if (count($list) === 0) {
-                throw new BuildException("Syntax Error: "
+            if (0 === count($list)) {
+                throw new BuildException('Syntax Error: '
                     . $attributeName
-                    . " attribute of target \""
+                    . ' attribute of target "'
                     . $targetName
-                    . "\" contains an empty string.");
+                    . '" contains an empty string.');
             }
         }
+
         return $list;
+    }
+
+    /**
+     * Tests if the property set in ifConfiditon exists.
+     *
+     * @return bool <code>true</code> if the property specified
+     *              in <code>$this->ifCondition</code> exists;
+     *              <code>false</code> otherwise
+     */
+    private function testIfCondition()
+    {
+        if ('' === $this->ifCondition) {
+            return true;
+        }
+
+        $properties = explode(',', $this->ifCondition);
+
+        $result = true;
+        foreach ($properties as $property) {
+            $test = $this->getProject()->replaceProperties($property);
+            $result = $result && (null !== $this->project->getProperty($test));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Tests if the property set in unlessCondition exists.
+     *
+     * @return bool <code>true</code> if the property specified
+     *              in <code>$this->unlessCondition</code> exists;
+     *              <code>false</code> otherwise
+     */
+    private function testUnlessCondition()
+    {
+        if ('' === $this->unlessCondition) {
+            return true;
+        }
+
+        $properties = explode(',', $this->unlessCondition);
+
+        $result = true;
+        foreach ($properties as $property) {
+            $test = $this->getProject()->replaceProperties($property);
+            $result = $result && (null === $this->project->getProperty($test));
+        }
+
+        return $result;
     }
 }

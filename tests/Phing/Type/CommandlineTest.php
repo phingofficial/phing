@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,9 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
 use Phing\Exception\BuildException;
+use Phing\Type\Commandline;
+use Phing\Type\CommandlineMarker;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for mappers.
@@ -27,7 +31,7 @@ use Phing\Exception\BuildException;
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  */
-class CommandlineTest extends \PHPUnit\Framework\TestCase
+class CommandlineTest extends TestCase
 {
     /**
      * @var Commandline
@@ -44,19 +48,19 @@ class CommandlineTest extends \PHPUnit\Framework\TestCase
     public function testTranslateCommandline()
     {
         // This should work fine; we expect 5 args
-        $cmd1 = "cvs -d:pserver:hans@xmpl.org:/cvs commit -m \"added a new test file\" Test.php";
+        $cmd1 = 'cvs -d:pserver:hans@xmpl.org:/cvs commit -m "added a new test file" Test.php';
         $c = new Commandline($cmd1);
-        $this->assertEquals(5, count($c->getArguments()));
+        $this->assertCount(5, $c->getArguments());
 
         // This has some extra space, but we expect same number of args
-        $cmd2 = "cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m \"added a new test file\"    Test.php";
+        $cmd2 = 'cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m "added a new test file"    Test.php';
         $c2 = new Commandline($cmd2);
-        $this->assertEquals(5, count($c2->getArguments()));
+        $this->assertCount(5, $c2->getArguments());
 
         // nested quotes should not be a problem either
         $cmd3 = "cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m \"added a new test file for 'fun'\"    Test.php";
         $c3 = new Commandline($cmd3);
-        $this->assertEquals(5, count($c3->getArguments()));
+        $this->assertCount(5, $c3->getArguments());
         $args = $c3->getArguments();
         $this->assertEquals("added a new test file for 'fun'", $args[3]);
 

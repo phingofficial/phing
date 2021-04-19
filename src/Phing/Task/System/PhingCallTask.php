@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -63,14 +64,14 @@ class PhingCallTask extends Task
     /**
      * Whether to inherit all properties from current project.
      *
-     * @var boolean
+     * @var bool
      */
     private $inheritAll = true;
 
     /**
      * Whether to inherit refs from current project.
      *
-     * @var boolean
+     * @var bool
      */
     private $inheritRefs = false;
 
@@ -97,13 +98,13 @@ class PhingCallTask extends Task
     }
 
     /**
-     * Alias for createProperty
+     * Alias for createProperty.
      *
      * @see createProperty()
      */
     public function createParam()
     {
-        if ($this->callee === null) {
+        if (null === $this->callee) {
             $this->init();
         }
 
@@ -115,7 +116,7 @@ class PhingCallTask extends Task
      */
     public function createProperty()
     {
-        if ($this->callee === null) {
+        if (null === $this->callee) {
             $this->init();
         }
 
@@ -124,11 +125,10 @@ class PhingCallTask extends Task
 
     /**
      * Target to execute, required.
-     *
      */
     public function setTarget(string $target): void
     {
-        if ($this->callee === null) {
+        if (null === $this->callee) {
             $this->init();
         }
         $this->callee->setTarget($target);
@@ -139,11 +139,11 @@ class PhingCallTask extends Task
      * Reference element identifying a data type to carry
      * over to the invoked target.
      *
-     * @param PhingReference $r the specified `PhingReference`.
+     * @param PhingReference $r the specified `PhingReference`
      */
     public function addReference(PhingReference $r)
     {
-        if ($this->callee === null) {
+        if (null === $this->callee) {
             $this->init();
         }
         $this->callee->addReference($r);
@@ -161,28 +161,29 @@ class PhingCallTask extends Task
     }
 
     /**
-     *  hand off the work to the phing task of ours, after setting it up
+     *  hand off the work to the phing task of ours, after setting it up.
      *
      * @throws BuildException on validation failure or if the target didn't
      *                        execute
      */
     public function main()
     {
-        if ($this->getOwningTarget()->getName() === "") {
+        if ('' === $this->getOwningTarget()->getName()) {
             $this->log("Cowardly refusing to call target '{$this->subTarget}' from the root", Project::MSG_WARN);
+
             return;
         }
 
         $this->log("Running PhingCallTask for target '" . $this->subTarget . "'", Project::MSG_DEBUG);
-        if ($this->callee === null) {
+        if (null === $this->callee) {
             $this->init();
         }
 
-        if ($this->subTarget === null) {
-            throw new BuildException("Attribute target is required.", $this->getLocation());
+        if (null === $this->subTarget) {
+            throw new BuildException('Attribute target is required.', $this->getLocation());
         }
 
-        $this->callee->setPhingFile($this->project->getProperty("phing.file"));
+        $this->callee->setPhingFile($this->project->getProperty('phing.file'));
         $this->callee->setTarget($this->subTarget);
         $this->callee->setInheritAll($this->inheritAll);
         $this->callee->setInheritRefs($this->inheritRefs);

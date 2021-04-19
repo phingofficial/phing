@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,15 +18,18 @@
  * <http://phing.info>.
  */
 
-namespace Phing;
+namespace Phing\Test;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Support\IHCreatorFail1;
-use Phing\Support\IHCreatorFail2;
-use Phing\Support\IHCreatorFail3;
-use Phing\Support\IHProjectComponent;
+use Phing\IntrospectionHelper;
+use Phing\Project;
+use Phing\Test\Support\IHCreatorFail1;
+use Phing\Test\Support\IHCreatorFail2;
+use Phing\Test\Support\IHCreatorFail3;
+use Phing\Test\Support\IHProjectComponent;
 use Phing\Type\FileSet;
+use PHPUnit\Framework\TestCase;
 
 /**
  * testcases for phing.IntrospectionHelper.
@@ -33,7 +37,7 @@ use Phing\Type\FileSet;
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  */
-class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
+class IntrospectionHelperTest extends TestCase
 {
     /** @var Project */
     private $p;
@@ -50,15 +54,16 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
     public function testAddText()
     {
         $ih = IntrospectionHelper::getHelper(Exception::class);
+
         try {
-            $ih->addText($this->p, new Exception(), "test");
-            $this->fail("Exception doesn\'t support addText");
+            $ih->addText($this->p, new Exception(), 'test');
+            $this->fail("Exception doesn\\'t support addText");
         } catch (BuildException $be) {
         }
 
         $element = new IHProjectComponent();
         $ih = IntrospectionHelper::getHelper(IHProjectComponent::class);
-        $ih->addText($this->p, $element, "test");
+        $ih->addText($this->p, $element, 'test');
 
         $this->assertSame('test', $element->text);
     }
@@ -66,38 +71,38 @@ class IntrospectionHelperTest extends \PHPUnit\Framework\TestCase
     public function testSupportsCharactersAdders()
     {
         $ih = IntrospectionHelper::getHelper(Exception::class);
-        $this->assertFalse($ih->supportsCharacters(), "String doesn\'t support addText");
+        $this->assertFalse($ih->supportsCharacters(), "String doesn\\'t support addText");
         $ih = IntrospectionHelper::getHelper(IHProjectComponent::class);
-        $this->assertTrue($ih->supportsCharacters(), "IHProjectComponent supports addText");
+        $this->assertTrue($ih->supportsCharacters(), 'IHProjectComponent supports addText');
     }
 
     public function testElementCreators()
     {
         try {
-            $ihtmp = IntrospectionHelper::getHelper(IHCreatorFail1::class);
-            $this->fail("create cannot take param");
+            IntrospectionHelper::getHelper(IHCreatorFail1::class);
+            $this->fail('create cannot take param');
         } catch (BuildException $be) {
         }
 
         try {
-            $ihtmp = IntrospectionHelper::getHelper(IHCreatorFail2::class);
-            $this->fail("no class hint for add");
+            IntrospectionHelper::getHelper(IHCreatorFail2::class);
+            $this->fail('no class hint for add');
         } catch (BuildException $be) {
         }
 
         try {
-            $ihtmp = IntrospectionHelper::getHelper(IHCreatorFail3::class);
-            $this->fail("no class hint for addconfigured");
+            IntrospectionHelper::getHelper(IHCreatorFail3::class);
+            $this->fail('no class hint for addconfigured');
         } catch (BuildException $be) {
         }
 
         $ih = IntrospectionHelper::getHelper(IHProjectComponent::class);
-        $this->assertEquals("test", $ih->createElement($this->p, new IHProjectComponent(), "one"));
+        $this->assertEquals('test', $ih->createElement($this->p, new IHProjectComponent(), 'one'));
 
         $fs = new FileSet();
         $fs->setProject($this->p);
 
-        $this->assertEquals($fs, $ih->createElement($this->p, new IHProjectComponent(), "FileSet"));
+        $this->assertEquals($fs, $ih->createElement($this->p, new IHProjectComponent(), 'FileSet'));
     }
 
     /*

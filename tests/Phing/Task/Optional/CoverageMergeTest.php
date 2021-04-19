@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,9 +18,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
@@ -29,20 +30,20 @@ class CoverageMergeTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        if (!file_exists(PHING_TEST_BASE . "/etc/tasks/ext/coverage/workspace")) {
-            mkdir(PHING_TEST_BASE . "/etc/tasks/ext/coverage/workspace");
+        if (!file_exists(PHING_TEST_BASE . '/etc/tasks/ext/coverage/workspace')) {
+            mkdir(PHING_TEST_BASE . '/etc/tasks/ext/coverage/workspace');
         }
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/coverage/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/coverage/build.xml');
     }
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . "/etc/tasks/ext/coverage/workspace");
+        $this->rmdir(PHING_TEST_BASE . '/etc/tasks/ext/coverage/workspace');
     }
 
     public function testCoverage(): void
     {
-        $workspace = PHING_TEST_BASE . "/etc/tasks/ext/coverage/workspace";
+        $workspace = PHING_TEST_BASE . '/etc/tasks/ext/coverage/workspace';
         $this->executeTarget('collect');
         $this->assertFileExists($workspace . '/1/clover-coverage.xml');
         $this->assertFileExists($workspace . '/2/clover-coverage.xml');

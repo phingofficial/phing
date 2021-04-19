@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +18,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
+
+use Phing\Type\FileSet;
 
 /**
  * Unit tests for FileSet -- including Selectors.
@@ -26,7 +29,7 @@ namespace Phing\Type;
  */
 class FileSetTest extends AbstractFileSetTest
 {
-    protected function getInstance()
+    protected function getInstance(): FileSet
     {
         return new FileSet();
     }

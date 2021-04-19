@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,10 +20,9 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\PHPStan;
+namespace Phing\Test\Task\Optional\PHPStan;
 
 use Phing\Task\Ext\Phpstan\PHPStanTask;
-use Phing\Task\Optional\PHPStan\PHPStanTaskAssert;
 use PHPUnit\Framework\TestCase;
 
 class PHPStanTaskUnitTest extends TestCase

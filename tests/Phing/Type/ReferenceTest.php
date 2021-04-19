@@ -1,9 +1,11 @@
 <?php
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Type\Reference;
+use PHPUnit\Framework\TestCase;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -22,20 +24,19 @@ use Phing\Project;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-class ReferenceTest extends \PHPUnit\Framework\TestCase
+class ReferenceTest extends TestCase
 {
     /**
-     * Test getProject method
+     * Test getProject method.
      *
      * Test that getProject method works conclusively by setting random
      * description and checking for that as the description of the retrieved
      * project - e g not a default/hardcoded description.
-     *
      */
     public function testGetProject()
     {
         $project = new Project();
-        $description = "desc" . rand();
+        $description = 'desc' . mt_rand();
         $project->setDescription($description);
         $reference = new Reference($project);
         $retrieved = $reference->getProject();
@@ -45,12 +46,12 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
     public function testGetReferencedObjectThrowsExceptionIfReferenceNotSet()
     {
         $project = new Project();
-        $reference = new Reference($project, "refOne");
+        $reference = new Reference($project, 'refOne');
 
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Reference refOne not found.');
 
-        $reference->getReferencedObject(null);
+        $reference->getReferencedObject();
     }
 
     public function testGetReferencedObjectThrowsExceptionIfNoReferenceIsGiven()
@@ -61,6 +62,6 @@ class ReferenceTest extends \PHPUnit\Framework\TestCase
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('No reference specified');
 
-        $reference->getReferencedObject(null);
+        $reference->getReferencedObject();
     }
 }

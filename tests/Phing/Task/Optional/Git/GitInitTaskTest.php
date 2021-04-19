@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,9 +18,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional\Git;
+namespace Phing\Test\Task\Optional\Git;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -66,7 +67,6 @@ class GitInitTaskTest extends BuildFileTest
     public function testGitInitBare()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
-        $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitInitBare');
         $this->assertInLogs('git-init: initializing (bare) "' . $repository . '" repository');
         $this->assertDirectoryExists($repository);

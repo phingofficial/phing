@@ -1,6 +1,9 @@
 <?php
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
+
+use Phing\Io\File;
+use PHPUnit\Framework\TestCase;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -19,7 +22,7 @@ namespace Phing\Io;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-class PhingFileTest extends \PHPUnit\Framework\TestCase
+class PhingFileTest extends TestCase
 {
     /**
      * @var File
@@ -38,6 +41,6 @@ class PhingFileTest extends \PHPUnit\Framework\TestCase
 
     public function testPathOutsideBasedir()
     {
-        $this->assertEquals(__FILE__, $this->file->getPathWithoutBase("/foo/bar"));
+        $this->assertEquals(__FILE__, $this->file->getPathWithoutBase('/foo/bar'));
     }
 }

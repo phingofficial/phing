@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,31 +31,46 @@ use Phing\Target;
 class XmlContext
 {
     /**
-     * Target that will hold all tasks/types placed outside of targets
+     * Target that will hold all tasks/types placed outside of targets.
      *
      * @var Target
      */
     private $implicitTarget;
 
     /**
-     * Current target
+     * Current target.
      *
      * @var Target
      */
-    private $currentTarget = null;
+    private $currentTarget;
 
     /**
-     * List of current targets
+     * List of current targets.
      *
      * @var Target[]
      */
-    private $currentTargets = null;
+    private $currentTargets;
 
     /** @var string */
     private $currentProjectName;
 
     /**
-     * Constructor
+     * The project to configure.
+     */
+    private $project;
+
+    private $configurators = [];
+
+    /**
+     * Impoerted files.
+     */
+    private $importStack = [];
+
+    /** Impoerted files */
+    private $extensionPointStack = [];
+
+    /**
+     * Constructor.
      *
      * @param Project $project the project to which this antxml context belongs to
      */
@@ -65,13 +81,6 @@ class XmlContext
         $this->implicitTarget->setName('');
         $this->implicitTarget->setHidden(true);
     }
-
-    /**
-     * The project to configure.
-     */
-    private $project;
-
-    private $configurators = [];
 
     /**
      * @param $cfg
@@ -97,11 +106,6 @@ class XmlContext
     }
 
     /**
-     * Impoerted files
-     */
-    private $importStack = [];
-
-    /**
      * @param $file
      */
     public function addImport($file)
@@ -117,9 +121,6 @@ class XmlContext
         return $this->importStack;
     }
 
-    /** Impoerted files */
-    private $extensionPointStack = [];
-
     public function addExtensionPoint($elem)
     {
         $this->extensionPointStack[] = $elem;
@@ -134,7 +135,7 @@ class XmlContext
     }
 
     /**
-     * find out the project to which this context belongs
+     * find out the project to which this context belongs.
      *
      * @return project
      */
@@ -144,7 +145,8 @@ class XmlContext
     }
 
     /**
-     * find out the current project name
+     * find out the current project name.
+     *
      * @return string current project name
      */
     public function getCurrentProjectName()
@@ -153,7 +155,8 @@ class XmlContext
     }
 
     /**
-     * set the name of the current project
+     * set the name of the current project.
+     *
      * @param string $name name of the current project
      */
     public function setCurrentProjectName(string $name)

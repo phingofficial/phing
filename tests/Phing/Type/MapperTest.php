@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,16 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Mapper\GlobMapper;
 use Phing\Project;
+use Phing\Type\Mapper;
+use Phing\Type\Path;
+use Phing\Type\Reference;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit test for mappers.
@@ -30,7 +35,7 @@ use Phing\Project;
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  */
-class MapperTest extends \PHPUnit\Framework\TestCase
+class MapperTest extends TestCase
 {
     private $project;
 
@@ -43,102 +48,110 @@ class MapperTest extends \PHPUnit\Framework\TestCase
     public function testEmptyElementIfIsReference()
     {
         $m = new Mapper($this->project);
-        $m->setFrom("*.java");
+        $m->setFrom('*.java');
+
         try {
-            $m->setRefid(new Reference($this->project, "dummyref"));
-            $this->fail("Can add reference to Mapper with from attribute set");
+            $m->setRefid(new Reference($this->project, 'dummyref'));
+            $this->fail('Can add reference to Mapper with from attribute set');
         } catch (BuildException $be) {
-            $this->assertEquals("You must not specify more than one attribute when using refid", $be->getMessage());
+            $this->assertEquals('You must not specify more than one attribute when using refid', $be->getMessage());
         }
 
         $m = new Mapper($this->project);
-        $m->setRefid(new Reference($this->project, "dummyref"));
+        $m->setRefid(new Reference($this->project, 'dummyref'));
+
         try {
-            $m->setFrom("*.java");
-            $this->fail("Can set from in Mapper that is a reference.");
+            $m->setFrom('*.java');
+            $this->fail('Can set from in Mapper that is a reference.');
         } catch (BuildException $be) {
-            $this->assertEquals("You must not specify more than one attribute when using refid", $be->getMessage());
+            $this->assertEquals('You must not specify more than one attribute when using refid', $be->getMessage());
         }
 
         $m = new Mapper($this->project);
-        $m->setRefid(new Reference($this->project, "dummyref"));
+        $m->setRefid(new Reference($this->project, 'dummyref'));
+
         try {
-            $m->setTo("*.java");
-            $this->fail("Can set to in Mapper that is a reference.");
+            $m->setTo('*.java');
+            $this->fail('Can set to in Mapper that is a reference.');
         } catch (BuildException $be) {
-            $this->assertEquals("You must not specify more than one attribute when using refid", $be->getMessage());
+            $this->assertEquals('You must not specify more than one attribute when using refid', $be->getMessage());
         }
+
         try {
             $m = new Mapper($this->project);
-            $m->setRefid(new Reference($this->project, "dummyref"));
-            $m->setType("glob");
-            $this->fail("Can set type in Mapper that is a reference.");
+            $m->setRefid(new Reference($this->project, 'dummyref'));
+            $m->setType('glob');
+            $this->fail('Can set type in Mapper that is a reference.');
         } catch (BuildException $be) {
-            $this->assertEquals("You must not specify more than one attribute when using refid", $be->getMessage());
+            $this->assertEquals('You must not specify more than one attribute when using refid', $be->getMessage());
         }
     }
 
     public function testCircularReferenceCheck()
     {
         $m = new Mapper($this->project);
-        $this->project->addReference("dummy", $m);
-        $m->setRefid(new Reference($this->project, "dummy"));
+        $this->project->addReference('dummy', $m);
+        $m->setRefid(new Reference($this->project, 'dummy'));
+
         try {
             $m->getImplementation();
-            $this->fail("Can make Mapper a Reference to itself.");
+            $this->fail('Can make Mapper a Reference to itself.');
         } catch (BuildException $be) {
-            $this->assertEquals("This data type contains a circular reference.", $be->getMessage());
+            $this->assertEquals('This data type contains a circular reference.', $be->getMessage());
         }
 
         // dummy1 --> dummy2 --> dummy3 --> dummy1
         $m1 = new Mapper($this->project);
-        $this->project->addReference("dummy1", $m1);
-        $m1->setRefid(new Reference($this->project, "dummy2"));
+        $this->project->addReference('dummy1', $m1);
+        $m1->setRefid(new Reference($this->project, 'dummy2'));
         $m2 = new Mapper($this->project);
-        $this->project->addReference("dummy2", $m2);
-        $m2->setRefid(new Reference($this->project, "dummy3"));
+        $this->project->addReference('dummy2', $m2);
+        $m2->setRefid(new Reference($this->project, 'dummy3'));
         $m3 = new Mapper($this->project);
-        $this->project->addReference("dummy3", $m3);
-        $m3->setRefid(new Reference($this->project, "dummy1"));
+        $this->project->addReference('dummy3', $m3);
+        $m3->setRefid(new Reference($this->project, 'dummy1'));
+
         try {
             $m1->getImplementation();
-            $this->fail("Can make circular reference.");
+            $this->fail('Can make circular reference.');
         } catch (BuildException $be) {
-            $this->assertEquals("This data type contains a circular reference.", $be->getMessage());
+            $this->assertEquals('This data type contains a circular reference.', $be->getMessage());
         }
 
         // dummy1 --> dummy2 --> dummy3
         // (which holds a glob mapper from "*.java" to "*.class"
         $m1 = new Mapper($this->project);
-        $this->project->addReference("dummy1", $m1);
-        $m1->setRefid(new Reference($this->project, "dummy2"));
+        $this->project->addReference('dummy1', $m1);
+        $m1->setRefid(new Reference($this->project, 'dummy2'));
         $m2 = new Mapper($this->project);
-        $this->project->addReference("dummy2", $m2);
-        $m2->setRefid(new Reference($this->project, "dummy3"));
+        $this->project->addReference('dummy2', $m2);
+        $m2->setRefid(new Reference($this->project, 'dummy3'));
         $m3 = new Mapper($this->project);
-        $this->project->addReference("dummy3", $m3);
+        $this->project->addReference('dummy3', $m3);
 
-        $m3->setType("glob");
-        $m3->setFrom("*.java");
-        $m3->setTo("*.class");
+        $m3->setType('glob');
+        $m3->setFrom('*.java');
+        $m3->setTo('*.class');
 
         $fmm = $m1->getImplementation();
-        $this->assertTrue($fmm instanceof GlobMapper, "Should be instance of GlobMapper");
-        $result = $fmm->main("a.java");
-        $this->assertEquals(1, count($result));
-        $this->assertEquals("a.class", $result[0]);
+        $this->assertInstanceOf(GlobMapper::class, $fmm, 'Should be instance of GlobMapper');
+        $result = $fmm->main('a.java');
+        $this->assertCount(1, $result);
+        $this->assertEquals('a.class', $result[0]);
     }
 
     public function testCopyTaskWithTwoFilesets()
     {
         $this->expectNotToPerformAssertions();
-        $t = new TaskdefForCopyTest("test1");
+        $t = new TaskdefForCopyTest('test1');
+
         try {
             $t->setUp();
             $t->test1();
             $t->tearDown();
         } catch (Exception $e) {
             $t->tearDown();
+
             throw $e;
         }
     }
@@ -146,7 +159,7 @@ class MapperTest extends \PHPUnit\Framework\TestCase
     public function testSetClasspathThrowsExceptionIfReferenceSetAlready()
     {
         $m = new Mapper($this->project);
-        $m->setRefid(new Reference($this->project, "dummyref"));
+        $m->setRefid(new Reference($this->project, 'dummyref'));
         $p = new Path($this->project);
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
@@ -166,18 +179,17 @@ class MapperTest extends \PHPUnit\Framework\TestCase
     public function testCreateClasspathThrowsExceptionIfReferenceAlreadySet()
     {
         $m = new Mapper($this->project);
-        $m->setRefid(new Reference($this->project, "dummyref"));
-        $p = new Path($this->project);
+        $m->setRefid(new Reference($this->project, 'dummyref'));
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
-        $f = $m->createClasspath();
+        $m->createClasspath();
     }
 
     public function testCallingsetClasspathRefThrowsExceptionIfReferenceAlreadySet()
     {
         $m = new Mapper($this->project);
-        $m->setRefid(new Reference($this->project, "dummyref"));
-        $r2 = new Reference($this->project, "dummyref1");
+        $m->setRefid(new Reference($this->project, 'dummyref'));
+        $r2 = new Reference($this->project, 'dummyref1');
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
         $m->setClasspathRef($r2);
@@ -186,9 +198,9 @@ class MapperTest extends \PHPUnit\Framework\TestCase
     public function testSetClassnameThrowsExceptionIfReferenceIsSet()
     {
         $m = new Mapper($this->project);
-        $m->setRefid(new Reference($this->project, "dummyref"));
+        $m->setRefid(new Reference($this->project, 'dummyref'));
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
-        $m->setClassname("mapper1");
+        $m->setClassname('mapper1');
     }
 }

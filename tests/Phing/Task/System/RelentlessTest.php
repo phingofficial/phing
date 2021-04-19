@@ -1,12 +1,12 @@
 <?php
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Relentless Task
+ * Tests the Relentless Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */

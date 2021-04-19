@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -36,17 +37,29 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     use SelectorAware;
 
     /**
+     * Convert the Selectors within this container to a string. This will
+     * just be a helper class for the subclasses that put their own name
+     * around the contents listed here.
+     *
+     * @return string comma separated list of Selectors contained in this one
+     */
+    public function __toString()
+    {
+        return implode(', ', $this->selectorElements());
+    }
+
+    /**
      * Performs the check for circular references and returns the
      * referenced FileSet.
      *
-     *
-     * @return FileSet
      * @throws BuildException
      *
+     * @return FileSet
      */
     public function getRef(Project $p)
     {
         $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+
         return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 
@@ -57,23 +70,11 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      */
     public function hasSelectors()
     {
-        if ($this->isReference() && $this->getProject() !== null) {
+        if ($this->isReference() && null !== $this->getProject()) {
             return $this->getRef($this->getProject())->hasSelectors();
         }
 
         return !empty($this->selectorsList);
-    }
-
-    /**
-     * Convert the Selectors within this container to a string. This will
-     * just be a helper class for the subclasses that put their own name
-     * around the contents listed here.
-     *
-     * @return string comma separated list of Selectors contained in this one
-     */
-    public function __toString()
-    {
-        return implode(', ', $this->selectorElements());
     }
 
     /**
@@ -90,7 +91,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      * BaseSelector, there could be selectors in the container whose
      * error conditions are not detected if their isSelected() call
      * is never made.
-     * </ul>
+     * </ul>.
      */
     public function validate()
     {
@@ -108,14 +109,15 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     }
 
     /**
-     * Gives the count of the number of selectors in this container
+     * Gives the count of the number of selectors in this container.
+     *
+     * @throws Exception
      *
      * @return int The number of selectors in this container
-     * @throws Exception
      */
     public function count()
     {
-        if ($this->isReference() && $this->getProject() !== null) {
+        if ($this->isReference() && null !== $this->getProject()) {
             try {
                 return $this->getRef($this->getProject())->count();
             } catch (Exception $e) {
@@ -129,8 +131,9 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
     /**
      * Returns the set of selectors as an array.
      *
-     * @return array of selectors in this container
      * @throws BuildException
+     *
+     * @return array of selectors in this container
      */
     public function getSelectors(Project $p)
     {
@@ -140,7 +143,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
 
         // *copy* selectors
         $result = [];
-        for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
+        for ($i = 0, $size = count($this->selectorsList); $i < $size; ++$i) {
             $result[] = clone $this->selectorsList[$i];
         }
 
@@ -154,7 +157,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      */
     public function selectorElements()
     {
-        if ($this->isReference() && $this->getProject() !== null) {
+        if ($this->isReference() && null !== $this->getProject()) {
             return $this->getRef($this->getProject())->selectorElements();
         }
 
@@ -167,7 +170,6 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
      * @param FileSelector $selector new selector to add
      *
      * @throws BuildException
-     *
      */
     public function appendSelector(FileSelector $selector)
     {

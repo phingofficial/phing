@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Recorder Task
+ * Tests the Recorder Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
@@ -45,6 +46,6 @@ class RecorderTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $fileContent = $this->getProject()->getProperty('file.content');
         $fileRows = explode(PHP_EOL, $fileContent);
-        $this->assertEquals($fileRows[0], '     [echo] recorder test');
+        $this->assertEquals('     [echo] recorder test', $fileRows[0]);
     }
 }

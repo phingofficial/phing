@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -15,7 +16,6 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- *
  */
 
 namespace Phing\Task\System\Pdo;
@@ -24,16 +24,16 @@ use Phing\Util\StringHelper;
 
 /**
  * Dummy query splitter: converts entire input into single
- * SQL string
+ * SQL string.
  *
  * @author  Michiel Rook <mrook@php.net>
  */
 class DummyPDOQuerySplitter extends PDOQuerySplitter
 {
     /**
-     * Returns entire SQL source
+     * Returns entire SQL source.
      *
-     * @return string|null
+     * @return null|string
      */
     public function nextQuery()
     {
@@ -46,16 +46,16 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
 
             if (
                 ($line != $delimiter)
-                && (StringHelper::startsWith("//", $line)
-                    || StringHelper::startsWith("--", $line)
-                    || StringHelper::startsWith("#", $line))
+                && (StringHelper::startsWith('//', $line)
+                    || StringHelper::startsWith('--', $line)
+                    || StringHelper::startsWith('#', $line))
             ) {
                 continue;
             }
 
-            $sql .= " " . $line . "\n";
+            $sql .= ' ' . $line . "\n";
 
-            /**
+            /*
              * fix issue with PDO and wrong formated multistatements
              *
              * @issue 1108

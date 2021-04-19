@@ -11,14 +11,28 @@
         },
         {
             "name": "Phing Community",
-            "homepage": "https://github.com/phingofficial/phing/blob/master/CREDITS.md"
+            "homepage": "https://github.com/phingofficial/phing/blob/main/CREDITS.md"
+        }
+    ],
+    "funding": [
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/michielrook"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/mrook"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/siad007"
         }
     ],
     "support": {
         "issues": "https://github.com/phingofficial/phing/issues",
         "source": "https://github.com/phingofficial/phing/",
         "irc": "irc://irc.freenode.net/phing",
-        "slack": "https://www.phing.info/slack",
+        "chat": "https://phing.slack.com/",
         "docs": "https://www.phing.info/docs/guide/stable/"
     },
     "config": {
@@ -67,9 +81,9 @@
     "require-dev": {
         "ext-curl": "*",
         "ext-iconv": "*",
-        "ext-json": "*",
         "ext-pdo_sqlite": "*",
         "ext-simplexml": "*",
+        "roave/security-advisories": "dev-master",
         "aws/aws-sdk-php": "^3.112",
         "friendsofphp/php-cs-fixer": "^2.18",
         "guzzlehttp/guzzle": "^7.1",
@@ -104,7 +118,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Phing\\": "tests/Phing"
+            "Phing\\Test\\": "tests/Phing"
         }
     },
     "bin": [

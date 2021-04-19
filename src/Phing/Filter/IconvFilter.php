@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -50,10 +51,11 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
      * Returns first n lines of stream.
      *
      * @param int $len
-     * @return string Characters read, or -1 if the end of the stream has been reached
      *
      * @throws IOException if the underlying stream throws an IOException
-     * during reading
+     *                     during reading
+     *
+     * @return string Characters read, or -1 if the end of the stream has been reached
      */
     public function read($len = null)
     {
@@ -71,7 +73,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         $this->log(
-            "Encoding " . $this->in->getResource() . " from " . $this->getInputEncoding() . " to " . $this->getOutputEncoding(),
+            'Encoding ' . $this->in->getResource() . ' from ' . $this->getInputEncoding() . ' to ' . $this->getOutputEncoding(),
             Project::MSG_VERBOSE
         );
 
@@ -79,8 +81,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     *
-     * @param string $encoding Input encoding.
+     * @param string $encoding input encoding
      */
     public function setInputEncoding($encoding)
     {
@@ -88,7 +89,6 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     *
      * @return string
      */
     public function getInputEncoding()
@@ -97,8 +97,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     *
-     * @param string $encoding Output encoding.
+     * @param string $encoding output encoding
      */
     public function setOutputEncoding($encoding)
     {
@@ -106,7 +105,6 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     *
      * @return string
      */
     public function getOutputEncoding()
@@ -117,7 +115,8 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Creates a new IconvFilter using the passed in Reader for instantiation.
      *
-     * @return self A new filter based on this configuration, but filtering the specified reader.
+     * @return self a new filter based on this configuration, but filtering the specified reader
+     *
      * @internal param A $object Reader object providing the underlying stream. Must not be <code>null</code>.
      */
     public function chain(Reader $reader): Reader
@@ -143,7 +142,7 @@ class IconvFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         $params = $this->getParameters();
-        if ($params !== null) {
+        if (null !== $params) {
             foreach ($params as $param) {
                 if ('in' === $param->getName()) {
                     $this->setInputEncoding($param->getValue());

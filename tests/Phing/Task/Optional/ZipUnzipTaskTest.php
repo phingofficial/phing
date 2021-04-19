@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,13 +18,13 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 use ZipArchive;
 
 /**
- * Tests the Zip and Unzip tasks
+ * Tests the Zip and Unzip tasks.
  *
  * @author  Michiel Rook <mrook@php.net>
  *
@@ -35,20 +36,20 @@ class ZipUnzipTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/ext/ZipUnzipTaskTest.xml"
+            . '/etc/tasks/ext/ZipUnzipTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testSimpleZipContainsOneFile()
     {
         $filename = PHING_TEST_BASE .
-            "/etc/tasks/ext/tmp/simple-test.zip";
+            '/etc/tasks/ext/tmp/simple-test.zip';
 
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists($filename);
@@ -62,7 +63,7 @@ class ZipUnzipTaskTest extends BuildFileTest
     public function testZipFileSet()
     {
         $filename = PHING_TEST_BASE .
-            "/etc/tasks/ext/tmp/simple-test.zip";
+            '/etc/tasks/ext/tmp/simple-test.zip';
 
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists($filename);
@@ -89,7 +90,7 @@ class ZipUnzipTaskTest extends BuildFileTest
     public function testUnzipSimpleZip()
     {
         $filename = PHING_TEST_BASE .
-            "/etc/tasks/ext/tmp/test.txt";
+            '/etc/tasks/ext/tmp/test.txt';
 
         $this->assertFileDoesNotExist($filename);
 

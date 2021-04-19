@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +21,6 @@
 namespace Phing\Listener;
 
 use Exception;
-use Phing\Phing;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -45,7 +45,7 @@ class ProgressLogger extends AnsiColorLogger
         $this->bar->setFormat(
             "<fg=cyan>Buildfile: %buildfile%</>\n" .
             "  <fg=green>%current%/%max% [%bar%] %percent:3s%% %elapsed:6s%</>\n" .
-            "<fg=cyan>[%target% %task%] %message%</>"
+            '<fg=cyan>[%target% %task%] %message%</>'
         );
         $this->bar->setProgressCharacter('|');
         $this->bar->setMessage('', 'target');
@@ -59,14 +59,15 @@ class ProgressLogger extends AnsiColorLogger
      */
     public function buildStarted(BuildEvent $event)
     {
-        $this->startTime = microtime(true);
-        $this->bar->setMessage($event->getProject()->getProperty("phing.file"), 'buildfile');
+        $this->startTime = $this->clock->getCurrentTime();
+        $this->bar->setMessage($event->getProject()->getProperty('phing.file'), 'buildfile');
     }
 
     /**
      * Fired after the last target has finished.
      *
      * @param BuildEvent $event The BuildEvent
+     *
      * @see   BuildEvent::getException()
      */
     public function buildFinished(BuildEvent $event)
@@ -81,6 +82,7 @@ class ProgressLogger extends AnsiColorLogger
      * Fired when a target is started.
      *
      * @param BuildEvent $event The BuildEvent
+     *
      * @see   BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event)
@@ -93,23 +95,25 @@ class ProgressLogger extends AnsiColorLogger
      * Fired when a target has finished.
      *
      * @param BuildEvent $event The BuildEvent
+     *
      * @see   BuildEvent#getException()
      */
     public function targetFinished(BuildEvent $event)
     {
-        $this->remTargets--;
+        --$this->remTargets;
     }
 
     /**
      * Fired when a task is started.
      *
      * @param BuildEvent $event The BuildEvent
+     *
      * @see   BuildEvent::getTask()
      */
     public function taskStarted(BuildEvent $event)
     {
         // ignore tasks in root
-        if ($event->getTarget()->getName() == "") {
+        if ('' == $event->getTarget()->getName()) {
             return;
         }
 
@@ -122,16 +126,17 @@ class ProgressLogger extends AnsiColorLogger
      * Fired when a task has finished.
      *
      * @param BuildEvent $event The BuildEvent
+     *
      * @see   BuildEvent::getException()
      */
     public function taskFinished(BuildEvent $event)
     {
         // ignore tasks in root
-        if ($event->getTarget()->getName() == "") {
+        if ('' == $event->getTarget()->getName()) {
             return;
         }
 
-        $this->remTasks--;
+        --$this->remTasks;
         $this->bar->advance();
     }
 
@@ -139,13 +144,14 @@ class ProgressLogger extends AnsiColorLogger
      * Fired whenever a message is logged.
      *
      * @param BuildEvent $event The BuildEvent
+     *
      * @see   BuildEvent::getMessage()
      */
     public function messageLogged(BuildEvent $event)
     {
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
-            $this->bar->setMessage(str_replace(["\n", "\r"], ["", ""], $event->getMessage()));
+            $this->bar->setMessage(str_replace(["\n", "\r"], ['', ''], $event->getMessage()));
             $this->bar->display();
         }
     }
@@ -155,7 +161,7 @@ class ProgressLogger extends AnsiColorLogger
      */
     protected function determineDepth(BuildEvent $event)
     {
-        if ($this->numTargets == 0) {
+        if (0 == $this->numTargets) {
             $this->numTasks = 0;
             $this->numTargets = 0;
 
@@ -167,13 +173,13 @@ class ProgressLogger extends AnsiColorLogger
                 $targets = $project->topoSort($targetName);
 
                 foreach ($targets as $target) {
-                    if ($target->getName() == "") {
+                    if ('' == $target->getName()) {
                         continue;
                     }
 
                     $tasks = $target->getTasks();
                     $this->numTasks += count($tasks);
-                    $this->numTargets++;
+                    ++$this->numTargets;
                 }
             }
 

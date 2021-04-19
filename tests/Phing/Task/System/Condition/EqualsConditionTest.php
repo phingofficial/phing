@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +18,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System\Condition;
+namespace Phing\Test\Task\System\Condition;
+
+use Phing\Task\System\Condition\EqualsCondition;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Testcase for the &lt;equals&gt; condition.
@@ -25,13 +29,13 @@ namespace Phing\Task\System\Condition;
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  */
-class EqualsConditionTest extends \PHPUnit\Framework\TestCase
+class EqualsConditionTest extends TestCase
 {
     public function testTrim()
     {
         $eq = new EqualsCondition();
-        $eq->setArg1("a");
-        $eq->setArg2(" a");
+        $eq->setArg1('a');
+        $eq->setArg2(' a');
         $this->assertFalse($eq->evaluate());
 
         $eq->setTrim(true);
@@ -44,8 +48,8 @@ class EqualsConditionTest extends \PHPUnit\Framework\TestCase
     public function testCaseSensitive()
     {
         $eq = new EqualsCondition();
-        $eq->setArg1("a");
-        $eq->setArg2("A");
+        $eq->setArg1('a');
+        $eq->setArg2('A');
         $this->assertFalse($eq->evaluate());
 
         $eq->setCasesensitive(false);

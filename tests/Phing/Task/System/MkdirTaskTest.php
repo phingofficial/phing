@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,13 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Mkdir Task
- *
+ * Tests the Mkdir Task.
  */
 class MkdirTaskTest extends BuildFileTest
 {
@@ -48,10 +48,13 @@ class MkdirTaskTest extends BuildFileTest
 
     /**
      * @dataProvider umaskIsHonouredWhenNotUsingModeArgumentDataProvider
+     *
+     * @param mixed $umask
+     * @param mixed $expectedDirMode
      */
     public function testUmaskIsHonouredWhenNotUsingModeArgument($umask, $expectedDirMode)
     {
-        if ($umask !== 0) {
+        if (0 !== $umask) {
             $this->markTestSkippedIfOsIsWindows();
         }
 
@@ -60,7 +63,7 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', $expectedDirMode);
     }
 
-    public function umaskIsHonouredWhenNotUsingModeArgumentDataProvider()
+    public function umaskIsHonouredWhenNotUsingModeArgumentDataProvider(): array
     {
         return [
             [0000, 0777],
@@ -78,10 +81,14 @@ class MkdirTaskTest extends BuildFileTest
 
     /**
      * @dataProvider parentDirectoriesHaveDefaultPermissionsDataProvider
+     *
+     * @param mixed $umask
+     * @param mixed $expectedModeA
+     * @param mixed $expectedModeB
      */
     public function testParentDirectoriesHaveDefaultPermissions($umask, $expectedModeA, $expectedModeB)
     {
-        if ($umask !== 0) {
+        if (0 !== $umask) {
             $this->markTestSkippedIfOsIsWindows();
         }
 
@@ -91,7 +98,7 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a/b', $expectedModeB);
     }
 
-    public function parentDirectoriesHaveDefaultPermissionsDataProvider()
+    public function parentDirectoriesHaveDefaultPermissionsDataProvider(): array
     {
         return [
             [
@@ -154,13 +161,13 @@ class MkdirTaskTest extends BuildFileTest
      * @param string $filename
      * @param int $mode
      */
-    private function assertFileModeIs($filename, $mode)
+    private function assertFileModeIs(string $filename, int $mode)
     {
         $stat = stat($filename);
 
         $this->assertSame(
-            sprintf("%03o", $mode),
-            sprintf("%03o", $stat['mode'] & 0777),
+            sprintf('%03o', $mode),
+            sprintf('%03o', $stat['mode'] & 0777),
             sprintf('Failed asserting that file mode of "%s" is %03o', $filename, $mode)
         );
     }
@@ -169,7 +176,7 @@ class MkdirTaskTest extends BuildFileTest
      * @param string $filename
      * @param string $expectedAclEntry
      */
-    private function assertFileAclContains($filename, $expectedAclEntry)
+    private function assertFileAclContains(string $filename, string $expectedAclEntry)
     {
         $output = shell_exec('getfacl --omit-header --absolute-names ' . escapeshellarg($filename));
 
@@ -179,6 +186,7 @@ class MkdirTaskTest extends BuildFileTest
         foreach ($aclEntries as $aclEntry) {
             if ($aclEntry === $expectedAclEntry) {
                 $matchFound = true;
+
                 break;
             }
         }
@@ -197,7 +205,7 @@ class MkdirTaskTest extends BuildFileTest
 
     private function markTestSkippedIfOsIsWindows()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        if ('WIN' === strtoupper(substr(PHP_OS, 0, 3))) {
             $this->markTestSkipped('POSIX ACL tests cannot be run on Windows.');
         }
     }
@@ -207,7 +215,7 @@ class MkdirTaskTest extends BuildFileTest
         $this->markTestSkippedIfOsIsWindows();
 
         exec('which setfacl', $dummyOutput, $exitCode);
-        if ($exitCode !== 0) {
+        if (0 !== $exitCode) {
             $this->markTestSkipped('"setfacl" command not found. POSIX ACL tests cannot be run.');
         }
     }

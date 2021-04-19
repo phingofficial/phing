@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,9 +18,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional\Git;
+namespace Phing\Test\Task\Optional\Git;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -50,7 +51,6 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function testAllParamsSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertLogLineContaining(
             'git-branch output: Branch all-params-set set up to track remote branch master from origin'
@@ -149,8 +149,6 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function testForceMoveBranchNoNewbranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-
         $this->expectBuildExceptionContaining(
             'forceMoveBranchNoNewbranch',
             'New branch name is required in branch move',
@@ -160,8 +158,6 @@ class GitBranchTaskTest extends BuildFileTest
 
     public function testMoveBranchNoNewbranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-
         $this->expectBuildExceptionContaining(
             'moveBranchNoNewbranch',
             'New branch name is required in branch move',

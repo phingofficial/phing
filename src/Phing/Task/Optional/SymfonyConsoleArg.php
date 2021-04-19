@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,87 +23,27 @@ namespace Phing\Task\Optional;
 use Phing\Type\DataType;
 
 /**
- * Implementation of console argument
+ * Implementation of console argument.
  *
  * @author  nuno costa <nuno@francodacosta.com>
  * @license GPL
  */
 class SymfonyConsoleArg extends DataType
 {
-    private $name = null;
-    private $value = null;
+    private $name;
+    private $value;
     private $quotes = false;
 
     /**
-     * Gets the argument name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Sets the argument name
-     *
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Gets the argument value
-     *
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * Sets the argument value
-     *
-     * @param string $value
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
-    /**
-     * Should the argument value be enclosed in double quotes
-     *
-     * @return bool
-     */
-    public function getQuotes()
-    {
-        return $this->quotes;
-    }
-
-    /**
-     * Should the argument value be enclosed in double quotes
-     *
-     * @param bool $quotes
-     */
-    public function setQuotes($quotes)
-    {
-        $this->quotes = $quotes;
-    }
-
-    /**
      * Transforms the argument object into a string, takes into consideration
-     * the quotes and the argument value
+     * the quotes and the argument value.
      *
      * @return string
      */
     public function __toString()
     {
-        $name = "";
-        $value = "";
+        $name = '';
+        $value = '';
         $quote = $this->getQuotes() ? '"' : '';
 
         if (null !== $this->getValue()) {
@@ -118,5 +59,65 @@ class SymfonyConsoleArg extends DataType
         }
 
         return $name . $value;
+    }
+
+    /**
+     * Gets the argument name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Sets the argument name.
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Gets the argument value.
+     *
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Sets the argument value.
+     *
+     * @param string $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * Should the argument value be enclosed in double quotes.
+     *
+     * @return bool
+     */
+    public function getQuotes()
+    {
+        return $this->quotes;
+    }
+
+    /**
+     * Should the argument value be enclosed in double quotes.
+     *
+     * @param bool $quotes
+     */
+    public function setQuotes($quotes)
+    {
+        $this->quotes = $quotes;
     }
 }

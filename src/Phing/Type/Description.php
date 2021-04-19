@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -43,9 +44,10 @@ class Description extends DataType
      * Return the descriptions from all the targets of
      * a project.
      *
-     * @param Project $project the project to get the descriptions for.
+     * @param Project $project the project to get the descriptions for
+     *
      * @return string containing the concatenated descriptions of
-     *         the targets.
+     *                the targets
      */
     public static function getAll(Project $project)
     {
@@ -55,7 +57,23 @@ class Description extends DataType
         foreach ($targets as $t) {
             self::concatDescriptions($project, $t, $description);
         }
+
         return $description;
+    }
+
+    /**
+     * Adds descriptive text to the project.
+     *
+     * @param string $text
+     */
+    public function addText($text)
+    {
+        $currentDescription = $this->getProject()->getDescription();
+        if (null === $currentDescription) {
+            $this->getProject()->setDescription($text);
+        } else {
+            $this->getProject()->setDescription($currentDescription);
+        }
     }
 
     private static function concatDescriptions(Project $project, Target $t, &$description)
@@ -64,7 +82,7 @@ class Description extends DataType
             if ($task instanceof UnknownElement) {
                 $ue = $task;
                 $descComp = $ue->getWrapper()->getText();
-                if ($descComp !== null) {
+                if (null !== $descComp) {
                     $description .= $project->replaceProperties($descComp);
                 }
             }
@@ -76,20 +94,5 @@ class Description extends DataType
         return array_filter($t->getTasks(), static function (Task $task) use ($name) {
             return $task->getTaskName() === $name;
         });
-    }
-
-    /**
-     * Adds descriptive text to the project.
-     *
-     * @param string $text
-     */
-    public function addText($text)
-    {
-        $currentDescription = $this->getProject()->getDescription();
-        if ($currentDescription === null) {
-            $this->getProject()->setDescription($text);
-        } else {
-            $this->getProject()->setDescription($currentDescription);
-        }
     }
 }

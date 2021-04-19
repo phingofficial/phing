@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>
+ * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>.
  *
  * All rights reserved.
  *
@@ -32,9 +33,11 @@
  * PHP version 5
  *
  * @category Tasks
+ *
  * @author   Laurent Laville <pear@laurent-laville.org>
  * @license  http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link     https://github.com/llaville/phing-GrowlNotifyTask
+ *
+ * @see     https://github.com/llaville/phing-GrowlNotifyTask
  */
 
 namespace Phing\Task\Optional;
@@ -51,9 +54,11 @@ use Phing\Task;
  * PHP version 5
  *
  * @category Tasks
+ *
  * @author   Laurent Laville <pear@laurent-laville.org>
  * @license  http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link     https://github.com/llaville/phing-GrowlNotifyTask
+ *
+ * @see     https://github.com/llaville/phing-GrowlNotifyTask
  */
 class GrowlNotifyTask extends Task
 {
@@ -72,7 +77,7 @@ class GrowlNotifyTask extends Task
     protected $icon;
 
     /**
-     * Initializes task with default options
+     * Initializes task with default options.
      *
      * @param Net_Growl $growl (optional) mock instance
      */
@@ -84,7 +89,7 @@ class GrowlNotifyTask extends Task
 
     /**
      * The init method check if Net_Growl is available
-     * (exists and can be loaded)
+     * (exists and can be loaded).
      *
      * @throws BuildException
      */
@@ -99,6 +104,7 @@ class GrowlNotifyTask extends Task
         }
 
         fclose($handle);
+
         include_once $autoloader;
 
         $this->setTaskName('GrowlNotify');
@@ -116,7 +122,7 @@ class GrowlNotifyTask extends Task
     }
 
     /**
-     * Defines the name of the application sending the notification
+     * Defines the name of the application sending the notification.
      *
      * @param string $name (optional) Name of the application
      *                     that appears in your Growl preferences
@@ -141,10 +147,9 @@ class GrowlNotifyTask extends Task
     }
 
     /**
-     * Indicates if the notification should be sticky
+     * Indicates if the notification should be sticky.
      *
      * @param bool $sticky (optional) Notification should be sticky
-     *
      */
     public function setSticky(bool $sticky = true)
     {
@@ -197,7 +202,7 @@ class GrowlNotifyTask extends Task
     }
 
     /**
-     * The notification name/type
+     * The notification name/type.
      *
      * @param string $notification Name/type
      *                             Default: "General Notification"
@@ -244,9 +249,9 @@ class GrowlNotifyTask extends Task
         }
 
         // relative location
-        if (strpos($icon, '..') === 0) {
+        if (0 === strpos($icon, '..')) {
             $icon = realpath(__DIR__ . DIRECTORY_SEPARATOR . $icon);
-        } elseif (strpos($icon, '.') === 0) {
+        } elseif (0 === strpos($icon, '.')) {
             $icon = __DIR__ . substr($icon, 1);
         }
 
@@ -321,19 +326,29 @@ class GrowlNotifyTask extends Task
         switch ($priority) {
             case 'low':
                 $priority = Net_Growl::PRIORITY_LOW;
+
                 break;
+
             case 'moderate':
                 $priority = Net_Growl::PRIORITY_MODERATE;
+
                 break;
+
             case 'normal':
                 $priority = Net_Growl::PRIORITY_NORMAL;
+
                 break;
+
             case 'high':
                 $priority = Net_Growl::PRIORITY_HIGH;
+
                 break;
+
             case 'emergency':
                 $priority = Net_Growl::PRIORITY_EMERGENCY;
+
                 break;
+
             default:
                 throw new BuildException(
                     '"priority" attribute is invalid.'
@@ -365,6 +380,7 @@ class GrowlNotifyTask extends Task
             case 'udp':
             case 'gntp':
                 break;
+
             default:
                 throw new BuildException(
                     '"protocol" attribute is invalid.' .
@@ -399,9 +415,9 @@ class GrowlNotifyTask extends Task
         }
 
         // relative location
-        if (strpos($icon, '..') === 0) {
+        if (0 === strpos($icon, '..')) {
             $icon = realpath(__DIR__ . DIRECTORY_SEPARATOR . $icon);
-        } elseif (strpos($icon, '.') === 0) {
+        } elseif (0 === strpos($icon, '.')) {
             $icon = __DIR__ . substr($icon, 1);
         }
 
@@ -409,7 +425,7 @@ class GrowlNotifyTask extends Task
     }
 
     /**
-     * The main entry point method
+     * The main entry point method.
      *
      * @throws BuildException
      */
@@ -445,8 +461,8 @@ class GrowlNotifyTask extends Task
             }
             $response = $growl->register();
 
-            if ($this->protocol == 'gntp') {
-                if ($response->getStatus() != 'OK') {
+            if ('gntp' == $this->protocol) {
+                if ('OK' != $response->getStatus()) {
                     throw new BuildException(
                         'Growl Error ' . $response->getErrorCode() .
                         ' - ' . $response->getErrorDescription()
@@ -484,8 +500,8 @@ class GrowlNotifyTask extends Task
                 $options
             );
 
-            if ($this->protocol == 'gntp') {
-                if ($response->getStatus() != 'OK') {
+            if ('gntp' == $this->protocol) {
+                if ('OK' != $response->getStatus()) {
                     throw new BuildException(
                         'Growl Error ' . $response->getErrorCode() .
                         ' - ' . $response->getErrorDescription()

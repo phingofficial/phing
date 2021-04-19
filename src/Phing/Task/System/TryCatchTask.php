@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,15 +34,15 @@ use Phing\Task;
  */
 class TryCatchTask extends Task
 {
-    protected $propertyName = "";
+    protected $propertyName = '';
     protected $referenceName = '';
 
-    protected $tryContainer = null;
-    protected $catchContainer = null;
-    protected $finallyContainer = null;
+    protected $tryContainer;
+    protected $catchContainer;
+    protected $finallyContainer;
 
     /**
-     * Main method
+     * Main method.
      *
      * @throws BuildException
      */
@@ -96,7 +97,6 @@ class TryCatchTask extends Task
      * contain the exception.
      *
      * @param Exception $reference
-     *
      */
     public function setReference($reference)
     {
@@ -104,8 +104,7 @@ class TryCatchTask extends Task
     }
 
     /**
-     * Add nested <try> element
-     *
+     * Add nested <try> element.
      */
     public function addTry(SequentialTask $container)
     {
@@ -113,8 +112,7 @@ class TryCatchTask extends Task
     }
 
     /**
-     * Add nested <catch> element
-     *
+     * Add nested <catch> element.
      */
     public function addCatch(SequentialTask $container)
     {
@@ -122,8 +120,7 @@ class TryCatchTask extends Task
     }
 
     /**
-     * Add nested <finally> element
-     *
+     * Add nested <finally> element.
      */
     public function addFinally(SequentialTask $container)
     {

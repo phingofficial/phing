@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +18,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Support;
+namespace Phing\Test\Support;
 
 use Phing\Type\FileSet;
 
@@ -37,9 +38,9 @@ class IHProjectComponent
         $this->text .= $text;
     }
 
-    public function createOne()
+    public function createOne(): string
     {
-        return "test";
+        return 'test';
     }
 
     public function addFileSet(FileSet $fs): void

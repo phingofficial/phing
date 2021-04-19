@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -38,7 +39,7 @@ use Phing\Util\StringHelper;
  * properties (like logging level).</p>
  * <p>Some technical issues: the file's print stream is flushed for &quot;finished&quot;
  * events (buildFinished, targetFinished and taskFinished), and is closed on
- * a buildFinished event.</p>
+ * a buildFinished event.</p>.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
@@ -47,16 +48,16 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * The name of the file to record to.
      */
-    private $filename = null;
+    private $filename;
     /**
      * Whether or not to append. Need bool to record an unset state (null).
      */
-    private $append = null;
+    private $append;
     /**
      * Whether to start or stop recording. Need bool to record an unset
      * state (null).
      */
-    private $start = null;
+    private $start;
     /**
      * The level to log at. A level of -1 means not initialized yet.
      */
@@ -93,7 +94,7 @@ class RecorderTask extends Task implements SubBuildListener
      * Sets the name of the file to log to, and the name of the recorder
      * entry.
      *
-     * @param string $fname File name of logfile.
+     * @param string $fname file name of logfile
      */
     public function setName($fname)
     {
@@ -103,17 +104,17 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Sets the action for the associated recorder entry.
      *
-     * @param string $action The action for the entry to take: start or stop.
+     * @param string $action the action for the entry to take: start or stop
      */
     public function setAction($action)
     {
-        $this->start = strtolower($action) === "start";
+        $this->start = 'start' === strtolower($action);
     }
 
     /**
      * Whether or not the logger should append to a previous file.
      *
-     * @param bool $append if true, append to a previous file.
+     * @param bool $append if true, append to a previous file
      */
     public function setAppend(bool $append)
     {
@@ -133,7 +134,7 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Sets the level to which this recorder entry should log to.
      *
-     * @param string $level the level to set.
+     * @param string $level the level to set
      */
     public function setLoglevel($level)
     {
@@ -147,16 +148,16 @@ class RecorderTask extends Task implements SubBuildListener
      */
     public function main()
     {
-        if ($this->filename == null) {
-            throw new BuildException("No filename specified");
+        if (null == $this->filename) {
+            throw new BuildException('No filename specified');
         }
 
-        $this->getProject()->log("setting a recorder for name " . $this->filename, Project::MSG_DEBUG);
+        $this->getProject()->log('setting a recorder for name ' . $this->filename, Project::MSG_DEBUG);
 
         // get the recorder entry
         $recorder = $this->getRecorder($this->filename, $this->getProject());
         // set the values on the recorder
-        if ($this->loglevel === -1) {
+        if (-1 === $this->loglevel) {
             $recorder->setMessageOutputLevel($this->loglevel);
         } elseif (isset($this->logLevelChoices[$this->loglevel])) {
             $recorder->setMessageOutputLevel($this->logLevelChoices[$this->loglevel]);
@@ -165,7 +166,7 @@ class RecorderTask extends Task implements SubBuildListener
         }
 
         $recorder->setEmacsMode(StringHelper::booleanValue($this->emacsMode));
-        if ($this->start != null) {
+        if (null != $this->start) {
             if (StringHelper::booleanValue($this->start)) {
                 $recorder->reopenFile();
                 $recorder->setRecordState($this->start);
@@ -177,34 +178,9 @@ class RecorderTask extends Task implements SubBuildListener
     }
 
     /**
-     * Gets the recorder that's associated with the passed in name. If the
-     * recorder doesn't exist, then a new one is created.
-     *
-     * @param  string $name the name of the recorder
-     * @param  Project $proj the current project
-     * @return RecorderEntry a recorder
-     * @throws BuildException on error
-     */
-    protected function getRecorder($name, Project $proj)
-    {
-        // create a recorder entry
-        $entry = self::$recorderEntries[$name] ?? new RecorderEntry($name);
-
-        if ($this->append == null) {
-            $entry->openFile(false);
-        } else {
-            $entry->openFile(StringHelper::booleanValue($this->append));
-        }
-        $entry->setProject($proj);
-        self::$recorderEntries[$name] = $entry;
-
-        return $entry;
-    }
-
-    /**
      * Empty implementation required by SubBuildListener interface.
      *
-     * @param BuildEvent $event ignored.
+     * @param BuildEvent $event ignored
      */
     public function buildStarted(BuildEvent $event)
     {
@@ -213,7 +189,7 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Empty implementation required by SubBuildListener interface.
      *
-     * @param BuildEvent $event ignored.
+     * @param BuildEvent $event ignored
      */
     public function subBuildStarted(BuildEvent $event)
     {
@@ -222,7 +198,7 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Empty implementation required by SubBuildListener interface.
      *
-     * @param BuildEvent $event ignored.
+     * @param BuildEvent $event ignored
      */
     public function targetStarted(BuildEvent $event)
     {
@@ -231,7 +207,7 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Empty implementation required by SubBuildListener interface.
      *
-     * @param BuildEvent $event ignored.
+     * @param BuildEvent $event ignored
      */
     public function targetFinished(BuildEvent $event)
     {
@@ -240,7 +216,7 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Empty implementation required by SubBuildListener interface.
      *
-     * @param BuildEvent $event ignored.
+     * @param BuildEvent $event ignored
      */
     public function taskStarted(BuildEvent $event)
     {
@@ -249,7 +225,7 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Empty implementation required by SubBuildListener interface.
      *
-     * @param BuildEvent $event ignored.
+     * @param BuildEvent $event ignored
      */
     public function taskFinished(BuildEvent $event)
     {
@@ -258,7 +234,7 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Empty implementation required by SubBuildListener interface.
      *
-     * @param BuildEvent $event ignored.
+     * @param BuildEvent $event ignored
      */
     public function messageLogged(BuildEvent $event)
     {
@@ -267,7 +243,7 @@ class RecorderTask extends Task implements SubBuildListener
     /**
      * Cleans recorder registry.
      *
-     * @param BuildEvent $event ignored.
+     * @param BuildEvent $event ignored
      */
     public function buildFinished(BuildEvent $event)
     {
@@ -278,13 +254,40 @@ class RecorderTask extends Task implements SubBuildListener
      * Cleans recorder registry, if this is the subbuild the task has
      * been created in.
      *
-     * @param BuildEvent $event ignored.
+     * @param BuildEvent $event ignored
      */
     public function subBuildFinished(BuildEvent $event)
     {
         if ($event->getProject() == $this->getProject()) {
             $this->cleanup();
         }
+    }
+
+    /**
+     * Gets the recorder that's associated with the passed in name. If the
+     * recorder doesn't exist, then a new one is created.
+     *
+     * @param string  $name the name of the recorder
+     * @param Project $proj the current project
+     *
+     * @throws BuildException on error
+     *
+     * @return RecorderEntry a recorder
+     */
+    protected function getRecorder($name, Project $proj)
+    {
+        // create a recorder entry
+        $entry = self::$recorderEntries[$name] ?? new RecorderEntry($name);
+
+        if (null == $this->append) {
+            $entry->openFile(false);
+        } else {
+            $entry->openFile(StringHelper::booleanValue($this->append));
+        }
+        $entry->setProject($proj);
+        self::$recorderEntries[$name] = $entry;
+
+        return $entry;
     }
 
     /**

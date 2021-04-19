@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,9 +18,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Michiel Rook <mrook@php.net>
@@ -28,34 +29,34 @@ class FileHashTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/filehash.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/filehash.xml');
     }
 
     public function tearDown(): void
     {
-        if (file_exists(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.crc32")) {
-            unlink(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.crc32");
+        if (file_exists(PHING_TEST_BASE . '/etc/tasks/ext/filehash.bin.crc32')) {
+            unlink(PHING_TEST_BASE . '/etc/tasks/ext/filehash.bin.crc32');
         }
-        if (file_exists(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.md5")) {
-            unlink(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.md5");
+        if (file_exists(PHING_TEST_BASE . '/etc/tasks/ext/filehash.bin.md5')) {
+            unlink(PHING_TEST_BASE . '/etc/tasks/ext/filehash.bin.md5');
         }
-        if (file_exists(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.sha1")) {
-            unlink(PHING_TEST_BASE . "/etc/tasks/ext/filehash.bin.sha1");
+        if (file_exists(PHING_TEST_BASE . '/etc/tasks/ext/filehash.bin.sha1')) {
+            unlink(PHING_TEST_BASE . '/etc/tasks/ext/filehash.bin.sha1');
         }
     }
 
     public function testMD5()
     {
-        $this->expectLog("testMD5", "c9dcdf095de0ef3d2e3f71cb4dc7ee11");
+        $this->expectLog('testMD5', 'c9dcdf095de0ef3d2e3f71cb4dc7ee11');
     }
 
     public function testSHA1()
     {
-        $this->expectLog("testSHA1", "dadd0aafb79d9fb8299a928efb23c112874bbda3");
+        $this->expectLog('testSHA1', 'dadd0aafb79d9fb8299a928efb23c112874bbda3');
     }
 
     public function testCRC32()
     {
-        $this->expectLog("testCRC32", "d34c2e86");
+        $this->expectLog('testCRC32', 'd34c2e86');
     }
 }

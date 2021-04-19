@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Available Task
+ * Tests the Available Task.
  *
  * @author  Michiel Rook <mrook@php.net>
  *
@@ -36,49 +37,49 @@ class AvailableTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/AvailableTaskTest.xml"
+            . '/etc/tasks/system/AvailableTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testDanglingSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertNull($this->project->getProperty("prop." . __FUNCTION__));
+        $this->assertNull($this->project->getProperty('prop.' . __FUNCTION__));
     }
 
     public function testFileSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
+        $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
     public function testFileAbsoluteSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
+        $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
     public function testDirectorySymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
+        $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
     public function testDirectoryAbsoluteSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
+        $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
     public function testDirectorySymlinkBC()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertNull($this->project->getProperty("prop." . __FUNCTION__));
+        $this->assertNull($this->project->getProperty('prop.' . __FUNCTION__));
     }
 }

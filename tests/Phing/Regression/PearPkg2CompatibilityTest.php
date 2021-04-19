@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,14 +18,14 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Regression;
+namespace Phing\Test\Regression;
 
 use Exception;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for tickets
- * http://www.phing.info/trac/ticket/524
+ * http://www.phing.info/trac/ticket/524.
  *
  * TODO: skip when user doesn't have pear installed (you cannot check for the class name, because
  *       it is included via composer)
@@ -37,51 +38,51 @@ class PearPkg2CompatibilityTest extends BuildFileTest
     {
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
-        $buildFile = PHING_TEST_BASE . "/etc/regression/524/build.xml";
+        $buildFile = PHING_TEST_BASE . '/etc/regression/524/build.xml';
         $this->configureProject($buildFile);
 
         if (!class_exists('PEAR_PackageFileManager', false)) {
-            $this->markTestSkipped("This test requires PEAR_PackageFileManager to be installed");
+            $this->markTestSkipped('This test requires PEAR_PackageFileManager to be installed');
         }
 
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
         error_reporting($this->savedErrorLevel);
-        $this->executeTarget("teardown");
-    }
-
-    protected function assertPreConditions(): void
-    {
-        try {
-            $this->executeTarget("inactive");
-        } catch (Exception $e) {
-            if (strpos($e->getMessage(), 'Unknown channel') !== false) {
-                $this->markTestSkipped($e->getMessage());
-            }
-        }
+        $this->executeTarget('teardown');
     }
 
     public function testInactiveMaintainers()
     {
-        $this->executeTarget("inactive");
+        $this->executeTarget('inactive');
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertStringContainsString('<active>no</active>', $content);
     }
 
     public function testActiveMaintainers()
     {
-        $this->executeTarget("active");
+        $this->executeTarget('active');
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertStringContainsString('<active>yes</active>', $content);
     }
 
     public function testNotSetMaintainers()
     {
-        $this->executeTarget("notset");
+        $this->executeTarget('notset');
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertStringContainsString('<active>yes</active>', $content);
+    }
+
+    protected function assertPreConditions(): void
+    {
+        try {
+            $this->executeTarget('inactive');
+        } catch (Exception $e) {
+            if (false !== strpos($e->getMessage(), 'Unknown channel')) {
+                $this->markTestSkipped($e->getMessage());
+            }
+        }
     }
 }

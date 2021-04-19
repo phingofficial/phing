@@ -22,16 +22,16 @@ namespace Phing;
 interface TypeAdapter
 {
     /**
-     * Sets the project
+     * Sets the project.
      *
-     * @param Project $p the project instance.
+     * @param Project $p the project instance
      */
     public function setProject(Project $p);
 
     /**
-     * Gets the project
+     * Gets the project.
      *
-     * @return Project the project instance.
+     * @return Project the project instance
      */
     public function getProject();
 

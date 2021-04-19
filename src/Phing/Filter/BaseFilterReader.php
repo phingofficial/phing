@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,6 +30,7 @@ use Phing\Project;
  * Base class for core filter readers.
  *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
+ *
  * @see     FilterReader
  */
 class BaseFilterReader extends FilterReader
@@ -43,7 +45,7 @@ class BaseFilterReader extends FilterReader
      *
      * @var Project
      */
-    protected $project = null;
+    protected $project;
 
     /**
      * Constructor used by Phing's introspection mechanism.
@@ -57,8 +59,8 @@ class BaseFilterReader extends FilterReader
      */
     public function __construct($in = null)
     {
-        if ($in === null) {
-            $dummy = "";
+        if (null === $in) {
+            $dummy = '';
             $in = new StringReader($dummy);
         }
         parent::__construct($in);
@@ -77,7 +79,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Sets the initialized status.
      *
-     * @param bool $initialized Whether or not the filter is initialized.
+     * @param bool $initialized whether or not the filter is initialized
      */
     public function setInitialized($initialized)
     {
@@ -87,7 +89,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Sets the project to work with.
      *
-     * @param Project $project The project this filter is part of.
+     * @param Project $project the project this filter is part of
      */
     public function setProject(Project $project)
     {
@@ -108,12 +110,12 @@ class BaseFilterReader extends FilterReader
     /**
      * Reads characters.
      *
-     * @param int $len Maximum number of characters to read.
-     *
-     * @return string Characters read, or -1 if the end of the stream
-     *                    has been reached
+     * @param int $len maximum number of characters to read
      *
      * @throws IOException If an I/O error occurs
+     *
+     * @return string Characters read, or -1 if the end of the stream
+     *                has been reached
      */
     public function read($len = null)
     {
@@ -124,11 +126,11 @@ class BaseFilterReader extends FilterReader
      * Reads a line of text ending with '\n' (or until the end of the stream).
      * The returned String retains the '\n'.
      *
-     * @return string|null the line read, or <code>null</code> if the end of the
-     *             stream has already been reached
-     *
      * @throws IOException if the underlying reader throws one during
      *                     reading
+     *
+     * @return null|string the line read, or <code>null</code> if the end of the
+     *                     stream has already been reached
      */
     public function readLine()
     {
@@ -136,7 +138,7 @@ class BaseFilterReader extends FilterReader
 
         while (($ch = $this->in->read(1)) !== -1) {
             $line .= $ch;
-            if ($ch === "\n") {
+            if ("\n" === $ch) {
                 break;
             }
         }
@@ -157,14 +159,13 @@ class BaseFilterReader extends FilterReader
     /**
      * Convenience method to support logging in filters.
      *
-     * @param string $msg Message to log.
-     * @param int $level Priority level.
-     *
+     * @param string $msg   message to log
+     * @param int    $level priority level
      */
     public function log($msg, $level = Project::MSG_INFO)
     {
-        if ($this->project !== null) {
-            $this->project->log("[filter:" . get_class($this) . "] " . $msg, $level);
+        if (null !== $this->project) {
+            $this->project->log('[filter:' . get_class($this) . '] ' . $msg, $level);
         }
     }
 }

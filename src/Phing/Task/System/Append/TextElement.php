@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,15 +31,14 @@ use Phing\ProjectComponent;
 
 /**
  * Text element points to a file or contains text.
- *
  */
 class TextElement extends ProjectComponent
 {
-    public $value = "";
+    public $value = '';
     public $trimLeading = false;
     public $trim = false;
     public $filtering = true;
-    public $encoding = null;
+    public $encoding;
 
     /**
      * whether to filter the text in this element
@@ -50,7 +50,7 @@ class TextElement extends ProjectComponent
     }
 
     /**
-     * The encoding of the text element
+     * The encoding of the text element.
      *
      * @param string $encoding the name of the charset used to encode
      */
@@ -60,9 +60,10 @@ class TextElement extends ProjectComponent
     }
 
     /**
-     * set the text using a file
+     * set the text using a file.
      *
-     * @param  File $file the file to use
+     * @param File $file the file to use
+     *
      * @throws BuildException if the file does not exist, or cannot be
      *                        read
      */
@@ -70,12 +71,13 @@ class TextElement extends ProjectComponent
     {
         // non-existing files are not allowed
         if (!$file->exists()) {
-            throw new BuildException("File " . $file . " does not exist.");
+            throw new BuildException('File ' . $file . ' does not exist.');
         }
 
         $reader = null;
+
         try {
-            if ($this->encoding == null) {
+            if (null == $this->encoding) {
                 $reader = new BufferedReader(new FileReader($file));
             } else {
                 $reader = new BufferedReader(
@@ -85,13 +87,14 @@ class TextElement extends ProjectComponent
             $this->value = $reader->read();
         } catch (IOException $ex) {
             $reader->close();
+
             throw new BuildException($ex);
         }
         $reader->close();
     }
 
     /**
-     * set the text using inline
+     * set the text using inline.
      *
      * @param string $value the text to place inline
      */
@@ -101,7 +104,7 @@ class TextElement extends ProjectComponent
     }
 
     /**
-     * s:^\s*:: on each line of input
+     * s:^\s*:: on each line of input.
      *
      * @param bool $trimLeading if true do the trim
      */
@@ -111,7 +114,7 @@ class TextElement extends ProjectComponent
     }
 
     /**
-     * whether to call text.trim()
+     * whether to call text.trim().
      *
      * @param bool $trim if true trim the text
      */
@@ -125,11 +128,11 @@ class TextElement extends ProjectComponent
      */
     public function getValue()
     {
-        if ($this->value == null) {
-            $this->value = "";
+        if (null == $this->value) {
+            $this->value = '';
         }
-        if (trim($this->value) === '') {
-            $this->value = "";
+        if ('' === trim($this->value)) {
+            $this->value = '';
         }
         if ($this->trimLeading) {
             $current = str_split($this->value);
@@ -139,13 +142,13 @@ class TextElement extends ProjectComponent
             while ($pos < count($current)) {
                 $ch = $current[$pos++];
                 if ($startOfLine) {
-                    if ($ch == ' ' || $ch == "\t") {
+                    if (' ' == $ch || "\t" == $ch) {
                         continue;
                     }
                     $startOfLine = false;
                 }
                 $b .= $ch;
-                if ($ch == "\n" || $ch == "\r") {
+                if ("\n" == $ch || "\r" == $ch) {
                     $startOfLine = true;
                 }
             }
@@ -154,6 +157,7 @@ class TextElement extends ProjectComponent
         if ($this->trim) {
             $this->value = trim($this->value);
         }
+
         return $this->value;
     }
 }

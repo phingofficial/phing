@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -66,13 +67,14 @@ class EqualsCondition implements Condition
     }
 
     /**
-     * @return bool
      * @throws BuildException
+     *
+     * @return bool
      */
     public function evaluate()
     {
-        if ($this->arg1 === null || $this->arg2 === null) {
-            throw new BuildException("Both arg1 and arg2 are required in equals.");
+        if (null === $this->arg1 || null === $this->arg2) {
+            throw new BuildException('Both arg1 and arg2 are required in equals.');
         }
 
         if ($this->trim) {

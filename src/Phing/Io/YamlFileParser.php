@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -36,7 +37,7 @@ class YamlFileParser implements FileParserInterface
     public function parseFile(File $file)
     {
         if (!$file->canRead()) {
-            throw new IOException("Unable to read file: " . $file);
+            throw new IOException('Unable to read file: ' . $file);
         }
 
         try {
@@ -53,8 +54,9 @@ class YamlFileParser implements FileParserInterface
             $properties = (array) $parser->parse(file_get_contents($file->getAbsolutePath()));
         } catch (Exception $e) {
             if (is_a($e, '\Symfony\Component\Yaml\Exception\ParseException')) {
-                throw new IOException("Unable to parse contents of " . $file . ": " . $e->getMessage());
+                throw new IOException('Unable to parse contents of ' . $file . ': ' . $e->getMessage());
             }
+
             throw $e;
         }
 
@@ -74,6 +76,8 @@ class YamlFileParser implements FileParserInterface
      * @todo: milo - 20142901 - If you plan to extend phing and add a new fileparser, please move this to an abstract
      * class.
      *
+     * @param mixed $separator
+     * @param mixed $flattenedKey
      */
     private function flattenArray(array $arrayToFlatten, $separator = '.', $flattenedKey = '')
     {
@@ -94,6 +98,7 @@ class YamlFileParser implements FileParserInterface
                 $flattenedArray[$tmpFlattendKey] = $value;
             }
         }
+
         return $flattenedArray;
     }
 }

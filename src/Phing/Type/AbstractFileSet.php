@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,6 @@ use ArrayIterator;
 use Exception;
 use IteratorAggregate;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\DirectoryScanner;
 use Phing\Io\File;
 use Phing\Io\IOException;
@@ -49,6 +49,7 @@ use Phing\Type\Selector\SelectorScanner;
  *
  * @author  Andreas Aderhold <andi@binarycloud.com>
  * @author  Hans Lellelid <hans@xmpl.org>
+ *
  * @see     ProjectComponent
  */
 abstract class AbstractFileSet extends DataType implements SelectorContainer, IteratorAggregate
@@ -58,16 +59,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     // These vars are public for cloning purposes
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $useDefaultExcludes = true;
-
-    /**
-     * Whether to expand/dereference symbolic links, default is false
-     *
-     * @var boolean
-     */
-    protected $expandSymbolicLinks = false;
 
     /**
      * @var PatternSet
@@ -80,6 +74,13 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     public $additionalPatternSets = [];
     public $dir;
     public $isCaseSensitive = true;
+
+    /**
+     * Whether to expand/dereference symbolic links, default is false.
+     *
+     * @var bool
+     */
+    protected $expandSymbolicLinks = false;
     private $errorOnMissingDir = false;
     private $directoryScanner;
 
@@ -90,7 +91,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     {
         parent::__construct();
 
-        if ($fileset !== null && ($fileset instanceof FileSet)) {
+        if (null !== $fileset && ($fileset instanceof FileSet)) {
             $this->dir = $fileset->dir;
             $this->additionalPatternSets = $fileset->additionalPatternSets;
             $this->useDefaultExcludes = $fileset->useDefaultExcludes;
@@ -104,10 +105,26 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $this->defaultPatternSet = new PatternSet();
     }
 
+    public function __toString()
+    {
+        try {
+            if ($this->isReference()) {
+                return (string) $this->getRef($this->getProject());
+            }
+            $stk[] = $this;
+            $this->dieOnCircularReference($stk, $this->getProject());
+            $ds = $this->getDirectoryScanner($this->getProject());
+            $files = $ds->getIncludedFiles();
+            $result = implode(';', $files);
+        } catch (BuildException $e) {
+            $result = '';
+        }
+
+        return $result;
+    }
+
     /**
-     * Sets whether to expand/dereference symbolic links, default is false
-     *
-     * @param bool $expandSymbolicLinks
+     * Sets whether to expand/dereference symbolic links, default is false.
      */
     public function setExpandSymbolicLinks(bool $expandSymbolicLinks)
     {
@@ -140,9 +157,10 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * @param string|File $dir
+     * @param File|string $dir
+     *
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function setDir($dir)
     {
@@ -158,11 +176,12 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     /**
      * @param Project $p
+     *
      * @throws BuildException
      */
     public function getDir(Project $p = null)
     {
-        if ($p === null) {
+        if (null === $p) {
             $p = $this->getProject();
         }
 
@@ -187,7 +206,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * add a name entry on the include list
+     * add a name entry on the include list.
      */
     public function createInclude()
     {
@@ -199,7 +218,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * add a name entry on the include files list
+     * add a name entry on the include files list.
      */
     public function createIncludesFile()
     {
@@ -211,7 +230,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * add a name entry on the exclude list
+     * add a name entry on the exclude list.
      */
     public function createExclude()
     {
@@ -223,7 +242,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * add a name entry on the include files list
+     * add a name entry on the include files list.
      */
     public function createExcludesFile()
     {
@@ -248,6 +267,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * or a space.
      *
      * @param string $includes
+     *
      * @throws BuildException
      */
     public function setIncludes($includes)
@@ -263,6 +283,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * or a space.
      *
      * @param string $excludes
+     *
      * @throws BuildException
      */
     public function setExcludes($excludes)
@@ -276,7 +297,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param File $incl The file to fetch the include patterns from.
+     * @param File $incl the file to fetch the include patterns from
+     *
      * @throws BuildException
      */
     public function setIncludesfile(File $incl)
@@ -290,7 +312,8 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param File $excl The file to fetch the exclude patterns from.
+     * @param File $excl the file to fetch the exclude patterns from
+     *
      * @throws BuildException
      */
     public function setExcludesfile($excl)
@@ -305,8 +328,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Sets whether default exclusions should be used or not.
      *
      * @param bool $useDefaultExcludes "true"|"on"|"yes" when default exclusions
-     *                           should be used, "false"|"off"|"no" when they
-     *                           shouldn't be used.
+     *                                 should be used, "false"|"off"|"no" when they
+     *                                 shouldn't be used
+     *
      * @throws BuildException
      */
     public function setDefaultexcludes($useDefaultExcludes)
@@ -318,7 +342,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * Sets case sensitivity of the file system
+     * Sets case sensitivity of the file system.
      *
      * @param bool $isCaseSensitive
      */
@@ -331,15 +355,17 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * returns a reference to the dirscanner object belonging to this fileset
+     * returns a reference to the dirscanner object belonging to this fileset.
      *
      * @param Project $p
-     * @return DirectoryScanner
+     *
      * @throws BuildException
+     *
+     * @return DirectoryScanner
      */
     public function getDirectoryScanner(Project $p = null)
     {
-        if ($p === null) {
+        if (null === $p) {
             $p = $this->getProject();
         }
 
@@ -349,15 +375,15 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             return $o->getDirectoryScanner($p);
         }
 
-        if ($this->dir === null) {
-            throw new BuildException(sprintf("No directory specified for <%s>.", $this->getDataTypeName()));
+        if (null === $this->dir) {
+            throw new BuildException(sprintf('No directory specified for <%s>.', $this->getDataTypeName()));
         }
         if (!$this->dir->exists() && $this->errorOnMissingDir) {
-            throw new BuildException("Directory " . $this->dir->getAbsolutePath() . " not found.");
+            throw new BuildException('Directory ' . $this->dir->getAbsolutePath() . ' not found.');
         }
         if (!$this->dir->isLink() || !$this->expandSymbolicLinks) {
             if (!$this->dir->isDirectory()) {
-                throw new BuildException($this->dir->getAbsolutePath() . " is not a directory.");
+                throw new BuildException($this->dir->getAbsolutePath() . ' is not a directory.');
             }
         }
         $ds = new DirectoryScanner();
@@ -367,56 +393,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         $ds->scan();
 
         return $ds;
-    }
-
-    /**
-     * feed dirscanner with infos defined by this fileset
-     *
-     * @param Project $p
-     * @throws BuildException
-     */
-    protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p = null)
-    {
-        if ($p === null) {
-            $p = $this->getProject();
-        }
-
-        if ($this->isReference()) {
-            $this->getRef($p)->setupDirectoryScanner($ds, $p);
-            return;
-        }
-
-        $stk[] = $this;
-        $this->dieOnCircularReference($stk, $p);
-        array_pop($stk);
-
-        // FIXME - pass dir directly when dirscanner supports File
-        $ds->setBasedir($this->dir->getPath());
-
-        foreach ($this->additionalPatternSets as $addPattern) {
-            $this->defaultPatternSet->append($addPattern, $p);
-        }
-
-        $ds->setIncludes($this->defaultPatternSet->getIncludePatterns($p));
-        $ds->setExcludes($this->defaultPatternSet->getExcludePatterns($p));
-
-        $p->log(
-            $this->getDataTypeName() . ": Setup file scanner in dir " . (string) $this->dir . " with " . (string) $this->defaultPatternSet,
-            Project::MSG_DEBUG
-        );
-
-        if ($ds instanceof SelectorScanner) {
-            $selectors = $this->getSelectors($p);
-            foreach ($selectors as $selector) {
-                $p->log((string) $selector . PHP_EOL, Project::MSG_DEBUG);
-            }
-            $ds->setSelectors($selectors);
-        }
-
-        if ($this->useDefaultExcludes) {
-            $ds->addDefaultExcludes();
-        }
-        $ds->setCaseSensitive($this->isCaseSensitive);
     }
 
     public function dieOnCircularReference(&$stk, Project $p = null)
@@ -443,10 +419,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * Performs the check for circular references and returns the
      * referenced FileSet.
      *
-     *
-     * @return FileSet
      * @throws BuildException
      *
+     * @return FileSet
      */
     public function getRef(Project $p)
     {
@@ -462,7 +437,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function hasSelectors()
     {
-        if ($this->isReference() && $this->getProject() !== null) {
+        if ($this->isReference() && null !== $this->getProject()) {
             return $this->getRef($this->getProject())->hasSelectors();
         }
         $stk[] = $this;
@@ -474,11 +449,11 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Indicates whether there are any patterns here.
      *
-     * @return bool Whether any patterns are in this container.
+     * @return bool whether any patterns are in this container
      */
     public function hasPatterns()
     {
-        if ($this->isReference() && $this->getProject() !== null) {
+        if ($this->isReference() && null !== $this->getProject()) {
             return $this->getRef($this->getProject())->hasPatterns();
         }
         $stk[] = $this;
@@ -488,7 +463,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             return true;
         }
 
-        for ($i = 0, $size = count($this->additionalPatternSets); $i < $size; $i++) {
+        for ($i = 0, $size = count($this->additionalPatternSets); $i < $size; ++$i) {
             $ps = $this->additionalPatternSets[$i];
             if ($ps->hasPatterns()) {
                 return true;
@@ -499,14 +474,15 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * Gives the count of the number of selectors in this container
+     * Gives the count of the number of selectors in this container.
+     *
+     * @throws Exception
      *
      * @return int The number of selectors in this container
-     * @throws Exception
      */
     public function count()
     {
-        if ($this->isReference() && $this->getProject() !== null) {
+        if ($this->isReference() && null !== $this->getProject()) {
             try {
                 return $this->getRef($this->getProject())->count();
             } catch (Exception $e) {
@@ -520,8 +496,9 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * Returns the set of selectors as an array.
      *
-     * @return array of selectors in this container
      * @throws BuildException
+     *
+     * @return array of selectors in this container
      */
     public function getSelectors(Project $p)
     {
@@ -531,7 +508,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
         // *copy* selectors
         $result = [];
-        for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
+        for ($i = 0, $size = count($this->selectorsList); $i < $size; ++$i) {
             $result[] = clone $this->selectorsList[$i];
         }
 
@@ -545,7 +522,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function selectorElements()
     {
-        if ($this->isReference() && $this->getProject() !== null) {
+        if ($this->isReference() && null !== $this->getProject()) {
             return $this->getRef($this->getProject())->selectorElements();
         }
 
@@ -558,7 +535,6 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * @param FileSelector $selector new selector to add
      *
      * @throws BuildException
-     *
      */
     public function appendSelector(FileSelector $selector)
     {
@@ -578,26 +554,61 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         if ($this->isReference()) {
             return $this->getRef($this->getProject())->getIterator($options);
         }
+
         return new ArrayIterator($this->getFiles($options));
     }
 
-    abstract protected function getFiles(...$options);
-
-    public function __toString()
+    /**
+     * feed dirscanner with infos defined by this fileset.
+     *
+     * @param Project $p
+     *
+     * @throws BuildException
+     */
+    protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p = null)
     {
-        try {
-            if ($this->isReference()) {
-                return (string) $this->getRef($this->getProject());
-            }
-            $stk[] = $this;
-            $this->dieOnCircularReference($stk, $this->getProject());
-            $ds = $this->getDirectoryScanner($this->getProject());
-            $files = $ds->getIncludedFiles();
-            $result = implode(';', $files);
-        } catch (BuildException $e) {
-            $result = '';
+        if (null === $p) {
+            $p = $this->getProject();
         }
 
-        return $result;
+        if ($this->isReference()) {
+            $this->getRef($p)->setupDirectoryScanner($ds, $p);
+
+            return;
+        }
+
+        $stk[] = $this;
+        $this->dieOnCircularReference($stk, $p);
+        array_pop($stk);
+
+        // FIXME - pass dir directly when dirscanner supports File
+        $ds->setBasedir($this->dir->getPath());
+
+        foreach ($this->additionalPatternSets as $addPattern) {
+            $this->defaultPatternSet->append($addPattern, $p);
+        }
+
+        $ds->setIncludes($this->defaultPatternSet->getIncludePatterns($p));
+        $ds->setExcludes($this->defaultPatternSet->getExcludePatterns($p));
+
+        $p->log(
+            $this->getDataTypeName() . ': Setup file scanner in dir ' . (string) $this->dir . ' with ' . (string) $this->defaultPatternSet,
+            Project::MSG_DEBUG
+        );
+
+        if ($ds instanceof SelectorScanner) {
+            $selectors = $this->getSelectors($p);
+            foreach ($selectors as $selector) {
+                $p->log((string) $selector . PHP_EOL, Project::MSG_DEBUG);
+            }
+            $ds->setSelectors($selectors);
+        }
+
+        if ($this->useDefaultExcludes) {
+            $ds->addDefaultExcludes();
+        }
+        $ds->setCaseSensitive($this->isCaseSensitive);
     }
+
+    abstract protected function getFiles(...$options);
 }

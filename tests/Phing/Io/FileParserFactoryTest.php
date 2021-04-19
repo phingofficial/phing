@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,14 +18,19 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
+
+use Phing\Io\FileParserFactory;
+use Phing\Io\IniFileParser;
+use Phing\Io\YamlFileParser;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Unit test for FileParserFactory
+ * Unit test for FileParserFactory.
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  */
-class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
+class FileParserFactoryTest extends TestCase
 {
     /**
      * @var FileParserFactory
@@ -32,12 +38,7 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     private $objectToTest;
 
     /**
-     * @var string
-     */
-    private $iniFileStub;
-
-    /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function setUp(): void
     {
@@ -45,7 +46,7 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function tearDown(): void
     {
@@ -55,6 +56,9 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers       FileParserFactory::createParser
      * @dataProvider parserTypeProvider
+     *
+     * @param mixed $parserName
+     * @param mixed $expectedType
      */
     public function testCreateParser($parserName, $expectedType)
     {
@@ -64,7 +68,7 @@ class FileParserFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function parserTypeProvider()
+    public function parserTypeProvider(): array
     {
         return [
             ['properties', IniFileParser::class],

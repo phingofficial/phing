@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,20 +18,24 @@
  * <http://phing.info>.
  */
 
-namespace Phing;
+namespace Phing\Test;
 
 use Phing\Io\OutputStream;
-use Phing\Util\Timer;
+use Phing\Phing;
+use Phing\Project;
+use Phing\Target;
+use Phing\Util\DefaultClock;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Core Phing class test
- * Do not know why there was no test at all
+ * Do not know why there was no test at all.
  *
  * // TODO implement all methods
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  */
-class PhingTest extends \PHPUnit\Framework\TestCase
+class PhingTest extends TestCase
 {
     private const NAMESPACED_CLASS = 'Vendor\\Package\\FullSeparatedClass';
     private const SEPARATED_CLASS = 'Vendor_Package_SeparatedClass';
@@ -38,8 +43,9 @@ class PhingTest extends \PHPUnit\Framework\TestCase
     protected $classpath;
 
     /**
-     * Test a PSR-0 support of class loading
-     * @link http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+     * Test a PSR-0 support of class loading.
+     *
+     * @see http://groups.google.com/group/php-standards/web/psr-0-final-proposal
      */
     public function testImportPSR0()
     {
@@ -59,7 +65,7 @@ class PhingTest extends \PHPUnit\Framework\TestCase
 
     public function testTimer()
     {
-        $this->assertInstanceOf(Timer::class, Phing::getTimer());
+        $this->assertInstanceOf(DefaultClock::class, Phing::getTimer());
     }
 
     public function testGetPhingVersion()
@@ -80,7 +86,8 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $phing::setOutputStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
         $project->expects($this->atLeastOnce())
-            ->method('log');
+            ->method('log')
+        ;
 
         $phing->printTargets($project);
     }
@@ -95,7 +102,8 @@ class PhingTest extends \PHPUnit\Framework\TestCase
         $phing::setErrorStream($stream);
 
         $stream->expects($this->once())
-            ->method('write');
+            ->method('write')
+        ;
 
         $phing::printUsage();
     }
@@ -122,11 +130,11 @@ class PhingTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Get fixtures classpath
+     * Get fixtures classpath.
      *
      * @return string Classpath
      */
-    protected static function getClassPath()
+    protected static function getClassPath(): string
     {
         return __DIR__ . '/../etc/importclasses';
     }

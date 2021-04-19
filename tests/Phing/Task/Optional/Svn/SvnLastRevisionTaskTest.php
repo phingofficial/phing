@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +18,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional\Svn;
-
-use Phing\Task\Optional\Svn\AbstractSvnTaskTest;
-use Phing\Task\Optional\Svn\SvnTaskTestSkip;
+namespace Phing\Test\Task\Optional\Svn;
 
 /**
  * @author Michiel Rook <mrook@php.net>
@@ -38,7 +36,6 @@ class SvnLastRevisionTaskTest extends AbstractSvnTaskTest
 
     public function testGetLastRevision()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getLastRevision');
         $this->assertPropertyEquals('svn.lastrevision', '1560');
     }

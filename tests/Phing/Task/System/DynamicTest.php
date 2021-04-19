@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,13 +18,13 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Phing\Project;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests dynamics
+ * Tests dynamics.
  *
  * @author  Siad Ardroumli
  */
@@ -33,7 +34,7 @@ class DynamicTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/DynamicTest.xml"
+            . '/etc/tasks/system/DynamicTest.xml'
         );
     }
 
@@ -41,7 +42,6 @@ class DynamicTest extends BuildFileTest
     {
         $this->executeTarget('simple');
 
-        /** @var Project $project */
         $project = $this->getProject();
 
         $this->assertSame('1', $project->getProperty('prop1'));

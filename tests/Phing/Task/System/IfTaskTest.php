@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the If Task
+ * Tests the If Task.
  *
  * @author  Paul Edenburg <pauledenburg@gmail.com>
  */
@@ -36,9 +37,8 @@ class IfTaskTest extends BuildFileTest
     }
 
     /**
-     * Test the 'elseif' conditional of the if-task
+     * Test the 'elseif' conditional of the if-task.
      *
-     * @test
      */
     public function testAddElseIf()
     {
@@ -50,9 +50,8 @@ class IfTaskTest extends BuildFileTest
     }
 
     /**
-     * Test the 'then' conditional of the if-task
+     * Test the 'then' conditional of the if-task.
      *
-     * @test
      */
     public function testAddThen()
     {
@@ -64,9 +63,8 @@ class IfTaskTest extends BuildFileTest
     }
 
     /**
-     * Test the 'else' conditional of the if-task
+     * Test the 'else' conditional of the if-task.
      *
-     * @test
      */
     public function testAddElse()
     {
@@ -79,9 +77,8 @@ class IfTaskTest extends BuildFileTest
 
     /**
      * test that a buildexception is thrown when we've got two
-     * <then> statements in an if-task
+     * <then> statements in an if-task.
      *
-     * @test
      */
     public function testAddDoubleThen()
     {
@@ -94,9 +91,8 @@ class IfTaskTest extends BuildFileTest
 
     /**
      * test that a BuildException is thrown when we've got two
-     * <else> statements in an if-task
+     * <else> statements in an if-task.
      *
-     * @test
      */
     public function testAddDoubleElse()
     {
@@ -109,9 +105,8 @@ class IfTaskTest extends BuildFileTest
 
     /**
      * test that a BuildException is thrown when we've got two
-     * <else> statements in an if-task
+     * <else> statements in an if-task.
      *
-     * @test
      */
     public function testMultipleConditions()
     {

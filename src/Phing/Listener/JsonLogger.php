@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +25,6 @@ use Phing\Exception\BuildException;
 use Phing\Io\FileOutputStream;
 use Phing\Io\IOException;
 use Phing\Io\OutputStreamWriter;
-use Phing\Phing;
 use SimpleXMLElement;
 
 /**
@@ -41,17 +41,18 @@ class JsonLogger extends XmlLogger
      * Fired when the build finishes, this adds the time taken and any
      * error stacktrace to the build element and writes the document to disk.
      *
-     * @param  BuildEvent $event An event with any relevant extra information.
-     *                           Will not be <code>null</code>.
+     * @param BuildEvent $event An event with any relevant extra information.
+     *                          Will not be <code>null</code>.
+     *
      * @throws BuildException
      */
     public function buildFinished(BuildEvent $event)
     {
-        $elapsedTime = microtime(true) - $this->getBuildTimerStart();
+        $elapsedTime = $this->clock->getCurrentTime() - $this->getBuildTimerStart();
 
         $this->getBuildElement()->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 
-        if ($event->getException() != null) {
+        if (null != $event->getException()) {
             $this->getBuildElement()->setAttribute(XmlLogger::ERROR_ATTR, $event->getException()->getMessage());
             $errText = $this->getDoc()->createCDATASection($event->getException()->getTraceAsString());
             $stacktrace = $this->getDoc()->createElement(XmlLogger::STACKTRACE_TAG);
@@ -61,15 +62,15 @@ class JsonLogger extends XmlLogger
 
         $this->getDoc()->appendChild($this->getBuildElement());
 
-        $outFilename = $event->getProject()->getProperty("JsonLogger.file");
-        if ($outFilename == null) {
-            $outFilename = "log.json";
+        $outFilename = $event->getProject()->getProperty('JsonLogger.file');
+        if (null == $outFilename) {
+            $outFilename = 'log.json';
         }
 
         $stream = $this->getOut();
 
         try {
-            if ($stream === null) {
+            if (null === $stream) {
                 $stream = new FileOutputStream($outFilename);
             }
 
@@ -81,7 +82,8 @@ class JsonLogger extends XmlLogger
                 $stream->close(); // in case there is a stream open still ...
             } catch (Exception $x) {
             }
-            throw new BuildException("Unable to write log file.", $exc);
+
+            throw new BuildException('Unable to write log file.', $exc);
         }
 
         // cleanup:remove the buildElement
@@ -97,9 +99,9 @@ class JsonLogger extends XmlLogger
 
         if (!$isRoot) {
             if (count($xmlnode->attributes()) > 0) {
-                $jsnode["@attribute"] = [];
+                $jsnode['@attribute'] = [];
                 foreach ($xmlnode->attributes() as $key => $value) {
-                    $jsnode["@attribute"][$key] = (string) $value;
+                    $jsnode['@attribute'][$key] = (string) $value;
                 }
             }
 
@@ -115,12 +117,14 @@ class JsonLogger extends XmlLogger
                 }
                 $jsnode[$childname][] = $this->xml2js($childxmlnode, false);
             }
+
             return $jsnode;
         }
 
         $nodename = $xmlnode->getName();
         $jsnode[$nodename] = [];
         $jsnode[$nodename][] = $this->xml2js($xmlnode, false);
+
         return json_encode($jsnode, JSON_PRETTY_PRINT);
     }
 }

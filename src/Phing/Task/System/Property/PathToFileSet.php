@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,9 +21,9 @@
 namespace Phing\Task\System\Property;
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Io\FileUtils;
 use Phing\Io\IOException;
-use Phing\Io\File;
 use Phing\Task;
 use Phing\Type\FileSet;
 use Phing\Type\Path;
@@ -107,26 +108,26 @@ class PathToFileSet extends Task
      */
     public function main()
     {
-        if ($this->dir == null) {
-            throw new BuildException("missing dir");
+        if (null == $this->dir) {
+            throw new BuildException('missing dir');
         }
-        if ($this->name == null) {
-            throw new BuildException("missing name");
+        if (null == $this->name) {
+            throw new BuildException('missing name');
         }
-        if ($this->pathRefId == null) {
-            throw new BuildException("missing pathrefid");
+        if (null == $this->pathRefId) {
+            throw new BuildException('missing pathrefid');
         }
         if (!$this->dir->isDirectory()) {
             throw new BuildException(
-                (string) $this->dir . " is not a directory"
+                (string) $this->dir . ' is not a directory'
             );
         }
         $path = $this->getProject()->getReference($this->pathRefId);
-        if ($path == null) {
-            throw new BuildException("Unknown reference " . $this->pathRefId);
+        if (null == $path) {
+            throw new BuildException('Unknown reference ' . $this->pathRefId);
         }
         if (!($path instanceof Path)) {
-            throw new BuildException($this->pathRefId . " is not a path");
+            throw new BuildException($this->pathRefId . ' is not a path');
         }
         $sources = $path->listPaths();
         $fileSet = new FileSet();
@@ -143,27 +144,29 @@ class PathToFileSet extends Task
                 continue;
             }
             $includePattern = $this->getIncludePattern($dirNormal, $sourceFile);
-            if ($includePattern === false && !$this->ignoreNonRelative) {
+            if (false === $includePattern && !$this->ignoreNonRelative) {
                 throw new BuildException(
-                    $sources[$i] . " is not relative to " . $this->dir->getAbsolutePath()
+                    $sources[$i] . ' is not relative to ' . $this->dir->getAbsolutePath()
                 );
             }
-            if ($includePattern === false) {
+            if (false === $includePattern) {
                 continue;
             }
             $fileSet->createInclude()->setName($includePattern);
             $atLeastOne = true;
         }
         if (!$atLeastOne) {
-            $fileSet->createInclude()->setName("a:b:c:d//THis si &&& not a file !!! ");
+            $fileSet->createInclude()->setName('a:b:c:d//THis si &&& not a file !!! ');
         }
         $this->getProject()->addReference($this->name, $fileSet);
     }
 
     /**
      * @param string $dirNormal
-     * @return string|false
+     *
      * @throws IOException
+     *
+     * @return false|string
      */
     private function getIncludePattern($dirNormal, File $file)
     {

@@ -2,15 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Mahmoud Al-Husseiny <mahmoud@alhusseiny.io>
  */
 class PhpEvalTaskTest extends BuildFileTest
 {
+    protected function setUp(): void
+    {
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/PhpEvalTest.xml');
+    }
+
     public static function recursiveProcess(array $arr): string
     {
         // ensure n-d array (n > 1)
@@ -18,6 +23,7 @@ class PhpEvalTaskTest extends BuildFileTest
         foreach ($arr as $value) {
             if (is_array($value) && !empty($value)) {
                 $isMultiDimArray = true;
+
                 break;
             }
         }
@@ -27,16 +33,11 @@ class PhpEvalTaskTest extends BuildFileTest
         );
 
         $arraySum = '';
-        array_walk_recursive($arr, function ($item) use (&$arraySum) {
+        array_walk_recursive($arr, static function ($item) use (&$arraySum) {
             $arraySum .= $item;
         });
 
         return $arraySum;
-    }
-
-    protected function setUp(): void
-    {
-        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/PhpEvalTest.xml');
     }
 
     public function testZeroParams()

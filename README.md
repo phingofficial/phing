@@ -78,16 +78,15 @@
 
 ## Documentation
 
-  Documentation is available in various formats in the *docs/docbook5/en/output*
-  directory (generated from DocBook sources located in *docs/docbook5/en/source*).
+  Phing's documentation can be found at <https://www.phing.info/#docs>.
 
-  For online documentation, you can also visit the Phing website: https://www.phing.info/
+  For the source of the documentation, go to <https://github.com/phingofficial/guide>.
 
 ## Contact
 
   * Twitter: [@phingofficial](https://twitter.com/phingofficial)
   * Website: [https://www.phing.info](https://www.phing.info)
-  * Slack:   [https://www.phing.info/slack/](https://slack.phing.info)
+  * Slack:   [https://phing.slack.com/](https://slack.phing.info)
   * IRC:     Freenode, #phing
   * GitHub:  [https://www.github.com/phingofficial/phing](https://www.github.com/phingofficial/phing)
 

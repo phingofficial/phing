@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +18,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Filter;
+namespace Phing\Test\Filter;
 
 use Phing\Io\FileUtils;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
@@ -31,21 +32,21 @@ class EscapeUnicodeTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/escapeunicode.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/escapeunicode.xml');
         $this->fu = new FileUtils();
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("cleanup");
+        $this->executeTarget('cleanup');
     }
 
     public function testEscapeUnicode()
     {
-        $this->executeTarget("testEscapeUnicode");
+        $this->executeTarget('testEscapeUnicode');
 
-        $expected = $this->getProject()->resolveFile("expected/escapeunicode.test");
-        $result = $this->getProject()->resolveFile("result/escapeunicode.test");
+        $expected = $this->getProject()->resolveFile('expected/escapeunicode.test');
+        $result = $this->getProject()->resolveFile('result/escapeunicode.test');
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 }

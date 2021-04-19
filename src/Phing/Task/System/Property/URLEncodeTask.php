@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,7 +22,6 @@ namespace Phing\Task\System\Property;
 
 use Phing\Exception\BuildException;
 use Phing\Project;
-use Phing\Task\System\Property\AbstractPropertySetterTask;
 use Phing\Type\Reference;
 
 /**
@@ -39,6 +39,11 @@ class URLEncodeTask extends AbstractPropertySetterTask
      */
     private $ref;
 
+    public function __toString()
+    {
+        return $this->value;
+    }
+
     public function setValue(string $value)
     {
         $this->value = urlencode($value);
@@ -46,7 +51,7 @@ class URLEncodeTask extends AbstractPropertySetterTask
 
     public function getValue(Project $p): string
     {
-        if ($this->ref !== null) {
+        if (null !== $this->ref) {
             $this->setValue($this->ref->getReferencedObject($p));
         }
 
@@ -58,26 +63,21 @@ class URLEncodeTask extends AbstractPropertySetterTask
         $this->ref = $ref;
     }
 
-    public function __toString()
-    {
-        return $this->value;
-    }
-
-    protected function validate()
-    {
-        parent::validate();
-        if ($this->value === null && $this->ref === null) {
-            throw new BuildException(
-                'You must specify value or refid with the name attribute',
-                $this->getLocation()
-            );
-        }
-    }
-
     public function main()
     {
         parent::validate();
         $val = $this->getValue($this->getProject());
         $this->setPropertyValue($val);
+    }
+
+    protected function validate()
+    {
+        parent::validate();
+        if (null === $this->value && null === $this->ref) {
+            throw new BuildException(
+                'You must specify value or refid with the name attribute',
+                $this->getLocation()
+            );
+        }
     }
 }

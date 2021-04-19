@@ -1,8 +1,8 @@
 <?php
 
-namespace Phing\Task\Optional\Hg;
+namespace Phing\Test\Task\Optional\Hg;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -36,7 +36,7 @@ class HgInitTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testHgInit()
@@ -53,6 +53,6 @@ class HgInitTaskTest extends BuildFileTest
 
     public function testWrongRepository()
     {
-        $this->expectBuildExceptionContaining('wrongRepository', 'is not a directory', "is not a directory");
+        $this->expectBuildExceptionContaining('wrongRepository', 'is not a directory', 'is not a directory');
     }
 }

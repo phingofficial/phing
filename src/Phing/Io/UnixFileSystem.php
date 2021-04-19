@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -42,12 +43,11 @@ use Phing\Util\StringHelper;
  *  - Error handling reduced to min, error are handled by PhingFile mainly
  *
  * @author Andreas Aderhold, andi@binarycloud.com
- *
  */
 class UnixFileSystem extends FileSystem
 {
     /**
-     * returns OS dependent path separator char
+     * returns OS dependent path separator char.
      *
      * @return string
      */
@@ -57,7 +57,7 @@ class UnixFileSystem extends FileSystem
     }
 
     /**
-     * returns OS dependent directory separator char
+     * returns OS dependent directory separator char.
      *
      * @return string
      */
@@ -97,58 +97,18 @@ class UnixFileSystem extends FileSystem
 
         $n = strlen($strPathname);
         $prevChar = 0;
-        for (; $i < $n; $i++) {
+        for (; $i < $n; ++$i) {
             $c = $strPathname[$i];
-            if (($prevChar === '/') && ($c === '/')) {
+            if (('/' === $prevChar) && ('/' === $c)) {
                 return self::normalizer($strPathname, $n, $i - 1);
             }
             $prevChar = $c;
         }
-        if ($prevChar === '/') {
+        if ('/' === $prevChar) {
             return self::normalizer($strPathname, $n, $n - 1);
         }
 
         return $strPathname;
-    }
-
-    /**
-     * Normalize the given pathname, whose length is $len, starting at the given
-     * $offset; everything before this offset is already normal.
-     *
-     * @param string $pathname
-     * @param int $len
-     * @param int $offset
-     *
-     * @return string
-     */
-    protected function normalizer($pathname, $len, $offset)
-    {
-        if ($len === 0) {
-            return $pathname;
-        }
-        $n = (int) $len;
-        while (($n > 0) && ($pathname[$n - 1] === '/')) {
-            $n--;
-        }
-        if ($n === 0) {
-            return '/';
-        }
-        $sb = "";
-
-        if ($offset > 0) {
-            $sb .= substr($pathname, 0, $offset);
-        }
-        $prevChar = 0;
-        for ($i = $offset; $i < $n; $i++) {
-            $c = $pathname[$i];
-            if (($prevChar === '/') && ($c === '/')) {
-                continue;
-            }
-            $sb .= $c;
-            $prevChar = $c;
-        }
-
-        return $sb;
     }
 
     /**
@@ -161,7 +121,7 @@ class UnixFileSystem extends FileSystem
      */
     public function prefixLength($pathname)
     {
-        if (strlen($pathname) === 0) {
+        if (0 === strlen($pathname)) {
             return 0;
         }
 
@@ -169,16 +129,16 @@ class UnixFileSystem extends FileSystem
             $phar = Phar::running();
             $pharAlias = 'phar://' . Phing::PHAR_ALIAS;
 
-            if ($phar && strpos($pathname, $phar) === 0) {
+            if ($phar && 0 === strpos($pathname, $phar)) {
                 return strlen($phar);
             }
 
-            if ($phar && strpos($pathname, $pharAlias) === 0) {
+            if ($phar && 0 === strpos($pathname, $pharAlias)) {
                 return strlen($pharAlias);
             }
         }
 
-        return (($pathname[0] === '/') ? 1 : 0);
+        return ('/' === $pathname[0]) ? 1 : 0;
     }
 
     /**
@@ -193,19 +153,19 @@ class UnixFileSystem extends FileSystem
      */
     public function resolve($parent, $child)
     {
-        if ($child === "") {
+        if ('' === $child) {
             return $parent;
         }
 
-        if ($child[0] === '/') {
-            if ($parent === '/') {
+        if ('/' === $child[0]) {
+            if ('/' === $parent) {
                 return $child;
             }
 
             return $parent . $child;
         }
 
-        if ($parent === '/') {
+        if ('/' === $parent) {
             return $parent . $child;
         }
 
@@ -221,17 +181,15 @@ class UnixFileSystem extends FileSystem
     }
 
     /**
-     *
      * @return bool
      */
     public function isAbsolute(File $f)
     {
-        return ($f->getPrefixLength() !== 0);
+        return 0 !== $f->getPrefixLength();
     }
 
     /**
-     * the file resolver
-     *
+     * the file resolver.
      *
      * @return string
      */
@@ -242,15 +200,15 @@ class UnixFileSystem extends FileSystem
             return $f->getPath();
         }
 
-        return $this->resolve(Phing::getProperty("user.dir"), $f->getPath());
+        return $this->resolve(Phing::getProperty('user.dir'), $f->getPath());
     }
 
-    /* -- most of the following is mapped to the php natives wrapped by FileSystem */
+    // -- most of the following is mapped to the php natives wrapped by FileSystem
 
-    /* -- Attribute accessors -- */
+    // -- Attribute accessors --
 
     /**
-     * compares file paths lexicographically
+     * compares file paths lexicographically.
      *
      * @return int
      */
@@ -263,17 +221,18 @@ class UnixFileSystem extends FileSystem
     }
 
     /**
-     * Copy a file, takes care of symbolic links
+     * Copy a file, takes care of symbolic links.
      *
-     * @param File $src Source path and name file to copy.
-     * @param File $dest Destination path and name of new file.
+     * @param File $src  source path and name file to copy
+     * @param File $dest destination path and name of new file
      *
-     * @throws Exception if file cannot be copied.
+     * @throws Exception if file cannot be copied
      */
     public function copy(File $src, File $dest)
     {
         if (!$src->isLink()) {
             parent::copy($src, $dest);
+
             return;
         }
 
@@ -282,18 +241,20 @@ class UnixFileSystem extends FileSystem
 
         $linkTarget = $src->getLinkTarget();
         if (false === @symlink($linkTarget, $destPath)) {
-            $msg = "FileSystem::copy() FAILED. Cannot create symlink from $destPath to $linkTarget.";
+            $msg = "FileSystem::copy() FAILED. Cannot create symlink from {$destPath} to {$linkTarget}.";
+
             throw new Exception($msg);
         }
     }
 
     /**
      * @param string $p
+     *
      * @return string
      */
     public function fromURIPath($p)
     {
-        if (StringHelper::endsWith("/", $p) && (strlen($p) > 1)) {
+        if (StringHelper::endsWith('/', $p) && (strlen($p) > 1)) {
             // "/foo/" --> "/foo", but "/" --> "/"
             $p = substr($p, 0, strlen($p) - 1);
         }
@@ -312,5 +273,45 @@ class UnixFileSystem extends FileSystem
         $dir = dirname($f->getAbsolutePath());
 
         return @is_writable($dir);
+    }
+
+    /**
+     * Normalize the given pathname, whose length is $len, starting at the given
+     * $offset; everything before this offset is already normal.
+     *
+     * @param string $pathname
+     * @param int    $len
+     * @param int    $offset
+     *
+     * @return string
+     */
+    protected function normalizer($pathname, $len, $offset)
+    {
+        if (0 === $len) {
+            return $pathname;
+        }
+        $n = (int) $len;
+        while (($n > 0) && ('/' === $pathname[$n - 1])) {
+            --$n;
+        }
+        if (0 === $n) {
+            return '/';
+        }
+        $sb = '';
+
+        if ($offset > 0) {
+            $sb .= substr($pathname, 0, $offset);
+        }
+        $prevChar = 0;
+        for ($i = $offset; $i < $n; ++$i) {
+            $c = $pathname[$i];
+            if (('/' === $prevChar) && ('/' === $c)) {
+                continue;
+            }
+            $sb .= $c;
+            $prevChar = $c;
+        }
+
+        return $sb;
     }
 }

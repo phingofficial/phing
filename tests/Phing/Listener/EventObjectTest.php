@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,17 +18,19 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Listener;
+namespace Phing\Test\Listener;
 
 use Exception;
+use Phing\Listener\EventObject;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
 /**
- * Unit test for EventObject
+ * Unit test for EventObject.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class EventObjectTest extends \PHPUnit\Framework\TestCase
+class EventObjectTest extends TestCase
 {
     /** @var EventObject */
     private $eventObject;

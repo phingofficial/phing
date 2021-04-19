@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +18,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional\Git;
+namespace Phing\Test\Task\Optional\Git;
 
 use Phing\Project;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>

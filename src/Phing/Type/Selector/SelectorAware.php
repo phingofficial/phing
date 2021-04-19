@@ -37,7 +37,7 @@ trait SelectorAware
     }
 
     /**
-     * Gives the count of the number of selectors in this container
+     * Gives the count of the number of selectors in this container.
      */
     public function count()
     {
@@ -52,7 +52,7 @@ trait SelectorAware
     public function getSelectors(Project $p)
     {
         $result = [];
-        for ($i = 0, $size = count($this->selectorsList); $i < $size; $i++) {
+        for ($i = 0, $size = count($this->selectorsList); $i < $size; ++$i) {
             $result[] = clone $this->selectorsList[$i];
         }
 
@@ -78,7 +78,7 @@ trait SelectorAware
     }
 
     /**
-     * add a "Select" selector entry on the selector list
+     * add a "Select" selector entry on the selector list.
      */
     public function addSelector(SelectSelector $selector)
     {
@@ -86,7 +86,7 @@ trait SelectorAware
     }
 
     /**
-     * add an "And" selector entry on the selector list
+     * add an "And" selector entry on the selector list.
      */
     public function addAnd(AndSelector $selector)
     {
@@ -94,7 +94,7 @@ trait SelectorAware
     }
 
     /**
-     * add an "Or" selector entry on the selector list
+     * add an "Or" selector entry on the selector list.
      */
     public function addOr(OrSelector $selector)
     {
@@ -102,7 +102,7 @@ trait SelectorAware
     }
 
     /**
-     * add a "Not" selector entry on the selector list
+     * add a "Not" selector entry on the selector list.
      */
     public function addNot(NotSelector $selector)
     {
@@ -110,7 +110,7 @@ trait SelectorAware
     }
 
     /**
-     * add a "None" selector entry on the selector list
+     * add a "None" selector entry on the selector list.
      */
     public function addNone(NoneSelector $selector)
     {
@@ -118,7 +118,7 @@ trait SelectorAware
     }
 
     /**
-     * add a majority selector entry on the selector list
+     * add a majority selector entry on the selector list.
      */
     public function addMajority(MajoritySelector $selector)
     {
@@ -126,7 +126,7 @@ trait SelectorAware
     }
 
     /**
-     * add a selector date entry on the selector list
+     * add a selector date entry on the selector list.
      */
     public function addDate(DateSelector $selector)
     {
@@ -134,7 +134,7 @@ trait SelectorAware
     }
 
     /**
-     * add a selector size entry on the selector list
+     * add a selector size entry on the selector list.
      */
     public function addSize(SizeSelector $selector)
     {
@@ -142,7 +142,7 @@ trait SelectorAware
     }
 
     /**
-     * add a selector filename entry on the selector list
+     * add a selector filename entry on the selector list.
      */
     public function addFilename(FilenameSelector $selector)
     {
@@ -150,7 +150,7 @@ trait SelectorAware
     }
 
     /**
-     * add an extended selector entry on the selector list
+     * add an extended selector entry on the selector list.
      */
     public function addCustom(ExtendSelector $selector)
     {
@@ -158,7 +158,7 @@ trait SelectorAware
     }
 
     /**
-     * add a contains selector entry on the selector list
+     * add a contains selector entry on the selector list.
      */
     public function addContains(ContainsSelector $selector)
     {
@@ -166,7 +166,7 @@ trait SelectorAware
     }
 
     /**
-     * add a contains selector entry on the selector list
+     * add a contains selector entry on the selector list.
      */
     public function addContainsRegexp(ContainsRegexpSelector $selector)
     {
@@ -174,7 +174,7 @@ trait SelectorAware
     }
 
     /**
-     * add a present selector entry on the selector list
+     * add a present selector entry on the selector list.
      */
     public function addPresent(PresentSelector $selector)
     {
@@ -182,7 +182,7 @@ trait SelectorAware
     }
 
     /**
-     * add a depth selector entry on the selector list
+     * add a depth selector entry on the selector list.
      */
     public function addDepth(DepthSelector $selector)
     {
@@ -190,7 +190,7 @@ trait SelectorAware
     }
 
     /**
-     * add a depends selector entry on the selector list
+     * add a depends selector entry on the selector list.
      */
     public function addDepend(DependSelector $selector)
     {
@@ -198,7 +198,7 @@ trait SelectorAware
     }
 
     /**
-     * add a different selector entry on the selector list
+     * add a different selector entry on the selector list.
      */
     public function addDifferent(DifferentSelector $selector)
     {
@@ -206,7 +206,7 @@ trait SelectorAware
     }
 
     /**
-     * add a modified selector entry on the selector list
+     * add a modified selector entry on the selector list.
      */
     public function addModified(ModifiedSelector $selector)
     {
@@ -214,7 +214,7 @@ trait SelectorAware
     }
 
     /**
-     * add a type selector entry on the selector list
+     * add a type selector entry on the selector list.
      */
     public function addType(TypeSelector $selector)
     {
@@ -222,7 +222,7 @@ trait SelectorAware
     }
 
     /**
-     * add a executable selector entry on the selector list
+     * add a executable selector entry on the selector list.
      */
     public function addExecutable(ExecutableSelector $selector)
     {
@@ -230,7 +230,7 @@ trait SelectorAware
     }
 
     /**
-     * add a readable selector entry on the selector list
+     * add a readable selector entry on the selector list.
      */
     public function addReadable(ReadableSelector $selector)
     {
@@ -238,7 +238,7 @@ trait SelectorAware
     }
 
     /**
-     * add a writable selector entry on the selector list
+     * add a writable selector entry on the selector list.
      */
     public function addWritable(WritableSelector $selector)
     {
@@ -246,7 +246,7 @@ trait SelectorAware
     }
 
     /**
-     * add a symlink selector entry on the selector list
+     * add a symlink selector entry on the selector list.
      */
     public function addSymlink(SymlinkSelector $selector)
     {
@@ -254,7 +254,7 @@ trait SelectorAware
     }
 
     /**
-     * add a symlink selector entry on the selector list
+     * add a symlink selector entry on the selector list.
      */
     public function addPosixPermissions(PosixPermissionsSelector $selector)
     {

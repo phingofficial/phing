@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,8 +22,8 @@ namespace Phing\Task\System\Property;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Io\IOException;
 use Phing\Io\File;
+use Phing\Io\IOException;
 use Phing\Project;
 use Phing\PropertyHelper;
 use Phing\Task\System\PropertyTask;
@@ -44,7 +45,7 @@ class Variable extends PropertyTask
      * Default is false. Once  removed, conditions that check for property
      * existence will find this property does not exist.
      *
-     * @param bool $b set to true to remove the property from the project.
+     * @param bool $b set to true to remove the property from the project
      */
     public function setUnset($b)
     {
@@ -54,20 +55,21 @@ class Variable extends PropertyTask
     /**
      * Execute this task.
      *
-     * @throws BuildException  Description of the Exception
+     * @throws BuildException Description of the Exception
      */
     public function main()
     {
         if ($this->remove) {
-            if ($this->name === null || $this->name === "") {
+            if (null === $this->name || '' === $this->name) {
                 throw new BuildException("The 'name' attribute is required with 'unset'.");
             }
             $this->removeProperty($this->name);
+
             return;
         }
-        if ($this->file === null) {
+        if (null === $this->file) {
             // check for the required name attribute
-            if ($this->name === null || $this->name === '') {
+            if (null === $this->name || '' === $this->name) {
                 throw new BuildException("The 'name' attribute is required.");
             }
 
@@ -79,101 +81,23 @@ class Variable extends PropertyTask
             $this->forceProperty($this->name, $this->value);
         } else {
             if (!$this->file->exists()) {
-                throw new BuildException($this->file->getAbsolutePath() . " does not exists.");
+                throw new BuildException($this->file->getAbsolutePath() . ' does not exists.');
             }
             $this->loadFile($this->file);
         }
     }
 
     /**
-     * Remove a property from the project's property table and the userProperty table.
-     * Note that Ant 1.6 uses a helper for this.
-     */
-    private function removeProperty($name)
-    {
-        $properties = null;
-        try {
-            $properties = $this->getPropValue($this->getProject(), 'properties');
-            if ($properties !== null) {
-                unset($properties[$name]);
-                $this->setPropValue($properties, $this->getProject(), 'properties');
-            }
-        } catch (Exception $e) {
-        }
-        try {
-            $properties = $this->getPropValue($this->getProject(), 'userProperties');
-            if ($properties !== null) {
-                unset($properties[$name]);
-                $this->setPropValue($properties, $this->getProject(), 'userProperties');
-            }
-        } catch (Exception $e) {
-        }
-    }
-
-    private function forceProperty($name, $value)
-    {
-        try {
-            $properties = $this->getPropValue($this->getProject(), 'properties');
-            if ($properties === null) {
-                $this->getProject()->setUserProperty($name, $value);
-            } else {
-                $properties[$name] = $value;
-                $this->setPropValue($properties, $this->getProject(), 'properties');
-            }
-        } catch (Exception $e) {
-            $this->getProject()->setUserProperty($name, $value);
-        }
-    }
-
-    /**
-     * Get a private property of a class
-     *
-     * @param mixed $thisClass The class
-     * @param string $fieldName The property to get
-     * @return ReflectionProperty               The property value
-     * @throws Exception
-     */
-    private function getField($thisClass, $fieldName)
-    {
-        $refClazz = new ReflectionObject($thisClass);
-        if (!$refClazz->hasProperty($fieldName)) {
-            throw new Exception("Invalid field : $fieldName");
-        }
-
-        return $refClazz->getProperty($fieldName);
-    }
-
-    /**
-     * Get a private property of an object
-     *
-     * @param mixed $instance the object instance
-     * @param string $fieldName the name of the field
-     * @return mixed an object representing the value of the field
-     * @throws Exception
-     */
-    private function getPropValue($instance, $fieldName)
-    {
-        $field = $this->getField($instance, $fieldName);
-        $field->setAccessible(true);
-        return $field->getValue($instance);
-    }
-
-    private function setPropValue($value, $instance, $fieldName)
-    {
-        $field = $this->getField($instance, $fieldName);
-        $field->setAccessible(true);
-        $field->setValue($instance, $value);
-    }
-
-    /**
-     * load variables from a file
+     * load variables from a file.
      *
      * @param File $file file to load
+     *
      * @throws BuildException
      */
     protected function loadFile(File $file)
     {
         $props = new Properties();
+
         try {
             if ($file->exists()) {
                 $props->load($file);
@@ -191,7 +115,7 @@ class Variable extends PropertyTask
     }
 
     /**
-     * iterate through a set of properties, resolve them, then assign them
+     * iterate through a set of properties, resolve them, then assign them.
      *
      * @param Properties $props The feature to be added to the Properties attribute
      */
@@ -204,10 +128,11 @@ class Variable extends PropertyTask
     }
 
     /**
-     * resolve properties inside a properties hashtable
+     * resolve properties inside a properties hashtable.
      *
      * @param Properties $props properties object to resolve
-     * @throws BuildException  Description of the Exception
+     *
+     * @throws BuildException Description of the Exception
      */
     protected function resolveAllProperties(Properties $props)
     {
@@ -232,17 +157,18 @@ class Variable extends PropertyTask
                 $ih->parsePropertyString($value, $fragments, $propertyRefs);
 
                 $resolved = true;
-                if (count($propertyRefs) == 0) {
+                if (0 == count($propertyRefs)) {
                     continue;
                 }
 
-                $sb = "";
+                $sb = '';
 
                 $j = $propertyRefs;
 
                 foreach ($fragments as $fragment) {
-                    if ($fragment !== null) {
+                    if (null !== $fragment) {
                         $sb .= $fragment;
+
                         continue;
                     }
 
@@ -250,34 +176,124 @@ class Variable extends PropertyTask
                     if (in_array($propertyName, $resolveStack)) {
                         // Should we maybe just log this as an error & move on?
                         // $this->log("Property ".$name." was circularly defined.", Project::MSG_ERR);
-                        throw new BuildException("Property " . $propertyName . " was circularly defined.");
+                        throw new BuildException('Property ' . $propertyName . ' was circularly defined.');
                     }
 
                     $fragment = $this->getProject()->getProperty($propertyName);
-                    if ($fragment !== null) {
+                    if (null !== $fragment) {
                         $sb .= $fragment;
+
                         continue;
                     }
 
                     if ($props->containsKey($propertyName)) {
                         $fragment = $props->getProperty($propertyName);
-                        if (strpos($fragment, '${') !== false) {
+                        if (false !== strpos($fragment, '${')) {
                             $resolveStack[] = $propertyName;
                             $resolved = false; // parse again (could have been replaced w/ another var)
                         }
                     } else {
-                        $fragment = "\${" . $propertyName . "}";
+                        $fragment = '${' . $propertyName . '}';
                     }
 
                     $sb .= $fragment;
                 }
 
-                $this->log("Resolved Property \"$value\" to \"$sb\"", Project::MSG_DEBUG);
+                $this->log("Resolved Property \"{$value}\" to \"{$sb}\"", Project::MSG_DEBUG);
                 $value = $sb;
                 $props->setProperty($name, $value);
 
                 $this->getProject()->setProperty($name, $value);
             }
         }
+    }
+
+    /**
+     * Remove a property from the project's property table and the userProperty table.
+     * Note that Ant 1.6 uses a helper for this.
+     *
+     * @param mixed $name
+     */
+    private function removeProperty($name)
+    {
+        $properties = null;
+
+        try {
+            $properties = $this->getPropValue($this->getProject(), 'properties');
+            if (null !== $properties) {
+                unset($properties[$name]);
+                $this->setPropValue($properties, $this->getProject(), 'properties');
+            }
+        } catch (Exception $e) {
+        }
+
+        try {
+            $properties = $this->getPropValue($this->getProject(), 'userProperties');
+            if (null !== $properties) {
+                unset($properties[$name]);
+                $this->setPropValue($properties, $this->getProject(), 'userProperties');
+            }
+        } catch (Exception $e) {
+        }
+    }
+
+    private function forceProperty($name, $value)
+    {
+        try {
+            $properties = $this->getPropValue($this->getProject(), 'properties');
+            if (null === $properties) {
+                $this->getProject()->setUserProperty($name, $value);
+            } else {
+                $properties[$name] = $value;
+                $this->setPropValue($properties, $this->getProject(), 'properties');
+            }
+        } catch (Exception $e) {
+            $this->getProject()->setUserProperty($name, $value);
+        }
+    }
+
+    /**
+     * Get a private property of a class.
+     *
+     * @param mixed  $thisClass The class
+     * @param string $fieldName The property to get
+     *
+     * @throws Exception
+     *
+     * @return ReflectionProperty The property value
+     */
+    private function getField($thisClass, $fieldName)
+    {
+        $refClazz = new ReflectionObject($thisClass);
+        if (!$refClazz->hasProperty($fieldName)) {
+            throw new Exception("Invalid field : {$fieldName}");
+        }
+
+        return $refClazz->getProperty($fieldName);
+    }
+
+    /**
+     * Get a private property of an object.
+     *
+     * @param mixed  $instance  the object instance
+     * @param string $fieldName the name of the field
+     *
+     * @throws Exception
+     *
+     * @return mixed an object representing the value of the field
+     */
+    private function getPropValue($instance, $fieldName)
+    {
+        $field = $this->getField($instance, $fieldName);
+        $field->setAccessible(true);
+
+        return $field->getValue($instance);
+    }
+
+    private function setPropValue($value, $instance, $fieldName)
+    {
+        $field = $this->getField($instance, $fieldName);
+        $field->setAccessible(true);
+        $field->setValue($instance, $value);
     }
 }

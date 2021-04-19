@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -51,7 +52,7 @@ class TypedefTask extends Task
     use ClasspathAware;
 
     /**
-     * Tag name for datatype that will be used in XML
+     * Tag name for datatype that will be used in XML.
      */
     private $name;
 
@@ -63,12 +64,12 @@ class TypedefTask extends Task
     private $classname;
 
     /**
-     * Main entry point
+     * Main entry point.
      */
     public function main()
     {
-        if ($this->name === null || $this->classname === null) {
-            throw new BuildException("You must specify name and class attributes for <typedef>.");
+        if (null === $this->name || null === $this->classname) {
+            throw new BuildException('You must specify name and class attributes for <typedef>.');
         }
         $this->project->addDataTypeDefinition($this->name, $this->classname, $this->classpath);
     }

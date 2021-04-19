@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,13 +33,13 @@ use Phing\Io\FileUtils;
 class FilesMatch implements Condition
 {
     /**
-     * files to compare
+     * files to compare.
      */
     private $file1;
     private $file2;
 
     /**
-     * Sets the File1 attribute
+     * Sets the File1 attribute.
      *
      * @param File $file1 The new File1 value
      */
@@ -48,7 +49,7 @@ class FilesMatch implements Condition
     }
 
     /**
-     * Sets the File2 attribute
+     * Sets the File2 attribute.
      *
      * @param File $file2 The new File2 value
      */
@@ -58,15 +59,16 @@ class FilesMatch implements Condition
     }
 
     /**
-     * comparison method of the interface
+     * comparison method of the interface.
+     *
+     * @throws BuildException if it all went pear-shaped
      *
      * @return bool if the files are equal
-     * @throws BuildException if it all went pear-shaped
      */
     public function evaluate()
     {
-        if ($this->file1 == null || $this->file2 == null) {
-            throw new BuildException("both file1 and file2 are required in filesmatch");
+        if (null == $this->file1 || null == $this->file2) {
+            throw new BuildException('both file1 and file2 are required in filesmatch');
         }
 
         $fu = new FileUtils();

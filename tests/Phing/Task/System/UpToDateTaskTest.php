@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,9 +18,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -30,7 +31,7 @@ class UpToDateTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/UpToDateTest.xml"
+            . '/etc/tasks/system/UpToDateTest.xml'
         );
     }
 
@@ -39,7 +40,7 @@ class UpToDateTaskTest extends BuildFileTest
      */
     public function testOverrideNoPropertySet()
     {
-        $this->executeTarget("overrideNoPropertySet");
+        $this->executeTarget('overrideNoPropertySet');
         $this->assertInLogs('Property ${prop} has not been set.');
         $this->assertInLogs('Property ${prop} => updated');
         $this->assertInLogs('echo = ${prop}');
@@ -51,7 +52,7 @@ class UpToDateTaskTest extends BuildFileTest
      */
     public function testOverridePropertySet()
     {
-        $this->executeTarget("overridePropertySet");
+        $this->executeTarget('overridePropertySet');
         $this->assertInLogs('Setting project property: prop -> value exists');
         $this->assertInLogs('Property ${prop} => value exists');
         $this->assertInLogs('Property ${prop} => updated');

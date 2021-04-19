@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +25,7 @@ use Phing\Util\RegisterSlot;
 /**
  * A parameter is composed of a name, type and value. Nested
  * Parameters are also possible, but the using task/type has
- * to support them
+ * to support them.
  *
  * @author  Manuel Holtgrewe
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
@@ -32,22 +33,22 @@ use Phing\Util\RegisterSlot;
 class Parameter extends DataType
 {
     /**
-     * Parameter name
+     * Parameter name.
      */
     protected $name;
 
     /**
-     * Parameter type
+     * Parameter type.
      */
     protected $type;
 
     /**
-     * Parameter value
+     * Parameter value.
      */
     protected $value;
 
     /**
-     * Nested parameters
+     * Nested parameters.
      */
     protected $parameters = [];
 
@@ -69,7 +70,6 @@ class Parameter extends DataType
 
     /**
      * Sets value to dynamic register slot.
-     *
      */
     public function setListeningValue(RegisterSlot $value)
     {
@@ -122,7 +122,7 @@ class Parameter extends DataType
     }
 
     /**
-     * @return array Nested parameters.
+     * @return array nested parameters
      */
     public function getParams()
     {

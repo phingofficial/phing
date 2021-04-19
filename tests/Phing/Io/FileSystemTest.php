@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,18 +18,23 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
 
+use Phing\Io\File;
+use Phing\Io\FileSystem;
+use Phing\Io\IOException;
+use Phing\Io\UnixFileSystem;
+use Phing\Io\WindowsFileSystem;
 use Phing\Phing;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 /**
- * Unit test for FileSystem
- *
+ * Unit test for FileSystem.
  */
-class FileSystemTest extends \PHPUnit\Framework\TestCase
+class FileSystemTest extends TestCase
 {
-    private $oldFsType = "";
+    private $oldFsType = '';
 
     public function setUp(): void
     {
@@ -39,14 +45,6 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
     {
         Phing::setProperty('host.fstype', $this->oldFsType);
         $this->resetFileSystem();
-    }
-
-    protected function resetFileSystem()
-    {
-        $refClass = new ReflectionClass(FileSystem::class);
-        $refProperty = $refClass->getProperty('fs');
-        $refProperty->setAccessible(true);
-        $refProperty->setValue(null);
     }
 
     public function testGetFileSystemWithUnknownTypeKeyThrowsException()
@@ -62,6 +60,10 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider fileSystemMappingsDataProvider
+     *
+     * @param mixed $expectedFileSystemClass
+     * @param mixed $fsTypeKey
+     * @throws IOException
      */
     public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey)
     {
@@ -74,7 +76,7 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf($expectedFileSystemClass, $system);
     }
 
-    public function fileSystemMappingsDataProvider()
+    public function fileSystemMappingsDataProvider(): array
     {
         return [
             [UnixFileSystem::class, 'UNIX'],
@@ -86,21 +88,21 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which(42);
-        $this->assertEquals($path, false);
+        $this->assertEquals(false, $path);
     }
 
     public function testWhichFailsDueToUnusualExecutableName()
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which('tasword.bin');
-        $this->assertEquals($path, false);
+        $this->assertEquals(false, $path);
     }
 
     public function testWhichHinkyExecutableNameWithSeparator()
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which('zx:\tasword.bin');
-        $this->assertEquals($path, false);
+        $this->assertEquals(false, $path);
     }
 
     public function testListContentsWithNumericName()
@@ -113,5 +115,13 @@ class FileSystemTest extends \PHPUnit\Framework\TestCase
         foreach ($contents as $filename) {
             self::assertIsString($filename);
         }
+    }
+
+    protected function resetFileSystem()
+    {
+        $refClass = new ReflectionClass(FileSystem::class);
+        $refProperty = $refClass->getProperty('fs');
+        $refProperty->setAccessible(true);
+        $refProperty->setValue(null);
     }
 }

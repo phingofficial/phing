@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,7 +22,6 @@ namespace Phing\Io;
 
 /**
  * Abstract class for writing character streams.
- *
  */
 abstract class Writer
 {
@@ -37,7 +37,7 @@ abstract class Writer
     /**
      * Close the stream.
      *
-     * @throws IOException - if there is an error closing stream.
+     * @throws IOException - if there is an error closing stream
      */
     abstract public function close();
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,10 +25,10 @@ namespace Phing\Listener;
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class TimestampedLogger extends DefaultLogger
+class TimestampedLogger extends AnsiColorLogger
 {
     /**
-     * what appears between the old message and the new
+     * what appears between the old message and the new.
      */
     public static $SPACER = ' - at ';
 

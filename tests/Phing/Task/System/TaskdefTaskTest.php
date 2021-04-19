@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,33 +18,33 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Phing\Exception\BuildException;
 use Phing\Exception\ConfigurationException;
-use Phing\Support\BuildFileTest;
-use Phing\Support\TaskdefTestSimpleTask;
+use Phing\Test\Support\BuildFileTest;
+use Phing\Test\Support\TaskdefTestSimpleTask;
 
 class TaskdefTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/taskdef.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/taskdef.xml');
     }
 
     public function testEmpty()
     {
-        $this->expectBuildException("empty", "required argument not specified");
+        $this->expectBuildException('empty', 'required argument not specified');
     }
 
     public function testNoName()
     {
-        $this->expectBuildException("noName", "required argument not specified");
+        $this->expectBuildException('noName', 'required argument not specified');
     }
 
     public function testNoClassname()
     {
-        $this->expectBuildException("noClassname", "required argument not specified");
+        $this->expectBuildException('noClassname', 'required argument not specified');
     }
 
     public function testClassNotFound()
@@ -51,9 +52,9 @@ class TaskdefTaskTest extends BuildFileTest
         $this->expectException(BuildException::class);
 
         try {
-            $this->executeTarget("classNotFound");
+            $this->executeTarget('classNotFound');
             $this->fail(
-                "Should throw ConfigurationException because: " .
+                'Should throw ConfigurationException because: ' .
                 "classname specified doesn't exist"
             );
         } catch (ConfigurationException $e) {
@@ -63,31 +64,31 @@ class TaskdefTaskTest extends BuildFileTest
 
     public function testGlobal()
     {
-        $this->expectLog("testGlobal", "simpletask: testGlobal echo");
+        $this->expectLog('testGlobal', 'simpletask: testGlobal echo');
         $refs = $this->project->getReferences();
-        $ref = $refs["global"];
-        $this->assertNotNull("ref is not null");
+        $ref = $refs['global'];
+        $this->assertNotNull('ref is not null');
         $this->assertInstanceOf(TaskdefTestSimpleTask::class, $ref);
     }
 
     public function testLocal()
     {
-        $this->expectLog("testLocal", "Task local will be handled by class " . TaskdefTestSimpleTask::class);
+        $this->expectLog('testLocal', 'Task local will be handled by class ' . TaskdefTestSimpleTask::class);
         $refs = $this->project->getReferences();
-        $ref = $refs["local"];
-        $this->assertNotNull("ref is not null");
+        $ref = $refs['local'];
+        $this->assertNotNull('ref is not null');
         $this->assertInstanceOf(TaskdefTestSimpleTask::class, $ref);
     }
 
     public function tesFile()
     {
-        $this->expectLog("testFile", "simpletask: testTdfile echo");
+        $this->expectLog('testFile', 'simpletask: testTdfile echo');
         $refs = $this->project->getReferences();
-        $ref = $refs["tdfile"];
-        $this->assertNotNull("ref is not null");
+        $ref = $refs['tdfile'];
+        $this->assertNotNull('ref is not null');
         $this->assertInstanceOf(TaskdefTestSimpleTask::class, $ref);
-        $ref = $refs["tdfile2"];
-        $this->assertNotNull("ref is not null");
+        $ref = $refs['tdfile2'];
+        $this->assertNotNull('ref is not null');
         $this->assertInstanceOf(TaskdefTestSimpleTask::class, $ref);
     }
 }

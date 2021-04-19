@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,13 +18,19 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
+
+use org\bovigo\vfs\vfsStream;
+use Phing\Io\File;
+use Phing\Io\IniFileParser;
+use Phing\Io\IOException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  * @requires OS ^(?:(?!Win).)*$
  */
-class IniFileParserTest extends \PHPUnit\Framework\TestCase
+class IniFileParserTest extends TestCase
 {
     private $parser;
     private $root;
@@ -31,13 +38,18 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
     protected function setUp(): void
     {
         $this->parser = new IniFileParser();
-        $this->root = \org\bovigo\vfs\vfsStream::setUp();
+        $this->root = vfsStream::setUp();
     }
 
     /**
      * @dataProvider provideIniFiles
-     * @covers       IniFileParser::parseFile
      * @covers       IniFileParser::inVal
+     * @covers       IniFileParser::parseFile
+     *
+     * @param mixed $data
+     * @param mixed $expected
+     * @throws IOException
+     * @throws IOException
      */
     public function testParseFile($data, $expected)
     {
@@ -63,7 +75,7 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function provideIniFiles()
+    public function provideIniFiles(): array
     {
         return [
             [
@@ -95,31 +107,31 @@ class IniFileParserTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
             [
-                'data' => "# property = test",
+                'data' => '# property = test',
                 'expected' => [],
             ],
             [
-                'data' => "   # property = test",
+                'data' => '   # property = test',
                 'expected' => [],
             ],
             [
-                'data' => "; property = test",
+                'data' => '; property = test',
                 'expected' => [],
             ],
             [
-                'data' => "property=test",
+                'data' => 'property=test',
                 'expected' => [
                     'property' => 'test',
                 ],
             ],
             [
-                'data' => "property = true",
+                'data' => 'property = true',
                 'expected' => [
                     'property' => true,
                 ],
             ],
             [
-                'data' => "property = false",
+                'data' => 'property = false',
                 'expected' => [
                     'property' => false,
                 ],

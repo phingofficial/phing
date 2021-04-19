@@ -1,8 +1,8 @@
 <?php
 
-namespace Phing\Task\Optional\Hg;
+namespace Phing\Test\Task\Optional\Hg;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -34,14 +34,14 @@ class HgCommitTaskTest extends BuildFileTest
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . "/tmp/hgtest");
+        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
     public function testMessageNotSpecified()
     {
         $this->expectBuildExceptionContaining(
             'messageNotSpecified',
-            "message is not specified",
+            'message is not specified',
             '"message" is a required parameter'
         );
     }

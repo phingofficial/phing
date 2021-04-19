@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,9 +31,9 @@ class NestedCondition extends ConditionBase implements Condition
 {
     public function evaluate()
     {
-        if ($this->countConditions() != 1) {
+        if (1 != $this->countConditions()) {
             throw new BuildException(
-                "A single nested condition is required."
+                'A single nested condition is required.'
             );
         }
         $cond = $this->getConditions();

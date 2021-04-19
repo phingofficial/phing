@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Echo Task
+ * Tests the Echo Task.
  *
  * @author  Christian Weiske <cweiske@cweiske.de>
  */
@@ -40,7 +41,7 @@ class TryCatchTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('In <catch>.');
         $this->assertInLogs('In <finally>.');
-        $this->assertStringEndsWith('Tada!', $this->project->getProperty("prop." . __FUNCTION__));
+        $this->assertStringEndsWith('Tada!', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
     public function testExceptionInCatch()

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +21,6 @@
 namespace Phing\Filter;
 
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\BufferedReader;
 use Phing\Io\File;
 use Phing\Io\FileReader;
@@ -92,13 +92,14 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * underlying stream is read and returned.
      *
      * @param int $len
-     * @return int|string the next character in the resulting stream, or -1
-     * if the end of the resulting stream has been reached
      *
-     * @throws IOException if the underlying stream throws an IOException
-     *                     during reading
+     * @throws IOException               if the underlying stream throws an IOException
+     *                                   during reading
      * @throws BuildException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
+     *
+     * @return int|string the next character in the resulting stream, or -1
+     *                    if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
@@ -112,20 +113,20 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
 
         // The readers return -1 if they end. So simply read the "prepend"
         // after that the "content" and at the end the "append" file.
-        if ($this->prependReader !== null) {
+        if (null !== $this->prependReader) {
             $ch = $this->prependReader->read();
-            if ($ch === -1) {
+            if (-1 === $ch) {
                 // I am the only one so I have to close the reader
                 $this->prependReader->close();
                 $this->prependReader = null;
             }
         }
-        if ($ch === -1) {
+        if (-1 === $ch) {
             $ch = parent::read();
         }
-        if ($ch === -1 && $this->appendReader !== null) {
+        if (-1 === $ch && null !== $this->appendReader) {
             $ch = $this->appendReader->read();
-            if ($ch === -1) {
+            if (-1 === $ch) {
                 // I am the only one so I have to close the reader
                 $this->appendReader->close();
                 $this->appendReader = null;
@@ -136,57 +137,17 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * Scans the parameters list for the "lines" parameter and uses
-     * it to set the number of lines to be returned in the filtered stream.
-     * also scan for skip parameter.
-     *
-     * @throws IOException
-     * @throws NullPointerException
-     */
-    private function initialize()
-    {
-        // get parameters
-        $params = $this->getParameters();
-        if ($params !== null) {
-            /**
-             * @var Parameter $param
-             */
-            foreach ($params as $param) {
-                if ('prepend' === $param->getName()) {
-                    $this->setPrepend(new File($param->getValue()));
-                    continue;
-                }
-                if ('append' === $param->getName()) {
-                    $this->setAppend(new File($param->getValue()));
-                    continue;
-                }
-            }
-        }
-        if ($this->prepend !== null) {
-            if (!$this->prepend->isAbsolute()) {
-                $this->prepend = new File($this->getProject()->getBasedir(), $this->prepend->getPath());
-            }
-            $this->prependReader = new BufferedReader(new FileReader($this->prepend));
-        }
-        if ($this->append !== null) {
-            if (!$this->append->isAbsolute()) {
-                $this->append = new File($this->getProject()->getBasedir(), $this->append->getPath());
-            }
-            $this->appendReader = new BufferedReader(new FileReader($this->append));
-        }
-    }
-
-    /**
      * Creates a new ConcatReader using the passed in
      * Reader for instantiation.
      *
      * @param Reader $reader A Reader object providing the underlying stream.
-     *                    Must not be <code>null</code>.
+     *                       Must not be <code>null</code>.
+     *
+     * @throws IOException
+     * @throws \InvalidArgumentException
      *
      * @return ConcatFilter a new filter based on this configuration, but filtering
      *                      the specified reader
-     * @throws IOException
-     * @throws NullPointerException
      */
     public function chain(Reader $reader): Reader
     {
@@ -212,13 +173,15 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
      * Sets `prepend` attribute.
      *
      * @param File|string $prepend prepend new value
+     *
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function setPrepend($prepend)
     {
         if ($prepend instanceof File) {
             $this->prepend = $prepend;
+
             return;
         }
 
@@ -243,5 +206,48 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
     public function setAppend($append)
     {
         $this->append = $append;
+    }
+
+    /**
+     * Scans the parameters list for the "lines" parameter and uses
+     * it to set the number of lines to be returned in the filtered stream.
+     * also scan for skip parameter.
+     *
+     * @throws IOException
+     * @throws \InvalidArgumentException
+     */
+    private function initialize()
+    {
+        // get parameters
+        $params = $this->getParameters();
+        if (null !== $params) {
+            /**
+             * @var Parameter $param
+             */
+            foreach ($params as $param) {
+                if ('prepend' === $param->getName()) {
+                    $this->setPrepend(new File($param->getValue()));
+
+                    continue;
+                }
+                if ('append' === $param->getName()) {
+                    $this->setAppend(new File($param->getValue()));
+
+                    continue;
+                }
+            }
+        }
+        if (null !== $this->prepend) {
+            if (!$this->prepend->isAbsolute()) {
+                $this->prepend = new File($this->getProject()->getBasedir(), $this->prepend->getPath());
+            }
+            $this->prependReader = new BufferedReader(new FileReader($this->prepend));
+        }
+        if (null !== $this->append) {
+            if (!$this->append->isAbsolute()) {
+                $this->append = new File($this->getProject()->getBasedir(), $this->append->getPath());
+            }
+            $this->appendReader = new BufferedReader(new FileReader($this->append));
+        }
     }
 }

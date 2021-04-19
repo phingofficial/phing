@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -75,11 +76,12 @@ class Matches extends ProjectComponent implements Condition
 
     /**
      * @param string $pattern
+     *
      * @throws BuildException
      */
     public function setPattern($pattern)
     {
-        if ($this->regularExpression !== null) {
+        if (null !== $this->regularExpression) {
             throw new BuildException('Only one regular expression is allowed.');
         }
         $this->regularExpression = new RegularExpression();
@@ -87,7 +89,7 @@ class Matches extends ProjectComponent implements Condition
     }
 
     /**
-     * The string to match
+     * The string to match.
      *
      * @param string $string
      */
@@ -106,10 +108,10 @@ class Matches extends ProjectComponent implements Condition
 
     public function evaluate()
     {
-        if ($this->string === null) {
+        if (null === $this->string) {
             throw new BuildException('Parameter string is required in matches.');
         }
-        if ($this->regularExpression === null) {
+        if (null === $this->regularExpression) {
             throw new BuildException('Missing pattern in matches.');
         }
         $this->regularExpression->setMultiline($this->multiLine);

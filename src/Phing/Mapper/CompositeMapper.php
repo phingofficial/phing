@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,11 +36,12 @@ class CompositeMapper extends ContainerMapper
         $results = [];
         foreach ($this->getMappers() as $mapper) {
             $result = $mapper->getImplementation()->main($sourceFileName);
-            if ($result === null) {
+            if (null === $result) {
                 continue;
             }
             $results[] = $result[0];
         }
+
         return !empty($results) ? $results : null;
     }
 }

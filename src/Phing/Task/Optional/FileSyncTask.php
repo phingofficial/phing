@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -42,8 +43,11 @@ use Phing\Task;
  *
  * @author  Federico Cargnelutti <fede.carg@gmail.com>
  * @author  Anton Stöckl <anton@stoeckl.de>
+ *
  * @version $Revision$
+ *
  * @see     http://svn.fedecarg.com/repo/Phing/tasks/ext/FileSyncTask.php
+ *
  * @example http://fedecarg.com/wiki/FileSyncTask
  */
 class FileSyncTask extends Task
@@ -57,7 +61,7 @@ class FileSyncTask extends Task
 
     /**
      * Source directory.
-     * For remote sources this must contain user and host, e.g.: user@host:/my/source/dir
+     * For remote sources this must contain user and host, e.g.: user@host:/my/source/dir.
      *
      * @var string
      */
@@ -65,7 +69,7 @@ class FileSyncTask extends Task
 
     /**
      * Destination directory.
-     * For remote targets this must contain user and host, e.g.: user@host:/my/target/dir
+     * For remote targets this must contain user and host, e.g.: user@host:/my/target/dir.
      *
      * @var string
      */
@@ -101,7 +105,7 @@ class FileSyncTask extends Task
 
     /**
      * Exclude file matching pattern.
-     * Use comma seperated values to exclude multiple files/directories, e.g.: a,b
+     * Use comma seperated values to exclude multiple files/directories, e.g.: a,b.
      *
      * @var string
      */
@@ -129,7 +133,7 @@ class FileSyncTask extends Task
      * p - preserve permissions
      * K - treat symlinked dir on receiver as dir
      * z - compress
-     * l - copy symlinks as symlinks
+     * l - copy symlinks as symlinks.
      *
      * @var string
      */
@@ -145,7 +149,7 @@ class FileSyncTask extends Task
     /**
      * Connection type.
      *
-     * @var boolean
+     * @var bool
      */
     protected $isRemoteConnection = false;
 
@@ -154,7 +158,7 @@ class FileSyncTask extends Task
      * transfer. The verbose option set to true will give you information about
      * what files are being transferred and a brief summary at the end.
      *
-     * @var boolean
+     * @var bool
      */
     protected $verbose = true;
 
@@ -162,7 +166,7 @@ class FileSyncTask extends Task
      * This option makes rsync perform a trial run that doesn’t make any changes
      * (and produces mostly the same output as a real run).
      *
-     * @var boolean
+     * @var bool
      */
     protected $dryRun = false;
 
@@ -170,21 +174,21 @@ class FileSyncTask extends Task
      * This option makes requests a simple itemized list of the changes that are
      * being made to each file, including attribute changes.
      *
-     * @var boolean
+     * @var bool
      */
     protected $itemizeChanges = false;
 
     /**
      * This option will cause rsync to skip files based on checksum, not mod-time & size.
      *
-     * @var boolean
+     * @var bool
      */
     protected $checksum = false;
 
     /**
      * This option deletes files that don't exist on sender.
      *
-     * @var boolean
+     * @var bool
      */
     protected $delete = false;
 
@@ -204,7 +208,6 @@ class FileSyncTask extends Task
 
     /**
      * Phing's main method. Wraps the executeCommand() method.
-     *
      */
     public function main()
     {
@@ -214,20 +217,21 @@ class FileSyncTask extends Task
     /**
      * Executes the rsync command and returns the exit code.
      *
-     * @return int            Return code from execution.
      * @throws BuildException
+     *
+     * @return int return code from execution
      */
     public function executeCommand()
     {
-        if ($this->rsyncPath === null) {
+        if (null === $this->rsyncPath) {
             throw new BuildException('The "rsyncPath" attribute is missing or undefined.');
         }
 
-        if ($this->sourceDir === null) {
+        if (null === $this->sourceDir) {
             throw new BuildException('The "sourcedir" attribute is missing or undefined.');
         }
 
-        if ($this->destinationDir === null) {
+        if (null === $this->destinationDir) {
             throw new BuildException('The "destinationdir" attribute is missing or undefined.');
         }
 
@@ -246,8 +250,8 @@ class FileSyncTask extends Task
             }
         }
 
-        if ($this->backupDir !== null && $this->backupDir == $this->destinationDir) {
-            throw new BuildException("Invalid backup directory: " . $this->backupDir);
+        if (null !== $this->backupDir && $this->backupDir == $this->destinationDir) {
+            throw new BuildException('Invalid backup directory: ' . $this->backupDir);
         }
 
         $command = $this->getCommand();
@@ -265,12 +269,13 @@ class FileSyncTask extends Task
 
         $this->log($command);
 
-        if ($return != 0) {
+        if (0 != $return) {
             $this->log('Task exited with code: ' . $return, Project::MSG_ERR);
             $this->log(
                 'Task exited with message: (' . $return . ') ' . $this->getErrorMessage($return),
                 Project::MSG_ERR
             );
+
             throw new BuildException($return . ': ' . $this->getErrorMessage($return));
         }
 
@@ -288,48 +293,48 @@ class FileSyncTask extends Task
     {
         $options = $this->defaultOptions;
 
-        if ($this->options !== null) {
+        if (null !== $this->options) {
             $options = $this->options;
         }
 
-        if ($this->verbose === true) {
+        if (true === $this->verbose) {
             $options .= ' --verbose';
         }
 
-        if ($this->checksum === true) {
+        if (true === $this->checksum) {
             $options .= ' --checksum';
         }
 
-        if ($this->identityFile !== null) {
+        if (null !== $this->identityFile) {
             $options .= ' -e "ssh -i ' . $this->identityFile . ' -p' . $this->remotePort . '"';
         } else {
-            if ($this->remoteShell !== null) {
+            if (null !== $this->remoteShell) {
                 $options .= ' -e "' . $this->remoteShell . '"';
             }
         }
 
-        if ($this->dryRun === true) {
+        if (true === $this->dryRun) {
             $options .= ' --dry-run';
         }
 
-        if ($this->delete === true) {
+        if (true === $this->delete) {
             $options .= ' --delete-after --ignore-errors --force';
         }
 
-        if ($this->itemizeChanges === true) {
+        if (true === $this->itemizeChanges) {
             $options .= ' --itemize-changes';
         }
-        if ($this->backupDir !== null) {
+        if (null !== $this->backupDir) {
             $options .= ' -b --backup-dir="' . $this->backupDir . '"';
         }
 
-        if ($this->exclude !== null) {
+        if (null !== $this->exclude) {
             //remove trailing comma if any
             $this->exclude = trim($this->exclude, ',');
             $options .= ' --exclude="' . str_replace(',', '" --exclude="', $this->exclude) . '"';
         }
 
-        if ($this->excludeFile !== null) {
+        if (null !== $this->excludeFile) {
             $options .= ' --exclude-from="' . $this->excludeFile . '"';
         }
 
@@ -347,6 +352,7 @@ class FileSyncTask extends Task
      * Returns an error message based on a given error code.
      *
      * @param int $code Error code
+     *
      * @return null|string
      */
     public function getErrorMessage($code)
@@ -386,16 +392,6 @@ class FileSyncTask extends Task
     public function setRsyncPath($path)
     {
         $this->rsyncPath = $path;
-    }
-
-    /**
-     * Sets the isRemoteConnection property.
-     *
-     * @param bool $isRemote
-     */
-    protected function setIsRemoteConnection($isRemote)
-    {
-        $this->isRemoteConnection = $isRemote;
     }
 
     /**
@@ -480,8 +476,6 @@ class FileSyncTask extends Task
      * transfer. By default, rsync works silently. A single -v will give you
      * information about what files are being transferred and a brief summary at
      * the end.
-     *
-     * @param bool $verbose
      */
     public function setVerbose(bool $verbose)
     {
@@ -493,8 +487,6 @@ class FileSyncTask extends Task
      * Without this option, rsync  uses  a "quick  check"  that  (by  default)  checks if each file’s
      * size and time of last modification match between the sender and receiver.
      * This option changes this to compare a 128-bit checksum for each file that has a matching size.
-     *
-     * @param bool $checksum
      */
     public function setChecksum(bool $checksum)
     {
@@ -505,8 +497,6 @@ class FileSyncTask extends Task
      * This makes rsync perform a trial run that doesn’t make any changes (and produces mostly the same
      * output as a real run).  It is  most commonly used in combination with the -v, --verbose and/or
      * -i, --itemize-changes options to see what an rsync command is going to do before one actually runs it.
-     *
-     * @param bool $dryRun
      */
     public function setDryRun(bool $dryRun)
     {
@@ -515,8 +505,6 @@ class FileSyncTask extends Task
 
     /**
      * Requests a simple itemized list of the changes that are being made to each file, including attribute changes.
-     *
-     * @param bool $itemizeChanges
      */
     public function setItemizeChanges(bool $itemizeChanges)
     {
@@ -527,8 +515,6 @@ class FileSyncTask extends Task
      * Tells rsync to delete extraneous files from the receiving side, but only
      * for the directories that are being synchronized. Files that are excluded
      * from transfer are also excluded from being deleted.
-     *
-     * @param bool $delete
      */
     public function setDelete(bool $delete)
     {
@@ -550,6 +536,7 @@ class FileSyncTask extends Task
      * Makes backups into hierarchy based in $dir.
      *
      * @param string dir
+     * @param mixed $dir
      */
     public function setBackupDir($dir)
     {
@@ -560,6 +547,7 @@ class FileSyncTask extends Task
      * Sets the identity file for public key transfers.
      *
      * @param string location of ssh identity file
+     * @param mixed $identity
      */
     public function setIdentityFile($identity)
     {
@@ -584,5 +572,15 @@ class FileSyncTask extends Task
     public function setExclude($exclude)
     {
         $this->exclude = $exclude;
+    }
+
+    /**
+     * Sets the isRemoteConnection property.
+     *
+     * @param bool $isRemote
+     */
+    protected function setIsRemoteConnection($isRemote)
+    {
+        $this->isRemoteConnection = $isRemote;
     }
 }

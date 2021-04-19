@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,7 +34,6 @@ use Phing\Io\OutputStreamWriter;
  *
  * FIXME
  *        - Add support for arrays (separated by ',')
- *
  */
 class Properties
 {
@@ -47,66 +47,23 @@ class Properties
     /**
      * @var File
      */
-    private $file = null;
+    private $file;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array               $properties
      * @param FileParserInterface $fileParser
      */
     public function __construct($properties = null, FileParserInterface $fileParser = null)
     {
-        $this->fileParser = $fileParser == null ? new IniFileParser() : $fileParser;
+        $this->fileParser = null == $fileParser ? new IniFileParser() : $fileParser;
 
         if (is_array($properties)) {
             foreach ($properties as $key => $value) {
                 $this->setProperty($key, $value);
             }
         }
-    }
-
-    /**
-     * Load properties from a file.
-     *
-     * @throws IOException - if unable to read file.
-     */
-    public function load(File $file)
-    {
-        if ($file->canRead()) {
-            $this->parse($file);
-
-            $this->file = $file;
-        } else {
-            throw new IOException("Can not read file " . $file->getPath());
-        }
-    }
-
-    /**
-     * Parses the file given.
-     *
-     */
-    protected function parse(File $file)
-    {
-        $this->properties = $this->fileParser->parseFile($file);
-    }
-
-    /**
-     * Process values when being written out to properties file.
-     * does things like convert true => "true"
-     *
-     * @param  mixed $val The property value (may be boolean, etc.)
-     * @return string
-     */
-    protected function outVal($val)
-    {
-        if ($val === true) {
-            $val = "true";
-        } elseif ($val === false) {
-            $val = "false";
-        }
-
-        return $val;
     }
 
     /**
@@ -119,29 +76,46 @@ class Properties
      */
     public function __toString()
     {
-        $buf = "";
+        $buf = '';
         foreach ($this->properties as $key => $item) {
-            $buf .= $key . "=" . $this->outVal($item) . PHP_EOL;
+            $buf .= $key . '=' . $this->outVal($item) . PHP_EOL;
         }
 
         return $buf;
     }
 
     /**
+     * Load properties from a file.
+     *
+     * @throws IOException - if unable to read file
+     */
+    public function load(File $file)
+    {
+        if ($file->canRead()) {
+            $this->parse($file);
+
+            $this->file = $file;
+        } else {
+            throw new IOException('Can not read file ' . $file->getPath());
+        }
+    }
+
+    /**
      * Stores current properties to specified file.
      *
-     * @param  File   $file   File to create/overwrite with properties.
-     * @param  string $header Header text that will be placed (within comments) at the top of properties file.
-     * @throws IOException - on error writing properties file.
+     * @param File   $file   file to create/overwrite with properties
+     * @param string $header header text that will be placed (within comments) at the top of properties file
+     *
+     * @throws IOException - on error writing properties file
      */
     public function store(File $file = null, $header = null)
     {
-        if ($file == null) {
+        if (null == $file) {
             $file = $this->file;
         }
 
-        if ($file == null) {
-            throw new IOException("Unable to write to empty filename");
+        if (null == $file) {
+            throw new IOException('Unable to write to empty filename');
         }
 
         // stores the properties in this object in the file denoted
@@ -149,40 +123,29 @@ class Properties
         // file prior, this method stores them in the file used by load()
         try {
             $fw = new FileWriter($file);
-            if ($header !== null) {
-                $fw->write("# " . $header . PHP_EOL);
+            if (null !== $header) {
+                $fw->write('# ' . $header . PHP_EOL);
             }
             $fw->write((string) $this);
             $fw->close();
         } catch (IOException $e) {
-            throw new IOException("Error writing property file: " . $e->getMessage());
+            throw new IOException('Error writing property file: ' . $e->getMessage());
         }
     }
 
     public function storeOutputStream(OutputStream $os, $comments)
     {
         $bw = new BufferedWriter(new OutputStreamWriter($os));
-        if ($comments != null) {
+        if (null != $comments) {
             self::writeComments($bw, $comments);
         }
-        $bw->write("#" . gmdate('D, d M Y H:i:s', time()) . ' GMT');
+        $bw->write('#' . gmdate('D, d M Y H:i:s', time()) . ' GMT');
         $bw->newLine();
         foreach ($this->getProperties() as $key => $value) {
-            $bw->write($key . "=" . $value);
+            $bw->write($key . '=' . $value);
             $bw->newLine();
         }
         $bw->flush();
-    }
-
-    private static function writeComments(BufferedWriter $bw, $comments)
-    {
-        $rows = explode("\n", $comments);
-        $bw->write("#" . PHP_EOL);
-        foreach ($rows as $row) {
-            $bw->write(sprintf("#%s%s", trim($row), PHP_EOL));
-        }
-        $bw->write("#");
-        $bw->newLine();
     }
 
     /**
@@ -201,7 +164,8 @@ class Properties
      * Get value for specified property.
      * This is the same as get() method.
      *
-     * @param  string $prop The property name (key).
+     * @param string $prop the property name (key)
+     *
      * @see    get()
      */
     public function getProperty($prop)
@@ -218,7 +182,8 @@ class Properties
      * This function exists to provide a hashtable-like interface for
      * properties.
      *
-     * @param  string $prop The property name (key).
+     * @param string $prop the property name (key)
+     *
      * @see    getProperty()
      */
     public function get($prop)
@@ -233,8 +198,10 @@ class Properties
     /**
      * Set the value for a property.
      *
-     * @param  string $key
-     * @return mixed  Old property value or null if none was set.
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return mixed old property value or null if none was set
      */
     public function setProperty($key, $value)
     {
@@ -249,7 +216,8 @@ class Properties
      * This function exists to provide hashtable-lie
      * interface for properties.
      *
-     * @param  string $key
+     * @param string $key
+     * @param mixed  $value
      */
     public function put($key, $value)
     {
@@ -257,12 +225,13 @@ class Properties
     }
 
     /**
-     * Appends a value to a property if it already exists with a delimiter
+     * Appends a value to a property if it already exists with a delimiter.
      *
      * If the property does not, it just adds it.
      *
      * @param string $key
      * @param string $delimiter
+     * @param mixed  $value
      */
     public function append($key, $value, $delimiter = ',')
     {
@@ -286,7 +255,8 @@ class Properties
     /**
      * Whether loaded properties array contains specified property name.
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return bool
      */
     public function containsKey($key)
@@ -314,5 +284,43 @@ class Properties
     public function isEmpty()
     {
         return empty($this->properties);
+    }
+
+    /**
+     * Parses the file given.
+     */
+    protected function parse(File $file)
+    {
+        $this->properties = $this->fileParser->parseFile($file);
+    }
+
+    /**
+     * Process values when being written out to properties file.
+     * does things like convert true => "true".
+     *
+     * @param mixed $val The property value (may be boolean, etc.)
+     *
+     * @return string
+     */
+    protected function outVal($val)
+    {
+        if (true === $val) {
+            $val = 'true';
+        } elseif (false === $val) {
+            $val = 'false';
+        }
+
+        return $val;
+    }
+
+    private static function writeComments(BufferedWriter $bw, $comments)
+    {
+        $rows = explode("\n", $comments);
+        $bw->write('#' . PHP_EOL);
+        foreach ($rows as $row) {
+            $bw->write(sprintf('#%s%s', trim($row), PHP_EOL));
+        }
+        $bw->write('#');
+        $bw->newLine();
     }
 }

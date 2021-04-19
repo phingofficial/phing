@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,13 +24,14 @@ use Iterator;
 use IteratorAggregate;
 
 /**
- * Interface Cache
+ * Interface Cache.
  */
 interface Cache extends IteratorAggregate
 {
     /**
      * Checks its prerequisites.
-     * @return bool <i>true</i> if all is ok, otherwise <i>false</i>.
+     *
+     * @return bool <i>true</i> if all is ok, otherwise <i>false</i>
      */
     public function isValid(): bool;
 
@@ -44,21 +46,25 @@ interface Cache extends IteratorAggregate
 
     /**
      * Returns a value for a given key from the cache.
+     *
      * @param string $key the key
+     *
      * @return string the stored value
      */
     public function get($key);
 
     /**
      * Saves a key-value-pair in the cache.
-     * @param string $key the key
+     *
+     * @param string $key   the key
      * @param string $value the value
      */
     public function put($key, $value): void;
 
     /**
      * Returns an iterator over the keys in the cache.
-     * @return Iterator An iterator over the keys.
+     *
+     * @return Iterator an iterator over the keys
      */
     public function getIterator(): Iterator;
 }

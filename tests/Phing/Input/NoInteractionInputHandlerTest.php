@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +20,12 @@
 
 declare(strict_types=1);
 
-namespace Phing\Input;
+namespace Phing\Test\Input;
 
+use Phing\Input\InputRequest;
+use Phing\Input\MultipleChoiceInputRequest;
+use Phing\Input\NoInteractionInputHandler;
+use Phing\Input\YesNoInputRequest;
 use PHPUnit\Framework\TestCase;
 
 class NoInteractionInputHandlerTest extends TestCase
@@ -48,7 +53,7 @@ class NoInteractionInputHandlerTest extends TestCase
 
     public function testYesNoQuestion()
     {
-        $request = new YesNoInputRequest("Enter a choice", ['yes', 'no']);
+        $request = new YesNoInputRequest('Enter a choice', ['yes', 'no']);
         $handler = new NoInteractionInputHandler();
 
         $handler->handleInput($request);

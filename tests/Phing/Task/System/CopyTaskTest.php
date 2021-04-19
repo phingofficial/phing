@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Copy Task
+ * Tests the Copy Task.
  *
  * @author  Michiel Rook <mrook@php.net>
  */
@@ -32,14 +33,14 @@ class CopyTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/CopyTaskTest.xml"
+            . '/etc/tasks/system/CopyTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     /**
@@ -47,54 +48,54 @@ class CopyTaskTest extends BuildFileTest
      */
     public function testCopyDanglingSymlink()
     {
-        $this->executeTarget("testCopyDanglingSymlink");
-        $this->assertInLogs("Copying 1 file to");
+        $this->executeTarget('testCopyDanglingSymlink');
+        $this->assertInLogs('Copying 1 file to');
     }
 
     /**
      * Test for {@link http://www.phing.info/trac/ticket/981}
      * FileUtil::copyFile(): preserveLastModified causes
-     * empty symlink target file
+     * empty symlink target file.
      *
      * @requires OS ^(?:(?!Win).)*$
      */
     public function testCopySymlinkPreserveLastModifiedShouldCopyTarget()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Copying 2 files to");
+        $this->assertInLogs('Copying 2 files to');
         $this->assertGreaterThan(0, $this->project->getProperty('test.filesize'));
     }
 
     /**
      * Regression test for ticket {@link http://www.phing.info/trac/ticket/229}
-     * - CopyTask should accept filelist subelement
+     * - CopyTask should accept filelist subelement.
      */
     public function testCopyFileList()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Copying 2 files to");
+        $this->assertInLogs('Copying 2 files to');
     }
 
     /**
-     * - CopyTask should accept dirset subelement
+     * - CopyTask should accept dirset subelement.
      */
     public function testCopyDirSet()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Copying 2 files to");
+        $this->assertInLogs('Copying 2 files to');
     }
 
     /**
      * Regression test for ticket {@link https://github.com/phingofficial/phing/issues/562}
-     * - Error overwriting symlinks on copy or move
+     * - Error overwriting symlinks on copy or move.
      *
      * @requires OS ^(?:(?!Win).)*$
      */
     public function testOverwriteExistingSymlink()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Copying 1 file to");
-        $this->assertEquals("tmp/target-a", readlink(PHING_TEST_BASE . "/etc/tasks/system/tmp/link-b"));
+        $this->assertInLogs('Copying 1 file to');
+        $this->assertEquals('tmp/target-a', readlink(PHING_TEST_BASE . '/etc/tasks/system/tmp/link-b'));
     }
 
     public function testGranularity()

@@ -1,9 +1,5 @@
 <?php
 
-namespace Phing\Support;
-
-use Phing\Type\DataType;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,6 +17,11 @@ use Phing\Type\DataType;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+
+namespace Phing\Test\Support;
+
+use Phing\Type\DataType;
+
 class TypedefTestType extends DataType
 {
 }

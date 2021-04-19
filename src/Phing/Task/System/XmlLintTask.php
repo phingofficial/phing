@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +18,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Task\System;
 
 use DOMDocument;
 use Phing\Exception\BuildException;
@@ -42,39 +43,37 @@ class XmlLintTask extends Task
     protected $haltonfailure = true;
 
     /**
-     * File to be performed syntax check on
-     *
+     * File to be performed syntax check on.
      */
-    public function setFile(File $file)
+    public function setFile(File $file): void
     {
         $this->file = $file;
     }
 
     /**
-     * XML Schema Description file to validate against
-     *
+     * XML Schema Description file to validate against.
+     * @param File $schema
      */
-    public function setSchema(File $schema)
+    public function setSchema(File $schema): void
     {
         $this->schema = $schema;
     }
 
     /**
-     * Use RNG instead of DTD schema validation
+     * Use RNG instead of DTD schema validation.
      *
      * @param bool $bool
      */
-    public function setUseRNG($bool)
+    public function setUseRNG(bool $bool): void
     {
-        $this->useRNG = (bool) $bool;
+        $this->useRNG = $bool;
     }
 
     /**
-     * Sets the haltonfailure attribute
-     *
-     *
+     * Sets the haltonfailure attribute.
+     * @param bool $haltonfailure
      */
-    public function setHaltonfailure(bool $haltonfailure)
+    public function setHaltonfailure(bool $haltonfailure): void
     {
         $this->haltonfailure = $haltonfailure;
     }
@@ -85,14 +84,14 @@ class XmlLintTask extends Task
      * {@inheritdoc}
      *
      * @throws BuildException
-     *
      */
     public function main()
     {
+        libxml_use_internal_errors(true);
         if (isset($this->schema) && !file_exists($this->schema->getPath())) {
-            throw new BuildException("Schema file not found: " . $this->schema->getPath());
+            throw new BuildException('Schema file not found: ' . $this->schema->getPath());
         }
-        if (!isset($this->file) and count($this->filesets) == 0) {
+        if (!isset($this->file) && 0 === count($this->filesets)) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
@@ -114,12 +113,27 @@ class XmlLintTask extends Task
     }
 
     /**
-     * @param $message
+     * Local error handler to catch validation errors and log them through Phing.
      *
+     * @param int    $level
+     * @param string $message
+     * @param string $file
+     * @param int    $line
+     * @param mixed  $context
+     */
+    public function errorHandler($level, $message, $file, $line, $context): void
+    {
+        $matches = [];
+        preg_match('/^.*\(\): (.*)$/', $message, $matches);
+        $this->log($matches[1], Project::MSG_ERR);
+    }
+
+    /**
+     * @param $message
      *
      * @throws BuildException
      */
-    protected function logError($message)
+    protected function logError($message): void
     {
         if ($this->haltonfailure) {
             throw new BuildException($message);
@@ -129,38 +143,38 @@ class XmlLintTask extends Task
     }
 
     /**
-     * Performs validation
+     * Performs validation.
      *
      * @param string $file
-     *
      */
-    protected function lint($file)
+    protected function lint($file): void
     {
         if (file_exists($file)) {
             if (is_readable($file)) {
                 $dom = new DOMDocument();
-                if ($dom->load($file) === false) {
-                    $error = libxml_get_last_error();
+                if (false === $dom->load($file)) {
+                    $this->libxmlGetErrors();
                     $this->logError($file . ' is not well-formed (See messages above)');
                 } else {
                     if (isset($this->schema)) {
                         if ($this->useRNG) {
                             if ($dom->relaxNGValidate($this->schema->getPath())) {
-                                $this->log($file . ' validated with RNG grammar', Project::MSG_INFO);
+                                $this->log($file . ' validated with RNG grammar');
                             } else {
+                                $this->libxmlGetErrors();
                                 $this->logError($file . ' fails to validate (See messages above)');
                             }
                         } else {
                             if ($dom->schemaValidate($this->schema->getPath())) {
-                                $this->log($file . ' validated with schema', Project::MSG_INFO);
+                                $this->log($file . ' validated with schema');
                             } else {
+                                $this->libxmlGetErrors();
                                 $this->logError($file . ' fails to validate (See messages above)');
                             }
                         }
                     } else {
                         $this->log(
-                            $file . ' is well-formed (not validated due to missing schema specification)',
-                            Project::MSG_INFO
+                            $file . ' is well-formed (not validated due to missing schema specification)'
                         );
                     }
                 }
@@ -172,19 +186,40 @@ class XmlLintTask extends Task
         }
     }
 
-    /**
-     * Local error handler to catch validation errors and log them through Phing
-     *
-     * @param int $level
-     * @param string $message
-     * @param string $file
-     * @param int $line
-     *
-     */
-    public function errorHandler($level, $message, $file, $line, $context)
+    private function libxmlGetErrors(): void
     {
-        $matches = [];
-        preg_match('/^.*\(\): (.*)$/', $message, $matches);
-        $this->log($matches[1], Project::MSG_ERR);
+        $errors = libxml_get_errors();
+        foreach ($errors as $error) {
+            [$severity, $message] = $this->libxmlGetError($error);
+            $this->log($message, $severity === 'error' ? Project::MSG_ERR : Project::MSG_WARN);
+        }
+        libxml_clear_errors();
+    }
+
+    private function libxmlGetError($error): array
+    {
+        $return = '';
+        $severity = '';
+        switch ($error->level) {
+            case LIBXML_ERR_WARNING:
+                $return .= "Warning $error->code: ";
+                $severity = 'warn';
+                break;
+            case LIBXML_ERR_ERROR:
+                $return .= "Error $error->code: ";
+                $severity = 'error';
+                break;
+            case LIBXML_ERR_FATAL:
+                $return .= "Fatal Error $error->code: ";
+                $severity = 'error';
+                break;
+        }
+        $return .= trim($error->message);
+        if ($error->file) {
+            $return .=    " in $error->file";
+        }
+        $return .= " on line $error->line";
+
+        return [$severity, $return];
     }
 }

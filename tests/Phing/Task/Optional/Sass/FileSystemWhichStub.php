@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\Sass;
+namespace Phing\Test\Task\Optional\Sass;
 
 use Phing\Io\UnixFileSystem;
 
@@ -37,6 +38,7 @@ class FileSystemWhichStub extends UnixFileSystem
         if ($this->isWhichSuccessful) {
             return $executable;
         }
+
         return $fallback;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -44,10 +45,10 @@ class ReferenceExistsCondition extends ProjectComponent implements Condition
      */
     public function evaluate()
     {
-        if ($this->refid === null) {
+        if (null === $this->refid) {
             throw new BuildException(
-                "No ref attribute specified for reference-exists "
-                . "condition"
+                'No ref attribute specified for reference-exists '
+                . 'condition'
             );
         }
         $refs = $this->project->getReferences();

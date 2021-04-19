@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -76,7 +77,6 @@ class ImportTask extends Task
 
     /**
      * Initialize task.
-     *
      */
     public function init()
     {
@@ -86,7 +86,7 @@ class ImportTask extends Task
     /**
      * Set the file to import.
      *
-     * @param  string $f Path to file
+     * @param string $f Path to file
      */
     public function setFile($f)
     {
@@ -95,7 +95,6 @@ class ImportTask extends Task
 
     /**
      * The prefix to use when prefixing the imported target names.
-     *
      */
     public function setAs(string $prefix)
     {
@@ -105,7 +104,6 @@ class ImportTask extends Task
     /**
      * The separator to use between prefix and target name, default is
      * ".".
-     *
      */
     public function setPrefixSeparator(string $s)
     {
@@ -115,8 +113,8 @@ class ImportTask extends Task
     /**
      * Is this include optional?
      *
-     * @param  bool $opt If true, do not stop the build if the file does not
-     *                   exist
+     * @param bool $opt If true, do not stop the build if the file does not
+     *                  exist
      */
     public function setOptional($opt)
     {
@@ -131,20 +129,20 @@ class ImportTask extends Task
      */
     public function main()
     {
-        if ($this->file === null && count($this->filesets) === 0) {
+        if (null === $this->file && 0 === count($this->filesets)) {
             throw new BuildException(
                 'import requires file attribute or at least one nested fileset'
             );
         }
-        if ($this->getOwningTarget() === null || $this->getOwningTarget()->getName() !== '') {
+        if (null === $this->getOwningTarget() || '' !== $this->getOwningTarget()->getName()) {
             throw new BuildException('import only allowed as a top-level task');
         }
-        if ($this->getLocation() === null || $this->getLocation()->getFileName() === null) {
-            throw new BuildException("Unable to get location of import task");
+        if (null === $this->getLocation() || null === $this->getLocation()->getFileName()) {
+            throw new BuildException('Unable to get location of import task');
         }
 
         // Single file.
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             $file = new File($this->file);
             if (!$file->isAbsolute()) {
                 $file = new File($this->project->getBasedir(), $this->file);
@@ -153,6 +151,7 @@ class ImportTask extends Task
                 $msg = "Unable to find build file: {$file->getPath()}";
                 if ($this->optional) {
                     $this->log($msg . '... skipped');
+
                     return;
                 }
 
@@ -174,13 +173,13 @@ class ImportTask extends Task
 
             $filecount = count($srcFiles);
             $total_files += $filecount;
-            for ($j = 0; $j < $filecount; $j++) {
+            for ($j = 0; $j < $filecount; ++$j) {
                 $this->importFile(new File($fromDir, $srcFiles[$j]));
             }
 
             $dircount = count($srcDirs);
             $total_dirs += $dircount;
-            for ($j = 0; $j < $dircount; $j++) {
+            for ($j = 0; $j < $dircount; ++$j) {
                 $this->importFile(new File($fromDir, $srcDirs[$j]));
             }
         }
@@ -220,7 +219,6 @@ class ImportTask extends Task
      * well as a prefixed name and the unadorned target may be
      * overwritten in the importing build file.  The depends list of
      * the imported targets is not modified at all.</p>
-     *
      */
     protected function isInIncludeMode(): bool
     {

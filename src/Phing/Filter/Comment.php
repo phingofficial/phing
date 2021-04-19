@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,7 +22,6 @@ namespace Phing\Filter;
 
 /**
  * The class that holds a comment representation.
- *
  */
 class Comment
 {
@@ -36,6 +36,7 @@ class Comment
      * @param string $value The prefix for a line comment of this type.
      *                      Must not be <code>null</code>.
      */
+
     /**
      * @param $value
      */

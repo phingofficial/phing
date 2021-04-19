@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,10 +30,11 @@ use Phing\Project;
  * Example:<br>
  * <pre><expandproperties/></pre>
  * Or:
- * <pre><filterreader classname="phing.filters.ExpandProperties'/></pre>
+ * <pre><filterreader classname="phing.filters.ExpandProperties'/></pre>.
  *
  * @author  Yannick Lecaillez <yl@seasonfive.com>
  * @author  Hans Lellelid <hans@xmpl.org>
+ *
  * @see     BaseFilterReader
  */
 class ExpandProperties extends BaseFilterReader implements ChainableReader
@@ -42,16 +44,17 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * The original stream is first read in fully, and the Phing properties are expanded.
      *
      * @param int $len
-     * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
      *
      * @throws IOException if the underlying stream throws an IOException
-     * during reading
+     *                     during reading
+     *
+     * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
         $buffer = $this->in->read($len);
 
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
 
@@ -59,9 +62,8 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
          * @var Project $project
          */
         $project = $this->getProject();
-        $buffer = $project->replaceProperties($buffer);
 
-        return $buffer;
+        return $project->replaceProperties($buffer);
     }
 
     /**
@@ -69,10 +71,10 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * Reader for instantiation.
      *
      * @param Reader $reader A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     *                       Must not be <code>null</code>.
      *
      * @return ExpandProperties A new filter based on this configuration, but filtering
-     *                the specified reader
+     *                          the specified reader
      */
     public function chain(Reader $reader): Reader
     {

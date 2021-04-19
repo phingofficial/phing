@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,7 +22,6 @@ namespace Phing\Io;
 
 /**
  * Wrapper class for readers, which can be used to apply filters.
- *
  */
 class FilterReader extends Reader
 {
@@ -56,9 +56,11 @@ class FilterReader extends Reader
      * FIXME: Clean up this function signature, as it a) params aren't being used
      * and b) it doesn't make much sense.
      *
-     * @param  int $len
-     * @return string
+     * @param int $len
+     *
      * @throws IOException
+     *
+     * @return string
      */
     public function read($len = null)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,8 +20,6 @@
 
 namespace Phing\Filter;
 
-use A;
-use Phing\Exception\NullPointerException;
 use Phing\Io\FileUtils;
 use Phing\Io\FilterReader;
 use Phing\Io\IOException;
@@ -32,6 +31,7 @@ use SplFileObject;
  * Strips whitespace from [php] files using PHP stripwhitespace() method.
  *
  * @author  Hans Lellelid, hans@velum.net
+ *
  * @see     FilterReader
  */
 class StripWhitespace extends BaseFilterReader implements ChainableReader
@@ -42,14 +42,16 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      * Returns the  stream without Php comments and whitespace.
      *
      * @param int $len
-     * @return string the resulting stream, or -1
-     *             if the end of the resulting stream has been reached
+     *
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
+     *
+     * @return string the resulting stream, or -1
+     *                if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
-        if ($this->processed === true) {
+        if (true === $this->processed) {
             return -1; // EOF
         }
 
@@ -59,12 +61,12 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
             $php .= $buffer;
         }
 
-        if ($php === null) { // EOF?
+        if (null === $php) { // EOF?
             return -1;
         }
 
         if (empty($php)) {
-            $this->log("PHP file is empty!", Project::MSG_WARN);
+            $this->log('PHP file is empty!', Project::MSG_WARN);
 
             return ''; // return empty string, don't attempt to strip whitespace
         }
@@ -86,9 +88,9 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      * Creates a new StripWhitespace using the passed in
      * Reader for instantiation.
      *
-     * @param A|Reader $reader
      * @return StripWhitespace a new filter based on this configuration, but filtering
-     *           the specified reader
+     *                         the specified reader
+     *
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      */

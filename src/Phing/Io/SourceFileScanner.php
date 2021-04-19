@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,12 +32,11 @@ use Phing\Task;
  *  The only method returns an array of source files. The array is a
  *  subset of the files given as a parameter and holds only those that
  *  are newer than their corresponding target files.
- *
  */
 class SourceFileScanner
 {
     /**
-     * Instance of FileUtils
+     * Instance of FileUtils.
      */
     private $fileUtils;
 
@@ -58,21 +58,22 @@ class SourceFileScanner
      * Restrict the given set of files to those that are newer than
      * their corresponding target files.
      *
-     * @param iterable $files the original set of files
-     * @param File $srcDir all files are relative to this directory
-     * @param File $destDir target files live here. if null file names
+     * @param iterable       $files   the original set of files
+     * @param File           $srcDir  all files are relative to this directory
+     * @param File           $destDir target files live here. if null file names
      *                                returned by the mapper are assumed to be
      *                                absolute.
-     * @param FilenameMapper $mapper knows how to construct a target file names from
-     *                source file names.
-     * @param bool $force bool that determines if the files should be
-     *                                forced to be copied.
+     * @param FilenameMapper $mapper  knows how to construct a target file names from
+     *                                source file names
+     * @param bool           $force   bool that determines if the files should be
+     *                                forced to be copied
+     *
      * @return array
      */
     public function restrict(&$files, $srcDir, $destDir, $mapper, $force = false)
     {
         $now = time();
-        $targetList = "";
+        $targetList = '';
 
         /*
           If we're on Windows, we have to munge the time up to 2 secs to
@@ -89,16 +90,18 @@ class SourceFileScanner
 
         $v = [];
 
-        for ($i = 0, $size = count($files); $i < $size; $i++) {
+        for ($i = 0, $size = count($files); $i < $size; ++$i) {
             $targets = $mapper->main($files[$i]);
             if (empty($targets)) {
                 $this->task->log($files[$i] . " skipped - don't know how to handle it", Project::MSG_VERBOSE);
+
                 continue;
             }
 
             $src = null;
+
             try {
-                if ($srcDir === null) {
+                if (null === $srcDir) {
                     $src = new File($files[$i]);
                 } else {
                     $src = $this->fileUtils->resolveFile($srcDir, $files[$i]);
@@ -106,21 +109,22 @@ class SourceFileScanner
 
                 if ($src->lastModified() > $now) {
                     $this->task->log(
-                        "Warning: " . $files[$i] . " modified in the future (" . $src->lastModified() . " > " . $now . ")",
+                        'Warning: ' . $files[$i] . ' modified in the future (' . $src->lastModified() . ' > ' . $now . ')',
                         Project::MSG_WARN
                     );
                 }
             } catch (IOException $ioe) {
-                $this->task->log("Unable to read file " . $files[$i] . " (skipping): " . $ioe->getMessage());
+                $this->task->log('Unable to read file ' . $files[$i] . ' (skipping): ' . $ioe->getMessage());
+
                 continue;
             }
 
             $added = false;
-            $targetList = "";
+            $targetList = '';
 
-            for ($j = 0, $_j = count($targets); (!$added && $j < $_j); $j++) {
+            for ($j = 0, $_j = count($targets); (!$added && $j < $_j); ++$j) {
                 $dest = null;
-                if ($destDir === null) {
+                if (null === $destDir) {
                     $dest = new File($targets[$j]);
                 } else {
                     $dest = $this->fileUtils->resolveFile($destDir, $targets[$j]);
@@ -128,28 +132,28 @@ class SourceFileScanner
 
                 if (!$dest->exists()) {
                     $this->task->log(
-                        ($files[$i] ?: ".") . " added as " . $dest->__toString() . " doesn't exist.",
+                        ($files[$i] ?: '.') . ' added as ' . $dest->__toString() . " doesn't exist.",
                         Project::MSG_VERBOSE
                     );
                     $v[] = $files[$i];
                     $added = true;
                 } elseif ($src->lastModified() > $dest->lastModified()) {
                     $this->task->log(
-                        $files[$i] . " added as " . $dest->__toString() . " is outdated.",
+                        $files[$i] . ' added as ' . $dest->__toString() . ' is outdated.',
                         Project::MSG_VERBOSE
                     );
                     $v[] = $files[$i];
                     $added = true;
-                } elseif ($force === true) {
+                } elseif (true === $force) {
                     $this->task->log(
-                        $files[$i] . " added as " . $dest->__toString() . " is forced to be overwritten.",
+                        $files[$i] . ' added as ' . $dest->__toString() . ' is forced to be overwritten.',
                         Project::MSG_VERBOSE
                     );
                     $v[] = $files[$i];
                     $added = true;
                 } else {
                     if (strlen($targetList) > 0) {
-                        $targetList .= ", ";
+                        $targetList .= ', ';
                     }
                     $targetList .= $dest->getAbsolutePath();
                 }
@@ -157,9 +161,9 @@ class SourceFileScanner
 
             if (!$added) {
                 $this->task->log(
-                    $files[$i] . " omitted as " . $targetList . " " . (count(
+                    $files[$i] . ' omitted as ' . $targetList . ' ' . (1 === count(
                         $targets
-                    ) === 1 ? " is " : " are ") . "up to date.",
+                    ) ? ' is ' : ' are ') . 'up to date.',
                     Project::MSG_VERBOSE
                 );
             }
@@ -177,13 +181,14 @@ class SourceFileScanner
      * @param  $srcDir
      * @param  $destDir
      * @param  $mapper
+     *
      * @return array
      */
     public function restrictAsFiles(&$files, &$srcDir, &$destDir, &$mapper)
     {
         $res = $this->restrict($files, $srcDir, $destDir, $mapper);
         $result = [];
-        for ($i = 0, $resultsCount = count($res); $i < $resultsCount; $i++) {
+        for ($i = 0, $resultsCount = count($res); $i < $resultsCount; ++$i) {
             $result[$i] = new File($srcDir, $res[$i]);
         }
 

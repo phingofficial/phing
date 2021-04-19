@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -38,7 +39,6 @@ use Phing\Phing;
  *
  * @author Charlie Killian <charlie@tizac.com>
  * @author Hans Lellelid <hans@xmpl.org>
- *
  */
 abstract class FileSystem
 {
@@ -78,28 +78,33 @@ abstract class FileSystem
      * Static method to return the FileSystem singelton representing
      * this platform's local filesystem driver.
      *
-     * @return FileSystem
      * @throws IOException
+     *
+     * @return FileSystem
      */
     public static function getFileSystem()
     {
-        if (self::$fs === null) {
+        if (null === self::$fs) {
             switch (Phing::getProperty('host.fstype')) {
                 case 'UNIX':
                     self::$fs = new UnixFileSystem();
+
                     break;
+
                 case 'WINDOWS':
                     self::$fs = new WindowsFileSystem();
+
                     break;
+
                 default:
-                    throw new IOException("Host uses unsupported filesystem, unable to proceed");
+                    throw new IOException('Host uses unsupported filesystem, unable to proceed');
             }
         }
 
         return self::$fs;
     }
 
-    /* -- Normalization and construction -- */
+    // -- Normalization and construction --
 
     /**
      * Return the local filesystem's name-separator character.
@@ -140,7 +145,6 @@ abstract class FileSystem
     /**
      * Resolve the given abstract pathname into absolute form.  Invoked by the
      * getAbsolutePath and getCanonicalPath methods in the PhingFile class.
-     *
      */
     abstract public function resolveFile(File $f);
 
@@ -161,26 +165,26 @@ abstract class FileSystem
      */
     abstract public function fromURIPath($path);
 
-    /* -- Path operations -- */
+    // -- Path operations --
 
     /**
      * Tell whether or not the given abstract pathname is absolute.
-     *
      */
     abstract public function isAbsolute(File $f);
 
     /**
-     * canonicalize filename by checking on disk
+     * canonicalize filename by checking on disk.
      *
-     * @param  string $strPath
-     * @return mixed  Canonical path or false if the file doesn't exist.
+     * @param string $strPath
+     *
+     * @return mixed canonical path or false if the file doesn't exist
      */
     public function canonicalize($strPath)
     {
         return @realpath($strPath);
     }
 
-    /* -- Attribute accessors -- */
+    // -- Attribute accessors --
 
     /**
      * Check whether the file or directory denoted by the given abstract
@@ -190,7 +194,8 @@ abstract class FileSystem
      * access is made.  Return false if access is denied or an I/O error
      * occurs.
      *
-     * @param  bool $write
+     * @param bool $write
+     *
      * @return bool
      */
     public function checkAccess(File $f, $write = false)
@@ -209,8 +214,8 @@ abstract class FileSystem
         // path rights are checked
         if (!@file_exists($strPath) && !is_dir($strPath)) {
             $strPath = $f->getParent();
-            if ($strPath === null || !is_dir($strPath)) {
-                $strPath = Phing::getProperty("user.dir");
+            if (null === $strPath || !is_dir($strPath)) {
+                $strPath = Phing::getProperty('user.dir');
             }
             //$strPath = dirname($strPath);
         }
@@ -240,8 +245,9 @@ abstract class FileSystem
      * abstract pathname was last modified, or zero if it does not exist or
      * some other I/O error occurs.
      *
-     * @return int
      * @throws IOException
+     *
+     * @return int
      */
     public function getLastModifiedTime(File $f)
     {
@@ -268,7 +274,8 @@ abstract class FileSystem
         if (false === $mtime) {
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            $msg = "FileSystem::getLastModifiedTime() FAILED. Can not get modified time of $strPath. $errormsg";
+            $msg = "FileSystem::getLastModifiedTime() FAILED. Can not get modified time of {$strPath}. {$errormsg}";
+
             throw new IOException($msg);
         }
 
@@ -280,25 +287,27 @@ abstract class FileSystem
      * pathname, or zero if it does not exist, is a directory, or some other
      * I/O error occurs.
      *
-     * @return int
      * @throws IOException
+     *
+     * @return int
      */
     public function getLength(File $f)
     {
         error_clear_last();
         $strPath = (string) $f->getAbsolutePath();
         $fs = filesize((string) $strPath);
-        if ($fs !== false) {
+        if (false !== $fs) {
             return $fs;
         }
 
         $lastError = error_get_last();
         $errormsg = $lastError['message'] ?? 'unknown error';
-        $msg = "FileSystem::Read() FAILED. Cannot get filesize of $strPath. $errormsg";
+        $msg = "FileSystem::Read() FAILED. Cannot get filesize of {$strPath}. {$errormsg}";
+
         throw new IOException($msg);
     }
 
-    /* -- File operations -- */
+    // -- File operations --
 
     /**
      * Create a new empty file with the given pathname.  Return
@@ -306,9 +315,11 @@ abstract class FileSystem
      * file or directory with the given pathname already exists.  Throw an
      * IOException if an I/O error occurs.
      *
-     * @param  string $strPathname Path of the file to be created.
-     * @return bool
+     * @param string $strPathname path of the file to be created
+     *
      * @throws IOException
+     *
+     * @return bool
      */
     public function createNewFile($strPathname)
     {
@@ -317,11 +328,12 @@ abstract class FileSystem
         }
 
         // Create new file
-        $fp = @fopen($strPathname, "w");
-        if ($fp === false) {
+        $fp = @fopen($strPathname, 'w');
+        if (false === $fp) {
             $error = error_get_last();
+
             throw new IOException(
-                "The file \"$strPathname\" could not be created: " . $error['message'] ?? 'unknown error'
+                "The file \"{$strPathname}\" could not be created: " . $error['message'] ?? 'unknown error'
             );
         }
         @fclose($fp);
@@ -333,7 +345,8 @@ abstract class FileSystem
      * Delete the file or directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
      *
-     * @param  bool $recursive
+     * @param bool $recursive
+     *
      * @throws IOException
      */
     public function delete(File $f, $recursive = false)
@@ -374,13 +387,14 @@ abstract class FileSystem
      * If $mode argument is specified, umask setting is ignored and
      * the permissions are set according to the $mode argument using chmod().
      *
-     * @param  File     $f
-     * @param  int|null $mode
+     * @param File     $f
+     * @param null|int $mode
+     *
      * @return bool
      */
     public function createDirectory(&$f, $mode = null)
     {
-        if ($mode === null) {
+        if (null === $mode) {
             $return = @mkdir($f->getAbsolutePath());
         } else {
             // If the $mode is specified, mkdir() is called with the $mode
@@ -400,8 +414,9 @@ abstract class FileSystem
      * the second abstract pathname, returning true if and only if
      * the operation succeeds.
      *
-     * @param  File $f1 abstract source file
-     * @param  File $f2 abstract destination file
+     * @param File $f1 abstract source file
+     * @param File $f2 abstract destination file
+     *
      * @throws IOException if rename cannot be performed
      */
     public function rename(File $f1, File $f2)
@@ -413,7 +428,8 @@ abstract class FileSystem
         if (false === @rename($src, $dest)) {
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            $msg = "Rename FAILED. Cannot rename $src to $dest. $errormsg";
+            $msg = "Rename FAILED. Cannot rename {$src} to {$dest}. {$errormsg}";
+
             throw new IOException($msg);
         }
     }
@@ -423,7 +439,8 @@ abstract class FileSystem
      * given abstract pathname returning true if and only if the
      * operation succeeds.
      *
-     * @param  int  $time
+     * @param int $time
+     *
      * @throws IOException
      */
     public function setLastModifiedTime(File $f, $time)
@@ -434,31 +451,32 @@ abstract class FileSystem
         if (!$success) {
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            throw new IOException("Could not touch '" . $path . "' due to: $errormsg");
+
+            throw new IOException("Could not touch '" . $path . "' due to: {$errormsg}");
         }
     }
 
-    /* -- Basic infrastructure -- */
+    // -- Basic infrastructure --
 
     /**
      * Compare two abstract pathnames lexicographically.
      *
-     * @return int
      * @throws IOException
+     *
+     * @return int
      */
     public function compare(File $f1, File $f2)
     {
-        throw new IOException("compare() not implemented by local fs driver");
+        throw new IOException('compare() not implemented by local fs driver');
     }
 
     /**
      * Copy a file.
      *
-     * @param File $src  Source path and name file to copy.
-     * @param File $dest Destination path and name of new file.
+     * @param File $src  source path and name file to copy
+     * @param File $dest destination path and name of new file
      *
-     *
-     * @throws IOException if file cannot be copied.
+     * @throws IOException if file cannot be copied
      */
     public function copy(File $src, File $dest)
     {
@@ -475,7 +493,8 @@ abstract class FileSystem
             // Add error from php to end of log message. $errormsg.
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            $msg = "FileSystem::copy() FAILED. Cannot copy $srcPath to $destPath. $errormsg";
+            $msg = "FileSystem::copy() FAILED. Cannot copy {$srcPath} to {$destPath}. {$errormsg}";
+
             throw new IOException($msg);
         }
 
@@ -483,15 +502,18 @@ abstract class FileSystem
     }
 
     /**
-     * Copy a file, or recursively copy a folder and its contents
+     * Copy a file, or recursively copy a folder and its contents.
      *
      * @param string $source Source path
      * @param string $dest   Destination path
      *
-     * @return  bool   Returns TRUE on success, FALSE on failure
+     * @return bool Returns TRUE on success, FALSE on failure
+     *
      * @author  Aidan Lister <aidan@php.net>
+     *
      * @version 1.0.1
-     * @link    http://aidanlister.com/repos/v/function.copyr.php
+     *
+     * @see    http://aidanlister.com/repos/v/function.copyr.php
      */
     public function copyr($source, $dest)
     {
@@ -514,12 +536,12 @@ abstract class FileSystem
         $dir = dir($source);
         while (false !== $entry = $dir->read()) {
             // Skip pointers
-            if ($entry == '.' || $entry == '..') {
+            if ('.' == $entry || '..' == $entry) {
                 continue;
             }
 
             // Deep copy directories
-            $this->copyr("$source/$entry", "$dest/$entry");
+            $this->copyr("{$source}/{$entry}", "{$dest}/{$entry}");
         }
 
         // Clean up
@@ -531,11 +553,10 @@ abstract class FileSystem
     /**
      * Change the ownership on a file or directory.
      *
-     * @param string $pathname Path and name of file or directory.
+     * @param string $pathname path and name of file or directory
      * @param string $user     The user name or number of the file or directory. See http://us.php.net/chown
      *
-     *
-     * @throws IOException if operation failed.
+     * @throws IOException if operation failed
      */
     public function chown($pathname, $user)
     {
@@ -543,17 +564,18 @@ abstract class FileSystem
         if (false === @chown($pathname, $user)) { // FAILED.
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            throw new IOException("FileSystem::chown() FAILED. Cannot chown $pathname. User $user $errormsg");
+
+            throw new IOException("FileSystem::chown() FAILED. Cannot chown {$pathname}. User {$user} {$errormsg}");
         }
     }
 
     /**
      * Change the group on a file or directory.
      *
-     * @param string $pathname Path and name of file or directory.
+     * @param string $pathname path and name of file or directory
      * @param string $group    The group of the file or directory. See http://us.php.net/chgrp
      *
-     * @throws IOException if operation failed.
+     * @throws IOException if operation failed
      */
     public function chgrp($pathname, $group)
     {
@@ -561,20 +583,21 @@ abstract class FileSystem
         if (false === @chgrp($pathname, $group)) { // FAILED.
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            throw new IOException("FileSystem::chgrp() FAILED. Cannot chown $pathname. Group $group $errormsg");
+
+            throw new IOException("FileSystem::chgrp() FAILED. Cannot chown {$pathname}. Group {$group} {$errormsg}");
         }
     }
 
     /**
      * Change the permissions on a file or directory.
      *
-     * @param string $pathname Path and name of file or directory.
+     * @param string $pathname path and name of file or directory
      * @param int    $mode     The mode (permissions) of the file or
      *                         directory. If using octal add leading
      *                         0. eg. 0777. Mode is affected by the
      *                         umask system setting.
      *
-     * @throws IOException if operation failed.
+     * @throws IOException if operation failed
      */
     public function chmod($pathname, $mode)
     {
@@ -583,7 +606,8 @@ abstract class FileSystem
         if (false === @chmod($pathname, $mode)) { // FAILED.
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            throw new IOException("FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode $errormsg");
+
+            throw new IOException("FileSystem::chmod() FAILED. Cannot chmod {$pathname}. Mode {$str_mode} {$errormsg}");
         }
     }
 
@@ -595,11 +619,11 @@ abstract class FileSystem
     public function lock(File $f)
     {
         $filename = $f->getPath();
-        $fp = @fopen($filename, "w");
+        $fp = @fopen($filename, 'w');
         $result = @flock($fp, LOCK_EX);
         @fclose($fp);
         if (!$result) {
-            throw new IOException("Could not lock file '$filename'");
+            throw new IOException("Could not lock file '{$filename}'");
         }
     }
 
@@ -611,20 +635,20 @@ abstract class FileSystem
     public function unlock(File $f)
     {
         $filename = $f->getPath();
-        $fp = @fopen($filename, "w");
+        $fp = @fopen($filename, 'w');
         $result = @flock($fp, LOCK_UN);
         fclose($fp);
         if (!$result) {
-            throw new IOException("Could not unlock file '$filename'");
+            throw new IOException("Could not unlock file '{$filename}'");
         }
     }
 
     /**
      * Delete a file.
      *
-     * @param string $file Path and/or name of file to delete.
+     * @param string $file path and/or name of file to delete
      *
-     * @throws IOException - if an error is encountered.
+     * @throws IOException - if an error is encountered
      */
     public function unlink($file)
     {
@@ -632,7 +656,8 @@ abstract class FileSystem
         if (false === @unlink($file)) {
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
-            $msg = "FileSystem::unlink() FAILED. Cannot unlink '$file'. $errormsg";
+            $msg = "FileSystem::unlink() FAILED. Cannot unlink '{$file}'. {$errormsg}";
+
             throw new IOException($msg);
         }
     }
@@ -642,8 +667,9 @@ abstract class FileSystem
      *
      * Currently symlink is not implemented on Windows. Don't use if the application is to be portable.
      *
-     * @param  string $target Path and/or name of file to link.
-     * @param  string $link   Path and/or name of link to be created.
+     * @param string $target path and/or name of file to link
+     * @param string $link   path and/or name of link to be created
+     *
      * @throws IOException
      */
     public function symlink($target, $link)
@@ -656,7 +682,8 @@ abstract class FileSystem
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
             // Add error from php to end of log message.
-            $msg = "FileSystem::Symlink() FAILED. Cannot symlink '$target' to '$link'. $errormsg";
+            $msg = "FileSystem::Symlink() FAILED. Cannot symlink '{$target}' to '{$link}'. {$errormsg}";
+
             throw new IOException($msg);
         }
     }
@@ -664,8 +691,9 @@ abstract class FileSystem
     /**
      * Set the modification and access time on a file to the present time.
      *
-     * @param  string $file Path and/or name of file to touch.
-     * @param  int    $time
+     * @param string $file path and/or name of file to touch
+     * @param int    $time
+     *
      * @throws Exception
      */
     public function touch($file, $time = null)
@@ -681,7 +709,8 @@ abstract class FileSystem
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
             // Add error from php to end of log message.
-            $msg = "FileSystem::touch() FAILED. Cannot touch '$file'. $errormsg";
+            $msg = "FileSystem::touch() FAILED. Cannot touch '{$file}'. {$errormsg}";
+
             throw new Exception($msg);
         }
     }
@@ -689,7 +718,7 @@ abstract class FileSystem
     /**
      * Delete an empty directory OR a directory and all of its contents.
      *
-     * @param string $dir      Path and/or name of directory to delete.
+     * @param string $dir      path and/or name of directory to delete
      * @param bool   $children False: don't delete directory contents.
      *                         True: delete directory contents.
      *
@@ -705,7 +734,8 @@ abstract class FileSystem
                 $lastError = error_get_last();
                 $errormsg = $lastError['message'] ?? 'unknown error';
                 // Add error from php to end of log message.
-                $msg = "FileSystem::rmdir() FAILED. Cannot rmdir $dir. $errormsg";
+                $msg = "FileSystem::rmdir() FAILED. Cannot rmdir {$dir}. {$errormsg}";
+
                 throw new Exception($msg);
             }
         } else { // delete contents and dir.
@@ -714,18 +744,19 @@ abstract class FileSystem
             $errormsg = $lastError['message'] ?? 'unknown error';
 
             if (false === $handle) { // Error.
-                $msg = "FileSystem::rmdir() FAILED. Cannot opendir() $dir. $errormsg";
+                $msg = "FileSystem::rmdir() FAILED. Cannot opendir() {$dir}. {$errormsg}";
+
                 throw new Exception($msg);
             }
             // Read from handle.
             // Don't error on readdir().
             while (false !== ($entry = @readdir($handle))) {
-                if ($entry != '.' && $entry != '..') {
+                if ('.' != $entry && '..' != $entry) {
                     // Only add / if it isn't already the last char.
                     // This ONLY serves the purpose of making the Logger
                     // output look nice:)
 
-                    if (strpos(strrev($dir), DIRECTORY_SEPARATOR) === 0) { // there is a /
+                    if (0 === strpos(strrev($dir), DIRECTORY_SEPARATOR)) { // there is a /
                         $next_entry = $dir . $entry;
                     } else { // no /
                         $next_entry = $dir . DIRECTORY_SEPARATOR . $entry;
@@ -739,14 +770,16 @@ abstract class FileSystem
                         try {
                             $this->unlink($next_entry); // Delete.
                         } catch (Exception $e) {
-                            $msg = "FileSystem::Rmdir() FAILED. Cannot FileSystem::Unlink() $next_entry. " . $e->getMessage();
+                            $msg = "FileSystem::Rmdir() FAILED. Cannot FileSystem::Unlink() {$next_entry}. " . $e->getMessage();
+
                             throw new Exception($msg);
                         }
                     } else { // Is directory.
                         try {
                             $this->rmdir($next_entry, true); // Delete
                         } catch (Exception $e) {
-                            $msg = "FileSystem::rmdir() FAILED. Cannot FileSystem::rmdir() $next_entry. " . $e->getMessage();
+                            $msg = "FileSystem::rmdir() FAILED. Cannot FileSystem::rmdir() {$next_entry}. " . $e->getMessage();
+
                             throw new Exception($msg);
                         }
                     }
@@ -761,7 +794,8 @@ abstract class FileSystem
                 // Add error from php to end of log message.
                 $lastError = error_get_last();
                 $errormsg = $lastError['message'] ?? 'unknown error';
-                $msg = "FileSystem::rmdir() FAILED. Cannot rmdir $dir. $errormsg";
+                $msg = "FileSystem::rmdir() FAILED. Cannot rmdir {$dir}. {$errormsg}";
+
                 throw new Exception($msg);
             }
         }
@@ -770,8 +804,10 @@ abstract class FileSystem
     /**
      * Set the umask for file and directory creation.
      *
-     * @param    int $mode
-     * @throws   Exception
+     * @param int $mode
+     *
+     * @throws Exception
+     *
      * @internal param Int $mode . Permissions usually in ocatal. Use leading 0 for
      *                    octal. Number between 0 and 0777.
      */
@@ -788,7 +824,8 @@ abstract class FileSystem
             $lastError = error_get_last();
             $errormsg = $lastError['message'] ?? 'unknown error';
             // Add error from php to end of log message.
-            $msg = "FileSystem::Umask() FAILED. Value $str_mode. $errormsg";
+            $msg = "FileSystem::Umask() FAILED. Value {$str_mode}. {$errormsg}";
+
             throw new Exception($msg);
         }
     }
@@ -796,30 +833,32 @@ abstract class FileSystem
     /**
      * Compare the modified time of two files.
      *
-     * @param string $file1 Path and name of file1.
-     * @param string $file2 Path and name of file2.
+     * @param string $file1 path and name of file1
+     * @param string $file2 path and name of file2
      *
-     * @return int  1 if file1 is newer.
-     *              -1 if file2 is newer.
-     *              0 if files have the same time.
-     *              Err object on failure.
+     * @throws exception - if cannot get modified time of either file
      *
-     * @throws Exception - if cannot get modified time of either file.
+     * @return int 1 if file1 is newer.
+     *             -1 if file2 is newer.
+     *             0 if files have the same time.
+     *             Err object on failure.
      */
     public function compareMTimes($file1, $file2)
     {
         $mtime1 = filemtime($file1);
         $mtime2 = filemtime($file2);
 
-        if ($mtime1 === false) { // FAILED. Log and return err.
+        if (false === $mtime1) { // FAILED. Log and return err.
             // Add error from php to end of log message.
-            $msg = "FileSystem::compareMTimes() FAILED. Cannot can not get modified time of $file1.";
+            $msg = "FileSystem::compareMTimes() FAILED. Cannot can not get modified time of {$file1}.";
+
             throw new Exception($msg);
         }
 
-        if ($mtime2 === false) { // FAILED. Log and return err.
+        if (false === $mtime2) { // FAILED. Log and return err.
             // Add error from php to end of log message.
-            $msg = "FileSystem::compareMTimes() FAILED. Cannot can not get modified time of $file2.";
+            $msg = "FileSystem::compareMTimes() FAILED. Cannot can not get modified time of {$file2}.";
+
             throw new Exception($msg);
         }
 
@@ -833,7 +872,7 @@ abstract class FileSystem
     }
 
     /**
-     * returns the contents of a directory in an array
+     * returns the contents of a directory in an array.
      *
      * @return string[]
      */
@@ -855,21 +894,21 @@ abstract class FileSystem
      * Used to retrieve/determine the full path for a command.
      *
      * @param string $executable Executable file to search for
-     * @param mixed  $fallback   Default to fallback to.
+     * @param mixed  $fallback   default to fallback to
      *
-     * @return string Full path for the specified executable/command.
+     * @return string full path for the specified executable/command
      */
     public function which($executable, $fallback = false)
     {
         if (is_string($executable)) {
-            if (trim($executable) === '') {
+            if ('' === trim($executable)) {
                 return $fallback;
             }
         } else {
             return $fallback;
         }
         if (basename($executable) === $executable) {
-            $path = getenv("PATH");
+            $path = getenv('PATH');
         } else {
             $path = dirname($executable);
         }
@@ -878,6 +917,7 @@ abstract class FileSystem
         $elements = explode($pathSeparator, $path);
         $amount = count($elements);
         $fstype = Phing::getProperty('host.fstype');
+
         switch ($fstype) {
             case 'UNIX':
                 for ($count = 0; $count < $amount; ++$count) {
@@ -886,15 +926,17 @@ abstract class FileSystem
                         return $file;
                     }
                 }
+
                 break;
+
             case 'WINDOWS':
                 $exts = getenv('PATHEXT');
-                if ($exts === false) {
+                if (false === $exts) {
                     $exts = ['.exe', '.bat', '.cmd', '.com'];
                 } else {
                     $exts = explode($pathSeparator, $exts);
                 }
-                for ($count = 0; $count < $amount; $count++) {
+                for ($count = 0; $count < $amount; ++$count) {
                     foreach ($exts as $ext) {
                         $file = $elements[$count] . $dirSeparator . $executable . $ext;
                         // Not all of the extensions above need to be set executable on Windows for them to be executed.
@@ -904,11 +946,13 @@ abstract class FileSystem
                         }
                     }
                 }
+
                 break;
         }
         if (file_exists($executable) && is_executable($executable)) {
             return $executable;
         }
+
         return $fallback;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -80,7 +81,7 @@ class IntrospectionHelper
      * are referred to like this:
      *         <regexp pattern="\n" replace="%{task.current_file}"/>
      * In the type/task a listener method must be defined:
-     *         function setListeningReplace($slot) {}
+     *         function setListeningReplace($slot) {}.
      *
      * @var array string[]
      */
@@ -91,7 +92,7 @@ class IntrospectionHelper
      *
      * @var string Method name of the addText (redundant?) method, if class supports it :)
      */
-    private $methodAddText = null;
+    private $methodAddText;
 
     /**
      * The Class that's been introspected.
@@ -108,21 +109,6 @@ class IntrospectionHelper
     private static $helpers = [];
 
     /**
-     * Factory method for helper objects.
-     *
-     * @param string $class The class to create a Helper for
-     * @return IntrospectionHelper
-     */
-    public static function getHelper($class)
-    {
-        if (!isset(self::$helpers[$class])) {
-            self::$helpers[$class] = new IntrospectionHelper($class);
-        }
-
-        return self::$helpers[$class];
-    }
-
-    /**
      * This function constructs a new introspection helper for a specific class.
      *
      * This method loads all methods for the specified class and categorizes them
@@ -130,7 +116,8 @@ class IntrospectionHelper
      * need to perform any introspection -- either the requested attribute setter/creator
      * exists or it does not & a BuildException is thrown.
      *
-     * @param string $class The classname for this IH.
+     * @param string $class the classname for this IH
+     *
      * @throws BuildException
      */
     public function __construct($class)
@@ -150,19 +137,19 @@ class IntrospectionHelper
                 // have an attribute named "location" or "tasktype" or a nested element container
                 // named "task" [TaskContainer::addTask(Task)].)
                 if (
-                    $name === "setlocation"
-                    || $name === "settasktype"
+                    'setlocation' === $name
+                    || 'settasktype' === $name
                     || ('addtask' === $name
                         && $this->isContainer()
-                        && count($method->getParameters()) === 1
+                        && 1 === count($method->getParameters())
                         && Task::class === $method->getParameters()[0])
                 ) {
                     continue;
                 }
 
-                if ($name === "addtext") {
+                if ('addtext' === $name) {
                     $this->methodAddText = $method;
-                } elseif (strpos($name, "setlistening") === 0) {
+                } elseif (0 === strpos($name, 'setlistening')) {
                     // Phing supports something unique called "RegisterSlots"
                     // These are dynamic values that use a basic slot system so that
                     // classes can register to listen to specific slots, and the value
@@ -171,19 +158,19 @@ class IntrospectionHelper
                     // file being processed by a filter (e.g. AppendTask sets an append.current_file
                     // slot, which can be ready by the XSLTParam type.)
 
-                    if (count($method->getParameters()) !== 1) {
+                    if (1 !== count($method->getParameters())) {
                         throw new BuildException(
-                            $method->getDeclaringClass()->getName() . "::" . $method->getName() . "() must take exactly one parameter."
+                            $method->getDeclaringClass()->getName() . '::' . $method->getName() . '() must take exactly one parameter.'
                         );
                     }
 
                     $this->slotListeners[$name] = $method;
-                } elseif (strpos($name, "set") === 0 && count($method->getParameters()) === 1) {
+                } elseif (0 === strpos($name, 'set') && 1 === count($method->getParameters())) {
                     $this->attributeSetters[$name] = $method;
-                } elseif (strpos($name, "create") === 0) {
+                } elseif (0 === strpos($name, 'create')) {
                     if ($method->getNumberOfRequiredParameters() > 0) {
                         throw new BuildException(
-                            $method->getDeclaringClass()->getName() . "::" . $method->getName() . "() may not take any parameters."
+                            $method->getDeclaringClass()->getName() . '::' . $method->getName() . '() may not take any parameters.'
                         );
                     }
 
@@ -196,12 +183,12 @@ class IntrospectionHelper
                         } else {
                             // assume that method createEquals() creates object of type "Equals"
                             // (that example would be false, of course)
-                            $this->nestedTypes[$name] = $this->getPropertyName($name, "create");
+                            $this->nestedTypes[$name] = $this->getPropertyName($name, 'create');
                         }
                     }
 
                     $this->nestedCreators[$name] = $method;
-                } elseif (strpos($name, "addconfigured") === 0) {
+                } elseif (0 === strpos($name, 'addconfigured')) {
                     // *must* use class hints if using addConfigured ...
 
                     // 1 param only
@@ -209,42 +196,42 @@ class IntrospectionHelper
 
                     if (count($params) < 1) {
                         throw new BuildException(
-                            $method->getDeclaringClass()->getName() . "::" . $method->getName() . "() must take at least one parameter."
+                            $method->getDeclaringClass()->getName() . '::' . $method->getName() . '() must take at least one parameter.'
                         );
                     }
 
                     if (count($params) > 1) {
                         $this->warn(
-                            $method->getDeclaringClass()->getName() . "::" . $method->getName() . "() takes more than one parameter. (IH only uses the first)"
+                            $method->getDeclaringClass()->getName() . '::' . $method->getName() . '() takes more than one parameter. (IH only uses the first)'
                         );
                     }
 
                     /** @var ReflectionType $hint */
                     $classname = (($hint = $params[0]->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
 
-                    if ($classname === null) {
+                    if (null === $classname) {
                         throw new BuildException(
-                            $method->getDeclaringClass()->getName() . "::" . $method->getName() . "() method MUST use a class hint to indicate the class type of parameter."
+                            $method->getDeclaringClass()->getName() . '::' . $method->getName() . '() method MUST use a class hint to indicate the class type of parameter.'
                         );
                     }
 
                     $this->nestedTypes[$name] = $classname;
 
                     $this->nestedStorers[$name] = $method;
-                } elseif (strpos($name, "add") === 0) {
+                } elseif (0 === strpos($name, 'add')) {
                     // *must* use class hints if using add ...
 
                     // 1 param only
                     $params = $method->getParameters();
                     if (count($params) < 1) {
                         throw new BuildException(
-                            $method->getDeclaringClass()->getName() . "::" . $method->getName() . "() must take at least one parameter."
+                            $method->getDeclaringClass()->getName() . '::' . $method->getName() . '() must take at least one parameter.'
                         );
                     }
 
                     if (count($params) > 1) {
                         $this->warn(
-                            $method->getDeclaringClass()->getName() . "::" . $method->getName() . "() takes more than one parameter. (IH only uses the first)"
+                            $method->getDeclaringClass()->getName() . '::' . $method->getName() . '() takes more than one parameter. (IH only uses the first)'
                         );
                     }
 
@@ -253,9 +240,9 @@ class IntrospectionHelper
 
                     // we don't use the classname here, but we need to make sure it exists before
                     // we later try to instantiate a non-existent class
-                    if ($classname === null) {
+                    if (null === $classname) {
                         throw new BuildException(
-                            $method->getDeclaringClass()->getName() . "::" . $method->getName() . "() method MUST use a class hint to indicate the class type of parameter."
+                            $method->getDeclaringClass()->getName() . '::' . $method->getName() . '() method MUST use a class hint to indicate the class type of parameter.'
                         );
                     }
 
@@ -266,9 +253,25 @@ class IntrospectionHelper
     }
 
     /**
+     * Factory method for helper objects.
+     *
+     * @param string $class The class to create a Helper for
+     *
+     * @return IntrospectionHelper
+     */
+    public static function getHelper($class)
+    {
+        if (!isset(self::$helpers[$class])) {
+            self::$helpers[$class] = new IntrospectionHelper($class);
+        }
+
+        return self::$helpers[$class];
+    }
+
+    /**
      * Indicates whether the introspected class is a task container, supporting arbitrary nested tasks/types.
      *
-     * @return bool true if the introspected class is a container; false otherwise.
+     * @return bool true if the introspected class is a container; false otherwise
      */
     public function isContainer()
     {
@@ -280,6 +283,8 @@ class IntrospectionHelper
      *
      * @param object $element
      * @param string $attributeName
+     * @param mixed  $value
+     *
      * @throws BuildException
      */
     public function setAttribute(Project $project, $element, $attributeName, &$value)
@@ -294,13 +299,14 @@ class IntrospectionHelper
         // This is made possible by PHP5 (objects automatically passed by reference) and PHP's loose
         // typing.
         if (StringHelper::isSlotVar($value)) {
-            $as = "setlistening" . strtolower($attributeName);
+            $as = 'setlistening' . strtolower($attributeName);
 
             if (!isset($this->slotListeners[$as])) {
                 $msg = $this->getElementName(
                     $project,
                     $element
-                ) . " doesn't support a slot-listening '$attributeName' attribute.";
+                ) . " doesn't support a slot-listening '{$attributeName}' attribute.";
+
                 throw new BuildException($msg);
             }
 
@@ -313,20 +319,22 @@ class IntrospectionHelper
         } else {
             // Traditional value options
 
-            $as = "set" . strtolower($attributeName);
+            $as = 'set' . strtolower($attributeName);
 
             if (!isset($this->attributeSetters[$as])) {
                 if ($element instanceof DynamicAttribute) {
                     $element->setDynamicAttribute($attributeName, (string) $value);
+
                     return;
                 }
-                $msg = $this->getElementName($project, $element) . " doesn't support the '$attributeName' attribute.";
+                $msg = $this->getElementName($project, $element) . " doesn't support the '{$attributeName}' attribute.";
+
                 throw new BuildException($msg);
             }
 
             $method = $this->attributeSetters[$as];
 
-            if ($as == "setrefid") {
+            if ('setrefid' == $as) {
                 $value = new Reference($project, $value);
             } else {
                 $params = $method->getParameters();
@@ -336,21 +344,26 @@ class IntrospectionHelper
 
                 // value is a string representation of a bool type,
                 // convert it to primitive
-                if ($reflectedAttr === 'bool' || ($reflectedAttr !== 'string' && StringHelper::isBoolean($value))) {
+                if ('bool' === $reflectedAttr || ('string' !== $reflectedAttr && StringHelper::isBoolean($value))) {
                     $value = StringHelper::booleanValue($value);
                 }
 
                 // there should only be one param; we'll just assume ....
-                if ($reflectedAttr !== null) {
+                if (null !== $reflectedAttr) {
                     switch ($reflectedAttr) {
                         case File::class:
                             $value = $project->resolveFile($value);
+
                             break;
+
                         case Path::class:
                             $value = new Path($project, $value);
+
                             break;
+
                         case Reference::class:
                             $value = new Reference($project, $value);
+
                             break;
                         // any other object params we want to support should go here ...
                     }
@@ -360,7 +373,7 @@ class IntrospectionHelper
 
         try {
             $project->log(
-                "    -calling setter " . $method->getDeclaringClass()->getName() . "::" . $method->getName() . "()",
+                '    -calling setter ' . $method->getDeclaringClass()->getName() . '::' . $method->getName() . '()',
                 Project::MSG_DEBUG
             );
             $method->invoke($element, $value);
@@ -374,14 +387,17 @@ class IntrospectionHelper
      *
      * @param string $element
      * @param string $text
+     *
      * @throws BuildException
      */
     public function addText(Project $project, $element, $text)
     {
-        if ($this->methodAddText === null) {
+        if (null === $this->methodAddText) {
             $msg = $this->getElementName($project, $element) . " doesn't support nested text data.";
+
             throw new BuildException($msg);
         }
+
         try {
             $method = $this->methodAddText;
             $method->invoke($element, $text);
@@ -395,23 +411,26 @@ class IntrospectionHelper
      *
      * Valid creators can be in the form createFoo() or addFoo(Bar).
      *
-     * @param object $element Object the XML tag is child of.
-     *                              Often a task object.
+     * @param object $element     Object the XML tag is child of.
+     *                            Often a task object.
      * @param string $elementName XML tag name
-     * @return object         Returns the nested element.
+     *
      * @throws BuildException
+     *
+     * @return object returns the nested element
      */
     public function createElement(Project $project, $element, $elementName)
     {
-        $addMethod = "add" . strtolower($elementName);
-        $createMethod = "create" . strtolower($elementName);
+        $addMethod = 'add' . strtolower($elementName);
+        $createMethod = 'create' . strtolower($elementName);
         $nestedElement = null;
 
         if (isset($this->nestedCreators[$createMethod])) {
             $method = $this->nestedCreators[$createMethod];
+
             try { // try to invoke the creator method on object
                 $project->log(
-                    "    -calling creator " . $method->getDeclaringClass()->getName() . "::" . $method->getName() . "()",
+                    '    -calling creator ' . $method->getDeclaringClass()->getName() . '::' . $method->getName() . '()',
                     Project::MSG_DEBUG
                 );
                 $nestedElement = $method->invoke($element);
@@ -425,7 +444,7 @@ class IntrospectionHelper
 
             try { // try to invoke the adder method on object
                 $project->log(
-                    "    -calling adder " . $method->getDeclaringClass()->getName() . "::" . $method->getName() . "()",
+                    '    -calling adder ' . $method->getDeclaringClass()->getName() . '::' . $method->getName() . '()',
                     Project::MSG_DEBUG
                 );
                 // we've already assured that correct num of params
@@ -437,7 +456,7 @@ class IntrospectionHelper
 
                 // create a new instance of the object and add it via $addMethod
                 $clazz = new ReflectionClass($classname);
-                if ($clazz->getConstructor() !== null && $clazz->getConstructor()->getNumberOfRequiredParameters() >= 1) {
+                if (null !== $clazz->getConstructor() && $clazz->getConstructor()->getNumberOfRequiredParameters() >= 1) {
                     $nestedElement = new $classname(Phing::getCurrentProject() ?? $project);
                 } else {
                     $nestedElement = new $classname();
@@ -469,10 +488,11 @@ class IntrospectionHelper
 
                 if (isset($this->nestedCreators[$addMethod])) {
                     $method = $this->nestedCreators[$addMethod];
+
                     try {
                         $project->log(
-                            "    -calling parent adder "
-                            . $method->getDeclaringClass()->getName() . "::" . $method->getName() . "()",
+                            '    -calling parent adder '
+                            . $method->getDeclaringClass()->getName() . '::' . $method->getName() . '()',
                             Project::MSG_DEBUG
                         );
                         $nestedElement = new $elementClass();
@@ -482,8 +502,9 @@ class IntrospectionHelper
                     }
                 }
             }
-            if ($nestedElement === null) {
-                $msg = $this->getElementName($project, $element) . " doesn't support the '$elementName' creator/adder.";
+            if (null === $nestedElement) {
+                $msg = $this->getElementName($project, $element) . " doesn't support the '{$elementName}' creator/adder.";
+
                 throw new BuildException($msg);
             }
         }
@@ -498,26 +519,27 @@ class IntrospectionHelper
     /**
      * Creates a named nested element.
      *
-     * @param Project $project
-     * @param string $element
-     * @param string $child
-     * @param string|null $elementName
+     * @param Project     $project
+     * @param string      $element
+     * @param string      $child
+     * @param null|string $elementName
+     *
      * @throws BuildException
      */
     public function storeElement($project, $element, $child, $elementName = null)
     {
-        if ($elementName === null) {
+        if (null === $elementName) {
             return;
         }
 
-        $storer = "addconfigured" . strtolower($elementName);
+        $storer = 'addconfigured' . strtolower($elementName);
 
         if (isset($this->nestedStorers[$storer])) {
             $method = $this->nestedStorers[$storer];
 
             try {
                 $project->log(
-                    "    -calling storer " . $method->getDeclaringClass()->getName() . "::" . $method->getName() . "()",
+                    '    -calling storer ' . $method->getDeclaringClass()->getName() . '::' . $method->getName() . '()',
                     Project::MSG_DEBUG
                 );
                 $method->invoke($element, $child);
@@ -534,7 +556,7 @@ class IntrospectionHelper
      */
     public function supportsCharacters()
     {
-        return ($this->methodAddText !== null);
+        return null !== $this->methodAddText;
     }
 
     /**
@@ -546,7 +568,7 @@ class IntrospectionHelper
     {
         $attribs = [];
         foreach (array_keys($this->attributeSetters) as $setter) {
-            $attribs[] = $this->getPropertyName($setter, "set");
+            $attribs[] = $this->getPropertyName($setter, 'set');
         }
 
         return $attribs;
@@ -568,8 +590,9 @@ class IntrospectionHelper
      * be returned.  If not available (loaded in taskdefs or typedefs) then the
      * XML element name will be returned.
      *
-     * @param object $element The Task or type element.
-     * @return string  Fully qualified class name of element when possible.
+     * @param object $element the Task or type element
+     *
+     * @return string fully qualified class name of element when possible
      */
     public function getElementName(Project $project, $element)
     {
@@ -589,7 +612,7 @@ class IntrospectionHelper
                 }
             }
 
-            return "$elClass (unknown)";
+            return "{$elClass} (unknown)";
         }
 
         // ->getTag() method does exist, so use it
@@ -602,7 +625,7 @@ class IntrospectionHelper
             return $typedefs[$elName];
         }
 
-        return "$elName (unknown)";
+        return "{$elName} (unknown)";
     }
 
     /**
@@ -610,6 +633,7 @@ class IntrospectionHelper
      *
      * @param string $methodName
      * @param string $prefix
+     *
      * @return string
      */
     public function getPropertyName($methodName, $prefix)
@@ -626,8 +650,8 @@ class IntrospectionHelper
      */
     public function warn($msg)
     {
-        if (Phing::getMsgOutputLevel() === Project::MSG_DEBUG) {
-            print("[IntrospectionHelper] " . $msg . "\n");
+        if (Project::MSG_DEBUG === Phing::getMsgOutputLevel()) {
+            echo '[IntrospectionHelper] ' . $msg . "\n";
         }
     }
 }

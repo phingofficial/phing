@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\Sass;
+namespace Phing\Test\Task\Optional\Sass;
 
 use Phing\Io\FileSystem;
 
@@ -34,8 +35,8 @@ trait SassCleaner
         if (file_exists($compileDirectoryPath . $testFileName . '.map')) {
             $fs->unlink($compileDirectoryPath . $testFileName . '.map');
         }
-        if (is_dir($compileDirectoryPath . ".sass-cache")) {
-            $fs->rmdir($compileDirectoryPath . ".sass-cache", true);
+        if (is_dir($compileDirectoryPath . '.sass-cache')) {
+            $fs->rmdir($compileDirectoryPath . '.sass-cache', true);
         }
     }
 }

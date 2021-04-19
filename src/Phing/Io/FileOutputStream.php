@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,21 +24,22 @@ use Exception;
 
 /**
  * Output stream subclass for file streams.
- *
  */
 class FileOutputStream extends OutputStream
 {
     /**
-     * @var File The associated file.
+     * @var File the associated file
      */
     protected $file;
 
     /**
      * Construct a new FileOutputStream.
      *
-     * @param  bool $append Whether to append bytes to end of file rather than beginning.
-     * @throws Exception   - if invalid argument specified.
-     * @throws IOException - if unable to open file.
+     * @param bool  $append whether to append bytes to end of file rather than beginning
+     * @param mixed $file
+     *
+     * @throws Exception   - if invalid argument specified
+     * @throws IOException - if unable to open file
      */
     public function __construct($file, $append = false)
     {
@@ -46,18 +48,19 @@ class FileOutputStream extends OutputStream
         } elseif (is_string($file)) {
             $this->file = new File($file);
         } else {
-            throw new Exception("Invalid argument type for \$file.");
+            throw new Exception('Invalid argument type for $file.');
         }
         error_clear_last();
         if ($append) {
-            $stream = @fopen($this->file->getAbsolutePath(), "ab");
+            $stream = @fopen($this->file->getAbsolutePath(), 'ab');
         } else {
-            $stream = @fopen($this->file->getAbsolutePath(), "wb");
+            $stream = @fopen($this->file->getAbsolutePath(), 'wb');
         }
-        if ($stream === false) {
+        if (false === $stream) {
             $lastError = error_get_last();
             $errormsg = $lastError['message'];
-            throw new IOException("Unable to open " . $this->file->__toString() . " for writing: " . $errormsg);
+
+            throw new IOException('Unable to open ' . $this->file->__toString() . ' for writing: ' . $errormsg);
         }
         parent::__construct($stream);
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Phing\Regression;
+namespace Phing\Test\Regression;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -37,12 +37,12 @@ class Ticket309RegressionTest extends BuildFileTest
      */
     public function testPhingCallTask()
     {
-        $testBasedir = str_replace('/', DIRECTORY_SEPARATOR, PHING_TEST_BASE . "/etc/regression/309");
+        $testBasedir = str_replace('/', DIRECTORY_SEPARATOR, PHING_TEST_BASE . '/etc/regression/309');
 
         foreach (['basedir-dot.xml', 'basedir-default.xml', 'sub/basedir-dotdot.xml'] as $buildfile) {
-            $this->configureProject("$testBasedir/$buildfile");
-            $this->executeTarget("main");
-            $this->assertInLogs("project.basedir: $testBasedir");
+            $this->configureProject("{$testBasedir}/{$buildfile}");
+            $this->executeTarget('main');
+            $this->assertInLogs("project.basedir: {$testBasedir}");
         }
     }
 }

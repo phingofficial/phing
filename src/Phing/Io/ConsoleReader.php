@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,15 +34,14 @@ class ConsoleReader extends Reader
     public function readLine()
     {
         $out = fgets(STDIN); // note: default maxlen is 1kb
-        $out = rtrim($out);
 
-        return $out;
+        return rtrim($out);
     }
 
     /**
+     * @param int $len num chars to read
      *
-     * @param  int $len Num chars to read.
-     * @return string chars read or -1 if eof.
+     * @return string chars read or -1 if eof
      */
     public function read($len = null)
     {
@@ -79,6 +79,6 @@ class ConsoleReader extends Reader
      */
     public function getResource()
     {
-        return "console";
+        return 'console';
     }
 }

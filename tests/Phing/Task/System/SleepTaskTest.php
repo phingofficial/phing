@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,14 +18,14 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
-use Phing\Util\Timer;
+use Phing\Test\Support\BuildFileTest;
+use Phing\Util\DefaultClock;
 
 /**
- * Tests the SleepTask
+ * Tests the SleepTask.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
@@ -45,16 +46,6 @@ class SleepTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
         $this->assertGreaterThanOrEqual(0, $timer->time());
-    }
-
-    private function timer()
-    {
-        return new class() extends Timer {
-            public function time()
-            {
-                return $this->etime - $this->stime;
-            }
-        };
     }
 
     public function test2()
@@ -82,7 +73,7 @@ class SleepTaskTest extends BuildFileTest
     }
 
     /**
-     * Expected failure: negative sleep periods are not supported
+     * Expected failure: negative sleep periods are not supported.
      */
     public function test5()
     {
@@ -96,5 +87,15 @@ class SleepTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $timer->stop();
         $this->assertLessThan(2000000000, $timer->time());
+    }
+
+    private function timer(): DefaultClock
+    {
+        return new class () extends DefaultClock {
+            public function time(): float
+            {
+                return $this->etime - $this->stime;
+            }
+        };
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,33 +36,34 @@ use Phing\Util\RegisterSlot;
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
+ *
  * @see       Project#createTask()
  */
 abstract class Task extends ProjectComponent
 {
     /**
-     * Owning Target object
+     * Owning Target object.
      *
      * @var Target
      */
     protected $target;
 
     /**
-     * Internal taskname (req)
+     * Internal taskname (req).
      *
      * @var string
      */
     protected $taskType;
 
     /**
-     * Taskname for logger
+     * Taskname for logger.
      *
      * @var string
      */
     protected $taskName;
 
     /**
-     * Wrapper of the task
+     * Wrapper of the task.
      *
      * @var RuntimeConfigurable
      */
@@ -69,6 +71,7 @@ abstract class Task extends ProjectComponent
     private $invalid;
     /**
      * Replacement element used if this task is invalidated.
+     *
      * @var UnknownElement
      */
     private $replacement;
@@ -84,14 +87,15 @@ abstract class Task extends ProjectComponent
     /**
      * Provides a project level log event to the task.
      *
-     * @param string $msg The message to log
-     * @param int $level The priority of the message
+     * @param string $msg   The message to log
+     * @param int    $level The priority of the message
+     *
      * @see   BuildEvent
      * @see   BuildListener
      */
     public function log($msg, $level = Project::MSG_INFO, Exception $t = null)
     {
-        if ($this->getProject() !== null) {
+        if (null !== $this->getProject()) {
             $this->getProject()->logObject($this, $msg, $level, $t);
         } else {
             parent::log($msg, $level);
@@ -100,7 +104,7 @@ abstract class Task extends ProjectComponent
 
     /**
      * Called by the parser to let the task initialize properly.
-     * Should throw a BuildException if something goes wrong with the build
+     * Should throw a BuildException if something goes wrong with the build.
      *
      * This is abstract here, but may not be overloaded by subclasses.
      *
@@ -123,13 +127,13 @@ abstract class Task extends ProjectComponent
     abstract public function main();
 
     /**
-     * Returns the wrapper object for runtime configuration
+     * Returns the wrapper object for runtime configuration.
      *
      * @return RuntimeConfigurable The wrapper object used by this task
      */
     public function getRuntimeConfigurableWrapper()
     {
-        if ($this->wrapper === null) {
+        if (null === $this->wrapper) {
             $this->wrapper = new RuntimeConfigurable($this, $this->getTaskName());
         }
 
@@ -137,13 +141,13 @@ abstract class Task extends ProjectComponent
     }
 
     /**
-     * Returns the name of task, used only for log messages
+     * Returns the name of task, used only for log messages.
      *
      * @return string Name of this task
      */
     public function getTaskName()
     {
-        if ($this->taskName === null) {
+        if (null === $this->taskName) {
             // if no task name is set, then it's possible
             // this task was created from within another task.  We don't
             // therefore know the XML tag name for this task, so we'll just
@@ -156,7 +160,7 @@ abstract class Task extends ProjectComponent
     }
 
     /**
-     * Sets the name of this task for log messages
+     * Sets the name of this task for log messages.
      *
      * @param string $name
      */
@@ -175,8 +179,7 @@ abstract class Task extends ProjectComponent
     }
 
     /**
-     * Perfrom this task
-     *
+     * Perfrom this task.
      *
      * @throws BuildException
      * @throws Error
@@ -187,24 +190,28 @@ abstract class Task extends ProjectComponent
             $this->getReplacement()->getTask()->perform();
         } else {
             $reason = null;
+
             try { // try executing task
                 $this->project->fireTaskStarted($this);
                 $this->maybeConfigure();
                 DispatchUtils::main($this);
             } catch (BuildException $ex) {
                 $loc = $ex->getLocation();
-                if ($loc === null || (string) $loc === '') {
+                if (null === $loc || '' === (string) $loc) {
                     $ex->setLocation($this->getLocation());
                 }
                 $reason = $ex;
+
                 throw $ex;
             } catch (Exception $ex) {
                 $reason = $ex;
                 $be = new BuildException($ex);
                 $be->setLocation($this->getLocation());
+
                 throw $be;
             } catch (Error $ex) {
                 $reason = $ex;
+
                 throw $ex;
             } finally {
                 $this->project->fireTaskFinished($this, $reason);
@@ -219,7 +226,7 @@ abstract class Task extends ProjectComponent
     {
         if ($this->invalid) {
             $this->getReplacement();
-        } elseif ($this->wrapper !== null) {
+        } elseif (null !== $this->wrapper) {
             $this->wrapper->maybeConfigure($this->project);
         }
     }
@@ -229,27 +236,9 @@ abstract class Task extends ProjectComponent
      */
     public function reconfigure()
     {
-        if ($this->wrapper !== null) {
+        if (null !== $this->wrapper) {
             $this->wrapper->reconfigure($this->getProject());
         }
-    }
-
-    private function getReplacement(): UnknownElement
-    {
-        if ($this->replacement === null) {
-            $this->replacement = new UnknownElement($this->taskType);
-            $this->replacement->setProject($this->getProject());
-            $this->replacement->setTaskType($this->taskType);
-            $this->replacement->setTaskName($this->taskName);
-            $this->replacement->setLocation($this->getLocation());
-            $this->replacement->setOwningTarget($this->target);
-            $this->replacement->setRuntimeConfigurableWrapper($this->wrapper);
-            $this->wrapper->setProxy($this->replacement);
-            $this->replaceChildren($this->wrapper, $this->replacement);
-            $this->target->replaceChild($this, $this->replacement);
-            $this->replacement->maybeConfigure();
-        }
-        return $this->replacement;
     }
 
     /**
@@ -274,25 +263,9 @@ abstract class Task extends ProjectComponent
     }
 
     /**
-     * Recursively adds an UnknownElement instance for each child
-     * element of replacement.
-     */
-    private function replaceChildren(RuntimeConfigurable $wrapper, UnknownElement $parentElement): void
-    {
-        foreach ($wrapper->getChildren() as $childWrapper) {
-            $childElement = new UnknownElement($childWrapper->getElementTag());
-            $parentElement->addChild($childElement);
-            $childElement->setProject($this->getProject());
-            $childElement->setRuntimeConfigurableWrapper($childWrapper);
-            $childWrapper->setProxy($childElement);
-            $this->replaceChildren($childWrapper, $childElement);
-        }
-    }
-
-    /**
      * Bind a task to another; use this when configuring a newly created
      * task to do work on behalf of another.
-     * Project, OwningTarget, TaskName, Location and Description are all copied
+     * Project, OwningTarget, TaskName, Location and Description are all copied.
      *
      * Important: this method does not call {@link Task#init()}.
      * If you are creating a task to delegate work to, call {@link Task#init()}
@@ -322,7 +295,7 @@ abstract class Task extends ProjectComponent
 
     /**
      * Returns the name of the task under which it was invoked,
-     * usually the XML tagname
+     * usually the XML tagname.
      *
      * @return string The type of this task (XML Tag)
      */
@@ -332,7 +305,7 @@ abstract class Task extends ProjectComponent
     }
 
     /**
-     * Sets the type of the task. Usually this is the name of the XML tag
+     * Sets the type of the task. Usually this is the name of the XML tag.
      *
      * @param string $name The type of this task (XML Tag)
      */
@@ -342,9 +315,10 @@ abstract class Task extends ProjectComponent
     }
 
     /**
-     * Returns a name
+     * Returns a name.
      *
      * @param string $slotName
+     *
      * @return RegisterSlot
      */
     protected function getRegisterSlot($slotName)
@@ -356,10 +330,45 @@ abstract class Task extends ProjectComponent
      * Has this task been marked invalid?
      *
      * @return bool true if this task is no longer valid. A new task should be
-     * configured in this case.
+     *              configured in this case.
      */
     protected function isInvalid()
     {
         return $this->invalid;
+    }
+
+    private function getReplacement(): UnknownElement
+    {
+        if (null === $this->replacement) {
+            $this->replacement = new UnknownElement($this->taskType);
+            $this->replacement->setProject($this->getProject());
+            $this->replacement->setTaskType($this->taskType);
+            $this->replacement->setTaskName($this->taskName);
+            $this->replacement->setLocation($this->getLocation());
+            $this->replacement->setOwningTarget($this->target);
+            $this->replacement->setRuntimeConfigurableWrapper($this->wrapper);
+            $this->wrapper->setProxy($this->replacement);
+            $this->replaceChildren($this->wrapper, $this->replacement);
+            $this->target->replaceChild($this, $this->replacement);
+            $this->replacement->maybeConfigure();
+        }
+
+        return $this->replacement;
+    }
+
+    /**
+     * Recursively adds an UnknownElement instance for each child
+     * element of replacement.
+     */
+    private function replaceChildren(RuntimeConfigurable $wrapper, UnknownElement $parentElement): void
+    {
+        foreach ($wrapper->getChildren() as $childWrapper) {
+            $childElement = new UnknownElement($childWrapper->getElementTag());
+            $parentElement->addChild($childElement);
+            $childElement->setProject($this->getProject());
+            $childElement->setRuntimeConfigurableWrapper($childWrapper);
+            $childWrapper->setProxy($childElement);
+            $this->replaceChildren($childWrapper, $childElement);
+        }
     }
 }

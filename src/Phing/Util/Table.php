@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -39,11 +40,6 @@ class Table
         $this->maxLengths = $this->getHeaderLengths();
     }
 
-    private function getHeaderLengths()
-    {
-        return array_map('strlen', $this->header);
-    }
-
     public function getMaxLengths()
     {
         return $this->maxLengths;
@@ -53,17 +49,6 @@ class Table
     {
         $this->maxLengths[$y] = $this->max($y, strlen((string) $value));
         $this->output[$x][$y] = $value;
-    }
-
-    private function max($column, $length)
-    {
-        $max = $length;
-        $total = count($this->output);
-        for ($i = 0; $i < $total; $i++) {
-            $valueLength = ($this->output[$i][$column] !== null) ? strlen($this->output[$i][$column]) : 0;
-            $max = max([$max, $valueLength]);
-        }
-        return $max;
     }
 
     public function get($x, $y)
@@ -79,5 +64,22 @@ class Table
     public function columns()
     {
         return count($this->header);
+    }
+
+    private function getHeaderLengths()
+    {
+        return array_map('strlen', $this->header);
+    }
+
+    private function max($column, $length)
+    {
+        $max = $length;
+        $total = count($this->output);
+        for ($i = 0; $i < $total; ++$i) {
+            $valueLength = (null !== $this->output[$i][$column]) ? strlen($this->output[$i][$column]) : 0;
+            $max = max([$max, $valueLength]);
+        }
+
+        return $max;
     }
 }

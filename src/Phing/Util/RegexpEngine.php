@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +31,7 @@ interface RegexpEngine
     /**
      * Sets whether or not regex operation should ingore case.
      *
-     * @param  bool $bit
+     * @param bool $bit
      */
     public function setIgnoreCase($bit);
 
@@ -72,30 +73,33 @@ interface RegexpEngine
     /**
      * Matches pattern against source string and sets the matches array.
      *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $source  The source string.
-     * @param  array  $matches The array in which to store matches.
-     * @return bool Success of matching operation.
+     * @param string $pattern the regex pattern to match
+     * @param string $source  the source string
+     * @param array  $matches the array in which to store matches
+     *
+     * @return bool success of matching operation
      */
     public function match($pattern, $source, &$matches);
 
     /**
      * Matches all patterns in source string and sets the matches array.
      *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $source  The source string.
-     * @param  array  $matches The array in which to store matches.
-     * @return bool Success of matching operation.
+     * @param string $pattern the regex pattern to match
+     * @param string $source  the source string
+     * @param array  $matches the array in which to store matches
+     *
+     * @return bool success of matching operation
      */
     public function matchAll($pattern, $source, &$matches);
 
     /**
      * Replaces $pattern with $replace in $source string.
      *
-     * @param  string $pattern The regex pattern to match.
-     * @param  string $replace The string with which to replace matches.
-     * @param  string $source  The source string.
-     * @return string The replaced source string.
+     * @param string $pattern the regex pattern to match
+     * @param string $replace the string with which to replace matches
+     * @param string $source  the source string
+     *
+     * @return string the replaced source string
      */
     public function replace($pattern, $replace, $source);
 }

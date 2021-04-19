@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,21 +18,23 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Util;
+namespace Phing\Test\Util;
 
 use Phing\Io\File;
+use Phing\Util\Properties;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Unit test for Properties class
+ * Unit test for Properties class.
  *
  * @author Michiel Rook <mrook@php.net>
  */
-class PropertiesTest extends \PHPUnit\Framework\TestCase
+class PropertiesTest extends TestCase
 {
     /**
      * @var Properties
      */
-    private $props = null;
+    private $props;
 
     public function setUp(): void
     {
@@ -45,17 +48,17 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
 
     public function testComments()
     {
-        $file = new File(PHING_TEST_BASE . "/etc/system/util/comments.properties");
+        $file = new File(PHING_TEST_BASE . '/etc/system/util/comments.properties');
         $this->props->load($file);
 
         $this->assertEquals(
-            $this->props->getProperty('useragent'),
-            'Mozilla/5.0 (Windows NT 5.1; rv:8.0.1) Gecko/20100101 Firefox/8.0.1'
+            'Mozilla/5.0 (Windows NT 5.1; rv:8.0.1) Gecko/20100101 Firefox/8.0.1',
+            $this->props->getProperty('useragent')
         );
-        $this->assertEquals($this->props->getProperty('testline1'), 'Testline1');
-        $this->assertEquals($this->props->getProperty('testline2'), 'Testline2');
-        $this->assertEquals($this->props->getProperty('testline3'), true);
-        $this->assertEquals($this->props->getProperty('testline4'), false);
+        $this->assertEquals('Testline1', $this->props->getProperty('testline1'));
+        $this->assertEquals('Testline2', $this->props->getProperty('testline2'));
+        $this->assertEquals(true, $this->props->getProperty('testline3'));
+        $this->assertEquals(false, $this->props->getProperty('testline4'));
     }
 
     public function testEmpty()
@@ -74,12 +77,12 @@ class PropertiesTest extends \PHPUnit\Framework\TestCase
     {
         $this->props->put('a', 'b');
 
-        $this->assertEquals("a=b" . PHP_EOL, (string) $this->props);
+        $this->assertEquals('a=b' . PHP_EOL, (string) $this->props);
     }
 
     public function testStore()
     {
-        $file = new File(PHING_TEST_BASE . "/tmp/props");
+        $file = new File(PHING_TEST_BASE . '/tmp/props');
         $this->props->put('t', 'a');
         $this->props->store($file, 'header');
         $this->assertFileExists($file->getPath());

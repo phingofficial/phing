@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,14 +18,16 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
 use Phing\Task\Optional\WikiPublishTask;
+use Phing\Test\Support\BuildFileTest;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
- * WikiPublish task test
+ * WikiPublish task test.
+ *
  * @author  Piotr Lewandowski <piotr@cassis.pl>
  */
 class WikiPublishTaskTest extends BuildFileTest
@@ -57,7 +60,8 @@ class WikiPublishTaskTest extends BuildFileTest
                 ['login' => ['result' => 'Success']],
                 ['tokens' => ['edittoken' => 'testEditToken+/']],
                 ['edit' => ['result' => 'Success']]
-            );
+            )
+        ;
 
         $task->main();
     }
@@ -76,6 +80,7 @@ class WikiPublishTaskTest extends BuildFileTest
         }
 
         $task->setApiUrl('http://localhost/testApi.php');
+
         try {
             $task->main();
         } catch (BuildException $e) {
@@ -84,8 +89,9 @@ class WikiPublishTaskTest extends BuildFileTest
     }
 
     /**
-     * Creates WikiPublishTask mock
-     * @return \PHPUnit\Framework\MockObject\MockObject|WikiPublishTask
+     * Creates WikiPublishTask mock.
+     *
+     * @return MockObject|WikiPublishTask
      */
     private function getWikiPublishMock()
     {

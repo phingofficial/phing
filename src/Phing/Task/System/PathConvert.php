@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -37,72 +38,71 @@ use Phing\Type\Reference;
  * format. The resulting formatted path is placed into the specified property.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- *
  */
 class PathConvert extends Task
 {
+    /**
+     * Set if we're running on windows.
+     */
+    public $onWindows = false;
+
+    public $from;
+    public $to;
     // Members
     /**
-     * Path to be converted
+     * Path to be converted.
      */
-    private $path = null;
+    private $path;
     /**
-     * Reference to path/fileset to convert
+     * Reference to path/fileset to convert.
      *
      * @var Reference
      */
-    private $refid = null;
+    private $refid;
     /**
-     * The target OS type
+     * The target OS type.
      */
-    private $targetOS = null;
+    private $targetOS;
     /**
-     * Set when targetOS is set to windows
+     * Set when targetOS is set to windows.
      */
     private $targetWindows = false;
     /**
-     * Set if we're running on windows
-     */
-    public $onWindows = false;
-    /**
-     * Set if we should create a new property even if the result is empty
+     * Set if we should create a new property even if the result is empty.
      */
     private $setonempty = true;
     /**
-     * The property to receive the conversion
+     * The property to receive the conversion.
      */
-    private $property = null;
+    private $property;
     /**
-     * Path prefix map
+     * Path prefix map.
      *
      * @var MapEntry[]
      */
     private $prefixMap = [];
     /**
-     * User override on path sep char
+     * User override on path sep char.
      */
-    private $pathSep = null;
+    private $pathSep;
     /**
-     * User override on directory sep char
+     * User override on directory sep char.
      */
-    private $dirSep = null;
-
-    public $from = null;
-    public $to = null;
+    private $dirSep;
     private $mapper;
     private $preserveDuplicates = false;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->onWindows = strncasecmp(PHP_OS, 'WIN', 3) === 0;
+        $this->onWindows = 0 === strncasecmp(PHP_OS, 'WIN', 3);
     }
 
     /**
-     * Create a nested PATH element
+     * Create a nested PATH element.
      */
     public function createPath()
     {
@@ -110,14 +110,15 @@ class PathConvert extends Task
             throw $this->noChildrenAllowed();
         }
 
-        if ($this->path === null) {
+        if (null === $this->path) {
             $this->path = new Path($this->getProject());
         }
+
         return $this->path->createPath();
     }
 
     /**
-     * Create a nested MAP element
+     * Create a nested MAP element.
      *
      * @return MapEntry a Map to configure
      */
@@ -134,15 +135,17 @@ class PathConvert extends Task
      * Set targetos to a platform to one of
      * "windows", "unix", "netware", or "os/2"; required unless
      * unless pathsep and/or dirsep are specified.
+     *
+     * @param mixed $target
      */
     public function setTargetos($target)
     {
         $this->targetOS = $target;
-        $this->targetWindows = $this->targetOS !== 'unix';
+        $this->targetWindows = 'unix' !== $this->targetOS;
     }
 
     /**
-     * Set setonempty
+     * Set setonempty.
      *
      * If false, don't set the new property if the result is the empty string.
      *
@@ -155,6 +158,8 @@ class PathConvert extends Task
 
     /**
      * The property into which the converted path will be placed.
+     *
+     * @param mixed $p
      */
     public function setProperty($p)
     {
@@ -165,12 +170,11 @@ class PathConvert extends Task
      * Adds a reference to a Path, FileSet, DirSet, or FileList defined
      * elsewhere.
      *
-     *
      * @throws BuildException
      */
     public function setRefid(Reference $r)
     {
-        if ($this->path !== null) {
+        if (null !== $this->path) {
             throw $this->noChildrenAllowed();
         }
 
@@ -179,7 +183,7 @@ class PathConvert extends Task
 
     /**
      * Set the default path separator string;
-     * defaults to current JVM
+     * defaults to current JVM.
      *
      * @param string $sep path separator string
      */
@@ -189,7 +193,7 @@ class PathConvert extends Task
     }
 
     /**
-     * Set the default directory separator string
+     * Set the default directory separator string.
      *
      * @param string $sep directory separator string
      */
@@ -205,7 +209,7 @@ class PathConvert extends Task
      */
     public function isReference()
     {
-        return $this->refid !== null;
+        return null !== $this->refid;
     }
 
     /**
@@ -216,8 +220,8 @@ class PathConvert extends Task
     public function main()
     {
         $savedPath = $this->path;
-        $savedPathSep = $this->pathSep;// may be altered in validateSetup
-        $savedDirSep = $this->dirSep;// may be altered in validateSetup
+        $savedPathSep = $this->pathSep; // may be altered in validateSetup
+        $savedDirSep = $this->dirSep; // may be altered in validateSetup
 
         try {
             // If we are a reference, create a Path from the reference
@@ -244,13 +248,13 @@ class PathConvert extends Task
                 } else {
                     throw new BuildException(
                         "'refid' does not refer to a "
-                        . "path, fileset, dirset, or "
-                        . "filelist."
+                        . 'path, fileset, dirset, or '
+                        . 'filelist.'
                     );
                 }
             }
 
-            $this->validateSetup();// validate our setup
+            $this->validateSetup(); // validate our setup
 
             // Currently, we deal with only two path formats: Unix and Windows
             // And Unix is everything that is not Windows
@@ -260,28 +264,28 @@ class PathConvert extends Task
             // in the apply code, the same assumptions can be made as with
             // windows - that \\ is an OK separator, and do comparisons
             // case-insensitive.
-            $fromDirSep = $this->onWindows ? "\\" : "/";
+            $fromDirSep = $this->onWindows ? '\\' : '/';
 
             $rslt = '';
 
             // Get the list of path components in canonical form
             $elems = $this->path->listPaths($this->isPreserveDuplicates());
 
-            $mapperImpl = $this->mapper === null ? new IdentityMapper() : $this->mapper->getImplementation();
+            $mapperImpl = null === $this->mapper ? new IdentityMapper() : $this->mapper->getImplementation();
             foreach ($elems as &$elem) {
                 $mapped = $mapperImpl->main($elem);
-                for ($m = 0; $mapped !== null && $m < count($mapped); ++$m) {
+                for ($m = 0; null !== $mapped && $m < count($mapped); ++$m) {
                     $elem = $mapped[$m];
                 }
             }
             unset($elem);
             foreach ($elems as $key => $elem) {
-                $elem = $this->mapElement($elem);// Apply the path prefix map
+                $elem = $this->mapElement($elem); // Apply the path prefix map
 
                 // Now convert the path and file separator characters from the
                 // current os to the target os.
 
-                if ($key !== 0) {
+                if (0 !== $key) {
                     $rslt .= $this->pathSep;
                 }
 
@@ -293,14 +297,14 @@ class PathConvert extends Task
             $value = $rslt;
             if ($this->setonempty) {
                 $this->log(
-                    "Set property " . $this->property . " = " . $value,
+                    'Set property ' . $this->property . ' = ' . $value,
                     Project::MSG_VERBOSE
                 );
                 $this->getProject()->setNewProperty($this->property, $value);
             } else {
-                if ($rslt !== '') {
+                if ('' !== $rslt) {
                     $this->log(
-                        "Set property " . $this->property . " = " . $value,
+                        'Set property ' . $this->property . ' = ' . $value,
                         Project::MSG_VERBOSE
                     );
                     $this->getProject()->setNewProperty($this->property, $value);
@@ -314,18 +318,46 @@ class PathConvert extends Task
     }
 
     /**
+     * @throws BuildException
+     * @throws IOException
+     */
+    public function createMapper()
+    {
+        if (null !== $this->mapper) {
+            throw new BuildException('Cannot define more than one mapper', $this->getLocation());
+        }
+        $this->mapper = new Mapper($this->project);
+
+        return $this->mapper;
+    }
+
+    /**
+     * Get the preserveDuplicates.
+     */
+    public function isPreserveDuplicates(): bool
+    {
+        return $this->preserveDuplicates;
+    }
+
+    public function setPreserveDuplicates(bool $preserveDuplicates): void
+    {
+        $this->preserveDuplicates = $preserveDuplicates;
+    }
+
+    /**
      * Apply the configured map to a path element. The map is used to convert
      * between Windows drive letters and Unix paths. If no map is configured,
      * then the input string is returned unchanged.
      *
-     * @param  string $elem The path element to apply the map to
+     * @param string $elem The path element to apply the map to
+     *
      * @return string Updated element
      */
     private function mapElement($elem)
     {
         $size = count($this->prefixMap);
 
-        if ($size !== 0) {
+        if (0 !== $size) {
             // Iterate over the map entries and apply each one.
             // Stop when one of the entries actually changes the element.
 
@@ -337,26 +369,13 @@ class PathConvert extends Task
 
                 if ($newElem !== (string) $elem) {
                     $elem = $newElem;
-                    break;// We applied one, so we're done
+
+                    break; // We applied one, so we're done
                 }
             }
         }
 
         return $elem;
-    }
-
-    /**
-     * @throws BuildException
-     * @throws IOException
-     */
-    public function createMapper()
-    {
-        if ($this->mapper !== null) {
-            throw new BuildException("Cannot define more than one mapper", $this->getLocation());
-        }
-        $this->mapper = new Mapper($this->project);
-
-        return $this->mapper;
     }
 
     /**
@@ -366,8 +385,8 @@ class PathConvert extends Task
      */
     private function validateSetup()
     {
-        if ($this->path === null) {
-            throw new BuildException("You must specify a path to convert");
+        if (null === $this->path) {
+            throw new BuildException('You must specify a path to convert');
         }
 
         // Determine the separator strings.  The dirsep and pathsep attributes
@@ -375,16 +394,16 @@ class PathConvert extends Task
         $dsep = FileUtils::getSeparator();
         $psep = FileUtils::getPathSeparator();
 
-        if ($this->targetOS !== null) {
-            $psep = $this->targetWindows ? ";" : ":";
-            $dsep = $this->targetWindows ? "\\" : "/";
+        if (null !== $this->targetOS) {
+            $psep = $this->targetWindows ? ';' : ':';
+            $dsep = $this->targetWindows ? '\\' : '/';
         }
 
-        if ($this->pathSep !== null) {// override with pathsep=
+        if (null !== $this->pathSep) {// override with pathsep=
             $psep = $this->pathSep;
         }
 
-        if ($this->dirSep !== null) {// override with dirsep=
+        if (null !== $this->dirSep) {// override with dirsep=
             $dsep = $this->dirSep;
         }
 
@@ -399,23 +418,8 @@ class PathConvert extends Task
     private function noChildrenAllowed()
     {
         return new BuildException(
-            "You must not specify nested <path> "
-            . "elements when using the refid attribute."
+            'You must not specify nested <path> '
+            . 'elements when using the refid attribute.'
         );
-    }
-
-    /**
-     * Get the preserveDuplicates.
-     *
-     * @return bool
-     */
-    public function isPreserveDuplicates(): bool
-    {
-        return $this->preserveDuplicates;
-    }
-
-    public function setPreserveDuplicates(bool $preserveDuplicates): void
-    {
-        $this->preserveDuplicates = $preserveDuplicates;
     }
 }

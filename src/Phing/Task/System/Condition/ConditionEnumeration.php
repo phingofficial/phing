@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,12 +26,11 @@ use Phing\ProjectComponent;
 /**
  * "Inner" class for handling enumerations.
  * Uses build-in PHP5 iterator support.
- *
  */
 class ConditionEnumeration implements Iterator
 {
     /**
-     * Current element number
+     * Current element number.
      */
     private $num = 0;
 
@@ -64,7 +64,7 @@ class ConditionEnumeration implements Iterator
 
     public function next()
     {
-        $this->num++;
+        ++$this->num;
     }
 
     /**

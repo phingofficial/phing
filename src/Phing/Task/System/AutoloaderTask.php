@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -68,6 +69,7 @@ class AutoloaderTask extends Task
             );
         }
         $this->log('Loading autoloader from ' . $this->autoloaderPath);
+
         include_once $this->autoloaderPath;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,27 +18,26 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Regression;
+namespace Phing\Test\Regression;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/299
- * - PhingCall crashes if an AdhocTask is defined
- *
+ * - PhingCall crashes if an AdhocTask is defined.
  */
 class PhingCallAdhocTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/299/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/299/build.xml');
     }
 
     public function testPhingCallTask()
     {
         ob_start();
-        $this->executeTarget("main");
+        $this->executeTarget('main');
         ob_end_clean();
-        $this->assertInLogs("foo: success!");
+        $this->assertInLogs('foo: success!');
     }
 }

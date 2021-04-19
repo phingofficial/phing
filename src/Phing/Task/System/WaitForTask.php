@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +26,7 @@ use Phing\Task\System\Condition\ConditionBase;
 use Phing\Task\System\Condition\ConditionEnumeration;
 
 /**
- *  Based on Apache Ant Wait For:
+ *  Based on Apache Ant Wait For:.
  *
  *  Licensed to the Apache Software Foundation (ASF) under one or more
  *  contributor license agreements.  See the NOTICE file distributed with
@@ -62,7 +63,7 @@ class WaitForTask extends ConditionBase
     protected $checkEvery = self::DEFAULT_CHECK_MILLIS;
     protected $checkEveryMultiplier = self::ONE_MILLISECOND;
 
-    protected $timeoutProperty = null;
+    protected $timeoutProperty;
 
     public function __construct($taskName = 'waitfor')
     {
@@ -80,7 +81,7 @@ class WaitForTask extends ConditionBase
     }
 
     /**
-     * Set the max wait time unit
+     * Set the max wait time unit.
      *
      * @param string $maxWaitUnit
      */
@@ -90,43 +91,7 @@ class WaitForTask extends ConditionBase
     }
 
     /**
-     * Convert the unit to a multipler.
-     *
-     * @param  string $unit
-     * @throws BuildException
-     * @return int
-     */
-    protected function convertUnit($unit)
-    {
-        if ($unit === 'week') {
-            return self::ONE_WEEK;
-        }
-
-        if ($unit === 'day') {
-            return self::ONE_DAY;
-        }
-
-        if ($unit === 'hour') {
-            return self::ONE_HOUR;
-        }
-
-        if ($unit === 'minute') {
-            return self::ONE_MINUTE;
-        }
-
-        if ($unit === 'second') {
-            return self::ONE_SECOND;
-        }
-
-        if ($unit === 'millisecond') {
-            return self::ONE_MILLISECOND;
-        }
-
-        throw new BuildException("Illegal unit '$unit'");
-    }
-
-    /**
-     * Set the time between each check
+     * Set the time between each check.
      *
      * @param int $checkEvery
      */
@@ -136,9 +101,9 @@ class WaitForTask extends ConditionBase
     }
 
     /**
-     * Set the check every time unit
+     * Set the check every time unit.
      *
-     * @param  string $checkEveryUnit
+     * @param string $checkEveryUnit
      */
     public function setCheckEveryUnit($checkEveryUnit)
     {
@@ -148,7 +113,7 @@ class WaitForTask extends ConditionBase
     /**
      * Name of the property to set after a timeout.
      *
-     * @param  string $timeoutProperty
+     * @param string $timeoutProperty
      */
     public function setTimeoutProperty($timeoutProperty)
     {
@@ -164,11 +129,11 @@ class WaitForTask extends ConditionBase
     public function main()
     {
         if ($this->countConditions() > 1) {
-            throw new BuildException("You must not nest more than one condition into <waitfor>");
+            throw new BuildException('You must not nest more than one condition into <waitfor>');
         }
 
         if ($this->countConditions() < 1) {
-            throw new BuildException("You must nest a condition into <waitfor>");
+            throw new BuildException('You must nest a condition into <waitfor>');
         }
 
         /**
@@ -186,6 +151,7 @@ class WaitForTask extends ConditionBase
         while (microtime(true) * 1000 < $end) {
             if ($condition->evaluate()) {
                 $this->processSuccess();
+
                 return;
             }
 
@@ -195,17 +161,55 @@ class WaitForTask extends ConditionBase
         $this->processTimeout();
     }
 
+    /**
+     * Convert the unit to a multipler.
+     *
+     * @param string $unit
+     *
+     * @throws BuildException
+     *
+     * @return int
+     */
+    protected function convertUnit($unit)
+    {
+        if ('week' === $unit) {
+            return self::ONE_WEEK;
+        }
+
+        if ('day' === $unit) {
+            return self::ONE_DAY;
+        }
+
+        if ('hour' === $unit) {
+            return self::ONE_HOUR;
+        }
+
+        if ('minute' === $unit) {
+            return self::ONE_MINUTE;
+        }
+
+        if ('second' === $unit) {
+            return self::ONE_SECOND;
+        }
+
+        if ('millisecond' === $unit) {
+            return self::ONE_MILLISECOND;
+        }
+
+        throw new BuildException("Illegal unit '{$unit}'");
+    }
+
     protected function processSuccess()
     {
-        $this->log($this->getTaskName() . ": condition was met", Project::MSG_VERBOSE);
+        $this->log($this->getTaskName() . ': condition was met', Project::MSG_VERBOSE);
     }
 
     protected function processTimeout()
     {
-        $this->log($this->getTaskName() . ": timeout", Project::MSG_VERBOSE);
+        $this->log($this->getTaskName() . ': timeout', Project::MSG_VERBOSE);
 
-        if ($this->timeoutProperty != null) {
-            $this->project->setNewProperty($this->timeoutProperty, "true");
+        if (null != $this->timeoutProperty) {
+            $this->project->setNewProperty($this->timeoutProperty, 'true');
         }
     }
 }

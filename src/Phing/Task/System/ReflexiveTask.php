@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,7 +22,6 @@ namespace Phing\Task\System;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\FileUtils;
@@ -54,7 +54,6 @@ use Phing\Type\Element\FilterChainAware;
  * </code>
  *
  * @author Hans Lellelid <hans@xmpl.org>
- *
  */
 class ReflexiveTask extends Task
 {
@@ -63,13 +62,13 @@ class ReflexiveTask extends Task
 
     /**
      * Single file to process.
+     *
      * @var File
      */
     private $file;
 
     /**
-     * Alias for setFrom()
-     *
+     * Alias for setFrom().
      */
     public function setFile(File $f)
     {
@@ -78,7 +77,8 @@ class ReflexiveTask extends Task
 
     /**
      * Append the file(s).
-     * @throws IOException|NullPointerException
+     *
+     * @throws \InvalidArgumentException|IOException
      */
     public function main()
     {
@@ -89,7 +89,7 @@ class ReflexiveTask extends Task
 
         $files = [];
 
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             $files[] = $this->file;
         }
 
@@ -108,11 +108,11 @@ class ReflexiveTask extends Task
             }
         }
 
-        $this->log("Applying reflexive processing to " . count($files) . " files.");
+        $this->log('Applying reflexive processing to ' . count($files) . ' files.');
 
         // These "slots" allow filters to retrieve information about the currently-being-process files
-        $slot = $this->getRegisterSlot("currentFile");
-        $basenameSlot = $this->getRegisterSlot("currentFile.basename");
+        $slot = $this->getRegisterSlot('currentFile');
+        $basenameSlot = $this->getRegisterSlot('currentFile.basename');
 
         foreach ($files as $file) {
             // set the register slots
@@ -123,7 +123,7 @@ class ReflexiveTask extends Task
             // 1) read contents of file, pulling through any filters
             $in = null;
             $out = null;
-            $contents = "";
+            $contents = '';
 
             try {
                 $in = FileUtils::getChainedReader(new FileReader($file), $this->filterChains, $this->project);
@@ -135,7 +135,7 @@ class ReflexiveTask extends Task
                 if ($in) {
                     $in->close();
                 }
-                $this->log("Error reading file: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error reading file: ' . $e->getMessage(), Project::MSG_WARN);
             }
 
             try {
@@ -143,27 +143,28 @@ class ReflexiveTask extends Task
                 $out = new FileWriter($file);
                 $out->write($contents);
                 $out->close();
-                $this->log("Applying reflexive processing to " . $file->getPath(), Project::MSG_VERBOSE);
+                $this->log('Applying reflexive processing to ' . $file->getPath(), Project::MSG_VERBOSE);
             } catch (Exception $e) {
                 if ($out) {
                     $out->close();
                 }
-                $this->log("Error writing file back: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error writing file back: ' . $e->getMessage(), Project::MSG_WARN);
             }
         }
     }
 
     /**
      * Validate task attributes.
+     *
      * @throws IOException
      */
     private function validateAttributes(): void
     {
-        if ($this->file === null && empty($this->filesets)) {
+        if (null === $this->file && empty($this->filesets)) {
             throw new BuildException('You must specify a file or fileset(s) for the <reflexive> task.');
         }
 
-        if ($this->file !== null && $this->file->isDirectory()) {
+        if (null !== $this->file && $this->file->isDirectory()) {
             throw new BuildException('File cannot be a directory.');
         }
 

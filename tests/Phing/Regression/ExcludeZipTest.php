@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,14 +18,13 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Regression;
+namespace Phing\Test\Regression;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/137
- * - Excluded files may be included in Zip/Tar tasks
- *
+ * - Excluded files may be included in Zip/Tar tasks.
  *
  * @requires extension zip
  */
@@ -32,22 +32,22 @@ class ExcludeZipTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/137/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/137/build.xml');
     }
 
     public function testZipTask()
     {
         $this->expectNotToPerformAssertions();
-        $this->executeTarget("main");
+        $this->executeTarget('main');
 
-        $expected = "Adding ./.git to archive.";
+        $expected = 'Adding ./.git to archive.';
         $representation = [];
         foreach ($this->logBuffer as $log) {
             $representation[] = "[msg=\"{$log['message']}\",priority={$log['priority']}]";
         }
 
         foreach ($this->logBuffer as $log) {
-            if (stripos($log['message'], $expected) !== false) {
+            if (false !== stripos($log['message'], $expected)) {
                 $this->fail(
                     sprintf("Expected to find '%s' in logs: %s", $expected, var_export($representation, true))
                 );

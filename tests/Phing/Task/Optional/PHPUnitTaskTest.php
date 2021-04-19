@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,13 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Unit tests for PHPUnit task
- *
+ * Unit tests for PHPUnit task.
  */
 class PHPUnitTaskTest extends BuildFileTest
 {
@@ -31,31 +31,31 @@ class PHPUnitTaskTest extends BuildFileTest
 
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpunit/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpunit/build.xml');
     }
 
     /**
      * Regression test for http://www.phing.info/trac/ticket/655
-     * "PlainPHPUnitResultFormatter does not display errors if dataProvider was used"
+     * "PlainPHPUnitResultFormatter does not display errors if dataProvider was used".
      */
     public function testPlainFormatterDataProvider()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Tests run: 2, Risky: 0, Warnings: 0, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
+        $this->assertInLogs('Tests run: 2, Risky: 0, Warnings: 0, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:');
     }
 
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/363
-     * "PHPUnit task fails with formatter type 'xml'"
+     * "PHPUnit task fails with formatter type 'xml'".
      */
     public function testXmlFormatter()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("<testcase name=\"testSayHello\" class=\"HelloWorldTest\"");
+        $this->assertInLogs('<testcase name="testSayHello" class="HelloWorldTest"');
     }
 
     /**
-     * Regression test for ticket http://www.phing.info/trac/ticket/893
+     * Regression test for ticket http://www.phing.info/trac/ticket/893.
      */
     public function testDoubleAutoloader()
     {
@@ -63,15 +63,15 @@ class PHPUnitTaskTest extends BuildFileTest
     }
 
     /**
-     * Regression test for ticket http://www.phing.info/trac/ticket/945
+     * Regression test for ticket http://www.phing.info/trac/ticket/945.
      */
     public function testShouldNotIgnoreFailuresAfterError()
     {
-        $this->expectBuildException(__FUNCTION__, "Fail");
+        $this->expectBuildException(__FUNCTION__, 'Fail');
     }
 
     /**
-     * Regression test for ticket http://www.phing.info/trac/ticket/1159
+     * Regression test for ticket http://www.phing.info/trac/ticket/1159.
      */
     public function testExcludeGroups()
     {

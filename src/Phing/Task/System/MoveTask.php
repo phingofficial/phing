@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,7 +36,6 @@ use Phing\Io\IOException;
  *
  * Source files and directories are only deleted when the file or
  * directory has been copied to the destination successfully.
- *
  */
 class MoveTask extends CopyTask
 {
@@ -46,28 +46,27 @@ class MoveTask extends CopyTask
     }
 
     /**
-     * Validates attributes coming in from XML
-     *
+     * Validates attributes coming in from XML.
      *
      * @throws BuildException
      */
     protected function validateAttributes()
     {
-        if ($this->file !== null && $this->file->isDirectory()) {
+        if (null !== $this->file && $this->file->isDirectory()) {
             if (
-                ($this->destFile !== null
-                && $this->destDir !== null)
-                || ($this->destFile === null
-                && $this->destDir === null)
+                (null !== $this->destFile
+                && null !== $this->destDir)
+                || (null === $this->destFile
+                && null === $this->destDir)
             ) {
-                throw new BuildException("One and only one of tofile and todir must be set.");
+                throw new BuildException('One and only one of tofile and todir must be set.');
             }
 
-            if ($this->destFile === null) {
+            if (null === $this->destFile) {
                 $this->destFile = new File($this->destDir, $this->file->getName());
             }
 
-            if ($this->destDir === null) {
+            if (null === $this->destDir) {
                 $this->destDir = $this->destFile->getParentFile();
             }
 
@@ -87,7 +86,7 @@ class MoveTask extends CopyTask
                 $d = new File($to);
 
                 try { // try to rename
-                    $this->log("Attempting to rename $from to $to", $this->verbosity);
+                    $this->log("Attempting to rename {$from} to {$to}", $this->verbosity);
                     if (!empty($this->filterChains)) {
                         $this->fileUtils->copyFile(
                             $f,
@@ -105,7 +104,7 @@ class MoveTask extends CopyTask
                         $this->fileUtils->renameFile($f, $d, $this->overwrite);
                     }
                 } catch (IOException $ioe) {
-                    $this->logError("Failed to rename $from to $to: " . $ioe->getMessage());
+                    $this->logError("Failed to rename {$from} to {$to}: " . $ioe->getMessage());
                 }
             }
         }
@@ -113,11 +112,12 @@ class MoveTask extends CopyTask
         $copyMapSize = count($this->fileCopyMap);
         if ($copyMapSize > 0) {
             // files to move
-            $this->log("Moving $copyMapSize files to " . $this->destDir->getAbsolutePath());
+            $this->log("Moving {$copyMapSize} files to " . $this->destDir->getAbsolutePath());
 
             foreach ($this->fileCopyMap as $from => $to) {
                 if ($from == $to) {
-                    $this->log("Skipping self-move of $from", $this->verbosity);
+                    $this->log("Skipping self-move of {$from}", $this->verbosity);
+
                     continue;
                 }
 
@@ -125,7 +125,7 @@ class MoveTask extends CopyTask
                 $d = new File($to);
 
                 try { // try to move
-                    $this->log("Moving $from to $to", $this->verbosity);
+                    $this->log("Moving {$from} to {$to}", $this->verbosity);
 
                     $this->fileUtils->copyFile(
                         $f,
@@ -141,7 +141,7 @@ class MoveTask extends CopyTask
 
                     $f->delete();
                 } catch (IOException $ioe) {
-                    $this->logError("Failed to move $from to $to: " . $ioe->getMessage(), $this->getLocation());
+                    $this->logError("Failed to move {$from} to {$to}: " . $ioe->getMessage(), $this->getLocation());
                 }
             } // foreach fileCopyMap
         } // if copyMapSize
@@ -153,15 +153,15 @@ class MoveTask extends CopyTask
                 $d = new File((string) $destDir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
-                        $this->logError("Unable to create directory " . $d->getAbsolutePath());
+                        $this->logError('Unable to create directory ' . $d->getAbsolutePath());
                     } else {
-                        $count++;
+                        ++$count;
                     }
                 }
             }
             if ($count > 0) {
                 $this->log(
-                    "moved $count empty director" . ($count == 1 ? "y" : "ies") . " to " . $this->destDir->getAbsolutePath(
+                    "moved {$count} empty director" . (1 == $count ? 'y' : 'ies') . ' to ' . $this->destDir->getAbsolutePath(
                     )
                 );
             }
@@ -192,14 +192,14 @@ class MoveTask extends CopyTask
     /**
      * Its only ok to delete a dir tree if there are no files in it.
      *
+     * @throws IOException
      *
      * @return bool
-     * @throws IOException
      */
     private function okToDelete(File $dir)
     {
         $list = $dir->listDir();
-        if ($list === null) {
+        if (null === $list) {
             return false; // maybe io error?
         }
 
@@ -221,14 +221,13 @@ class MoveTask extends CopyTask
     /**
      * Go and delete the directory tree.
      *
-     *
      * @throws BuildException
      * @throws IOException
      */
     private function deleteDir(File $dir)
     {
         $list = $dir->listDir();
-        if ($list === null) {
+        if (null === $list) {
             return; // on an io error list() can return null
         }
 
@@ -237,15 +236,16 @@ class MoveTask extends CopyTask
             if ($f->isDirectory()) {
                 $this->deleteDir($f);
             } else {
-                throw new BuildException("UNEXPECTED ERROR - The file " . $f->getAbsolutePath() . " should not exist!");
+                throw new BuildException('UNEXPECTED ERROR - The file ' . $f->getAbsolutePath() . ' should not exist!');
             }
         }
 
-        $this->log("Deleting directory " . $dir->getPath(), $this->verbosity);
+        $this->log('Deleting directory ' . $dir->getPath(), $this->verbosity);
+
         try {
             $dir->delete();
         } catch (Exception $e) {
-            $this->logError("Unable to delete directory " . $dir->__toString() . ": " . $e->getMessage());
+            $this->logError('Unable to delete directory ' . $dir->__toString() . ': ' . $e->getMessage());
         }
     }
 }

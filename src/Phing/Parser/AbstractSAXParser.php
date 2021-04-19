@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -44,6 +45,7 @@ abstract class AbstractSAXParser
      *
      * @param  $opt
      * @param  $val
+     *
      * @return
      */
     abstract public function parserSetOption($opt, $val);
@@ -52,7 +54,7 @@ abstract class AbstractSAXParser
      * Sets the current element handler object for this parser. Usually this
      * is an object using extending "AbstractHandler".
      *
-     * @param AbstractHandler $obj The handler object.
+     * @param AbstractHandler $obj the handler object
      */
     public function setHandler(AbstractHandler $obj)
     {
@@ -67,9 +69,10 @@ abstract class AbstractSAXParser
      * It gives control to the current active handler object by calling the
      * <code>startElement()</code> method.
      *
-     * @param object $parser the php's internal parser handle
-     * @param string $name the open tag name
-     * @param array $attribs the tag's attributes if any
+     * @param object $parser  the php's internal parser handle
+     * @param string $name    the open tag name
+     * @param array  $attribs the tag's attributes if any
+     *
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     public function startElement($parser, $name, $attribs)
@@ -87,7 +90,8 @@ abstract class AbstractSAXParser
      * <code>endElement()</code> method.
      *
      * @param object $parser the php's internal parser handle
-     * @param string $name the closing tag name
+     * @param string $name   the closing tag name
+     *
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     public function endElement($parser, $name)
@@ -104,8 +108,9 @@ abstract class AbstractSAXParser
      * It gives control to the current active handler object by calling the
      * <code>characters()</code> method. That processes the given CDATA.
      *
-     * @param resource $parser php's internal parser handle.
-     * @param string $data the CDATA
+     * @param resource $parser php's internal parser handle
+     * @param string   $data   the CDATA
+     *
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     public function characters($parser, $data)
@@ -115,7 +120,7 @@ abstract class AbstractSAXParser
 
     /**
      * Entrypoint for parser. This method needs to be implemented by the
-     * child classt that utilizes the concrete parser
+     * child classt that utilizes the concrete parser.
      */
     abstract public function parse();
 }

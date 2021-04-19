@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -61,7 +62,7 @@ class Mapper extends DataType
     /**
      * @var ContainerMapper
      */
-    private $container = null;
+    private $container;
 
     public function __construct(Project $project)
     {
@@ -70,9 +71,10 @@ class Mapper extends DataType
     }
 
     /**
-     * Set the classpath to be used when searching for component being defined
+     * Set the classpath to be used when searching for component being defined.
      *
-     * @param Path $classpath An Path object containing the classpath.
+     * @param Path $classpath an Path object containing the classpath
+     *
      * @throws BuildException
      */
     public function setClasspath(Path $classpath)
@@ -80,7 +82,7 @@ class Mapper extends DataType
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if ($this->classpath === null) {
+        if (null === $this->classpath) {
             $this->classpath = $classpath;
         } else {
             $this->classpath->append($classpath);
@@ -88,14 +90,14 @@ class Mapper extends DataType
     }
 
     /**
-     * Create the classpath to be used when searching for component being defined
+     * Create the classpath to be used when searching for component being defined.
      */
     public function createClasspath()
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if ($this->classpath === null) {
+        if (null === $this->classpath) {
             $this->classpath = new Path($this->project);
         }
 
@@ -120,6 +122,7 @@ class Mapper extends DataType
      * Set the type of FileNameMapper to use.
      *
      * @param string $type
+     *
      * @throws BuildException
      */
     public function setType($type)
@@ -133,7 +136,8 @@ class Mapper extends DataType
     /**
      * Add a nested <code>FileNameMapper</code>.
      *
-     * @param Mapper $fileNameMapper the <code>FileNameMapper</code> to add.
+     * @param Mapper $fileNameMapper the <code>FileNameMapper</code> to add
+     *
      * @throws BuildException
      */
     public function add(Mapper $fileNameMapper)
@@ -141,15 +145,15 @@ class Mapper extends DataType
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
         }
-        if ($this->container == null) {
-            if ($this->type == null && $this->classname == null) {
+        if (null == $this->container) {
+            if (null == $this->type && null == $this->classname) {
                 $this->container = new CompositeMapper();
             } else {
                 $m = $this->getImplementation();
                 if ($m instanceof ContainerMapper) {
                     $this->container = $m;
                 } else {
-                    throw new BuildException("$m mapper implementation does not support nested mappers!");
+                    throw new BuildException("{$m} mapper implementation does not support nested mappers!");
                 }
             }
         }
@@ -158,7 +162,7 @@ class Mapper extends DataType
     }
 
     /**
-     * Add a Mapper
+     * Add a Mapper.
      *
      * @param Mapper $mapper the mapper to add
      */
@@ -171,6 +175,7 @@ class Mapper extends DataType
      * Set the class name of the FileNameMapper to use.
      *
      * @param string $classname
+     *
      * @throws BuildException
      */
     public function setClassname($classname)
@@ -182,9 +187,10 @@ class Mapper extends DataType
     }
 
     /**
-     * Set the argument to FileNameMapper.setFrom
+     * Set the argument to FileNameMapper.setFrom.
      *
      * @param string $from
+     *
      * @throws BuildException
      */
     public function setFrom($from)
@@ -196,9 +202,10 @@ class Mapper extends DataType
     }
 
     /**
-     * Set the argument to FileNameMapper.setTo
+     * Set the argument to FileNameMapper.setTo.
      *
      * @param string $to
+     *
      * @throws BuildException
      */
     public function setTo($to)
@@ -218,14 +225,14 @@ class Mapper extends DataType
      */
     public function setRefid(Reference $r)
     {
-        if ($this->type !== null || $this->from !== null || $this->to !== null) {
+        if (null !== $this->type || null !== $this->from || null !== $this->to) {
             throw DataType::tooManyAttributes();
         }
         parent::setRefid($r);
     }
 
     /**
-     * Factory, returns inmplementation of file name mapper as new instance
+     * Factory, returns inmplementation of file name mapper as new instance.
      */
     public function getImplementation()
     {
@@ -238,48 +245,67 @@ class Mapper extends DataType
                 return $o->getImplementation();
             }
 
-            $od = $o == null ? "null" : get_class($o);
+            $od = null == $o ? 'null' : get_class($o);
+
             throw new BuildException($od . " at reference '" . $this->getRefId() . "' is not a valid mapper reference.");
         }
 
-        if ($this->type === null && $this->classname === null && $this->container == null) {
-            throw new BuildException("either type or classname attribute must be set for <mapper>");
+        if (null === $this->type && null === $this->classname && null == $this->container) {
+            throw new BuildException('either type or classname attribute must be set for <mapper>');
         }
 
-        if ($this->container != null) {
+        if (null != $this->container) {
             return $this->container;
         }
 
-        if ($this->type !== null) {
+        if (null !== $this->type) {
             switch ($this->type) {
                 case 'chained':
                     $this->classname = ChainedMapper::class;
+
                     break;
+
                 case 'composite':
                     $this->classname = CompositeMapper::class;
+
                     break;
+
                 case 'cutdirs':
                     $this->classname = CutDirsMapper::class;
+
                     break;
+
                 case 'identity':
                     $this->classname = IdentityMapper::class;
+
                     break;
+
                 case 'firstmatch':
                     $this->classname = FirstMatchMapper::class;
+
                     break;
+
                 case 'flatten':
                     $this->classname = FlattenMapper::class;
+
                     break;
+
                 case 'glob':
                     $this->classname = GlobMapper::class;
+
                     break;
+
                 case 'regexp':
                 case 'regex':
                     $this->classname = RegexpMapper::class;
+
                     break;
+
                 case 'merge':
                     $this->classname = MergeMapper::class;
+
                     break;
+
                 default:
                     throw new BuildException("Mapper type {$this->type} not known");
             }
@@ -301,6 +327,7 @@ class Mapper extends DataType
     private function getRef()
     {
         $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+
         return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 }

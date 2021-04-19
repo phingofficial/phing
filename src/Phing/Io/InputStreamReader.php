@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +26,6 @@ namespace Phing\Io;
  * Unlike the Java counterpart, this class does not (yet) handle
  * character set transformations.  This will be an important function
  * of this class with move to supporting PHP6.
- *
  */
 class InputStreamReader extends Reader
 {
@@ -46,6 +46,7 @@ class InputStreamReader extends Reader
 
     /**
      * Close the stream.
+     *
      * @throws IOException
      */
     public function close()
@@ -57,6 +58,7 @@ class InputStreamReader extends Reader
      * Skip over $n bytes.
      *
      * @param int $n
+     *
      * @return int
      */
     public function skip($n)
@@ -67,8 +69,9 @@ class InputStreamReader extends Reader
     /**
      * Read data from file.
      *
-     * @param int $len Num chars to read.
-     * @return mixed chars read or -1 if eof.
+     * @param int $len num chars to read
+     *
+     * @return mixed chars read or -1 if eof
      */
     public function read($len = null)
     {
@@ -78,7 +81,7 @@ class InputStreamReader extends Reader
     /**
      * Marks the current position in this input stream.
      *
-     * @throws IOException - if the underlying stream doesn't support this method.
+     * @throws IOException - if the underlying stream doesn't support this method
      */
     public function mark()
     {
@@ -98,7 +101,7 @@ class InputStreamReader extends Reader
     /**
      * Repositions this stream to the position at the time the mark method was last called on this input stream.
      *
-     * @throws IOException - if the underlying stream doesn't support this method.
+     * @throws IOException - if the underlying stream doesn't support this method
      */
     public function reset()
     {

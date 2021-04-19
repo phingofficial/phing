@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -51,21 +52,8 @@ class HasFreeSpaceCondition implements Condition
         $this->validate();
 
         $free = disk_free_space($this->partition);
-        return $free >= SizeHelper::fromHumanToBytes($this->needed);
-    }
 
-    /**
-     *
-     * @throws BuildException
-     */
-    private function validate()
-    {
-        if (null == $this->partition) {
-            throw new BuildException("Please set the partition attribute.");
-        }
-        if (null == $this->needed) {
-            throw new BuildException("Please set the needed attribute.");
-        }
+        return $free >= SizeHelper::fromHumanToBytes($this->needed);
     }
 
     /**
@@ -82,5 +70,18 @@ class HasFreeSpaceCondition implements Condition
     public function setNeeded(string $needed)
     {
         $this->needed = $needed;
+    }
+
+    /**
+     * @throws BuildException
+     */
+    private function validate()
+    {
+        if (null == $this->partition) {
+            throw new BuildException('Please set the partition attribute.');
+        }
+        if (null == $this->needed) {
+            throw new BuildException('Please set the needed attribute.');
+        }
     }
 }

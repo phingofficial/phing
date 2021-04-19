@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,15 +18,17 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System\Condition;
+namespace Phing\Test\Task\System\Condition;
+
+use Phing\Task\System\Condition\SocketCondition;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Tests for the <socket> condition
- *
+ * Tests for the <socket> condition.
  *
  * @requires extension sockets
  */
-class SocketConditionTest extends \PHPUnit\Framework\TestCase
+class SocketConditionTest extends TestCase
 {
     public function testShouldReturnFalseForNonExistingListener()
     {

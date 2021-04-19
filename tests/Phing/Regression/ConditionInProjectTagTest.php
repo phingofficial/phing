@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,25 +18,24 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Regression;
+namespace Phing\Test\Regression;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/943
- * - If task with "equals" directly in "project" tag does not work
- *
+ * - If task with "equals" directly in "project" tag does not work.
  */
 class ConditionInProjectTagTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/943/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/regression/943/build.xml');
     }
 
     public function testConditionInProjectTag()
     {
-        $this->executeTarget("test");
-        $this->assertInLogs("Message");
+        $this->executeTarget('test');
+        $this->assertInLogs('Message');
     }
 }

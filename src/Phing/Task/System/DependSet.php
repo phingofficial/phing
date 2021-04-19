@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -83,7 +84,7 @@ class DependSet extends MatchingTask
     /**
      * Add a set of source files.
      *
-     * @param FileSet $fs the FileSet to add.
+     * @param FileSet $fs the FileSet to add
      */
     public function addSrcfileset(FileSet $fs)
     {
@@ -93,7 +94,7 @@ class DependSet extends MatchingTask
     /**
      * Add a list of source files.
      *
-     * @param FileList $fl the FileList to add.
+     * @param FileList $fl the FileList to add
      */
     public function addSrcfilelist(FileList $fl)
     {
@@ -103,7 +104,7 @@ class DependSet extends MatchingTask
     /**
      * Add a set of target files.
      *
-     * @param FileSet $fs the FileSet to add.
+     * @param FileSet $fs the FileSet to add
      */
     public function addTargetfileset(FileSet $fs)
     {
@@ -113,7 +114,7 @@ class DependSet extends MatchingTask
     /**
      * Add a list of target files.
      *
-     * @param FileList $fl the FileList to add.
+     * @param FileList $fl the FileList to add
      */
     public function addTargetfilelist(FileList $fl)
     {
@@ -123,17 +124,17 @@ class DependSet extends MatchingTask
     /**
      * Executes the task.
      *
-     * @throws BuildException if errors occur.
+     * @throws BuildException if errors occur
      */
     public function main()
     {
-        if ((count($this->sourceFileSets) === 0) && (count($this->sourceFileLists) === 0)) {
+        if ((0 === count($this->sourceFileSets)) && (0 === count($this->sourceFileLists))) {
             throw new BuildException(
                 'At least one <srcfileset> or <srcfilelist>'
                 . ' element must be set'
             );
         }
-        if ((count($this->targetFileSets) === 0) && (count($this->targetFileLists) === 0)) {
+        if ((0 === count($this->targetFileSets)) && (0 === count($this->targetFileLists))) {
             throw new BuildException(
                 'At least one <targetfileset> or'
                 . ' <targetfilelist> element must be set'
@@ -169,7 +170,7 @@ class DependSet extends MatchingTask
                     );
                 }
                 if (
-                    $oldestTarget === null
+                    null === $oldestTarget
                     || $dest->lastModified() < $oldestTargetTime
                 ) {
                     $oldestTargetTime = $dest->lastModified();
@@ -187,6 +188,7 @@ class DependSet extends MatchingTask
                 if (!$dest->exists()) {
                     $this->log($targetFile . ' does not exist.', Project::MSG_VERBOSE);
                     $upToDate = false;
+
                     continue;
                 }
 
@@ -198,7 +200,7 @@ class DependSet extends MatchingTask
                     );
                 }
                 if (
-                    $oldestTarget === null
+                    null === $oldestTarget
                     || $dest->lastModified() < $oldestTargetTime
                 ) {
                     $oldestTargetTime = $dest->lastModified();
@@ -206,7 +208,7 @@ class DependSet extends MatchingTask
                 }
             }
         }
-        if ($oldestTarget !== null) {
+        if (null !== $oldestTarget) {
             $this->log($oldestTarget . ' is oldest target file', Project::MSG_VERBOSE);
         } else {
             // no target files, then we cannot remove any target files and
@@ -234,6 +236,7 @@ class DependSet extends MatchingTask
                             Project::MSG_VERBOSE
                         );
                         $upToDate = false;
+
                         break 2;
                     }
                     if ($src->lastModified() > $oldestTargetTime) {
@@ -243,6 +246,7 @@ class DependSet extends MatchingTask
                             . $sourceFile,
                             Project::MSG_VERBOSE
                         );
+
                         break 2;
                     }
                 }
@@ -271,6 +275,7 @@ class DependSet extends MatchingTask
                             . $sourceFile,
                             Project::MSG_VERBOSE
                         );
+
                         break 2;
                     }
                 }

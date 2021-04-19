@@ -1,6 +1,6 @@
 <?php
 
-namespace Phing\Support;
+namespace Phing\Test\Support;
 
 use Phing\Project;
 use Phing\Task;
@@ -29,7 +29,7 @@ class TaskdefTestSimpleTask extends Task
     /**
      * @return TestEcho
      */
-    public function createEcho()
+    public function createEcho(): TestEcho
     {
         $this->echo = new TestEcho();
 
@@ -38,6 +38,6 @@ class TaskdefTestSimpleTask extends Task
 
     public function main()
     {
-        $this->log("simpletask: " . $this->echo->message, Project::MSG_INFO);
+        $this->log('simpletask: ' . $this->echo->message, Project::MSG_INFO);
     }
 }

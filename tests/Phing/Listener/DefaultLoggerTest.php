@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Listener;
+namespace Phing\Test\Listener;
 
 use Phing\Exception\BuildException;
 use Phing\Io\OutputStream;
+use Phing\Listener\BuildEvent;
+use Phing\Listener\DefaultLogger;
 use Phing\Parser\Location;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Project;
@@ -29,13 +32,6 @@ use Throwable;
 
 class DefaultLoggerTest extends TestCase
 {
-    private static function msg(Throwable $error, bool $verbose): string
-    {
-        $m = '';
-        DefaultLogger::throwableMessage($m, $error, $verbose);
-        return $m;
-    }
-
     /**
      * @test
      */
@@ -81,13 +77,13 @@ class DefaultLoggerTest extends TestCase
     public function buildFinished()
     {
         $event = new BuildEvent(new Project());
-        $logger = new class() extends DefaultLogger {
+        $logger = new class () extends DefaultLogger {
             public function printMessage($message, ?OutputStream $stream = null, $priority = null)
             {
                 echo $message;
             }
 
-            public static function formatTime($micros)
+            public static function formatTime(float $seconds): string
             {
                 return 'TIME_STRING';
             }
@@ -95,5 +91,50 @@ class DefaultLoggerTest extends TestCase
         $msg = PHP_EOL . 'BUILD FINISHED' . PHP_EOL . PHP_EOL . 'Total time: TIME_STRING' . PHP_EOL;
         $this->expectOutputString($msg);
         $logger->buildFinished($event);
+    }
+
+    /**
+     * @dataProvider formatTimeProvider
+     *
+     * @param mixed $seconds
+     */
+    public function testFormatTime($seconds, string $expectedText)
+    {
+        $formattedText = DefaultLogger::formatTime($seconds);
+        $this->assertSame($formattedText, $expectedText);
+    }
+
+    public function formatTimeProvider(): array
+    {
+        return [
+            [0.0005, '0.0005 seconds'],
+            [0.000099, '0.0001 seconds'],
+            [1, '1.0000 second'],
+            [30.1234, '30.1234 seconds'],
+            [59.9999, '59.9999 seconds'],
+            [60.00, '1 minute  0.00 seconds'],
+            [61.0099, '1 minute  1.01 seconds'],
+            [61.9999, '1 minute  2.00 seconds'],
+            [3000.2020, '50 minutes  0.20 seconds'],
+            [3061, '51 minutes  1.00 second'],
+            [3600.0000, '1 hour  0 minutes  0.00 seconds'],
+            [3660.0000, '1 hour  1 minute  0.00 seconds'],
+            [3661.0000, '1 hour  1 minute  1.00 second'],
+            [7261, '2 hours  1 minute  1.00 second'],
+            [7458.5499, '2 hours  4 minutes  18.55 seconds'],
+            [86400.3, '1 day  0 hours  0 minutes  0.30 seconds'],
+            [90000.2, '1 day  1 hour  0 minutes  0.20 seconds'],
+            [90061, '1 day  1 hour  1 minute  1.00 second'],
+            [210546.8614, '2 days  10 hours  29 minutes  6.86 seconds'],
+            [3938279.8591, '45 days  13 hours  57 minutes  59.86 seconds'],
+        ];
+    }
+
+    private static function msg(Throwable $error, bool $verbose): string
+    {
+        $m = '';
+        DefaultLogger::throwableMessage($m, $error, $verbose);
+
+        return $m;
     }
 }

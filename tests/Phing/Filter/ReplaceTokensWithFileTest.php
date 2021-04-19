@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,9 +18,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Filter;
+namespace Phing\Test\Filter;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Michiel Rook <mrook@php.net>
@@ -28,11 +29,11 @@ class ReplaceTokensWithFileTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/ReplaceTokensWithFile/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/ReplaceTokensWithFile/build.xml');
     }
 
     /**
-     * Inspired by ticket #798 - http://www.phing.info/trac/ticket/798
+     * Inspired by ticket #798 - http://www.phing.info/trac/ticket/798.
      */
     public function testPostfix()
     {
@@ -44,7 +45,7 @@ class ReplaceTokensWithFileTest extends BuildFileTest
     }
 
     /**
-     * Inspired by ticket #1046 - http://www.phing.info/trac/ticket/1046
+     * Inspired by ticket #1046 - http://www.phing.info/trac/ticket/1046.
      */
     public function testSlashInToken()
     {

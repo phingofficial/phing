@@ -1,8 +1,8 @@
 <?php
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -24,9 +24,12 @@ use Phing\Support\BuildFileTest;
 class DescriptionTest extends BuildFileTest
 {
     /**
-     * Test that the aaddText method appends text to description w/o any spaces
+     * Test that the aaddText method appends text to description w/o any spaces.
      *
      * @dataProvider getFiles
+     *
+     * @param mixed $fileName
+     * @param mixed $outcome
      */
     public function test($fileName, $outcome)
     {
@@ -34,7 +37,7 @@ class DescriptionTest extends BuildFileTest
         $this->assertEquals($outcome, $this->getProject()->getDescription());
     }
 
-    public function getFiles()
+    public function getFiles(): array
     {
         return [
             'Single' => ['description1', 'Test Project Description'],

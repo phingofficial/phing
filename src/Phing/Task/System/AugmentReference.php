@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -40,12 +41,34 @@ class AugmentReference extends Task implements TypeAdapter
         $this->restoreWrapperId();
     }
 
+    public function setProxy($o)
+    {
+        throw new LogicException(__METHOD__ . ' unsupported.');
+    }
+
+    public function getProxy()
+    {
+        if (null === $this->getProject()) {
+            throw new LogicException($this->getTaskName() . 'Project owner unset');
+        }
+        $this->hijackId();
+        $ref = $this->getProject()->getReference($this->id);
+        if ($this->getProject()->hasReference($this->id) && !$ref instanceof UnknownElement) {
+            $result = $this->getProject()->getReference($this->id);
+            $this->log('project reference ' . $this->id . '=' . get_class($result), Project::MSG_DEBUG);
+
+            return $result;
+        }
+
+        throw new BuildException('Unknown reference "' . $this->id . '"');
+    }
+
     /**
      * Needed if two different targets reuse the same instance.
      */
     private function restoreWrapperId(): void
     {
-        if ($this->id !== null) {
+        if (null !== $this->id) {
             $this->log('restoring augment wrapper ' . $this->id, Project::MSG_DEBUG);
             $wrapper = $this->getWrapper();
             $wrapper->setAttribute('id', $this->id);
@@ -54,32 +77,12 @@ class AugmentReference extends Task implements TypeAdapter
         }
     }
 
-    public function setProxy($o)
-    {
-        throw new LogicException(__METHOD__ . ' unsupported.');
-    }
-
-    public function getProxy()
-    {
-        if ($this->getProject() === null) {
-            throw new LogicException($this->getTaskName() . 'Project owner unset');
-        }
-        $this->hijackId();
-        $ref = $this->getProject()->getReference($this->id);
-        if ($this->getProject()->hasReference($this->id) && !$ref instanceof UnknownElement) {
-            $result = $this->getProject()->getReference($this->id);
-            $this->log('project reference ' . $this->id . '=' . get_class($result), Project::MSG_DEBUG);
-            return $result;
-        }
-        throw new BuildException('Unknown reference "' . $this->id . '"');
-    }
-
     private function hijackId(): void
     {
-        if ($this->id === null) {
+        if (null === $this->id) {
             $wrapper = $this->getWrapper();
             $this->id = $wrapper->getId();
-            if ($this->id === null) {
+            if (null === $this->id) {
                 throw new BuildException($this->getTaskName() . " attribute 'id' unset");
             }
             $wrapper->setAttribute('id', null);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +24,6 @@ use ArrayIterator;
 use Exception;
 use IteratorAggregate;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\BufferedReader;
 use Phing\Io\File;
 use Phing\Io\FileReader;
@@ -65,7 +65,7 @@ class FileList extends DataType implements IteratorAggregate
     public $dir;
 
     /**
-     * @var File that contains a list of files (one per line).
+     * @var File that contains a list of files (one per line)
      */
     public $listfile;
 
@@ -78,7 +78,7 @@ class FileList extends DataType implements IteratorAggregate
     {
         parent::__construct();
 
-        if ($filelist !== null) {
+        if (null !== $filelist) {
             $this->dir = $filelist->dir;
             $this->filenames = $filelist->filenames;
             $this->listfile = $filelist->listfile;
@@ -98,7 +98,7 @@ class FileList extends DataType implements IteratorAggregate
      */
     public function setRefid(Reference $r)
     {
-        if ($this->dir !== null || count($this->filenames) !== 0) {
+        if (null !== $this->dir || 0 !== count($this->filenames)) {
             throw $this->tooManyAttributes();
         }
         parent::setRefid($r);
@@ -108,7 +108,7 @@ class FileList extends DataType implements IteratorAggregate
      * Base directory for files in list.
      *
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function setDir(File $dir)
     {
@@ -121,8 +121,9 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Get the basedir for files in list.
      *
-     * @return File
      * @throws BuildException
+     *
+     * @return File
      */
     public function getDir(Project $p)
     {
@@ -139,6 +140,7 @@ class FileList extends DataType implements IteratorAggregate
      * Set the array of files in list.
      *
      * @param array $filenames
+     *
      * @throws BuildException
      */
     public function setFiles($filenames)
@@ -148,9 +150,9 @@ class FileList extends DataType implements IteratorAggregate
         }
         if (!empty($filenames)) {
             $tok = strtok($filenames, ", \t\n\r");
-            while ($tok !== false) {
+            while (false !== $tok) {
                 $fname = trim($tok);
-                if ($fname !== "") {
+                if ('' !== $fname) {
                     $this->filenames[] = $tok;
                 }
                 $tok = strtok(", \t\n\r");
@@ -162,8 +164,9 @@ class FileList extends DataType implements IteratorAggregate
      * Sets a source "list" file that contains filenames to add -- one per line.
      *
      * @param string $file
+     *
      * @throws IOException
-     * @throws NullPointerException
+     * @throws \InvalidArgumentException
      */
     public function setListFile($file)
     {
@@ -195,29 +198,29 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Returns the list of files represented by this FileList.
      *
-     * @return array
      * @throws IOException
      * @throws BuildException
+     *
+     * @return array
      */
     public function getFiles(Project $p)
     {
         if ($this->isReference()) {
             $ret = $this->getRef($p);
-            $ret = $ret->getFiles($p);
 
-            return $ret;
+            return $ret->getFiles($p);
         }
 
-        if ($this->dir === null) {
-            throw new BuildException("No directory specified for filelist.");
+        if (null === $this->dir) {
+            throw new BuildException('No directory specified for filelist.');
         }
 
-        if ($this->listfile !== null) {
+        if (null !== $this->listfile) {
             $this->readListFile($p);
         }
 
         if (empty($this->filenames)) {
-            throw new BuildException("No files specified for filelist.");
+            throw new BuildException('No files specified for filelist.');
         }
 
         return $this->filenames;
@@ -227,10 +230,9 @@ class FileList extends DataType implements IteratorAggregate
      * Performs the check for circular references and returns the
      * referenced FileSet.
      *
-     *
-     * @return FileList
      * @throws BuildException
      *
+     * @return FileList
      */
     public function getRef(Project $p)
     {
@@ -240,19 +242,19 @@ class FileList extends DataType implements IteratorAggregate
     /**
      * Reads file names from a file and adds them to the files array.
      *
-     *
      * @throws BuildException
      * @throws IOException
      */
     private function readListFile(Project $p)
     {
         $listReader = null;
+
         try {
             // Get a FileReader
             $listReader = new BufferedReader(new FileReader($this->listfile));
 
             $line = $listReader->readLine();
-            while ($line !== null) {
+            while (null !== $line) {
                 if (!empty($line)) {
                     $line = $p->replaceProperties($line);
                     $this->filenames[] = trim($line);
@@ -263,8 +265,9 @@ class FileList extends DataType implements IteratorAggregate
             if ($listReader) {
                 $listReader->close();
             }
+
             throw new BuildException(
-                "An error occurred while reading from list file " . $this->listfile->__toString() . ": " . $e->getMessage()
+                'An error occurred while reading from list file ' . $this->listfile->__toString() . ': ' . $e->getMessage()
             );
         }
 

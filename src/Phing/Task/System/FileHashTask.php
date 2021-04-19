@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,12 +21,12 @@
 namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
-use Phing\Io\FileOutputStream;
 use Phing\Io\File;
+use Phing\Io\FileOutputStream;
 use Phing\Task;
 
 /**
- * fileHash
+ * fileHash.
  *
  * Calculate either MD5 or SHA hash value of a specified file and retun the
  * value in a property
@@ -35,25 +36,25 @@ use Phing\Task;
 class FileHashTask extends Task
 {
     /**
-     * Property for File
+     * Property for File.
      *
      * @var File file
      */
     private $file;
 
     /**
-     * Property to be set
+     * Property to be set.
      *
      * @var string
      */
-    private $propertyName = "filehashvalue";
+    private $propertyName = 'filehashvalue';
 
     /**
      * Specify which hash algorithm to use.
      *   0 = MD5
-     *   1 = SHA1
+     *   1 = SHA1.
      *
-     * @var integer
+     * @var int
      */
     private $hashtype = 0;
 
@@ -61,7 +62,7 @@ class FileHashTask extends Task
     private $algorithm = '';
 
     /**
-     * Specify if MD5 or SHA1 hash should be used
+     * Specify if MD5 or SHA1 hash should be used.
      *
      * @param int $type 0=MD5, 1=SHA1
      */
@@ -76,7 +77,7 @@ class FileHashTask extends Task
     }
 
     /**
-     * Which file to calculate the hash value of
+     * Which file to calculate the hash value of.
      *
      * @param File $file
      */
@@ -86,7 +87,7 @@ class FileHashTask extends Task
     }
 
     /**
-     * Set the name of the property to store the hash value in
+     * Set the name of the property to store the hash value in.
      */
     public function setPropertyName(string $property): void
     {
@@ -94,7 +95,7 @@ class FileHashTask extends Task
     }
 
     /**
-     * Main-Method for the Task
+     * Main-Method for the Task.
      *
      * @throws BuildException
      */
@@ -104,19 +105,19 @@ class FileHashTask extends Task
         $this->checkPropertyName();
 
         // read file
-        if ($this->algorithm !== '' && in_array($this->algorithm, hash_algos())) {
-            $this->log("Calculating $this->algorithm hash from: " . $this->file);
+        if ('' !== $this->algorithm && in_array($this->algorithm, hash_algos())) {
+            $this->log("Calculating {$this->algorithm} hash from: " . $this->file);
             $hashValue = hash_file($this->algorithm, $this->file);
-        } elseif ((int) $this->hashtype === 0) {
-            $this->log("Calculating MD5 hash from: " . $this->file);
+        } elseif (0 === (int) $this->hashtype) {
+            $this->log('Calculating MD5 hash from: ' . $this->file);
             $hashValue = md5_file($this->file, false);
             $this->algorithm = 'md5';
-        } elseif ((int) $this->hashtype === 1) {
-            $this->log("Calculating SHA1 hash from: " . $this->file);
+        } elseif (1 === (int) $this->hashtype) {
+            $this->log('Calculating SHA1 hash from: ' . $this->file);
             $hashValue = sha1_file($this->file, false);
             $this->algorithm = 'sha1';
         } else {
-            if ($this->algorithm !== '') {
+            if ('' !== $this->algorithm) {
                 throw new BuildException(
                     sprintf(
                         '[FileHash] Unknown algorithm specified %d. Must be one of %s',
@@ -141,14 +142,14 @@ class FileHashTask extends Task
     }
 
     /**
-     * checks file attribute
+     * checks file attribute.
      *
      * @throws BuildException
      */
     private function checkFile(): void
     {
         // check File
-        if ($this->file === null || $this->file === '') {
+        if (null === $this->file || '' === $this->file) {
             throw new BuildException('[FileHash] You must specify an input file.', $this->file);
         }
 
@@ -163,13 +164,13 @@ class FileHashTask extends Task
     }
 
     /**
-     * checks property attribute
+     * checks property attribute.
      *
      * @throws BuildException
      */
     private function checkPropertyName(): void
     {
-        if (null === $this->propertyName || $this->propertyName === '') {
+        if (null === $this->propertyName || '' === $this->propertyName) {
             throw new BuildException('Property name for publishing hashvalue is not set');
         }
     }

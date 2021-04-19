@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Test\Io;
+
+use Phing\Io\WindowsFileSystem;
 
 /**
- * Unit test for Win32FileSystem
+ * Unit test for Win32FileSystem.
  *
  * @author Daniel Holmes
  *
@@ -28,7 +31,7 @@ namespace Phing\Io;
  */
 class WindowsFileSystemTest extends AbstractWinFileSystemTestCase
 {
-    protected function createFileSystem()
+    protected function createFileSystem(): WindowsFileSystem
     {
         return new WindowsFileSystem();
     }

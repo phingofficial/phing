@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,8 +18,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
+use Phing\Type\ExcludesNameEntry;
 use PHPUnit\Framework\TestCase;
 
 class ExcludesNameEntryTest extends TestCase
@@ -35,23 +37,23 @@ class ExcludesNameEntryTest extends TestCase
 
     public function testSetName()
     {
-        $this->entry->setName("test");
-        $this->assertEquals($this->entry->getName(), "test");
-        $this->entry->setName("test2");
-        $this->assertEquals($this->entry->getName(), "test2");
+        $this->entry->setName('test');
+        $this->assertEquals('test', $this->entry->getName());
+        $this->entry->setName('test2');
+        $this->assertEquals('test2', $this->entry->getName());
     }
 
     public function testAddText()
     {
-        $this->entry->addText("test");
-        $this->assertEquals($this->entry->getName(), "test");
-        $this->entry->addText("test2");
-        $this->assertEquals($this->entry->getName(), "test2");
+        $this->entry->addText('test');
+        $this->assertEquals('test', $this->entry->getName());
+        $this->entry->addText('test2');
+        $this->assertEquals('test2', $this->entry->getName());
     }
 
     public function testToString()
     {
-        $this->entry->addText("test");
-        $this->assertEquals("" . $this->entry, "test");
+        $this->entry->addText('test');
+        $this->assertEquals('test', '' . $this->entry);
     }
 }

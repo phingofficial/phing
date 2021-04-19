@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -44,15 +45,6 @@ class SelectSelector extends AndSelector
     }
 
     /**
-     * Performs the check for circular references and returns the
-     * referenced Selector.
-     */
-    private function getRef()
-    {
-        return $this->getCheckedRef(get_class($this), "SelectSelector");
-    }
-
-    /**
      * Indicates whether there are any selectors here.
      */
     public function hasSelectors()
@@ -61,7 +53,7 @@ class SelectSelector extends AndSelector
     }
 
     /**
-     * Gives the count of the number of selectors in this container
+     * Gives the count of the number of selectors in this container.
      */
     public function count()
     {
@@ -94,6 +86,7 @@ class SelectSelector extends AndSelector
      * Add a new selector into this container.
      *
      * @param FileSelector $selector new selector to add
+     *
      * @throws BuildException
      */
     public function appendSelector(FileSelector $selector)
@@ -110,11 +103,20 @@ class SelectSelector extends AndSelector
      */
     public function verifySettings()
     {
-        if ($this->count() != 1) {
+        if (1 != $this->count()) {
             $this->setError(
-                "One and only one selector is allowed within the "
-                . "<selector> tag"
+                'One and only one selector is allowed within the '
+                . '<selector> tag'
             );
         }
+    }
+
+    /**
+     * Performs the check for circular references and returns the
+     * referenced Selector.
+     */
+    private function getRef()
+    {
+        return $this->getCheckedRef(get_class($this), 'SelectSelector');
     }
 }

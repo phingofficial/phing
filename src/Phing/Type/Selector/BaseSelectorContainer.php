@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -40,9 +41,9 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
      */
     public function __toString()
     {
-        $buf = "";
+        $buf = '';
         $arr = $this->selectorElements();
-        for ($i = 0, $size = count($arr); $i < $size; $i++) {
+        for ($i = 0, $size = count($arr); $i < $size; ++$i) {
             $buf .= (string) $arr[$i] . (isset($arr[$i + 1]) ? ', ' : '');
         }
 
@@ -63,13 +64,13 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
      * BaseSelector, there could be selectors in the container whose
      * error conditions are not detected if their isSelected() call
      * is never made.
-     * </ul>
+     * </ul>.
      */
     public function validate()
     {
         $this->verifySettings();
         $errmsg = $this->getError();
-        if ($errmsg !== null) {
+        if (null !== $errmsg) {
             throw new BuildException($errmsg);
         }
         foreach ($this->selectorsList as $o) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -43,19 +44,20 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
      *
      * @var string
      */
-    public const FUNCTION_KEY = "function";
+    public const FUNCTION_KEY = 'function';
 
     /**
      * The function to be used.
      *
      * @var string
      */
-    private $function = null;
+    private $function;
 
     /**
      * Applies a native php function to the original input and returns resulting stream.
      *
      * @param int $len
+     *
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -68,7 +70,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
 
         $buffer = $this->in->read($len);
 
-        if ($buffer === -1 || !function_exists($this->function)) {
+        if (-1 === $buffer || !function_exists($this->function)) {
             return -1;
         }
 
@@ -82,7 +84,7 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the function used by array_map.
      *
-     * @param string $function The function used by array_map.
+     * @param string $function the function used by array_map
      */
     public function setFunction($function)
     {
@@ -97,18 +99,6 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
     public function getFunction()
     {
         return $this->function;
-    }
-
-    /**
-     * Make sure that required attributes are set.
-     *
-     * @throws BuildException - if any required attribs aren't set.
-     */
-    protected function checkAttributes()
-    {
-        if (!$this->function) {
-            throw new BuildException("You must specify a value for the 'function' attribute.");
-        }
     }
 
     /**
@@ -132,15 +122,28 @@ class PhpArrayMapLines extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
+     * Make sure that required attributes are set.
+     *
+     * @throws buildException - if any required attribs aren't set
+     */
+    protected function checkAttributes()
+    {
+        if (!$this->function) {
+            throw new BuildException("You must specify a value for the 'function' attribute.");
+        }
+    }
+
+    /**
      * Initializes the function if it is available from the parameters.
      */
     private function initialize()
     {
         $params = $this->getParameters();
-        if ($params !== null) {
-            for ($i = 0, $_i = count($params); $i < $_i; $i++) {
+        if (null !== $params) {
+            for ($i = 0, $_i = count($params); $i < $_i; ++$i) {
                 if (self::FUNCTION_KEY == $params[$i]->getName()) {
                     $this->function = (string) $params[$i]->getValue();
+
                     break;
                 }
             }

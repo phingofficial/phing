@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,14 +18,14 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
 use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
-use Phing\Task\Ext\HttpTask;
+use GuzzleHttp\Psr7\Response;
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
+use Phing\Task\Ext\HttpTask;
+use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Alexey Borzov <avb@php.net>
@@ -33,8 +34,15 @@ abstract class BaseHttpTaskTest extends BuildFileTest
 {
     protected $traces = [];
 
+    public function testMissingUrl()
+    {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('Required attribute \'url\' is missing');
+        $this->executeTarget('missingURL');
+    }
+
     /**
-     * @param \GuzzleHttp\Psr7\Response[] $responses
+     * @param Response[] $responses
      */
     protected function createMockHandler(array $responses): void
     {
@@ -47,12 +55,5 @@ abstract class BaseHttpTaskTest extends BuildFileTest
 
         HttpTask::getHandlerStack()->setHandler($mockHandler);
         HttpTask::getHandlerStack()->push($requestsHandler);
-    }
-
-    public function testMissingUrl()
-    {
-        $this->expectException(BuildException::class);
-        $this->expectExceptionMessage('Required attribute \'url\' is missing');
-        $this->executeTarget('missingURL');
     }
 }

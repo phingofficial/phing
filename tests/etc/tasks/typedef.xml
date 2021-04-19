@@ -15,7 +15,7 @@
   </target>
 
   <target name="noName">
-    <typedef classname="Phing\Support\TypedefTestType"/>
+    <typedef classname="Phing\Test\Support\TypedefTestType"/>
   </target>
 
   <target name="classNotFound">
@@ -26,7 +26,7 @@
     <pathelement dir="../../classes" />
   </path>
 
-  <typedef name="global" classname="Phing\Support\TypedefTestType">
+  <typedef name="global" classname="Phing\Test\Support\TypedefTestType">
     <classpath refid="testclasses" />
   </typedef>
 
@@ -35,7 +35,7 @@
   </target>
 
   <target name="testLocal">
-    <typedef name="local" classname="Phing\Support\TypedefTestType">
+    <typedef name="local" classname="Phing\Test\Support\TypedefTestType">
       <classpath refid="testclasses" />
     </typedef>
     <local id="local" />

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,9 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Task\System\VersionTask;
+use Phing\Test\Support\BuildFileTest;
+use ReflectionException;
+use ReflectionObject;
 
 /**
  * @author Michiel Rook <mrook@php.net>
@@ -28,75 +32,80 @@ class VersionTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/version.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/version.xml');
     }
 
     public function tearDown(): void
     {
-        if (file_exists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version')) {
-            unlink(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version');
+        if (file_exists(PHING_TEST_BASE . '/etc/tasks/ext/' . 'build.version')) {
+            unlink(PHING_TEST_BASE . '/etc/tasks/ext/' . 'build.version');
         }
 
-        if (file_exists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'property.version')) {
-            unlink(PHING_TEST_BASE . "/etc/tasks/ext/" . 'property.version');
+        if (file_exists(PHING_TEST_BASE . '/etc/tasks/ext/' . 'property.version')) {
+            unlink(PHING_TEST_BASE . '/etc/tasks/ext/' . 'property.version');
         }
     }
 
     public function testBugfix()
     {
-        $this->expectLog("testBugfix", "1.0.1");
+        $this->expectLog('testBugfix', '1.0.1');
     }
 
     public function testMinor()
     {
-        $this->expectLog("testMinor", "1.1.0");
+        $this->expectLog('testMinor', '1.1.0');
     }
 
     public function testMajor()
     {
-        $this->expectLog("testMajor", "2.0.0");
+        $this->expectLog('testMajor', '2.0.0');
     }
 
     public function testDefault()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '1.0.0');
-        $this->assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', 'File not found');
+        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/' . 'build.version', 'File not found');
     }
 
     public function testPropFile()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('propfile.version', '4.5.5');
-        $this->assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'property.version', 'File not found');
+        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/' . 'property.version', 'File not found');
     }
 
     public function testPropFileWithDefaultProperty()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '4.5.5');
-        $this->assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', 'File not found');
+        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/' . 'build.version', 'File not found');
     }
 
     public function testWithStartingVersion()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '1.0.1');
-        $this->assertFileExists(PHING_TEST_BASE . "/etc/tasks/ext/" . 'build.version', 'File not found');
+        $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/' . 'build.version', 'File not found');
     }
 
     /**
-     * Testing \VersionTask::getVersion
+     * Testing \VersionTask::getVersion.
      *
      * @dataProvider versionProvider
      *
+     * @param mixed $releaseType
+     * @param mixed $version
+     * @param mixed $expectedVersion
+     * @throws ReflectionException
+     * @throws ReflectionException
      */
     public function testGetVersionMethod($releaseType, $version, $expectedVersion)
     {
         $versionTask = new VersionTask();
         $versionTask->setReleasetype($releaseType);
 
-        $reflector = new \ReflectionObject($versionTask);
+        $reflector = new ReflectionObject($versionTask);
         $method = $reflector->getMethod('getVersion');
         $method->setAccessible(true);
 
@@ -104,7 +113,7 @@ class VersionTaskTest extends BuildFileTest
         $this->assertSame($expectedVersion, $newVersion);
     }
 
-    public function versionProvider()
+    public function versionProvider(): array
     {
         return [
             [VersionTask::RELEASETYPE_MAJOR, null, '1.0.0'],

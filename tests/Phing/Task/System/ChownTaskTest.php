@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Chown Task
+ * Tests the Chown Task.
  *
  * @author  Michiel Rook <mrook@php.net>
  *
@@ -61,10 +62,11 @@ class ChownTaskTest extends BuildFileTest
             }
             if (in_array($username, $grpinfo['members'])) {
                 $group = $grpinfo;
+
                 break;
             }
         }
-        if ($group === null) {
+        if (null === $group) {
             $this->markTestSkipped('found no group we can change ownership to');
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -44,6 +45,8 @@ class UpToDateTask extends Task implements Condition
     use FileListAware;
     use FileSetAware;
 
+    protected $mapperElement;
+
     /**
      * @var string
      */
@@ -64,13 +67,11 @@ class UpToDateTask extends Task implements Condition
      */
     private $targetFile;
 
-    protected $mapperElement = null;
-
     /**
      * The property to set if the target file is more up-to-date than
      * (each of) the source file(s).
      *
-     * @param string $property the name of the property to set if Target is up-to-date.
+     * @param string $property the name of the property to set if Target is up-to-date
      */
     public function setProperty($property)
     {
@@ -78,9 +79,9 @@ class UpToDateTask extends Task implements Condition
     }
 
     /**
-     * Get property name
+     * Get property name.
      *
-     * @return string property the name of the property to set if Target is up-to-date.
+     * @return string property the name of the property to set if Target is up-to-date
      */
     public function getProperty()
     {
@@ -99,18 +100,10 @@ class UpToDateTask extends Task implements Condition
     }
 
     /**
-     * Returns the value, or "true" if a specific value wasn't provided.
-     */
-    private function getValue()
-    {
-        return $this->value ?? "true";
-    }
-
-    /**
      * The file which must be more up-to-date than (each of) the source file(s)
      * if the property is to be set.
      *
-     * @param string|File $file the file we are checking against.
+     * @param File|string $file the file we are checking against
      */
     public function setTargetFile($file)
     {
@@ -124,7 +117,7 @@ class UpToDateTask extends Task implements Condition
      * The file that must be older than the target file
      * if the property is to be set.
      *
-     * @param string|File $file the file we are checking against the target file.
+     * @param File|string $file the file we are checking against the target file
      */
     public function setSrcfile($file)
     {
@@ -139,9 +132,9 @@ class UpToDateTask extends Task implements Condition
      */
     public function createMapper()
     {
-        if ($this->mapperElement !== null) {
+        if (null !== $this->mapperElement) {
             throw new BuildException(
-                "Cannot define more than one mapper",
+                'Cannot define more than one mapper',
                 $this->getLocation()
             );
         }
@@ -155,47 +148,48 @@ class UpToDateTask extends Task implements Condition
      * see if the target(s) is/are up-to-date.
      *
      * @throws BuildException
+     *
      * @return bool
      */
     public function evaluate()
     {
-        if (count($this->filesets) == 0 && count($this->filelists) == 0 && $this->sourceFile === null) {
+        if (0 == count($this->filesets) && 0 == count($this->filelists) && null === $this->sourceFile) {
             throw new BuildException(
-                "At least one srcfile or a nested "
-                . "<fileset> or <filelist> element must be set."
+                'At least one srcfile or a nested '
+                . '<fileset> or <filelist> element must be set.'
             );
         }
 
-        if ((count($this->filesets) > 0 || count($this->filelists) > 0) && $this->sourceFile !== null) {
+        if ((count($this->filesets) > 0 || count($this->filelists) > 0) && null !== $this->sourceFile) {
             throw new BuildException(
-                "Cannot specify both the srcfile "
-                . "attribute and a nested <fileset> "
-                . "or <filelist> element."
+                'Cannot specify both the srcfile '
+                . 'attribute and a nested <fileset> '
+                . 'or <filelist> element.'
             );
         }
 
-        if ($this->targetFile === null && $this->mapperElement === null) {
+        if (null === $this->targetFile && null === $this->mapperElement) {
             throw new BuildException(
-                "The targetfile attribute or a nested "
-                . "mapper element must be set."
+                'The targetfile attribute or a nested '
+                . 'mapper element must be set.'
             );
         }
 
         // if the target file is not there, then it can't be up-to-date
-        if ($this->targetFile !== null && !$this->targetFile->exists()) {
+        if (null !== $this->targetFile && !$this->targetFile->exists()) {
             return false;
         }
 
         // if the source file isn't there, throw an exception
-        if ($this->sourceFile !== null && !$this->sourceFile->exists()) {
+        if (null !== $this->sourceFile && !$this->sourceFile->exists()) {
             throw new BuildException(
                 $this->sourceFile->getAbsolutePath()
-                . " not found."
+                . ' not found.'
             );
         }
 
         $upToDate = true;
-        for ($i = 0, $size = count($this->filesets); $i < $size && $upToDate; $i++) {
+        for ($i = 0, $size = count($this->filesets); $i < $size && $upToDate; ++$i) {
             $fs = $this->filesets[$i];
             $ds = $fs->getDirectoryScanner($this->project);
             $upToDate = $upToDate && $this->scanDir(
@@ -204,7 +198,7 @@ class UpToDateTask extends Task implements Condition
             );
         }
 
-        for ($i = 0, $size = count($this->filelists); $i < $size && $upToDate; $i++) {
+        for ($i = 0, $size = count($this->filelists); $i < $size && $upToDate; ++$i) {
             $fl = $this->filelists[$i];
             $srcFiles = $fl->getFiles($this->project);
             $upToDate = $upToDate && $this->scanDir(
@@ -213,22 +207,22 @@ class UpToDateTask extends Task implements Condition
             );
         }
 
-        if ($this->sourceFile !== null) {
-            if ($this->mapperElement === null) {
-                $upToDate = $upToDate &&
-                    ($this->targetFile->lastModified() >= $this->sourceFile->lastModified());
+        if (null !== $this->sourceFile) {
+            if (null === $this->mapperElement) {
+                $upToDate = $upToDate
+                    && ($this->targetFile->lastModified() >= $this->sourceFile->lastModified());
             } else {
                 $sfs = new SourceFileScanner($this);
                 $files = [$this->sourceFile->getAbsolutePath()];
-                $upToDate = $upToDate &&
-                    count(
+                $upToDate = $upToDate
+                    && 0 === count(
                         $sfs->restrict(
                             $files,
                             null,
                             null,
                             $this->mapperElement->getImplementation()
                         )
-                    ) === 0;
+                    );
             }
         }
 
@@ -243,9 +237,9 @@ class UpToDateTask extends Task implements Condition
      */
     public function main()
     {
-        if ($this->property === null) {
+        if (null === $this->property) {
             throw new BuildException(
-                "property attribute is required.",
+                'property attribute is required.',
                 $this->getLocation()
             );
         }
@@ -260,15 +254,15 @@ class UpToDateTask extends Task implements Condition
             $property->setOverride(true);
             $property->main(); // execute
 
-            if ($this->mapperElement === null) {
+            if (null === $this->mapperElement) {
                 $this->log(
-                    "File \"" . $this->targetFile->getAbsolutePath()
-                    . "\" is up-to-date.",
+                    'File "' . $this->targetFile->getAbsolutePath()
+                    . '" is up-to-date.',
                     Project::MSG_VERBOSE
                 );
             } else {
                 $this->log(
-                    "All target files are up-to-date.",
+                    'All target files are up-to-date.',
                     Project::MSG_VERBOSE
                 );
             }
@@ -277,6 +271,7 @@ class UpToDateTask extends Task implements Condition
 
     /**
      * @param array $files
+     *
      * @return bool
      */
     protected function scanDir(File $srcDir, $files)
@@ -284,7 +279,7 @@ class UpToDateTask extends Task implements Condition
         $sfs = new SourceFileScanner($this);
         $mapper = null;
         $dir = $srcDir;
-        if ($this->mapperElement === null) {
+        if (null === $this->mapperElement) {
             $mm = new MergeMapper();
             $mm->setTo($this->targetFile->getAbsolutePath());
             $mapper = $mm;
@@ -293,6 +288,14 @@ class UpToDateTask extends Task implements Condition
             $mapper = $this->mapperElement->getImplementation();
         }
 
-        return (count($sfs->restrict($files, $srcDir, $dir, $mapper)) === 0);
+        return 0 === count($sfs->restrict($files, $srcDir, $dir, $mapper));
+    }
+
+    /**
+     * Returns the value, or "true" if a specific value wasn't provided.
+     */
+    private function getValue()
+    {
+        return $this->value ?? 'true';
     }
 }

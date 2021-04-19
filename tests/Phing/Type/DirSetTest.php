@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,16 +18,18 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
 
 use Phing\Project;
+use Phing\Type\DirSet;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Unit tests for DirSet -- including Selectors.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class DirSetTest extends \PHPUnit\Framework\TestCase
+class DirSetTest extends TestCase
 {
     /** @var DirSet */
     private $dirset;

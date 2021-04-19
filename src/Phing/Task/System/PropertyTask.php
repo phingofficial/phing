@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,7 +22,6 @@ namespace Phing\Task\System;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Exception\NullPointerException;
 use Phing\Io\File;
 use Phing\Io\FileParserFactory;
 use Phing\Io\FileParserFactoryInterface;
@@ -93,7 +93,7 @@ class PropertyTask extends Task
     protected $userProperty = false;
 
     /**
-     * Whether to log messages as INFO or VERBOSE
+     * Whether to log messages as INFO or VERBOSE.
      */
     protected $logOutput = true;
 
@@ -122,6 +122,14 @@ class PropertyTask extends Task
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->value;
+    }
+
+    /**
      * File required or not.
      *
      * @param string $d
@@ -140,8 +148,7 @@ class PropertyTask extends Task
     }
 
     /**
-     * Sets a the name of current property component
-     *
+     * Sets a the name of current property component.
      */
     public function setName(string $name): void
     {
@@ -187,10 +194,9 @@ class PropertyTask extends Task
     /**
      * Set a file to use as the source for properties.
      *
-     * @param string|File $file
+     * @param File|string $file
      *
      * @throws IOException
-     * @throws NullPointerException
      */
     public function setFile($file)
     {
@@ -222,20 +228,21 @@ class PropertyTask extends Task
      * Prefix to apply to properties loaded using <code>file</code>.
      * A "." is appended to the prefix if not specified.
      *
-     * @param  string $prefix prefix string
+     * @param string $prefix prefix string
      *
      * @since  2.0
      */
     public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix;
-        if (!StringHelper::endsWith(".", $prefix)) {
-            $this->prefix .= ".";
+        if (!StringHelper::endsWith('.', $prefix)) {
+            $this->prefix .= '.';
         }
     }
 
     /**
      * @return string
+     *
      * @since 2.0
      */
     public function getPrefix()
@@ -259,7 +266,6 @@ class PropertyTask extends Task
      * Note also that properties are case sensitive, even if the
      * environment variables on your operating system are not, e.g. it
      * will be ${env.Path} not ${env.PATH} on Windows 2000.
-     *
      */
     public function setEnvironment(string $env): void
     {
@@ -276,8 +282,6 @@ class PropertyTask extends Task
      * This is deprecated in Ant 1.5, but the userProperty attribute
      * of the class is still being set via constructor, so Phing will
      * allow this method to function.
-     *
-     * @param bool $v
      */
     public function setUserProperty(bool $v): void
     {
@@ -303,14 +307,6 @@ class PropertyTask extends Task
     public function getOverride()
     {
         return $this->override;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->value;
     }
 
     /**
@@ -357,25 +353,25 @@ class PropertyTask extends Task
     /**
      * set the property in the project to the value.
      * if the task was give a file or env attribute
-     * here is where it is loaded
+     * here is where it is loaded.
      */
     public function main()
     {
         $this->validate();
 
-        if ($this->name !== null && $this->value !== null) {
+        if (null !== $this->name && null !== $this->value) {
             $this->addProperty($this->name, $this->value);
         }
 
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             $this->loadFile($this->file);
         }
 
-        if ($this->env !== null) {
+        if (null !== $this->env) {
             $this->loadEnvironment($this->env);
         }
 
-        if ($this->name !== null && $this->reference !== null) {
+        if (null !== $this->name && null !== $this->reference) {
             // get the refereced property
             try {
                 $referencedObject = $this->reference->getReferencedObject($this->project);
@@ -388,7 +384,7 @@ class PropertyTask extends Task
 
                 $this->addProperty($this->name, $reference);
             } catch (BuildException $be) {
-                if ($this->fallback !== null) {
+                if (null !== $this->fallback) {
                     $referencedObject = $this->reference->getReferencedObject($this->fallback);
 
                     if ($referencedObject instanceof Exception) {
@@ -405,41 +401,17 @@ class PropertyTask extends Task
     }
 
     /**
-     * @throws BuildException
-     */
-    private function validate(): void
-    {
-        if ($this->name !== null) {
-            if ($this->value === null && $this->reference === null) {
-                throw new BuildException(
-                    "You must specify value or refid with the name attribute",
-                    $this->getLocation()
-                );
-            }
-        } elseif ($this->file === null && $this->env === null) {
-            throw new BuildException(
-                "You must specify file or environment when not using the name attribute",
-                $this->getLocation()
-            );
-        }
-
-        if ($this->file === null && $this->prefix !== null) {
-            throw new BuildException('Prefix is only valid when loading from a file.', $this->getLocation());
-        }
-    }
-
-    /**
-     * load the environment values
+     * load the environment values.
      *
      * @param string $prefix prefix to place before them
      */
     protected function loadEnvironment(string $prefix)
     {
         $props = new Properties();
-        if (substr($prefix, strlen($prefix) - 1) === '.') {
-            $prefix .= ".";
+        if ('.' === substr($prefix, strlen($prefix) - 1)) {
+            $prefix .= '.';
         }
-        $this->log("Loading Environment $prefix", Project::MSG_VERBOSE);
+        $this->log("Loading Environment {$prefix}", Project::MSG_VERBOSE);
         foreach ($_ENV as $key => $value) {
             $props->setProperty($prefix . '.' . $key, $value);
         }
@@ -448,9 +420,10 @@ class PropertyTask extends Task
 
     /**
      * iterate through a set of properties,
-     * resolve them then assign them
+     * resolve them then assign them.
      *
      * @param Properties $props
+     *
      * @throws BuildException
      */
     protected function addProperties($props)
@@ -459,7 +432,7 @@ class PropertyTask extends Task
         foreach ($props->keys() as $name) {
             $value = $props->getProperty($name);
             $v = $this->project->replaceProperties($value);
-            if ($this->prefix !== null) {
+            if (null !== $this->prefix) {
                 $name = $this->prefix . $name;
             }
             $this->addProperty($name, $v);
@@ -467,21 +440,21 @@ class PropertyTask extends Task
     }
 
     /**
-     * add a name value pair to the project property set
+     * add a name value pair to the project property set.
      *
-     * @param string $name name of property
+     * @param string $name  name of property
      * @param string $value value to set
      */
     protected function addProperty($name, $value)
     {
-        if ($this->file === null && count($this->filterChains) > 0) {
+        if (null === $this->file && count($this->filterChains) > 0) {
             $in = FileUtils::getChainedReader(new StringReader($value), $this->filterChains, $this->project);
             $value = $in->read();
         }
 
         $ph = PropertyHelper::getPropertyHelper($this->getProject());
         if ($this->userProperty) {
-            if ($ph->getUserProperty(null, $name) === null || $this->override) {
+            if (null === $ph->getUserProperty(null, $name) || $this->override) {
                 $ph->setInheritedProperty(null, $name, $value);
             } else {
                 $this->log('Override ignored for ' . $name, Project::MSG_VERBOSE);
@@ -504,7 +477,8 @@ class PropertyTask extends Task
     {
         $fileParser = $this->fileParserFactory->createParser($file->getFileExtension());
         $props = new Properties(null, $fileParser);
-        $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
+        $this->log('Loading ' . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
+
         try { // try to load file
             if ($file->exists()) {
                 $value = null;
@@ -523,16 +497,16 @@ class PropertyTask extends Task
                 $this->addProperties($props);
             } else {
                 if ($this->required) {
-                    throw new BuildException("Unable to find property file: " . $file->getAbsolutePath());
+                    throw new BuildException('Unable to find property file: ' . $file->getAbsolutePath());
                 }
 
                 $this->log(
-                    "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
+                    'Unable to find property file: ' . $file->getAbsolutePath() . '... skipped',
                     $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN
                 );
             }
         } catch (IOException $ioe) {
-            throw new BuildException("Could not load properties from file.", $ioe);
+            throw new BuildException('Could not load properties from file.', $ioe);
         }
     }
 
@@ -540,7 +514,8 @@ class PropertyTask extends Task
      * Given a Properties object, this method goes through and resolves
      * any references to properties within the object.
      *
-     * @param  Properties $props The collection of Properties that need to be resolved.
+     * @param Properties $props the collection of Properties that need to be resolved
+     *
      * @throws BuildException
      */
     protected function resolveAllProperties(Properties $props)
@@ -567,17 +542,18 @@ class PropertyTask extends Task
                 );
 
                 $resolved = true;
-                if (count($propertyRefs) === 0) {
+                if (0 === count($propertyRefs)) {
                     continue;
                 }
 
-                $sb = "";
+                $sb = '';
 
                 $j = $propertyRefs;
 
                 foreach ($fragments as $fragment) {
-                    if ($fragment !== null) {
+                    if (null !== $fragment) {
                         $sb .= $fragment;
+
                         continue;
                     }
 
@@ -585,32 +561,57 @@ class PropertyTask extends Task
                     if (in_array($propertyName, $resolveStack)) {
                         // Should we maybe just log this as an error & move on?
                         // $this->log("Property ".$name." was circularly defined.", Project::MSG_ERR);
-                        throw new BuildException("Property " . $propertyName . " was circularly defined.");
+                        throw new BuildException('Property ' . $propertyName . ' was circularly defined.');
                     }
 
                     $fragment = $this->getProject()->getProperty($propertyName);
-                    if ($fragment !== null) {
+                    if (null !== $fragment) {
                         $sb .= $fragment;
+
                         continue;
                     }
 
                     if ($props->containsKey($propertyName)) {
                         $fragment = $props->getProperty($propertyName);
-                        if (strpos($fragment, '${') !== false) {
+                        if (false !== strpos($fragment, '${')) {
                             $resolveStack[] = $propertyName;
                             $resolved = false; // parse again (could have been replaced w/ another var)
                         }
                     } else {
-                        $fragment = "\${" . $propertyName . "}";
+                        $fragment = '${' . $propertyName . '}';
                     }
 
                     $sb .= $fragment;
                 }
 
-                $this->log("Resolved Property \"$value\" to \"$sb\"", Project::MSG_DEBUG);
+                $this->log("Resolved Property \"{$value}\" to \"{$sb}\"", Project::MSG_DEBUG);
                 $value = $sb;
                 $props->setProperty($name, $value);
             } // while (!$resolved)
         } // while (count($keys)
+    }
+
+    /**
+     * @throws BuildException
+     */
+    private function validate(): void
+    {
+        if (null !== $this->name) {
+            if (null === $this->value && null === $this->reference) {
+                throw new BuildException(
+                    'You must specify value or refid with the name attribute',
+                    $this->getLocation()
+                );
+            }
+        } elseif (null === $this->file && null === $this->env) {
+            throw new BuildException(
+                'You must specify file or environment when not using the name attribute',
+                $this->getLocation()
+            );
+        }
+
+        if (null === $this->file && null !== $this->prefix) {
+            throw new BuildException('Prefix is only valid when loading from a file.', $this->getLocation());
+        }
     }
 }

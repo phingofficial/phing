@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,10 +23,10 @@ namespace Phing\Task\System;
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Filter\ReplaceRegexp;
+use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\FileUtils;
 use Phing\Io\FileWriter;
-use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
@@ -46,8 +47,7 @@ use Phing\Type\RegularExpression;
  *
  * @author Jonathan Bond-Caron <jbondc@openmv.com>
  *
- *
- * @link http://ant.apache.org/manual/OptionalTasks/replaceregexp.html
+ * @see http://ant.apache.org/manual/OptionalTasks/replaceregexp.html
  */
 class ReplaceRegexpTask extends Task
 {
@@ -59,16 +59,14 @@ class ReplaceRegexpTask extends Task
     private $file;
 
     /**
-     * Regular expression
+     * Regular expression.
      *
      * @var RegularExpression
      */
     private $regexp;
 
     /**
-     * File to apply regexp on
-     *
-     *
+     * File to apply regexp on.
      */
     public function setFile(File $path)
     {
@@ -76,10 +74,9 @@ class ReplaceRegexpTask extends Task
     }
 
     /**
-     * Sets the regexp match pattern
+     * Sets the regexp match pattern.
      *
      * @param string $regexp
-     *
      */
     public function setMatch($regexp)
     {
@@ -97,10 +94,9 @@ class ReplaceRegexpTask extends Task
     }
 
     /**
-     * Sets the replacement string
+     * Sets the replacement string.
      *
      * @param string $string
-     *
      */
     public function setReplace($string)
     {
@@ -108,20 +104,18 @@ class ReplaceRegexpTask extends Task
     }
 
     /**
-     * Sets the regexp flags
+     * Sets the regexp flags.
      *
      * @param string $flags
-     *
      */
     public function setFlags($flags)
     {
     }
 
     /**
-     * Match only per line
+     * Match only per line.
      *
      * @param bool $yesNo
-     *
      */
     public function setByline($yesNo)
     {
@@ -130,7 +124,6 @@ class ReplaceRegexpTask extends Task
 
     /**
      * {@inheritdoc}
-     *
      */
     public function init()
     {
@@ -140,20 +133,19 @@ class ReplaceRegexpTask extends Task
     /**
      * {@inheritdoc}
      *
-     *
      * @throws BuildException
      */
     public function main()
     {
-        if ($this->file === null && empty($this->filesets)) {
-            throw new BuildException("You must specify a file or fileset(s) for the <ReplaceRegexp> task.");
+        if (null === $this->file && empty($this->filesets)) {
+            throw new BuildException('You must specify a file or fileset(s) for the <ReplaceRegexp> task.');
         }
 
         // compile a list of all files to modify, both file attrib and fileset elements
         // can be used.
         $files = [];
 
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             $files[] = $this->file;
         }
 
@@ -173,11 +165,11 @@ class ReplaceRegexpTask extends Task
             }
         }
 
-        $this->log("Applying Regexp processing to " . count($files) . " files.");
+        $this->log('Applying Regexp processing to ' . count($files) . ' files.');
 
         // These "slots" allow filters to retrieve information about the currently-being-process files
-        $slot = $this->getRegisterSlot("currentFile");
-        $basenameSlot = $this->getRegisterSlot("currentFile.basename");
+        $slot = $this->getRegisterSlot('currentFile');
+        $basenameSlot = $this->getRegisterSlot('currentFile.basename');
 
         $filter = new FilterChain($this->project);
 
@@ -196,7 +188,7 @@ class ReplaceRegexpTask extends Task
             // 1) read contents of file, pulling through any filters
             $in = null;
             $out = null;
-            $contents = "";
+            $contents = '';
 
             try {
                 $in = FileUtils::getChainedReader(new FileReader($file), $filters, $this->project);
@@ -208,7 +200,7 @@ class ReplaceRegexpTask extends Task
                 if ($in) {
                     $in->close();
                 }
-                $this->log("Error reading file: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error reading file: ' . $e->getMessage(), Project::MSG_WARN);
             }
 
             try {
@@ -216,12 +208,12 @@ class ReplaceRegexpTask extends Task
                 $out = new FileWriter($file);
                 $out->write($contents);
                 $out->close();
-                $this->log("Applying regexp processing to " . $file->getPath(), Project::MSG_VERBOSE);
+                $this->log('Applying regexp processing to ' . $file->getPath(), Project::MSG_VERBOSE);
             } catch (Exception $e) {
                 if ($out) {
                     $out->close();
                 }
-                $this->log("Error writing file back: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error writing file back: ' . $e->getMessage(), Project::MSG_WARN);
             }
         }
     }

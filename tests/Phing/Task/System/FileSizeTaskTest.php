@@ -1,12 +1,12 @@
 <?php
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Phing\Project;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests FileSizeTask
+ * Tests FileSizeTask.
  *
  * @author  Jawira Portugal <dev@tugal.be>
  * @license LGPL
@@ -42,6 +42,12 @@ class FileSizeTaskTest extends BuildFileTest
 
     /**
      * @dataProvider unitAttributeProvider
+     *
+     * @param mixed $dummySize
+     * @param mixed $filesizeUnit
+     * @param mixed $logVerbose
+     * @param mixed $logInfo
+     * @param mixed $expectedSize
      */
     public function testUnitAttribute($dummySize, $filesizeUnit, $logVerbose, $logInfo, $expectedSize)
     {
@@ -53,7 +59,7 @@ class FileSizeTaskTest extends BuildFileTest
         $this->assertPropertyEquals('filesize', $expectedSize);
     }
 
-    public function unitAttributeProvider()
+    public function unitAttributeProvider(): array
     {
         return [
             ['1K', 'b', '1024B', '1024B', 1024],

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,16 +18,19 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Util;
+namespace Phing\Test\Util;
+
+use Phing\Util\RegisterSlot;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Unit test for RegisterSlot
+ * Unit test for RegisterSlot.
  *
  * @author Michiel Rook <mrook@php.net>
  */
-class RegisterSlotTest extends \PHPUnit\Framework\TestCase
+class RegisterSlotTest extends TestCase
 {
-    private $slot = null;
+    private $slot;
 
     public function setUp(): void
     {
@@ -42,20 +46,20 @@ class RegisterSlotTest extends \PHPUnit\Framework\TestCase
     {
         $this->slot->setValue('test123');
 
-        $this->assertEquals((string) $this->slot, 'test123');
+        $this->assertEquals('test123', (string) $this->slot);
     }
 
     public function testArrayToString()
     {
         $this->slot->setValue(['test1', 'test2', 'test3']);
 
-        $this->assertEquals((string) $this->slot, '{test1,test2,test3}');
+        $this->assertEquals('{test1,test2,test3}', (string) $this->slot);
     }
 
     public function testMultiArrayToString()
     {
         $this->slot->setValue(['test1', 'test2', ['test4', 'test5', ['test6', 'test7']], 'test3']);
 
-        $this->assertEquals((string) $this->slot, '{test1,test2,{test4,test5,{test6,test7}},test3}');
+        $this->assertEquals('{test1,test2,{test4,test5,{test6,test7}},test3}', (string) $this->slot);
     }
 }

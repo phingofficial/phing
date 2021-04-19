@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,6 +20,7 @@
 
 namespace Phing\Util;
 
+use Phing\Phing;
 use SplStack;
 
 /**
@@ -37,11 +39,11 @@ class StatisticsReport
     private static $IDX_PERCENTAGE = 4;
 
     private static $HEADERS = [
-        "name",
-        "count",
-        "average",
-        "total",
-        "%",
+        'name',
+        'count',
+        'average',
+        'total',
+        '%',
     ];
 
     private static $TIME_FORMATTER;
@@ -64,7 +66,7 @@ class StatisticsReport
 
         $totalTimes = [];
         $runningTotalTime = 0;
-        for ($i = 1; $i < $table->rows(); $i++) {
+        for ($i = 1; $i < $table->rows(); ++$i) {
             $series = $seriesMap->get($keys[$i - 1]);
             $table->put($i, self::$IDX_NAME, $keys[$i - 1]);
             $table->put($i, self::$IDX_COUNT, $series->size());
@@ -79,10 +81,37 @@ class StatisticsReport
         return $this->toString($title, $table);
     }
 
+    public function push(ProjectTimer $projectTimer)
+    {
+        $this->stack->push($projectTimer);
+    }
+
+    public function write(ProjectTimer $projectTimer = null)
+    {
+        if (null !== $projectTimer) {
+            $this->create('Target Statistics', $projectTimer->toTargetSeriesMap());
+            $this->create('Task Statistics', $projectTimer->toTaskSeriesMap());
+        } else {
+            $projectSeriesMap = new SeriesMap();
+            $sb = '';
+            while (!$this->stack->isEmpty()) {
+                $projectTimer = $this->stack->pop();
+                $projectSeriesMap->put($projectTimer->getName(), $projectTimer->getSeries());
+                $sb .= $this->createTargetStatistics($projectTimer);
+                $sb .= PHP_EOL;
+                $sb .= $this->createTaskStatistics($projectTimer);
+                $sb .= PHP_EOL;
+            }
+            Phing::log(PHP_EOL);
+            Phing::log($this->create('Project Statistics', $projectSeriesMap));
+            Phing::log(PHP_EOL . $sb);
+        }
+    }
+
     private function updateTableWithPercentagesOfTotalTime(Table $table, array $totalTimes, $runningTotalTime)
     {
         $total = count($totalTimes);
-        for ($i = 0; $i < $total; $i++) {
+        for ($i = 0; $i < $total; ++$i) {
             $totalTime = $totalTimes[$i];
             $round = round(100 * (float) $totalTime / $runningTotalTime);
             $table->put($i + 1, self::$IDX_PERCENTAGE, (string) $round);
@@ -97,8 +126,8 @@ class StatisticsReport
         $sb .= self::$FORMATTER->center($title, $titleBarLength);
         $sb .= PHP_EOL . PHP_EOL;
 
-        for ($i = 0; $i < $table->rows(); $i++) {
-            for ($j = 0; $j < $table->columns(); $j++) {
+        for ($i = 0; $i < $table->rows(); ++$i) {
+            for ($j = 0; $j < $table->columns(); ++$j) {
                 $sb .= self::$FORMATTER->left($table->get($i, $j), $maxLengths[$j]);
             }
             $sb .= PHP_EOL;
@@ -106,14 +135,16 @@ class StatisticsReport
         }
 
         $sb .= PHP_EOL;
+
         return $sb;
     }
 
     private function createTitleBarIfFirstRow($titleBarLength, $i)
     {
-        if ($i !== 0) {
+        if (0 !== $i) {
             return '';
         }
+
         return self::$FORMATTER->toChars('-', $titleBarLength) . PHP_EOL;
     }
 
@@ -121,46 +152,20 @@ class StatisticsReport
     {
         $fixedLength = 0;
         $total = count($maxLengths);
-        for ($i = 0; $i < $total; $i++) {
+        for ($i = 0; $i < $total; ++$i) {
             $fixedLength += $maxLengths[$i] + 4;
         }
+
         return $fixedLength;
-    }
-
-    public function push(ProjectTimer $projectTimer)
-    {
-        $this->stack->push($projectTimer);
-    }
-
-    public function write(ProjectTimer $projectTimer = null)
-    {
-        if ($projectTimer !== null) {
-            $this->create("Target Statistics", $projectTimer->toTargetSeriesMap());
-            $this->create("Task Statistics", $projectTimer->toTaskSeriesMap());
-        } else {
-            $projectSeriesMap = new SeriesMap();
-            $sb = '';
-            while (!$this->stack->isEmpty()) {
-                $projectTimer = $this->stack->pop();
-                $projectSeriesMap->put($projectTimer->getName(), $projectTimer->getSeries());
-                $sb .= $this->createTargetStatistics($projectTimer);
-                $sb .= PHP_EOL;
-                $sb .= $this->createTaskStatistics($projectTimer);
-                $sb .= PHP_EOL;
-            }
-            print(PHP_EOL);
-            print($this->create("Project Statistics", $projectSeriesMap));
-            print(PHP_EOL . $sb);
-        }
     }
 
     private function createTaskStatistics(ProjectTimer $projectTimer)
     {
-        return $this->create("Task Statistics - " . $projectTimer->getName(), $projectTimer->toTaskSeriesMap());
+        return $this->create('Task Statistics - ' . $projectTimer->getName(), $projectTimer->toTaskSeriesMap());
     }
 
     private function createTargetStatistics(ProjectTimer $projectTimer)
     {
-        return $this->create("Target Statistics - " . $projectTimer->getName(), $projectTimer->toTargetSeriesMap());
+        return $this->create('Target Statistics - ' . $projectTimer->getName(), $projectTimer->toTargetSeriesMap());
     }
 }

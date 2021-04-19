@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +31,7 @@ use Phing\Exception\BuildException;
 class MergeMapper implements FileNameMapper
 {
     /**
-     * the merge
+     * the merge.
      */
     private $mergedFile;
 
@@ -38,23 +39,28 @@ class MergeMapper implements FileNameMapper
      * The mapper implementation. Basically does nothing in this case.
      *
      * @param mixed $sourceFileName The data the mapper works on
-     * @return mixed The data after the mapper has been applied
+     *
      * @throws BuildException
+     *
+     * @return mixed The data after the mapper has been applied
+     *
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function main($sourceFileName)
     {
-        if ($this->mergedFile === null) {
-            throw new BuildException("MergeMapper error, to attribute not set");
+        if (null === $this->mergedFile) {
+            throw new BuildException('MergeMapper error, to attribute not set');
         }
 
         return [$this->mergedFile];
     }
 
     /**
-     * Accessor. Sets the to property
+     * Accessor. Sets the to property.
      *
      * @param string     To what this mapper should convert the from string
+     * @param mixed $to
+     *
      * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function setTo($to)

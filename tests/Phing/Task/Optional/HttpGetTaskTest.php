@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +18,10 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
-use Phing\Task\Optional\BaseHttpTaskTest;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\RedirectMiddleware;
 use Phing\Exception\BuildException;
 
 /**
@@ -30,10 +31,10 @@ class HttpGetTaskTest extends BaseHttpTaskTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/http/httpget.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/http/httpget.xml');
     }
 
-    public function testMissingDir()
+    public function testMissingDir(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Required attribute \'dir\' is missing');
@@ -41,7 +42,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->executeTarget('missingDir');
     }
 
-    public function testError404()
+    public function testError404(): void
     {
         $this->createMockHandler([new Response(404, [], 'The file you seek is not here')]);
 
@@ -51,14 +52,20 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->executeTarget('error404');
     }
 
-    public function testFileNamingOptions()
+    public function testFileNamingOptions(): void
     {
         $this->executeTarget('mkdir');
 
         $this->createMockHandler(
             [
                 new Response(200, [], 'This file is named explicitly'),
-                new Response(200, ['Content-Disposition' => 'attachment; filename="disposition.txt"'], 'This file is named according to Content-Disposition header'),
+                new Response(
+                    200,
+                    [
+                        'Content-Disposition' => 'attachment; filename="disposition.txt"'
+                    ],
+                    'This file is named according to Content-Disposition header'
+                ),
                 new Response(200, [], 'This file is named according to an URL part'),
             ]
         );
@@ -74,19 +81,20 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         );
         $this->assertStringEqualsFile(
             PHING_TEST_BASE . '/tmp/httpget/foo.bar',
-            "This file is named according to an URL part"
+            'This file is named according to an URL part'
         );
 
         $this->executeTarget('rmdir');
     }
 
-    public function testExplicitConfiguration()
+    public function testExplicitConfiguration(): void
     {
         $this->createMockHandler([new Response(404, [], '')]);
 
         try {
             $this->executeTarget('configuration');
         } catch (BuildException $e) {
+            // ignore 404 Not Found response
         }
 
         $options = [
@@ -97,16 +105,17 @@ class HttpGetTaskTest extends BaseHttpTaskTest
 
         $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
         $this->assertEquals($options['verify'], $this->traces[0]['options']['verify']);
-        $this->assertEquals(\GuzzleHttp\RedirectMiddleware::$defaultSettings, $this->traces[0]['options']['allow_redirects']);
+        $this->assertEquals(RedirectMiddleware::$defaultSettings, $this->traces[0]['options']['allow_redirects']);
     }
 
-    public function testAuthentication()
+    public function testAuthentication(): void
     {
         $this->createMockHandler([new Response(404, [], '')]);
 
         try {
             $this->executeTarget('authentication');
         } catch (BuildException $e) {
+            // ignore 404 Not Found response
         }
 
         $this->assertEquals(
@@ -115,26 +124,28 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         );
     }
 
-    public function testConfigAndHeaderTags()
+    public function testConfigAndHeaderTags(): void
     {
         $this->createMockHandler([new Response(404, [], '')]);
 
         try {
             $this->executeTarget('nested-tags');
         } catch (BuildException $e) {
+            // ignore 404 Not Found response
         }
 
         $this->assertEquals(15, $this->traces[0]['options']['timeout']);
         $this->assertEquals('Phing HttpGetTask', $this->traces[0]['request']->getHeader('user-agent')[0]);
     }
 
-    public function testConfigurationViaProperties()
+    public function testConfigurationViaProperties(): void
     {
         $this->createMockHandler([new Response(404, [], '')]);
 
         try {
             $this->executeTarget('config-properties');
         } catch (BuildException $e) {
+            // ignore 404 Not Found response
         }
 
         $options = [
@@ -153,6 +164,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         try {
             $this->executeTarget('config-properties-empty');
         } catch (BuildException $e) {
+            // ignore 404 Not Found response
         }
 
         $options = [

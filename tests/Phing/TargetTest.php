@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,14 +18,17 @@
  * <http://phing.info>.
  */
 
-namespace Phing;
+namespace Phing\Test;
 
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
+use Phing\RuntimeConfigurable;
+use Phing\Target;
+use Phing\Task;
 use Phing\Task\System\EchoTask;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * UTs for Target component
+ * UTs for Target component.
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @author Daniel Holmes
@@ -38,7 +42,7 @@ class TargetTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/components/Target/Target.xml"
+            . '/etc/components/Target/Target.xml'
         );
 
         $this->target = new Target();
@@ -55,21 +59,23 @@ class TargetTest extends BuildFileTest
         $out = implode("\n", $out);
         $offset = strpos($out, 'Subtargets:');
         $this->assertFalse(strpos($out, 'HideInListTarget', $offset));
-        $this->assertTrue(strpos($out, 'ShowInListTarget', $offset) !== false);
+        $this->assertTrue(false !== strpos($out, 'ShowInListTarget', $offset));
     }
 
     /**
      * @dataProvider setDependsValidDataProvider
+     *
+     * @param array $expectedDepends
      * @param string $depends
      */
-    public function testSetDependsValid(array $expectedDepends, $depends)
+    public function testSetDependsValid(array $expectedDepends, string $depends)
     {
         $this->target->setDepends($depends);
 
         $this->assertEquals($expectedDepends, $this->target->getDependencies());
     }
 
-    public function setDependsValidDataProvider()
+    public function setDependsValidDataProvider(): array
     {
         return [
             [['target1'], 'target1'],
@@ -79,9 +85,10 @@ class TargetTest extends BuildFileTest
 
     /**
      * @dataProvider setDependsInvalidDataProvider
+     *
      * @param string $depends
      */
-    public function testSetDependsInvalid($depends)
+    public function testSetDependsInvalid(string $depends)
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Syntax Error: Depend attribute for target MyTarget is malformed.');
@@ -89,7 +96,7 @@ class TargetTest extends BuildFileTest
         $this->target->setDepends($depends);
     }
 
-    public function setDependsInvalidDataProvider()
+    public function setDependsInvalidDataProvider(): array
     {
         return [
             [''],
@@ -124,7 +131,8 @@ class TargetTest extends BuildFileTest
     {
         $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
         $configurable->expects($this->once())->method('maybeConfigure')->with($this->project);
         $this->target->addDataType($configurable);
 
@@ -138,7 +146,8 @@ class TargetTest extends BuildFileTest
 
         $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
         $configurable->expects($this->never())->method('maybeConfigure');
         $this->target->addDataType($configurable);
 
@@ -152,7 +161,8 @@ class TargetTest extends BuildFileTest
 
         $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
         $configurable->expects($this->never())->method('maybeConfigure');
         $this->target->addDataType($configurable);
 

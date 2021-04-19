@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Delete Task
+ * Tests the Delete Task.
  *
  * @author  Michiel Rook <mrook@php.net>
  */
@@ -32,14 +33,14 @@ class DeleteTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/DeleteTaskTest.xml"
+            . '/etc/tasks/system/DeleteTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     /**
@@ -47,8 +48,8 @@ class DeleteTaskTest extends BuildFileTest
      */
     public function testCopyDanglingSymlink()
     {
-        $this->executeTarget("testDeleteDanglingSymlink");
-        $this->assertInLogs("Deleting 1 files from");
+        $this->executeTarget('testDeleteDanglingSymlink');
+        $this->assertInLogs('Deleting 1 files from');
     }
 
     public function testDeleteNonExistingDirectory()

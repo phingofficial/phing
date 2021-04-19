@@ -1,6 +1,6 @@
 <?php
 
-namespace Phing\Support;
+namespace Phing\Test\Support;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -28,7 +28,7 @@ class Proxy
         $this->text = $text;
     }
 
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }

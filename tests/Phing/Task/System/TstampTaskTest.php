@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,13 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Task\System\TstampTask;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Tstamp Task
+ * Tests the Tstamp Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */

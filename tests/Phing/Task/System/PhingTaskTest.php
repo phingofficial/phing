@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,14 +18,15 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use AssertionError;
 use Phing\Io\File;
 use Phing\Listener\BuildEvent;
 use Phing\Listener\BuildListener;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 use Phing\Type\Path;
+use Throwable;
 
 /**
  * Testcase for the Phing task/condition.
@@ -83,81 +85,14 @@ class PhingTaskTest extends BuildFileTest
     public function testExplicitBasedir1(): void
     {
         $dir1 = $this->getProject()->getBaseDir();
-        $dir2 = $this->getProject()->resolveFile("..");
+        $dir2 = $this->getProject()->resolveFile('..');
         $this->baseDirs('explicitBasedir1', [$dir1->getAbsolutePath(), $dir2->getAbsolutePath()]);
-    }
-
-    private function baseDirs(string $target, array $dirs): void
-    {
-        $bc = new class($dirs) implements BuildListener {
-            private $expectedBasedirs;
-            private $calls = 0;
-            private $error;
-
-            public function __construct(array $dirs)
-            {
-                $this->expectedBasedirs = $dirs;
-            }
-
-            public function buildStarted(BuildEvent $event)
-            {
-            }
-
-            public function buildFinished(BuildEvent $event)
-            {
-            }
-
-            public function targetFinished(BuildEvent $event)
-            {
-            }
-
-            public function taskStarted(BuildEvent $event)
-            {
-            }
-
-            public function taskFinished(BuildEvent $event)
-            {
-            }
-
-            public function messageLogged(BuildEvent $event)
-            {
-            }
-
-            public function targetStarted(BuildEvent $event)
-            {
-                if ($event->getTarget()->getName() === '') {
-                    return;
-                }
-                if ($this->error === null) {
-                    try {
-                        BuildFileTest::assertEquals(
-                            $this->expectedBasedirs[$this->calls++],
-                            $event->getProject()->getBaseDir()->getAbsolutePath()
-                        );
-                    } catch (AssertionError $e) {
-                        $this->error = $e;
-                    }
-                }
-            }
-
-            public function getError()
-            {
-                return $this->error;
-            }
-        };
-        $this->getProject()->addBuildListener($bc);
-        $this->executeTarget($target);
-        $ae = $bc->getError();
-        if ($ae !== null) {
-            throw $ae;
-        }
-        $this->getProject()->removeBuildListener($bc);
     }
 
     public function testExplicitBasedir2(): void
     {
         $dir1 = $this->getProject()->getBaseDir();
-        $dir2 = $this->getProject()->resolveFile("..");
+        $dir2 = $this->getProject()->resolveFile('..');
         $this->baseDirs('explicitBasedir2', [$dir1->getAbsolutePath(), $dir2->getAbsolutePath()]);
     }
 
@@ -177,7 +112,7 @@ class PhingTaskTest extends BuildFileTest
     public function testBasedirTripleCall(): void
     {
         $dir1 = $this->getProject()->getBaseDir();
-        $dir2 = $this->getProject()->resolveFile("phing");
+        $dir2 = $this->getProject()->resolveFile('phing');
         $this->baseDirs('tripleCall', [$dir1->getAbsolutePath(), $dir2->getAbsolutePath(), $dir1->getAbsolutePath()]);
     }
 
@@ -191,9 +126,90 @@ class PhingTaskTest extends BuildFileTest
         $this->reference('testInherit', ['no-override', 'no-override'], [false, false], null);
     }
 
+    public function testReferenceNoInheritance(): void
+    {
+        $p = new Path($this->getProject(), 'test-path');
+        $this->getProject()->addReference('path', $p);
+        $this->getProject()->addReference('no-override', $p);
+        $this->reference('testNoInherit', ['path', 'path'], [true, false], $p);
+        $this->reference('testNoInherit', ['path', 'path'], [false, true], null);
+        $this->reference('testInherit', ['no-override', 'no-override'], [true, false], $p);
+        $this->reference('testInherit', ['no-override', 'no-override'], [false, false], null);
+    }
+
+    public function testInheritPath(): void
+    {
+        $this->expectNotToPerformAssertions();
+        $this->getProject()->executeTarget('testInheritPath');
+    }
+
+    public function testLogfilePlacement(): void
+    {
+        /** @var File[] $logFiles */
+        $logFiles = [
+            $this->getProject()->resolveFile('test1.log'),
+            $this->getProject()->resolveFile('test2.log'),
+            $this->getProject()->resolveFile('phing/test3.log'),
+            $this->getProject()->resolveFile('phing/test4.log'),
+        ];
+
+        foreach ($logFiles as $file) {
+            $this->assertFalse($file->exists(), $file->getName() . " doesn't exist");
+        }
+
+        $this->getProject()->executeTarget(__FUNCTION__);
+
+        foreach ($logFiles as $file) {
+            $this->assertTrue($file->exists(), $file->getName() . ' exist');
+        }
+    }
+
+    public function testUserPropertyWinsInheritAll(): void
+    {
+        $this->getProject()->setUserProperty('test', '7');
+        $this->getProject()->executeTarget('test-property-override-inheritall-start');
+        $this->assertInLogs('The value of test is 7');
+    }
+
+    public function testUserPropertyWinsNoInheritAll()
+    {
+        $this->getProject()->setUserProperty('test', '7');
+        $this->getProject()->executeTarget('test-property-override-no-inheritall-start');
+        $this->assertInLogs('The value of test is 7');
+    }
+
+    public function testOverrideWinsInheritAll()
+    {
+        $this->expectLogContaining('test-property-override-inheritall-start', 'The value of test is 4');
+    }
+
+    public function testOverrideWinsNoInheritAll()
+    {
+        $this->expectLogContaining('test-property-override-no-inheritall-start', 'The value of test is 4');
+    }
+
+    /**
+     * Fail due to infinite recursion loop.
+     */
+    public function testInfiniteLoopViaDepends(): void
+    {
+        $this->markTestSkipped('infinite loop could occure');
+//        $this->expectBuildException('infinite-loop-via-depends', 'infinite loop');
+    }
+
+    public function testMultiSameProperty(): void
+    {
+        $this->expectLogContaining('multi-same-property', 'prop is two');
+    }
+
+    public function testTopLevelTarget(): void
+    {
+        $this->expectLogContaining('topleveltarget', 'Hello world');
+    }
+
     protected function reference(string $target, array $keys, array $expect, $value): void
     {
-        $rc = new class($keys, $expect, $value) implements BuildListener {
+        $rc = new class ($keys, $expect, $value) implements BuildListener {
             private $keys;
             private $expectSame;
             private $value;
@@ -233,13 +249,13 @@ class PhingTaskTest extends BuildFileTest
 
             public function targetStarted(BuildEvent $event)
             {
-                if ($event->getTarget()->getName() === '') {
+                if ('' === $event->getTarget()->getName()) {
                     return;
                 }
-                if ($this->error === null) {
+                if (null === $this->error) {
                     try {
-                        $msg = "Call " . $this->calls . " refid=\'" . $this->keys[$this->calls] . "\'";
-                        if ($this->value === null) {
+                        $msg = 'Call ' . $this->calls . " refid=\\'" . $this->keys[$this->calls] . "\\'";
+                        if (null === $this->value) {
                             $o = $event->getProject()->getReference($this->keys[$this->calls]);
                             if ($this->expectSame[$this->calls++]) {
                                 PhingTaskTest::assertNull($o, $msg);
@@ -252,13 +268,13 @@ class PhingTaskTest extends BuildFileTest
                             $expect = $this->value;
                             $received = $event->getProject()->getReference($this->keys[$this->calls]);
                             $shouldBeEqual = $this->expectSame[$this->calls++];
-                            if ($received === null) {
+                            if (null === $received) {
                                 PhingTaskTest::assertFalse($shouldBeEqual, $msg);
                             } else {
                                 $l1 = $expect->listPaths();
                                 $l2 = $received->listPaths();
                                 if (count($l1) === count($l2)) {
-                                    for ($i = 0, $iMax = count($l1); $i < $iMax; $i++) {
+                                    for ($i = 0, $iMax = count($l1); $i < $iMax; ++$i) {
                                         if ($l1[$i] !== $l2[$i]) {
                                             PhingTaskTest::assertFalse($shouldBeEqual, $msg);
                                         }
@@ -269,7 +285,7 @@ class PhingTaskTest extends BuildFileTest
                                 }
                             }
                         }
-                    } catch (\Throwable $e) {
+                    } catch (Throwable $e) {
                         $this->error = $e;
                     }
                 }
@@ -283,90 +299,76 @@ class PhingTaskTest extends BuildFileTest
         $this->getProject()->addBuildListener($rc);
         $this->getProject()->executeTarget($target);
         $ae = $rc->getError();
-        if ($ae !== null) {
+        if (null !== $ae) {
             throw $ae;
         }
         $this->getProject()->removeBuildListener($rc);
     }
 
-    public function testReferenceNoInheritance(): void
+    private function baseDirs(string $target, array $dirs): void
     {
-        $p = new Path($this->getProject(), 'test-path');
-        $this->getProject()->addReference("path", $p);
-        $this->getProject()->addReference("no-override", $p);
-        $this->reference("testNoInherit", ["path", "path"], [true, false], $p);
-        $this->reference("testNoInherit", ["path", "path"], [false, true], null);
-        $this->reference("testInherit", ["no-override", "no-override"], [true, false], $p);
-        $this->reference("testInherit", ["no-override", "no-override"], [false, false], null);
-    }
+        $bc = new class ($dirs) implements BuildListener {
+            private $expectedBasedirs;
+            private $calls = 0;
+            private $error;
 
-    public function testInheritPath(): void
-    {
-        $this->expectNotToPerformAssertions();
-        $this->getProject()->executeTarget('testInheritPath');
-    }
+            public function __construct(array $dirs)
+            {
+                $this->expectedBasedirs = $dirs;
+            }
 
-    public function testLogfilePlacement(): void
-    {
-        /** @var File[] $logFiles */
-        $logFiles = [
-            $this->getProject()->resolveFile("test1.log"),
-            $this->getProject()->resolveFile("test2.log"),
-            $this->getProject()->resolveFile("phing/test3.log"),
-            $this->getProject()->resolveFile("phing/test4.log"),
-        ];
+            public function buildStarted(BuildEvent $event)
+            {
+            }
 
-        foreach ($logFiles as $file) {
-            $this->assertFalse($file->exists(), $file->getName() . " doesn't exist");
+            public function buildFinished(BuildEvent $event)
+            {
+            }
+
+            public function targetFinished(BuildEvent $event)
+            {
+            }
+
+            public function taskStarted(BuildEvent $event)
+            {
+            }
+
+            public function taskFinished(BuildEvent $event)
+            {
+            }
+
+            public function messageLogged(BuildEvent $event)
+            {
+            }
+
+            public function targetStarted(BuildEvent $event)
+            {
+                if ('' === $event->getTarget()->getName()) {
+                    return;
+                }
+                if (null === $this->error) {
+                    try {
+                        BuildFileTest::assertEquals(
+                            $this->expectedBasedirs[$this->calls++],
+                            $event->getProject()->getBaseDir()->getAbsolutePath()
+                        );
+                    } catch (AssertionError $e) {
+                        $this->error = $e;
+                    }
+                }
+            }
+
+            public function getError()
+            {
+                return $this->error;
+            }
+        };
+        $this->getProject()->addBuildListener($bc);
+        $this->executeTarget($target);
+        $ae = $bc->getError();
+        if (null !== $ae) {
+            throw $ae;
         }
-
-        $this->getProject()->executeTarget(__FUNCTION__);
-
-        foreach ($logFiles as $file) {
-            $this->assertTrue($file->exists(), $file->getName() . " exist");
-        }
-    }
-
-    public function testUserPropertyWinsInheritAll(): void
-    {
-        $this->getProject()->setUserProperty("test", "7");
-        $this->getProject()->executeTarget("test-property-override-inheritall-start");
-        $this->assertInLogs('The value of test is 7');
-    }
-
-    public function testUserPropertyWinsNoInheritAll()
-    {
-        $this->getProject()->setUserProperty("test", "7");
-        $this->getProject()->executeTarget("test-property-override-no-inheritall-start");
-        $this->assertInLogs('The value of test is 7');
-    }
-
-    public function testOverrideWinsInheritAll()
-    {
-        $this->expectLogContaining('test-property-override-inheritall-start', 'The value of test is 4');
-    }
-
-    public function testOverrideWinsNoInheritAll()
-    {
-        $this->expectLogContaining('test-property-override-no-inheritall-start', 'The value of test is 4');
-    }
-
-    /**
-     * Fail due to infinite recursion loop
-     */
-    public function testInfiniteLoopViaDepends(): void
-    {
-        $this->markTestSkipped('infinite loop could occure');
-//        $this->expectBuildException('infinite-loop-via-depends', 'infinite loop');
-    }
-
-    public function testMultiSameProperty(): void
-    {
-        $this->expectLogContaining('multi-same-property', 'prop is two');
-    }
-
-    public function testTopLevelTarget(): void
-    {
-        $this->expectLogContaining('topleveltarget', 'Hello world');
+        $this->getProject()->removeBuildListener($bc);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests for PHPLOCTask
+ * Tests for PHPLOCTask.
  *
  * @author Michiel Rook <mrook@php.net>
  */
@@ -30,7 +31,7 @@ class PHPLOCTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phploc/build.xml");
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phploc/build.xml');
     }
 
     public function testReportText()

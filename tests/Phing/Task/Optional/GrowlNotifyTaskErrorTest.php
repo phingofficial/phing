@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>
+ * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>.
  *
  * All rights reserved.
  *
@@ -32,25 +33,29 @@
  * PHP version 5
  *
  * @category   Tasks
+ *
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link       https://github.com/llaville/phing-GrowlNotifyTask
+ *
+ * @see       https://github.com/llaville/phing-GrowlNotifyTask
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
-use Phing\Task\Optional\GrowlNotifyTask;
 use Net_Growl;
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
+use Phing\Task\Optional\GrowlNotifyTask;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests for GrowlNotifyTask that raised error
+ * Tests for GrowlNotifyTask that raised error.
  *
  * @category   Tasks
+ *
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link       https://github.com/llaville/phing-GrowlNotifyTask
+ *
+ * @see       https://github.com/llaville/phing-GrowlNotifyTask
  */
 class GrowlNotifyTaskErrorTest extends BuildFileTest
 {
@@ -63,12 +68,11 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
 
     /**
      * Sets up the fixture.
-     *
      */
     public function setUp(): void
     {
         if (!class_exists('Net_Growl')) {
-            $this->markTestSkipped("Need Net_Growl installed to test");
+            $this->markTestSkipped('Need Net_Growl installed to test');
 
             return;
         }
@@ -97,12 +101,12 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
         $gntpMock->addResponse(
             "GNTP/1.0 -OK NONE\r\n" .
             "Response-Action: REGISTER\r\n" .
-            ""
+            ''
         );
         $gntpMock->addResponse(
             "GNTP/1.0 -OK NONE\r\n" .
             "Response-Action: NOTIFY\r\n" .
-            ""
+            ''
         );
 
         $this->mockTask = new GrowlNotifyTask($gntpMock);
@@ -113,8 +117,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     }
 
     /**
-     * Test for empty name attribute. So use the default value
-     *
+     * Test for empty name attribute. So use the default value.
      */
     public function testEmptyName()
     {
@@ -124,8 +127,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     }
 
     /**
-     * Test for empty title attribute. So use the default value
-     *
+     * Test for empty title attribute. So use the default value.
      */
     public function testEmptyTitle()
     {
@@ -140,8 +142,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     }
 
     /**
-     * Test for empty notification attribute. So use the default value
-     *
+     * Test for empty notification attribute. So use the default value.
      */
     public function testEmptyNotification()
     {
@@ -156,8 +157,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     }
 
     /**
-     * Test for empty appicon attribute. So use the default value
-     *
+     * Test for empty appicon attribute. So use the default value.
      */
     public function testEmptyAppIcon()
     {
@@ -172,8 +172,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     }
 
     /**
-     * Test for empty priority attribute. So use the default value
-     *
+     * Test for empty priority attribute. So use the default value.
      */
     public function testEmptyPriority()
     {
@@ -188,12 +187,12 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     }
 
     /**
-     * Test for empty protocol attribute. So use the default value
-     *
+     * Test for empty protocol attribute. So use the default value.
      */
     public function testEmptyProtocol()
     {
         $this->expectNotToPerformAssertions();
+
         try {
             $this->executeTarget(__FUNCTION__);
         } catch (BuildException $e) {

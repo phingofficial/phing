@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -41,11 +42,11 @@ use Phing\Task;
 class HipchatTask extends Task
 {
     private $domain = 'api.hipchat.com';
-    private $room = null;
-    private $authToken = null;
+    private $room;
+    private $authToken;
     private $color = 'yellow';
     private $notify = false;
-    private $message = null;
+    private $message;
     private $format = 'text';
 
     public function main()
@@ -74,7 +75,7 @@ class HipchatTask extends Task
         ];
 
         $result = $this->executeApiCall($url, $data);
-        if ($result !== true) {
+        if (true !== $result) {
             $this->log($result, Project::MSG_WARN);
         } else {
             $this->log('HipChat notification sent.');
@@ -110,7 +111,7 @@ class HipchatTask extends Task
      */
     public function setFormat($format)
     {
-        $format = ($format != 'text' && $format != 'html') ? 'text' : $format;
+        $format = ('text' != $format && 'html' != $format) ? 'text' : $format;
         $this->format = $format;
     }
 
@@ -206,10 +207,12 @@ class HipchatTask extends Task
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POST, 1);
         $response = curl_exec($ch);
-        if ($response !== '') {
+        if ('' !== $response) {
             $result = json_decode($response, 1);
+
             return $result['error']['message'] . ' (' . $result['error']['code'] . ')';
         }
+
         return true;
     }
 }

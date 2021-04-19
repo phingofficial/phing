@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -46,25 +47,25 @@ class BuildException extends RuntimeException
      *         throw new Buildexception($causeExc, $loc);
      *         throw new BuildException($msg, $causeExc);
      *         throw new BuildException($msg, $loc);
-     *         throw new BuildException($msg, $causeExc, $loc);
+     *         throw new BuildException($msg, $causeExc, $loc);.
      *
-     * @param Exception|string $p1
-     * @param Location|Exception|null $p2
-     * @param Location|null $p3
+     * @param Exception|string        $p1
+     * @param null|Exception|Location $p2
+     * @param null|Location           $p3
      */
-    public function __construct($p1 = "", $p2 = null, $p3 = null)
+    public function __construct($p1 = '', $p2 = null, $p3 = null)
     {
         $cause = null;
         $loc = null;
-        $msg = "";
+        $msg = '';
 
-        if ($p3 !== null) {
+        if (null !== $p3) {
             if ($p2 instanceof Throwable) {
                 $cause = $p2;
             }
             $loc = $p3;
             $msg = $p1;
-        } elseif ($p2 !== null) {
+        } elseif (null !== $p2) {
             if ($p2 instanceof Throwable) {
                 $cause = $p2;
                 $msg = $p1;
@@ -83,11 +84,16 @@ class BuildException extends RuntimeException
             $msg = (string) $p1;
         }
 
-        if ($loc !== null) {
+        if (null !== $loc) {
             $this->setLocation($loc);
         }
 
         parent::__construct($msg, 0, $cause);
+    }
+
+    public function __toString()
+    {
+        return (string) $this->location . ' ' . $this->getMessage();
     }
 
     /**
@@ -102,15 +108,9 @@ class BuildException extends RuntimeException
 
     /**
      * Sets the location of error in XML file.
-     *
      */
     public function setLocation(Location $loc)
     {
         $this->location = $loc;
-    }
-
-    public function __toString()
-    {
-        return (string) $this->location . ' ' . $this->getMessage();
     }
 }

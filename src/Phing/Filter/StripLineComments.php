@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -48,6 +49,7 @@ use Phing\Util\StringHelper;
  *
  * @author  <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author  hans lellelid, hans@velum.net
+ *
  * @see     BaseParamFilterReader
  */
 class StripLineComments extends BaseParamFilterReader implements ChainableReader
@@ -55,7 +57,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
     /**
      * Parameter name for the comment prefix.
      */
-    public const COMMENTS_KEY = "comment";
+    public const COMMENTS_KEY = 'comment';
 
     /**
      * Array that holds the comment prefixes.
@@ -68,8 +70,9 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * specified comment prefixes.
      *
      * @param int $len
+     *
      * @return mixed the resulting stream, or -1
-     *               if the end of the resulting stream has been reached.
+     *               if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
@@ -80,7 +83,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
 
         $buffer = $this->in->read($len);
 
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
 
@@ -90,14 +93,15 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
         $commentsSize = count($this->comments);
 
         foreach ($lines as $line) {
-            for ($i = 0; $i < $commentsSize; $i++) {
+            for ($i = 0; $i < $commentsSize; ++$i) {
                 $comment = $this->comments[$i]->getValue();
                 if (StringHelper::startsWith($comment, ltrim($line))) {
                     $line = null;
+
                     break;
                 }
             }
-            if ($line !== null) {
+            if (null !== $line) {
                 $filtered[] = $line;
             }
         }
@@ -124,8 +128,10 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * @param comments A list of strings, each of which is a prefix
      *                 for a comment line. Must not be <code>null</code>.
     */
+
     /**
      * @param $lineBreaks
+     *
      * @throws Exception
      */
     public function setComments($lineBreaks)
@@ -141,6 +147,7 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      *
      * @return array The list of comment prefixes to strip.
     */
+
     /**
      * @return array
      */
@@ -159,9 +166,11 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * @return a new filter based on this configuration, but filtering
      *           the specified reader
      */
+
     /**
-     * @return StripLineComments
      * @throws Exception
+     *
+     * @return StripLineComments
      */
     public function chain(Reader $reader): Reader
     {
@@ -173,14 +182,12 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
         return $newFilter;
     }
 
-    /*
-     * Parses the parameters to set the comment prefixes.
-    */
+    // Parses the parameters to set the comment prefixes.
     private function initialize()
     {
         $params = $this->getParameters();
-        if ($params !== null) {
-            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; $i++) {
+        if (null !== $params) {
+            for ($i = 0, $paramsCount = count($params); $i < $paramsCount; ++$i) {
                 if (self::COMMENTS_KEY === $params[$i]->getType()) {
                     $comment = new Comment();
                     $comment->setValue($params[$i]->getValue());

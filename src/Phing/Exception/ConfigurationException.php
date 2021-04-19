@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -48,17 +49,17 @@ class ConfigurationException extends Exception
      * Supported signatures:
      *         throw new BuildException($causeExc);
      *         throw new BuildException($msg);
-     *         throw new BuildException($msg, $causeExc);
+     *         throw new BuildException($msg, $causeExc);.
      *
      * @param Exception|string $p1
-     * @param Exception|null $p2
+     * @param null|Exception   $p2
      */
     public function __construct($p1, $p2 = null)
     {
         $cause = null;
-        $msg = "";
+        $msg = '';
 
-        if ($p2 !== null) {
+        if (null !== $p2) {
             if ($p2 instanceof Exception) {
                 $cause = $p2;
                 $msg = $p1;
@@ -71,9 +72,9 @@ class ConfigurationException extends Exception
 
         parent::__construct($msg);
 
-        if ($cause !== null) {
+        if (null !== $cause) {
             $this->cause = $cause;
-            $this->message .= " [wrapped: " . $cause->getMessage() . "]";
+            $this->message .= ' [wrapped: ' . $cause->getMessage() . ']';
         }
     }
 

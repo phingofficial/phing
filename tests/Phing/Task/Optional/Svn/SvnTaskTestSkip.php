@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,14 +20,14 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\Svn;
+namespace Phing\Test\Task\Optional\Svn;
 
 trait SvnTaskTestSkip
 {
     public function markTestAsSkippedWhenSvnNotInstalled(): void
     {
         exec('svn help > /dev/null 2>&1', $output, $code);
-        if ($code != 0) {
+        if (0 != $code) {
             $this->markTestSkipped('This test require svn to be installed');
         }
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -125,23 +126,10 @@ class AttribTask extends ApplyTask
     }
 
     /**
-     * Check the attributes.
-     *
-     * @throws BuildException
-     */
-    protected function checkConfiguration()
-    {
-        if (!$this->hasAttr()) {
-            throw new BuildException(
-                'Missing attribute parameter',
-                $this->getLocation()
-            );
-        }
-    }
-
-    /**
      * Set the executable.
      * This is not allowed, and it always throws a BuildException.
+     *
+     * @param mixed $e
      *
      * @throws BuildException
      */
@@ -157,7 +145,8 @@ class AttribTask extends ApplyTask
      * Add source file.
      * This is not allowed, and it always throws a BuildException.
      *
-     * @param  bool $b ignored
+     * @param bool $b ignored
+     *
      * @throws BuildException
      */
     public function setAddsourcefile(bool $b)
@@ -173,7 +162,8 @@ class AttribTask extends ApplyTask
      * Set max parallel.
      * This is not allowed, and it always throws a BuildException.
      *
-     * @param  int $max ignored
+     * @param int $max ignored
+     *
      * @throws BuildException
      */
     public function setMaxParallel($max)
@@ -189,7 +179,8 @@ class AttribTask extends ApplyTask
      * Set parallel.
      * This is not allowed, and it always throws a BuildException.
      *
-     * @param  bool $parallel ignored
+     * @param bool $parallel ignored
+     *
      * @throws BuildException
      */
     public function setParallel(bool $parallel)
@@ -201,9 +192,24 @@ class AttribTask extends ApplyTask
         );
     }
 
+    /**
+     * Check the attributes.
+     *
+     * @throws BuildException
+     */
+    protected function checkConfiguration()
+    {
+        if (!$this->hasAttr()) {
+            throw new BuildException(
+                'Missing attribute parameter',
+                $this->getLocation()
+            );
+        }
+    }
+
     private static function getSignString($attr)
     {
-        return ($attr ? self::$SET : self::$UNSET);
+        return $attr ? self::$SET : self::$UNSET;
     }
 
     private function addArg($sign, $attribute)

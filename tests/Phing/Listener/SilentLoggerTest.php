@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,10 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Listener;
+namespace Phing\Test\Listener;
 
 use Exception;
 use Phing\Io\OutputStream;
+use Phing\Listener\BuildEvent;
+use Phing\Listener\SilentLogger;
 use Phing\Project;
 use PHPUnit\Framework\TestCase;
 
@@ -44,13 +47,13 @@ class SilentLoggerTest extends TestCase
     {
         $event = new BuildEvent(new Project());
         $event->setException(new Exception('test'));
-        $logger = new class() extends SilentLogger {
+        $logger = new class () extends SilentLogger {
             public function printMessage($message, ?OutputStream $stream = null, $priority = null)
             {
                 echo $message;
             }
 
-            public static function formatTime($micros)
+            public static function formatTime(float $micros): string
             {
                 return 'TIME_STRING';
             }

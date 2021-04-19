@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,20 +18,20 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 use Phing\Type\Path;
 
 /**
- * Tests the Apply Task
+ * Tests the Apply Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
 class PathConvertTest extends BuildFileTest
 {
     /**
-     * Setup the test
+     * Setup the test.
      */
     public function setUp(): void
     {
@@ -39,7 +40,7 @@ class PathConvertTest extends BuildFileTest
     }
 
     /**
-     * Tests the OS execution for the unspecified OS
+     * Tests the OS execution for the unspecified OS.
      */
     public function testDirChar()
     {
@@ -60,17 +61,17 @@ class PathConvertTest extends BuildFileTest
     public function testUnique()
     {
         $p = new Path($this->project, '/a:/a');
-        $p->setPath("\\a;/a");
+        $p->setPath('\\a;/a');
         $l = $p->listPaths();
-        $this->assertCount(1, $l, "1 after setPath");
-        $p->append(new Path($this->project, "/a;\\a:\\a"));
+        $this->assertCount(1, $l, '1 after setPath');
+        $p->append(new Path($this->project, '/a;\\a:\\a'));
         $l = $p->listPaths();
-        $this->assertCount(1, $l, "1 after append");
-        $p->createPath()->setPath("\\a:/a");
+        $this->assertCount(1, $l, '1 after append');
+        $p->createPath()->setPath('\\a:/a');
         $l = $p->listPaths();
-        $this->assertCount(1, $l, "1 after append");
+        $this->assertCount(1, $l, '1 after append');
         $l = $p->listPaths(true);
-        $this->assertCount(6, $l, "6 after preserved duplicates");
+        $this->assertCount(6, $l, '6 after preserved duplicates');
     }
 
     public function testNoTargetOs()
@@ -82,6 +83,6 @@ class PathConvertTest extends BuildFileTest
     private function assertTarget(string $target)
     {
         $this->executeTarget($target);
-        $this->assertEquals("test#" . 'PathConvertTest.xml', $this->getProject()->getProperty('result'));
+        $this->assertEquals('test#' . 'PathConvertTest.xml', $this->getProject()->getProperty('result'));
     }
 }

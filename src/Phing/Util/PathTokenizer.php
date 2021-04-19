@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,7 +32,6 @@ use Exception;
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Conor MacNeill (Ant)
  * @author Jeff Tulley <jtulley@novell.com>  (Ant)
- *
  */
 class PathTokenizer
 {
@@ -50,9 +50,9 @@ class PathTokenizer
 
     /**
      * Flag to indicate whether or not we are running on a platform with a
-     * DOS style filesystem
+     * DOS style filesystem.
      *
-     * @var boolean
+     * @var bool
      */
     private $dosStyleFilesystem;
 
@@ -63,12 +63,11 @@ class PathTokenizer
      */
     public function __construct($path)
     {
-
         // on Windows and Unix, we can ignore delimiters and still have
 
         // enough information to tokenize correctly.
 
-        $this->tokens = preg_split("/[;:]/", $path, -1, PREG_SPLIT_NO_EMPTY);
+        $this->tokens = preg_split('/[;:]/', $path, -1, PREG_SPLIT_NO_EMPTY);
 
         $this->dosStyleFilesystem = (PATH_SEPARATOR == ';');
     }
@@ -79,11 +78,11 @@ class PathTokenizer
      * to nextToken will successfully return a token.
      *
      * @return bool <code>true</code> if and only if there is at least one token
-     *                                in the string after the current position; <code>false</code> otherwise.
+     *              in the string after the current position; <code>false</code> otherwise
      */
     public function hasMoreTokens()
     {
-        if ($this->lookahead !== null) {
+        if (null !== $this->lookahead) {
             return true;
         }
 
@@ -93,13 +92,13 @@ class PathTokenizer
     /**
      * Returns the next path element from this tokenizer.
      *
-     * @return string the next path element from this tokenizer.
+     * @throws Exception if there are no more elements in this tokenizer's path
      *
-     * @throws Exception if there are no more elements in this tokenizer's path.
+     * @return string the next path element from this tokenizer
      */
     public function nextToken()
     {
-        if ($this->lookahead !== null) {
+        if (null !== $this->lookahead) {
             $token = $this->lookahead;
 
             $this->lookahead = null;
@@ -108,7 +107,7 @@ class PathTokenizer
         }
 
         if (
-            strlen($token) === 1
+            1 === strlen($token)
             && Character::isLetter($token[0])
             && $this->dosStyleFilesystem
             && !empty($this->tokens)
@@ -141,7 +140,7 @@ class PathTokenizer
      * Non StringTokenizer function, that indicates whether the specified path is contained in loaded tokens.
      * We can do this easily because in PHP implimentation we're using arrays.
      *
-     * @param string $path path to search for.
+     * @param string $path path to search for
      *
      * @return bool
      */

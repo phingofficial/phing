@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -42,38 +43,41 @@ use Phing\Task;
 
 /**
  * Checks if a given file is valid JSON
- * <jsonvalidate file="path/file.json" />
+ * <jsonvalidate file="path/file.json" />.
  *
  * @author  Suat Özgür
  */
 class JsonValidateTask extends Task
 {
-    private $file = null;
+    private $file;
 
     /**
-     * executes the ValidJson task
+     * executes the ValidJson task.
      */
     public function main()
     {
         if (null === $this->getFile()) {
-            $msg = "JsonValidate: file is not defined.";
+            $msg = 'JsonValidate: file is not defined.';
             $this->log($msg, Project::MSG_ERR);
+
             throw new \Phing\Exception\BuildException($msg);
         }
 
         if (!file_exists($this->getFile()) || is_dir($this->getFile())) {
-            $msg = "JsonValidate: file not found " . $this->getFile();
+            $msg = 'JsonValidate: file not found ' . $this->getFile();
             $this->log($msg, Project::MSG_ERR);
+
             throw new \Phing\Exception\BuildException($msg);
         }
 
         $decoded = json_decode(file_get_contents($this->getFile()));
         if (null === $decoded) {
-            $msg = "JsonValidate: decoding " . $this->getFile() . " failed.";
+            $msg = 'JsonValidate: decoding ' . $this->getFile() . ' failed.';
             $this->log($msg, Project::MSG_ERR);
+
             throw new \Phing\Exception\BuildException($msg);
         }
-        $this->log($this->getFile() . " is valid JSON", Project::MSG_INFO);
+        $this->log($this->getFile() . ' is valid JSON', Project::MSG_INFO);
     }
 
     /**

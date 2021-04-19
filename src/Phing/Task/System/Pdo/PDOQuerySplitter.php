@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -15,7 +16,6 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- *
  */
 
 namespace Phing\Task\System\Pdo;
@@ -24,29 +24,28 @@ use Phing\Io\BufferedReader;
 use Phing\Io\Reader;
 
 /**
- * Base class for classes that split SQL source into separate queries
+ * Base class for classes that split SQL source into separate queries.
  *
  * @author  Alexey Borzov <avb@php.net>
  */
 abstract class PDOQuerySplitter
 {
     /**
-     * Task that uses the splitter
+     * Task that uses the splitter.
      *
      * @var PDOSQLExecTask
      */
     protected $parent;
 
     /**
-     * Reader with SQL source
+     * Reader with SQL source.
      *
      * @var BufferedReader
      */
     protected $sqlReader;
 
     /**
-     * Constructor, sets the parent task and reader with SQL source
-     *
+     * Constructor, sets the parent task and reader with SQL source.
      */
     public function __construct(PDOSQLExecTask $parent, Reader $reader)
     {
@@ -55,9 +54,9 @@ abstract class PDOQuerySplitter
     }
 
     /**
-     * Returns next query from SQL source, null if no more queries left
+     * Returns next query from SQL source, null if no more queries left.
      *
-     * @return string|null
+     * @return null|string
      */
     abstract public function nextQuery();
 }

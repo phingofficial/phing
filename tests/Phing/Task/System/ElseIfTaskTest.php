@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the ElseIf Task
+ * Tests the ElseIf Task.
  *
  * @author  Paul Edenburg <pauledenburg@gmail.com>
  */
@@ -36,9 +37,8 @@ class ElseIfTaskTest extends BuildFileTest
     }
 
     /**
-     * Test the 'elseif' conditional of the if-task
+     * Test the 'elseif' conditional of the if-task.
      *
-     * @test
      */
     public function testAddThen()
     {
@@ -51,9 +51,8 @@ class ElseIfTaskTest extends BuildFileTest
 
     /**
      * Test that evaluating a correct elseif condition gives the
-     * expected result
+     * expected result.
      *
-     * @test
      */
     public function testEvaluate()
     {
@@ -61,14 +60,13 @@ class ElseIfTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
 
         // check the output for the expected value
-        $this->assertInLogs("Elseif: The value of property foo is foo");
+        $this->assertInLogs('Elseif: The value of property foo is foo');
     }
 
     /**
      * test that a BuildException is thrown when we've got two
-     * conditions inside an elseif-task
+     * conditions inside an elseif-task.
      *
-     * @test
      */
     public function testMultipleConditions()
     {
@@ -82,9 +80,8 @@ class ElseIfTaskTest extends BuildFileTest
 
     /**
      * test that a BuildException is thrown when we've got
-     * no conditions inside an elseif-task
+     * no conditions inside an elseif-task.
      *
-     * @test
      */
     public function testNoConditions()
     {

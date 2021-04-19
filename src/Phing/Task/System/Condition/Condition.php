@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,7 +23,7 @@ namespace Phing\Task\System\Condition;
 use Phing\Exception\BuildException;
 
 /**
- * Condition interface specification:
+ * Condition interface specification:.
  *
  * Each condition must implement a method applying to this prototye:
  *
@@ -31,8 +32,9 @@ use Phing\Exception\BuildException;
 interface Condition
 {
     /**
-     * @return bool
      * @throws BuildException
+     *
+     * @return bool
      */
     public function evaluate();
 }

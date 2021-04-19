@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +26,6 @@ use Phing\Project;
 
 /**
  * Class to hold a reference to another object in the project.
- *
  */
 class Reference
 {
@@ -46,6 +46,11 @@ class Reference
     {
         $this->setRefId($id);
         $this->setProject($project);
+    }
+
+    public function __toString()
+    {
+        return $this->refid;
     }
 
     /**
@@ -80,8 +85,7 @@ class Reference
     }
 
     /**
-     * returns reference to object in references container of project
-     *
+     * returns reference to object in references container of project.
      *
      * @return object
      */
@@ -90,19 +94,14 @@ class Reference
         $project = $fallback ?? $this->project;
 
         // setRefId casts its argument to a string, so compare strictly against ''
-        if ($this->refid === '') {
-            throw new BuildException("No reference specified");
+        if ('' === $this->refid) {
+            throw new BuildException('No reference specified');
         }
         $o = $project->getReference($this->refid);
-        if ($o === null) {
+        if (null === $o) {
             throw new BuildException("Reference {$this->refid} not found.");
         }
 
         return $o;
-    }
-
-    public function __toString()
-    {
-        return $this->refid;
     }
 }

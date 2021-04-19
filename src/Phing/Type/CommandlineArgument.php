@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,13 +25,12 @@ use Phing\Io\File;
 
 /**
  * "Inner" class used for nested xml command line definitions.
- *
  */
 class CommandlineArgument
 {
+    public $escape = false;
     private $parts = [];
     private $outer;
-    public $escape = false;
 
     public function __construct(Commandline $outer)
     {
@@ -48,7 +48,7 @@ class CommandlineArgument
     /**
      * Sets a single commandline argument.
      *
-     * @param string $value a single commandline argument.
+     * @param string $value a single commandline argument
      */
     public function setValue(string $value)
     {
@@ -59,11 +59,12 @@ class CommandlineArgument
      * Line to split into several commandline arguments.
      *
      * @param string $line line to split into several commandline arguments
+     *
      * @throws BuildException
      */
     public function setLine($line)
     {
-        if ($line === null) {
+        if (null === $line) {
             return;
         }
         $this->parts = $this->outer::translateCommandline($line);
@@ -85,7 +86,7 @@ class CommandlineArgument
      * Sets a single commandline argument to the absolute filename
      * of the given file.
      *
-     * @internal param a $value single commandline argument.
+     * @internal param a $value single commandline argument
      */
     public function setFile(File $value): void
     {

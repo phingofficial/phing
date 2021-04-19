@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,13 +18,38 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Exception;
+namespace Phing\Test\Util;
 
-use Exception;
+use Phing\Util\DefaultClock;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @deprecated
+ * Unit test for DefaultClock.
+ *
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class NullPointerException extends Exception
+class DefaultClockTest extends TestCase
 {
+    /** @var DefaultClock */
+    private $timer;
+
+    public function setUp(): void
+    {
+        $this->timer = new DefaultClock();
+    }
+
+    public function tearDown(): void
+    {
+        unset($this->timer);
+    }
+
+    public function testTimer()
+    {
+        $this->timer->start();
+        $this->assertTrue($this->timer->isRunning());
+        $this->timer->stop();
+        $this->assertFalse($this->timer->isRunning());
+
+        $this->assertEqualsWithDelta(0.0, $this->timer->getElapsedTime(), 0.01);
+    }
 }

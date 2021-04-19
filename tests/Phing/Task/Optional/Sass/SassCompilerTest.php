@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,19 +20,18 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\Sass;
+namespace Phing\Test\Task\Optional\Sass;
 
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
-use Phing\Task\Optional\Sass\SassCleaner;
-use PHPUnit\Framework\TestCase;
 use Phing\Task\Ext\SassCompiler;
+use PHPUnit\Framework\TestCase;
 
 class SassCompilerTest extends TestCase
 {
     use SassCleaner;
 
-    private const SASS_TEST_BASE = PHING_TEST_BASE . "/etc/tasks/ext/sass/";
+    private const SASS_TEST_BASE = PHING_TEST_BASE . '/etc/tasks/ext/sass/';
 
     /** @var SassCompiler */
     private $compiler;

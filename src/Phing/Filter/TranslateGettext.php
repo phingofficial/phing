@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -40,28 +41,29 @@ use Phing\Project;
  * </pre>
  *
  * @author  Hans Lellelid <hans@xmpl.org>
+ *
  * @see     BaseFilterReader
  */
 class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 {
     // constants for specifying keys to expect
     // when this is called using <filterreader ... />
-    public const DOMAIN_KEY = "domain";
-    public const DIR_KEY = "dir";
-    public const LOCALE_KEY = "locale";
+    public const DOMAIN_KEY = 'domain';
+    public const DIR_KEY = 'dir';
+    public const LOCALE_KEY = 'locale';
 
     /**
-     * The domain to use
+     * The domain to use.
      */
     private $domain = 'messages';
 
     /**
-     * The dir containing LC_MESSAGES
+     * The dir containing LC_MESSAGES.
      */
     private $dir;
 
     /**
-     * The locale to use
+     * The locale to use.
      */
     private $locale;
 
@@ -74,7 +76,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * Set the text domain to use.
      * The text domain must correspond to the name of the compiled .mo files.
      * E.g. "messages" ==> $dir/LC_MESSAGES/messages.mo
-     *         "mydomain" ==> $dir/LC_MESSAGES/mydomain.mo
+     *         "mydomain" ==> $dir/LC_MESSAGES/mydomain.mo.
      *
      * @param string $domain
      */
@@ -95,7 +97,6 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Sets the root locale directory.
-     *
      */
     public function setDir(File $dir)
     {
@@ -136,83 +137,14 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * Make sure that required attributes are set.
-     *
-     * @throws BuildException - if any required attribs aren't set.
-     */
-    protected function checkAttributes()
-    {
-        if (!$this->domain || !$this->locale || !$this->dir) {
-            throw new BuildException("You must specify values for domain, locale, and dir attributes.");
-        }
-    }
-
-    /**
-     * Initialize the gettext/locale environment.
-     * This method will change some env vars and locale settings; the
-     * restoreEnvironment should put them all back :)
-     *
-     * @throws BuildException - if locale cannot be set.
-     * @see    restoreEnvironment()
-     */
-    protected function initEnvironment()
-    {
-        $this->storedLocale = getenv("LANG");
-
-        $this->log("Setting locale to " . $this->locale, Project::MSG_DEBUG);
-        putenv("LANG=" . $this->locale);
-        $ret = setlocale(LC_ALL, $this->locale);
-        if ($ret === false) {
-            $msg = "Could not set locale to " . $this->locale
-                . ". You may need to use fully qualified name"
-                . " (e.g. en_US instead of en).";
-            throw new BuildException($msg);
-        }
-
-        $this->log("Binding domain '" . $this->domain . "' to " . $this->dir, Project::MSG_DEBUG);
-        bindtextdomain($this->domain, $this->dir->getAbsolutePath());
-        textdomain($this->domain);
-    }
-
-    /**
-     * Restores environment settings and locale.
-     * This does _not_ restore any gettext-specific settings
-     * (e.g. textdomain()).
-     *
-     */
-    protected function restoreEnvironment()
-    {
-        putenv("LANG=" . $this->storedLocale);
-        setlocale(LC_ALL, $this->storedLocale);
-    }
-
-    /**
-     * Performs gettext translation of msgid and returns translated text.
-     *
-     * This function simply wraps gettext() call, but provides ability to log
-     * string replacements.  (alternative would be using preg_replace with /e which
-     * would probably be faster, but no ability to debug/log.)
-     *
-     * @param array $matches Array of matches; we're interested in $matches[2].
-     * @return string Translated text
-     */
-    private function xlateStringCallback($matches)
-    {
-        $charbefore = $matches[1];
-        $msgid = $matches[2];
-        $translated = gettext($msgid);
-        $this->log("Translating \"$msgid\" => \"$translated\"", Project::MSG_DEBUG);
-
-        return $charbefore . '"' . $translated . '"';
-    }
-
-    /**
      * Returns the filtered stream.
      * The original stream is first read in fully, and then translation is performed.
      *
      * @param int $len
-     * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
+     *
      * @throws BuildException
+     *
+     * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
@@ -225,7 +157,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
         $this->checkAttributes();
 
         $buffer = $this->in->read($len);
-        if ($buffer === -1) {
+        if (-1 === $buffer) {
             return -1;
         }
 
@@ -258,7 +190,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
         $matches = [];
         if (preg_match('/(\W|^)(gettext\([^\)]+\))/', $buffer, $matches)) {
-            $this->log("Unable to perform translation on: " . $matches[2], Project::MSG_WARN);
+            $this->log('Unable to perform translation on: ' . $matches[2], Project::MSG_WARN);
         }
 
         $this->restoreEnvironment();
@@ -288,23 +220,100 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
+     * Make sure that required attributes are set.
+     *
+     * @throws buildException - if any required attribs aren't set
+     */
+    protected function checkAttributes()
+    {
+        if (!$this->domain || !$this->locale || !$this->dir) {
+            throw new BuildException('You must specify values for domain, locale, and dir attributes.');
+        }
+    }
+
+    /**
+     * Initialize the gettext/locale environment.
+     * This method will change some env vars and locale settings; the
+     * restoreEnvironment should put them all back :).
+     *
+     * @throws buildException - if locale cannot be set
+     *
+     * @see    restoreEnvironment()
+     */
+    protected function initEnvironment()
+    {
+        $this->storedLocale = getenv('LANG');
+
+        $this->log('Setting locale to ' . $this->locale, Project::MSG_DEBUG);
+        putenv('LANG=' . $this->locale);
+        $ret = setlocale(LC_ALL, $this->locale);
+        if (false === $ret) {
+            $msg = 'Could not set locale to ' . $this->locale
+                . '. You may need to use fully qualified name'
+                . ' (e.g. en_US instead of en).';
+
+            throw new BuildException($msg);
+        }
+
+        $this->log("Binding domain '" . $this->domain . "' to " . $this->dir, Project::MSG_DEBUG);
+        bindtextdomain($this->domain, $this->dir->getAbsolutePath());
+        textdomain($this->domain);
+    }
+
+    /**
+     * Restores environment settings and locale.
+     * This does _not_ restore any gettext-specific settings
+     * (e.g. textdomain()).
+     */
+    protected function restoreEnvironment()
+    {
+        putenv('LANG=' . $this->storedLocale);
+        setlocale(LC_ALL, $this->storedLocale);
+    }
+
+    /**
+     * Performs gettext translation of msgid and returns translated text.
+     *
+     * This function simply wraps gettext() call, but provides ability to log
+     * string replacements.  (alternative would be using preg_replace with /e which
+     * would probably be faster, but no ability to debug/log.)
+     *
+     * @param array $matches array of matches; we're interested in $matches[2]
+     *
+     * @return string Translated text
+     */
+    private function xlateStringCallback($matches)
+    {
+        $charbefore = $matches[1];
+        $msgid = $matches[2];
+        $translated = gettext($msgid);
+        $this->log("Translating \"{$msgid}\" => \"{$translated}\"", Project::MSG_DEBUG);
+
+        return $charbefore . '"' . $translated . '"';
+    }
+
+    /**
      * Parses the parameters if this filter is being used in "generic" mode.
      */
     private function initialize()
     {
         $params = $this->getParameters();
-        if ($params !== null) {
+        if (null !== $params) {
             foreach ($params as $param) {
                 switch ($param->getType()) {
                     case self::DOMAIN_KEY:
                         $this->setDomain($param->getValue());
+
                         break;
+
                     case self::DIR_KEY:
                         $this->setDir($this->project->resolveFile($param->getValue()));
+
                         break;
 
                     case self::LOCALE_KEY:
                         $this->setLocale($param->getValue());
+
                         break;
                 } // switch
             }

@@ -18,14 +18,14 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
 use Exception;
 use Phing\Exception\BuildException;
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Touch Task
+ * Tests the Touch Task.
  *
  * @author  Michiel Rook <mrook@php.net>
  */
@@ -35,35 +35,35 @@ class TouchTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/TouchTaskTest.xml"
+            . '/etc/tasks/system/TouchTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
-    public function testSimpleTouch()
+    public function testSimpleTouch(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/simple-file"
+            . '/etc/tasks/system/tmp/simple-file'
         );
     }
 
-    public function testMkdirs()
+    public function testMkdirs(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/this/is/a/test/file"
+            . '/etc/tasks/system/tmp/this/is/a/test/file'
         );
     }
 
-    public function testMkdirsFails()
+    public function testMkdirsFails(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Error creating new file');
@@ -72,29 +72,29 @@ class TouchTaskTest extends BuildFileTest
 
         $this->assertFileDoesNotExist(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/this/is/a/test/file"
+            . '/etc/tasks/system/tmp/this/is/a/test/file'
         );
     }
 
-    public function testFilelist()
+    public function testFilelist(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/simple-file"
+            . '/etc/tasks/system/tmp/simple-file'
         );
     }
 
-    public function testFileset()
+    public function testFileset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE
-            . "/etc/tasks/system/tmp/simple-file"
+            . '/etc/tasks/system/tmp/simple-file'
         );
     }
 
-    public function testMappedFileset()
+    public function testMappedFileset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $tmpDir = $this->getProject()->getProperty('tmp.dir');
@@ -104,9 +104,9 @@ class TouchTaskTest extends BuildFileTest
     }
 
     /**
-     * test the mapped file list
+     * test the mapped file list.
      */
-    public function testMappedFilelist()
+    public function testMappedFilelist(): void
     {
         $this->executeTarget(__FUNCTION__);
         $tmpDir = $this->getProject()->getProperty('tmp.dir');
@@ -114,9 +114,9 @@ class TouchTaskTest extends BuildFileTest
     }
 
     /**
-     * test millis attribute
+     * test millis attribute.
      */
-    public function testMillis()
+    public function testMillis(): void
     {
         // Don't run the test on 32-bit systems
         if (PHP_INT_SIZE > 4) {
@@ -124,60 +124,60 @@ class TouchTaskTest extends BuildFileTest
             $testFile = $this->getProject()->getProperty('tmp.dir') . '/millis-file';
             $this->assertFileExists($testFile);
 
-            $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+            $this->assertEquals('December 31 1999 23:59:59', date('F d Y H:i:s', filemtime($testFile)));
         } else {
             $this->markTestSkipped('Test cannot run on 32-bit systems, epoch millis would have a max of ~25 days');
         }
     }
 
     /**
-     * test seconds attribute
+     * test seconds attribute.
      */
-    public function testSeconds()
+    public function testSeconds(): void
     {
         $this->executeTarget(__FUNCTION__);
         $testFile = $this->getProject()->getProperty('tmp.dir') . '/seconds-file';
         $this->assertFileExists($testFile);
 
-        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+        $this->assertEquals('December 31 1999 23:59:59', date('F d Y H:i:s', filemtime($testFile)));
     }
 
     /**
-     * test datetime attribute
+     * test datetime attribute.
      */
-    public function testDatetime()
+    public function testDatetime(): void
     {
         $this->executeTarget(__FUNCTION__);
         $testFile = $this->getProject()->getProperty('tmp.dir') . '/datetime-file';
         $this->assertFileExists($testFile);
 
-        $this->assertEquals('December 31 1999 23:59:59', date("F d Y H:i:s", filemtime($testFile)));
+        $this->assertEquals('December 31 1999 23:59:59', date('F d Y H:i:s', filemtime($testFile)));
     }
 
     /**
-     * test datetime with improper datetime
+     * test datetime with improper datetime.
      */
-    public function testNotDateTime()
+    public function testNotDateTime(): void
     {
         $this->expectBuildException(__FUNCTION__, 'when datetime has invalid value');
     }
 
-    public function testNoFile()
+    public function testNoFile(): void
     {
         $this->expectBuildException(__FUNCTION__, 'when no file specified');
     }
 
-    public function testFileIsDirectory()
+    public function testFileIsDirectory(): void
     {
         $this->expectBuildException(__FUNCTION__, 'when file specified is a directory');
     }
 
-    public function testDatetimePreEpoch()
+    public function testDatetimePreEpoch(): void
     {
         $this->expectBuildException(__FUNCTION__, 'when datetime is prior to January 1, 1970');
     }
 
-    public function testReadOnlyFile()
+    public function testReadOnlyFile(): void
     {
         $readOnlyFile = $this->getProject()->getProperty('tmp.dir') . '/readonly-file';
         if (file_exists($readOnlyFile)) {
@@ -204,22 +204,22 @@ class TouchTaskTest extends BuildFileTest
         }
     }
 
-    public function testMillisNegative()
+    public function testMillisNegative(): void
     {
         $this->expectBuildException(__FUNCTION__, 'when millis is negative');
     }
 
-    public function testSecondsNegative()
+    public function testSecondsNegative(): void
     {
         $this->expectBuildException(__FUNCTION__, 'when seconds is negative');
     }
 
-    public function testMillisSubSecond()
+    public function testMillisSubSecond(): void
     {
         $this->expectBuildException(__FUNCTION__, 'when millis is less than a second');
     }
 
-    public function testDefaultToNow()
+    public function testDefaultToNow(): void
     {
         $nowTime = time();
 

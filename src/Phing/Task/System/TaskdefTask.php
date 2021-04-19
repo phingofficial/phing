@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -53,7 +54,7 @@ class TaskdefTask extends Task
     use ClasspathAware;
 
     /**
-     * Tag name for task that will be used in XML
+     * Tag name for task that will be used in XML.
      */
     private $name;
 
@@ -76,7 +77,7 @@ class TaskdefTask extends Task
      *
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -86,7 +87,7 @@ class TaskdefTask extends Task
      *
      * @param string $class
      */
-    public function setClassname($class)
+    public function setClassname(string $class): void
     {
         $this->classname = $class;
     }
@@ -96,32 +97,32 @@ class TaskdefTask extends Task
      *
      * @param string $file
      */
-    public function setFile($file)
+    public function setFile($file): void
     {
         $this->typeFile = $file;
     }
 
     /**
-     * Main entry point
+     * Main entry point.
      */
     public function main()
     {
         if (
-            $this->typeFile === null
-            && ($this->name === null
-            || $this->classname === null)
+            null === $this->typeFile
+            && (null === $this->name
+            || null === $this->classname)
         ) {
-            throw new BuildException("You must specify name and class attributes for <taskdef>.");
+            throw new BuildException('You must specify name and class attributes for <taskdef>.');
         }
-        if ($this->typeFile == null) {
-            $this->log("Task " . $this->name . " will be handled by class " . $this->classname, Project::MSG_VERBOSE);
+        if (null == $this->typeFile) {
+            $this->log('Task ' . $this->name . ' will be handled by class ' . $this->classname, Project::MSG_VERBOSE);
             $this->project->addTaskDefinition($this->name, $this->classname, $this->classpath);
         } else {
             try { // try to load taskdefs given in file
                 $props = new Properties();
                 $in = new File((string) $this->typeFile);
 
-                if ($in === null) {
+                if (null === $in) {
                     throw new BuildException("Can't load task list {$this->typeFile}");
                 }
                 $props->load($in);

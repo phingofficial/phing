@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,14 +20,14 @@
 
 declare(strict_types=1);
 
-namespace Phing\Task\Optional\Hg;
+namespace Phing\Test\Task\Optional\Hg;
 
 trait HgTaskTestSkip
 {
     public function markTestAsSkippedWhenHgNotInstalled(): void
     {
         exec('hg help > /dev/null 2>&1', $output, $code);
-        if ($code != 0) {
+        if (0 != $code) {
             $this->markTestSkipped('This test require hg to be installed');
         }
     }

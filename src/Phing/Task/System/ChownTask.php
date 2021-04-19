@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -47,7 +48,7 @@ class ChownTask extends Task
     private $verbose = true;
 
     /**
-     * This flag means 'note errors to the output, but keep going'
+     * This flag means 'note errors to the output, but keep going'.
      *
      * @see   setQuiet()
      */
@@ -73,7 +74,7 @@ class ChownTask extends Task
      * Set verbosity, which if set to false surpresses all but an overview
      * of what happened.
      */
-    public function setVerbose(bool $verbose)
+    public function setVerbose(bool $verbose): void
     {
         $this->verbose = $verbose;
     }
@@ -81,24 +82,27 @@ class ChownTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
+     * @param File $file
      */
-    public function setFile(File $file)
+    public function setFile(File $file): void
     {
         $this->file = $file;
     }
 
     /**
-     * Sets the user
+     * Sets the user.
+     * @param string $user
      */
-    public function setUser(string $user)
+    public function setUser(string $user): void
     {
         $this->user = $user;
     }
 
     /**
-     * Sets the group
+     * Sets the group.
+     * @param string $group
      */
-    public function setGroup(string $group)
+    public function setGroup(string $group): void
     {
         $this->group = $group;
     }
@@ -118,21 +122,21 @@ class ChownTask extends Task
      *
      * @throws BuildException
      */
-    private function checkParams()
+    private function checkParams(): void
     {
-        if ($this->file === null && empty($this->filesets) && empty($this->dirsets)) {
-            throw new BuildException("Specify at least one source - a file or a fileset.");
+        if (null === $this->file && empty($this->filesets) && empty($this->dirsets)) {
+            throw new BuildException('Specify at least one source - a file or a fileset.');
         }
 
-        if ($this->user === null && $this->group === null) {
-            throw new BuildException("You have to specify either an owner or a group for chown.");
+        if (null === $this->user && null === $this->group) {
+            throw new BuildException('You have to specify either an owner or a group for chown.');
         }
     }
 
     /**
      * Does the actual work.
      */
-    private function chown()
+    private function chown(): void
     {
         $userElements = explode('.', $this->user);
 
@@ -149,7 +153,7 @@ class ChownTask extends Task
         $total_dirs = 0;
 
         // one file
-        if ($this->file !== null) {
+        if (null !== $this->file) {
             $total_files = 1;
             $this->chownFile($this->file, $user, $group);
         }
@@ -166,35 +170,36 @@ class ChownTask extends Task
 
             $filecount = count($srcFiles);
             $total_files += $filecount;
-            for ($j = 0; $j < $filecount; $j++) {
+            for ($j = 0; $j < $filecount; ++$j) {
                 $this->chownFile(new File($fromDir, $srcFiles[$j]), $user, $group);
             }
 
             $dircount = count($srcDirs);
             $total_dirs += $dircount;
-            for ($j = 0; $j < $dircount; $j++) {
+            for ($j = 0; $j < $dircount; ++$j) {
                 $this->chownFile(new File($fromDir, $srcDirs[$j]), $user, $group);
             }
         }
 
         if (!$this->verbose) {
-            $this->log('Total files changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_files);
-            $this->log('Total directories changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_dirs);
+            $this->log('Total files changed to ' . $user . ($group ? '.' . $group : '') . ': ' . $total_files);
+            $this->log('Total directories changed to ' . $user . ($group ? '.' . $group : '') . ': ' . $total_dirs);
         }
     }
 
     /**
      * Actually change the mode for the file.
      *
-     * @param  string $user
-     * @param  string $group
+     * @param string $user
+     * @param string $group
+     *
      * @throws BuildException
      * @throws Exception
      */
-    private function chownFile(File $file, $user, $group = "")
+    private function chownFile(File $file, $user, $group = ''): void
     {
         if (!$file->exists()) {
-            throw new BuildException("The file " . $file->__toString() . " does not exist");
+            throw new BuildException('The file ' . $file->__toString() . ' does not exist');
         }
 
         try {
@@ -208,7 +213,7 @@ class ChownTask extends Task
 
             if ($this->verbose) {
                 $this->log(
-                    "Changed file owner on '" . $file->__toString() . "' to " . $user . ($group ? "." . $group : "")
+                    "Changed file owner on '" . $file->__toString() . "' to " . $user . ($group ? '.' . $group : '')
                 );
             }
         } catch (Exception $e) {

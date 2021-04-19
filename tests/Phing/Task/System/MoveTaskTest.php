@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,12 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System;
+namespace Phing\Test\Task\System;
 
-use Phing\Support\BuildFileTest;
+use Phing\Test\Support\BuildFileTest;
 
 /**
- * Tests the Move Task
+ * Tests the Move Task.
  *
  * @author  Michiel Rook <mrook@php.net>
  */
@@ -32,14 +33,14 @@ class MoveTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . "/etc/tasks/system/MoveTaskTest.xml"
+            . '/etc/tasks/system/MoveTaskTest.xml'
         );
-        $this->executeTarget("setup");
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->executeTarget("clean");
+        $this->executeTarget('clean');
     }
 
     public function testMoveSingleFile()
@@ -64,25 +65,25 @@ class MoveTaskTest extends BuildFileTest
 
     /**
      * Regression test for ticket {@link http://www.phing.info/trac/ticket/582}
-     * - Add haltonerror attribute to copy/move tasks
+     * - Add haltonerror attribute to copy/move tasks.
      */
     public function testIgnoreErrors()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Could not find file ");
+        $this->assertInLogs('Could not find file ');
     }
 
     /**
      * Regression test for ticket {@link http://www.phing.info/trac/ticket/307}
-     * - Replaceregexp filter works in Copy task but not Move task
+     * - Replaceregexp filter works in Copy task but not Move task.
      */
     public function testReplaceRegexp()
     {
         $this->executeTarget(__FUNCTION__);
 
-        $contents = file_get_contents(PHING_TEST_BASE . "/etc/tasks/system/tmp/anotherfile.bak");
+        $contents = file_get_contents(PHING_TEST_BASE . '/etc/tasks/system/tmp/anotherfile.bak');
 
-        $this->assertEquals("BAR", $contents);
+        $this->assertEquals('BAR', $contents);
     }
 
     public function testGranularity()

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -40,25 +41,25 @@ class AdhocTypedefTask extends AdhocTask
      *
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
     /**
-     * Main entry point
+     * Main entry point.
      */
     public function main()
     {
-        if ($this->name === null) {
-            throw new BuildException("The name attribute is required for adhoc task definition.", $this->getLocation());
+        if (null === $this->name) {
+            throw new BuildException('The name attribute is required for adhoc task definition.', $this->getLocation());
         }
 
         $this->execute();
 
         $classes = $this->getNewClasses();
-        if (count($classes) !== 1) {
-            throw new BuildException("You must define one (and only one) class for AdhocTypedefTask.");
+        if (1 !== count($classes)) {
+            throw new BuildException('You must define one (and only one) class for AdhocTypedefTask.');
         }
         $classname = array_shift($classes);
 
@@ -66,12 +67,12 @@ class AdhocTypedefTask extends AdhocTask
         $t = new $classname();
         if (!($t instanceof ProjectComponent)) {
             throw new BuildException(
-                "The adhoc class you defined must be an instance of phing.ProjectComponent",
+                'The adhoc class you defined must be an instance of phing.ProjectComponent',
                 $this->getLocation()
             );
         }
 
-        $this->log("Datatype " . $this->name . " will be handled by class " . $classname, Project::MSG_VERBOSE);
+        $this->log('Datatype ' . $this->name . ' will be handled by class ' . $classname, Project::MSG_VERBOSE);
         $this->project->addDataTypeDefinition($this->name, $classname);
     }
 }

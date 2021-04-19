@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +25,7 @@ use Phing\Io\Reader;
 use Phing\Project;
 
 /**
- * UTF-8 to Unicode Code Points
+ * UTF-8 to Unicode Code Points.
  *
  * This method converts non-latin characters to unicode escapes.
  * Useful to load properties containing non latin.
@@ -46,10 +47,12 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
      * characters to unicode escapes.
      *
      * @param int $len optional
-     * @return string      the converted lines in the resulting stream, or -1
-     *                     if the end of the resulting stream has been reached
+     *
      * @throws IOException if the underlying stream throws
      *                     an IOException during reading
+     *
+     * @return string the converted lines in the resulting stream, or -1
+     *                if the end of the resulting stream has been reached
      */
     public function read($len = null)
     {
@@ -69,15 +72,15 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
             return -1;
         }
 
-        $textArray = preg_split("~\R~", $text);
+        $textArray = preg_split('~\\R~', $text);
 
         $lines = [];
         foreach ($textArray as $offset => $line) {
             $lines[] = trim(json_encode($line), '"');
             if (strlen($line) !== strlen($lines[$offset])) {
                 $this->log(
-                    "Escape unicode chars on line " . ($offset + 1)
-                    . " from " . $line . " to " . $lines[$offset],
+                    'Escape unicode chars on line ' . ($offset + 1)
+                    . ' from ' . $line . ' to ' . $lines[$offset],
                     Project::MSG_VERBOSE
                 );
             }
@@ -91,10 +94,10 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
      * Reader for instantiation.
      *
      * @param Reader $reader A Reader object providing the underlying stream.
-     *            Must not be <code>null</code>.
+     *                       Must not be <code>null</code>.
      *
      * @return EscapeUnicode a new filter based on this configuration, but filtering
-     *         the specified reader
+     *                       the specified reader
      */
     public function chain(Reader $reader): Reader
     {
@@ -106,7 +109,7 @@ class EscapeUnicode extends BaseFilterReader implements ChainableReader
     }
 
     /**
-     * Parses the parameters (currently unused)
+     * Parses the parameters (currently unused).
      */
     private function initialize()
     {

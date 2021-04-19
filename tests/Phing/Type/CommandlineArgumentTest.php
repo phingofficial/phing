@@ -1,6 +1,10 @@
 <?php
 
-namespace Phing\Type;
+namespace Phing\Test\Type;
+
+use Phing\Type\Commandline;
+use Phing\Type\CommandlineArgument;
+use PHPUnit\Framework\TestCase;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -19,16 +23,15 @@ namespace Phing\Type;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-class CommandlineArgumentTest extends \PHPUnit\Framework\TestCase
+class CommandlineArgumentTest extends TestCase
 {
     /**
-     * Test the one 'getter' method of the CommandlineArgument class
-     *
+     * Test the one 'getter' method of the CommandlineArgument class.
      */
     public function testGetParts()
     {
-        $command = "usblamp -s -r 5 red green blue off";
-        $exploded = explode(" ", "-s -r 5 red green blue off");
+        $command = 'usblamp -s -r 5 red green blue off';
+        $exploded = explode(' ', '-s -r 5 red green blue off');
         $commandline = new Commandline($command);
         $arguments = ($commandline->arguments);
         foreach ($arguments as $counter => $argument) {
@@ -40,12 +43,12 @@ class CommandlineArgumentTest extends \PHPUnit\Framework\TestCase
 
     public function testSetEscape()
     {
-        $command = "usblamp -s -r 5 red green blue off";
+        $command = 'usblamp -s -r 5 red green blue off';
         $commandline = new Commandline($command);
         $argument = new CommandlineArgument($commandline);
-        $this->assertEquals($argument->escape, false);
+        $this->assertEquals(false, $argument->escape);
         $argument->setEscape(true);
-        $this->assertEquals($argument->escape, true);
+        $this->assertEquals(true, $argument->escape);
     }
 
     public function testSetline()
@@ -54,9 +57,9 @@ class CommandlineArgumentTest extends \PHPUnit\Framework\TestCase
         $argument = new CommandlineArgument($commandline);
         $argument->setLine(null);
         $parts = $argument->getParts();
-        $this->assertEquals($parts, []);
+        $this->assertEquals([], $parts);
         $argument->setLine("perl -pie 's/foo/bar/g' test.txt");
         $parts = $argument->getParts();
-        $this->assertNotEquals($parts, []);
+        $this->assertNotEquals([], $parts);
     }
 }

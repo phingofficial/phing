@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -60,8 +61,8 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
      */
     public function validate()
     {
-        if ($this->count() != 1) {
-            throw new BuildException("Only one selector allowed");
+        if (1 != $this->count()) {
+            throw new BuildException('Only one selector allowed');
         }
         parent::validate();
     }
@@ -69,22 +70,23 @@ class IsFileSelected extends AbstractSelectorContainer implements Condition
     /**
      * Evaluate the selector with the file.
      *
-     * @return true if the file is selected by the embedded selector.
+     * @return true if the file is selected by the embedded selector
      */
     public function evaluate()
     {
-        if ($this->file === null) {
+        if (null === $this->file) {
             throw new BuildException('file attribute not set');
         }
         $this->validate();
         $myBaseDir = $this->baseDir;
-        if ($myBaseDir === null) {
+        if (null === $myBaseDir) {
             $myBaseDir = $this->getProject()->getBaseDir();
         }
 
         $file = $this->getSelectors($this->getProject());
         /** @var FileSelector $f */
         $f = $file[0];
+
         return $f->isSelected($myBaseDir, $this->file->getName(), $this->file);
     }
 }

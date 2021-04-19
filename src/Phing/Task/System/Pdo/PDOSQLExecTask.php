@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,9 +25,9 @@ use PDO;
 use PDOException;
 use PDOStatement;
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Io\IOException;
 use Phing\Io\LogWriter;
-use Phing\Io\File;
 use Phing\Io\Reader;
 use Phing\Io\Writer;
 use Phing\Project;
@@ -65,6 +66,9 @@ use Phing\Type\FileSet;
  */
 class PDOSQLExecTask extends PDOTask implements Condition
 {
+    public const DELIM_ROW = 'row';
+    public const DELIM_NORMAL = 'normal';
+    public const DELIM_NONE = 'none';
     /**
      * Count of how many statements were executed successfully.
      *
@@ -79,26 +83,22 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     private $totalSql = 0;
 
-    public const DELIM_ROW = "row";
-    public const DELIM_NORMAL = "normal";
-    public const DELIM_NONE = "none";
-
     /**
-     * Database connection
+     * Database connection.
      *
      * @var PDO
      */
-    private $conn = null;
+    private $conn;
 
     /**
-     * Files to load
+     * Files to load.
      *
      * @var FileSet[]
      */
     private $filesets = [];
 
     /**
-     * Files to load
+     * Files to load.
      *
      * @var FileList[]
      */
@@ -112,53 +112,53 @@ class PDOSQLExecTask extends PDOTask implements Condition
     private $formatters = [];
 
     /**
-     * SQL statement
+     * SQL statement.
      *
      * @var PDOStatement
      */
     private $statement;
 
     /**
-     * SQL input file
+     * SQL input file.
      *
      * @var File
      */
     private $srcFile;
 
     /**
-     * SQL input command
+     * SQL input command.
      *
      * @var string
      */
-    private $sqlCommand = "";
+    private $sqlCommand = '';
 
     /**
-     * SQL transactions to perform
+     * SQL transactions to perform.
      */
     private $transactions = [];
 
     /**
-     * SQL Statement delimiter (for parsing files)
+     * SQL Statement delimiter (for parsing files).
      *
      * @var string
      */
-    private $delimiter = ";";
+    private $delimiter = ';';
 
     /**
      * The delimiter type indicating whether the delimiter will
-     * only be recognized on a line by itself
+     * only be recognized on a line by itself.
      */
     private $delimiterType = self::DELIM_NONE;
 
     /**
-     * Action to perform if an error is found
-     **/
-    private $onError = "abort";
+     * Action to perform if an error is found.
+     */
+    private $onError = 'abort';
 
     /**
-     * Encoding to use when reading SQL statements from a file
+     * Encoding to use when reading SQL statements from a file.
      */
-    private $encoding = null;
+    private $encoding;
 
     /**
      * Fetch mode for PDO select queries.
@@ -169,8 +169,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * Set the name of the SQL file to be run.
-     * Required unless statements are enclosed in the build file
-     *
+     * Required unless statements are enclosed in the build file.
      */
     public function setSrc(File $srcFile)
     {
@@ -190,7 +189,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * Adds a set of files (nested fileset attribute).
-     *
      */
     public function addFileset(FileSet $set)
     {
@@ -199,7 +197,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * Adds a set of files (nested filelist attribute).
-     *
      */
     public function addFilelist(FileList $list)
     {
@@ -220,7 +217,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     }
 
     /**
-     * Add a SQL transaction to execute
+     * Add a SQL transaction to execute.
      */
     public function createTransaction()
     {
@@ -231,7 +228,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     }
 
     /**
-     * Set the file encoding to use on the SQL files read in
+     * Set the file encoding to use on the SQL files read in.
      *
      * @param string $encoding the encoding to use on the files
      */
@@ -245,7 +242,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * <p>For example, set this to "go" and delimitertype to "ROW" for
      * Sybase ASE or MS SQL Server.</p>
-     *
      */
     public function setDelimiter(string $delimiter): void
     {
@@ -254,7 +250,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * Get the statement delimiter.
-     *
      */
     public function getDelimiter(): string
     {
@@ -266,7 +261,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * values - normal and row. Normal means that any occurrence of the delimiter
      * terminate the SQL command whereas with row, only a line containing just
      * the delimiter is recognized as the end of the command.
-     *
      */
     public function setDelimiterType(string $delimiterType): void
     {
@@ -275,7 +269,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     /**
      * Action to perform when statement fails: continue, stop, or abort
-     * optional; default &quot;abort&quot;
+     * optional; default &quot;abort&quot;.
      *
      * @param string $action continue|stop|abort
      */
@@ -287,7 +281,8 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Sets the fetch mode to use for the PDO resultset.
      *
-     * @param  mixed $mode The PDO fetchmode int or constant name.
+     * @param mixed $mode the PDO fetchmode int or constant name
+     *
      * @throws BuildException
      */
     public function setFetchmode($mode): void
@@ -298,19 +293,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
             if (defined($mode)) {
                 $this->fetchMode = constant($mode);
             } else {
-                throw new BuildException("Invalid PDO fetch mode specified: " . $mode, $this->getLocation());
+                throw new BuildException('Invalid PDO fetch mode specified: ' . $mode, $this->getLocation());
             }
         }
-    }
-
-    /**
-     * Gets a default output writer for this task.
-     *
-     * @return Writer
-     */
-    private function getDefaultOutput()
-    {
-        return new LogWriter($this);
     }
 
     /**
@@ -322,10 +307,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     public function main()
     {
-
         // Set a default fetchmode if none was specified
         // (We're doing that here to prevent errors loading the class is PDO is not available.)
-        if ($this->fetchMode === null) {
+        if (null === $this->fetchMode) {
             $this->fetchMode = PDO::FETCH_ASSOC;
         }
 
@@ -336,7 +320,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
         }
 
         $savedTransaction = [];
-        for ($i = 0, $size = count($this->transactions); $i < $size; $i++) {
+        for ($i = 0, $size = count($this->transactions); $i < $size; ++$i) {
             $savedTransaction[] = clone $this->transactions[$i];
         }
 
@@ -346,22 +330,22 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
         try {
             if (
-                $this->srcFile === null
-                && $this->sqlCommand === ""
+                null === $this->srcFile
+                && '' === $this->sqlCommand
                 && empty($this->filesets)
                 && empty($this->filelists)
-                && count($this->transactions) === 0
+                && 0 === count($this->transactions)
             ) {
                 throw new BuildException(
-                    "Source file or fileset/filelist, "
-                    . "transactions or sql statement "
-                    . "must be set!",
+                    'Source file or fileset/filelist, '
+                    . 'transactions or sql statement '
+                    . 'must be set!',
                     $this->getLocation()
                 );
             }
 
-            if ($this->srcFile !== null && !$this->srcFile->exists()) {
-                throw new BuildException("Source file does not exist!", $this->getLocation());
+            if (null !== $this->srcFile && !$this->srcFile->exists()) {
+                throw new BuildException('Source file does not exist!', $this->getLocation());
             }
 
             // deal with the filesets
@@ -403,38 +387,41 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
                 try {
                     // Process all transactions
-                    for ($i = 0, $size = count($this->transactions); $i < $size; $i++) {
+                    for ($i = 0, $size = count($this->transactions); $i < $size; ++$i) {
                         if (!$this->isAutocommit()) {
-                            $this->log("Beginning transaction", Project::MSG_VERBOSE);
+                            $this->log('Beginning transaction', Project::MSG_VERBOSE);
                             $this->conn->beginTransaction();
                         }
                         $this->transactions[$i]->runTransaction();
                         if (!$this->isAutocommit()) {
-                            $this->log("Committing transaction", Project::MSG_VERBOSE);
+                            $this->log('Committing transaction', Project::MSG_VERBOSE);
                             $this->conn->commit();
                         }
                     }
                 } catch (Exception $e) {
                     $this->closeConnection();
+
                     throw $e;
                 }
             } catch (IOException $e) {
-                if (!$this->isAutocommit() && $this->conn !== null && $this->onError === "abort") {
+                if (!$this->isAutocommit() && null !== $this->conn && 'abort' === $this->onError) {
                     try {
                         $this->conn->rollback();
                     } catch (PDOException $ex) {
                     }
                 }
                 $this->closeConnection();
+
                 throw new BuildException($e->getMessage(), $this->getLocation());
             } catch (PDOException $e) {
-                if (!$this->isAutocommit() && $this->conn !== null && $this->onError === "abort") {
+                if (!$this->isAutocommit() && null !== $this->conn && 'abort' === $this->onError) {
                     try {
                         $this->conn->rollback();
                     } catch (PDOException $ex) {
                     }
                 }
                 $this->closeConnection();
+
                 throw new BuildException($e->getMessage(), $this->getLocation());
             }
 
@@ -442,8 +429,8 @@ class PDOSQLExecTask extends PDOTask implements Condition
             $this->closeFormatters();
 
             $this->log(
-                $this->goodSql . " of " . $this->totalSql .
-                " SQL statements executed successfully"
+                $this->goodSql . ' of ' . $this->totalSql .
+                ' SQL statements executed successfully'
             );
         } catch (Exception $e) {
             throw $e;
@@ -455,7 +442,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     }
 
     /**
-     * read in lines and execute them
+     * read in lines and execute them.
      *
      * @throws BuildException
      */
@@ -463,7 +450,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     {
         if (self::DELIM_NONE == $this->delimiterType) {
             $splitter = new DummyPDOQuerySplitter($this, $reader);
-        } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos($this->getUrl(), 'pgsql:')) {
+        } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos((string) $this->getUrl(), 'pgsql:')) {
             $splitter = new PgsqlPDOQuerySplitter($this, $reader);
         } else {
             $splitter = new DefaultPDOQuerySplitter($this, $reader, $this->delimiterType);
@@ -471,12 +458,45 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
         try {
             while (null !== ($query = $splitter->nextQuery())) {
-                $this->log("SQL: " . $query, Project::MSG_VERBOSE);
+                $this->log('SQL: ' . $query, Project::MSG_VERBOSE);
                 $this->execSQL($query);
             }
         } catch (PDOException $e) {
             throw $e;
         }
+    }
+
+    /**
+     * PDOSQLExecTask as condition.
+     *
+     * Returns false when the database connection fails, and true otherwise.
+     * This method only uses three properties: url (required), userId and
+     * password.
+     *
+     * The database connection is not stored in a variable, this allow to
+     * immediately close the connections since there's no reference to it.
+     *
+     * @author Jawira Portugal <dev@tugal.be>
+     */
+    public function evaluate(): bool
+    {
+        if (empty($this->getUrl())) {
+            throw new BuildException('url is required');
+        }
+
+        $this->log('Trying to reach ' . $this->getUrl(), Project::MSG_DEBUG);
+
+        try {
+            new PDO($this->getUrl(), $this->getUserId(), $this->getPassword());
+        } catch (PDOException $ex) {
+            $this->log($ex->getMessage(), Project::MSG_VERBOSE);
+
+            return false;
+        }
+
+        $this->log('Successful connection to ' . $this->getUrl(), Project::MSG_DEBUG);
+
+        return true;
     }
 
     /**
@@ -486,13 +506,13 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @param string $sql
      *
-     * @return bool Whether specified SQL looks like a SELECT query.
+     * @return bool whether specified SQL looks like a SELECT query
      */
     protected function isSelectSql($sql)
     {
         $sql = trim($sql);
 
-        return (stripos($sql, 'select') === 0 && stripos($sql, 'select into ') !== 0);
+        return 0 === stripos($sql, 'select') && 0 !== stripos($sql, 'select into ');
     }
 
     /**
@@ -506,15 +526,15 @@ class PDOSQLExecTask extends PDOTask implements Condition
     protected function execSQL($sql)
     {
         // Check and ignore empty statements
-        if (trim($sql) == "") {
+        if ('' == trim($sql)) {
             return;
         }
 
         try {
-            $this->totalSql++;
+            ++$this->totalSql;
 
             $this->statement = $this->conn->query($sql);
-            $this->log($this->statement->rowCount() . " rows affected", Project::MSG_VERBOSE);
+            $this->log($this->statement->rowCount() . ' rows affected', Project::MSG_VERBOSE);
 
             // only call processResults() for statements that return actual data (such as 'select')
             if ($this->statement->columnCount() > 0) {
@@ -524,11 +544,11 @@ class PDOSQLExecTask extends PDOTask implements Condition
             $this->statement->closeCursor();
             $this->statement = null;
 
-            $this->goodSql++;
+            ++$this->goodSql;
         } catch (PDOException $e) {
-            $this->log("Failed to execute: " . $sql, Project::MSG_ERR);
-            if ($this->onError != "continue") {
-                throw new BuildException("Failed to execute SQL", $e);
+            $this->log('Failed to execute: ' . $sql, Project::MSG_ERR);
+            if ('continue' != $this->onError) {
+                throw new BuildException('Failed to execute SQL', $e);
             }
             $this->log($e->getMessage(), Project::MSG_ERR);
         }
@@ -579,7 +599,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     protected function processResults()
     {
-        $this->log("Processing new result set.", Project::MSG_VERBOSE);
+        $this->log('Processing new result set.', Project::MSG_VERBOSE);
 
         $formatters = $this->getConfiguredFormatters();
 
@@ -590,16 +610,17 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 }
             }
         } catch (Exception $x) {
-            $this->log("Error processing reults: " . $x->getMessage(), Project::MSG_ERR);
+            $this->log('Error processing reults: ' . $x->getMessage(), Project::MSG_ERR);
             foreach ($formatters as $formatter) {
                 $formatter->close();
             }
+
             throw $x;
         }
     }
 
     /**
-     * Closes current connection
+     * Closes current connection.
      */
     protected function closeConnection(): void
     {
@@ -610,36 +631,12 @@ class PDOSQLExecTask extends PDOTask implements Condition
     }
 
     /**
-     * PDOSQLExecTask as condition
+     * Gets a default output writer for this task.
      *
-     * Returns false when the database connection fails, and true otherwise.
-     * This method only uses three properties: url (required), userId and
-     * password.
-     *
-     * The database connection is not stored in a variable, this allow to
-     * immediately close the connections since there's no reference to it.
-     *
-     * @author Jawira Portugal <dev@tugal.be>
-     *
+     * @return Writer
      */
-    public function evaluate(): bool
+    private function getDefaultOutput()
     {
-        if (empty($this->getUrl())) {
-            throw new BuildException('url is required');
-        }
-
-        $this->log('Trying to reach ' . $this->getUrl(), Project::MSG_DEBUG);
-
-        try {
-            new PDO($this->getUrl(), $this->getUserId(), $this->getPassword());
-        } catch (PDOException $ex) {
-            $this->log($ex->getMessage(), Project::MSG_VERBOSE);
-
-            return false;
-        }
-
-        $this->log('Successful connection to ' . $this->getUrl(), Project::MSG_DEBUG);
-
-        return true;
+        return new LogWriter($this);
     }
 }

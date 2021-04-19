@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,12 +18,13 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Optional;
+namespace Phing\Test\Task\Optional;
 
-use Phing\Task\Optional\ComposerTask;
 use Phing\Io\FileSystem;
 use Phing\Project;
+use Phing\Task\Optional\ComposerTask;
 use Phing\Type\CommandlineArgument;
+use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use ReflectionProperty;
 
@@ -31,7 +33,7 @@ use ReflectionProperty;
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
  */
-class ComposerTaskTest extends \PHPUnit\Framework\TestCase
+class ComposerTaskTest extends TestCase
 {
     /**
      * @var ComposerTask
@@ -57,8 +59,8 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers ComposerTask::setCommand
      * @covers ComposerTask::getCommand
+     * @covers ComposerTask::setCommand
      */
     public function testSetGetCommand()
     {
@@ -101,17 +103,17 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $composer = 'bar';
         $o = $this->object;
 
-        $orgPath = getenv("PATH");
+        $orgPath = getenv('PATH');
 
         $prop = new ReflectionProperty(ComposerTask::class, 'composer');
         $prop->setAccessible(true);
         $prop->setValue($o, $composer);
 
-        putenv("PATH=/foo/bar");
+        putenv('PATH=/foo/bar');
 
         $pathComposer = $o->getComposer();
 
-        putenv("PATH=$orgPath");
+        putenv("PATH={$orgPath}");
 
         $this->assertEquals($composer, $pathComposer);
     }
@@ -126,14 +128,14 @@ class ComposerTaskTest extends \PHPUnit\Framework\TestCase
         $o->setComposer($composer);
 
         $testPath = PHING_TEST_BASE . '/etc/tasks/ext/composer';
-        $orgPath = getenv("PATH");
+        $orgPath = getenv('PATH');
 
         $pathSeparator = FileSystem::getFileSystem()->getPathSeparator();
-        putenv("PATH=$testPath$pathSeparator$orgPath");
+        putenv("PATH={$testPath}{$pathSeparator}{$orgPath}");
 
         $pathComposer = $o->getComposer();
 
-        putenv("PATH=$orgPath");
+        putenv("PATH={$orgPath}");
 
         // The composer found shouldn't be the one we set
         $this->assertNotEquals($composer, $pathComposer);

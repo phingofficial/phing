@@ -15,7 +15,7 @@
   </target>
 
   <target name="noName">
-    <taskdef classname="Phing\Support\TaskdefTestSimpleTask"/>
+    <taskdef classname="Phing\Test\Support\TaskdefTestSimpleTask"/>
   </target>
 
   <target name="classNotFound">
@@ -26,7 +26,7 @@
     <pathelement dir="../../classes" />
   </path>
 
-  <taskdef name="global" classname="Phing\Support\TaskdefTestSimpleTask">
+  <taskdef name="global" classname="Phing\Test\Support\TaskdefTestSimpleTask">
     <classpath refid="testclasses" />
   </taskdef>
 
@@ -37,7 +37,7 @@
   </target>
 
   <target name="testLocal">
-    <taskdef name="local" classname="Phing\Support\TaskdefTestSimpleTask">
+    <taskdef name="local" classname="Phing\Test\Support\TaskdefTestSimpleTask">
       <classpath refid="testclasses" />
     </taskdef>
     <local id="local">
