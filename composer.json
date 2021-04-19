@@ -15,7 +15,7 @@
   ],
   "require": {
     "php": "^7.3 || ^7.4 || ^8.0",
-    "jawira/plantuml-encoding": "^1.0"
+    "jawira/plantuml-client": "^1.0"
   },
   "require-dev": {
     "ext-simplexml": "*",

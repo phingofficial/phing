@@ -21,6 +21,7 @@ declare(strict_types=1);
 
 namespace Phing\Task\Ext;
 
+use Jawira\PlantUmlClient\Client;
 use Phing\Exception\BuildException;
 use Phing\Io\FileReader;
 use Phing\Io\FileWriter;
@@ -30,7 +31,6 @@ use Psr\Http\Message\ResponseInterface;
 use SimpleXMLElement;
 use XSLTProcessor;
 use function array_reduce;
-use function Jawira\PlantUml\encodep;
 use function reset;
 use function simplexml_load_string;
 
@@ -75,8 +75,8 @@ class VisualizerTask extends HttpTask
     public function init(): void
     {
         parent::init();
-        if (!function_exists('\Jawira\PlantUml\encodep')) {
-            $exceptionMessage = get_class($this) . ' requires "jawira/plantuml-encoding" library';
+        if (!class_exists(Client::class)) {
+            $exceptionMessage = get_class($this) . ' requires "jawira/plantuml-client" library';
         }
         if (!class_exists(XSLTProcessor::class)) {
             $exceptionMessage = get_class($this) . ' requires XSL extension';
@@ -314,10 +314,7 @@ class VisualizerTask extends HttpTask
             return $pumlDiagram;
         }
 
-        $format      = $this->getFormat();
-        $encodedPuml = encodep($pumlDiagram);
-        $this->prepareImageUrl($format, $encodedPuml);
-
+        $this->prepareImageUrl($pumlDiagram, $this->getFormat());
         $response = $this->request();
         $this->processResponse($response); // used for status validation
 
@@ -327,22 +324,17 @@ class VisualizerTask extends HttpTask
     /**
      * Prepares URL from where image will be downloaded
      *
+     * @param string $pumlDiagram
      * @param string $format
-     * @param string $encodedPuml
      */
-    protected function prepareImageUrl(string $format, string $encodedPuml): void
+    protected function prepareImageUrl(string $pumlDiagram, string $format): void
     {
         $server = $this->getServer();
         $this->log("Server: $server", Project::MSG_VERBOSE);
 
-        $server = filter_var($server, FILTER_VALIDATE_URL);
-        if ($server === false) {
-            $exceptionMessage = 'Invalid PlantUml server';
-            $this->log($exceptionMessage, Project::MSG_ERR);
-            throw new BuildException($exceptionMessage);
-        }
+        $imageUrl = (new Client())->setServer($server)
+                                  ->generateUrl($pumlDiagram, $format);
 
-        $imageUrl = sprintf('%s/%s/%s', rtrim($server, '/'), $format, $encodedPuml);
         $this->log($imageUrl, Project::MSG_DEBUG);
         $this->setUrl($imageUrl);
     }
