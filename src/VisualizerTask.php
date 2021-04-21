@@ -31,8 +31,10 @@ use Psr\Http\Message\ResponseInterface;
 use SimpleXMLElement;
 use XSLTProcessor;
 use function array_reduce;
+use function filter_var;
 use function reset;
 use function simplexml_load_string;
+use const FILTER_VALIDATE_URL;
 
 /**
  * Class VisualizerTask
@@ -354,6 +356,11 @@ class VisualizerTask extends HttpTask
      */
     public function setServer(string $server): VisualizerTask
     {
+        if (!filter_var($server, FILTER_VALIDATE_URL)) {
+            $exceptionMessage = 'Invalid PlantUml server';
+            $this->log($exceptionMessage, Project::MSG_ERR);
+            throw new BuildException($exceptionMessage);
+        }
         $this->server = $server;
 
         return $this;
