@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="WarnTaskTest" default="test">
+    <target name="testWarnMsg">
+        <warn msg="This is a warning"/>
+    </target>
+</project>

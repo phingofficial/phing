@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="PHPCS" default="test">
     <target name="testPhpCs">
         <phpcs bin="../../../../../bin/phpcs" file="../../../../../classes/phing/dispatch" level="debug" checkreturn="false" ignoreAnnotations="true" />

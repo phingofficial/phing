@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SwitchTaskTest" default="test">
+    <target name="testSwitchCase">
+        <property name="foo" value="bar"/>
+        <switch value="${foo}">
+            <case value="bar">
+                <echo message="The value of property foo is bar" />
+            </case>
+            <case value="baz">
+                <echo message="The value of property foo is baz" />
+            </case>
+            <default>
+                <echo message="The value of property foo is not sensible" />
+            </default>
+        </switch>
+    </target>
+    <target name="testSwitchDefault">
+        <property name="bar" value="test"/>
+        <switch value="${bar}">
+            <case value="foo">
+                <echo message="The value of property bar is foo" />
+            </case>
+            <case value="baz">
+                <echo message="The value of property bar is baz" />
+            </case>
+            <default>
+                <echo message="The value of property bar is not sensible" />
+            </default>
+        </switch>
+    </target>
+</project>
