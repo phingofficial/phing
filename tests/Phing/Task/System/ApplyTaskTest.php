@@ -68,6 +68,81 @@ class ApplyTaskTest extends BuildFileTest
     }
 
     /**
+     * @param string $property
+     * @param mixed $value
+     * @param null $propertyName
+     * @throws ReflectionException
+     */
+    protected function assertAttributeIsSetTo(string $property, $value, $propertyName = null): void
+    {
+        $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), ApplyTask::class);
+
+        $propertyName = $propertyName ?? $property;
+        $rprop = new ReflectionProperty(ApplyTask::class, $propertyName);
+        $rprop->setAccessible(true);
+        $this->assertEquals($value, $rprop->getValue($task));
+    }
+
+    /**
+     * @param string $target
+     * @param string $task
+     *
+     * @return Task
+     * @throws Exception
+     */
+    protected function getConfiguredTask(string $target, string $task): Task
+    {
+        $target = $this->getTargetByName($target);
+        $task = $this->getTaskFromTarget($target, $task);
+        $task->maybeConfigure();
+
+        if ($task instanceof UnknownElement) {
+            return $task->getRuntimeConfigurableWrapper()->getProxy();
+        }
+
+        return $task;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Target
+     * @throws Exception
+     */
+    protected function getTargetByName(string $name): Target
+    {
+        foreach ($this->project->getTargets() as $target) {
+            if ($target->getName() == $name) {
+                return $target;
+            }
+        }
+
+        throw new Exception(sprintf('Target "%s" not found', $name));
+    }
+
+    /**
+     * @param $target
+     * @param string $taskName
+     * @param int $pos
+     *
+     * @return Task
+     * @throws Exception
+     */
+    protected function getTaskFromTarget($target, string $taskName, $pos = 0): Task
+    {
+        $rchildren = new ReflectionProperty(get_class($target), 'children');
+        $rchildren->setAccessible(true);
+        $n = -1;
+        foreach ($rchildren->getValue($target) as $child) {
+            if ($child instanceof Task && ++$n == $pos) {
+                return $child;
+            }
+        }
+
+        throw new Exception(sprintf('%s #%d not found in task', $taskName, $pos));
+    }
+
+    /**
      * Tests the dir configuration setting.
      */
     public function testPropertySetDir(): void
@@ -224,7 +299,7 @@ class ApplyTaskTest extends BuildFileTest
             . 'existent' . DIRECTORY_SEPARATOR
             . 'dir';
 
-        return $this->expectBuildExceptionContaining(
+        $this->expectBuildExceptionContaining(
             __FUNCTION__,
             __FUNCTION__,
             "'{$nonExistentDir}' is not a valid directory"
@@ -260,7 +335,7 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testCheckreturnFalse(): void
     {
-        return $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Task exited with code (1)');
+        $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Task exited with code (1)');
     }
 
     /**
@@ -402,6 +477,8 @@ class ApplyTaskTest extends BuildFileTest
         $this->assertNotInLogs('/etc/');
     }
 
+    // H E L P E R  M E T H O D S
+
     /**
      * Tests the source filename addition functionality.
      *
@@ -459,82 +536,5 @@ class ApplyTaskTest extends BuildFileTest
             $messages[] = $log['message'];
         }
         $this->assertContains('Applied echo to 4 files and 0 directories.', $messages);
-    }
-
-    // H E L P E R  M E T H O D S
-
-    /**
-     * @param string $name
-     *
-     * @return Target
-     * @throws Exception
-     */
-    protected function getTargetByName(string $name): Target
-    {
-        foreach ($this->project->getTargets() as $target) {
-            if ($target->getName() == $name) {
-                return $target;
-            }
-        }
-
-        throw new Exception(sprintf('Target "%s" not found', $name));
-    }
-
-    /**
-     * @param $target
-     * @param string $taskName
-     * @param int $pos
-     *
-     * @return Task
-     * @throws Exception
-     */
-    protected function getTaskFromTarget($target, string $taskName, $pos = 0): Task
-    {
-        $rchildren = new ReflectionProperty(get_class($target), 'children');
-        $rchildren->setAccessible(true);
-        $n = -1;
-        foreach ($rchildren->getValue($target) as $child) {
-            if ($child instanceof Task && ++$n == $pos) {
-                return $child;
-            }
-        }
-
-        throw new Exception(sprintf('%s #%d not found in task', $taskName, $pos));
-    }
-
-    /**
-     * @param string $target
-     * @param string $task
-     *
-     * @return Task
-     * @throws Exception
-     */
-    protected function getConfiguredTask(string $target, string $task): Task
-    {
-        $target = $this->getTargetByName($target);
-        $task = $this->getTaskFromTarget($target, $task);
-        $task->maybeConfigure();
-
-        if ($task instanceof UnknownElement) {
-            return $task->getRuntimeConfigurableWrapper()->getProxy();
-        }
-
-        return $task;
-    }
-
-    /**
-     * @param string $property
-     * @param mixed $value
-     * @param null $propertyName
-     * @throws ReflectionException
-     */
-    protected function assertAttributeIsSetTo(string $property, $value, $propertyName = null): void
-    {
-        $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), ApplyTask::class);
-
-        $propertyName = $propertyName ?? $property;
-        $rprop = new ReflectionProperty(ApplyTask::class, $propertyName);
-        $rprop->setAccessible(true);
-        $this->assertEquals($value, $rprop->getValue($task));
     }
 }
