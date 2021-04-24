@@ -71,7 +71,7 @@ class SonarTaskTest extends BuildFileTest
     /**
      * the return code of the exec command is always 0 under windows.
      *
-     * @requires OSFAMILY Windows
+     *
      */
     public function testExecutableFileIsNotExecutableThrowsException(): void
     {

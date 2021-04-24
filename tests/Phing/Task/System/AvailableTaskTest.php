@@ -29,7 +29,7 @@ use Phing\Test\Support\BuildFileTest;
  *
  * TODO: fix these tests on windows. Windows symlink command is mklink. I am not sure why these tests
  *       are throwing errors.
- * @requires OSFAMILY Windows
+ *
  */
 class AvailableTaskTest extends BuildFileTest
 {
