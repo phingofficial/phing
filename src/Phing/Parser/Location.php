@@ -65,24 +65,24 @@ class Location
      *
      * @return string the string representation of this Location object
      */
-    public function __toString()
+    public function __toString(): string
     {
         $buf = '';
-        if (null !== $this->fileName) {
-            $buf .= $this->fileName;
-            if (null !== $this->lineNumber) {
-                $buf .= ':' . $this->lineNumber;
+        if (null !== $this->getFileName()) {
+            $buf .= $this->getFileName();
+            if (null !== $this->getLineNumber()) {
+                $buf .= ':' . $this->getLineNumber();
             }
-            $buf .= ':' . $this->columnNumber;
+            $buf .= ':' . $this->getColumnNumber();
         }
 
-        return (string) $buf;
+        return $buf;
     }
 
     /**
      * @return null|string
      */
-    public function getFileName()
+    public function getFileName(): ?string
     {
         return $this->fileName;
     }
@@ -90,7 +90,7 @@ class Location
     /**
      * @return null|int
      */
-    public function getLineNumber()
+    public function getLineNumber(): ?int
     {
         return $this->lineNumber;
     }
@@ -98,7 +98,7 @@ class Location
     /**
      * @return null|int
      */
-    public function getColumnNumber()
+    public function getColumnNumber(): ?int
     {
         return $this->columnNumber;
     }
