@@ -1,6 +1,6 @@
 <project name="pharpackage" default="test">
     <target name="testPharPackage">
-        <pharpackage basedir="." destfile="./pharpackage.phar">
+        <pharpackage basedir="." destfile="./package.phar">
             <metadata>
                 <element name="foo" value="bar"/>
             </metadata>
