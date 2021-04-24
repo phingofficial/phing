@@ -43,9 +43,12 @@ class ChownTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testChangeGroup()
+    public function testChangeGroup(): void
     {
         $userinfo = posix_getpwuid(posix_geteuid());
+        if ($userinfo === false) {
+            $this->markTestSkipped('posix_getpwuid returns false');
+        }
         $username = $userinfo['name'];
 
         //we may change the group only if we belong to it
