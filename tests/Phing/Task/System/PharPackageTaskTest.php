@@ -45,13 +45,14 @@ class PharPackageTaskTest extends BuildFileTest
         @unlink(PHING_TEST_BASE . '/etc/tasks/system/pharpackage/pharpackage.phar.pubkey');
         @unlink(PHING_TEST_BASE . '/etc/tasks/system/pharpackage/pass.txt');
         @unlink(PHING_TEST_BASE . '/etc/tasks/system/pharpackage/pharpackage.phar');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/system/pharpackage/package.phar');
     }
 
     public function testPharPackage(): void
     {
         $this->executeTarget(__FUNCTION__);
 
-        $dest = PHING_TEST_BASE . '/etc/tasks/system/pharpackage/pharpackage.phar';
+        $dest = PHING_TEST_BASE . '/etc/tasks/system/pharpackage/package.phar';
         $this->assertFileExists($dest);
     }
 
