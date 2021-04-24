@@ -54,6 +54,7 @@ class PharPackageTaskTest extends BuildFileTest
 
         $dest = PHING_TEST_BASE . '/etc/tasks/system/pharpackage/package.phar';
         $this->assertFileExists($dest);
+        $this->assertLogLineContaining('Building package');
     }
 
     public function testOpenSSLSignature(): void
