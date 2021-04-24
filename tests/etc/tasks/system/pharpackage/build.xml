@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="pharpackage" default="test">
     <target name="testPharPackage">
         <pharpackage basedir="." destfile="./package.phar">
