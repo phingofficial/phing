@@ -34,7 +34,7 @@ class ExtendedFileStream
     public static function registerStream()
     {
         if (!in_array('efile', stream_get_wrappers())) {
-            stream_wrapper_register('efile', 'ExtendedFileStream');
+            stream_wrapper_register('efile', __CLASS__);
         }
     }
 
