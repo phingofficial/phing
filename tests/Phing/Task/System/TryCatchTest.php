@@ -36,7 +36,7 @@ class TryCatchTest extends BuildFileTest
         );
     }
 
-    public function testTryCatchFinally()
+    public function testTryCatchFinally(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('In <catch>.');
@@ -44,7 +44,7 @@ class TryCatchTest extends BuildFileTest
         $this->assertStringEndsWith('Tada!', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testExceptionInCatch()
+    public function testExceptionInCatch(): void
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,
@@ -54,7 +54,7 @@ class TryCatchTest extends BuildFileTest
         $this->assertPropertyEquals('prop.' . __FUNCTION__ . '.infinally', 'true');
     }
 
-    public function testExceptionInFinally()
+    public function testExceptionInFinally(): void
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,
@@ -68,7 +68,7 @@ class TryCatchTest extends BuildFileTest
         );
     }
 
-    public function testNoCatch()
+    public function testNoCatch(): void
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,

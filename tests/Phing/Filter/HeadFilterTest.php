@@ -37,7 +37,7 @@ class HeadFilterTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testHeadFilter()
+    public function testHeadFilter(): void
     {
         $this->executeTarget(__FUNCTION__);
 

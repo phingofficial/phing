@@ -33,13 +33,13 @@ class SvnInfoTaskTest extends AbstractSvnTaskTest
         $this->initialize('SvnInfoTest.xml');
     }
 
-    public function testGetUrl()
+    public function testGetUrl(): void
     {
         $this->executeTarget('getUrl');
         $this->assertPropertyEquals('svn.url', $this->project->getProperty('repo.url'));
     }
 
-    public function testGetAuthor()
+    public function testGetAuthor(): void
     {
         $this->executeTarget('getAuthor');
         $this->assertPropertyEquals('svn.author', 'michiel.rook');

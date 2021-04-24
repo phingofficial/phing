@@ -42,7 +42,7 @@ class ReadWriteTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testReadable()
+    public function testReadable(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
@@ -51,7 +51,7 @@ class ReadWriteTest extends BuildFileTest
         $this->assertTrue(is_readable(sprintf('%s/%s', $output, $file)));
     }
 
-    public function testWritable()
+    public function testWritable(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
@@ -60,7 +60,7 @@ class ReadWriteTest extends BuildFileTest
         $this->assertTrue(is_writable(sprintf('%s/%s', $output, $file)));
     }
 
-    public function testUnwritable()
+    public function testUnwritable(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();

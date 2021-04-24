@@ -47,37 +47,37 @@ class AvailableTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testDanglingSymlink()
+    public function testDanglingSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNull($this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testFileSymlink()
+    public function testFileSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testFileAbsoluteSymlink()
+    public function testFileAbsoluteSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testDirectorySymlink()
+    public function testDirectorySymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testDirectoryAbsoluteSymlink()
+    public function testDirectoryAbsoluteSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty('prop.' . __FUNCTION__));
     }
 
-    public function testDirectorySymlinkBC()
+    public function testDirectorySymlinkBC(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNull($this->project->getProperty('prop.' . __FUNCTION__));

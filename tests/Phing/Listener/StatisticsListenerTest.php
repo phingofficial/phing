@@ -30,7 +30,7 @@ class StatisticsListenerTest extends TestCase
     /**
      * @test
      */
-    public function buildFinished()
+    public function buildFinished(): void
     {
         $event = new BuildEvent(new Project());
         $logger = new class () extends StatisticsListener {

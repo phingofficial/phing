@@ -50,28 +50,28 @@ class GitPushTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/repo');
     }
 
-    public function testAllParamsSet()
+    public function testAllParamsSet(): void
     {
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-push: pushing to origin master:foobranch');
         $this->assertInLogs('git-push: complete');
     }
 
-    public function testAllReposSet()
+    public function testAllReposSet(): void
     {
         $this->executeTarget('allReposSet');
         $this->assertInLogs('git-push: push to all refs');
         $this->assertInLogs('git-push: complete');
     }
 
-    public function testTagsSet()
+    public function testTagsSet(): void
     {
         $this->executeTarget('tagsSet');
         $this->assertInLogs('git-push: pushing to origin master:foobranch');
         $this->assertInLogs('git-push: complete');
     }
 
-    public function testDeleteSet()
+    public function testDeleteSet(): void
     {
         $this->executeTarget('deleteSet');
         $this->assertInLogs('git-push: pushing to origin master:newbranch');
@@ -79,14 +79,14 @@ class GitPushTaskTest extends BuildFileTest
         $this->assertInLogs('git-push: complete');
     }
 
-    public function testMirrorSet()
+    public function testMirrorSet(): void
     {
         $this->executeTarget('mirrorSet');
         $this->assertInLogs('git-push: mirror all refs');
         $this->assertInLogs('git-push: complete');
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -95,7 +95,7 @@ class GitPushTaskTest extends BuildFileTest
         );
     }
 
-    public function testWrongRepo()
+    public function testWrongRepo(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepo',
@@ -104,7 +104,7 @@ class GitPushTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoDestinationSpecified()
+    public function testNoDestinationSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noDestination',

@@ -23,7 +23,7 @@ class Proxy
 {
     private $text = '';
 
-    public function addText($text)
+    public function addText($text): void
     {
         $this->text = $text;
     }

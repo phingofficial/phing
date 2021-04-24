@@ -43,13 +43,13 @@ class SymlinkSelectorTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testAsFalseConditions()
+    public function testAsFalseConditions(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('unset');
     }
 
-    public function testAsTrueConditions()
+    public function testAsTrueConditions(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('selected');

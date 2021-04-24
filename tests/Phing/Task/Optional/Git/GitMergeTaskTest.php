@@ -49,28 +49,28 @@ class GitMergeTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testAllParamsSet()
+    public function testAllParamsSet(): void
     {
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-merge: replaying "merge-test-1 merge-test-2" commits');
         $this->assertInLogs('git-merge output: Already up');
     }
 
-    public function testNoCommitSet()
+    public function testNoCommitSet(): void
     {
         $this->executeTarget('noCommitSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up');
     }
 
-    public function testRemoteSet()
+    public function testRemoteSet(): void
     {
         $this->executeTarget('remoteSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up');
     }
 
-    public function testFastForwardCommitSet()
+    public function testFastForwardCommitSet(): void
     {
         $this->executeTarget('fastForwardCommitSet');
         $this->assertInLogs('git-merge command: LC_ALL=C && git merge --no-ff \'origin/master\'');
@@ -78,7 +78,7 @@ class GitMergeTaskTest extends BuildFileTest
         $this->assertInLogs('Merge remote-tracking branch \'origin/master\' into merge-test-1');
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -87,7 +87,7 @@ class GitMergeTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoRemotesSpecified()
+    public function testNoRemotesSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRemotes',
@@ -96,7 +96,7 @@ class GitMergeTaskTest extends BuildFileTest
         );
     }
 
-    public function testWrongStrategySet()
+    public function testWrongStrategySet(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongStrategySet',

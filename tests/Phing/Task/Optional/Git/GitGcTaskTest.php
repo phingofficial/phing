@@ -49,14 +49,14 @@ class GitGcTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testAllParamsSet()
+    public function testAllParamsSet(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-gc: cleaning up "' . $repository . '" repository');
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -65,7 +65,7 @@ class GitGcTaskTest extends BuildFileTest
         );
     }
 
-    public function testAutoParameter()
+    public function testAutoParameter(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $msg = 'git-gc: cleaning up "' . $repository . '" repository';
@@ -74,7 +74,7 @@ class GitGcTaskTest extends BuildFileTest
         $this->assertInLogs($msg);
     }
 
-    public function testNoPruneParameter()
+    public function testNoPruneParameter(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $msg = 'git-gc: cleaning up "' . $repository . '" repository';
@@ -83,7 +83,7 @@ class GitGcTaskTest extends BuildFileTest
         $this->assertInLogs($msg);
     }
 
-    public function testAggressiveParameter()
+    public function testAggressiveParameter(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $msg = 'git-gc: cleaning up "' . $repository . '" repository';
@@ -92,7 +92,7 @@ class GitGcTaskTest extends BuildFileTest
         $this->assertInLogs($msg);
     }
 
-    public function testPruneParameter()
+    public function testPruneParameter(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $msg = 'git-gc: cleaning up "' . $repository . '" repository';

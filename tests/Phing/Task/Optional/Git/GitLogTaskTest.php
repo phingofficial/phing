@@ -118,7 +118,7 @@ class GitLogTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testGitLogWithoutParams()
+    public function testGitLogWithoutParams(): void
     {
         $this->executeTarget('gitLogWithoutParams');
         foreach ($this->testCommits as $commit) {
@@ -132,7 +132,7 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-    public function testGitWithMostParams()
+    public function testGitWithMostParams(): void
     {
         $this->executeTarget('gitLogWithMostParams');
         $lastTwoCommits = array_slice($this->testCommits, -2);
@@ -149,13 +149,13 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-    public function testGitOutputPropertySet()
+    public function testGitOutputPropertySet(): void
     {
         $this->executeTarget('gitLogOutputPropertySet');
         $this->assertPropertyEquals('gitLogOutput', '1b767b75bb5329f4e53345c516c0a9f4ed32d330 Added file5');
     }
 
-    public function testGitLogNameStatus()
+    public function testGitLogNameStatus(): void
     {
         $this->executeTarget('gitLogNameStatusSet');
         $this->assertInLogs("A\tfile1");
@@ -168,7 +168,7 @@ class GitLogTaskTest extends BuildFileTest
     /**
      * @todo Need to implement the Git relative date calculation
      */
-    public function testGitDateRelative()
+    public function testGitDateRelative(): void
     {
         $this->markTestSkipped('Need to implement the Git relative date calculation');
         $this->executeTarget('gitLogDateRelative');
@@ -178,7 +178,7 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-    public function testGitSinceUntilSet()
+    public function testGitSinceUntilSet(): void
     {
         $this->executeTarget('gitLogSinceUntilSet');
         $this->assertNotInLogs('6dbaf4508e75dcd426b5b974a67c462c70d46e1f Inited');
@@ -189,7 +189,7 @@ class GitLogTaskTest extends BuildFileTest
         $this->assertInLogs('b8cddb3fa5f408560d0d00d6c8721fe333895888 Added file1 + file2');
     }
 
-    public function testGitBeforeAfterSet()
+    public function testGitBeforeAfterSet(): void
     {
         $this->executeTarget('gitLogBeforeAfterSet');
         $this->assertNotInLogs('6dbaf4508e75dcd426b5b974a67c462c70d46e1f Inited');
@@ -200,7 +200,7 @@ class GitLogTaskTest extends BuildFileTest
         $this->assertInLogs('b8cddb3fa5f408560d0d00d6c8721fe333895888 Added file1 + file2');
     }
 
-    public function testGitFormatOneLine()
+    public function testGitFormatOneLine(): void
     {
         $this->executeTarget('gitLogFormatOneLine');
         foreach ($this->testCommits as $commit) {
@@ -211,7 +211,7 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-    public function testGitFormatShort()
+    public function testGitFormatShort(): void
     {
         $this->executeTarget('gitLogFormatShort');
         foreach ($this->testCommits as $commit) {
@@ -222,7 +222,7 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-    public function testGitFormatMedium()
+    public function testGitFormatMedium(): void
     {
         $this->executeTarget('gitLogFormatMedium');
         foreach ($this->testCommits as $commit) {
@@ -236,7 +236,7 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-    public function testGitFormatFull()
+    public function testGitFormatFull(): void
     {
         $this->executeTarget('gitLogFormatFull');
         foreach ($this->testCommits as $commit) {
@@ -251,7 +251,7 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-    public function testGitFormatFuller()
+    public function testGitFormatFuller(): void
     {
         $this->executeTarget('gitLogFormatFuller');
         foreach ($this->testCommits as $commit) {
@@ -267,7 +267,7 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-    public function testGitFormatEmail()
+    public function testGitFormatEmail(): void
     {
         $this->executeTarget('gitLogFormatEmail');
         foreach ($this->testCommits as $commit) {
@@ -281,7 +281,7 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-    public function testGitFormatCustom()
+    public function testGitFormatCustom(): void
     {
         $this->executeTarget('gitLogFormatCustom');
         foreach ($this->testCommits as $commit) {
@@ -291,7 +291,7 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',

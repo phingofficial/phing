@@ -36,7 +36,7 @@ class PropertyCopyTest extends BuildFileTest
         );
     }
 
-    public function testPropertyCopy()
+    public function testPropertyCopy(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('displayName', 'My Organiziation');

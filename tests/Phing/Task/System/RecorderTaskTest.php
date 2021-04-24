@@ -41,7 +41,7 @@ class RecorderTaskTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testRecordtoFiles()
+    public function testRecordtoFiles(): void
     {
         $this->executeTarget(__FUNCTION__);
         $fileContent = $this->getProject()->getProperty('file.content');

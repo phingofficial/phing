@@ -40,7 +40,7 @@ class GitBaseTest extends BuildFileTest
         $this->mock = $this->getMockForAbstractClass(GitBaseTask::class);
     }
 
-    public function testInitialization()
+    public function testInitialization(): void
     {
         $this->assertInstanceOf(GitBaseTask::class, $this->mock);
     }
@@ -48,12 +48,12 @@ class GitBaseTest extends BuildFileTest
     /**
      * @todo - make sure that required arguments are checked
      */
-    public function testArguments()
+    public function testArguments(): void
     {
         $this->markTestIncomplete('needs investigation');
     }
 
-    public function testMutators()
+    public function testMutators(): void
     {
         // gitPath
         $gitPath = $this->mock->getGitPath();

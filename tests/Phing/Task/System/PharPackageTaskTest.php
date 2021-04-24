@@ -47,7 +47,7 @@ class PharPackageTaskTest extends BuildFileTest
         @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar');
     }
 
-    public function testOpenSSLSignature()
+    public function testOpenSSLSignature(): void
     {
         // Generate a private key on the fly.
         $passphrase = uniqid('', true);

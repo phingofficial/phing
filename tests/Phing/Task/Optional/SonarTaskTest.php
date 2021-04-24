@@ -41,7 +41,7 @@ class SonarTaskTest extends BuildFileTest
     // Test "executable" attribute ...
     //
 
-    public function testExecutableAttributeIsMissingThrowsException()
+    public function testExecutableAttributeIsMissingThrowsException(): void
     {
         $this->expectBuildExceptionContaining(
             'executable-attribute-is-missing',
@@ -50,7 +50,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    public function testExecutableAttributeIsEmptyThrowsException()
+    public function testExecutableAttributeIsEmptyThrowsException(): void
     {
         $this->expectBuildExceptionContaining(
             'executable-attribute-is-empty',
@@ -59,7 +59,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    public function testExecutablePathDoesNotExistThrowsException()
+    public function testExecutablePathDoesNotExistThrowsException(): void
     {
         $this->expectBuildExceptionContaining(
             'executable-path-does-not-exist',
@@ -91,7 +91,7 @@ class SonarTaskTest extends BuildFileTest
         );
     }
 
-    public function testExecutableIsNotSonarScannerAndHasVersionStringThrowsException()
+    public function testExecutableIsNotSonarScannerAndHasVersionStringThrowsException(): void
     {
         $this->expectBuildExceptionContaining(
             'executable-is-not-sonar-scanner-and-has-version-string',

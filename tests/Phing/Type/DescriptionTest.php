@@ -31,7 +31,7 @@ class DescriptionTest extends BuildFileTest
      * @param mixed $fileName
      * @param mixed $outcome
      */
-    public function test($fileName, $outcome)
+    public function test($fileName, $outcome): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/types/{$fileName}.xml");
         $this->assertEquals($outcome, $this->getProject()->getDescription());

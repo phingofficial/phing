@@ -49,7 +49,7 @@ class GitBranchTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testAllParamsSet()
+    public function testAllParamsSet(): void
     {
         $this->executeTarget('allParamsSet');
         $this->assertLogLineContaining(
@@ -57,7 +57,7 @@ class GitBranchTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -66,7 +66,7 @@ class GitBranchTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoBranchnameSpecified()
+    public function testNoBranchnameSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noBranchname',
@@ -75,7 +75,7 @@ class GitBranchTaskTest extends BuildFileTest
         );
     }
 
-    public function testTrackParameter()
+    public function testTrackParameter(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
@@ -84,7 +84,7 @@ class GitBranchTaskTest extends BuildFileTest
         $this->assertLogLineContaining('git-branch output: Branch track-param-set set up to track local branch master');
     }
 
-    public function testNoTrackParameter()
+    public function testNoTrackParameter(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
@@ -93,7 +93,7 @@ class GitBranchTaskTest extends BuildFileTest
         $this->assertInLogs('git-branch output: '); // no output actually
     }
 
-    public function testSetUpstreamParameter()
+    public function testSetUpstreamParameter(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
@@ -106,7 +106,7 @@ class GitBranchTaskTest extends BuildFileTest
         $this->assertLogLineContaining('Branch set-upstream-param-set set up to track local branch master'); // no output actually
     }
 
-    public function testForceParameter()
+    public function testForceParameter(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
@@ -115,7 +115,7 @@ class GitBranchTaskTest extends BuildFileTest
         $this->assertInLogs('git-branch output: '); // no output actually
     }
 
-    public function testDeleteBranch()
+    public function testDeleteBranch(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
@@ -127,7 +127,7 @@ class GitBranchTaskTest extends BuildFileTest
         $this->assertInLogs('Deleted branch delete-branch-2');
     }
 
-    public function testMoveBranch()
+    public function testMoveBranch(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
@@ -137,7 +137,7 @@ class GitBranchTaskTest extends BuildFileTest
         $this->assertInLogs('Deleted branch move-branch-2');
     }
 
-    public function testForceMoveBranch()
+    public function testForceMoveBranch(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
 
@@ -147,7 +147,7 @@ class GitBranchTaskTest extends BuildFileTest
         $this->assertInLogs('Deleted branch move-branch-2');
     }
 
-    public function testForceMoveBranchNoNewbranch()
+    public function testForceMoveBranchNoNewbranch(): void
     {
         $this->expectBuildExceptionContaining(
             'forceMoveBranchNoNewbranch',
@@ -156,7 +156,7 @@ class GitBranchTaskTest extends BuildFileTest
         );
     }
 
-    public function testMoveBranchNoNewbranch()
+    public function testMoveBranchNoNewbranch(): void
     {
         $this->expectBuildExceptionContaining(
             'moveBranchNoNewbranch',

@@ -37,7 +37,7 @@ class HgLogTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testMaxCountShouldBeAnInteger()
+    public function testMaxCountShouldBeAnInteger(): void
     {
         $this->expectBuildExceptionContaining(
             'maxCountShouldBeAnInteger',
@@ -46,7 +46,7 @@ class HgLogTaskTest extends BuildFileTest
         );
     }
 
-    public function testMaxCountShouldBeAnInteger2()
+    public function testMaxCountShouldBeAnInteger2(): void
     {
         $this->expectBuildExceptionContaining(
             'maxCountShouldBeAnInteger2',

@@ -45,21 +45,21 @@ class AppendTaskTest extends BuildFileTest
         $this->getProject()->executeTarget('cleanup');
     }
 
-    public function test1()
+    public function test1(): void
     {
         $this->expectException(BuildException::class);
 
         $this->getProject()->executeTarget(__FUNCTION__);
     }
 
-    public function test2()
+    public function test2(): void
     {
         $this->expectException(BuildException::class);
 
         $this->getProject()->executeTarget(__FUNCTION__);
     }
 
-    public function test3()
+    public function test3(): void
     {
         $file = new File($this->getProjectDir(), $this->tempFile);
         if ($file->exists()) {
@@ -71,17 +71,17 @@ class AppendTaskTest extends BuildFileTest
         $this->assertTrue($file->exists());
     }
 
-    public function test4()
+    public function test4(): void
     {
         $this->expectLog(__FUNCTION__, 'Hello, World!');
     }
 
-    public function testConcatNoNewline()
+    public function testConcatNoNewline(): void
     {
         $this->expectLog(__FUNCTION__, 'ab');
     }
 
-    public function testPath()
+    public function testPath(): void
     {
         $this->test3();
 
@@ -96,7 +96,7 @@ class AppendTaskTest extends BuildFileTest
         $this->assertEquals($origSize, $newSize);
     }
 
-    public function testAppend()
+    public function testAppend(): void
     {
         $this->test3();
 
@@ -111,12 +111,12 @@ class AppendTaskTest extends BuildFileTest
         $this->assertEquals($origSize * 2, $newSize);
     }
 
-    public function testFilter()
+    public function testFilter(): void
     {
         $this->expectLog('testfilter', 'REPLACED');
     }
 
-    public function testNoOverwrite()
+    public function testNoOverwrite(): void
     {
         $this->executeTarget('testnooverwrite');
         $file2 = new File($this->getProjectDir(), $this->tempFile2);
@@ -124,13 +124,13 @@ class AppendTaskTest extends BuildFileTest
         $this->assertEquals(0, $size);
     }
 
-    public function testheaderfooter()
+    public function testheaderfooter(): void
     {
         $this->test3();
         $this->expectLog('testheaderfooter', 'headerHello, World!footer');
     }
 
-    public function testfileheader()
+    public function testfileheader(): void
     {
         $this->test3();
         $this->expectLog('testfileheader', 'Hello, World!Hello, World!');
@@ -139,19 +139,19 @@ class AppendTaskTest extends BuildFileTest
     /**
      * Expect an exception when attempting to cat an file to itself.
      */
-    public function testsame()
+    public function testsame(): void
     {
         $this->expectException(BuildException::class);
 
         $this->executeTarget('samefile');
     }
 
-    public function testfilterinline()
+    public function testfilterinline(): void
     {
         $this->expectLogContaining('testfilterinline', 'REPLACED');
     }
 
-    public function testfixlastline()
+    public function testfixlastline(): void
     {
         $this->executeTarget('testfixlastline');
         $this->assertStringContainsString(
@@ -160,7 +160,7 @@ class AppendTaskTest extends BuildFileTest
         );
     }
 
-    public function testfixlastlineeol()
+    public function testfixlastlineeol(): void
     {
         $this->executeTarget('testfixlastlineeol');
         $this->assertStringContainsString(

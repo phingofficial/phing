@@ -38,7 +38,7 @@ class RecursivePropertyTest extends BuildFileTest
         @unlink(PHING_TEST_BASE . '/etc/regression/269/testoutput');
     }
 
-    public function testCopyTask()
+    public function testCopyTask(): void
     {
         $this->executeTarget('main');
 

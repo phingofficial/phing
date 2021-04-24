@@ -45,7 +45,7 @@ class MapperTest extends TestCase
         $this->project->setBasedir(__DIR__);
     }
 
-    public function testEmptyElementIfIsReference()
+    public function testEmptyElementIfIsReference(): void
     {
         $m = new Mapper($this->project);
         $m->setFrom('*.java');
@@ -87,7 +87,7 @@ class MapperTest extends TestCase
         }
     }
 
-    public function testCircularReferenceCheck()
+    public function testCircularReferenceCheck(): void
     {
         $m = new Mapper($this->project);
         $this->project->addReference('dummy', $m);
@@ -140,7 +140,7 @@ class MapperTest extends TestCase
         $this->assertEquals('a.class', $result[0]);
     }
 
-    public function testCopyTaskWithTwoFilesets()
+    public function testCopyTaskWithTwoFilesets(): void
     {
         $this->expectNotToPerformAssertions();
         $t = new TaskdefForCopyTest('test1');
@@ -156,7 +156,7 @@ class MapperTest extends TestCase
         }
     }
 
-    public function testSetClasspathThrowsExceptionIfReferenceSetAlready()
+    public function testSetClasspathThrowsExceptionIfReferenceSetAlready(): void
     {
         $m = new Mapper($this->project);
         $m->setRefid(new Reference($this->project, 'dummyref'));
@@ -166,7 +166,7 @@ class MapperTest extends TestCase
         $m->setClasspath($p);
     }
 
-    public function testSetClasspath()
+    public function testSetClasspath(): void
     {
         $m = new Mapper($this->project);
         $p = new Path($this->project);
@@ -176,7 +176,7 @@ class MapperTest extends TestCase
         $this->assertEquals(Path::class, $class);
     }
 
-    public function testCreateClasspathThrowsExceptionIfReferenceAlreadySet()
+    public function testCreateClasspathThrowsExceptionIfReferenceAlreadySet(): void
     {
         $m = new Mapper($this->project);
         $m->setRefid(new Reference($this->project, 'dummyref'));
@@ -185,7 +185,7 @@ class MapperTest extends TestCase
         $m->createClasspath();
     }
 
-    public function testCallingsetClasspathRefThrowsExceptionIfReferenceAlreadySet()
+    public function testCallingsetClasspathRefThrowsExceptionIfReferenceAlreadySet(): void
     {
         $m = new Mapper($this->project);
         $m->setRefid(new Reference($this->project, 'dummyref'));
@@ -195,7 +195,7 @@ class MapperTest extends TestCase
         $m->setClasspathRef($r2);
     }
 
-    public function testSetClassnameThrowsExceptionIfReferenceIsSet()
+    public function testSetClassnameThrowsExceptionIfReferenceIsSet(): void
     {
         $m = new Mapper($this->project);
         $m->setRefid(new Reference($this->project, 'dummyref'));

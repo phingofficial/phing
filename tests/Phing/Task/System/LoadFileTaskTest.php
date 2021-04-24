@@ -37,13 +37,13 @@ class LoadFileTaskTest extends BuildFileTest
         );
     }
 
-    public function testVersionPropertySet()
+    public function testVersionPropertySet(): void
     {
         $this->executeTarget('test-version');
         $this->assertInLogs('Property ${version} => 1.0.1');
     }
 
-    public function testFilterChain()
+    public function testFilterChain(): void
     {
         $this->executeTarget('test-filterchain');
         $this->assertInLogs('<property>filterchain-test-123</property');

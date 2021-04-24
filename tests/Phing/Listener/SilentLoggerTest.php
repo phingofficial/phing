@@ -32,7 +32,7 @@ class SilentLoggerTest extends TestCase
     /**
      * @test
      */
-    public function buildFinished()
+    public function buildFinished(): void
     {
         $event = new BuildEvent(new Project());
         $logger = new SilentLogger();
@@ -43,7 +43,7 @@ class SilentLoggerTest extends TestCase
     /**
      * @test
      */
-    public function buildFinishedException()
+    public function buildFinishedException(): void
     {
         $event = new BuildEvent(new Project());
         $event->setException(new Exception('test'));

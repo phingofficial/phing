@@ -32,28 +32,28 @@ class VersionCompareConditionTest extends TestCase
         $this->condition = new VersionCompareCondition();
     }
 
-    public function testDefaultCompareIsFalseForSmallerRevision()
+    public function testDefaultCompareIsFalseForSmallerRevision(): void
     {
         $this->condition->setVersion('1.2.7');
         $this->condition->setDesiredVersion('1.3');
         $this->assertFalse($this->condition->evaluate());
     }
 
-    public function testDefaultCompareIsTrueForBiggerRevision()
+    public function testDefaultCompareIsTrueForBiggerRevision(): void
     {
         $this->condition->setVersion('1.6.2');
         $this->condition->setDesiredVersion('1.3');
         $this->assertTrue($this->condition->evaluate());
     }
 
-    public function testDefaultCompareIsTrueForSameRevision()
+    public function testDefaultCompareIsTrueForSameRevision(): void
     {
         $this->condition->setVersion('1.3');
         $this->condition->setDesiredVersion('1.3');
         $this->assertTrue($this->condition->evaluate());
     }
 
-    public function testCanUseDifferentOperator()
+    public function testCanUseDifferentOperator(): void
     {
         $this->condition->setVersion('1.2.7');
         $this->condition->setDesiredVersion('1.3');
@@ -61,7 +61,7 @@ class VersionCompareConditionTest extends TestCase
         $this->assertTrue($this->condition->evaluate());
     }
 
-    public function testUseDebugMode()
+    public function testUseDebugMode(): void
     {
         $this->condition->setVersion('1.2.7');
         $this->condition->setDesiredVersion('1.3');
@@ -70,7 +70,7 @@ class VersionCompareConditionTest extends TestCase
         $this->condition->evaluate();
     }
 
-    public function testCanNotUseUnsupportedOperator()
+    public function testCanNotUseUnsupportedOperator(): void
     {
         $this->expectException(BuildException::class);
 

@@ -37,13 +37,13 @@ class BlockForTaskTest extends BuildFileTest
         );
     }
 
-    public function testConditionMet()
+    public function testConditionMet(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('blockfor: condition was met');
     }
 
-    public function testTimeout()
+    public function testTimeout(): void
     {
         $this->expectException(BuildTimeoutException::class);
 

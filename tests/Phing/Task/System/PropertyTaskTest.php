@@ -34,29 +34,29 @@ class PropertyTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/property.xml');
     }
 
-    public function test1()
+    public function test1(): void
     {
         // should get no output at all
         $this->expectOutputAndError('test1', '', '');
     }
 
-    public function test2()
+    public function test2(): void
     {
         $this->expectLog('test2', 'testprop1=aa, testprop3=xxyy, testprop4=aazz');
     }
 
-    public function test4()
+    public function test4(): void
     {
         $this->expectLog('test4', 'http.url is http://localhost:999');
     }
 
-    public function testPrefixSuccess()
+    public function testPrefixSuccess(): void
     {
         $this->executeTarget('prefix.success');
         $this->assertEquals('80', $this->project->getProperty('server1.http.port'));
     }
 
-    public function testPrefixFailure()
+    public function testPrefixFailure(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessageMatches('/Prefix is only valid/');
@@ -64,7 +64,7 @@ class PropertyTaskTest extends BuildFileTest
         $this->executeTarget('prefix.fail');
     }
 
-    public function testFilterChain()
+    public function testFilterChain(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('World', $this->project->getProperty('filterchain.test'));
@@ -84,7 +84,7 @@ class PropertyTaskTest extends BuildFileTest
      *
      * @param mixed $target
      */
-    public function testCircularDefinitionDetection($target)
+    public function testCircularDefinitionDetection($target): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessageMatches('/was circularly defined/');
@@ -92,7 +92,7 @@ class PropertyTaskTest extends BuildFileTest
         $this->executeTarget($target);
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $this->expectLog(__FUNCTION__, 'sourcefiles = filehash.bin');
     }
@@ -101,13 +101,13 @@ class PropertyTaskTest extends BuildFileTest
      * Inspired by @see http://www.phing.info/trac/ticket/1118
      * This test should not throw exceptions.
      */
-    public function testUsingPropertyTwiceInPropertyValueShouldNotThrowException()
+    public function testUsingPropertyTwiceInPropertyValueShouldNotThrowException(): void
     {
         $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function testRequired()
+    public function testRequired(): void
     {
         $this->expectBuildException(__FUNCTION__, 'Unable to find property file.');
     }

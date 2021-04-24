@@ -45,7 +45,7 @@ class DefaultExcludesTest extends BuildFileTest
         $this->executeTarget('cleanup-excludes');
     }
 
-    public function test1()
+    public function test1(): void
     {
         $expected = [
             '**/*~',
@@ -89,7 +89,7 @@ class DefaultExcludesTest extends BuildFileTest
         }
     }
 
-    public function test2()
+    public function test2(): void
     {
         $expected = [
             '**/*~',
@@ -134,7 +134,7 @@ class DefaultExcludesTest extends BuildFileTest
         }
     }
 
-    public function test3()
+    public function test3(): void
     {
         $expected = [
             '**/*~',
@@ -178,7 +178,7 @@ class DefaultExcludesTest extends BuildFileTest
         }
     }
 
-    public function testCopyNoExplicitExcludes()
+    public function testCopyNoExplicitExcludes(): void
     {
         $this->executeTarget(__FUNCTION__);
         $output = $this->getProject()->getProperty('output');
@@ -186,7 +186,7 @@ class DefaultExcludesTest extends BuildFileTest
         $this->assertFileDoesNotExist($output . '/.svn/entries');
     }
 
-    public function testCopyExplicitExcludes()
+    public function testCopyExplicitExcludes(): void
     {
         $this->executeTarget(__FUNCTION__);
         $output = $this->getProject()->getProperty('output');
@@ -194,7 +194,7 @@ class DefaultExcludesTest extends BuildFileTest
         $this->assertFileDoesNotExist($output . '/.svn/entries');
     }
 
-    public function testCopyExplicitNoExcludes()
+    public function testCopyExplicitNoExcludes(): void
     {
         $this->executeTarget(__FUNCTION__);
         $output = $this->getProject()->getProperty('output');

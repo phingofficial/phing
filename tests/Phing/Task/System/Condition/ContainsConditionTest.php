@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ContainsConditionTest extends TestCase
 {
-    public function testCaseSensitive()
+    public function testCaseSensitive(): void
     {
         $con = new ContainsCondition();
         $con->setString('abc');

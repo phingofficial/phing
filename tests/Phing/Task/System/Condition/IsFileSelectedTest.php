@@ -36,13 +36,13 @@ class IsFileSelectedTest extends BuildFileTest
         );
     }
 
-    public function testIsFileSelected()
+    public function testIsFileSelected(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('selected');
     }
 
-    public function testNonFileSelected()
+    public function testNonFileSelected(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('unset');

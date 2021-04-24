@@ -48,7 +48,7 @@ class GitDescribeTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testGitDescribeTask()
+    public function testGitDescribeTask(): void
     {
         $this->executeTarget('gitDescribeTask');
         $this->assertInLogs('git-describe output: ver1.0');

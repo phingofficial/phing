@@ -48,7 +48,7 @@ class CharacterTest extends TestCase
      *
      * @param mixed $elem
      */
-    public function testIsChar($elem, bool $expected)
+    public function testIsChar($elem, bool $expected): void
     {
         $this->assertSame($this->char::isLetter($elem), $expected);
     }

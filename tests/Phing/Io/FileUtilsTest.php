@@ -49,7 +49,7 @@ class FileUtilsTest extends BuildFileTest
     /**
      * @test
      */
-    public function contentEquals()
+    public function contentEquals(): void
     {
         $this->assertFalse($this->fu->contentEquals(new File(__FILE__), new File('does_not_exists')));
         $this->assertFalse($this->fu->contentEquals(new File('does_not_exists'), new File(__FILE__)));
@@ -62,7 +62,7 @@ class FileUtilsTest extends BuildFileTest
     /**
      * @test
      */
-    public function copyFile()
+    public function copyFile(): void
     {
         $this->fu->copyFile(new File(__FILE__), new File('tmp/test.php'), $this->getProject());
 

@@ -62,7 +62,7 @@ class ComposerTaskTest extends TestCase
      * @covers ComposerTask::getCommand
      * @covers ComposerTask::setCommand
      */
-    public function testSetGetCommand()
+    public function testSetGetCommand(): void
     {
         $o = $this->object;
         $o->setCommand('foo');
@@ -73,7 +73,7 @@ class ComposerTaskTest extends TestCase
      * @covers ComposerTask::getPhp
      * @covers ComposerTask::setPhp
      */
-    public function testSetGetPhp()
+    public function testSetGetPhp(): void
     {
         $o = $this->object;
         $o->setPhp('foo');
@@ -83,7 +83,7 @@ class ComposerTaskTest extends TestCase
     /**
      * @covers ComposerTask::setComposer
      */
-    public function testSetComposer()
+    public function testSetComposer(): void
     {
         $composer = 'foobar';
         $o = $this->object;
@@ -98,7 +98,7 @@ class ComposerTaskTest extends TestCase
     /**
      * @covers ComposerTask::getComposer
      */
-    public function testGetComposerNotOnPath()
+    public function testGetComposerNotOnPath(): void
     {
         $composer = 'bar';
         $o = $this->object;
@@ -121,7 +121,7 @@ class ComposerTaskTest extends TestCase
     /**
      * @covers ComposerTask::getComposer
      */
-    public function testGetComposerFromPath()
+    public function testGetComposerFromPath(): void
     {
         $composer = 'foo';
         $o = $this->object;
@@ -144,14 +144,14 @@ class ComposerTaskTest extends TestCase
     /**
      * @covers ComposerTask::createArg
      */
-    public function testCreateArg()
+    public function testCreateArg(): void
     {
         $o = $this->object;
         $arg = $o->createArg();
         $this->assertInstanceOf(CommandlineArgument::class, $arg);
     }
 
-    public function testMultipleCalls()
+    public function testMultipleCalls(): void
     {
         $o = $this->object;
         $o->setPhp('php');

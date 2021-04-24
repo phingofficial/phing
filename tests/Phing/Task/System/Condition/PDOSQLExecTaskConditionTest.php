@@ -19,7 +19,7 @@ class PDOSQLExecTaskConditionTest extends BuildFileTest
         );
     }
 
-    public function testUrlIsRequiredException()
+    public function testUrlIsRequiredException(): void
     {
         $this->expectSpecificBuildException(
             __FUNCTION__,
@@ -28,7 +28,7 @@ class PDOSQLExecTaskConditionTest extends BuildFileTest
         );
     }
 
-    public function testFalseWhenInvalidHost()
+    public function testFalseWhenInvalidHost(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Trying to reach mysql:host=dummy', Project::MSG_DEBUG);
@@ -36,7 +36,7 @@ class PDOSQLExecTaskConditionTest extends BuildFileTest
         $this->assertInLogs('pdosqlexec condition returned false', Project::MSG_INFO);
     }
 
-    public function testFalseWhenInvalidDriver()
+    public function testFalseWhenInvalidDriver(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Trying to reach invalid:host=localhost', Project::MSG_DEBUG);
@@ -44,21 +44,21 @@ class PDOSQLExecTaskConditionTest extends BuildFileTest
         $this->assertInLogs('pdosqlexec condition returned false', Project::MSG_INFO);
     }
 
-    public function testCompatibleWithConditionTask()
+    public function testCompatibleWithConditionTask(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('condition.result', 'condition-not-met');
         $this->assertInLogs('Trying to reach mysql:host=localhost', Project::MSG_DEBUG);
     }
 
-    public function testCompatibleWithWaitForTask()
+    public function testCompatibleWithWaitForTask(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('waitfor.timeout', 'true');
         $this->assertInLogs('Trying to reach mysql:host=localhost', Project::MSG_DEBUG);
     }
 
-    public function testSuccessfulCondition()
+    public function testSuccessfulCondition(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('pdosqlexec condition returned true', Project::MSG_INFO);

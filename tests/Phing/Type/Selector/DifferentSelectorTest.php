@@ -42,7 +42,7 @@ class DifferentSelectorTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testSameTime()
+    public function testSameTime(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();
@@ -50,7 +50,7 @@ class DifferentSelectorTest extends BuildFileTest
         $this->assertFileDoesNotExist($result . '/a.txt');
     }
 
-    public function testDifferentTime()
+    public function testDifferentTime(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();

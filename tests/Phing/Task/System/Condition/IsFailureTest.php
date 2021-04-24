@@ -36,13 +36,13 @@ class IsFailureTest extends BuildFileTest
         );
     }
 
-    public function testFailureAfterNonExistingCommand()
+    public function testFailureAfterNonExistingCommand(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Command failed with return code 1');
     }
 
-    public function testNoFailureWithZeroValue()
+    public function testNoFailureWithZeroValue(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Command failed with return code 0');

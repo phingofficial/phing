@@ -171,19 +171,19 @@ class PhingTaskTest extends BuildFileTest
         $this->assertInLogs('The value of test is 7');
     }
 
-    public function testUserPropertyWinsNoInheritAll()
+    public function testUserPropertyWinsNoInheritAll(): void
     {
         $this->getProject()->setUserProperty('test', '7');
         $this->getProject()->executeTarget('test-property-override-no-inheritall-start');
         $this->assertInLogs('The value of test is 7');
     }
 
-    public function testOverrideWinsInheritAll()
+    public function testOverrideWinsInheritAll(): void
     {
         $this->expectLogContaining('test-property-override-inheritall-start', 'The value of test is 4');
     }
 
-    public function testOverrideWinsNoInheritAll()
+    public function testOverrideWinsNoInheritAll(): void
     {
         $this->expectLogContaining('test-property-override-no-inheritall-start', 'The value of test is 4');
     }

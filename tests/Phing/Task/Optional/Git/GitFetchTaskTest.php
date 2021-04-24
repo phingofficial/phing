@@ -49,7 +49,7 @@ class GitFetchTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testAllParamsSet()
+    public function testAllParamsSet(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
@@ -57,7 +57,7 @@ class GitFetchTaskTest extends BuildFileTest
         $this->assertInLogs('git-fetch output: '); // no output actually
     }
 
-    public function testFetchAllRemotes()
+    public function testFetchAllRemotes(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('fetchAllRemotes');
@@ -65,7 +65,7 @@ class GitFetchTaskTest extends BuildFileTest
         $this->assertInLogs('git-fetch output: Fetching origin');
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -74,7 +74,7 @@ class GitFetchTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoTargetSpecified()
+    public function testNoTargetSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noTarget',
@@ -83,7 +83,7 @@ class GitFetchTaskTest extends BuildFileTest
         );
     }
 
-    public function testRefspecSet()
+    public function testRefspecSet(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('refspecSet');

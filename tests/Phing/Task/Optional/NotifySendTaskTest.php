@@ -34,7 +34,7 @@ class NotifySendTaskTest extends BuildFileTest
         $this->object = new NotifySendTask();
     }
 
-    public function testEmptyMessage()
+    public function testEmptyMessage(): void
     {
         $this->executeTarget('testEmptyMessage');
         $this->assertInLogs('cmd: notify-send -i info Phing');
@@ -43,7 +43,7 @@ class NotifySendTaskTest extends BuildFileTest
         $this->assertInLogs('Silent flag set; not executing', Project::MSG_DEBUG);
     }
 
-    public function testSettingTitle()
+    public function testSettingTitle(): void
     {
         $this->object->setTitle('Test');
         $this->assertEquals('Test', $this->object->getTitle());
@@ -51,7 +51,7 @@ class NotifySendTaskTest extends BuildFileTest
         $this->assertEquals('Test Again', $this->object->getTitle());
     }
 
-    public function testSettingMsg()
+    public function testSettingMsg(): void
     {
         $this->object->setMsg('Test');
         $this->assertEquals('Test', $this->object->getMsg());
@@ -59,7 +59,7 @@ class NotifySendTaskTest extends BuildFileTest
         $this->assertEquals('Test Again', $this->object->getMsg());
     }
 
-    public function testSetStandardIcon()
+    public function testSetStandardIcon(): void
     {
         $this->object->setIcon(new File('info'));
         $this->assertEquals('info', $this->object->getIcon());
@@ -71,7 +71,7 @@ class NotifySendTaskTest extends BuildFileTest
         $this->assertEquals('warning', $this->object->getIcon());
     }
 
-    public function testSetNonStandardIcon()
+    public function testSetNonStandardIcon(): void
     {
         $this->object->setIcon(new File('informational'));
         $this->assertEquals('informational', $this->object->getIcon());

@@ -42,7 +42,7 @@ class HgRevertTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testFileNotSpecified()
+    public function testFileNotSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'fileNotSpecified',
@@ -53,14 +53,14 @@ class HgRevertTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testRevertAll()
+    public function testRevertAll(): void
     {
         $this->executeTarget('revertAll');
         $this->assertInLogs('Executing: hg revert --all', Project::MSG_INFO);
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testRevertAllRevSet()
+    public function testRevertAllRevSet(): void
     {
         $this->expectBuildExceptionContaining(
             'revertAllWithRevisionSet',

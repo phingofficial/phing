@@ -47,7 +47,7 @@ class FileSystemTest extends TestCase
         $this->resetFileSystem();
     }
 
-    public function testGetFileSystemWithUnknownTypeKeyThrowsException()
+    public function testGetFileSystemWithUnknownTypeKeyThrowsException(): void
     {
         $this->resetFileSystem();
 
@@ -65,7 +65,7 @@ class FileSystemTest extends TestCase
      * @param mixed $fsTypeKey
      * @throws IOException
      */
-    public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey)
+    public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey): void
     {
         $this->resetFileSystem();
 
@@ -84,28 +84,28 @@ class FileSystemTest extends TestCase
         ];
     }
 
-    public function testWhichFailsNonStringExecutable()
+    public function testWhichFailsNonStringExecutable(): void
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which(42);
         $this->assertEquals(false, $path);
     }
 
-    public function testWhichFailsDueToUnusualExecutableName()
+    public function testWhichFailsDueToUnusualExecutableName(): void
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which('tasword.bin');
         $this->assertEquals(false, $path);
     }
 
-    public function testWhichHinkyExecutableNameWithSeparator()
+    public function testWhichHinkyExecutableNameWithSeparator(): void
     {
         $fs = FileSystem::getFileSystem();
         $path = $fs->which('zx:\tasword.bin');
         $this->assertEquals(false, $path);
     }
 
-    public function testListContentsWithNumericName()
+    public function testListContentsWithNumericName(): void
     {
         $fs = FileSystem::getFileSystem();
 
@@ -117,7 +117,7 @@ class FileSystemTest extends TestCase
         }
     }
 
-    protected function resetFileSystem()
+    protected function resetFileSystem(): void
     {
         $refClass = new ReflectionClass(FileSystem::class);
         $refProperty = $refClass->getProperty('fs');

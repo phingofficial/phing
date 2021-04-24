@@ -35,7 +35,7 @@ class DefaultLoggerTest extends TestCase
     /**
      * @test
      */
-    public function throwableMessageOne()
+    public function throwableMessageOne(): void
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
         $this->assertEquals('build.xml:1:0 oops' . PHP_EOL, static::msg($be, false));
@@ -44,7 +44,7 @@ class DefaultLoggerTest extends TestCase
     /**
      * @test
      */
-    public function throwableMessageTwo()
+    public function throwableMessageTwo(): void
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
         $be = ProjectConfigurator::addLocationToBuildException($be, new Location('build.xml', 2, 0));
@@ -58,7 +58,7 @@ class DefaultLoggerTest extends TestCase
     /**
      * @test
      */
-    public function throwableMessageThree()
+    public function throwableMessageThree(): void
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
         $be = ProjectConfigurator::addLocationToBuildException($be, new Location('build.xml', 2, 0));
@@ -74,7 +74,7 @@ class DefaultLoggerTest extends TestCase
     /**
      * @test
      */
-    public function buildFinished()
+    public function buildFinished(): void
     {
         $event = new BuildEvent(new Project());
         $logger = new class () extends DefaultLogger {
@@ -98,7 +98,7 @@ class DefaultLoggerTest extends TestCase
      *
      * @param mixed $seconds
      */
-    public function testFormatTime($seconds, string $expectedText)
+    public function testFormatTime($seconds, string $expectedText): void
     {
         $formattedText = DefaultLogger::formatTime($seconds);
         $this->assertSame($formattedText, $expectedText);

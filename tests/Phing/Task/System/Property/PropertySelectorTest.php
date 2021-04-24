@@ -36,13 +36,13 @@ class PropertySelectorTest extends BuildFileTest
         );
     }
 
-    public function testPropertySelector()
+    public function testPropertySelector(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('pack.list', 'ABC,DEF,GHI,JKL');
     }
 
-    public function testSecondGroupSelectionDistinct()
+    public function testSecondGroupSelectionDistinct(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('pack.list', 'name');

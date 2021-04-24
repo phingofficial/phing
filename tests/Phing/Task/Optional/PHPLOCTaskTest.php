@@ -34,7 +34,7 @@ class PHPLOCTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phploc/build.xml');
     }
 
-    public function testReportText()
+    public function testReportText(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -43,7 +43,7 @@ class PHPLOCTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.txt');
     }
 
-    public function testReportCSV()
+    public function testReportCSV(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -52,7 +52,7 @@ class PHPLOCTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.csv');
     }
 
-    public function testReportXML()
+    public function testReportXML(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -61,7 +61,7 @@ class PHPLOCTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.xml');
     }
 
-    public function testReportJSON()
+    public function testReportJSON(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -70,7 +70,7 @@ class PHPLOCTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.json');
     }
 
-    public function testFormatters()
+    public function testFormatters(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(

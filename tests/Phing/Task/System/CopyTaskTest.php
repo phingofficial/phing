@@ -46,7 +46,7 @@ class CopyTaskTest extends BuildFileTest
     /**
      *
      */
-    public function testCopyDanglingSymlink()
+    public function testCopyDanglingSymlink(): void
     {
         $this->executeTarget('testCopyDanglingSymlink');
         $this->assertInLogs('Copying 1 file to');
@@ -59,7 +59,7 @@ class CopyTaskTest extends BuildFileTest
      *
      *
      */
-    public function testCopySymlinkPreserveLastModifiedShouldCopyTarget()
+    public function testCopySymlinkPreserveLastModifiedShouldCopyTarget(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Copying 2 files to');
@@ -70,7 +70,7 @@ class CopyTaskTest extends BuildFileTest
      * Regression test for ticket {@link http://www.phing.info/trac/ticket/229}
      * - CopyTask should accept filelist subelement.
      */
-    public function testCopyFileList()
+    public function testCopyFileList(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Copying 2 files to');
@@ -79,7 +79,7 @@ class CopyTaskTest extends BuildFileTest
     /**
      * - CopyTask should accept dirset subelement.
      */
-    public function testCopyDirSet()
+    public function testCopyDirSet(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Copying 2 files to');
@@ -91,14 +91,14 @@ class CopyTaskTest extends BuildFileTest
      *
      *
      */
-    public function testOverwriteExistingSymlink()
+    public function testOverwriteExistingSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Copying 1 file to');
         $this->assertEquals('tmp/target-a', readlink(PHING_TEST_BASE . '/etc/tasks/system/tmp/link-b'));
     }
 
-    public function testGranularity()
+    public function testGranularity(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'Test omitted, Test is up to date');
     }

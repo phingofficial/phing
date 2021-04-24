@@ -39,17 +39,17 @@ class ExtensionPointTest extends BuildFileTest
         );
     }
 
-    public function testExtensionPointWorksLikeTarget()
+    public function testExtensionPointWorksLikeTarget(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'foobar');
     }
 
-    public function testAddToExtensionPoint()
+    public function testAddToExtensionPoint(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'In target bar');
     }
 
-    public function testExtensionPointMustBeEmpty()
+    public function testExtensionPointMustBeEmpty(): void
     {
         $this->expectNotToPerformAssertions();
 
@@ -60,39 +60,39 @@ class ExtensionPointTest extends BuildFileTest
         }
     }
 
-    public function testCantAddToPlainTarget()
+    public function testCantAddToPlainTarget(): void
     {
         $this->expectBuildException(__FUNCTION__, 'referenced target foo is not an extension-point');
     }
 
-    public function testExtensionPointInImportedBuildfile()
+    public function testExtensionPointInImportedBuildfile(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'in target prepare');
     }
 
-    public function testExtensionPointInImportedBuildfileWithNestedImport()
+    public function testExtensionPointInImportedBuildfileWithNestedImport(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'in compile java');
     }
 
-    public function testMissingExtensionPointCausesError()
+    public function testMissingExtensionPointCausesError(): void
     {
         $this->expectBuildException(__FUNCTION__, 'can\'t add target bar to extension-point foo because the extension-point is unknown');
     }
 
-    public function testMissingExtensionPointCausesWarningWhenConfigured()
+    public function testMissingExtensionPointCausesWarningWhenConfigured(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('can\'t add target bar to extension-point foo because the extension-point is unknown', Project::MSG_WARN);
     }
 
-    public function testMissingExtensionPointIgnoredWhenConfigured()
+    public function testMissingExtensionPointIgnoredWhenConfigured(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('can\'t add target bar to extension-point foo because the extension-point is unknown', Project::MSG_WARN);
     }
 
-    public function testOnlyAllowsExtensionPointMissingAttributeWhenExtensionOfPresent()
+    public function testOnlyAllowsExtensionPointMissingAttributeWhenExtensionOfPresent(): void
     {
         $this->expectBuildException(__FUNCTION__, 'onMissingExtensionPoint attribute cannot be specified unless extensionOf is specified');
     }

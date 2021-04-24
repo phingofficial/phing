@@ -33,7 +33,7 @@ class IHProjectComponent
     public $text;
     public $container = [];
 
-    public function addText($text)
+    public function addText($text): void
     {
         $this->text .= $text;
     }
