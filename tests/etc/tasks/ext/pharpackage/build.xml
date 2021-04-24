@@ -1,18 +1,23 @@
 <project name="pharpackage" default="test">
-	<target name="testOpenSSLSignature">
-		<loadfile file="pass.txt" property="passphrase">
-			<filterchain><striplinebreaks/></filterchain>
-		</loadfile>
-		<pharpackage
-			basedir="."
-			destfile="./pharpackage.phar"
-			signature="openssl"
-			key="priv.key"
-			keypassword="${passphrase}"
-		>
-			<fileset dir=".">
-				<include name="*.xml" />
-			</fileset>
-		</pharpackage>
-	</target>
+    <target name="testOpenSSLSignature">
+        <loadfile file="pass.txt" property="passphrase">
+            <filterchain>
+                <striplinebreaks/>
+            </filterchain>
+        </loadfile>
+        <pharpackage
+                basedir="."
+                destfile="./pharpackage.phar"
+                signature="openssl"
+                key="priv.key"
+                keypassword="${passphrase}"
+        >
+            <metadata>
+                <element name="foo" value="bar"/>
+            </metadata>
+            <fileset dir=".">
+                <include name="*.xml"/>
+            </fileset>
+        </pharpackage>
+    </target>
 </project>
