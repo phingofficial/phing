@@ -27,8 +27,7 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Attrib Task.
  *
  * @author  Siad Ardroumli
- *
- *
+ * @requires OSFAMILY Windows
  */
 class AttribTaskTest extends BuildFileTest
 {
