@@ -44,7 +44,7 @@ class DeleteTaskTest extends BuildFileTest
     }
 
     /**
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testCopyDanglingSymlink()
     {

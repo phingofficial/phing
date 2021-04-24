@@ -44,7 +44,7 @@ class CopyTaskTest extends BuildFileTest
     }
 
     /**
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testCopyDanglingSymlink()
     {
@@ -57,7 +57,7 @@ class CopyTaskTest extends BuildFileTest
      * FileUtil::copyFile(): preserveLastModified causes
      * empty symlink target file.
      *
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testCopySymlinkPreserveLastModifiedShouldCopyTarget()
     {
@@ -89,7 +89,7 @@ class CopyTaskTest extends BuildFileTest
      * Regression test for ticket {@link https://github.com/phingofficial/phing/issues/562}
      * - Error overwriting symlinks on copy or move.
      *
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testOverwriteExistingSymlink()
     {

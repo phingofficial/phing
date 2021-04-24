@@ -36,53 +36,50 @@ class ConditionTaskTest extends BuildFileTest
         );
     }
 
-    public function testEquals()
+    public function testEquals(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('isEquals');
     }
 
-    public function testContains()
+    public function testContains(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('isContains');
     }
 
-    public function testCustomCondition()
+    public function testCustomCondition(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('isCustom');
     }
 
-    public function testReferenceExists()
+    public function testReferenceExists(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('ref.exists');
     }
 
-    /**
-     * @requires extension sockets
-     */
-    public function testSocketCondition()
+    public function testSocketCondition(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('socket');
     }
 
-    public function testMatches()
+    public function testMatches(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('matches', 'true');
     }
 
-    public function testIsTrue()
+    public function testIsTrue(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('istrueEqOne', 'true');
         $this->assertPropertyEquals('istrueEqEleven', 'true');
     }
 
-    public function testZero()
+    public function testZero(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('zero', '0');

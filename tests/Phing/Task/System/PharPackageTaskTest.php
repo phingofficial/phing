@@ -27,8 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests for PharPackageTask.
  *
  * @author François Poirotte <clicky@erebot.net>
- * @requires extension phar
- * @requires extension openssl
  */
 class PharPackageTaskTest extends BuildFileTest
 {
@@ -49,9 +47,6 @@ class PharPackageTaskTest extends BuildFileTest
         @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar');
     }
 
-    /**
-     * @requires extension openssl
-     */
     public function testOpenSSLSignature()
     {
         // Generate a private key on the fly.

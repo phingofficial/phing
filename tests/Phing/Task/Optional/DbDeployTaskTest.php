@@ -24,8 +24,6 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Michiel Rook <mrook@php.net>
- *
- * @requires extension sqlite
  */
 class DbDeployTaskTest extends BuildFileTest
 {
@@ -35,7 +33,7 @@ class DbDeployTaskTest extends BuildFileTest
         $this->executeTarget('prepare');
     }
 
-    public function testDeployAndUndo()
+    public function testDeployAndUndo(): void
     {
         $this->expectLog('testDeploy', 'Current db revision: 1');
         $this->expectLog('testUndo', 'Current db revision: 0');

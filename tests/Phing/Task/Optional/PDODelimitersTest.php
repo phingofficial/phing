@@ -21,6 +21,7 @@
 namespace Phing\Test\Task\Optional;
 
 use Phing\Io\File;
+use Phing\Io\IOException;
 use Phing\Task\System\Pdo\PDOSQLExecTask;
 use Phing\Test\Support\BuildFileTest;
 
@@ -33,28 +34,30 @@ class PDODelimitersTest extends BuildFileTest
 
     protected $mockTask;
 
+    /**
+     * @throws IOException
+     */
     public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pdo/empty.xml');
         $this->queries = [];
 
         $this->mockTask = $this->getMockBuilder(PDOSQLExecTask::class)
-            ->setMethods(['getConnection', 'execSQL'])
-            ->getMock()
-        ;
+            ->onlyMethods(['getConnection', 'execSQL'])
+            ->getMock();
         $this->mockTask->setProject($this->project);
         // prevents calling beginTransaction() on obviously missing PDO instance
         $this->mockTask->setAutocommit(true);
-        $this->mockTask->expects($this->atLeastOnce())->method('execSQL')
-            ->will($this->returnCallback([$this, 'storeQuery']))
-        ;
+        $this->mockTask->expects($this->atLeastOnce())
+            ->method('execSQL')
+            ->willReturnCallback([$this, 'storeQuery']);
 
         $targets = $this->project->getTargets();
         $targets['test']->addTask($this->mockTask);
         $this->mockTask->setOwningTarget($targets['test']);
     }
 
-    public function storeQuery($query)
+    public function storeQuery($query): void
     {
         $query = trim($query);
         if (strlen($query)) {
@@ -62,7 +65,7 @@ class PDODelimitersTest extends BuildFileTest
         }
     }
 
-    public function testDelimiterTypeNormal()
+    public function testDelimiterTypeNormal(): void
     {
         // for some reason default splitter mangles spaces on subsequent lines
         $expected = [
@@ -101,7 +104,7 @@ class PDODelimitersTest extends BuildFileTest
         $this->assertEquals($expected, $this->queries);
     }
 
-    public function testDelimiterTypeRow()
+    public function testDelimiterTypeRow(): void
     {
         // for some reason default splitter mangles spaces on subsequent lines
         $expected = [
@@ -137,7 +140,7 @@ class PDODelimitersTest extends BuildFileTest
      * @see http://www.phing.info/trac/ticket/499
      * @see http://www.postgresql.org/docs/9.0/interactive/sql-syntax-lexical.html#SQL-SYNTAX-DOLLAR-QUOTING
      */
-    public function testRequest499()
+    public function testRequest499(): void
     {
         $expected = [
             <<<'SQL'

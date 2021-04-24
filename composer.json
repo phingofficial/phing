@@ -81,8 +81,13 @@
     "require-dev": {
         "ext-curl": "*",
         "ext-iconv": "*",
+        "ext-openssl": "*",
         "ext-pdo_sqlite": "*",
+        "ext-phar": "*",
         "ext-simplexml": "*",
+        "ext-sockets": "*",
+        "ext-xsl": "*",
+        "ext-zip":  "*",
         "roave/security-advisories": "dev-master",
         "aws/aws-sdk-php": "^3.112",
         "friendsofphp/php-cs-fixer": "^2.18",

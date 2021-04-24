@@ -27,7 +27,7 @@ use Phing\Test\Support\BuildFileTest;
  *
  * @author  Michiel Rook <mrook@php.net>
  *
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OSFAMILY Windows
  */
 class ChmodTaskTest extends BuildFileTest
 {

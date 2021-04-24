@@ -24,7 +24,7 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OSFAMILY Windows
  */
 class GitCheckoutTaskTest extends BuildFileTest
 {

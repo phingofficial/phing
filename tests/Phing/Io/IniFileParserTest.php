@@ -28,7 +28,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OSFAMILY Windows
  */
 class IniFileParserTest extends TestCase
 {

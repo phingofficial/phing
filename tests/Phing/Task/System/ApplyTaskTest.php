@@ -234,7 +234,7 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the dir changing on an existent directory.
      *
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testChangeToDir()
     {
@@ -245,7 +245,7 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the failonerror/checkreturn value for 'true'.
      *
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testCheckreturnTrue()
     {
@@ -256,7 +256,7 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the failonerror/checkreturn value for 'false'.
      *
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testCheckreturnFalse()
     {
@@ -324,7 +324,7 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the error file functionality.
      *
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testError()
     {
@@ -350,7 +350,7 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the execution with the background process spawning.
      *
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testSpawn()
     {
@@ -394,7 +394,7 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the relative source filenames functionality.
      *
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testRelativeSourceFilenames()
     {
@@ -405,7 +405,7 @@ class ApplyTaskTest extends BuildFileTest
     /**
      * Tests the source filename addition functionality.
      *
-     * @requires OS ^(?:(?!Win).)*$
+     * @requires OSFAMILY Windows
      */
     public function testSourceFilename()
     {
