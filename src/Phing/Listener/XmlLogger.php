@@ -137,11 +137,6 @@ class XmlLogger implements BuildLogger
     private $err;
 
     /**
-     * @var string name of filename to create
-     */
-    private $outFilename;
-
-    /**
      *  Constructs a new BuildListener that logs build events to an XML file.
      */
     public function __construct(Clock $clock = null)
@@ -159,7 +154,7 @@ class XmlLogger implements BuildLogger
      * Fired when the build starts, this builds the top-level element for the
      * document and remembers the time of the start of the build.
      *
-     * @param BuildEvent ignored
+     * @param BuildEvent $event ignored
      */
     public function buildStarted(BuildEvent $event)
     {
@@ -205,7 +200,7 @@ class XmlLogger implements BuildLogger
         $this->doc->appendChild($this->buildElement);
 
         $outFilename = $event->getProject()->getProperty('XmlLogger.file');
-        if (null == $outFilename) {
+        if (null === $outFilename) {
             $outFilename = 'log.xml';
         }
 
@@ -315,7 +310,7 @@ class XmlLogger implements BuildLogger
      * most appropriate parent element (task, target or build) and records
      * the priority and text of the message.
      *
-     * @param BuildEvent An event with any relevant extra information.
+     * @param BuildEvent $event An event with any relevant extra information.
      *              Will not be <code>null</code>.
      */
     public function messageLogged(BuildEvent $event)
@@ -398,7 +393,7 @@ class XmlLogger implements BuildLogger
     /**
      * Sets the output stream.
      *
-     * @see   BuildLogger#setOutputStream()
+     * @see BuildLogger::setOutputStream()
      */
     public function setOutputStream(OutputStream $output)
     {
@@ -408,7 +403,7 @@ class XmlLogger implements BuildLogger
     /**
      * Sets the error stream.
      *
-     * @see   BuildLogger#setErrorStream()
+     * @see BuildLogger::setErrorStream()
      */
     public function setErrorStream(OutputStream $err)
     {
@@ -486,13 +481,5 @@ class XmlLogger implements BuildLogger
     public function getErr()
     {
         return $this->err;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOutFilename()
-    {
-        return $this->outFilename;
     }
 }
