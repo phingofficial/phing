@@ -25,7 +25,7 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- *
+ * @requires OSFAMILY Linux
  */
 class GitBaseTest extends BuildFileTest
 {
