@@ -46,9 +46,6 @@ class ChownTaskTest extends BuildFileTest
     public function testChangeGroup(): void
     {
         $userinfo = posix_getpwuid(posix_geteuid());
-        if ($userinfo === false) {
-            $this->markTestSkipped('posix_getpwuid returns false');
-        }
         $username = $userinfo['name'];
 
         //we may change the group only if we belong to it
@@ -56,7 +53,10 @@ class ChownTaskTest extends BuildFileTest
         $group = null;
         foreach (['users', 'www-data', 'cdrom'] as $groupname) {
             $grpinfo = posix_getgrnam($groupname);
-            if ($grpinfo['gid'] == $userinfo['gid']) {
+            if (!is_array($grpinfo)) {
+                continue;
+            }
+            if ($grpinfo['gid'] === $userinfo['gid']) {
                 //current group id, the file has that group anyway
                 continue;
             }
