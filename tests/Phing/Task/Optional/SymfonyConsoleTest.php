@@ -57,7 +57,7 @@ class SymfonyConsoleTest extends TestCase
      * @covers SymfonyConsoleTask::getCommand
      * @covers SymfonyConsoleTask::setCommand
      */
-    public function testSetGetCommand()
+    public function testSetGetCommand(): void
     {
         $o = $this->object;
         $o->setCommand('foo');
@@ -68,7 +68,7 @@ class SymfonyConsoleTest extends TestCase
      * @covers SymfonyConsoleTask::getConsole
      * @covers SymfonyConsoleTask::setConsole
      */
-    public function testSetGetConsole()
+    public function testSetGetConsole(): void
     {
         $o = $this->object;
         $o->setConsole('foo');
@@ -79,7 +79,7 @@ class SymfonyConsoleTest extends TestCase
      * @covers SymfonyConsoleTask::getDebug
      * @covers SymfonyConsoleTask::setDebug
      */
-    public function testSetGetDebug()
+    public function testSetGetDebug(): void
     {
         $o = $this->object;
         $o->setDebug(false);
@@ -90,7 +90,7 @@ class SymfonyConsoleTest extends TestCase
      * @covers SymfonyConsoleTask::getSilent
      * @covers SymfonyConsoleTask::setSilent
      */
-    public function testSetGetSilent()
+    public function testSetGetSilent(): void
     {
         $o = $this->object;
         $o->setSilent(true);
@@ -100,7 +100,7 @@ class SymfonyConsoleTest extends TestCase
     /**
      * @covers SymfonyConsoleTask::createArg
      */
-    public function testCreateArg()
+    public function testCreateArg(): void
     {
         $o = $this->object;
         $arg = $o->createArg();
@@ -110,7 +110,7 @@ class SymfonyConsoleTest extends TestCase
     /**
      * @covers SymfonyConsoleTask::getArgs
      */
-    public function testGetArgs()
+    public function testGetArgs(): void
     {
         $o = $this->object;
         $o->createArg();
@@ -124,7 +124,7 @@ class SymfonyConsoleTest extends TestCase
      *
      * @todo Implement testMain().
      */
-    public function testGetCmdString()
+    public function testGetCmdString(): void
     {
         $o = $this->object;
         $arg = $o->createArg();
@@ -142,7 +142,7 @@ class SymfonyConsoleTest extends TestCase
     /**
      * @covers SymfonyConsoleTask::getCmdString
      */
-    public function testNoDebugGetCmdString()
+    public function testNoDebugGetCmdString(): void
     {
         $o = $this->object;
         $arg = $o->createArg();
@@ -161,7 +161,7 @@ class SymfonyConsoleTest extends TestCase
     /**
      * @covers SymfonyConsoleTask::getCmdString
      */
-    public function testNoDebugOnlyOnce()
+    public function testNoDebugOnlyOnce(): void
     {
         $o = $this->object;
         $arg = $o->createArg();

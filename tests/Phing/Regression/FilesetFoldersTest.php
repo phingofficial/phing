@@ -33,7 +33,7 @@ class FilesetFoldersTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/654/build.xml');
     }
 
-    public function testFilesetNotSelectingFolders()
+    public function testFilesetNotSelectingFolders(): void
     {
         $this->executeTarget('main');
         $this->assertInLogs('Property ${test.msg} => data');

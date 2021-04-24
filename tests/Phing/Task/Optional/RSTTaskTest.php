@@ -29,14 +29,7 @@ use ReflectionException;
 /**
  * Unit test for reStructuredText rendering task.
  *
- * PHP version 5
- *
- * @category   Tasks
- *
  * @author     Christian Weiske <cweiske@cweiske.de>
- * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- *
- * @see       http://www.phing.info/
  */
 class RSTTaskTest extends BuildFileTest
 {
@@ -57,10 +50,7 @@ class RSTTaskTest extends BuildFileTest
         @unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html');
     }
 
-    /**
-     * @requires function ReflectionMethod::setAccessible
-     */
-    public function testGetToolPathFail()
+    public function testGetToolPathFail(): void
     {
         $rt = new RSTTask();
         $ref = new ReflectionClass($rt);
@@ -75,10 +65,8 @@ class RSTTaskTest extends BuildFileTest
 
     /**
      * Get the tool path previously set with setToolpath().
-     *
-     * @requires function ReflectionMethod::setAccessible
      */
-    public function testGetToolPathCustom()
+    public function testGetToolPathCustom(): void
     {
         $rt = new RSTTask();
         $rt->setToolpath('true'); //mostly /bin/true on unix
@@ -88,7 +76,7 @@ class RSTTaskTest extends BuildFileTest
         $this->assertStringContainsString('/true', $method->invoke($rt, 'foo'));
     }
 
-    public function testSetToolpathNotExisting()
+    public function testSetToolpathNotExisting(): void
     {
         $rt = new RSTTask();
 
@@ -98,7 +86,7 @@ class RSTTaskTest extends BuildFileTest
         $rt->setToolpath('doesnotandwillneverexist');
     }
 
-    public function testSetToolpathNonExecutable()
+    public function testSetToolpathNonExecutable(): void
     {
         $rt = new RSTTask();
 
@@ -110,9 +98,8 @@ class RSTTaskTest extends BuildFileTest
 
     /**
      * @throws ReflectionException
-     * @requires function ReflectionMethod::setAccessible
      */
-    public function testGetToolPathHtmlFormat()
+    public function testGetToolPathHtmlFormat(): void
     {
         $rt = new RSTTask();
         $ref = new ReflectionClass($rt);
@@ -121,25 +108,25 @@ class RSTTaskTest extends BuildFileTest
         $this->assertStringContainsString('rst2html', $method->invoke($rt, 'html'));
     }
 
-    public function testSingleFileParameterFile()
+    public function testSingleFileParameterFile(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/single.html');
     }
 
-    public function testSingleFileParameterFileNoExt()
+    public function testSingleFileParameterFileNoExt(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/single-no-ext.html');
     }
 
-    public function testSingleFileParameterFileFormat()
+    public function testSingleFileParameterFileFormat(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/single.3');
     }
 
-    public function testSingleFileInvalidParameterFormat()
+    public function testSingleFileInvalidParameterFormat(): void
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,
@@ -148,13 +135,13 @@ class RSTTaskTest extends BuildFileTest
         );
     }
 
-    public function testSingleFileParameterFileFormatDestination()
+    public function testSingleFileParameterFileFormatDestination(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/single-destination.html');
     }
 
-    public function testParameterDestinationAsDirectory()
+    public function testParameterDestinationAsDirectory(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/subdir/files/single.html');
@@ -162,16 +149,7 @@ class RSTTaskTest extends BuildFileTest
         rmdir(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/subdir');
     }
 
-    public function testParameterDestinationDirectoryWithFileset()
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertFileCreated('files/subdir/files/single.html');
-        $this->assertFileCreated('files/subdir/files/two.html');
-        rmdir(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/subdir/files');
-        rmdir(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/subdir');
-    }
-
-    public function testParameterDestinationDirectoryWithFilesetDot()
+    public function testParameterDestinationDirectoryWithFileset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/subdir/files/single.html');
@@ -180,7 +158,16 @@ class RSTTaskTest extends BuildFileTest
         rmdir(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/subdir');
     }
 
-    public function testParameterUptodate()
+    public function testParameterDestinationDirectoryWithFilesetDot(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileCreated('files/subdir/files/single.html');
+        $this->assertFileCreated('files/subdir/files/two.html');
+        rmdir(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/subdir/files');
+        rmdir(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/subdir');
+    }
+
+    public function testParameterUptodate(): void
     {
         $this->executeTarget(__FUNCTION__);
         $file = PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html';
@@ -194,7 +181,7 @@ class RSTTaskTest extends BuildFileTest
         unlink($file);
     }
 
-    public function testDirectoryCreation()
+    public function testDirectoryCreation(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/a/b/c/single.html');
@@ -203,7 +190,7 @@ class RSTTaskTest extends BuildFileTest
         rmdir(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/a');
     }
 
-    public function testBrokenFile()
+    public function testBrokenFile(): void
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,
@@ -217,7 +204,7 @@ class RSTTaskTest extends BuildFileTest
         $this->assertFileCreated('files/broken.html');
     }
 
-    public function testMissingFiles()
+    public function testMissingFiles(): void
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,
@@ -226,34 +213,34 @@ class RSTTaskTest extends BuildFileTest
         );
     }
 
-    public function testMultiple()
+    public function testMultiple(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/single.html');
         $this->assertFileCreated('files/two.html');
     }
 
-    public function testMultipleDir()
+    public function testMultipleDir(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/single.html');
         $this->assertFileCreated('files/two.html');
     }
 
-    public function testMultipleDirWildcard()
+    public function testMultipleDirWildcard(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/single.html');
     }
 
-    public function testMultipleMapper()
+    public function testMultipleMapper(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileCreated('files/single.my.html');
         $this->assertFileCreated('files/two.my.html');
     }
 
-    public function testNotMatchingMapper()
+    public function testNotMatchingMapper(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('No filename mapper found for "./files/single.rst"');
@@ -261,7 +248,7 @@ class RSTTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function testFilterChain()
+    public function testFilterChain(): void
     {
         $this->executeTarget(__FUNCTION__);
         $file = PHING_TEST_BASE . '/etc/tasks/ext/rst/files/filterchain.html';
@@ -271,7 +258,7 @@ class RSTTaskTest extends BuildFileTest
         unlink($file);
     }
 
-    public function testCustomParameter()
+    public function testCustomParameter(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists('files/single.html');
@@ -296,7 +283,7 @@ class RSTTaskTest extends BuildFileTest
      *
      * @param string $file relative file path
      */
-    protected function assertFileCreated(string $file)
+    protected function assertFileCreated(string $file): void
     {
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/rst/' . $file,

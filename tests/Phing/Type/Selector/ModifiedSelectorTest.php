@@ -59,7 +59,7 @@ class ModifiedSelectorTest extends BuildFileTest
     }
 
     /** Test correct use of cache names. */
-    public function testValidateWrongCache()
+    public function testValidateWrongCache(): void
     {
         $name = 'this-is-not-a-valid-cache-name';
         $this->expectException(BuildException::class);
@@ -70,7 +70,7 @@ class ModifiedSelectorTest extends BuildFileTest
     }
 
     /** Test correct use of algorithm names. */
-    public function testValidateWrongAlgorithm()
+    public function testValidateWrongAlgorithm(): void
     {
         $name = 'this-is-not-a-valid-algorithm-name';
         $this->expectException(BuildException::class);

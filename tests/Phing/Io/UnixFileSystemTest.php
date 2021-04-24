@@ -46,7 +46,7 @@ class UnixFileSystemTest extends TestCase
     {
     }
 
-    public function testCompare()
+    public function testCompare(): void
     {
         $f1 = new File(__FILE__);
         $f2 = new File(__FILE__);
@@ -54,17 +54,17 @@ class UnixFileSystemTest extends TestCase
         $this->assertEquals(0, $this->fs->compare($f1, $f2));
     }
 
-    public function testHomeDirectory1()
+    public function testHomeDirectory1(): void
     {
         $this->assertEquals('~/test', $this->fs->normalize('~/test'));
     }
 
-    public function testHomeDirectory2()
+    public function testHomeDirectory2(): void
     {
         $this->assertEquals('/var/~test', $this->fs->normalize('/var/~test'));
     }
 
-    public function testHomeDirectory3()
+    public function testHomeDirectory3(): void
     {
         $this->assertEquals('~test', $this->fs->normalize('~test'));
     }

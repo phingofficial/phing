@@ -36,31 +36,31 @@ class EchoTaskTest extends BuildFileTest
         );
     }
 
-    public function testPropertyMsg()
+    public function testPropertyMsg(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('This is a msg');
     }
 
-    public function testPropertyMessage()
+    public function testPropertyMessage(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('This is a message');
     }
 
-    public function testInlineText()
+    public function testInlineText(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('This is a nested inline text message');
     }
 
-    public function testFileset()
+    public function testFileset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('EchoTest.xml');
     }
 
-    public function testDirset()
+    public function testDirset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('ext');
@@ -68,14 +68,14 @@ class EchoTaskTest extends BuildFileTest
         $this->assertInLogs('system');
     }
 
-    public function testFilesetInline()
+    public function testFilesetInline(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('foo');
         $this->assertInLogs('EchoTest.xml');
     }
 
-    public function testFilesetMsg()
+    public function testFilesetMsg(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs("foo\n");

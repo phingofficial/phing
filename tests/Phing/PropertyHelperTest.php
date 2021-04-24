@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
 
 class PropertyHelperTest extends TestCase
 {
-    public function testUndefinedPropertyShouldNotBeReplaced()
+    public function testUndefinedPropertyShouldNotBeReplaced(): void
     {
         $project = new Project();
         $helper = PropertyHelper::getPropertyHelper($project);
@@ -36,7 +36,7 @@ class PropertyHelperTest extends TestCase
         $this->assertEquals('${undefined.property}', $value);
     }
 
-    public function testDefinedPropertyShouldBeReplacedWithPropertyValue()
+    public function testDefinedPropertyShouldBeReplacedWithPropertyValue(): void
     {
         $project = new Project();
         $helper = PropertyHelper::getPropertyHelper($project);

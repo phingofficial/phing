@@ -43,7 +43,7 @@ class IniFileTokenReaderTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testFileParameterString()
+    public function testFileParameterString(): void
     {
         $filename = PHING_TEST_BASE .
             '/etc/filters/util/tmp/test.txt';

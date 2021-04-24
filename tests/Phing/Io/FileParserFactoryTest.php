@@ -60,7 +60,7 @@ class FileParserFactoryTest extends TestCase
      * @param mixed $parserName
      * @param mixed $expectedType
      */
-    public function testCreateParser($parserName, $expectedType)
+    public function testCreateParser($parserName, $expectedType): void
     {
         $this->assertInstanceOf($expectedType, $this->objectToTest->createParser($parserName));
     }

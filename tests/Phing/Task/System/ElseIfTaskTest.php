@@ -40,7 +40,7 @@ class ElseIfTaskTest extends BuildFileTest
      * Test the 'elseif' conditional of the if-task.
      *
      */
-    public function testAddThen()
+    public function testAddThen(): void
     {
         // execute the PHING target with the same name as this function
         $this->executeTarget(__FUNCTION__);
@@ -54,7 +54,7 @@ class ElseIfTaskTest extends BuildFileTest
      * expected result.
      *
      */
-    public function testEvaluate()
+    public function testEvaluate(): void
     {
         // execute the PHING target with the same name as this function
         $this->executeTarget(__FUNCTION__);
@@ -68,7 +68,7 @@ class ElseIfTaskTest extends BuildFileTest
      * conditions inside an elseif-task.
      *
      */
-    public function testMultipleConditions()
+    public function testMultipleConditions(): void
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
@@ -83,7 +83,7 @@ class ElseIfTaskTest extends BuildFileTest
      * no conditions inside an elseif-task.
      *
      */
-    public function testNoConditions()
+    public function testNoConditions(): void
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;

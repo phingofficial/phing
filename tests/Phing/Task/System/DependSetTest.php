@@ -42,12 +42,12 @@ class DependSetTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function test1()
+    public function test1(): void
     {
         $this->expectBuildException(__FUNCTION__, 'At least one <srcfileset> or <srcfilelist> element must be set');
     }
 
-    public function test2()
+    public function test2(): void
     {
         $this->expectBuildException(
             __FUNCTION__,
@@ -55,18 +55,18 @@ class DependSetTest extends BuildFileTest
         );
     }
 
-    public function test3()
+    public function test3(): void
     {
         $this->expectBuildException(__FUNCTION__, 'At least one <srcfileset> or <srcfilelist> element must be set');
     }
 
-    public function test4()
+    public function test4(): void
     {
         $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function test5()
+    public function test5(): void
     {
         $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);

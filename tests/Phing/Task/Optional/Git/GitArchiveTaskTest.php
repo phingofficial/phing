@@ -25,7 +25,7 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OSFAMILY Linux
  */
 class GitArchiveTaskTest extends BuildFileTest
 {
@@ -45,7 +45,7 @@ class GitArchiveTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testGitArchive()
+    public function testGitArchive(): void
     {
         $this->executeTarget('gitArchive');
         $this->assertInLogs('git-archive:');
@@ -53,7 +53,7 @@ class GitArchiveTaskTest extends BuildFileTest
         $this->assertFileExists($this->getProject()->getProperty('tmp.dir.resolved') . '/output.zip');
     }
 
-    public function testWrongRepository()
+    public function testWrongRepository(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepository',
@@ -62,7 +62,7 @@ class GitArchiveTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -71,7 +71,7 @@ class GitArchiveTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoTreeishSpecified()
+    public function testNoTreeishSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noTreeish',

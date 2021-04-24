@@ -43,7 +43,7 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test for required attributes.
      */
-    public function testRequiredParameters()
+    public function testRequiredParameters(): void
     {
         $this->expectException(BuildException::class);
 
@@ -53,7 +53,7 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test list of values to process without the 'param' attribute.
      */
-    public function testListWithoutParam()
+    public function testListWithoutParam(): void
     {
         $this->expectException(BuildException::class);
 
@@ -63,7 +63,7 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test list of values to process without the 'target' attribute.
      */
-    public function testListWithoutCalleeTarget()
+    public function testListWithoutCalleeTarget(): void
     {
         $this->expectException(BuildException::class);
 
@@ -73,7 +73,7 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test to get the right log message on fileset usage.
      */
-    public function testLogMessageWithFileset()
+    public function testLogMessageWithFileset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
@@ -82,7 +82,7 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test to get the right log message on fileset usage.
      */
-    public function testLogMessageWithDirset()
+    public function testLogMessageWithDirset(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
@@ -91,7 +91,7 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test to get the right log message on list usage with multiple entries.
      */
-    public function testLogMessageWithList()
+    public function testLogMessageWithList(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Processed 3 entries in list', Project::MSG_VERBOSE);
@@ -100,7 +100,7 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test to get the right log message on list usage with a single entry.
      */
-    public function testLogMessageWithListUniqueEntry()
+    public function testLogMessageWithListUniqueEntry(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Processed 1 entry in list', Project::MSG_VERBOSE);
@@ -109,13 +109,13 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test to get the right log message on fileset usage.
      */
-    public function testLogMessageWithPath()
+    public function testLogMessageWithPath(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Processed 0 directories and 0 files', Project::MSG_VERBOSE);
     }
 
-    public function testIndex()
+    public function testIndex(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('2 - de');

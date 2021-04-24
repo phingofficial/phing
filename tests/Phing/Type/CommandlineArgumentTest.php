@@ -28,7 +28,7 @@ class CommandlineArgumentTest extends TestCase
     /**
      * Test the one 'getter' method of the CommandlineArgument class.
      */
-    public function testGetParts()
+    public function testGetParts(): void
     {
         $command = 'usblamp -s -r 5 red green blue off';
         $exploded = explode(' ', '-s -r 5 red green blue off');
@@ -41,7 +41,7 @@ class CommandlineArgumentTest extends TestCase
         }
     }
 
-    public function testSetEscape()
+    public function testSetEscape(): void
     {
         $command = 'usblamp -s -r 5 red green blue off';
         $commandline = new Commandline($command);
@@ -51,7 +51,7 @@ class CommandlineArgumentTest extends TestCase
         $this->assertEquals(true, $argument->escape);
     }
 
-    public function testSetline()
+    public function testSetline(): void
     {
         $commandline = new Commandline();
         $argument = new CommandlineArgument($commandline);

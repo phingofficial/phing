@@ -35,7 +35,7 @@ class Ticket309RegressionTest extends BuildFileTest
      * This test uses several buildfiles that reference the /etc/regression/309
      * directory as their project root in various ways.
      */
-    public function testPhingCallTask()
+    public function testPhingCallTask(): void
     {
         $testBasedir = str_replace('/', DIRECTORY_SEPARATOR, PHING_TEST_BASE . '/etc/regression/309');
 

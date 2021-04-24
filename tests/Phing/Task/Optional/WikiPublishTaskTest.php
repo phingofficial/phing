@@ -32,10 +32,7 @@ use PHPUnit\Framework\MockObject\MockObject;
  */
 class WikiPublishTaskTest extends BuildFileTest
 {
-    /**
-     * @requires PHP >= 7.2
-     */
-    public function testApiEdit()
+    public function testApiEdit(): void
     {
         $task = $this->getWikiPublishMock();
 
@@ -66,10 +63,7 @@ class WikiPublishTaskTest extends BuildFileTest
         $task->main();
     }
 
-    /**
-     * @requires PHP >= 7.2
-     */
-    public function testInvalidAttributes()
+    public function testInvalidAttributes(): void
     {
         $task = $this->getWikiPublishMock();
 

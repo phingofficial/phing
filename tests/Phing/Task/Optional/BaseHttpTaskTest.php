@@ -34,7 +34,7 @@ abstract class BaseHttpTaskTest extends BuildFileTest
 {
     protected $traces = [];
 
-    public function testMissingUrl()
+    public function testMissingUrl(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Required attribute \'url\' is missing');

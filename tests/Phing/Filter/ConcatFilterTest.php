@@ -41,7 +41,7 @@ class ConcatFilterTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testConcatFilter()
+    public function testConcatFilter(): void
     {
         $this->executeTarget('testConcatFilter');
 

@@ -41,7 +41,7 @@ class ExpandPropertiesTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testExpandProperties()
+    public function testExpandProperties(): void
     {
         $this->executeTarget(__FUNCTION__);
 

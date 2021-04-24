@@ -33,7 +33,7 @@ class SvnLogTaskTest extends AbstractSvnTaskTest
         $this->initialize('SvnLogTest.xml');
     }
 
-    public function testGetLog()
+    public function testGetLog(): void
     {
         $this->executeTarget('getLog');
         $this->assertPropertyEquals(

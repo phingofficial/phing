@@ -45,17 +45,17 @@ class FileHashTaskTest extends BuildFileTest
         }
     }
 
-    public function testMD5()
+    public function testMD5(): void
     {
         $this->expectLog('testMD5', 'c9dcdf095de0ef3d2e3f71cb4dc7ee11');
     }
 
-    public function testSHA1()
+    public function testSHA1(): void
     {
         $this->expectLog('testSHA1', 'dadd0aafb79d9fb8299a928efb23c112874bbda3');
     }
 
-    public function testCRC32()
+    public function testCRC32(): void
     {
         $this->expectLog('testCRC32', 'd34c2e86');
     }

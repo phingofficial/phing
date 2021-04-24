@@ -30,9 +30,6 @@ use Phing\Test\Support\BuildFileTest;
  */
 class PharDataTaskTest extends BuildFileTest
 {
-    /**
-     * @requires extension phar
-     */
     public function setUp(): void
     {
         $this->configureProject(
@@ -47,19 +44,19 @@ class PharDataTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testGenerateWithoutBasedir()
+    public function testGenerateWithoutBasedir(): void
     {
         $this->expectBuildException(__FUNCTION__, 'basedir attribute must be set');
     }
 
-    public function testGenerateTar()
+    public function testGenerateTar(): void
     {
         $this->executeTarget(__FUNCTION__);
         $manifestFile = realpath(PHING_TEST_BASE . '/etc/tasks/ext/tmp/phar/archive.tar');
         $this->assertNotFalse($manifestFile);
     }
 
-    public function testGenerateTarGz()
+    public function testGenerateTarGz(): void
     {
         $this->skipIfCompressionNotSupported(Phar::GZ);
 
@@ -68,7 +65,7 @@ class PharDataTaskTest extends BuildFileTest
         $this->assertNotFalse($manifestFile);
     }
 
-    public function testGenerateTarBz2()
+    public function testGenerateTarBz2(): void
     {
         $this->skipIfCompressionNotSupported(Phar::BZ2);
 
@@ -77,14 +74,14 @@ class PharDataTaskTest extends BuildFileTest
         $this->assertNotFalse($manifestFile);
     }
 
-    public function testGenerateZip()
+    public function testGenerateZip(): void
     {
         $this->executeTarget(__FUNCTION__);
         $manifestFile = realpath(PHING_TEST_BASE . '/etc/tasks/ext/tmp/phar/archive.zip');
         $this->assertNotFalse($manifestFile);
     }
 
-    public function testGenerateZipGz()
+    public function testGenerateZipGz(): void
     {
         $this->skipIfCompressionNotSupported(Phar::GZ);
 
@@ -93,7 +90,7 @@ class PharDataTaskTest extends BuildFileTest
         $this->assertNotFalse($manifestFile);
     }
 
-    public function testGenerateZipBz2()
+    public function testGenerateZipBz2(): void
     {
         $this->skipIfCompressionNotSupported(Phar::BZ2);
 

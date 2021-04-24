@@ -47,7 +47,7 @@ class PhingTest extends TestCase
      *
      * @see http://groups.google.com/group/php-standards/web/psr-0-final-proposal
      */
-    public function testImportPSR0()
+    public function testImportPSR0(): void
     {
         // Test the namespace support
         $className = Phing::import(self::NAMESPACED_CLASS, self::getClassPath());
@@ -55,7 +55,7 @@ class PhingTest extends TestCase
         self::assertTrue(class_exists(self::NAMESPACED_CLASS));
     }
 
-    public function testImportPEAR()
+    public function testImportPEAR(): void
     {
         // Test PEAR standard
         $className = Phing::import(self::SEPARATED_CLASS, self::getClassPath());
@@ -63,20 +63,17 @@ class PhingTest extends TestCase
         self::assertTrue(class_exists(self::SEPARATED_CLASS));
     }
 
-    public function testTimer()
+    public function testTimer(): void
     {
         $this->assertInstanceOf(DefaultClock::class, Phing::getTimer());
     }
 
-    public function testGetPhingVersion()
+    public function testGetPhingVersion(): void
     {
         $this->assertStringStartsWith('Phing ', Phing::getPhingVersion());
     }
 
-    /**
-     * @requires PHP >= 7.2
-     */
-    public function testPrintTargets()
+    public function testPrintTargets(): void
     {
         $target = $this->getMockBuilder(Target::class)->getMock();
         $target->method('getDependencies')->willReturn([]);
@@ -85,30 +82,23 @@ class PhingTest extends TestCase
         $phing = new Phing();
         $phing::setOutputStream($this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock());
 
-        $project->expects($this->atLeastOnce())
-            ->method('log')
-        ;
+        $project->expects($this->atLeastOnce())->method('log');
 
         $phing->printTargets($project);
     }
 
-    /**
-     * @requires PHP >= 7.2
-     */
     public function testPrintUsage(): void
     {
         $phing = new Phing();
         $stream = $this->getMockBuilder(OutputStream::class)->disableOriginalConstructor()->getMock();
         $phing::setErrorStream($stream);
 
-        $stream->expects($this->once())
-            ->method('write')
-        ;
+        $stream->expects($this->once())->method('write');
 
         $phing::printUsage();
     }
 
-    public function testCallStartupShutdown()
+    public function testCallStartupShutdown(): void
     {
         Phing::startup();
         self::assertTrue(Phing::getTimer()->isRunning());
@@ -116,7 +106,7 @@ class PhingTest extends TestCase
         self::assertFalse(Phing::getTimer()->isRunning());
     }
 
-    public function testCurrentProject()
+    public function testCurrentProject(): void
     {
         $project = new Project();
         $currProj = Phing::getCurrentProject();

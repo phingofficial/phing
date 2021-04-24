@@ -37,7 +37,7 @@ class RunTargetTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/RunTargetTaskTest.xml');
     }
 
-    public function testRunTargetTask()
+    public function testRunTargetTask(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'THIS COMES FROM ANOTHER TARGET');
     }

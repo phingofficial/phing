@@ -44,7 +44,7 @@ class SymlinkTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testSymlinkExists()
+    public function testSymlinkExists(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals(
@@ -54,7 +54,7 @@ class SymlinkTaskTest extends BuildFileTest
         $this->assertInLogs('Link exists: ');
     }
 
-    public function testOverwritingSymlink()
+    public function testOverwritingSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals(
@@ -64,7 +64,7 @@ class SymlinkTaskTest extends BuildFileTest
         $this->assertInLogs('Link removed: ');
     }
 
-    public function testOverwritingDirectory()
+    public function testOverwritingDirectory(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals(
@@ -74,7 +74,7 @@ class SymlinkTaskTest extends BuildFileTest
         $this->assertInLogs('Directory removed: ');
     }
 
-    public function testNotOverwritingSymlink()
+    public function testNotOverwritingSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals(
@@ -84,7 +84,7 @@ class SymlinkTaskTest extends BuildFileTest
         $this->assertInLogs('Not overwriting existing link');
     }
 
-    public function testOverwriteDanglingSymlink()
+    public function testOverwriteDanglingSymlink(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Link removed: ');

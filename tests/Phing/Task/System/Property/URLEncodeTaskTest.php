@@ -36,13 +36,13 @@ class URLEncodeTaskTest extends BuildFileTest
         );
     }
 
-    public function testURLEncodeTask()
+    public function testURLEncodeTask(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('test1', '%C3%B6%C3%B6%C3%B6%C3%B6');
     }
 
-    public function testRefid()
+    public function testRefid(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('test2', '%C3%BC%C3%BC%C3%BC%C3%BC');

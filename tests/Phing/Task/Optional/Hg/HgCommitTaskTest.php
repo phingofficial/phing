@@ -37,7 +37,7 @@ class HgCommitTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testMessageNotSpecified()
+    public function testMessageNotSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'messageNotSpecified',
@@ -46,7 +46,7 @@ class HgCommitTaskTest extends BuildFileTest
         );
     }
 
-    public function testUserNotEmptyString()
+    public function testUserNotEmptyString(): void
     {
         $this->expectBuildExceptionContaining(
             'userNotEmptyString',

@@ -36,22 +36,22 @@ class TypedefTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/typedef.xml');
     }
 
-    public function testEmpty()
+    public function testEmpty(): void
     {
         $this->expectBuildException('empty', 'required argument not specified');
     }
 
-    public function testNoName()
+    public function testNoName(): void
     {
         $this->expectBuildException('noName', 'required argument not specified');
     }
 
-    public function testNoClassname()
+    public function testNoClassname(): void
     {
         $this->expectBuildException('noClassname', 'required argument not specified');
     }
 
-    public function testClassNotFound()
+    public function testClassNotFound(): void
     {
         $this->expectException(BuildException::class);
 
@@ -65,7 +65,7 @@ class TypedefTaskTest extends BuildFileTest
         }
     }
 
-    public function testGlobal()
+    public function testGlobal(): void
     {
         $this->expectLog('testGlobal', 'Adding reference: global -> ' . TypedefTestType::class);
         $refs = $this->project->getReferences();
@@ -74,7 +74,7 @@ class TypedefTaskTest extends BuildFileTest
         $this->assertInstanceOf(TypedefTestType::class, $ref);
     }
 
-    public function testLocal()
+    public function testLocal(): void
     {
         $this->expectLog('testLocal', 'Adding reference: local -> ' . TypedefTestType::class);
         $refs = $this->project->getReferences();

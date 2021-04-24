@@ -43,20 +43,20 @@ class MoveTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testMoveSingleFile()
+    public function testMoveSingleFile(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/fileB');
     }
 
-    public function testMoveFileSet()
+    public function testMoveFileSet(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileDoesNotExist(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/system/tmp/new/fileA');
     }
 
-    public function testRenameDirectory()
+    public function testRenameDirectory(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileDoesNotExist(PHING_TEST_BASE . '/etc/tasks/system/tmp/base/fileA');
@@ -67,7 +67,7 @@ class MoveTaskTest extends BuildFileTest
      * Regression test for ticket {@link http://www.phing.info/trac/ticket/582}
      * - Add haltonerror attribute to copy/move tasks.
      */
-    public function testIgnoreErrors()
+    public function testIgnoreErrors(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Could not find file ');
@@ -77,7 +77,7 @@ class MoveTaskTest extends BuildFileTest
      * Regression test for ticket {@link http://www.phing.info/trac/ticket/307}
      * - Replaceregexp filter works in Copy task but not Move task.
      */
-    public function testReplaceRegexp()
+    public function testReplaceRegexp(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -86,7 +86,7 @@ class MoveTaskTest extends BuildFileTest
         $this->assertEquals('BAR', $contents);
     }
 
-    public function testGranularity()
+    public function testGranularity(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'Test omitted, Test is up to date');
     }

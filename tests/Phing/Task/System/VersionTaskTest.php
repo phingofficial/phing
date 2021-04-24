@@ -46,43 +46,43 @@ class VersionTaskTest extends BuildFileTest
         }
     }
 
-    public function testBugfix()
+    public function testBugfix(): void
     {
         $this->expectLog('testBugfix', '1.0.1');
     }
 
-    public function testMinor()
+    public function testMinor(): void
     {
         $this->expectLog('testMinor', '1.1.0');
     }
 
-    public function testMajor()
+    public function testMajor(): void
     {
         $this->expectLog('testMajor', '2.0.0');
     }
 
-    public function testDefault()
+    public function testDefault(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '1.0.0');
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/' . 'build.version', 'File not found');
     }
 
-    public function testPropFile()
+    public function testPropFile(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('propfile.version', '4.5.5');
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/' . 'property.version', 'File not found');
     }
 
-    public function testPropFileWithDefaultProperty()
+    public function testPropFileWithDefaultProperty(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '4.5.5');
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/' . 'build.version', 'File not found');
     }
 
-    public function testWithStartingVersion()
+    public function testWithStartingVersion(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('build.version', '1.0.1');
@@ -100,7 +100,7 @@ class VersionTaskTest extends BuildFileTest
      * @throws ReflectionException
      * @throws ReflectionException
      */
-    public function testGetVersionMethod($releaseType, $version, $expectedVersion)
+    public function testGetVersionMethod($releaseType, $version, $expectedVersion): void
     {
         $versionTask = new VersionTask();
         $versionTask->setReleasetype($releaseType);

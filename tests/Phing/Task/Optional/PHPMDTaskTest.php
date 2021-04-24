@@ -35,7 +35,7 @@ class PHPMDTaskTest extends BuildFileTest
     /**
      * @requires PHP < 8.1
      */
-    public function testReportText()
+    public function testReportText(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -47,7 +47,7 @@ class PHPMDTaskTest extends BuildFileTest
     /**
      * @requires PHP < 8.1
      */
-    public function testReportHtml()
+    public function testReportHtml(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -59,7 +59,7 @@ class PHPMDTaskTest extends BuildFileTest
     /**
      * @requires PHP < 8.1
      */
-    public function testReportXml()
+    public function testReportXml(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(

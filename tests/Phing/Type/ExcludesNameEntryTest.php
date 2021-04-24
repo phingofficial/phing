@@ -35,7 +35,7 @@ class ExcludesNameEntryTest extends TestCase
         $this->entry = new ExcludesNameEntry();
     }
 
-    public function testSetName()
+    public function testSetName(): void
     {
         $this->entry->setName('test');
         $this->assertEquals('test', $this->entry->getName());
@@ -43,7 +43,7 @@ class ExcludesNameEntryTest extends TestCase
         $this->assertEquals('test2', $this->entry->getName());
     }
 
-    public function testAddText()
+    public function testAddText(): void
     {
         $this->entry->addText('test');
         $this->assertEquals('test', $this->entry->getName());
@@ -51,7 +51,7 @@ class ExcludesNameEntryTest extends TestCase
         $this->assertEquals('test2', $this->entry->getName());
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $this->entry->addText('test');
         $this->assertEquals('test', '' . $this->entry);

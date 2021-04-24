@@ -24,7 +24,7 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OSFAMILY Linux
  */
 class GitPullTaskTest extends BuildFileTest
 {
@@ -49,7 +49,7 @@ class GitPullTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testAllParamsSet()
+    public function testAllParamsSet(): void
     {
         $this->markTestIncomplete('needs investigation');
         /*$repository = PHING_TEST_BASE . '/tmp/git';
@@ -61,7 +61,7 @@ class GitPullTaskTest extends BuildFileTest
         $this->assertTrue(is_readable($repository . '/foofile'));*/
     }
 
-    public function testAllParamsSetRebase()
+    public function testAllParamsSetRebase(): void
     {
         $this->markTestIncomplete('needs investigation');
         /*$repository = PHING_TEST_BASE . '/tmp/git';
@@ -74,14 +74,14 @@ class GitPullTaskTest extends BuildFileTest
         $this->assertTrue(is_readable($repository . '/foofile'));*/
     }
 
-    public function testAllReposSet()
+    public function testAllReposSet(): void
     {
         $this->executeTarget('allReposSet');
         $this->assertInLogs('git-pull: fetching from all remotes');
         $this->assertInLogs('git-pull: complete');
     }
 
-    public function testTagsSet()
+    public function testTagsSet(): void
     {
         $this->markTestIncomplete('needs investigation');
         /*$repository = PHING_TEST_BASE . '/tmp/git';
@@ -93,14 +93,14 @@ class GitPullTaskTest extends BuildFileTest
         $this->assertTrue(is_readable($repository . '/foofile'));*/
     }
 
-    public function testAppendSet()
+    public function testAppendSet(): void
     {
         $this->executeTarget('appendSet');
         $this->assertInLogs('git-pull: fetching from all remotes');
         $this->assertInLogs('git-pull: complete');
     }
 
-    public function testNoTagsSet()
+    public function testNoTagsSet(): void
     {
         $this->markTestIncomplete('needs investigation');
         /*$repository = PHING_TEST_BASE . '/tmp/git';
@@ -112,7 +112,7 @@ class GitPullTaskTest extends BuildFileTest
         $this->assertTrue(is_readable($repository . '/foofile'));*/
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -121,7 +121,7 @@ class GitPullTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoSourceSpecified()
+    public function testNoSourceSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noSource',
@@ -130,7 +130,7 @@ class GitPullTaskTest extends BuildFileTest
         );
     }
 
-    public function testWrongStrategySet()
+    public function testWrongStrategySet(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongStrategySet',

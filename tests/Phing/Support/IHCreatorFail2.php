@@ -33,7 +33,7 @@ class IHCreatorFail2
      *
      * @param mixed $blah
      */
-    public function addBlah($blah)
+    public function addBlah($blah): void
     {
     }
 }

@@ -33,7 +33,7 @@ class ReferenceTest extends TestCase
      * description and checking for that as the description of the retrieved
      * project - e g not a default/hardcoded description.
      */
-    public function testGetProject()
+    public function testGetProject(): void
     {
         $project = new Project();
         $description = 'desc' . mt_rand();
@@ -43,7 +43,7 @@ class ReferenceTest extends TestCase
         $this->assertEquals($retrieved->getDescription(), $description);
     }
 
-    public function testGetReferencedObjectThrowsExceptionIfReferenceNotSet()
+    public function testGetReferencedObjectThrowsExceptionIfReferenceNotSet(): void
     {
         $project = new Project();
         $reference = new Reference($project, 'refOne');
@@ -54,7 +54,7 @@ class ReferenceTest extends TestCase
         $reference->getReferencedObject();
     }
 
-    public function testGetReferencedObjectThrowsExceptionIfNoReferenceIsGiven()
+    public function testGetReferencedObjectThrowsExceptionIfNoReferenceIsGiven(): void
     {
         $project = new Project();
         $reference = new Reference($project);

@@ -36,10 +36,7 @@ class VariableTest extends BuildFileTest
         );
     }
 
-    /**
-     * @requires PHP > 5.3
-     */
-    public function testVariable()
+    public function testVariable(): void
     {
         $this->executeTarget(__FUNCTION__);
 

@@ -50,7 +50,7 @@ class TargetTest extends BuildFileTest
         $this->target->setName('MyTarget');
     }
 
-    public function testHiddenTargets()
+    public function testHiddenTargets(): void
     {
         $phingExecutable = '"' . PHING_TEST_BASE . '/../bin/phing"';
         $buildFile = '"' . PHING_TEST_BASE . '/etc/components/Target/HiddenTargets.xml"';
@@ -68,7 +68,7 @@ class TargetTest extends BuildFileTest
      * @param array $expectedDepends
      * @param string $depends
      */
-    public function testSetDependsValid(array $expectedDepends, string $depends)
+    public function testSetDependsValid(array $expectedDepends, string $depends): void
     {
         $this->target->setDepends($depends);
 
@@ -88,7 +88,7 @@ class TargetTest extends BuildFileTest
      *
      * @param string $depends
      */
-    public function testSetDependsInvalid(string $depends)
+    public function testSetDependsInvalid(string $depends): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Syntax Error: Depend attribute for target MyTarget is malformed.');
@@ -104,7 +104,7 @@ class TargetTest extends BuildFileTest
         ];
     }
 
-    public function testGetTasksReturnsCorrectTasks()
+    public function testGetTasksReturnsCorrectTasks(): void
     {
         $task = new EchoTask();
         $task->setMessage('Hello World');
@@ -116,7 +116,7 @@ class TargetTest extends BuildFileTest
         $this->assertEquals([$task], $tasks);
     }
 
-    public function testGetTasksClonesTasks()
+    public function testGetTasksClonesTasks(): void
     {
         $task = new EchoTask();
         $task->setMessage('Hello World');
@@ -127,7 +127,7 @@ class TargetTest extends BuildFileTest
         $this->assertNotSame($task, $tasks[0]);
     }
 
-    public function testMainAppliesConfigurables()
+    public function testMainAppliesConfigurables(): void
     {
         $configurable = $this->getMockBuilder(RuntimeConfigurable::class)
             ->disableOriginalConstructor()
@@ -139,7 +139,7 @@ class TargetTest extends BuildFileTest
         $this->target->main();
     }
 
-    public function testMainFalseIfDoesntApplyConfigurable()
+    public function testMainFalseIfDoesntApplyConfigurable(): void
     {
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
@@ -154,7 +154,7 @@ class TargetTest extends BuildFileTest
         $this->target->main();
     }
 
-    public function testMainTrueUnlessDoesntApplyConfigurable()
+    public function testMainTrueUnlessDoesntApplyConfigurable(): void
     {
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');
@@ -169,7 +169,7 @@ class TargetTest extends BuildFileTest
         $this->target->main();
     }
 
-    public function testMainPerformsTasks()
+    public function testMainPerformsTasks(): void
     {
         $task = $this->createMock(Task::class);
         $task->expects($this->once())->method('perform');
@@ -178,7 +178,7 @@ class TargetTest extends BuildFileTest
         $this->target->main();
     }
 
-    public function testMainFalseIfDoesntPerformTasks()
+    public function testMainFalseIfDoesntPerformTasks(): void
     {
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
@@ -190,7 +190,7 @@ class TargetTest extends BuildFileTest
         $this->target->main();
     }
 
-    public function testMainTrueUnlessDoesntPerformTasks()
+    public function testMainTrueUnlessDoesntPerformTasks(): void
     {
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');

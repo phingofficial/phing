@@ -43,7 +43,7 @@ class FileSyncTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testNoSourceSpecified()
+    public function testNoSourceSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noSourceDir',
@@ -52,7 +52,7 @@ class FileSyncTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoDestinationSpecified()
+    public function testNoDestinationSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noDestinationDir',
@@ -61,7 +61,7 @@ class FileSyncTaskTest extends BuildFileTest
         );
     }
 
-    public function testNonexistentSource()
+    public function testNonexistentSource(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongSource',
@@ -80,7 +80,7 @@ class FileSyncTaskTest extends BuildFileTest
 //        $this->executeTarget(__FUNCTION__);
 //    }
 
-    public function testRemoteToRemoteSync()
+    public function testRemoteToRemoteSync(): void
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,

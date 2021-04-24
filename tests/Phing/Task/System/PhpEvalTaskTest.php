@@ -40,7 +40,7 @@ class PhpEvalTaskTest extends BuildFileTest
         return $arraySum;
     }
 
-    public function testZeroParams()
+    public function testZeroParams(): void
     {
         $expected = get_include_path();
 
@@ -48,7 +48,7 @@ class PhpEvalTaskTest extends BuildFileTest
         $this->assertPropertyEquals('result', $expected);
     }
 
-    public function testOneScalarParam()
+    public function testOneScalarParam(): void
     {
         $expected = trim('   test   ');
 
@@ -56,7 +56,7 @@ class PhpEvalTaskTest extends BuildFileTest
         $this->assertPropertyEquals('result', $expected);
     }
 
-    public function testMultiScalarParams()
+    public function testMultiScalarParams(): void
     {
         $expected = trim('##**test**##', '#');
 
@@ -64,7 +64,7 @@ class PhpEvalTaskTest extends BuildFileTest
         $this->assertPropertyEquals('result', $expected);
     }
 
-    public function testArrayParam()
+    public function testArrayParam(): void
     {
         $expected = implode(['Phing', ' ', '3']);
 
@@ -72,7 +72,7 @@ class PhpEvalTaskTest extends BuildFileTest
         $this->assertPropertyEquals('result', $expected);
     }
 
-    public function testMixedParams()
+    public function testMixedParams(): void
     {
         $expected = implode(' ', ['Phing', '3']);
 
@@ -80,7 +80,7 @@ class PhpEvalTaskTest extends BuildFileTest
         $this->assertPropertyEquals('result', $expected);
     }
 
-    public function testStaticMethodWithMultiDimArrayParam()
+    public function testStaticMethodWithMultiDimArrayParam(): void
     {
         $expected = static::recursiveProcess(['a', ['b', 'c'], 'd']);
 

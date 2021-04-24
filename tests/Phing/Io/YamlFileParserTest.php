@@ -73,7 +73,7 @@ class YamlFileParserTest extends TestCase
     /**
      * @covers IniFileParser::parseFile
      */
-    public function testParseFileFileNotReadable()
+    public function testParseFileFileNotReadable(): void
     {
         $tmpFile = tempnam(FileUtils::getTempDir(), 'test');
         touch($tmpFile);
@@ -88,7 +88,7 @@ class YamlFileParserTest extends TestCase
     /**
      * @covers IniFileParser::parseFile
      */
-    public function testParseFileFileIncorrectYaml()
+    public function testParseFileFileIncorrectYaml(): void
     {
         $file = new File($this->incorrectYamlFileStub);
 
@@ -103,7 +103,7 @@ class YamlFileParserTest extends TestCase
      *
      * @covers IniFileParser::parseFile
      */
-    public function testParseFileFile()
+    public function testParseFileFile(): void
     {
         $file = new File($this->yamlFileStub);
         $properties = $this->objectToTest->parseFile($file);

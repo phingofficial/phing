@@ -36,19 +36,19 @@ class FilesMatchTest extends BuildFileTest
         );
     }
 
-    public function testFileMatches()
+    public function testFileMatches(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('matches');
     }
 
-    public function testNoFileMatches()
+    public function testNoFileMatches(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('unset');
     }
 
-    public function testDirectoryMatches()
+    public function testDirectoryMatches(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('directory');

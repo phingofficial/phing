@@ -52,7 +52,7 @@ class MkdirTaskTest extends BuildFileTest
      * @param mixed $umask
      * @param mixed $expectedDirMode
      */
-    public function testUmaskIsHonouredWhenNotUsingModeArgument($umask, $expectedDirMode)
+    public function testUmaskIsHonouredWhenNotUsingModeArgument($umask, $expectedDirMode): void
     {
         if (0 !== $umask) {
             $this->markTestSkippedIfOsIsWindows();
@@ -72,7 +72,7 @@ class MkdirTaskTest extends BuildFileTest
         ];
     }
 
-    public function testUmaskIsIgnoredWhenUsingModeArgument()
+    public function testUmaskIsIgnoredWhenUsingModeArgument(): void
     {
         umask(0077);
         $this->executeTarget(__FUNCTION__);
@@ -86,7 +86,7 @@ class MkdirTaskTest extends BuildFileTest
      * @param mixed $expectedModeA
      * @param mixed $expectedModeB
      */
-    public function testParentDirectoriesHaveDefaultPermissions($umask, $expectedModeA, $expectedModeB)
+    public function testParentDirectoriesHaveDefaultPermissions($umask, $expectedModeA, $expectedModeB): void
     {
         if (0 !== $umask) {
             $this->markTestSkippedIfOsIsWindows();
@@ -114,7 +114,7 @@ class MkdirTaskTest extends BuildFileTest
         ];
     }
 
-    public function testAclIsInheritedFromParentDirectoryDefaultAcl()
+    public function testAclIsInheritedFromParentDirectoryDefaultAcl(): void
     {
         $this->markTestSkippedIfAclIsNotSupported();
 
@@ -127,7 +127,7 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileAclContains(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', 'default:user:root:rwx');
     }
 
-    public function testUmaskIsIgnoredWhenAclIsUsedAndTaskDoesNotHaveModeArgument()
+    public function testUmaskIsIgnoredWhenAclIsUsedAndTaskDoesNotHaveModeArgument(): void
     {
         $this->markTestSkippedIfAclIsNotSupported();
 
@@ -142,7 +142,7 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileAclContains(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', 'default:user:root:rwx');
     }
 
-    public function testUmaskIsIgnoredWhenAclIsUsedAndTaskHasModeArgument()
+    public function testUmaskIsIgnoredWhenAclIsUsedAndTaskHasModeArgument(): void
     {
         $this->markTestSkippedIfAclIsNotSupported();
 
@@ -161,7 +161,7 @@ class MkdirTaskTest extends BuildFileTest
      * @param string $filename
      * @param int $mode
      */
-    private function assertFileModeIs(string $filename, int $mode)
+    private function assertFileModeIs(string $filename, int $mode): void
     {
         $stat = stat($filename);
 
@@ -176,7 +176,7 @@ class MkdirTaskTest extends BuildFileTest
      * @param string $filename
      * @param string $expectedAclEntry
      */
-    private function assertFileAclContains(string $filename, string $expectedAclEntry)
+    private function assertFileAclContains(string $filename, string $expectedAclEntry): void
     {
         $output = shell_exec('getfacl --omit-header --absolute-names ' . escapeshellarg($filename));
 
@@ -203,14 +203,14 @@ class MkdirTaskTest extends BuildFileTest
         );
     }
 
-    private function markTestSkippedIfOsIsWindows()
+    private function markTestSkippedIfOsIsWindows(): void
     {
         if ('WIN' === strtoupper(substr(PHP_OS, 0, 3))) {
             $this->markTestSkipped('POSIX ACL tests cannot be run on Windows.');
         }
     }
 
-    private function markTestSkippedIfAclIsNotSupported()
+    private function markTestSkippedIfAclIsNotSupported(): void
     {
         $this->markTestSkippedIfOsIsWindows();
 

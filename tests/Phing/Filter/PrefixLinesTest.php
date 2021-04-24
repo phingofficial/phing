@@ -37,7 +37,7 @@ class PrefixLinesTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testPrefixLines()
+    public function testPrefixLines(): void
     {
         $this->executeTarget('testPrefixLines');
 

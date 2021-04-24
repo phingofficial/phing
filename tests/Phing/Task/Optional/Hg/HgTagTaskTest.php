@@ -39,7 +39,7 @@ class HgTagTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testRepoDoesntExist()
+    public function testRepoDoesntExist(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepositoryDirDoesntExist',
@@ -60,7 +60,7 @@ class HgTagTaskTest extends BuildFileTest
     }
     */
 
-    public function testRevision()
+    public function testRevision(): void
     {
         $this->markTestAsSkippedWhenHgNotInstalled();
 

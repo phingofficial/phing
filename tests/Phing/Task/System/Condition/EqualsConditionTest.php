@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
  */
 class EqualsConditionTest extends TestCase
 {
-    public function testTrim()
+    public function testTrim(): void
     {
         $eq = new EqualsCondition();
         $eq->setArg1('a');
@@ -45,7 +45,7 @@ class EqualsConditionTest extends TestCase
         $this->assertTrue($eq->evaluate());
     }
 
-    public function testCaseSensitive()
+    public function testCaseSensitive(): void
     {
         $eq = new EqualsCondition();
         $eq->setArg1('a');

@@ -37,7 +37,7 @@ class PhpLintTaskTest extends BuildFileTest
         @unlink(PHING_TEST_BASE . '/tmp/phplint_file.php');
     }
 
-    public function testSyntaxOK()
+    public function testSyntaxOK(): void
     {
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world'; ?>");
 
@@ -45,7 +45,7 @@ class PhpLintTaskTest extends BuildFileTest
         $this->assertInLogs('phplint_file.php: No syntax errors detected');
     }
 
-    public function testSyntaxError()
+    public function testSyntaxError(): void
     {
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world; ?>");
 
@@ -58,7 +58,7 @@ class PhpLintTaskTest extends BuildFileTest
      *
      * @requires PHP < 7.0
      */
-    public function testDeprecated()
+    public function testDeprecated(): void
     {
         file_put_contents(
             PHING_TEST_BASE . '/tmp/phplint_file.php',
@@ -69,7 +69,7 @@ class PhpLintTaskTest extends BuildFileTest
         $this->assertInLogs('Assigning the return value of new by reference is deprecated in');
     }
 
-    public function testHaltOnFailure()
+    public function testHaltOnFailure(): void
     {
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world; ?>");
 

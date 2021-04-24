@@ -42,7 +42,7 @@ class ContainsRegexpSelectorTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testContainsRegexpSelector()
+    public function testContainsRegexpSelector(): void
     {
         $this->executeTarget(__FUNCTION__);
         $project = $this->getProject();

@@ -36,43 +36,43 @@ class XorConditionTest extends BuildFileTest
         );
     }
 
-    public function testEmpty()
+    public function testEmpty(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('isEmpty');
     }
 
-    public function test1()
+    public function test1(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('testTrue');
     }
 
-    public function test0()
+    public function test0(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('testFalse');
     }
 
-    public function test10()
+    public function test10(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('test10');
     }
 
-    public function test01()
+    public function test01(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('test01');
     }
 
-    public function test00()
+    public function test00(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('test00');
     }
 
-    public function test11()
+    public function test11(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('test11');

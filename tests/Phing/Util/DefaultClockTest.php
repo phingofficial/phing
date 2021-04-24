@@ -43,7 +43,7 @@ class DefaultClockTest extends TestCase
         unset($this->timer);
     }
 
-    public function testTimer()
+    public function testTimer(): void
     {
         $this->timer->start();
         $this->assertTrue($this->timer->isRunning());

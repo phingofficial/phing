@@ -33,7 +33,7 @@ class ReplaceTokenBooleanTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/376/build.xml');
     }
 
-    public function testCustomTask()
+    public function testCustomTask(): void
     {
         $this->executeTarget('main');
         $this->assertInLogs('Replaced "@TOKEN_KEY_TRUE@" with "true"');

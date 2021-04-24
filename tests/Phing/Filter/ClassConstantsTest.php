@@ -38,7 +38,7 @@ class ClassConstantsTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testClassConstants()
+    public function testClassConstants(): void
     {
         $this->executeTarget(__FUNCTION__);
 

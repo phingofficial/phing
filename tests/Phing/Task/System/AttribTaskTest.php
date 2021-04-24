@@ -27,8 +27,7 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Attrib Task.
  *
  * @author  Siad Ardroumli
- *
- * @requires OS WIN32|WINNT
+ * @requires OSFAMILY Windows
  */
 class AttribTaskTest extends BuildFileTest
 {
@@ -46,7 +45,7 @@ class AttribTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testAttrib()
+    public function testAttrib(): void
     {
         $this->executeTarget(__FUNCTION__);
 

@@ -41,7 +41,7 @@ class SortFilterTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testSortFilter()
+    public function testSortFilter(): void
     {
         $this->executeTarget('testSortFilter');
 

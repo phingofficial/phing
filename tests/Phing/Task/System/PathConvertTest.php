@@ -42,23 +42,23 @@ class PathConvertTest extends BuildFileTest
     /**
      * Tests the OS execution for the unspecified OS.
      */
-    public function testDirChar()
+    public function testDirChar(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('def|ghi', 'def|ghi');
     }
 
-    public function testMap()
+    public function testMap(): void
     {
         $this->assertTarget('testmap');
     }
 
-    public function testMapper()
+    public function testMapper(): void
     {
         $this->assertTarget('testmapper');
     }
 
-    public function testUnique()
+    public function testUnique(): void
     {
         $p = new Path($this->project, '/a:/a');
         $p->setPath('\\a;/a');
@@ -74,13 +74,13 @@ class PathConvertTest extends BuildFileTest
         $this->assertCount(6, $l, '6 after preserved duplicates');
     }
 
-    public function testNoTargetOs()
+    public function testNoTargetOs(): void
     {
         $this->expectNotToPerformAssertions();
         $this->executeTarget('testnotargetos');
     }
 
-    private function assertTarget(string $target)
+    private function assertTarget(string $target): void
     {
         $this->executeTarget($target);
         $this->assertEquals('test#' . 'PathConvertTest.xml', $this->getProject()->getProperty('result'));

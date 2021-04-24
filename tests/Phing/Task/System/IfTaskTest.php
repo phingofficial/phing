@@ -40,7 +40,7 @@ class IfTaskTest extends BuildFileTest
      * Test the 'elseif' conditional of the if-task.
      *
      */
-    public function testAddElseIf()
+    public function testAddElseIf(): void
     {
         // execute the PHING target with the same name as this function
         $this->executeTarget(__FUNCTION__);
@@ -53,7 +53,7 @@ class IfTaskTest extends BuildFileTest
      * Test the 'then' conditional of the if-task.
      *
      */
-    public function testAddThen()
+    public function testAddThen(): void
     {
         // execute the PHING target with the same name as this function
         $this->executeTarget(__FUNCTION__);
@@ -66,7 +66,7 @@ class IfTaskTest extends BuildFileTest
      * Test the 'else' conditional of the if-task.
      *
      */
-    public function testAddElse()
+    public function testAddElse(): void
     {
         // execute the PHING target with the same name as this function
         $this->executeTarget(__FUNCTION__);
@@ -80,7 +80,7 @@ class IfTaskTest extends BuildFileTest
      * <then> statements in an if-task.
      *
      */
-    public function testAddDoubleThen()
+    public function testAddDoubleThen(): void
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
@@ -94,7 +94,7 @@ class IfTaskTest extends BuildFileTest
      * <else> statements in an if-task.
      *
      */
-    public function testAddDoubleElse()
+    public function testAddDoubleElse(): void
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
@@ -108,7 +108,7 @@ class IfTaskTest extends BuildFileTest
      * <else> statements in an if-task.
      *
      */
-    public function testMultipleConditions()
+    public function testMultipleConditions(): void
     {
         // execute the phing target and expect it to throw a buildexception
         $target = __FUNCTION__;
