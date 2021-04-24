@@ -26,6 +26,7 @@ use Phing\Io\WindowsFileSystem;
  * Unit test for Win32FileSystem.
  *
  * @author Daniel Holmes
+ * @requires OSFAMILY Windows
  */
 class WindowsFileSystemTest extends AbstractWinFileSystemTestCase
 {
