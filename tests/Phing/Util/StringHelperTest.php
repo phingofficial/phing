@@ -17,7 +17,7 @@ class StringHelperTest extends TestCase
      *
      * @param mixed $candidate
      */
-    public function testBooleanValue($candidate, bool $expected)
+    public function testBooleanValue($candidate, $expected)
     {
         $result = StringHelper::booleanValue($candidate);
         $this->assertIsBool($result);
