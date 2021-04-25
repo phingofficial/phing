@@ -861,6 +861,7 @@ class Project
      * @return <code>true</code> if the given string is <code>"on"</code>,
      *                           <code>"true"</code> or <code>"yes"</code>, or
      *                           <code>false</code> otherwise
+     * @deprecated Use \Phing\Util\StringHelper::booleanValue instead
      */
     public static function toBoolean($s)
     {

@@ -25,6 +25,7 @@ use Phing\Io\IOException;
 use Phing\Io\Reader;
 use Phing\Project;
 use Phing\Type\FilterReader;
+use Phing\Util\StringHelper;
 
 /**
  * Filter which includes only those lines that contain all the user-specified
@@ -262,7 +263,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                     $cont->setValue($param->getValue());
                     $this->contains[] = $cont;
                 } elseif (self::NEGATE_KEY === $param->getType()) {
-                    $this->setNegate(Project::toBoolean($param->getValue()));
+                    $this->setNegate(StringHelper::booleanValue($param->getValue()));
                 }
             }
         }
