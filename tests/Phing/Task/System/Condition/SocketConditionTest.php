@@ -25,12 +25,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for the <socket> condition.
- *
- * @requires extension sockets
  */
 class SocketConditionTest extends TestCase
 {
-    public function testShouldReturnFalseForNonExistingListener()
+    public function testShouldReturnFalseForNonExistingListener(): void
     {
         $condition = new SocketCondition();
         $condition->setServer('localhost');

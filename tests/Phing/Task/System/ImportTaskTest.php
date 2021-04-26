@@ -33,7 +33,7 @@ class ImportTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/importing.xml');
     }
 
-    public function testOverloadedTarget()
+    public function testOverloadedTarget(): void
     {
         $f1 = new File(PHING_TEST_BASE . '/etc/tasks/importing.xml');
 
@@ -41,7 +41,7 @@ class ImportTaskTest extends BuildFileTest
         $this->assertInLogs('This is ' . $f1->getAbsolutePath() . ' main target.');
     }
 
-    public function testImportedTarget()
+    public function testImportedTarget(): void
     {
         $f1 = new File(PHING_TEST_BASE . '/etc/tasks/imports/imported.xml');
         $f2 = new File(PHING_TEST_BASE . '/etc/tasks/imports');
@@ -51,7 +51,7 @@ class ImportTaskTest extends BuildFileTest
         $this->assertInLogs('imported.basedir=' . $f2->getAbsolutePath());
     }
 
-    public function testImported2Target()
+    public function testImported2Target(): void
     {
         $f1 = new File(PHING_TEST_BASE . '/etc/tasks/imports/importedImport.xml');
 
@@ -59,7 +59,7 @@ class ImportTaskTest extends BuildFileTest
         $this->assertInLogs('This is ' . $f1->getAbsolutePath() . ' imported2 target.');
     }
 
-    public function testImportedMultiTarget()
+    public function testImportedMultiTarget(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/importing-multi.xml');
 
@@ -67,7 +67,7 @@ class ImportTaskTest extends BuildFileTest
         $this->assertInLogs('parsing buildfile imported-multi-2.xml');
     }
 
-    public function testCascadeTarget()
+    public function testCascadeTarget(): void
     {
         $f1 = new File(PHING_TEST_BASE . '/etc/tasks/imports/imported.xml');
         $f2 = new File(PHING_TEST_BASE . '/etc/tasks/importing.xml');
@@ -78,7 +78,7 @@ class ImportTaskTest extends BuildFileTest
         $this->assertInLogs('This is ' . $f2->getAbsolutePath() . ' cascade target.');
     }
 
-    public function testFlipFlopTarget()
+    public function testFlipFlopTarget(): void
     {
         // calls target in main that depends on target in import that depends on
         // target orverridden in main
@@ -90,7 +90,7 @@ class ImportTaskTest extends BuildFileTest
         $this->assertInLogs('This is ' . $f1->getAbsolutePath() . ' flipflop target.');
     }
 
-    public function testOnlyTopLevel()
+    public function testOnlyTopLevel(): void
     {
         $this->expectBuildExceptionContaining(
             __FUNCTION__,

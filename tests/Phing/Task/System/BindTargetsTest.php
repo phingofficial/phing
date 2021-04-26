@@ -36,7 +36,7 @@ class BindTargetsTest extends BuildFileTest
         );
     }
 
-    public function testBind()
+    public function testBind(): void
     {
         $this->executeTarget(__FUNCTION__);
 

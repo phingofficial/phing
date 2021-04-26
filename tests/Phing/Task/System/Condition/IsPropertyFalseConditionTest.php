@@ -36,13 +36,13 @@ class IsPropertyFalseConditionTest extends BuildFileTest
         );
     }
 
-    public function testIsPropertyFalse()
+    public function testIsPropertyFalse(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('IsFalse');
     }
 
-    public function testIsPropertyNotFalse()
+    public function testIsPropertyNotFalse(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('IsNotFalse');

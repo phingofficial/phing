@@ -36,14 +36,14 @@ class SvnRevertTaskTest extends AbstractSvnTaskTest
     /**
      * @test
      */
-    public function recursiveRevert()
+    public function recursiveRevert(): void
     {
         $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs("Checking out SVN repository to '" . $repository . "'");
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',

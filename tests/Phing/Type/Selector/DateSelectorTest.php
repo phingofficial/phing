@@ -90,7 +90,7 @@ class DateSelectorTest extends BuildFileTest
      * when defaults to equal
      * granularity defaults to 0
      */
-    public function testSecondsWithDefaults()
+    public function testSecondsWithDefaults(): void
     {
         $epochSeconds = time();
 
@@ -112,7 +112,7 @@ class DateSelectorTest extends BuildFileTest
      *
      * granularity defaults to 0
      */
-    public function testSecondsWithWhenAfter()
+    public function testSecondsWithWhenAfter(): void
     {
         $epochSeconds = time();
 
@@ -134,7 +134,7 @@ class DateSelectorTest extends BuildFileTest
      *
      * granularity defaults to 0
      */
-    public function testSecondsWithWhenBefore()
+    public function testSecondsWithWhenBefore(): void
     {
         $epochSeconds = time();
 
@@ -156,7 +156,7 @@ class DateSelectorTest extends BuildFileTest
      *
      * when defaults to equal
      */
-    public function testSecondsGranularitySixtySeconds()
+    public function testSecondsGranularitySixtySeconds(): void
     {
         $epochSeconds = time();
 
@@ -196,7 +196,7 @@ class DateSelectorTest extends BuildFileTest
      * when defaults to equal
      * granularity defaults to 0
      */
-    public function testDateTimeWithDefaults()
+    public function testDateTimeWithDefaults(): void
     {
         $dateTime = '01/01/2001 12:00 AM';
 
@@ -220,7 +220,7 @@ class DateSelectorTest extends BuildFileTest
      *
      * granularity defaults to 0
      */
-    public function testDateTimeWithWhenAfter()
+    public function testDateTimeWithWhenAfter(): void
     {
         $dateTime = '01/01/1999 12:00 AM';
 
@@ -244,7 +244,7 @@ class DateSelectorTest extends BuildFileTest
      *
      * granularity defaults to 0
      */
-    public function testDateTimeWithWhenBefore()
+    public function testDateTimeWithWhenBefore(): void
     {
         $dateTime = '01/01/1975 12:00 PM';
 
@@ -268,7 +268,7 @@ class DateSelectorTest extends BuildFileTest
      *
      * when defaults to equal
      */
-    public function testDateTimeGranularityThirtySeconds()
+    public function testDateTimeGranularityThirtySeconds(): void
     {
         $dateTime = '01/01/1971 05:12 AM';
 
@@ -310,7 +310,7 @@ class DateSelectorTest extends BuildFileTest
      * when defaults to equal
      * granularity defaults to 0
      */
-    public function testMillisWithDefaults()
+    public function testMillisWithDefaults(): void
     {
         $epochSeconds = time();
         $epochMillis = ($epochSeconds * 1000) + random_int(0, 999);
@@ -333,7 +333,7 @@ class DateSelectorTest extends BuildFileTest
      *
      * granularity defaults to 0
      */
-    public function testMillisWithWhenAfter()
+    public function testMillisWithWhenAfter(): void
     {
         $epochSeconds = time();
         $epochMillis = ($epochSeconds * 1000) + random_int(0, 999);
@@ -356,7 +356,7 @@ class DateSelectorTest extends BuildFileTest
      *
      * granularity defaults to 0
      */
-    public function testMillisWithWhenBefore()
+    public function testMillisWithWhenBefore(): void
     {
         $epochSeconds = time();
         $epochMillis = ($epochSeconds * 1000) + random_int(0, 999);
@@ -379,7 +379,7 @@ class DateSelectorTest extends BuildFileTest
      *
      * when defaults to equal
      */
-    public function testMillisGranularitySixSeconds()
+    public function testMillisGranularitySixSeconds(): void
     {
         $epochSeconds = time();
         $epochMillis = ($epochSeconds * 1000) + random_int(0, 999);
@@ -420,37 +420,37 @@ class DateSelectorTest extends BuildFileTest
      * when defaults to equal
      * granularity defaults to 0
      */
-    public function testSecondsInvalidSeconds()
+    public function testSecondsInvalidSeconds(): void
     {
         $this->expectBuildException(__FUNCTION__, 'seconds has invalid value');
     }
 
     // Test using datetime attribute with and invalid value
-    public function testDateTimeInvalidDateTime()
+    public function testDateTimeInvalidDateTime(): void
     {
         $this->expectBuildException(__FUNCTION__, 'datetime has invalid value');
     }
 
     // Test using invalid datetime attribute
-    public function testDateTimeNotDateTime()
+    public function testDateTimeNotDateTime(): void
     {
         $this->expectBuildException(__FUNCTION__, 'datetime has invalid value');
     }
 
     // Test using invalid millis attribute
-    public function testMillisInvalidMillis()
+    public function testMillisInvalidMillis(): void
     {
         $this->expectBuildException(__FUNCTION__, 'millis has invalid value');
     }
 
     // Test using an invalid when value
-    public function testInvalidWhen()
+    public function testInvalidWhen(): void
     {
         $this->expectBuildException(__FUNCTION__, 'when attribute has invalid value');
     }
 
     // Test using an invalid when value
-    public function testInvalidAttribute()
+    public function testInvalidAttribute(): void
     {
         $this->expectBuildException(__FUNCTION__, 'invalid attribute for task');
     }

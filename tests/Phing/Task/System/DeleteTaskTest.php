@@ -44,25 +44,25 @@ class DeleteTaskTest extends BuildFileTest
     }
 
     /**
-     * @requires OS ^(?:(?!Win).)*$
+     *
      */
-    public function testCopyDanglingSymlink()
+    public function testCopyDanglingSymlink(): void
     {
         $this->executeTarget('testDeleteDanglingSymlink');
         $this->assertInLogs('Deleting 1 files from');
     }
 
-    public function testDeleteNonExistingDirectory()
+    public function testDeleteNonExistingDirectory(): void
     {
         $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'does not exist or is not a directory');
     }
 
-    public function testDeleteNonExistingFile()
+    public function testDeleteNonExistingFile(): void
     {
         $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Could not find file');
     }
 
-    public function testDirset()
+    public function testDirset(): void
     {
         $tmpDir = $this->getProject()->getProperty('tmp.dir');
         $dir1 = $tmpDir . '/test-one';

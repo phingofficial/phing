@@ -33,7 +33,7 @@ class AdhocTaskdefTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/610/build.xml');
     }
 
-    public function testPhingCallTask()
+    public function testPhingCallTask(): void
     {
         $this->executeTarget('main');
         $this->assertInLogs('doThisTask success!');

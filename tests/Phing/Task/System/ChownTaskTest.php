@@ -27,7 +27,7 @@ use Phing\Test\Support\BuildFileTest;
  *
  * @author  Michiel Rook <mrook@php.net>
  *
- * @requires OS ^(?:(?!Win).)*$
+ *
  */
 class ChownTaskTest extends BuildFileTest
 {
@@ -43,7 +43,7 @@ class ChownTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testChangeGroup()
+    public function testChangeGroup(): void
     {
         $userinfo = posix_getpwuid(posix_geteuid());
         $username = $userinfo['name'];
@@ -53,7 +53,10 @@ class ChownTaskTest extends BuildFileTest
         $group = null;
         foreach (['users', 'www-data', 'cdrom'] as $groupname) {
             $grpinfo = posix_getgrnam($groupname);
-            if ($grpinfo['gid'] == $userinfo['gid']) {
+            if (!is_array($grpinfo)) {
+                continue;
+            }
+            if ($grpinfo['gid'] === $userinfo['gid']) {
                 //current group id, the file has that group anyway
                 continue;
             }

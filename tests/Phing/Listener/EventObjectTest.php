@@ -45,13 +45,13 @@ class EventObjectTest extends TestCase
         unset($this->eventObject);
     }
 
-    public function testEventObject()
+    public function testEventObject(): void
     {
         $this->assertInstanceOf('stdClass', $this->eventObject->getSource());
         $this->assertSame(EventObject::class . '[source=stdClass]', (string) $this->eventObject);
     }
 
-    public function testEventObjectThrowsExceptionOnNull()
+    public function testEventObjectThrowsExceptionOnNull(): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Null source');

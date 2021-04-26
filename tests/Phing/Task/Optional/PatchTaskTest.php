@@ -43,7 +43,7 @@ class PatchTaskTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testPatch()
+    public function testPatch(): void
     {
         $this->executeTarget(__FUNCTION__);
 

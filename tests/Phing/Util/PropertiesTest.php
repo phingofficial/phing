@@ -46,7 +46,7 @@ class PropertiesTest extends TestCase
         unset($this->props);
     }
 
-    public function testComments()
+    public function testComments(): void
     {
         $file = new File(PHING_TEST_BASE . '/etc/system/util/comments.properties');
         $this->props->load($file);
@@ -61,26 +61,26 @@ class PropertiesTest extends TestCase
         $this->assertEquals(false, $this->props->getProperty('testline4'));
     }
 
-    public function testEmpty()
+    public function testEmpty(): void
     {
         $this->assertTrue($this->props->isEmpty());
     }
 
-    public function testAppendPropertyValues()
+    public function testAppendPropertyValues(): void
     {
         $this->props->append('t', 'a');
         $this->props->append('t', 'b');
         $this->assertEquals('a,b', $this->props->get('t'));
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $this->props->put('a', 'b');
 
         $this->assertEquals('a=b' . PHP_EOL, (string) $this->props);
     }
 
-    public function testStore()
+    public function testStore(): void
     {
         $file = new File(PHING_TEST_BASE . '/tmp/props');
         $this->props->put('t', 'a');

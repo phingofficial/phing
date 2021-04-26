@@ -47,10 +47,9 @@ class StripPhpCommentsTest extends BuildFileTest
 
     /**
      * @throws IOException
-     * @requires PHP 7
      * @requires OSFAMILY Windows|Linux
      */
-    public function testStripPhpComments()
+    public function testStripPhpComments(): void
     {
         $this->executeTarget(__FUNCTION__);
 

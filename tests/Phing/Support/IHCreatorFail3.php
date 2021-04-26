@@ -33,7 +33,7 @@ class IHCreatorFail3
      *
      * @param mixed $blah
      */
-    public function addConfiguredBlah($blah)
+    public function addConfiguredBlah($blah): void
     {
     }
 }

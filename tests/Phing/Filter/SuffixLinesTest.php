@@ -42,7 +42,7 @@ class SuffixLinesTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testSuffixLines()
+    public function testSuffixLines(): void
     {
         $this->executeTarget('testSuffixLines');
 

@@ -68,7 +68,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: pdo_sqlite,pdo_mysql
+          extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl
+          ini-values: phar.readonly=off
 
       - uses: ramsey/composer-install@v1
         with:

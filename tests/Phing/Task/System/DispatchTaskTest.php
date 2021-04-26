@@ -37,7 +37,7 @@ class DispatchTaskTest extends BuildFileTest
         );
     }
 
-    public function testDispatch()
+    public function testDispatch(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'first success!');
         $this->expectLogContaining(__FUNCTION__, 'second success!');

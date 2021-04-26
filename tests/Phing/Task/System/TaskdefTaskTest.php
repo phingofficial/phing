@@ -32,22 +32,22 @@ class TaskdefTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/taskdef.xml');
     }
 
-    public function testEmpty()
+    public function testEmpty(): void
     {
         $this->expectBuildException('empty', 'required argument not specified');
     }
 
-    public function testNoName()
+    public function testNoName(): void
     {
         $this->expectBuildException('noName', 'required argument not specified');
     }
 
-    public function testNoClassname()
+    public function testNoClassname(): void
     {
         $this->expectBuildException('noClassname', 'required argument not specified');
     }
 
-    public function testClassNotFound()
+    public function testClassNotFound(): void
     {
         $this->expectException(BuildException::class);
 
@@ -62,7 +62,7 @@ class TaskdefTaskTest extends BuildFileTest
         }
     }
 
-    public function testGlobal()
+    public function testGlobal(): void
     {
         $this->expectLog('testGlobal', 'simpletask: testGlobal echo');
         $refs = $this->project->getReferences();
@@ -71,7 +71,7 @@ class TaskdefTaskTest extends BuildFileTest
         $this->assertInstanceOf(TaskdefTestSimpleTask::class, $ref);
     }
 
-    public function testLocal()
+    public function testLocal(): void
     {
         $this->expectLog('testLocal', 'Task local will be handled by class ' . TaskdefTestSimpleTask::class);
         $refs = $this->project->getReferences();
@@ -80,7 +80,7 @@ class TaskdefTaskTest extends BuildFileTest
         $this->assertInstanceOf(TaskdefTestSimpleTask::class, $ref);
     }
 
-    public function tesFile()
+    public function tesFile(): void
     {
         $this->expectLog('testFile', 'simpletask: testTdfile echo');
         $refs = $this->project->getReferences();

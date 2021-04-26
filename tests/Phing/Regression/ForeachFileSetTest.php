@@ -34,7 +34,7 @@ class ForeachFileSetTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/252/build.xml');
     }
 
-    public function testCustomTask()
+    public function testCustomTask(): void
     {
         $f = new File(PHING_TEST_BASE . '/etc/regression/252/build.xml');
         $this->executeTarget('main');

@@ -27,7 +27,7 @@ use Phing\Test\Support\BuildFileTest;
  *
  * @author  Michiel Rook <mrook@php.net>
  *
- * @requires OS ^(?:(?!Win).)*$
+ *
  */
 class ChmodTaskTest extends BuildFileTest
 {
@@ -43,7 +43,7 @@ class ChmodTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testChangeModeFile()
+    public function testChangeModeFile(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -53,7 +53,7 @@ class ChmodTaskTest extends BuildFileTest
         $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 
-    public function testChangeModeFileSet()
+    public function testChangeModeFileSet(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -63,7 +63,7 @@ class ChmodTaskTest extends BuildFileTest
         $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
     }
 
-    public function testChangeModeDirSet()
+    public function testChangeModeDirSet(): void
     {
         $this->executeTarget(__FUNCTION__);
 

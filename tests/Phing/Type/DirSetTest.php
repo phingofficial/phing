@@ -39,7 +39,7 @@ class DirSetTest extends TestCase
         $this->dirset = new DirSet();
     }
 
-    public function testDirSetIterator()
+    public function testDirSetIterator(): void
     {
         $this->dirset->setProject(new Project());
         $this->dirset->setDir(__DIR__);

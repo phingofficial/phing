@@ -30,7 +30,7 @@ class MonologListenerTest extends TestCase
     /**
      * @test
      */
-    public function buildStarted()
+    public function buildStarted(): void
     {
         $listener = new MonologListener();
         $this->assertNull($listener->buildStarted(new BuildEvent(new Project())));

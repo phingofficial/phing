@@ -51,7 +51,7 @@ class IntrospectionHelperTest extends TestCase
     /**
      * @throws BuildException
      */
-    public function testAddText()
+    public function testAddText(): void
     {
         $ih = IntrospectionHelper::getHelper(Exception::class);
 
@@ -68,7 +68,7 @@ class IntrospectionHelperTest extends TestCase
         $this->assertSame('test', $element->text);
     }
 
-    public function testSupportsCharactersAdders()
+    public function testSupportsCharactersAdders(): void
     {
         $ih = IntrospectionHelper::getHelper(Exception::class);
         $this->assertFalse($ih->supportsCharacters(), "String doesn\\'t support addText");
@@ -76,7 +76,7 @@ class IntrospectionHelperTest extends TestCase
         $this->assertTrue($ih->supportsCharacters(), 'IHProjectComponent supports addText');
     }
 
-    public function testElementCreators()
+    public function testElementCreators(): void
     {
         try {
             IntrospectionHelper::getHelper(IHCreatorFail1::class);

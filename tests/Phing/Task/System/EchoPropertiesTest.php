@@ -41,7 +41,7 @@ class EchoPropertiesTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testEchoProperties()
+    public function testEchoProperties(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists($this->getProject()->getProperty('property.file'));

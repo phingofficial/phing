@@ -36,33 +36,33 @@ class PhingVersionTest extends BuildFileTest
         );
     }
 
-    public function testPhingVersion()
+    public function testPhingVersion(): void
     {
         $this->executeTarget(__FUNCTION__);
         $expectedVersion = $this->getProject()->getProperty('version1');
         $this->assertPropertyEquals('version1', $expectedVersion);
     }
 
-    public function testPhingVersionAtLeastPos()
+    public function testPhingVersionAtLeastPos(): void
     {
         $this->executeTarget(__FUNCTION__);
         $expectedVersion = $this->getProject()->getProperty('version2');
         $this->assertPropertyEquals('version2', $expectedVersion);
     }
 
-    public function testPhingVersionAtLeastNeg()
+    public function testPhingVersionAtLeastNeg(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('version3');
     }
 
-    public function testPhingVersionIsNotExact()
+    public function testPhingVersionIsNotExact(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('version4');
     }
 
-    public function testPhingVersionAsCondition()
+    public function testPhingVersionAsCondition(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('isTrue');

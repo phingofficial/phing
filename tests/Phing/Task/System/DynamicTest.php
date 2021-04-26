@@ -38,7 +38,7 @@ class DynamicTest extends BuildFileTest
         );
     }
 
-    public function testSimple()
+    public function testSimple(): void
     {
         $this->executeTarget('simple');
 

@@ -22,9 +22,6 @@ namespace Phing\Test\Task\Optional;
 
 use Phing\Test\Support\BuildFileTest;
 
-/**
- * @requires extension xsl
- */
 class VisualizerTaskTest extends BuildFileTest
 {
     public function setUp(): void
@@ -40,7 +37,7 @@ class VisualizerTaskTest extends BuildFileTest
     /**
      * Testing different diagram formats: png, puml, svg and eps.
      */
-    public function testFormat()
+    public function testFormat(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.puml');
@@ -51,7 +48,7 @@ class VisualizerTaskTest extends BuildFileTest
     /**
      * Test that an exception is raised when invalid format is used.
      */
-    public function testInvalidFormat()
+    public function testInvalidFormat(): void
     {
         $this->expectBuildException(__FUNCTION__, "'jpg' is not a valid format");
         $this->assertInLogs("'jpg' is not a valid format");
@@ -60,7 +57,7 @@ class VisualizerTaskTest extends BuildFileTest
     /**
      * Testing custom destination including filename.
      */
-    public function testDestinationFile()
+    public function testDestinationFile(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(PHING_TEST_BASE . '/tmp/my-diagram.puml');
@@ -71,7 +68,7 @@ class VisualizerTaskTest extends BuildFileTest
     /**
      * Testing custom destination without filename.
      */
-    public function testDestinationDirectory()
+    public function testDestinationDirectory(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(PHING_TEST_BASE . '/tmp/VisualizerTaskTest.puml');
@@ -82,7 +79,7 @@ class VisualizerTaskTest extends BuildFileTest
     /**
      * Testing that an exception is raised when an invalid directory is used as destination.
      */
-    public function testInvalidDestination()
+    public function testInvalidDestination(): void
     {
         $this->expectBuildException(__FUNCTION__, "Directory 'foo/bar/baz/' is invalid");
         $this->assertInLogs("Directory 'foo/bar/baz/' is invalid");
@@ -91,7 +88,7 @@ class VisualizerTaskTest extends BuildFileTest
     /**
      * Testing that exception is raised when an invalid URL is used.
      */
-    public function testInvalidServer()
+    public function testInvalidServer(): void
     {
         $this->expectBuildException(__FUNCTION__, 'Invalid PlantUml server');
         $this->assertInLogs('Invalid PlantUml server');

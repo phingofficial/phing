@@ -34,19 +34,19 @@ class EnvironmentTest extends TestCase
         $this->environment = new Environment();
     }
 
-    public function testVariablesNull()
+    public function testVariablesNull(): void
     {
         $count = $this->environment->getVariables();
         $this->assertNull($count);
     }
 
-    public function testVariablesObjectIsArrayObject()
+    public function testVariablesObjectIsArrayObject(): void
     {
         $variablesObj = $this->environment->getVariablesObject();
         $this->assertInstanceOf(ArrayObject::class, $variablesObj);
     }
 
-    public function testValidateWithoutKeyAndValueSetRaisesException()
+    public function testValidateWithoutKeyAndValueSetRaisesException(): void
     {
         $ev = new EnvVariable();
 
@@ -56,7 +56,7 @@ class EnvironmentTest extends TestCase
         $ev->validate();
     }
 
-    public function testValuesAgainstGetContent()
+    public function testValuesAgainstGetContent(): void
     {
         $ev = new EnvVariable();
         $ev->setKey(' key ');

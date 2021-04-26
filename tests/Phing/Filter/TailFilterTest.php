@@ -37,7 +37,7 @@ class TailFilterTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testTailFilter()
+    public function testTailFilter(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -47,7 +47,7 @@ class TailFilterTest extends BuildFileTest
         $this->assertFileEquals($expected->getAbsolutePath(), $result->getAbsolutePath());
     }
 
-    public function testTailHeadFilter()
+    public function testTailHeadFilter(): void
     {
         $this->executeTarget(__FUNCTION__);
 

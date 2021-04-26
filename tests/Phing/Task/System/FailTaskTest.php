@@ -36,13 +36,13 @@ class FailTaskTest extends BuildFileTest
         );
     }
 
-    public function testNested1()
+    public function testNested1(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('condition satisfied');
     }
 
-    public function testNested2()
+    public function testNested2(): void
     {
         $this->expectBuildException(__FUNCTION__, 'condition satisfied');
     }

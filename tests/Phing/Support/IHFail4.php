@@ -34,7 +34,7 @@ class IHFail4
      * @param mixed $blah
      * @param mixed $blah2
      */
-    public function setBlah($blah, $blah2)
+    public function setBlah($blah, $blah2): void
     {
     }
 }

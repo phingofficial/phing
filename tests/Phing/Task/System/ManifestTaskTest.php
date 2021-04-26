@@ -43,7 +43,7 @@ class ManifestTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testGenerateManifest()
+    public function testGenerateManifest(): void
     {
         $this->executeTarget(__FUNCTION__);
         $hash = md5('saltyFile1');

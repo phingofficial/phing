@@ -43,7 +43,7 @@ class IniFileTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testNoSourceOrDestSet()
+    public function testNoSourceOrDestSet(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Neither source nor dest is set');
@@ -51,7 +51,7 @@ class IniFileTaskTest extends BuildFileTest
         $this->executeTarget('noSourceOrDestSet');
     }
 
-    public function testNonexistingSourceOnly()
+    public function testNonexistingSourceOnly(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('doesnotexist.ini does not exist');
@@ -59,21 +59,21 @@ class IniFileTaskTest extends BuildFileTest
         $this->executeTarget('nonexistingSourceOnly');
     }
 
-    public function testNonexistingDestOnly()
+    public function testNonexistingDestOnly(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('doesnotexist.ini does not exist');
         $this->executeTarget('nonexistingDestOnly');
     }
 
-    public function testNonexistingDestAndSource()
+    public function testNonexistingDestAndSource(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('sourcedoesnotexist.ini does not exist');
         $this->executeTarget('nonexistingDestAndSource');
     }
 
-    public function testExistingSource()
+    public function testExistingSource(): void
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . '/source.ini', $fill);
@@ -84,7 +84,7 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
     }
 
-    public function testExistingSourceWithVerbose()
+    public function testExistingSourceWithVerbose(): void
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . '/source.ini', $fill);
@@ -95,7 +95,7 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertInLogs('Wrote to ./../../../../tmp/inifile/destination.ini');
     }
 
-    public function testRemoveKeyFromSectionInSourceFile()
+    public function testRemoveKeyFromSectionInSourceFile(): void
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . '/source.ini', $fill);
@@ -108,7 +108,7 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertEquals("[test]\n; a comment\n", $result);
     }
 
-    public function testRemoveSectionFromSourceFile()
+    public function testRemoveSectionFromSourceFile(): void
     {
         $fill = ["[test]\n", "; a comment\n", "foo=bar\n"];
         file_put_contents($this->inifiletestdir . '/source.ini', $fill);
@@ -121,7 +121,7 @@ class IniFileTaskTest extends BuildFileTest
         $this->assertEquals('', $result);
     }
 
-    public function testDefaultValueInSecondSection()
+    public function testDefaultValueInSecondSection(): void
     {
         $fill = ["[test]\n", "foo=bar\n", "[test2]\n", "foo=\n"];
         file_put_contents($this->inifiletestdir . '/source.ini', $fill);

@@ -43,7 +43,7 @@ abstract class AbstractFileSetTest extends TestCase
         $this->project->setBasedir(PHING_TEST_BASE);
     }
 
-    final public function testEmptyElementIfIsReference()
+    final public function testEmptyElementIfIsReference(): void
     {
         /** @var FileSet $f */
         $f = $this->getInstance();

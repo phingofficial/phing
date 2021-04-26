@@ -33,7 +33,7 @@ class PhingCallAdhocTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/299/build.xml');
     }
 
-    public function testPhingCallTask()
+    public function testPhingCallTask(): void
     {
         ob_start();
         $this->executeTarget('main');

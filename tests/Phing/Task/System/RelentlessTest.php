@@ -19,18 +19,18 @@ class RelentlessTest extends BuildFileTest
         );
     }
 
-    public function testRelentless()
+    public function testRelentless(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'Executing: task 3');
     }
 
-    public function testTerse()
+    public function testTerse(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertNotInLogs('Executing: task 3');
     }
 
-    public function testFailure()
+    public function testFailure(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('Relentless execution: 1 of 5 tasks failed.');

@@ -23,7 +23,7 @@ class TestEcho
 {
     public $message;
 
-    public function setMessage($s)
+    public function setMessage($s): void
     {
         $this->message = $s;
     }

@@ -36,13 +36,13 @@ class WaitForTaskTest extends BuildFileTest
         );
     }
 
-    public function testConditionMet()
+    public function testConditionMet(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('waitfor: condition was met');
     }
 
-    public function testTimeout()
+    public function testTimeout(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('waitfor: timeout');

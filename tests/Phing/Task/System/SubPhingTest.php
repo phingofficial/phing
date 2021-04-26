@@ -80,7 +80,7 @@ class SubPhingTest extends BuildFileTest
         );
     }
 
-    public function testPhingVersion()
+    public function testPhingVersion(): void
     {
         $this->markTestSkipped('Please review!');
         $this->executeTarget(__FUNCTION__);

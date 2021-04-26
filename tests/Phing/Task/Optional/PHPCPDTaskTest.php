@@ -34,7 +34,7 @@ class PHPCPDTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/build.xml');
     }
 
-    public function testFormatterOutfile()
+    public function testFormatterOutfile(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -43,7 +43,7 @@ class PHPCPDTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput');
     }
 
-    public function testFormatterPMD()
+    public function testFormatterPMD(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
@@ -52,7 +52,7 @@ class PHPCPDTaskTest extends BuildFileTest
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml');
     }
 
-    public function testFormatterNoFile()
+    public function testFormatterNoFile(): void
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);

@@ -42,21 +42,21 @@ class RegisterSlotTest extends TestCase
         unset($this->slot);
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $this->slot->setValue('test123');
 
         $this->assertEquals('test123', (string) $this->slot);
     }
 
-    public function testArrayToString()
+    public function testArrayToString(): void
     {
         $this->slot->setValue(['test1', 'test2', 'test3']);
 
         $this->assertEquals('{test1,test2,test3}', (string) $this->slot);
     }
 
-    public function testMultiArrayToString()
+    public function testMultiArrayToString(): void
     {
         $this->slot->setValue(['test1', 'test2', ['test4', 'test5', ['test6', 'test7']], 'test3']);
 

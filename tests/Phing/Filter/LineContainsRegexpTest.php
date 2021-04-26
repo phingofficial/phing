@@ -41,7 +41,7 @@ class LineContainsRegexpTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testLineContainsRegexp()
+    public function testLineContainsRegexp(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -50,7 +50,7 @@ class LineContainsRegexpTest extends BuildFileTest
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
-    public function testLineContainsRegexpNegate()
+    public function testLineContainsRegexpNegate(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -59,7 +59,7 @@ class LineContainsRegexpTest extends BuildFileTest
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
-    public function testLineContainsRegexpCaseInsensitive()
+    public function testLineContainsRegexpCaseInsensitive(): void
     {
         $this->executeTarget(__FUNCTION__);
 

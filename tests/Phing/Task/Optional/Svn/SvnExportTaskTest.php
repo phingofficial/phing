@@ -33,14 +33,14 @@ class SvnExportTaskTest extends AbstractSvnTaskTest
         $this->initialize('SvnExportTest.xml', false);
     }
 
-    public function testExportSimple()
+    public function testExportSimple(): void
     {
         $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
         $this->executeTarget('exportSimple');
         $this->assertInLogs("Exporting SVN repository to '" . $repository . "'");
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -49,7 +49,7 @@ class SvnExportTaskTest extends AbstractSvnTaskTest
         );
     }
 
-    public function testExportConfigOption()
+    public function testExportConfigOption(): void
     {
         $this->expectBuildExceptionContaining('exportConfigOption', 'provided --config-option with unreachable http-proxy not used', "Could not resolve proxy server 'non-existed.phing.org'");
     }

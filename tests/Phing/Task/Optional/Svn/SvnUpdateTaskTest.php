@@ -33,7 +33,7 @@ class SvnUpdateTaskTest extends AbstractSvnTaskTest
         $this->initialize('SvnUpdateTest.xml', false);
     }
 
-    public function testUpdateSimple()
+    public function testUpdateSimple(): void
     {
         $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
         $this->executeTarget('updateSimple');

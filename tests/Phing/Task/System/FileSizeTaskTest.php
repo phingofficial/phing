@@ -24,7 +24,7 @@ class FileSizeTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testSimpleCase()
+    public function testSimpleCase(): void
     {
         $this->getProject()->setProperty('dummy.size', '12345B');
         $this->executeTarget(__FUNCTION__);
@@ -32,7 +32,7 @@ class FileSizeTaskTest extends BuildFileTest
         $this->assertPropertyEquals('filesize', 12345);
     }
 
-    public function testPropertyNameAttribute()
+    public function testPropertyNameAttribute(): void
     {
         $this->getProject()->setProperty('dummy.size', '27027K');
         $this->executeTarget(__FUNCTION__);
@@ -49,7 +49,7 @@ class FileSizeTaskTest extends BuildFileTest
      * @param mixed $logInfo
      * @param mixed $expectedSize
      */
-    public function testUnitAttribute($dummySize, $filesizeUnit, $logVerbose, $logInfo, $expectedSize)
+    public function testUnitAttribute($dummySize, $filesizeUnit, $logVerbose, $logInfo, $expectedSize): void
     {
         $this->getProject()->setProperty('dummy.size', $dummySize);
         $this->getProject()->setProperty('filesize.unit', $filesizeUnit);
@@ -73,29 +73,29 @@ class FileSizeTaskTest extends BuildFileTest
         ];
     }
 
-    public function testExceptionFileNotSet()
+    public function testExceptionFileNotSet(): void
     {
         $this->expectBuildExceptionContaining(__FUNCTION__, 'File attribute was not set', 'Input file not specified');
     }
 
-    public function testExceptionInvalidFile()
+    public function testExceptionInvalidFile(): void
     {
         $this->expectBuildExceptionContaining(__FUNCTION__, 'File is set, but non-existent', 'Input file does not exist or is not readable: invalid-file');
     }
 
-    public function testExceptionInvalidUnit()
+    public function testExceptionInvalidUnit(): void
     {
         $this->getProject()->setProperty('dummy.size', '1K');
         $this->expectBuildExceptionContaining(__FUNCTION__, 'The unit is not a valid one', "Invalid unit 'foo'");
     }
 
-    public function testExceptionEmptyUnit()
+    public function testExceptionEmptyUnit(): void
     {
         $this->getProject()->setProperty('dummy.size', '1K');
         $this->expectBuildExceptionContaining(__FUNCTION__, 'The unit attribute is empty', "Invalid unit ''");
     }
 
-    public function testExceptionEmptyProperty()
+    public function testExceptionEmptyProperty(): void
     {
         $this->getProject()->setProperty('dummy.size', '1K');
         $this->expectBuildExceptionContaining(__FUNCTION__, 'Empty string (or "0") is passed to propertyName attribute', 'Property name cannot be empty');

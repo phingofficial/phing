@@ -34,33 +34,33 @@ class TaskdefForCopyTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function test1()
+    public function test1(): void
     {
         $this->expectNotToPerformAssertions();
         $this->executeTarget('test1');
     }
 
-    public function test2()
+    public function test2(): void
     {
         $this->expectNotToPerformAssertions();
         $this->executeTarget('test2');
     }
 
-    public function test3()
+    public function test3(): void
     {
         $this->executeTarget('test3');
         $this->assertInLogs('php1');
         $this->assertInLogs('php2');
     }
 
-    public function test4()
+    public function test4(): void
     {
         $this->executeTarget('test4');
         $this->assertNotInLogs('.php1');
         $this->assertInLogs('.php2');
     }
 
-    public function testCutDirsMapper()
+    public function testCutDirsMapper(): void
     {
         $this->executeTarget('testCutDirsMapper');
         $outputDir = $this->getProject()->getProperty('output');
