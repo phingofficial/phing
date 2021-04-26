@@ -61,7 +61,7 @@ jobs:
         name: Checkout repository
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@2.9.0
         with:
           php-version: ${{ matrix.php }}
           extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl
