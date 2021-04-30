@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
-    schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml version="1.0" encoding="UTF-8"?><?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"schematypens="http://relaxng.org/ns/structure/1.0"?>
 
 <sect1 role="taskdef" xml:id="VisualizerTask" xmlns="http://docbook.org/ns/docbook"
        xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>VisualizerTask</title>
-    <para>The <literal>VisualizerTask</literal> generates a graphical representation of your current buildfile.
-        This allows you to see all available targets but also the calls and dependencies among targets.
+    <para>
+        The <literal>VisualizerTask</literal> generates a graphical representation of your current buildfile. This
+        allows you to see all available targets but also the calls and dependencies among targets.
     </para>
     <para>
         <literal>VisualizerTask</literal> is able to represent:
@@ -82,29 +81,50 @@
                 </row>
                 <row>
                     <entry>
+                        <literal>direction</literal>
+                    </entry>
+                    <entry>
+                        <literal role="type">String</literal>
+                    </entry>
+                    <entry>
+                        Use this to change the diagram's layout. Valid values are:
+                        <literal>horizontal</literal>
+                        and <literal>vertical</literal>.
+                    </entry>
+                    <entry>
+                        <literal>vertical</literal>
+                    </entry>
+                    <entry>no</entry>
+                </row>
+                <row>
+                    <entry>
                         <literal>server</literal>
                     </entry>
                     <entry>
                         <literal role="type">String</literal>
                     </entry>
-                    <entry>PlantUML server.</entry>
+                    <entry>
+                        PlantUML server. Needed by all formats except <literal>puml</literal>.
+                    </entry>
                     <entry>http://www.plantuml.com/plantuml</entry>
                     <entry>no</entry>
                 </row>
             </tbody>
         </tgroup>
     </table>
-    <para>If you have network connectivity issues, you should try <literal>puml</literal> format. This format
-        doesn't needs Internet connection to generate a diagram.
+    <para>
+        If you have network connectivity issues, you should try <literal>puml</literal> format. This format doesn't
+        require a PlantUML server (and therefore an internet connection) to generate a diagram.
     </para>
     <sect2>
         <title>Examples</title>
         <para>Using <literal>VisualizerTask</literal> with default values:
         </para>
         <programlisting language="xml">&lt;visualizer/&gt;</programlisting>
-        <para>Setting diagram's format to <literal>svg</literal>:
+        <para>
+            Setting diagram's format to <literal>svg</literal> with <literal>horizontal</literal> arrows:
         </para>
-        <programlisting language="xml">&lt;visualizer format="svg"/&gt;</programlisting>
+        <programlisting language="xml">&lt;visualizer format="svg" direction="horizontal"/&gt;</programlisting>
         <para>Save diagram into <filename>resources/images/</filename> directory:
         </para>
         <programlisting language="xml">&lt;visualizer destination="resources/images/"/&gt;</programlisting>
@@ -246,8 +266,8 @@
                         <literal>config</literal>
                     </para>
                     <para>Holds additional config data. See
-                        <link xlink:href="http://docs.guzzlephp.org/en/stable/request-options.html"
-                              role="extern">Guzzle documentation
+                        <link xlink:href="http://docs.guzzlephp.org/en/stable/request-options.html" role="extern">Guzzle
+                            documentation
                         </link>
                         for supported values.
                     </para>

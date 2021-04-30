@@ -45,16 +45,18 @@ use const FILTER_VALIDATE_URL;
  */
 class VisualizerTask extends HttpTask
 {
-    public const FORMAT_EPS  = 'eps';
-    public const FORMAT_PNG  = 'png';
-    public const FORMAT_PUML = 'puml';
-    public const FORMAT_SVG  = 'svg';
-    public const SERVER      = 'http://www.plantuml.com/plantuml';
-    public const STATUS_OK   = 200;
-    public const XSL_CALLS   = __DIR__ . '/calls.xsl';
-    public const XSL_FOOTER  = __DIR__ . '/footer.xsl';
-    public const XSL_HEADER  = __DIR__ . '/header.xsl';
-    public const XSL_TARGETS = __DIR__ . '/targets.xsl';
+    protected const ARROWS_HORIZONTAL = 'horizontal';
+    protected const ARROWS_VERTICAL   = 'vertical';
+    protected const FORMAT_EPS        = 'eps';
+    protected const FORMAT_PNG        = 'png';
+    protected const FORMAT_PUML       = 'puml';
+    protected const FORMAT_SVG        = 'svg';
+    protected const SERVER            = 'http://www.plantuml.com/plantuml';
+    protected const STATUS_OK         = 200;
+    protected const XSL_CALLS         = __DIR__ . '/calls.xsl';
+    protected const XSL_FOOTER        = __DIR__ . '/footer.xsl';
+    protected const XSL_HEADER        = __DIR__ . '/header.xsl';
+    protected const XSL_TARGETS       = __DIR__ . '/targets.xsl';
 
     /**
      * @var string Diagram format
@@ -70,6 +72,11 @@ class VisualizerTask extends HttpTask
      * @var string PlantUml server
      */
     protected $server;
+
+    /**
+     * @var string Arrows' direction
+     */
+    protected $direction;
 
     /**
      * Setting some default values and checking requirements
@@ -92,6 +99,7 @@ class VisualizerTask extends HttpTask
         }
         $this->setFormat(VisualizerTask::FORMAT_PNG);
         $this->setServer(VisualizerTask::SERVER);
+        $this->setDirection(VisualizerTask::ARROWS_VERTICAL);
     }
 
     /**
@@ -170,6 +178,7 @@ class VisualizerTask extends HttpTask
         $xsl = $this->loadXmlFile($xslFile);
 
         $processor = new XSLTProcessor();
+        $processor->setParameter('', 'direction', $this->getDirection());
         $processor->importStylesheet($xsl);
 
         return $processor->transformToXml($xml) . PHP_EOL;
@@ -259,7 +268,7 @@ class VisualizerTask extends HttpTask
      *
      * @return \Phing\Task\Ext\VisualizerTask
      */
-    public function setDestination(?string $destination): VisualizerTask
+    public function setDestination(?string $destination): self
     {
         $this->destination = $destination;
 
@@ -354,7 +363,7 @@ class VisualizerTask extends HttpTask
      *
      * @return \Phing\Task\Ext\VisualizerTask
      */
-    public function setServer(string $server): VisualizerTask
+    public function setServer(string $server): self
     {
         if (!filter_var($server, FILTER_VALIDATE_URL)) {
             $exceptionMessage = 'Invalid PlantUml server';
@@ -362,6 +371,26 @@ class VisualizerTask extends HttpTask
             throw new BuildException($exceptionMessage);
         }
         $this->server = $server;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDirection(): string
+    {
+        return $this->direction;
+    }
+
+    /**
+     * @param string $direction
+     *
+     * @return \Phing\Task\Ext\VisualizerTask
+     */
+    public function setDirection(string $direction): self
+    {
+        $this->direction = $direction === self::ARROWS_HORIZONTAL ? self::ARROWS_HORIZONTAL : self::ARROWS_VERTICAL;
 
         return $this;
     }

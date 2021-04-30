@@ -5,16 +5,16 @@
     <target name="setup" depends="composer:install"
             description="Prepare project for development"/>
     <target name="qa" description="Check code quality"
-            depends="composer:validate, composer:normalize, phpstan:analyse"/>
+            depends="composer:normalize,composer:validate,phpstan:analyse"/>
+
+    <target name="visualizer" description="Create buildfile diagram">
+        <visualizer format="png"/>
+    </target>
 
     <target name="help" depends="visualizer">
         <exec executable="xdg-open" spawn="true">
             <arg path="build.png"/>
         </exec>
-    </target>
-
-    <target name="visualizer" description="Create buildfile diagram">
-        <visualizer format="png"/>
     </target>
 
     <target name="composer:normalize" description="Normalize composer.json content">
@@ -41,6 +41,17 @@
             <arg line="--level=max --no-progress --ansi --no-interaction"/>
             <arg value="analyse"/>
             <arg path="src"/>
+        </exec>
+    </target>
+
+    <target name="guide:parse" description="Generate doc (dev only)">
+        <!-- I use this Target to have a documentation preview -->
+        <exec executable="xsltproc" passthru="true" checkreturn="true">
+            <arg value="--output"/>
+            <arg value="docs/guide.html"/>
+            <arg value="--xinclude"/>
+            <arg file="/usr/share/xml/docbook/stylesheet/nwalsh/xhtml/docbook.xsl"/>
+            <arg file="docs/guide.xml"/>
         </exec>
     </target>
 

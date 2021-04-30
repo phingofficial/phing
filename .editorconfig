@@ -9,7 +9,13 @@ insert_final_newline     = true
 trim_trailing_whitespace = true
 
 [*.{php, xml, rng}]
-indent_size = 4
+indent_size     = 4
+max_line_length = 120
 
 [*.{md, txt}]
 trim_trailing_whitespace = false
+
+[.editorconfig]
+ij_editorconfig_align_group_field_declarations     = true
+ij_editorconfig_space_after_comma                  = true
+ij_editorconfig_spaces_around_assignment_operators = true
