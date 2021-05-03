@@ -33,7 +33,7 @@ class PregEngineTest extends TestCase
     /**
      * Test the default ignore-case value.
      */
-    public function testIgnoreCaseDefaultValue()
+    public function testIgnoreCaseDefaultValue(): void
     {
         $pregEngine = new PregEngine();
         $this->assertNull($pregEngine->getIgnoreCase());
@@ -42,7 +42,7 @@ class PregEngineTest extends TestCase
     /**
      * Test setting the ignore-case flag to true.
      */
-    public function testIgnoreCaseSetTrue()
+    public function testIgnoreCaseSetTrue(): void
     {
         $pregEngine = new PregEngine();
 
@@ -54,7 +54,7 @@ class PregEngineTest extends TestCase
     /**
      * Test setting the ignore-case flag to false.
      */
-    public function testIgnoreCaseSetFalse()
+    public function testIgnoreCaseSetFalse(): void
     {
         $pregEngine = new PregEngine();
 
@@ -66,7 +66,7 @@ class PregEngineTest extends TestCase
     /**
      * Test the default multi-line value.
      */
-    public function testMultiLineDefaultValue()
+    public function testMultiLineDefaultValue(): void
     {
         $pregEngine = new PregEngine();
         $this->assertNull($pregEngine->getMultiline());
@@ -75,7 +75,7 @@ class PregEngineTest extends TestCase
     /**
      * Test setting the multi-line flag to true.
      */
-    public function testMultilineSetTrue()
+    public function testMultilineSetTrue(): void
     {
         $pregEngine = new PregEngine();
 
@@ -91,7 +91,7 @@ class PregEngineTest extends TestCase
     /**
      * Test setting the multi-line flag to true.
      */
-    public function testSMultilineSetFalse()
+    public function testSMultilineSetFalse(): void
     {
         $pregEngine = new PregEngine();
 
@@ -107,7 +107,7 @@ class PregEngineTest extends TestCase
     /**
      * Test the default modifiers value.
      */
-    public function testModifiersDefaultValue()
+    public function testModifiersDefaultValue(): void
     {
         $pregEngine = new PregEngine();
         $this->assertSame('', $pregEngine->getModifiers());
@@ -116,7 +116,7 @@ class PregEngineTest extends TestCase
     /**
      * Test setting of the modifiers.
      */
-    public function testModifiersSet()
+    public function testModifiersSet(): void
     {
         $pregEngine = new PregEngine();
         $pregEngine->setModifiers('gu');
@@ -153,7 +153,7 @@ class PregEngineTest extends TestCase
     /**
      * Test duplicate modifier flags are removed.
      */
-    public function testModifiersSetRemoveDuplicates()
+    public function testModifiersSetRemoveDuplicates(): void
     {
         $pregEngine = new PregEngine();
 
@@ -167,7 +167,7 @@ class PregEngineTest extends TestCase
     /**
      * Tests setting the ignore-case flag with the modifier method, then unsetting using ignore-case method.
      */
-    public function testModifierSetIgnoreCaseUnset()
+    public function testModifierSetIgnoreCaseUnset(): void
     {
         $pregEngine = new PregEngine();
         $pregEngine->setModifiers('i');
@@ -178,7 +178,7 @@ class PregEngineTest extends TestCase
     /**
      * Tests setting the ignore-case flag with the modifier method, then unsetting using ignore-case method.
      */
-    public function testModifierSetMultilineUnset()
+    public function testModifierSetMultilineUnset(): void
     {
         $pregEngine = new PregEngine();
         $pregEngine->setModifiers('s');
@@ -189,7 +189,7 @@ class PregEngineTest extends TestCase
     /**
      * Test pattern match functionality.
      */
-    public function testPatternMatch()
+    public function testPatternMatch(): void
     {
         $pregEngine = new PregEngine();
         $pattern = '\d{2}';
@@ -202,7 +202,7 @@ class PregEngineTest extends TestCase
     /**
      * Test match for pattern containing the PregEngine delimiter.
      */
-    public function testPatternMatchWithPatternDelimiter()
+    public function testPatternMatchWithPatternDelimiter(): void
     {
         $this->expectNotToPerformAssertions();
         $pregEngine = new PregEngine();
@@ -214,7 +214,7 @@ class PregEngineTest extends TestCase
     /**
      * Test match for pattern containing the PregEngine delimiter with irregular escaping.
      */
-    public function testPatternMatchWithEscapedPatternDelimiter()
+    public function testPatternMatchWithEscapedPatternDelimiter(): void
     {
         $pregEngine = new PregEngine();
         $pattern = '\\\\\\\\' . PregEngine::DELIMITER . 'abc\\\\\\' . PregEngine::DELIMITER . '123\\\\' . PregEngine::DELIMITER . 'efg\\' . PregEngine::DELIMITER . '456' . PregEngine::DELIMITER;
@@ -231,7 +231,7 @@ class PregEngineTest extends TestCase
     /**
      * Test regular expressions match-all functionality.
      */
-    public function testMatchAll()
+    public function testMatchAll(): void
     {
         $pregEngine = new PregEngine();
         $pattern = '\d{2}';
@@ -244,7 +244,7 @@ class PregEngineTest extends TestCase
     /**
      * Test pattern replace.
      */
-    public function testReplace()
+    public function testReplace(): void
     {
         $pregEngine = new PregEngine();
         $pattern = '\d{2}';
@@ -257,7 +257,7 @@ class PregEngineTest extends TestCase
     /**
      * Test pattern replace using \1 back reference format (as opposed to $1).
      */
-    public function testReplaceWithBackReference()
+    public function testReplaceWithBackReference(): void
     {
         $pregEngine = new PregEngine();
         $pattern = '(\d{2})(\d{2})';

@@ -39,7 +39,7 @@ class DataTypeTest extends TestCase
     /**
      * testTooManyAttributes.
      */
-    public function testTooManyAttributes()
+    public function testTooManyAttributes(): void
     {
         $ex = $this->datatype->tooManyAttributes();
 
@@ -50,7 +50,7 @@ class DataTypeTest extends TestCase
     /**
      * testNoChildrenAllowedException.
      */
-    public function testNoChildrenAllowedException()
+    public function testNoChildrenAllowedException(): void
     {
         $ex = $this->datatype->noChildrenAllowed();
 
@@ -61,7 +61,7 @@ class DataTypeTest extends TestCase
     /**
      * testCircularReferenceException.
      */
-    public function testCircularReferenceException()
+    public function testCircularReferenceException(): void
     {
         $ex = $this->datatype->circularReference();
 
@@ -69,7 +69,7 @@ class DataTypeTest extends TestCase
         $this->assertSame('This data type contains a circular reference.', $ex->getMessage());
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $str = '';
         $str .= $this->datatype;

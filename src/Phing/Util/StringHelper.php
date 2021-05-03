@@ -67,7 +67,7 @@ class StringHelper
      */
     public static function booleanValue($s)
     {
-        return filter_var($s, FILTER_VALIDATE_BOOLEAN);
+        return filter_var(trim((string) $s), FILTER_VALIDATE_BOOLEAN);
     }
 
     /**

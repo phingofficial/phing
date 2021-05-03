@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
  */
 class RuntimeConfigurableTest extends TestCase
 {
-    public function testLiteral0ShouldBeKept()
+    public function testLiteral0ShouldBeKept(): void
     {
         $project = new Project();
         $proxy = new Proxy();

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ReplaceRegexpTaskTest" default="testReplaceRegexp">
+    <target name="setup">
+        <echo file="test.properties">OldProperty=12345</echo>
+    </target>
+    <target name="clean">
+        <delete file="test.properties"/>
+    </target>
+    <target name="testReplaceRegexp">
+        <replaceregexp file="test.properties"
+             match="OldProperty=(.*)"
+             replace="NewProperty=\1"/>
+    </target>
+</project>

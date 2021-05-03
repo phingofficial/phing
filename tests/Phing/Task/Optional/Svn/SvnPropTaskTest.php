@@ -33,7 +33,7 @@ class SvnPropTaskTest extends AbstractSvnTaskTest
         $this->initialize('SvnPropTest.xml');
     }
 
-    public function testProperties()
+    public function testProperties(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('svn.propget', 'test');

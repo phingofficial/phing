@@ -44,13 +44,13 @@ class ExecutableTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testExecutable()
+    public function testExecutable(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('selected');
     }
 
-    public function testUnexecutable()
+    public function testUnexecutable(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyUnset('unset');

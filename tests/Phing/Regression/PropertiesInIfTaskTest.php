@@ -33,7 +33,7 @@ class PropertiesInIfTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/1041/build.xml');
     }
 
-    public function testCopyTask()
+    public function testCopyTask(): void
     {
         $this->executeTarget('test');
 

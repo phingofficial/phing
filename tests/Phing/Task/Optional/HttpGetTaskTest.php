@@ -157,7 +157,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->assertEquals($options['timeout'], $this->traces[0]['options']['timeout']);
     }
 
-    public function testConfigurationViaEmptyProperty()
+    public function testConfigurationViaEmptyProperty(): void
     {
         $this->createMockHandler([new Response(404, [], '')]);
 

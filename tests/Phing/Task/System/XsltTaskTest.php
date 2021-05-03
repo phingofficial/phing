@@ -26,8 +26,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Xslt Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
- * @requires extension xsl
- * @requires extension dom
  */
 class XsltTaskTest extends BuildFileTest
 {

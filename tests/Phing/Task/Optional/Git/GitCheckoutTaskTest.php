@@ -24,7 +24,7 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OSFAMILY Linux
  */
 class GitCheckoutTaskTest extends BuildFileTest
 {
@@ -49,7 +49,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testCheckoutExistingBranch()
+    public function testCheckoutExistingBranch(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutExistingBranch');
@@ -61,7 +61,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $this->assertInLogs('git-checkout output: '); // no output actually
     }
 
-    public function testCheckoutNonExistingBranch()
+    public function testCheckoutNonExistingBranch(): void
     {
         $this->expectBuildExceptionContaining(
             'checkoutNonExistingBranch',
@@ -70,7 +70,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -79,7 +79,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoBranchnameSpecified()
+    public function testNoBranchnameSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noBranchname',
@@ -88,7 +88,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         );
     }
 
-    public function testCheckoutMerge()
+    public function testCheckoutMerge(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutMerge');
@@ -97,7 +97,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $this->assertInLogs('git-branch output: Deleted branch master');
     }
 
-    public function testCheckoutCreateBranch()
+    public function testCheckoutCreateBranch(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutCreateBranch');
@@ -108,7 +108,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $this->assertInLogs('git-branch output: Deleted branch co-create-branch');
     }
 
-    public function testForceCheckoutCreateBranch()
+    public function testForceCheckoutCreateBranch(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutForceCreateBranch');
@@ -116,7 +116,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $this->assertInLogs('git-branch output: Deleted branch co-create-branch');
     }
 
-    public function testForceCheckoutCreateBranchFailed()
+    public function testForceCheckoutCreateBranchFailed(): void
     {
         $this->expectBuildExceptionContaining(
             'checkoutForceCreateBranchFailed',

@@ -28,19 +28,19 @@ class AugmentTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function testAugmentAttribute()
+    public function testAugmentAttribute(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals(2, $this->getProject()->getReference('input-fs')->getIterator()->count());
     }
 
-    public function testAugmentElement()
+    public function testAugmentElement(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals(1, $this->getProject()->getReference('input-fs')->getIterator()->count());
     }
 
-    public function testNoref()
+    public function testNoref(): void
     {
         $this->expectSpecificBuildException(
             __FUNCTION__,
@@ -49,7 +49,7 @@ class AugmentTest extends BuildFileTest
         );
     }
 
-    public function testIdNotSet()
+    public function testIdNotSet(): void
     {
         $this->expectSpecificBuildException(
             __FUNCTION__,
@@ -58,7 +58,7 @@ class AugmentTest extends BuildFileTest
         );
     }
 
-    public function testIllegalAttribute()
+    public function testIllegalAttribute(): void
     {
         $this->expectSpecificBuildException(
             __FUNCTION__,
@@ -67,7 +67,7 @@ class AugmentTest extends BuildFileTest
         );
     }
 
-    public function testIllegalElement()
+    public function testIllegalElement(): void
     {
         $this->expectSpecificBuildException(
             __FUNCTION__,

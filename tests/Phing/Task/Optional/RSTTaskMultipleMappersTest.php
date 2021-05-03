@@ -37,7 +37,7 @@ use Phing\Test\Support\BuildFileTest;
  */
 class RSTTaskMultipleMappersTest extends BuildFileTest
 {
-    public function testMultipleMappers()
+    public function testMultipleMappers(): void
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/rst/build-error-multiple-mappers.xml'

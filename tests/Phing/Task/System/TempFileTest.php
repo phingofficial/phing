@@ -36,7 +36,7 @@ class TempFileTest extends BuildFileTest
         );
     }
 
-    public function testTempFile()
+    public function testTempFile(): void
     {
         $this->executeTarget(__FUNCTION__);
         self::assertStringStartsWith(

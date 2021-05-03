@@ -35,7 +35,7 @@ class ReplaceTokensWithFileTest extends BuildFileTest
     /**
      * Inspired by ticket #798 - http://www.phing.info/trac/ticket/798.
      */
-    public function testPostfix()
+    public function testPostfix(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -47,7 +47,7 @@ class ReplaceTokensWithFileTest extends BuildFileTest
     /**
      * Inspired by ticket #1046 - http://www.phing.info/trac/ticket/1046.
      */
-    public function testSlashInToken()
+    public function testSlashInToken(): void
     {
         $this->executeTarget(__FUNCTION__);
 

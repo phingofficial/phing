@@ -119,7 +119,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty name attribute. So use the default value.
      */
-    public function testEmptyName()
+    public function testEmptyName(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -129,7 +129,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty title attribute. So use the default value.
      */
-    public function testEmptyTitle()
+    public function testEmptyTitle(): void
     {
         try {
             $this->executeTarget(__FUNCTION__);
@@ -144,7 +144,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty notification attribute. So use the default value.
      */
-    public function testEmptyNotification()
+    public function testEmptyNotification(): void
     {
         try {
             $this->executeTarget(__FUNCTION__);
@@ -159,7 +159,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty appicon attribute. So use the default value.
      */
-    public function testEmptyAppIcon()
+    public function testEmptyAppIcon(): void
     {
         try {
             $this->executeTarget(__FUNCTION__);
@@ -174,7 +174,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty priority attribute. So use the default value.
      */
-    public function testEmptyPriority()
+    public function testEmptyPriority(): void
     {
         try {
             $this->executeTarget(__FUNCTION__);
@@ -189,7 +189,7 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
     /**
      * Test for empty protocol attribute. So use the default value.
      */
-    public function testEmptyProtocol()
+    public function testEmptyProtocol(): void
     {
         $this->expectNotToPerformAssertions();
 

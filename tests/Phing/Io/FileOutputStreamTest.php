@@ -57,7 +57,7 @@ class FileOutputStreamTest extends TestCase
         FileSystem::getFileSystem()->unlink($this->tmpFile->getAbsolutePath());
     }
 
-    public function assertFileContents($contents)
+    public function assertFileContents($contents): void
     {
         $actual = file_get_contents($this->tmpFile->getAbsolutePath());
         $this->assertEquals(
@@ -67,7 +67,7 @@ class FileOutputStreamTest extends TestCase
         );
     }
 
-    public function testWrite()
+    public function testWrite(): void
     {
         $string = '0123456789';
         $this->outStream->write($string);
@@ -89,7 +89,7 @@ class FileOutputStreamTest extends TestCase
         $this->assertFileContents($newstring);
     }
 
-    public function testFlush()
+    public function testFlush(): void
     {
         $this->expectNotToPerformAssertions();
         $this->outStream->write('Some data');

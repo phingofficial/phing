@@ -45,7 +45,7 @@ class SelectorUtilsTest extends TestCase
     /**
      * Inspired by @see https://www.phing.info/trac/ticket/796.
      */
-    public function testDoNotIncludeSelfWhenMatchingSubdirectoriesAndFiles()
+    public function testDoNotIncludeSelfWhenMatchingSubdirectoriesAndFiles(): void
     {
         $result = $this->selectorUtils->matchPath('**/*', '');
         $this->assertFalse($result);
@@ -54,7 +54,7 @@ class SelectorUtilsTest extends TestCase
     /**
      * Inspired by @see https://www.phing.info/trac/ticket/1264.
      */
-    public function testDoNotIncludePrefix()
+    public function testDoNotIncludePrefix(): void
     {
         $this->assertFalse($this->selectorUtils->matchPath(
             '**/example.php',
@@ -65,7 +65,7 @@ class SelectorUtilsTest extends TestCase
     /**
      * Inspired by @see https://github.com/phingofficial/phing/issues/593.
      */
-    public function testIncludePathsInBase()
+    public function testIncludePathsInBase(): void
     {
         if ('WIN' === strtoupper(substr(PHP_OS, 0, 3))) {
             $this->assertTrue($this->selectorUtils->matchPath('**\domain.ext\**', 'domain.ext\foo'));
@@ -74,7 +74,7 @@ class SelectorUtilsTest extends TestCase
         }
     }
 
-    public function testRemoveWhitespace()
+    public function testRemoveWhitespace(): void
     {
         $ret = $this->selectorUtils::removeWhitespace(' foo ');
         $this->assertEquals('foo', $ret);
@@ -89,7 +89,7 @@ class SelectorUtilsTest extends TestCase
     /**
      * Non Existing Source File Causes Out Of Date To Return False.
      */
-    public function testNonExistingSourceFileCausesOutOfDateToReturnFalse()
+    public function testNonExistingSourceFileCausesOutOfDateToReturnFalse(): void
     {
         $sourceFile = new File('doesNotExist');
         $targetFile = new File(__FILE__);
@@ -97,7 +97,7 @@ class SelectorUtilsTest extends TestCase
         $this->assertEquals(false, $ret);
     }
 
-    public function testNonExistingTargetFileCausesOutOfDateToReturnTrue()
+    public function testNonExistingTargetFileCausesOutOfDateToReturnTrue(): void
     {
         $sourceFile = new File(__FILE__);
         $targetFile = new File('doesNotExist');
@@ -108,7 +108,7 @@ class SelectorUtilsTest extends TestCase
     /**
      * Test Granularity of isOutOfDate.
      */
-    public function testOutOfDate()
+    public function testOutOfDate(): void
     {
         $source = new File(tempnam(FileUtils::getTempDir(), 'src'));
         sleep(3);

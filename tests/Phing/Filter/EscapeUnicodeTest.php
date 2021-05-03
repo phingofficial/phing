@@ -41,7 +41,7 @@ class EscapeUnicodeTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testEscapeUnicode()
+    public function testEscapeUnicode(): void
     {
         $this->executeTarget('testEscapeUnicode');
 

@@ -39,12 +39,12 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
         $this->fs = $this->createFileSystem();
     }
 
-    public function testGetSeparatorReturnsCorrect()
+    public function testGetSeparatorReturnsCorrect(): void
     {
         $this->assertSame('\\', $this->fs->getSeparator());
     }
 
-    public function testGetPathSeparatorReturnsCorrect()
+    public function testGetPathSeparatorReturnsCorrect(): void
     {
         $this->assertSame(';', $this->fs->getPathSeparator());
     }
@@ -55,7 +55,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
      * @param string $expected
      * @param string $path
      */
-    public function testNormalise(string $expected, string $path)
+    public function testNormalise(string $expected, string $path): void
     {
         $normalisedPath = $this->fs->normalize($path);
 
@@ -83,7 +83,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
      * @param int $expected
      * @param string $pathname
      */
-    public function testPrefixLength(int $expected, string $pathname)
+    public function testPrefixLength(int $expected, string $pathname): void
     {
         $length = $this->fs->prefixLength($pathname);
 
@@ -111,7 +111,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
      * @param string $parent
      * @param string $child
      */
-    public function testResolve(string $expected, string $parent, string $child)
+    public function testResolve(string $expected, string $parent, string $child): void
     {
         $resolved = $this->fs->resolve($parent, $child);
 
@@ -137,7 +137,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
      * @param string $path
      * @param string $prefix
      */
-    public function testResolveFile(string $expected, string $path, string $prefix)
+    public function testResolveFile(string $expected, string $path, string $prefix): void
     {
         $file = $this->getMockBuilder(File::class)->disableOriginalConstructor()->getMock();
         $file->expects($this->any())->method('getPath')->will($this->returnValue($path));
@@ -171,7 +171,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
         ];
     }
 
-    public function testResolveFileUnknownFile()
+    public function testResolveFileUnknownFile(): void
     {
         $this->expectException('InvalidArgumentException');
         $this->expectExceptionMessage('Unresolvable path: file.txt');
@@ -183,7 +183,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
         $this->fs->resolveFile($file);
     }
 
-    public function testGetDefaultParent()
+    public function testGetDefaultParent(): void
     {
         $parent = $this->fs->getDefaultParent();
 
@@ -196,7 +196,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
      * @param string $expected
      * @param string $path
      */
-    public function testFromURIPath(string $expected, string $path)
+    public function testFromURIPath(string $expected, string $path): void
     {
         $resultPath = $this->fs->fromURIPath($path);
 
@@ -221,7 +221,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
      * @param string $path
      * @param int $prefix
      */
-    public function testIsAbsolute(bool $expected, string $path, int $prefix)
+    public function testIsAbsolute(bool $expected, string $path, int $prefix): void
     {
         $file = $this->getMockBuilder(File::class)->disableOriginalConstructor()->getMock();
         $file->expects($this->any())->method('getPath')->will($this->returnValue($path));

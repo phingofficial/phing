@@ -28,7 +28,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
- * @requires OS ^(?:(?!Win).)*$
  */
 class IniFileParserTest extends TestCase
 {
@@ -51,7 +50,7 @@ class IniFileParserTest extends TestCase
      * @throws IOException
      * @throws IOException
      */
-    public function testParseFile($data, $expected)
+    public function testParseFile($data, $expected): void
     {
         $file = $this->root->url() . '/test';
         file_put_contents($file, $data);
@@ -63,7 +62,7 @@ class IniFileParserTest extends TestCase
     /**
      * @covers IniFileParser::parseFile
      */
-    public function testParseFileCouldntOpenFile()
+    public function testParseFileCouldntOpenFile(): void
     {
         $phingFile = new File(uniqid('', true));
 

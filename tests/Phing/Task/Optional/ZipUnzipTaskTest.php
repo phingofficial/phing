@@ -27,8 +27,6 @@ use ZipArchive;
  * Tests the Zip and Unzip tasks.
  *
  * @author  Michiel Rook <mrook@php.net>
- *
- * @requires extension zip
  */
 class ZipUnzipTaskTest extends BuildFileTest
 {
@@ -46,7 +44,7 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testSimpleZipContainsOneFile()
+    public function testSimpleZipContainsOneFile(): void
     {
         $filename = PHING_TEST_BASE .
             '/etc/tasks/ext/tmp/simple-test.zip';
@@ -60,7 +58,7 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->assertEquals('test.txt', $archive->getNameIndex(0));
     }
 
-    public function testZipFileSet()
+    public function testZipFileSet(): void
     {
         $filename = PHING_TEST_BASE .
             '/etc/tasks/ext/tmp/simple-test.zip';
@@ -74,7 +72,7 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->assertEquals('test.txt', $archive->getNameIndex(0));
     }
 
-    public function testZipBaseDir()
+    public function testZipBaseDir(): void
     {
         $filename = PHING_TEST_BASE . '/etc/tasks/ext/tmp/simple-test.zip';
 
@@ -87,7 +85,7 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->assertEquals('test.txt', $archive->getNameIndex(0));
     }
 
-    public function testUnzipSimpleZip()
+    public function testUnzipSimpleZip(): void
     {
         $filename = PHING_TEST_BASE .
             '/etc/tasks/ext/tmp/test.txt';

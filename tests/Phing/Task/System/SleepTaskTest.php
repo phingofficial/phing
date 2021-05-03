@@ -40,7 +40,7 @@ class SleepTaskTest extends BuildFileTest
         );
     }
 
-    public function test1()
+    public function test1(): void
     {
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
@@ -48,7 +48,7 @@ class SleepTaskTest extends BuildFileTest
         $this->assertGreaterThanOrEqual(0, $timer->time());
     }
 
-    public function test2()
+    public function test2(): void
     {
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
@@ -56,7 +56,7 @@ class SleepTaskTest extends BuildFileTest
         $this->assertGreaterThanOrEqual(0, $timer->time());
     }
 
-    public function test3()
+    public function test3(): void
     {
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
@@ -64,7 +64,7 @@ class SleepTaskTest extends BuildFileTest
         $this->assertGreaterThanOrEqual(2000000000 - self::ERROR_RANGE, $timer->time());
     }
 
-    public function test4()
+    public function test4(): void
     {
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);
@@ -75,13 +75,13 @@ class SleepTaskTest extends BuildFileTest
     /**
      * Expected failure: negative sleep periods are not supported.
      */
-    public function test5()
+    public function test5(): void
     {
         $this->expectException(BuildException::class);
         $this->executeTarget(__FUNCTION__);
     }
 
-    public function test6()
+    public function test6(): void
     {
         $timer = $this->timer();
         $this->executeTarget(__FUNCTION__);

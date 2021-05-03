@@ -37,7 +37,7 @@ class HgArchiveTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testDestinationNotSpecified()
+    public function testDestinationNotSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'destinationNotSpecified',

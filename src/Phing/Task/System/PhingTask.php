@@ -423,7 +423,7 @@ class PhingTask extends Task
             }
 
             $this->overrideProperties();
-            $this->phingFile = $this->phingFile ?? 'build.xml';
+            $this->phingFile = $this->phingFile ?? Phing::DEFAULT_BUILD_FILENAME;
 
             $fu = new FileUtils();
             $file = $fu->resolveFile($this->dir, $this->phingFile);

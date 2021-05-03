@@ -33,21 +33,21 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/http/httprequest.xml');
     }
 
-    public function testMatchesRegexp()
+    public function testMatchesRegexp(): void
     {
         $this->createRequestWithMockAdapter();
 
         $this->expectLog('matchesRegexp', 'The response body matched the provided regex.');
     }
 
-    public function testMatchesCodeRegexp()
+    public function testMatchesCodeRegexp(): void
     {
         $this->createRequestWithMockAdapter();
 
         $this->expectLog('matchesCodeRegexp', 'The response status-code matched the provided regex.');
     }
 
-    public function testDoesntMatchRegexp()
+    public function testDoesntMatchRegexp(): void
     {
         $this->createRequestWithMockAdapter();
 
@@ -57,7 +57,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->executeTarget('doesNotMatchRegexp');
     }
 
-    public function testPostRequest()
+    public function testPostRequest(): void
     {
         $this->createRequestWithMockAdapter();
 
@@ -67,7 +67,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->assertEquals('foo=bar&baz=quux', $this->traces[0]['request']->getBody()->getContents());
     }
 
-    public function testAuthentication()
+    public function testAuthentication(): void
     {
         $this->createMockHandler([new Response(404, [], '')]);
 
@@ -82,7 +82,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         );
     }
 
-    public function testConfigAndHeaderTags()
+    public function testConfigAndHeaderTags(): void
     {
         $this->createMockHandler([new Response(404, [], '')]);
 
@@ -95,7 +95,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->assertEquals('Phing HttpRequestTask', $this->traces[0]['request']->getHeader('user-agent')[0]);
     }
 
-    public function testConfigurationViaProperties()
+    public function testConfigurationViaProperties(): void
     {
         $this->createMockHandler([new Response(404, [], '')]);
 
@@ -113,7 +113,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->assertEquals($options['timeout'], $this->traces[0]['options']['timeout']);
     }
 
-    protected function createRequestWithMockAdapter()
+    protected function createRequestWithMockAdapter(): void
     {
         $this->createMockHandler([
             new Response(200, [], "The response containing a 'foo' string"),

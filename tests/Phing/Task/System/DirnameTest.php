@@ -36,7 +36,7 @@ class DirnameTest extends BuildFileTest
         );
     }
 
-    public function testDirnameSetToPhingRoot()
+    public function testDirnameSetToPhingRoot(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('dirname', $this->getProject()->getProperty('phing.home'));

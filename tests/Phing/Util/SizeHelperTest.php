@@ -31,7 +31,7 @@ class SizeHelperTest extends TestCase
      *
      * @param mixed $expectedBytes
      */
-    public function testFromHumanToBytes(string $humanSize, $expectedBytes)
+    public function testFromHumanToBytes(string $humanSize, $expectedBytes): void
     {
         $bytes = SizeHelper::fromHumanToBytes($humanSize);
         $this->assertSame($expectedBytes, $bytes);
@@ -86,7 +86,7 @@ class SizeHelperTest extends TestCase
     /**
      * @dataProvider invalidFromHumanToBytesProvider
      */
-    public function testInvalidFromHumanToBytes(string $human, string $message)
+    public function testInvalidFromHumanToBytes(string $human, string $message): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage($message);
@@ -112,7 +112,7 @@ class SizeHelperTest extends TestCase
     /**
      * @dataProvider fromBytesToProvider
      */
-    public function testFromBytesTo(int $bytes, string $unit, float $expected)
+    public function testFromBytesTo(int $bytes, string $unit, float $expected): void
     {
         $converted = SizeHelper::fromBytesTo($bytes, $unit);
         $this->assertSame($expected, $converted);
@@ -161,7 +161,7 @@ class SizeHelperTest extends TestCase
     /**
      * @dataProvider invalidFromBytesToProvider
      */
-    public function testInvalidFromBytesTo(string $unit, string $message)
+    public function testInvalidFromBytesTo(string $unit, string $message): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage($message);

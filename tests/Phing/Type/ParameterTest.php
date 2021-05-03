@@ -32,7 +32,7 @@ class ParameterTest extends TestCase
         $this->parameter = new Parameter();
     }
 
-    public function testSetName()
+    public function testSetName(): void
     {
         $this->parameter->setName(1);
         $this->assertEquals('1', $this->parameter->getName());
@@ -40,7 +40,7 @@ class ParameterTest extends TestCase
         $this->assertEquals('foo', $this->parameter->getName());
     }
 
-    public function testSetType()
+    public function testSetType(): void
     {
         $this->parameter->setType(1);
         $this->assertEquals('1', $this->parameter->getType());
@@ -48,7 +48,7 @@ class ParameterTest extends TestCase
         $this->assertEquals('foo', $this->parameter->getType());
     }
 
-    public function testSetValue()
+    public function testSetValue(): void
     {
         $this->parameter->setValue(1);
         $this->assertEquals('1', $this->parameter->getValue());
@@ -56,13 +56,13 @@ class ParameterTest extends TestCase
         $this->assertEquals('foo', $this->parameter->getValue());
     }
 
-    public function testGetParamsNoneSet()
+    public function testGetParamsNoneSet(): void
     {
         $params = $this->parameter->getParams();
         $this->assertEquals([], $params);
     }
 
-    public function testCreateParamGetParams()
+    public function testCreateParamGetParams(): void
     {
         $param = $this->parameter->createParam();
         $class = get_class($param);
@@ -71,7 +71,7 @@ class ParameterTest extends TestCase
         $this->assertNotEquals([], $params);
     }
 
-    public function testSetListeningValue()
+    public function testSetListeningValue(): void
     {
         $slot = new RegisterSlot('key');
         $slot->setValue('value1');

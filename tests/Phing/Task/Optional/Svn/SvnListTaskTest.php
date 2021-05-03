@@ -34,7 +34,7 @@ class SvnListTaskTest extends AbstractSvnTaskTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
-    public function testGetList()
+    public function testGetList(): void
     {
         $this->executeTarget('getList');
         $this->assertPropertyEquals(

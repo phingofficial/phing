@@ -37,7 +37,7 @@ abstract class AbstractSvnTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
-    protected function initialize($buildFilename, $createDirectory = true)
+    protected function initialize($buildFilename, $createDirectory = true): void
     {
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory

@@ -31,7 +31,7 @@ class IHFail5
     /**
      * no params!
      */
-    public function setBlah()
+    public function setBlah(): void
     {
     }
 }

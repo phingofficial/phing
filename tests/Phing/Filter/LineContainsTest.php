@@ -41,7 +41,7 @@ class LineContainsTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testLineContains()
+    public function testLineContains(): void
     {
         $this->executeTarget('testLineContains');
 
@@ -50,7 +50,7 @@ class LineContainsTest extends BuildFileTest
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
-    public function testLineContainsNegate()
+    public function testLineContainsNegate(): void
     {
         $this->executeTarget(__FUNCTION__);
 
@@ -59,7 +59,7 @@ class LineContainsTest extends BuildFileTest
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
 
-    public function testLineContainsMatchAny()
+    public function testLineContainsMatchAny(): void
     {
         $this->executeTarget(__FUNCTION__);
 

@@ -33,7 +33,7 @@ class HgCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function testWrongRepository()
+    public function testWrongRepository(): void
     {
         $this->markTestAsSkippedWhenHgNotInstalled();
 
@@ -44,7 +44,7 @@ class HgCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -53,7 +53,7 @@ class HgCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoTargetPathSpecified()
+    public function testNoTargetPathSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noTargetPath',

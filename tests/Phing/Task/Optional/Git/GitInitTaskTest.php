@@ -24,7 +24,7 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OSFAMILY Linux
  */
 class GitInitTaskTest extends BuildFileTest
 {
@@ -44,7 +44,7 @@ class GitInitTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testWrongRepository()
+    public function testWrongRepository(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepository',
@@ -53,7 +53,7 @@ class GitInitTaskTest extends BuildFileTest
         );
     }
 
-    public function testGitInit()
+    public function testGitInit(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $gitFilesDir = $repository . '/.git';
@@ -64,7 +64,7 @@ class GitInitTaskTest extends BuildFileTest
         $this->assertDirectoryExists($gitFilesDir);
     }
 
-    public function testGitInitBare()
+    public function testGitInitBare(): void
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('gitInitBare');
@@ -76,7 +76,7 @@ class GitInitTaskTest extends BuildFileTest
         $this->assertDirectoryExists($repository . '/refs');
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',

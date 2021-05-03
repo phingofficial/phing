@@ -45,7 +45,7 @@ class CommandlineTest extends TestCase
         $this->cmd = new Commandline();
     }
 
-    public function testTranslateCommandline()
+    public function testTranslateCommandline(): void
     {
         // This should work fine; we expect 5 args
         $cmd1 = 'cvs -d:pserver:hans@xmpl.org:/cvs commit -m "added a new test file" Test.php';
@@ -82,7 +82,7 @@ class CommandlineTest extends TestCase
         new Commandline($cmd4);
     }
 
-    public function testCreateMarkerWithArgument()
+    public function testCreateMarkerWithArgument(): void
     {
         $this->cmd->addArguments(['foo']);
         $marker = $this->cmd->createMarker();
@@ -90,7 +90,7 @@ class CommandlineTest extends TestCase
         self::assertEquals(1, $marker->getPosition());
     }
 
-    public function testCreateMarkerWithoutArgument()
+    public function testCreateMarkerWithoutArgument(): void
     {
         $marker = $this->cmd->createMarker();
         self::assertInstanceOf(CommandlineMarker::class, $marker);

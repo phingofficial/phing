@@ -40,7 +40,7 @@ class FileListTest extends TestCase
         $this->project->setBasedir(PHING_TEST_BASE);
     }
 
-    public function testGetFilesWithEmptyDir()
+    public function testGetFilesWithEmptyDir(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('No directory specified for filelist.');
@@ -49,7 +49,7 @@ class FileListTest extends TestCase
         $f->getFiles($this->project);
     }
 
-    public function testGetFilesWithNoFilenames()
+    public function testGetFilesWithNoFilenames(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('No files specified for filelist.');
@@ -59,7 +59,7 @@ class FileListTest extends TestCase
         $f->getFiles($this->project);
     }
 
-    public function testSetRefidWithDirSet()
+    public function testSetRefidWithDirSet(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
@@ -71,7 +71,7 @@ class FileListTest extends TestCase
         $f->setRefid(new Reference($this->project, 'dummy'));
     }
 
-    public function testSetRefidWithFileListSet()
+    public function testSetRefidWithFileListSet(): void
     {
         $this->expectException(BuildException::class);
         $this->expectExceptionMessage('You must not specify more than one attribute when using refid');
@@ -83,7 +83,7 @@ class FileListTest extends TestCase
         $f->setRefid(new Reference($this->project, 'dummy'));
     }
 
-    public function testSetListfile()
+    public function testSetListfile(): void
     {
         $f = new FileList();
         $f->setListFile('foo.php');

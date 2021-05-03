@@ -24,7 +24,7 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OSFAMILY Linux
  */
 class GitTagTaskTest extends BuildFileTest
 {
@@ -49,13 +49,13 @@ class GitTagTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testGitTagCreate()
+    public function testGitTagCreate(): void
     {
         $this->executeTarget('gitTagCreate');
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
-    public function testGitTagReplaceCreateDuplicate()
+    public function testGitTagReplaceCreateDuplicate(): void
     {
         $this->executeTarget('gitTagReplaceCreateDuplicate');
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag -f \'ver1.0\'');
@@ -63,7 +63,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
-    public function testGitTagForceCreateDuplicate()
+    public function testGitTagForceCreateDuplicate(): void
     {
         $this->executeTarget('gitTagForceCreateDuplicate');
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag -f \'ver1.0\'');
@@ -71,7 +71,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
-    public function testGitTagCreateDuplicate()
+    public function testGitTagCreateDuplicate(): void
     {
         $this->expectBuildExceptionContaining(
             'gitTagCreateDuplicate',
@@ -80,7 +80,7 @@ class GitTagTaskTest extends BuildFileTest
         );
     }
 
-    public function testTagCreateAnnotatedNoMessage()
+    public function testTagCreateAnnotatedNoMessage(): void
     {
         $this->expectBuildExceptionContaining(
             'gitTagCreateAnnotatedNoMessage',
@@ -89,7 +89,7 @@ class GitTagTaskTest extends BuildFileTest
         );
     }
 
-    public function testTagCreateAnnotated()
+    public function testTagCreateAnnotated(): void
     {
         $this->executeTarget('gitTagCreateAnnotated');
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag -a -m\'Version 1.0 tag\' \'ver1.0\'');
@@ -97,7 +97,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
-    public function testTagCreateAnnotatedImplicit()
+    public function testTagCreateAnnotatedImplicit(): void
     {
         $this->executeTarget('gitTagCreateAnnotatedImplicit');
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag -m\'Version 1.0 tag\' \'ver1.0\'');
@@ -105,7 +105,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
-    public function testTagDelete()
+    public function testTagDelete(): void
     {
         $this->executeTarget('gitTagDelete');
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'ver1.0\'');
@@ -117,7 +117,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertNotInLogs("\n" . 'ver2.0');
     }
 
-    public function testTagListByPattern()
+    public function testTagListByPattern(): void
     {
         $this->executeTarget('gitTagListByPattern');
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'ver1.0\'');
@@ -127,7 +127,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertInLogs('git-tag output: marked');
     }
 
-    public function testTagOutputPropertySet()
+    public function testTagOutputPropertySet(): void
     {
         $this->executeTarget('gitTagOutpuPropertySet');
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'ver1.0\'');
@@ -138,7 +138,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertPropertyEquals('gitLogOutput', 'marked' . "\n");
     }
 
-    public function testTagWithCommitSet()
+    public function testTagWithCommitSet(): void
     {
         $this->executeTarget('gitTagWithCommitSet');
         $this->assertInLogs(
@@ -151,7 +151,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertNotInLogs('ee07085160003ffd1100867deb6059bae0c45455');
     }
 
-    public function testTagWithObjectSet()
+    public function testTagWithObjectSet(): void
     {
         $this->executeTarget('gitTagWithObjectSet');
         $this->assertInLogs(
@@ -164,7 +164,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertNotInLogs('ee07085160003ffd1100867deb6059bae0c45455');
     }
 
-    public function testTagCreateSignedDefaultKey()
+    public function testTagCreateSignedDefaultKey(): void
     {
         $this->markTestSkipped('Involves configured GPG key');
         $this->executeTarget('gitTagCreateSignedDefaultKey');
@@ -173,7 +173,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertInLogs('git-tag output: ver1.0');
     }
 
-    public function testTagFileSet()
+    public function testTagFileSet(): void
     {
         $msgFile = PHING_TEST_BASE . '/tmp/msg.txt';
         $fp = fopen($msgFile, 'w');
@@ -186,7 +186,7 @@ class GitTagTaskTest extends BuildFileTest
         unlink($msgFile);
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',

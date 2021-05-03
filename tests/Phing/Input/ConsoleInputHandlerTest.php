@@ -29,7 +29,7 @@ use Symfony\Component\Console\Output\NullOutput;
 
 class ConsoleInputHandlerTest extends TestCase
 {
-    public function testDefaultValue()
+    public function testDefaultValue(): void
     {
         $inputStream = $this->createStream([' ']);
         $output = new NullOutput();
@@ -42,7 +42,7 @@ class ConsoleInputHandlerTest extends TestCase
         self::assertEquals('default', $request->getInput());
     }
 
-    public function testMultipleChoiceQuestion()
+    public function testMultipleChoiceQuestion(): void
     {
         $inputStream = $this->createStream(['choice1']);
         $output = new NullOutput();
@@ -54,7 +54,7 @@ class ConsoleInputHandlerTest extends TestCase
         self::assertEquals('choice1', $request->getInput());
     }
 
-    public function testYesNoQuestion()
+    public function testYesNoQuestion(): void
     {
         $inputStream = $this->createStream(['no']);
         $output = new NullOutput();

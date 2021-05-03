@@ -37,7 +37,7 @@ class StripWhitespaceTest extends BuildFileTest
         $this->executeTarget('cleanup');
     }
 
-    public function testStripWhitespace()
+    public function testStripWhitespace(): void
     {
         $this->executeTarget(__FUNCTION__);
 

@@ -27,8 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * Tests for PharPackageTask.
  *
  * @author François Poirotte <clicky@erebot.net>
- * @requires extension phar
- * @requires extension openssl
  */
 class PharPackageTaskTest extends BuildFileTest
 {
@@ -38,30 +36,37 @@ class PharPackageTaskTest extends BuildFileTest
             $this->markTestSkipped('This test require phar.readonly php.ini setting to be disabled');
         }
 
-        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/build.xml');
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/pharpackage/build.xml');
     }
 
     public function tearDown(): void
     {
-        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/priv.key');
-        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar.pubkey');
-        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt');
-        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/system/pharpackage/priv.key');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/system/pharpackage/pharpackage.phar.pubkey');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/system/pharpackage/pass.txt');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/system/pharpackage/pharpackage.phar');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/system/pharpackage/package.phar');
     }
 
-    /**
-     * @requires extension openssl
-     */
-    public function testOpenSSLSignature()
+    public function testPharPackage(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+
+        $dest = PHING_TEST_BASE . '/etc/tasks/system/pharpackage/package.phar';
+        $this->assertFileExists($dest);
+        $this->assertLogLineContaining('Building package');
+    }
+
+    public function testOpenSSLSignature(): void
     {
         // Generate a private key on the fly.
         $passphrase = uniqid('', true);
-        $passfile = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt';
+        $passfile = PHING_TEST_BASE . '/etc/tasks/system/pharpackage/pass.txt';
         file_put_contents($passfile, $passphrase);
         $pkey = openssl_pkey_new();
         openssl_pkey_export_to_file(
             $pkey,
-            PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/priv.key',
+            PHING_TEST_BASE . '/etc/tasks/system/pharpackage/priv.key',
             $passphrase
         );
         $this->executeTarget(__FUNCTION__);
@@ -69,7 +74,7 @@ class PharPackageTaskTest extends BuildFileTest
         // Make sure we are dealing with an OpenSSL signature.
         // (Phar silently falls back to an SHA1 signature
         // whenever it fails to add an OpenSSL signature)
-        $dest = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar';
+        $dest = PHING_TEST_BASE . '/etc/tasks/system/pharpackage/pharpackage.phar';
         $this->assertFileExists($dest);
         $phar = new Phar($dest);
         $signature = $phar->getSignature();

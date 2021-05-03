@@ -33,7 +33,7 @@ class AutoloaderTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/autoloader/autoloader.xml');
     }
 
-    public function testDefault()
+    public function testDefault(): void
     {
         $this->expectBuildException(
             'testDefault',
@@ -41,7 +41,7 @@ class AutoloaderTaskTest extends BuildFileTest
         );
     }
 
-    public function testExisting()
+    public function testExisting(): void
     {
         $this->expectLog('testExisting', 'Loading autoloader from autoload.php');
         $this->assertTrue(class_exists('Phing_Autoload_Stub', false));

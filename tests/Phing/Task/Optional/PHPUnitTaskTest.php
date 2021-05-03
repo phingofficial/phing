@@ -38,7 +38,7 @@ class PHPUnitTaskTest extends BuildFileTest
      * Regression test for http://www.phing.info/trac/ticket/655
      * "PlainPHPUnitResultFormatter does not display errors if dataProvider was used".
      */
-    public function testPlainFormatterDataProvider()
+    public function testPlainFormatterDataProvider(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Tests run: 2, Risky: 0, Warnings: 0, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:');
@@ -48,7 +48,7 @@ class PHPUnitTaskTest extends BuildFileTest
      * Regression test for ticket http://www.phing.info/trac/ticket/363
      * "PHPUnit task fails with formatter type 'xml'".
      */
-    public function testXmlFormatter()
+    public function testXmlFormatter(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('<testcase name="testSayHello" class="HelloWorldTest"');
@@ -57,7 +57,7 @@ class PHPUnitTaskTest extends BuildFileTest
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/893.
      */
-    public function testDoubleAutoloader()
+    public function testDoubleAutoloader(): void
     {
         $this->executeTarget(__FUNCTION__);
     }
@@ -65,7 +65,7 @@ class PHPUnitTaskTest extends BuildFileTest
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/945.
      */
-    public function testShouldNotIgnoreFailuresAfterError()
+    public function testShouldNotIgnoreFailuresAfterError(): void
     {
         $this->expectBuildException(__FUNCTION__, 'Fail');
     }
@@ -73,7 +73,7 @@ class PHPUnitTaskTest extends BuildFileTest
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/1159.
      */
-    public function testExcludeGroups()
+    public function testExcludeGroups(): void
     {
         $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);

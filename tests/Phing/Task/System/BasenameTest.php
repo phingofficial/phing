@@ -36,57 +36,57 @@ class BasenameTest extends BuildFileTest
         );
     }
 
-    public function test1()
+    public function test1(): void
     {
         $this->expectBuildException('test1', '');
     }
 
-    public function test2()
+    public function test2(): void
     {
         $this->expectBuildException('test2', '');
     }
 
-    public function test3()
+    public function test3(): void
     {
         $this->expectBuildException('test3', '');
     }
 
-    public function test4()
+    public function test4(): void
     {
         $this->executeTarget('test4');
         $checkprop = $this->getProject()->getProperty('file.w.suf');
         $this->assertEquals('foo.txt', $checkprop);
     }
 
-    public function test5()
+    public function test5(): void
     {
         $this->executeTarget('test5');
         $checkprop = $this->getProject()->getProperty('file.wo.suf');
         $this->assertEquals('foo', $checkprop);
     }
 
-    public function testMultipleDots()
+    public function testMultipleDots(): void
     {
         $this->executeTarget('testMultipleDots');
         $checkprop = $this->getProject()->getProperty('file.wo.suf');
         $this->assertEquals('foo.bar', $checkprop);
     }
 
-    public function testNoDots()
+    public function testNoDots(): void
     {
         $this->executeTarget('testNoDots');
         $checkprop = $this->getProject()->getProperty('file.wo.suf');
         $this->assertEquals('foo.bar', $checkprop);
     }
 
-    public function testValueEqualsSuffixWithDot()
+    public function testValueEqualsSuffixWithDot(): void
     {
         $this->executeTarget('testValueEqualsSuffixWithDot');
         $checkprop = $this->getProject()->getProperty('file.wo.suf');
         $this->assertEquals('', $checkprop);
     }
 
-    public function testValueEqualsSuffixWithoutDot()
+    public function testValueEqualsSuffixWithoutDot(): void
     {
         $this->executeTarget('testValueEqualsSuffixWithoutDot');
         $checkprop = $this->getProject()->getProperty('file.wo.suf');

@@ -34,7 +34,7 @@ class PhpDependTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pdepend/build.xml');
     }
 
-    public function testLoggerSummary()
+    public function testLoggerSummary(): void
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);
@@ -44,7 +44,7 @@ class PhpDependTaskTest extends BuildFileTest
         unlink($filename);
     }
 
-    public function testAnalyzer()
+    public function testAnalyzer(): void
     {
         ob_start();
         $this->executeTarget(__FUNCTION__);

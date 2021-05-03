@@ -52,7 +52,7 @@ class SvnSwitchTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
-    public function testSwitchSimple()
+    public function testSwitchSimple(): void
     {
         $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
         $this->executeTarget('switchSimple');

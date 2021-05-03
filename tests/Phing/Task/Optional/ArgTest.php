@@ -55,7 +55,7 @@ class ArgTest extends TestCase
      * @covers SymfonyConsoleArg::getName
      * @covers SymfonyConsoleArg::setName
      */
-    public function testSetGetName()
+    public function testSetGetName(): void
     {
         $o = $this->object;
         $o->setName('foo');
@@ -66,7 +66,7 @@ class ArgTest extends TestCase
      * @covers SymfonyConsoleArg::getValue
      * @covers SymfonyConsoleArg::setValue
      */
-    public function testSetGetValue()
+    public function testSetGetValue(): void
     {
         $o = $this->object;
         $o->setValue('foo');
@@ -77,7 +77,7 @@ class ArgTest extends TestCase
      * @covers SymfonyConsoleArg::getQuotes
      * @covers SymfonyConsoleArg::setQuotes
      */
-    public function testGetQuotes()
+    public function testGetQuotes(): void
     {
         $o = $this->object;
         $o->setQuotes(true);
@@ -87,7 +87,7 @@ class ArgTest extends TestCase
     /**
      * @covers SymfonyConsoleArg::__toString
      */
-    public function testToStringWithQuotes()
+    public function testToStringWithQuotes(): void
     {
         $o = $this->object;
         $o->setName('name');
@@ -100,7 +100,7 @@ class ArgTest extends TestCase
     /**
      * @covers SymfonyConsoleArg::__toString
      */
-    public function testToStringWithoutQuotes()
+    public function testToStringWithoutQuotes(): void
     {
         $o = $this->object;
         $o->setName('name');
@@ -113,7 +113,7 @@ class ArgTest extends TestCase
     /**
      * @covers SymfonyConsoleArg::__toString
      */
-    public function testToStringJustName()
+    public function testToStringJustName(): void
     {
         $o = $this->object;
         $o->setName('name');
@@ -125,7 +125,7 @@ class ArgTest extends TestCase
     /**
      * @covers SymfonyConsoleArg::__toString
      */
-    public function testToStringJustValueWithoutQuotes()
+    public function testToStringJustValueWithoutQuotes(): void
     {
         $o = $this->object;
         $o->setValue('value');
@@ -137,7 +137,7 @@ class ArgTest extends TestCase
     /**
      * @covers SymfonyConsoleArg::__toString
      */
-    public function testToStringJustValueWithQuotes()
+    public function testToStringJustValueWithQuotes(): void
     {
         $o = $this->object;
         $o->setValue('value');

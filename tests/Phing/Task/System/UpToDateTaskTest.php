@@ -38,7 +38,7 @@ class UpToDateTaskTest extends BuildFileTest
     /**
      * @group ticket-559
      */
-    public function testOverrideNoPropertySet()
+    public function testOverrideNoPropertySet(): void
     {
         $this->executeTarget('overrideNoPropertySet');
         $this->assertInLogs('Property ${prop} has not been set.');
@@ -50,7 +50,7 @@ class UpToDateTaskTest extends BuildFileTest
     /**
      * @group ticket-559
      */
-    public function testOverridePropertySet()
+    public function testOverridePropertySet(): void
     {
         $this->executeTarget('overridePropertySet');
         $this->assertInLogs('Setting project property: prop -> value exists');

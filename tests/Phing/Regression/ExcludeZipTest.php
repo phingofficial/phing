@@ -25,8 +25,6 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/137
  * - Excluded files may be included in Zip/Tar tasks.
- *
- * @requires extension zip
  */
 class ExcludeZipTest extends BuildFileTest
 {
@@ -35,7 +33,7 @@ class ExcludeZipTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/137/build.xml');
     }
 
-    public function testZipTask()
+    public function testZipTask(): void
     {
         $this->expectNotToPerformAssertions();
         $this->executeTarget('main');

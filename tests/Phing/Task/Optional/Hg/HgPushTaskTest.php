@@ -39,7 +39,7 @@ class HgPushTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }
 
-    public function testWrongRepositoryDirDoesntExist()
+    public function testWrongRepositoryDirDoesntExist(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepositoryDirDoesntExist',
@@ -48,7 +48,7 @@ class HgPushTaskTest extends BuildFileTest
         );
     }
 
-    public function testWrongRepository()
+    public function testWrongRepository(): void
     {
         $this->markTestAsSkippedWhenHgNotInstalled();
 

@@ -36,19 +36,19 @@ class RegexTaskTest extends BuildFileTest
         );
     }
 
-    public function testPropertyRegex()
+    public function testPropertyRegex(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('test.name', 'ABC');
     }
 
-    public function testPropertyRegexReplace()
+    public function testPropertyRegexReplace(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('test.name', 'test.DEF.name');
     }
 
-    public function testBackslash()
+    public function testBackslash(): void
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('pack.name', '123');

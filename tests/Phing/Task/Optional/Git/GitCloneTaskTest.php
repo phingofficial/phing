@@ -24,7 +24,7 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @requires OS ^(?:(?!Win).)*$
+ * @requires OSFAMILY Linux
  */
 class GitCloneTaskTest extends BuildFileTest
 {
@@ -44,7 +44,7 @@ class GitCloneTaskTest extends BuildFileTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testWrongRepository()
+    public function testWrongRepository(): void
     {
         $this->expectBuildExceptionContaining(
             'wrongRepository',
@@ -53,7 +53,7 @@ class GitCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function testGitClone()
+    public function testGitClone(): void
     {
         $bundle = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
         $repository = PHING_TEST_BASE . '/tmp/git';
@@ -67,7 +67,7 @@ class GitCloneTaskTest extends BuildFileTest
         $this->assertIsReadable($repository . '/README');
     }
 
-    public function testGitCloneBare()
+    public function testGitCloneBare(): void
     {
         $bundle = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
         $repository = PHING_TEST_BASE . '/tmp/git';
@@ -82,7 +82,7 @@ class GitCloneTaskTest extends BuildFileTest
         $this->assertDirectoryExists($repository . '/refs');
     }
 
-    public function testNoRepositorySpecified()
+    public function testNoRepositorySpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noRepository',
@@ -91,7 +91,7 @@ class GitCloneTaskTest extends BuildFileTest
         );
     }
 
-    public function testNoTargetPathSpecified()
+    public function testNoTargetPathSpecified(): void
     {
         $this->expectBuildExceptionContaining(
             'noTargetPath',

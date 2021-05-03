@@ -33,7 +33,7 @@ class PropertyCommentsTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/regression/585/build.xml');
     }
 
-    public function testPhingCallTask()
+    public function testPhingCallTask(): void
     {
         $this->executeTarget('main');
         $this->assertPropertyEquals('setting', 'value');

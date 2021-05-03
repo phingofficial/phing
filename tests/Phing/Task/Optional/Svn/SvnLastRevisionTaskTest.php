@@ -34,7 +34,7 @@ class SvnLastRevisionTaskTest extends AbstractSvnTaskTest
         $this->rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
-    public function testGetLastRevision()
+    public function testGetLastRevision(): void
     {
         $this->executeTarget('getLastRevision');
         $this->assertPropertyEquals('svn.lastrevision', '1560');

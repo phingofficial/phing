@@ -34,12 +34,12 @@ class PhingFileTest extends TestCase
         $this->file = new File(__FILE__);
     }
 
-    public function testPathInsideBasedir()
+    public function testPathInsideBasedir(): void
     {
         $this->assertEquals(basename(__FILE__), $this->file->getPathWithoutBase(__DIR__));
     }
 
-    public function testPathOutsideBasedir()
+    public function testPathOutsideBasedir(): void
     {
         $this->assertEquals(__FILE__, $this->file->getPathWithoutBase('/foo/bar'));
     }
