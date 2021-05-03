@@ -106,7 +106,7 @@
         "pear/versioncontrol_git": "dev-master",
         "pear/versioncontrol_svn": "^0.5.2",
         "phploc/phploc": "^7.0",
-        "phpmd/phpmd": "~2.8",
+        "phpmd/phpmd": "2.9.1",
         "phpstan/phpstan": "^0.12.69",
         "phpunit/phpunit": "^9.4",
         "scssphp/scssphp": "~1.0",
