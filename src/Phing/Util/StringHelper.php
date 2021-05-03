@@ -52,9 +52,9 @@ class StringHelper
             return $s; // it's already bool (not a string)
         }
         // otherwise assume it's something like "true" or "t"
-        $trimmed = strtolower(trim($s));
+        $trimmed = strtolower(trim((string) $s));
 
-        return (bool) in_array($trimmed, self::$TRUE_VALUES);
+        return in_array($trimmed, self::$TRUE_VALUES);
     }
 
     /**
