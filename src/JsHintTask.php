@@ -280,7 +280,7 @@ class JsHintTask extends Task
      */
     private function checkJsHintIsInstalled()
     {
-        $command = sprintf('%s -v', $this->executable);
+        $command = sprintf('%s -v 2>&1', $this->executable);
         exec($command, $output, $return);
         if ($return !== 0) {
             throw new BuildException('JSHint is not installed!');
