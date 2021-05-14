@@ -319,7 +319,7 @@ class PHPMDTask extends Task
          */
         $phpmd = new $className();
         $phpmd->setFileExtensions($this->allowedFileExtensions);
-        $phpmd->setIgnorePattern($this->ignorePatterns);
+        $phpmd->addIgnorePatterns($this->ignorePatterns);
 
         $filesToParse = $this->getFilesToParse();
 
