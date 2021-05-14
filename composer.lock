@@ -878,12 +878,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-jshint.git",
-                "reference": "dce416f475842a35748f77edf77f7c0266324e5e"
+                "reference": "91fe976d0fa9a0a78d2c60cda874512acb9f8418"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-jshint/zipball/dce416f475842a35748f77edf77f7c0266324e5e",
-                "reference": "dce416f475842a35748f77edf77f7c0266324e5e",
+                "url": "https://api.github.com/repos/phingofficial/task-jshint/zipball/91fe976d0fa9a0a78d2c60cda874512acb9f8418",
+                "reference": "91fe976d0fa9a0a78d2c60cda874512acb9f8418",
                 "shasum": ""
             },
             "require": {
@@ -919,7 +919,7 @@
                 "issues": "https://github.com/phingofficial/task-jshint/issues",
                 "source": "https://github.com/phingofficial/task-jshint/tree/master"
             },
-            "time": "2021-01-25T14:57:05+00:00"
+            "time": "2021-05-14T06:50:53+00:00"
         },
         {
             "name": "phing/task-jsmin",
