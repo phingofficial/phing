@@ -12,15 +12,15 @@
     }
   ],
   "require": {
-    "php": ">= 7.1"
+    "php": ">= 7.1",
+    "pdepend/pdepend": "^2.9",
+    "phploc/phploc": "^7.0",
+    "phpmd/phpmd": "^2.10",
+    "phpstan/phpstan": "^0.12.87",
+    "sebastian/phpcpd": "^6.0"
   },
   "require-dev": {
-    "phing/phing": "3.0.x-dev",
-    "pdepend/pdepend": "^2.8",
-    "phploc/phploc": "^7.0",
-    "phpmd/phpmd": "~2.8",
-    "phpstan/phpstan": "^0.12.69",
-    "sebastian/phpcpd": "^6.0"
+    "phing/phing": "3.0.x-dev"
   },
   "autoload": {
     "psr-4": {
