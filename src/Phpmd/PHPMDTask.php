@@ -26,6 +26,7 @@ use Phing\Type\Element\FileSetAware;
 use Phing\Util\DataStore;
 use PHPMD\AbstractRule;
 use PHPMD\PHPMD;
+use PHPMD\Report;
 use PHPMD\RuleSetFactory;
 
 /**
@@ -328,7 +329,8 @@ class PHPMDTask extends Task
 
             $this->log('Processing files...');
 
-            $phpmd->processFiles($inputPath, $this->rulesets, $reportRenderers, $ruleSetFactory);
+            $report = new Report();
+            $phpmd->processFiles($inputPath, $this->rulesets, $reportRenderers, $ruleSetFactory, $report);
 
             if ($this->cache) {
                 $this->cache->commit();
