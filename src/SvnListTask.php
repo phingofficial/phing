@@ -20,6 +20,7 @@
 namespace Phing\Tasks\Ext;
 
 use Phing\Exception\BuildException;
+use VersionControl_SVN;
 
 /**
  * Stores the output of a list command on a workingcopy or repositoryurl in a property.
@@ -85,7 +86,7 @@ class SvnListTask extends SvnBaseTask
         $this->setup('list');
 
         if ($this->oldVersion) {
-            $this->svn->setOptions(['fetchmode' => \VERSIONCONTROL_SVN_FETCHMODE_XML]);
+            $this->svn->setOptions(['fetchmode' => VersionControl_SVN::FETCHMODE_XML]);
             $output = $this->run(['--xml']);
 
             if (!($xmlObj = @simplexml_load_string($output))) {
