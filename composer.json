@@ -12,11 +12,11 @@
     }
   ],
   "require": {
-    "php": ">= 7.1"
+    "php": ">= 7.1",
+    "siad007/versioncontrol_hg": "^1.0"
   },
   "require-dev": {
-    "phing/phing": "3.0.x-dev",
-    "siad007/versioncontrol_hg": "v1.0.3"
+    "phing/phing": "3.0.x-dev"
   },
   "autoload": {
     "psr-4": {
