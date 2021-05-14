@@ -21,6 +21,7 @@ namespace Phing\Task\Ext;
 
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
+use Phing\Exception\BuildException;
 
 /**
  * JsHintTask
@@ -156,7 +157,7 @@ class JsHintTask extends Task
     public function main()
     {
         if (!isset($this->file) && count($this->filesets) === 0) {
-            throw new \BuildException("Missing either a nested fileset or attribute 'file' set");
+            throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
         if (!isset($this->file)) {
@@ -212,7 +213,7 @@ class JsHintTask extends Task
                 } elseif ($attrs['severity'] === $this->xmlAttributes['severity']['warning']) {
                     $warningsCount++;
                 } elseif ($attrs['severity'] !== $this->xmlAttributes['severity']['info']) {
-                    throw new \BuildException(sprintf('Unknown severity "%s"', $attrs['severity']));
+                    throw new BuildException(sprintf('Unknown severity "%s"', $attrs['severity']));
                 }
                 $e = sprintf(
                     '%s: line %d, col %d, %s',
@@ -231,11 +232,11 @@ class JsHintTask extends Task
             $warningsCount
         );
         if ($this->haltOnError && $errorsCount) {
-            throw new \BuildException($message);
+            throw new BuildException($message);
         }
 
         if ($this->haltOnWarning && $warningsCount) {
-            throw new \BuildException($message);
+            throw new BuildException($message);
         }
 
         $this->log('');
@@ -250,7 +251,7 @@ class JsHintTask extends Task
 
     /**
      * @return string Path to the project basedir
-     * @throws \BuildException
+     * @throws BuildException
      */
     private function _getProjectBasedir()
     {
@@ -260,13 +261,13 @@ class JsHintTask extends Task
     /**
      * Checks, wheter the JSHint can be executed
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     private function checkJsHintIsInstalled()
     {
         exec('jshint -v', $output, $return);
         if ($return !== 0) {
-            throw new \BuildException('JSHint is not installed!');
+            throw new BuildException('JSHint is not installed!');
         }
     }
 }
