@@ -95,6 +95,11 @@ class JsHintTask extends Task
     private $config;
 
     /**
+     * @var string
+     */
+    private $executable = 'jshint';
+
+    /**
      * File to be performed syntax check on
      *
      * @param \PhingFile $file
@@ -154,6 +159,14 @@ class JsHintTask extends Task
         $this->config = $config;
     }
 
+    /**
+     * @param string $path
+     */
+    public function setExecutable($path)
+    {
+        $this->executable = $path;
+    }
+
     public function main()
     {
         if (!isset($this->file) && count($this->filesets) === 0) {
@@ -180,14 +193,16 @@ class JsHintTask extends Task
         $fileList = array_map('escapeshellarg', $fileList);
         if ($this->config) {
             $command = sprintf(
-                'jshint --config=%s --reporter=%s %s',
+                '%s --config=%s --reporter=%s %s',
+                $this->executable,
                 $this->config,
                 $this->reporter,
                 implode(' ', $fileList)
             );
         } else {
             $command = sprintf(
-                'jshint --reporter=%s %s',
+                '%s --reporter=%s %s',
+                $this->executable,
                 $this->reporter,
                 implode(' ', $fileList)
             );
@@ -265,7 +280,8 @@ class JsHintTask extends Task
      */
     private function checkJsHintIsInstalled()
     {
-        exec('jshint -v', $output, $return);
+        $command = sprintf('%s -v 2>&1', $this->executable);
+        exec($command, $output, $return);
         if ($return !== 0) {
             throw new BuildException('JSHint is not installed!');
         }
