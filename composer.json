@@ -12,12 +12,11 @@
     }
   ],
   "require": {
-    "php": ">= 7.1"
+    "php": ">= 7.1",
+    "pear/archive_tar": "^1.4"
   },
   "require-dev": {
-    "phing/phing": "3.0.x-dev",
-    "pear/archive_tar": "^1.4.12",
-    "pear/pear-core-minimal": "^1.10.10"
+    "phing/phing": "3.0.x-dev"
   },
   "autoload": {
     "psr-4": {
