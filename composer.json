@@ -12,11 +12,11 @@
     }
   ],
   "require": {
-    "php": ">= 7.1"
+    "php": ">= 7.1",
+    "aws/aws-sdk-php": "^3.181"
   },
   "require-dev": {
-    "phing/phing": "3.0.x-dev",
-    "aws/aws-sdk-php": "^3.112"
+    "phing/phing": "3.0.x-dev"
   },
   "autoload": {
     "psr-4": {
