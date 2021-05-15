@@ -20,6 +20,19 @@
 
 namespace Phing\Util;
 
+use function filter_var;
+use function is_bool;
+use function is_string;
+use function preg_match;
+use function strlen;
+use function strpos;
+use function strrev;
+use function trigger_error;
+use function trim;
+
+use const FILTER_NULL_ON_FAILURE;
+use const FILTER_VALIDATE_BOOLEAN;
+
 /**
  * String helper utility class.
  *
@@ -32,35 +45,44 @@ namespace Phing\Util;
 class StringHelper
 {
     /**
-     * @var array
-     */
-    private static $TRUE_VALUES = ['on', 'true', 't', 'yes', '1'];
-
-    /**
-     * @var array
-     */
-    private static $FALSE_VALUES = ['off', 'false', 'f', 'no', '0'];
-
-    /**
-     * @param bool|string $s
+     * Converts a string to a boolean according to Phing rules.
+     *
+     * This method has no type hints to avoid "type coercion".
+     *
+     * The following values are considered "true":
+     *
+     * - 'on' (string)
+     * - 'true' (string)
+     * - 'yes' (string)
+     * - '1' (string)
+     * - 1 (int)
+     * - 1.0 (float)
+     * - true (boolean)
+     *
+     * Everything else is "false". Also, string values are trimmed and case-insensitive.
+     *
+     * @param mixed $s Value to be converted
      *
      * @return bool
      */
     public static function booleanValue($s)
     {
-        if (is_bool($s)) {
-            return $s; // it's already bool (not a string)
-        }
-        // otherwise assume it's something like "true" or "t"
-        $trimmed = strtolower(trim((string) $s));
-
-        return in_array($trimmed, self::$TRUE_VALUES);
+        return filter_var($s, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
      * tests if a string is a representative of a boolean.
      *
-     * @param bool|string $s
+     * This method has no type hints to avoid "type coercion".
+     *
+     * Rules:
+     *
+     * - Valid boolean values: true, false, 'true', 'false', 'on', 'off', 'yes', 'no', '1' and '0'.
+     * - Anything else must not be considered boolean.
+     * - This method is case-insensitive.
+     * - Strings are trimmed.
+     *
+     * @param mixed $s The value to convert to a bool value
      *
      * @return bool
      */
@@ -70,13 +92,11 @@ class StringHelper
             return true; // it already is boolean
         }
 
-        if ('' === $s || null === $s || !is_string($s)) {
+        if (!is_string($s) || '' === trim($s)) {
             return false; // not a valid string for testing
         }
 
-        $test = strtolower(trim($s));
-
-        return in_array($test, array_merge(self::$FALSE_VALUES, self::$TRUE_VALUES), true);
+        return null !== filter_var($s, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
     }
 
     /**

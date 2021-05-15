@@ -24,9 +24,9 @@ use Exception;
 use Phing\Io\FilterReader;
 use Phing\Io\IOException;
 use Phing\Io\Reader;
-use Phing\Project;
 use Phing\Type\RegularExpression;
 use Phing\Util\RegexpException;
+use Phing\Util\StringHelper;
 
 /**
  * Filter which includes only those lines that contain the user-specified
@@ -267,9 +267,9 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
                     $regexp->setPattern($pattern);
                     $this->regexps[] = $regexp;
                 } elseif (self::NEGATE_KEY === $params[$i]->getType()) {
-                    $this->setNegate(Project::toBoolean($params[$i]->getValue()));
+                    $this->setNegate(StringHelper::booleanValue($params[$i]->getValue()));
                 } elseif (self::CS_KEY === $params[$i]->getType()) {
-                    $this->setCaseSensitive(Project::toBoolean($params[$i]->getValue()));
+                    $this->setCaseSensitive(StringHelper::booleanValue($params[$i]->getValue()));
                 }
             }
         }
