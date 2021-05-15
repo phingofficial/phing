@@ -33,6 +33,7 @@ use Phing\Parser\ProjectConfigurator;
 use Phing\Task\System\Condition\Condition;
 use Phing\Type\Description;
 use Phing\Type\PropertyValue;
+use Phing\Util\StringHelper;
 use ReflectionException;
 use ReflectionObject;
 
@@ -860,16 +861,11 @@ class Project
      * @return <code>true</code> if the given string is <code>"on"</code>,
      *                           <code>"true"</code> or <code>"yes"</code>, or
      *                           <code>false</code> otherwise
+     * @deprecated Use \Phing\Util\StringHelper::booleanValue instead
      */
     public static function toBoolean($s)
     {
-        return
-            0 === strcasecmp($s, 'on')
-            || 0 === strcasecmp($s, 'true')
-            || 0 === strcasecmp($s, 'yes')
-            // FIXME next condition should be removed if the bool behavior for properties will be solved
-            || 0 === strcasecmp($s, 1)
-        ;
+        return StringHelper::booleanValue($s);
     }
 
     /**

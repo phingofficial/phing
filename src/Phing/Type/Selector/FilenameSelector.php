@@ -21,7 +21,6 @@
 namespace Phing\Type\Selector;
 
 use Phing\Io\File;
-use Phing\Project;
 use Phing\Type\RegularExpression;
 use Phing\Util\StringHelper;
 
@@ -146,12 +145,12 @@ class FilenameSelector extends BaseExtendSelector
                         break;
 
                     case self::CASE_KEY:
-                        $this->setCasesensitive(Project::toBoolean($parameters[$i]->getValue()));
+                        $this->setCasesensitive(StringHelper::booleanValue($parameters[$i]->getValue()));
 
                         break;
 
                     case self::NEGATE_KEY:
-                        $this->setNegate(Project::toBoolean($parameters[$i]->getValue()));
+                        $this->setNegate(StringHelper::booleanValue($parameters[$i]->getValue()));
 
                         break;
 

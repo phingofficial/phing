@@ -2,6 +2,50 @@ P     H     I     N     G
 =========================
 
 
+May. XX, 2021 - Phing 3.0.0 rc2
+-------------------------------
+
+The following issues and pull requests were closed in this release:
+
+* [core] Updated dependencies [\#1593](https://github.com/phingofficial/phing/pull/1593)
+* [core] Added additional tests [\#1592](https://github.com/phingofficial/phing/pull/1592)
+* [XmlLogger] cleanup [\#1591](https://github.com/phingofficial/phing/pull/1591)
+* [core] Added openssl and phar.readonly to pipeline [\#1590](https://github.com/phingofficial/phing/pull/1590)
+* [PharPackageTask] Added attributes to test build [\#1589](https://github.com/phingofficial/phing/pull/1589)
+* [core] Fixed ExtendedFileStream register wrapper [\#1588](https://github.com/phingofficial/phing/pull/1588)
+* [core] Cleanup some tests. [\#1587](https://github.com/phingofficial/phing/pull/1587)
+* [Location] Added test [\#1586](https://github.com/phingofficial/phing/pull/1586)
+* Use constant for buildfile name [\#1583](https://github.com/phingofficial/phing/pull/1583)
+* Scrutinizer issue fixes [\#1581](https://github.com/phingofficial/phing/pull/1581)
+* Scrutinizer issue fixes [\#1580](https://github.com/phingofficial/phing/pull/1580)
+* Scrutinizer issue fixes [\#1579](https://github.com/phingofficial/phing/pull/1579)
+* Scrutinizer issue fixes [\#1578](https://github.com/phingofficial/phing/pull/1578)
+* Scrutinizer issue fixes [\#1577](https://github.com/phingofficial/phing/pull/1577)
+* [core] Scrutinizer issue fixes [\#1576](https://github.com/phingofficial/phing/pull/1576)
+* [XmlLintTask] Added error logs. [\#1575](https://github.com/phingofficial/phing/pull/1575)
+* [core] Fixed slack url and added security advisor dependency [\#1574](https://github.com/phingofficial/phing/pull/1574)
+* [core] Updated Deps - added funding to composer [\#1573](https://github.com/phingofficial/phing/pull/1573)
+* [core] Updated deps [\#1572](https://github.com/phingofficial/phing/pull/1572)
+* [core] Code cleanup on test files [\#1570](https://github.com/phingofficial/phing/pull/1570)
+* php-cs-fixer fixed covers [\#1568](https://github.com/phingofficial/phing/pull/1568)
+* [core] php-cs-fixer run [\#1566](https://github.com/phingofficial/phing/pull/1566)
+* [core] Moved test classes to own namespace `Phing\Test\` [\#1565](https://github.com/phingofficial/phing/pull/1565)
+* [FileUtils] split up long method [\#1564](https://github.com/phingofficial/phing/pull/1564)
+* [core] PHP compat issues [\#1563](https://github.com/phingofficial/phing/pull/1563)
+* Add comment in test to prevent php8.1 compat issue [\#1562](https://github.com/phingofficial/phing/pull/1562)
+* Update documentation links [\#1561](https://github.com/phingofficial/phing/pull/1561)
+* [condition] Added phpversion condition [\#1560](https://github.com/phingofficial/phing/pull/1560)
+* [core] Removed unused exception classes [\#1559](https://github.com/phingofficial/phing/pull/1559)
+* [core]Moved Timer function to DefaultClock [\#1558](https://github.com/phingofficial/phing/pull/1558)
+* [Logger] Fixed StatisticsReport [\#1557](https://github.com/phingofficial/phing/pull/1557)
+* [core] Removed deprecated NullPointerException.php [\#1556](https://github.com/phingofficial/phing/pull/1556)
+* Updated PEAR\Exception -> composer update [\#1555](https://github.com/phingofficial/phing/pull/1555)
+* Add days and hours to `DefaultLogger::formatTime` method [\#1554](https://github.com/phingofficial/phing/pull/1554)
+* Update report bugs to use issues link [\#1551](https://github.com/phingofficial/phing/pull/1551)
+* Remove currentTimeMillis [\#1545](https://github.com/phingofficial/phing/pull/1545)
+* Fix "depends on" in target list [\#1544](https://github.com/phingofficial/phing/pull/1544)
+* [ReflexiveTask] Call to a member function isDirectory() on null [\#1540](https://github.com/phingofficial/phing/issues/1540)
+
 Feb. 17, 2021 - Phing 3.0.0 rc1
 -------------------------------
 
