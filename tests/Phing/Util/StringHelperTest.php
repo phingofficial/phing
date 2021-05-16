@@ -273,9 +273,11 @@ class StringHelperTest extends TestCase
             ['%{my.var}', 1],
             ['%{Foo.Bar.Baz}', 1],
             ['%{user.first-name}', 1],
+            ['%{user.first_name}', 1],
             ['    %{slot.var}   ', 1],
             // 0
             ['slot.var', 0],
+            ['%{&é@}', 0],
             ['%{slot§var}', 0],
             ['%{}', 0],
             ['%{slotèvar}', 0],
@@ -285,4 +287,25 @@ class StringHelperTest extends TestCase
         ];
     }
 
+    /**
+     * @covers \Phing\Util\StringHelper::slotVar
+     * @dataProvider slotVarProvider
+     */
+    public function testSlotVar($var, $expected)
+    {
+        $result = StringHelper::slotVar($var);
+        $this->assertSame($expected, $result);
+    }
+
+    public function slotVarProvider()
+    {
+        return [
+            ['%{slot.var}', 'slot.var'],
+            ['%{&é@}', '&é@'],
+            ['', ''],
+            ['%{}', ''],
+            ['%{    }', ''],
+            ['  %{  slot.var  }  ', 'slot.var'],
+        ];
+    }
 }
