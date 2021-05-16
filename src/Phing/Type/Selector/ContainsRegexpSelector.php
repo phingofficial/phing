@@ -25,11 +25,11 @@ use Phing\Io\BufferedReader;
 use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
-use Phing\Project;
 use Phing\Task\System\Condition\OsCondition;
 use Phing\Type\RegularExpression;
 use Phing\Util\Regexp;
 use Phing\Util\RegexpException;
+use Phing\Util\StringHelper;
 
 /**
  * Selector that filters files based on whether they contain a
@@ -133,12 +133,12 @@ class ContainsRegexpSelector extends BaseExtendSelector
                         break;
 
                     case self::CASE_KEY:
-                        $this->setCasesensitive(Project::toBoolean($parameters[$i]->getValue()));
+                        $this->setCasesensitive(StringHelper::booleanValue($parameters[$i]->getValue()));
 
                         break;
 
                     case self::ML_KEY:
-                        $this->setMultiLine(Project::toBoolean($parameters[$i]->getValue()));
+                        $this->setMultiLine(StringHelper::booleanValue($parameters[$i]->getValue()));
 
                         break;
 

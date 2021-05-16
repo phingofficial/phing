@@ -21,7 +21,7 @@
 namespace Phing\Task\System\Condition;
 
 use Phing\Exception\BuildException;
-use Phing\Project;
+use Phing\Util\StringHelper;
 
 /**
  * Checks the value of a specified property.
@@ -57,6 +57,6 @@ class IsPropertyFalseCondition extends ConditionBase implements Condition
         }
         $value = $this->getProject()->getProperty($this->property);
 
-        return null === $value || !Project::toBoolean($value);
+        return null === $value || !StringHelper::booleanValue($value);
     }
 }
