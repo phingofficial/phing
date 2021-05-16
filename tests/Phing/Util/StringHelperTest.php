@@ -219,6 +219,7 @@ class StringHelperTest extends TestCase
     public function substringProvider()
     {
         return [
+            ['FooBarBaz', 0, 0, 'F'],
             ['FooBarBaz', 0, 1, 'Fo'],
             ['FooBarBaz', 2, 4, 'oBa'],
             ['FooBarBaz', 0, 0, 'F'],
@@ -227,6 +228,7 @@ class StringHelperTest extends TestCase
             ['FooBarBaz', 0, -1, 'FooBarBaz'],
             ['FooBarBaz', 5, 8, 'rBaz'],
             ['FooBarBaz', 5, -1, 'rBaz'],
+            ['FooBarBaz', 8, 8, 'z'],
         ];
     }
 
