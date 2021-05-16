@@ -198,6 +198,15 @@ class StringHelperTest extends TestCase
     }
 
     /**
+     * @covers \Phing\Util\StringHelper::substring
+     */
+    public function testSubstringSimple()
+    {
+        $result = StringHelper::substring('FooBarBaz', 3);
+        $this->assertSame('BarBaz', $result);
+    }
+
+    /**
      * @covers       \Phing\Util\StringHelper::substring
      * @dataProvider substringProvider
      */
