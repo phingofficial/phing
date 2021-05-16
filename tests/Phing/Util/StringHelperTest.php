@@ -196,4 +196,50 @@ class StringHelperTest extends TestCase
             ['Baz', '', false],
         ];
     }
+
+    /**
+     * @covers       \Phing\Util\StringHelper::substring
+     * @dataProvider substringProvider
+     */
+    public function testSubstring($string, $start, $end, $expected)
+    {
+        $result = StringHelper::substring($string, $start, $end);
+        $this->assertSame($expected, $result);
+    }
+
+    public function substringProvider()
+    {
+        return [
+            ['FooBarBaz', 0, 1, 'Fo'],
+            ['FooBarBaz', 2, 4, 'oBa'],
+            ['FooBarBaz', 0, 0, 'F'],
+            ['FooBarBaz', 3, 3, 'B'],
+            ['FooBarBaz', 0, 8, 'FooBarBaz'],
+            ['FooBarBaz', 0, -1, 'FooBarBaz'],
+            ['FooBarBaz', 5, 8, 'rBaz'],
+            ['FooBarBaz', 5, -1, 'rBaz'],
+        ];
+    }
+
+    /**
+     * @covers       \Phing\Util\StringHelper::substring
+     * @dataProvider substringErrorProvider
+     */
+    public function testSubstringError($string, $start, $end, $message)
+    {
+        $this->expectError();
+        $this->expectErrorMessage($message);
+        StringHelper::substring($string, $start, $end);
+    }
+
+    public function substringErrorProvider()
+    {
+        return [
+            ['FooBarBaz', -1, 1, 'substring(), Startindex out of bounds must be 0<n<9'],
+            ['FooBarBaz', -10, 100, 'substring(), Startindex out of bounds must be 0<n<9'],
+            ['FooBarBaz', 100, 1, 'substring(), Startindex out of bounds must be 0<n<9'],
+            ['FooBarBaz', 0, 100, 'substring(), Endindex out of bounds must be 0<n<8'],
+            ['FooBarBaz', 3, 1, 'substring(), Endindex out of bounds must be 3<n<8'],
+        ];
+    }
 }
