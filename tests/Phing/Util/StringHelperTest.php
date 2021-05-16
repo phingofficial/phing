@@ -306,6 +306,7 @@ class StringHelperTest extends TestCase
             ['%{}', ''],
             ['%{    }', ''],
             ['  %{  slot.var  }  ', 'slot.var'],
+            ['FooBarBaz', 'FooBarBaz'],
         ];
     }
 }
