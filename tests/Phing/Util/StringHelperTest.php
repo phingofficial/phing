@@ -253,4 +253,36 @@ class StringHelperTest extends TestCase
             ['FooBarBaz', 3, 1, 'substring(), Endindex out of bounds must be 3<n<8'],
         ];
     }
+
+    /**
+     * @covers       \Phing\Util\StringHelper::isSlotVar
+     * @dataProvider isSlotVarProvider
+     */
+    public function testIsSlotVar($value, $expected)
+    {
+        $result = StringHelper::isSlotVar($value);
+        $this->assertSame($expected, $result);
+    }
+
+    public function isSlotVarProvider()
+    {
+        return [
+            // 1
+            ['%{x}', 1],
+            ['%{dummy}', 1],
+            ['%{my.var}', 1],
+            ['%{Foo.Bar.Baz}', 1],
+            ['%{user.first-name}', 1],
+            ['    %{slot.var}   ', 1],
+            // 0
+            ['slot.var', 0],
+            ['%{slot§var}', 0],
+            ['%{}', 0],
+            ['%{slotèvar}', 0],
+            ['%{slot%var}', 0],
+            ['%{    slot.var       }', 0],
+            ['}%slot.var{', 0],
+        ];
+    }
+
 }
