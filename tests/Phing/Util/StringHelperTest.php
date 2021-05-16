@@ -135,4 +135,33 @@ class StringHelperTest extends TestCase
             [null, false],
         ];
     }
+
+    /**
+     * @dataProvider startsWithProvider
+     * @covers       \Phing\Util\StringHelper::startsWith
+     */
+    public function testStartsWith($needle = 'f', $haystack = 'foo', $expected = true)
+    {
+        $result = StringHelper::startsWith($needle, $haystack);
+        $this->assertSame($expected, $result);
+    }
+
+    public function startsWithProvider()
+    {
+        return [
+            // True
+            ['F', 'FooBarBaz', true],
+            ['Foo', 'FooBarBaz', true],
+            ['FooBarBaz', 'FooBarBaz', true],
+            ['', 'FooBarBaz', true],
+            ['', "\x00", true],
+            ["\x00", "\x00", true],
+            ["\x00", "\x00a", true],
+            ["a\x00b", "a\x00bc", true],
+            // False
+            ['Foo', 'BarBaz', false],
+            ['foo', 'FooBarBaz', false],
+            ['Foo', 'fooBarBaz', false],
+        ];
+    }
 }
