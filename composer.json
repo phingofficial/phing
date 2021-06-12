@@ -89,7 +89,7 @@
         "ext-xsl": "*",
         "ext-zip":  "*",
         "roave/security-advisories": "dev-master",
-        "friendsofphp/php-cs-fixer": "^2.18",
+        "friendsofphp/php-cs-fixer": "^3.0",
         "guzzlehttp/guzzle": "^7.1",
         "jawira/plantuml-encoding": "^1.0",
         "mikey179/vfsstream": "2.0.x-dev",
