@@ -619,20 +619,6 @@
             <interleave>
                 <attribute name="value"/>
                 <optional>
-                    <attribute name="units" a:default-value="b">
-                        <choice>
-                            <value>b</value>
-                            <value>k</value>
-                            <value>M</value>
-                            <value>G</value>
-                            <value>Bi</value>
-                            <value>Ki</value>
-                            <value>Mi</value>
-                            <value>Gi</value>
-                        </choice>
-                    </attribute>
-                </optional>
-                <optional>
                     <attribute name="when" a:default-value="equal">
                         <choice>
                             <value>equal</value>
@@ -7197,7 +7183,7 @@
             </zeroOrMore>
         </element>
     </define>
-    
+
 
     <!--
         =========================================
