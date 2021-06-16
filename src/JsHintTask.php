@@ -22,7 +22,7 @@ namespace Phing\Task\Ext;
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
 use Phing\Exception\BuildException;
-
+use Phing\Io\File as PhingFile;
 /**
  * JsHintTask
  *
@@ -102,11 +102,11 @@ class JsHintTask extends Task
     /**
      * File to be performed syntax check on
      *
-     * @param \PhingFile $file
+     * @param string $file
      */
-    public function setFile(\PhingFile $file)
+    public function setFile($file)
     {
-        $this->file = $file;
+        $this->file = new PhingFile($file);
     }
 
     /**
