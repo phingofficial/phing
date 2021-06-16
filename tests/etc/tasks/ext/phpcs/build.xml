@@ -12,4 +12,19 @@
         <fileset dir="../.." includes="**/*.php"/>
         </phpcs>
     </target>
+    <target name="testFileSetInPhpCs1FormatSet">
+        <phpcs bin="../../../../../bin/phpcs" format="checkstyle" level="debug" checkreturn="false" ignoreAnnotations="true" >
+        <fileset dir="../.." includes="**/*.php"/>
+        </phpcs>
+    </target>
+    <target name="testFileSetInPhpCs1StandardSet">
+        <phpcs bin="../../../../../bin/phpcs" standard="PSR12" level="debug" checkreturn="false" ignoreAnnotations="true" >
+        <fileset dir="../.." includes="**/*.php"/>
+        </phpcs>
+    </target>
+    <target name="testFileSetInPhpCs1OutfileSet">
+        <phpcs bin="../../../../../bin/phpcs" outfile="/dev/null" level="debug" checkreturn="false" ignoreAnnotations="true" >
+        <fileset dir="../.." includes="**/*.php"/>
+        </phpcs>
+    </target>
 </project>
