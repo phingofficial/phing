@@ -21,6 +21,7 @@
 namespace Phing\Task\Optional;
 
 use Phing\Exception\BuildException;
+use Phing\Project;
 use Phing\Io\File;
 use Phing\Task;
 use Phing\Task\System\Element\LogLevelAware;
@@ -65,6 +66,15 @@ class PhpCSTask extends Task
     private $checkreturn = false;
 
     /** @var string */
+    private $standard = '';
+
+    /** @var string */
+    private $outfile = '';
+
+    /** @var string */
+    private $format = '';
+
+    /** @var string */
     private $bin = 'phpcs';
 
     public function __construct()
@@ -99,9 +109,27 @@ class PhpCSTask extends Task
         $this->bin = $bin;
     }
 
+    public function setFormat(string $format): void
+    {
+        $this->format = $format;
+        $this->project->log("Format set to $format", Project::MSG_VERBOSE);
+    }
+
+    public function setStandard(string $standard): void
+    {
+        $this->standard = $standard;
+        $this->project->log("Standard set to $standard", Project::MSG_VERBOSE);
+    }
+
     public function setFile(File $file): void
     {
         $this->file = $file;
+    }
+
+    public function setOutfile(string $outfile): void
+    {
+        $this->outfile = $outfile;
+        $this->project->log("Outfile set to $outfile", Project::MSG_VERBOSE);
     }
 
     public function main()
@@ -127,6 +155,15 @@ class PhpCSTask extends Task
 
         if ($this->ignoreAnnotations) {
             $toExecute->createArgument()->setValue('--ignore-annotations');
+        }
+        if ($this->format !== '') {
+            $toExecute->createArgument()->setValue(' --report=' . $this->format);
+        }
+        if ($this->standard !== '') {
+            $toExecute->createArgument()->setValue(' --standard=' . $this->standard);
+        }
+        if ($this->outfile !== '') {
+            $toExecute->createArgument()->setValue(' --report-file=' . $this->outfile);
         }
 
         if (null !== $this->file) {

@@ -352,21 +352,21 @@ class DefaultLogger implements StreamRequiredBuildLogger
         switch (true) {
             // Days
             case $seconds >= self::A_DAY:
-                $chunks[] = intdiv($seconds, self::A_DAY);
+                $chunks[] = intdiv((int) $seconds, self::A_DAY);
                 $chunks[] = $getPlural(end($chunks));
                 $seconds = fmod($seconds, self::A_DAY);
                 $format .= '%u day%s  ';
             // Hours
             // no break
             case $seconds >= self::AN_HOUR:
-                $chunks[] = intdiv($seconds, self::AN_HOUR);
+                $chunks[] = intdiv((int) $seconds, self::AN_HOUR);
                 $chunks[] = $getPlural(end($chunks));
                 $seconds = fmod($seconds, self::AN_HOUR);
                 $format .= '%u hour%s  ';
             // Minutes
             // no break
             case $seconds >= self::A_MINUTE:
-                $chunks[] = intdiv($seconds, self::A_MINUTE);
+                $chunks[] = intdiv((int) $seconds, self::A_MINUTE);
                 $chunks[] = $getPlural(end($chunks));
                 $seconds = fmod($seconds, self::A_MINUTE);
                 $format .= '%u minute%s  ';
