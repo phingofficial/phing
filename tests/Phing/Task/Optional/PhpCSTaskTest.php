@@ -55,4 +55,16 @@ class PhpCSTaskTest extends BuildFileTest
         $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
     }
+
+    public function testFileSetInPhpCs1OutfileSet(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('Outfile set to /dev/null');
+    }
+
+    public function testFileSetInPhpCs1FormatSet(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('Format set to checkstyle');
+    }
 }

@@ -5300,6 +5300,15 @@
                         </choice>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="standard"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="outfile"/>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <ref name="fileset"/>
