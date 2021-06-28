@@ -7,6 +7,8 @@ May. XX, 2021 - Phing 3.0.0 rc2
 
 The following issues and pull requests were closed in this release:
 
+* Add support for setting standard, outfile and format to phpcs task [\#1612](https://github.com/phingofficial/phing/pull/1612)
+* Update SizeSelector schema [\#1611](https://github.com/phingofficial/phing/pull/1611)
 * [core] Updated dependencies [\#1593](https://github.com/phingofficial/phing/pull/1593)
 * [core] Added additional tests [\#1592](https://github.com/phingofficial/phing/pull/1592)
 * [XmlLogger] cleanup [\#1591](https://github.com/phingofficial/phing/pull/1591)
@@ -15,6 +17,7 @@ The following issues and pull requests were closed in this release:
 * [core] Fixed ExtendedFileStream register wrapper [\#1588](https://github.com/phingofficial/phing/pull/1588)
 * [core] Cleanup some tests. [\#1587](https://github.com/phingofficial/phing/pull/1587)
 * [Location] Added test [\#1586](https://github.com/phingofficial/phing/pull/1586)
+* Refactoring how Phing handles boolean strings [\#1584](https://github.com/phingofficial/phing/pull/1584)
 * Use constant for buildfile name [\#1583](https://github.com/phingofficial/phing/pull/1583)
 * Scrutinizer issue fixes [\#1581](https://github.com/phingofficial/phing/pull/1581)
 * Scrutinizer issue fixes [\#1580](https://github.com/phingofficial/phing/pull/1580)
