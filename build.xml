@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="VisualizerTask" default="help">
+<project name="VisualizerTask" description="Create a diagram from buildfile" default="help">
 
     <target name="setup" depends="composer:install"
             description="Prepare project for development"/>
@@ -8,7 +8,18 @@
             depends="composer:normalize,composer:validate,phpstan:analyse"/>
 
     <target name="visualizer" description="Create buildfile diagram">
-        <visualizer format="png"/>
+        <uptodate property="visualizer.uptodate" srcfile="build.xml" targetfile="build.png"/>
+        <if>
+            <not>
+                <isset property="visualizer.uptodate"/>
+            </not>
+            <then>
+                <visualizer format="puml" showTitle="true" showDescription="true"
+                            footer="Visit https://www.phing.info/"/>
+                <visualizer format="png" showTitle="true" showDescription="true"
+                            footer="Visit https://www.phing.info/"/>
+            </then>
+        </if>
     </target>
 
     <target name="help" depends="visualizer">
@@ -23,11 +34,9 @@
 
     <target name="composer:install" description="Install Composer dependencies">
         <composer command="install">
-            <arg value="--dev"/>
             <arg value="--prefer-dist"/>
             <arg value="--no-interaction"/>
             <arg value="--no-progress"/>
-            <arg value="--no-suggest"/>
             <arg value="--ansi"/>
         </composer>
     </target>
@@ -44,7 +53,9 @@
         </exec>
     </target>
 
-    <target name="guide:parse" description="Generate doc (dev only)">
+    <target name="guide:preview" description="Generate doc (dev only)">
+        <!-- http://tutoriels.meddeb.net/docbook-installation-utilisation-de-base/ -->
+        <!-- apt install xsltproc docbook-xsl -->
         <!-- I use this Target to have a documentation preview -->
         <exec executable="xsltproc" passthru="true" checkreturn="true">
             <arg value="--output"/>
@@ -52,6 +63,9 @@
             <arg value="--xinclude"/>
             <arg file="/usr/share/xml/docbook/stylesheet/nwalsh/xhtml/docbook.xsl"/>
             <arg file="docs/guide.xml"/>
+        </exec>
+        <exec executable="xdg-open" spawn="true">
+            <arg value="docs/guide.html"/>
         </exec>
     </target>
 

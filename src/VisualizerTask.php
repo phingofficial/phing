@@ -34,6 +34,7 @@ use function array_reduce;
 use function filter_var;
 use function reset;
 use function simplexml_load_string;
+use function strval;
 use const FILTER_VALIDATE_URL;
 
 /**
@@ -79,6 +80,21 @@ class VisualizerTask extends HttpTask
     protected $direction;
 
     /**
+     * @var bool Show title in diagram
+     */
+    protected $showTitle;
+
+    /**
+     * @var bool Show description in diagram
+     */
+    protected $showDescription;
+
+    /**
+     * @var string Text to display
+     */
+    protected $footer;
+
+    /**
      * Setting some default values and checking requirements
      */
     public function init(): void
@@ -100,6 +116,9 @@ class VisualizerTask extends HttpTask
         $this->setFormat(VisualizerTask::FORMAT_PNG);
         $this->setServer(VisualizerTask::SERVER);
         $this->setDirection(VisualizerTask::ARROWS_VERTICAL);
+        $this->setShowTitle(true);
+        $this->setShowDescription(false);
+        $this->setFooter('');
     }
 
     /**
@@ -179,6 +198,10 @@ class VisualizerTask extends HttpTask
 
         $processor = new XSLTProcessor();
         $processor->setParameter('', 'direction', $this->getDirection());
+        $processor->setParameter('', 'description', strval($this->getProject()->getDescription()));
+        $processor->setParameter('', 'showTitle', strval($this->isShowTitle()));
+        $processor->setParameter('', 'showDescription', strval($this->isShowDescription()));
+        $processor->setParameter('', 'footer', $this->getFooter());
         $processor->importStylesheet($xsl);
 
         return $processor->transformToXml($xml) . PHP_EOL;
@@ -396,6 +419,38 @@ class VisualizerTask extends HttpTask
     }
 
     /**
+     * @return bool
+     */
+    public function isShowTitle(): bool
+    {
+        return $this->showTitle;
+    }
+
+    /**
+     * @param bool $showTitle
+     */
+    public function setShowTitle(bool $showTitle): void
+    {
+        $this->showTitle = $showTitle;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShowDescription(): bool
+    {
+        return $this->showDescription;
+    }
+
+    /**
+     * @param bool $showDescription
+     */
+    public function setShowDescription(bool $showDescription): void
+    {
+        $this->showDescription = $showDescription;
+    }
+
+    /**
      * Receive server's response
      *
      * This method validates `$response`'s status
@@ -432,5 +487,21 @@ class VisualizerTask extends HttpTask
         $this->log("Writing: $path", Project::MSG_INFO);
 
         (new FileWriter($destination))->write($content);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFooter(): string
+    {
+        return $this->footer;
+    }
+
+    /**
+     * @param string $footer
+     */
+    public function setFooter(string $footer): void
+    {
+        $this->footer = $footer;
     }
 }

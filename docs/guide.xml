@@ -81,6 +81,39 @@
                 </row>
                 <row>
                     <entry>
+                        <literal>footer</literal>
+                    </entry>
+                    <entry>
+                        <literal role="type">String</literal>
+                    </entry>
+                    <entry>A text to display at the bottom right of the diagram.</entry>
+                    <entry>n/a</entry>
+                    <entry>no</entry>
+                </row>
+                <row>
+                    <entry>
+                        <literal>showTitle</literal>
+                    </entry>
+                    <entry>
+                        <literal role="type">Bool</literal>
+                    </entry>
+                    <entry>Should the buildfile's title be displayed in diagram?</entry>
+                    <entry><literal>true</literal></entry>
+                    <entry>no</entry>
+                </row>
+                <row>
+                    <entry>
+                        <literal>showDescription</literal>
+                    </entry>
+                    <entry>
+                        <literal role="type">Bool</literal>
+                    </entry>
+                    <entry>Should the buildfile's description be displayed in diagram?</entry>
+                    <entry><literal>false</literal></entry>
+                    <entry>no</entry>
+                </row>
+                <row>
+                    <entry>
                         <literal>direction</literal>
                     </entry>
                     <entry>
@@ -128,6 +161,9 @@
         <para>Save diagram into <filename>resources/images/</filename> directory:
         </para>
         <programlisting language="xml">&lt;visualizer destination="resources/images/"/&gt;</programlisting>
+        <para>Display buildfile's description and custom footer text:
+        </para>
+        <programlisting language="xml">&lt;visualizer showDescription="true" footer="© Copyright 2021"/&gt;</programlisting>
     </sect2>
     <sect2>
         <title>Limitations</title>
@@ -180,8 +216,8 @@
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://packagist.org/packages/jawira/plantuml-encoding" role="extern">
-                        jawira/plantuml-encoding
+                    <link xlink:href="https://packagist.org/packages/jawira/plantuml-client" role="extern">
+                        jawira/plantuml-client
                     </link>
                 </para>
             </listitem>
