@@ -5312,6 +5312,7 @@
             </interleave>
             <zeroOrMore>
                 <ref name="fileset"/>
+                <ref name="formatter"/>
             </zeroOrMore>
         </element>
     </define>

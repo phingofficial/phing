@@ -32,7 +32,7 @@ use Phing\Type\Element\FileSetAware;
 /**
  * A PHP code sniffer task. Checking the style of one or more PHP source files.
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>Ex
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
 class PhpCSTask extends Task
 {
@@ -74,6 +74,8 @@ class PhpCSTask extends Task
     /** @var string */
     private $format = '';
 
+    protected $formatters = [];
+
     /** @var string */
     private $bin = 'phpcs';
 
@@ -114,6 +116,21 @@ class PhpCSTask extends Task
         $this->format = $format;
         $this->project->log("Format set to $format", Project::MSG_VERBOSE);
     }
+
+    /**
+     * Create object for nested formatter element.
+     * @return CodeSniffer_FormatterElement
+     */
+    public function createFormatter()
+    {
+        $num = array_push(
+            $this->formatters,
+            new PhpCSTask_FormatterElement()
+        );
+
+        return $this->formatters[$num - 1];
+    }
+
 
     public function setStandard(string $standard): void
     {
@@ -166,6 +183,16 @@ class PhpCSTask extends Task
             $toExecute->createArgument()->setValue(' --report-file=' . $this->outfile);
         }
 
+        foreach ($this->formatters as $formatter) {
+            $formatterReportFile = ($formatter->getUseFile() ? $formatter->getOutFile() : null);
+            $formatterType = $formatter->getType();
+            $this->project->log(
+                "Generate report of type \"{$formatterType}\" with report written to $formatterReportFile",
+                Project::MSG_VERBOSE
+            );
+            $toExecute->createArgument()->setValue(' --report-' . $formatterType . '='. $formatterReportFile);
+        }
+
         if (null !== $this->file) {
             $toExecute->createArgument()->setFile($this->file);
         } else {
@@ -186,4 +213,70 @@ class PhpCSTask extends Task
         $exe->createArg()->setLine(implode(' ', $toExecute->getArguments()));
         $exe->main();
     }
+}
+
+class PhpCSTask_FormatterElement extends \Phing\Type\DataType
+{
+    /**
+     * Type of output to generate
+     * @var string
+     */
+    protected $type = "";
+
+    /**
+     * Output to file?
+     * @var bool
+     */
+    protected $useFile = true;
+
+    /**
+     * Output file.
+     * @var string
+     */
+    protected $outfile = "";
+
+    /**
+     * Validate config.
+     */
+    public function parsingComplete()
+    {
+        if (empty($this->type)) {
+            throw new BuildException("Format missing required 'type' attribute.");
+        }
+        if ($this->useFile && empty($this->outfile)) {
+            throw new BuildException("Format requires 'outfile' attribute when 'useFile' is true.");
+        }
+
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setUseFile($useFile)
+    {
+        $this->useFile = $useFile;
+    }
+
+    public function getUseFile()
+    {
+        return $this->useFile;
+    }
+
+    public function setOutfile($outfile)
+    {
+        $this->outfile = $outfile;
+    }
+
+    public function getOutfile()
+    {
+        return $this->outfile;
+    }
+
 }
