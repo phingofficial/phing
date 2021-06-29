@@ -13,7 +13,7 @@
   ],
   "require": {
     "php": ">= 7.1",
-    "pear/versioncontrol_svn": "^0.6.0"
+    "pear/versioncontrol_svn": "^0.7.0"
   },
   "require-dev": {
     "phing/phing": "3.0.x-dev"
