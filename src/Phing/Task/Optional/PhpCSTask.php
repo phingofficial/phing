@@ -119,13 +119,13 @@ class PhpCSTask extends Task
 
     /**
      * Create object for nested formatter element.
-     * @return CodeSniffer_FormatterElement
+     * @return CodeSnifferFormatterElement
      */
     public function createFormatter()
     {
         $num = array_push(
             $this->formatters,
-            new PhpCSTask_FormatterElement()
+            new PhpCSTaskFormatterElement()
         );
 
         return $this->formatters[$num - 1];
@@ -190,7 +190,7 @@ class PhpCSTask extends Task
                 "Generate report of type \"{$formatterType}\" with report written to $formatterReportFile",
                 Project::MSG_VERBOSE
             );
-            $toExecute->createArgument()->setValue(' --report-' . $formatterType . '='. $formatterReportFile);
+            $toExecute->createArgument()->setValue(' --report-' . $formatterType . '=' . $formatterReportFile);
         }
 
         if (null !== $this->file) {
@@ -215,7 +215,7 @@ class PhpCSTask extends Task
     }
 }
 
-class PhpCSTask_FormatterElement extends \Phing\Type\DataType
+class PhpCSTaskFormatterElement extends \Phing\Type\DataType
 {
     /**
      * Type of output to generate
@@ -246,7 +246,6 @@ class PhpCSTask_FormatterElement extends \Phing\Type\DataType
         if ($this->useFile && empty($this->outfile)) {
             throw new BuildException("Format requires 'outfile' attribute when 'useFile' is true.");
         }
-
     }
 
     public function setType($type)
@@ -278,5 +277,4 @@ class PhpCSTask_FormatterElement extends \Phing\Type\DataType
     {
         return $this->outfile;
     }
-
 }
