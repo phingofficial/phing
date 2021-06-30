@@ -20,6 +20,8 @@
 
 namespace Phing\Task\Optional;
 
+use Phing\Exception\BuildException;
+
 class PhpCSTaskFormatterElement extends \Phing\Type\DataType
 {
     /**
