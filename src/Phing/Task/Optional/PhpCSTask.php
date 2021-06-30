@@ -214,4 +214,3 @@ class PhpCSTask extends Task
         $exe->main();
     }
 }
-
