@@ -27,4 +27,11 @@
         <fileset dir="../.." includes="**/*.php"/>
         </phpcs>
     </target>
+    <target name="testMultipleReportFormattersSet">
+        <phpcs bin="../../../../../bin/phpcs" level="debug" checkreturn="false" ignoreAnnotations="true" >
+        <fileset dir="../.." includes="**/*.php"/>
+        <formatter type="checkstyle" outfile="/tmp/null1"/>
+        <formatter type="summary" outfile="/tmp/null2"/>
+        </phpcs>
+    </target>
 </project>

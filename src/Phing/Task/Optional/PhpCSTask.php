@@ -32,7 +32,7 @@ use Phing\Type\Element\FileSetAware;
 /**
  * A PHP code sniffer task. Checking the style of one or more PHP source files.
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>Ex
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
 class PhpCSTask extends Task
 {
@@ -74,6 +74,8 @@ class PhpCSTask extends Task
     /** @var string */
     private $format = '';
 
+    protected $formatters = [];
+
     /** @var string */
     private $bin = 'phpcs';
 
@@ -114,6 +116,21 @@ class PhpCSTask extends Task
         $this->format = $format;
         $this->project->log("Format set to $format", Project::MSG_VERBOSE);
     }
+
+    /**
+     * Create object for nested formatter element.
+     * @return CodeSnifferFormatterElement
+     */
+    public function createFormatter()
+    {
+        $num = array_push(
+            $this->formatters,
+            new PhpCSTaskFormatterElement()
+        );
+
+        return $this->formatters[$num - 1];
+    }
+
 
     public function setStandard(string $standard): void
     {
@@ -164,6 +181,16 @@ class PhpCSTask extends Task
         }
         if ($this->outfile !== '') {
             $toExecute->createArgument()->setValue(' --report-file=' . $this->outfile);
+        }
+
+        foreach ($this->formatters as $formatter) {
+            $formatterReportFile = ($formatter->getUseFile() ? $formatter->getOutFile() : null);
+            $formatterType = $formatter->getType();
+            $this->project->log(
+                "Generate report of type \"{$formatterType}\" with report written to $formatterReportFile",
+                Project::MSG_VERBOSE
+            );
+            $toExecute->createArgument()->setValue(' --report-' . $formatterType . '=' . $formatterReportFile);
         }
 
         if (null !== $this->file) {

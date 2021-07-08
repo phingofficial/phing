@@ -67,4 +67,11 @@ class PhpCSTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Format set to checkstyle');
     }
+
+    public function testMultipleReportFormattersSet(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('Generate report of type "checkstyle" with report written to /tmp/null1');
+        $this->assertInLogs('Generate report of type "summary" with report written to /tmp/null2');
+    }
 }
