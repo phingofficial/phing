@@ -9,7 +9,8 @@ $config = new PhpCsFixer\Config();
 return $config->setRules([
         '@PSR12' => true,
         '@PHP80Migration' => true,
-        '@PhpCsFixer' => true
+        '@PhpCsFixer' => true,
+        'concat_space' => ['spacing'=>'one'],
     ])
     ->setFinder($finder)
 ;
