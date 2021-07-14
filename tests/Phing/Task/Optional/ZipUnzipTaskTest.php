@@ -27,6 +27,9 @@ use ZipArchive;
  * Tests the Zip and Unzip tasks.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class ZipUnzipTaskTest extends BuildFileTest
 {

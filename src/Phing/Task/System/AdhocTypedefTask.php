@@ -38,8 +38,6 @@ class AdhocTypedefTask extends AdhocTask
 
     /**
      * Set the tag that will represent this adhoc task/type.
-     *
-     * @param string $name
      */
     public function setName(string $name): void
     {

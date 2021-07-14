@@ -20,10 +20,9 @@
 
 namespace Phing;
 
+use function array_search;
 use Phing\Exception\BuildException;
 use Phing\Parser\Location;
-
-use function array_search;
 
 /**
  * The Target component. Carries all required target data. Implements the

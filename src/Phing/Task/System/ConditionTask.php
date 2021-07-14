@@ -63,8 +63,6 @@ class ConditionTask extends ConditionBase
 
     /**
      * The name of the property to set. Required.
-     *
-     * @param string $p
      */
     public function setProperty(string $p): void
     {

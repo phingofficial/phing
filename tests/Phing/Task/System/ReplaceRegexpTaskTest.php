@@ -23,8 +23,12 @@ namespace Phing\Test\Task\System;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Test ReplaceRegexpTask
+ * Test ReplaceRegexpTask.
+ *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class ReplaceRegexpTaskTest extends BuildFileTest
 {

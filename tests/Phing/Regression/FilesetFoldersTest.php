@@ -25,6 +25,9 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/654
  * - fileset not selecting folders.
+ *
+ * @internal
+ * @coversNothing
  */
 class FilesetFoldersTest extends BuildFileTest
 {

@@ -27,6 +27,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Retry Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class RetryTest extends BuildFileTest
 {

@@ -27,6 +27,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests for PharPackageTask.
  *
  * @author François Poirotte <clicky@erebot.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class PharPackageTaskTest extends BuildFileTest
 {

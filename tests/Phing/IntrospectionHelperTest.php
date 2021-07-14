@@ -36,6 +36,9 @@ use PHPUnit\Framework\TestCase;
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ *
+ * @internal
+ * @coversNothing
  */
 class IntrospectionHelperTest extends TestCase
 {

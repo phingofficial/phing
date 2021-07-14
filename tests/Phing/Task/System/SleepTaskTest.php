@@ -28,6 +28,9 @@ use Phing\Util\DefaultClock;
  * Tests the SleepTask.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class SleepTaskTest extends BuildFileTest
 {
@@ -91,7 +94,7 @@ class SleepTaskTest extends BuildFileTest
 
     private function timer(): DefaultClock
     {
-        return new class () extends DefaultClock {
+        return new class() extends DefaultClock {
             public function time(): float
             {
                 return $this->etime - $this->stime;

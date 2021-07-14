@@ -24,6 +24,10 @@ use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class IniFileTaskTest extends BuildFileTest
 {
     /**

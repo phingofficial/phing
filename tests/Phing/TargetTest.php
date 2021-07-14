@@ -32,6 +32,9 @@ use Phing\Test\Support\BuildFileTest;
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @author Daniel Holmes
+ *
+ * @internal
+ * @coversNothing
  */
 class TargetTest extends BuildFileTest
 {
@@ -64,9 +67,6 @@ class TargetTest extends BuildFileTest
 
     /**
      * @dataProvider setDependsValidDataProvider
-     *
-     * @param array $expectedDepends
-     * @param string $depends
      */
     public function testSetDependsValid(array $expectedDepends, string $depends): void
     {
@@ -85,8 +85,6 @@ class TargetTest extends BuildFileTest
 
     /**
      * @dataProvider setDependsInvalidDataProvider
-     *
-     * @param string $depends
      */
     public function testSetDependsInvalid(string $depends): void
     {

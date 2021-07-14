@@ -20,7 +20,11 @@
 
 namespace Phing;
 
+use function array_filter;
+use function array_map;
+use function array_reduce;
 use Exception;
+use function implode;
 use Phing\Exception\BuildException;
 use Phing\Exception\ConfigurationException;
 use Phing\Exception\ExitStatusException;
@@ -44,20 +48,14 @@ use Phing\Util\Diagnostics;
 use Phing\Util\Properties;
 use Phing\Util\SizeHelper;
 use Phing\Util\StringHelper;
+use const PHP_EOL;
 use SebastianBergmann\Version;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Throwable;
-
-use function array_filter;
-use function array_map;
-use function array_reduce;
-use function implode;
 use function sprintf;
 use function strlen;
 use function strval;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Throwable;
 use function trim;
-
-use const PHP_EOL;
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
@@ -234,6 +232,7 @@ class Phing
      * target or the default target.
      *
      * @param array $args command line args
+     *
      * @throws Exception
      */
     public static function fire($args): void
@@ -246,14 +245,14 @@ class Phing
      *
      * This method encapsulates the complete build lifecycle.
      *
-     * @param array $args the commandline args passed to phing shell script
+     * @param array $args                     the commandline args passed to phing shell script
      * @param array $additionalUserProperties Any additional properties to be passed to Phing (alternative front-end might implement this).
      *                                        These additional properties will be available using the getDefinedProperty() method and will
      *                                        be added to the project's "user" properties
      *
      * @throws Exception - if there is an error during build
-     * @see    runBuild()
      *
+     * @see    runBuild()
      * @see    execute()
      */
     public static function start($args, array $additionalUserProperties = null)
@@ -590,9 +589,7 @@ class Phing
     /**
      * Gets the current Phing version based on VERSION.TXT file.
      *
-     * @return string
      * @throws ConfigurationException
-     *
      */
     public static function getPhingVersion(): string
     {
@@ -624,7 +621,7 @@ class Phing
      *
      * @param string $path
      *
-     * @return string|null file found (null if no file found)
+     * @return null|string file found (null if no file found)
      */
     public static function getResourcePath($path): ?string
     {
@@ -743,61 +740,6 @@ class Phing
     }
 
     /**
-     * Returns buildfile's path.
-     *
-     * @param $path
-     *
-     * @return string
-     * @throws ConfigurationException
-     *
-     */
-    protected static function initPath($path)
-    {
-        // Fallback
-        if (empty($path)) {
-            $defaultDir = self::getProperty('application.startdir');
-            $path = $defaultDir . DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
-        }
-
-        // Adding filename if necessary
-        if (is_dir($path)) {
-            $path .= DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
-        }
-
-        // Check if path is available
-        $dirname = dirname($path);
-        if (is_dir($dirname) && !is_file($path)) {
-            return $path;
-        }
-
-        // Path is valid, but buildfile already exists
-        if (is_file($path)) {
-            throw new ConfigurationException('Buildfile already exists.');
-        }
-
-        throw new ConfigurationException('Invalid path for sample buildfile.');
-    }
-
-    /**
-     * Writes sample buildfile.
-     *
-     * If $buildfilePath does not exist, the buildfile is created.
-     *
-     * @param $buildfilePath buildfile's location
-     *
-     * @throws ConfigurationException
-     */
-    protected static function initWrite($buildfilePath): void
-    {
-        // Overwriting protection
-        if (file_exists($buildfilePath)) {
-            throw new ConfigurationException('Cannot overwrite existing file.');
-        }
-
-        file_put_contents($buildfilePath, self::DEFAULT_BUILD_CONTENT);
-    }
-
-    /**
      * Sets the stream to use for standard (non-error) output.
      *
      * @param OutputStream $stream the stream to use for standard output
@@ -818,64 +760,6 @@ class Phing
     }
 
     /**
-     * Handle the -propertyfile argument.
-     *
-     * @throws ConfigurationException
-     * @throws IOException
-     */
-    private function handleArgPropertyFile(array $args, int $pos): int
-    {
-        if (!isset($args[$pos + 1])) {
-            throw new ConfigurationException('You must specify a filename when using the -propertyfile argument');
-        }
-
-        $this->propertyFiles[] = $args[++$pos];
-
-        return $pos;
-    }
-
-    /**
-     * Search parent directories for the build file.
-     *
-     * Takes the given target as a suffix to append to each
-     * parent directory in search of a build file.  Once the
-     * root of the file-system has been reached an exception
-     * is thrown.
-     *
-     * @param string $start start file path
-     * @param string $suffix suffix filename to look for in parents
-     *
-     * @return File A handle to the build file
-     * @throws ConfigurationException
-     *
-     */
-    private function findBuildFile($start, $suffix)
-    {
-        if (self::getMsgOutputLevel() >= Project::MSG_INFO) {
-            self::$out->write('Searching for ' . $suffix . ' ...' . PHP_EOL);
-        }
-
-        $parent = new File((new File($start))->getAbsolutePath());
-        $file = new File($parent, $suffix);
-
-        // check if the target file exists in the current directory
-        while (!$file->exists()) {
-            // change to parent directory
-            $parent = $parent->getParentFile();
-
-            // if parent is null, then we are at the root of the fs,
-            // complain that we can't find the build file.
-            if (null === $parent) {
-                throw new ConfigurationException('Could not locate a build file!');
-            }
-            // refresh our file handle
-            $file = new File($parent, $suffix);
-        }
-
-        return $file;
-    }
-
-    /**
      * Making output level a static property so that this property
      * can be accessed by other parts of the system, enabling
      * us to display more information -- e.g. backtraces -- for "debug" level.
@@ -885,40 +769,6 @@ class Phing
     public static function getMsgOutputLevel()
     {
         return self::$msgOutputLevel;
-    }
-
-    /**
-     * @throws IOException
-     */
-    private function loadPropertyFiles(): void
-    {
-        foreach ($this->propertyFiles as $filename) {
-            $fileParserFactory = new FileParserFactory();
-            $fileParser = $fileParserFactory->createParser(pathinfo($filename, PATHINFO_EXTENSION));
-            $p = new Properties(null, $fileParser);
-
-            try {
-                $p->load(new File($filename));
-            } catch (IOException $e) {
-                self::$out->write('Could not load property file ' . $filename . ': ' . $e->getMessage());
-            }
-            foreach ($p->getProperties() as $prop => $value) {
-                self::$definedProps->setProperty($prop, $value);
-            }
-        }
-    }
-
-    /**
-     * Close logfiles, if we have been writing to them.
-     *
-     * @since Phing 2.3.0
-     */
-    private static function handleLogfile(): void
-    {
-        if (self::$isLogFileUsed) {
-            self::$err->close();
-            self::$out->close();
-        }
     }
 
     /**
@@ -937,41 +787,6 @@ class Phing
     }
 
     /**
-     * Sets the stdout and stderr streams if they are not already set.
-     */
-    private static function initializeOutputStreams()
-    {
-        if (null === self::$out) {
-            if (!defined('STDOUT')) {
-                self::$out = new OutputStream(fopen('php://stdout', 'w'));
-            } else {
-                self::$out = new OutputStream(STDOUT);
-            }
-        }
-        if (null === self::$err) {
-            if (!defined('STDERR')) {
-                self::$err = new OutputStream(fopen('php://stderr', 'w'));
-            } else {
-                self::$err = new OutputStream(STDERR);
-            }
-        }
-    }
-
-    /**
-     * This operation is expected to call `exit($int)`, which
-     * is what the base version does.
-     * However, it is possible to do something else.
-     *
-     * @param int $exitCode code to exit with
-     */
-    protected static function statusExit($exitCode): void
-    {
-        Phing::shutdown();
-
-        exit($exitCode);
-    }
-
-    /**
      * Performs any shutdown routines, such as stopping timers.
      *
      * @throws IOException
@@ -982,28 +797,6 @@ class Phing
         self::$msgOutputLevel = Project::MSG_INFO;
         self::restoreIni();
         self::getTimer()->stop();
-    }
-
-    /**
-     * Restores [most] PHP INI values to their pre-Phing state.
-     *
-     * Currently the following settings are not restored:
-     *  - max_execution_time (because getting current time limit is not possible)
-     *  - memory_limit (which may have been increased by Phing)
-     */
-    private static function restoreIni(): void
-    {
-        foreach (self::$origIniSettings as $settingName => $settingValue) {
-            switch ($settingName) {
-                case 'error_reporting':
-                    error_reporting($settingValue);
-
-                    break;
-
-                default:
-                    ini_set($settingName, $settingValue);
-            }
-        }
     }
 
     /**
@@ -1022,7 +815,7 @@ class Phing
      * This sets a property that was set via command line or otherwise passed into Phing.
      *
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return mixed value of found property (or null, if none found)
      */
@@ -1122,77 +915,12 @@ class Phing
     }
 
     /**
-     * Bind any registered build listeners to this project.
-     *
-     * This means adding the logger and any build listeners that were specified
-     * with -listener arg.
-     *
-     * @throws BuildException
-     * @throws ConfigurationException
-     */
-    private function addBuildListeners(Project $project)
-    {
-        // Add the default listener
-        $project->addBuildListener($this->createLogger());
-
-        foreach ($this->listeners as $listenerClassname) {
-            try {
-                $clz = Phing::import($listenerClassname);
-            } catch (Exception $e) {
-                $msg = 'Unable to instantiate specified listener '
-                    . 'class ' . $listenerClassname . ' : '
-                    . $e->getMessage();
-
-                throw new ConfigurationException($msg);
-            }
-
-            $listener = new $clz();
-
-            if ($listener instanceof StreamRequiredBuildLogger) {
-                throw new ConfigurationException('Unable to add ' . $listenerClassname . ' as a listener, since it requires explicit error/output streams. (You can specify it as a -logger.)');
-            }
-            $project->addBuildListener($listener);
-        }
-    }
-
-    /**
-     * Creates the default build logger for sending build events to the log.
-     *
-     * @return BuildLogger The created Logger
-     * @throws BuildException
-     *
-     */
-    private function createLogger()
-    {
-        if ($this->silent) {
-            $logger = new SilentLogger();
-            self::$msgOutputLevel = Project::MSG_WARN;
-        } elseif (null !== $this->loggerClassname) {
-            self::import($this->loggerClassname);
-            // get class name part
-            $classname = self::import($this->loggerClassname);
-            $logger = new $classname();
-            if (!($logger instanceof BuildLogger)) {
-                throw new BuildException($classname . ' does not implement the BuildLogger interface.');
-            }
-        } else {
-            $logger = new DefaultLogger();
-        }
-        $logger->setMessageOutputLevel(self::$msgOutputLevel);
-        $logger->setOutputStream(self::$out);
-        $logger->setErrorStream(self::$err);
-        $logger->setEmacsMode($this->emacsMode);
-
-        return $logger;
-    }
-
-    /**
      * Import a class, supporting the following conventions:
      * - PEAR style (@see http://pear.php.net/manual/en/standards.naming.php)
      * - PSR-0 (@see https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md).
      *
      * @param string $classname Name of class
-     * @param mixed $classpath String or object supporting __toString()
+     * @param mixed  $classpath String or object supporting __toString()
      *
      * @throws BuildException - if cannot find the specified file
      *
@@ -1218,8 +946,8 @@ class Phing
      * This used to be named __import, however PHP has reserved all method names
      * with a double underscore prefix for future use.
      *
-     * @param string $path Path to the PHP file
-     * @param mixed $classpath String or object supporting __toString()
+     * @param string $path      Path to the PHP file
+     * @param mixed  $classpath String or object supporting __toString()
      *
      * @throws ConfigurationException
      */
@@ -1267,58 +995,6 @@ class Phing
     }
 
     /**
-     * Creates the InputHandler and adds it to the project.
-     *
-     * @param Project $project the project instance
-     *
-     * @throws ConfigurationException
-     */
-    private function addInputHandler(Project $project): void
-    {
-        if (null === $this->inputHandlerClassname) {
-            $handler = new ConsoleInputHandler(STDIN, new ConsoleOutput());
-        } else {
-            try {
-                $clz = Phing::import($this->inputHandlerClassname);
-                $handler = new $clz();
-                if (null !== $project && method_exists($handler, 'setProject')) {
-                    $handler->setProject($project);
-                }
-            } catch (Exception $e) {
-                $msg = 'Unable to instantiate specified input handler '
-                    . 'class ' . $this->inputHandlerClassname . ' : '
-                    . $e->getMessage();
-
-                throw new ConfigurationException($msg);
-            }
-        }
-        $project->setInputHandler($handler);
-    }
-
-    /**
-     * @param string $version
-     *
-     * @throws BuildException
-     * @throws ConfigurationException
-     */
-    private function comparePhingVersion($version): void
-    {
-        $current = strtolower(self::getPhingVersion());
-        $current = trim(str_replace('phing', '', $current));
-
-        // make sure that version checks are not applied to trunk
-        if ('dev' === $current) {
-            return;
-        }
-
-        if (-1 == version_compare($current, $version)) {
-            throw new BuildException(
-                sprintf('Incompatible Phing version (%s). Version "%s" required.', $current, $version)
-            );
-        }
-    }
-
-    /**
      * Print the project description, if any.
      *
      * @throws IOException
@@ -1356,49 +1032,6 @@ class Phing
             $targetList = $this->generateTargetList($title, $targets, $padding);
             $project->log($targetList, Project::MSG_WARN);
         }
-    }
-
-    /**
-     * Returns a formatted list of target names with an optional description.
-     *
-     * @param string $title Title for this list
-     * @param Target[] $targets Targets in this list
-     * @param int $padding Padding for name column
-     */
-    private function generateTargetList(string $title, array $targets, int $padding): string
-    {
-        usort($targets, function (Target $a, Target $b) {
-            return $a->getName() <=> $b->getName();
-        });
-
-        $header = <<<HEADER
-            {$title}
-            -------------------------------------------------------------------------------
-
-            HEADER;
-
-        $getDetails = function (Target $target) use ($padding): string {
-            $details = [];
-            if (!empty($target->getDescription())) {
-                $details[] = $target->getDescription();
-            }
-            if (!empty($target->getDependencies())) {
-                $details[] = ' - depends on: ' . implode(', ', $target->getDependencies());
-            }
-            if (!empty($target->getIf())) {
-                $details[] = ' - if property: ' . $target->getIf();
-            }
-            if (!empty($target->getUnless())) {
-                $details[] = ' - unless property: ' . $target->getUnless();
-            }
-            $detailsToString = function (?string $name, ?string $detail) use ($padding): string {
-                return sprintf(" %-{$padding}s  %s", $name, $detail);
-            };
-
-            return implode(PHP_EOL, array_map($detailsToString, [$target->getName()], $details));
-        };
-
-        return $header . implode(PHP_EOL, array_map($getDetails, $targets)) . PHP_EOL;
     }
 
     /**
@@ -1463,7 +1096,7 @@ class Phing
      * If there is no currently-configured Project, then this will do nothing.
      *
      * @param string $message
-     * @param int $priority project::MSG_INFO, etc
+     * @param int    $priority project::MSG_INFO, etc
      */
     public static function log($message, $priority = Project::MSG_INFO): void
     {
@@ -1574,6 +1207,385 @@ class Phing
     }
 
     /**
+     * @param $propName
+     * @param $propValue
+     *
+     * @return string
+     */
+    public static function setProperty($propName, $propValue)
+    {
+        $propName = (string) $propName;
+        $oldValue = self::getProperty($propName);
+        self::$properties[$propName] = $propValue;
+
+        return $oldValue;
+    }
+
+    /**
+     * Returns buildfile's path.
+     *
+     * @param $path
+     *
+     * @throws ConfigurationException
+     *
+     * @return string
+     */
+    protected static function initPath($path)
+    {
+        // Fallback
+        if (empty($path)) {
+            $defaultDir = self::getProperty('application.startdir');
+            $path = $defaultDir . DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
+        }
+
+        // Adding filename if necessary
+        if (is_dir($path)) {
+            $path .= DIRECTORY_SEPARATOR . self::DEFAULT_BUILD_FILENAME;
+        }
+
+        // Check if path is available
+        $dirname = dirname($path);
+        if (is_dir($dirname) && !is_file($path)) {
+            return $path;
+        }
+
+        // Path is valid, but buildfile already exists
+        if (is_file($path)) {
+            throw new ConfigurationException('Buildfile already exists.');
+        }
+
+        throw new ConfigurationException('Invalid path for sample buildfile.');
+    }
+
+    /**
+     * Writes sample buildfile.
+     *
+     * If $buildfilePath does not exist, the buildfile is created.
+     *
+     * @param $buildfilePath buildfile's location
+     *
+     * @throws ConfigurationException
+     */
+    protected static function initWrite($buildfilePath): void
+    {
+        // Overwriting protection
+        if (file_exists($buildfilePath)) {
+            throw new ConfigurationException('Cannot overwrite existing file.');
+        }
+
+        file_put_contents($buildfilePath, self::DEFAULT_BUILD_CONTENT);
+    }
+
+    /**
+     * This operation is expected to call `exit($int)`, which
+     * is what the base version does.
+     * However, it is possible to do something else.
+     *
+     * @param int $exitCode code to exit with
+     */
+    protected static function statusExit($exitCode): void
+    {
+        Phing::shutdown();
+
+        exit($exitCode);
+    }
+
+    /**
+     * Handle the -propertyfile argument.
+     *
+     * @throws ConfigurationException
+     * @throws IOException
+     */
+    private function handleArgPropertyFile(array $args, int $pos): int
+    {
+        if (!isset($args[$pos + 1])) {
+            throw new ConfigurationException('You must specify a filename when using the -propertyfile argument');
+        }
+
+        $this->propertyFiles[] = $args[++$pos];
+
+        return $pos;
+    }
+
+    /**
+     * Search parent directories for the build file.
+     *
+     * Takes the given target as a suffix to append to each
+     * parent directory in search of a build file.  Once the
+     * root of the file-system has been reached an exception
+     * is thrown.
+     *
+     * @param string $start  start file path
+     * @param string $suffix suffix filename to look for in parents
+     *
+     * @throws ConfigurationException
+     *
+     * @return File A handle to the build file
+     */
+    private function findBuildFile($start, $suffix)
+    {
+        if (self::getMsgOutputLevel() >= Project::MSG_INFO) {
+            self::$out->write('Searching for ' . $suffix . ' ...' . PHP_EOL);
+        }
+
+        $parent = new File((new File($start))->getAbsolutePath());
+        $file = new File($parent, $suffix);
+
+        // check if the target file exists in the current directory
+        while (!$file->exists()) {
+            // change to parent directory
+            $parent = $parent->getParentFile();
+
+            // if parent is null, then we are at the root of the fs,
+            // complain that we can't find the build file.
+            if (null === $parent) {
+                throw new ConfigurationException('Could not locate a build file!');
+            }
+            // refresh our file handle
+            $file = new File($parent, $suffix);
+        }
+
+        return $file;
+    }
+
+    /**
+     * @throws IOException
+     */
+    private function loadPropertyFiles(): void
+    {
+        foreach ($this->propertyFiles as $filename) {
+            $fileParserFactory = new FileParserFactory();
+            $fileParser = $fileParserFactory->createParser(pathinfo($filename, PATHINFO_EXTENSION));
+            $p = new Properties(null, $fileParser);
+
+            try {
+                $p->load(new File($filename));
+            } catch (IOException $e) {
+                self::$out->write('Could not load property file ' . $filename . ': ' . $e->getMessage());
+            }
+            foreach ($p->getProperties() as $prop => $value) {
+                self::$definedProps->setProperty($prop, $value);
+            }
+        }
+    }
+
+    /**
+     * Close logfiles, if we have been writing to them.
+     *
+     * @since Phing 2.3.0
+     */
+    private static function handleLogfile(): void
+    {
+        if (self::$isLogFileUsed) {
+            self::$err->close();
+            self::$out->close();
+        }
+    }
+
+    /**
+     * Sets the stdout and stderr streams if they are not already set.
+     */
+    private static function initializeOutputStreams()
+    {
+        if (null === self::$out) {
+            if (!defined('STDOUT')) {
+                self::$out = new OutputStream(fopen('php://stdout', 'w'));
+            } else {
+                self::$out = new OutputStream(STDOUT);
+            }
+        }
+        if (null === self::$err) {
+            if (!defined('STDERR')) {
+                self::$err = new OutputStream(fopen('php://stderr', 'w'));
+            } else {
+                self::$err = new OutputStream(STDERR);
+            }
+        }
+    }
+
+    /**
+     * Restores [most] PHP INI values to their pre-Phing state.
+     *
+     * Currently the following settings are not restored:
+     *  - max_execution_time (because getting current time limit is not possible)
+     *  - memory_limit (which may have been increased by Phing)
+     */
+    private static function restoreIni(): void
+    {
+        foreach (self::$origIniSettings as $settingName => $settingValue) {
+            switch ($settingName) {
+                case 'error_reporting':
+                    error_reporting($settingValue);
+
+                    break;
+
+                default:
+                    ini_set($settingName, $settingValue);
+            }
+        }
+    }
+
+    /**
+     * Bind any registered build listeners to this project.
+     *
+     * This means adding the logger and any build listeners that were specified
+     * with -listener arg.
+     *
+     * @throws BuildException
+     * @throws ConfigurationException
+     */
+    private function addBuildListeners(Project $project)
+    {
+        // Add the default listener
+        $project->addBuildListener($this->createLogger());
+
+        foreach ($this->listeners as $listenerClassname) {
+            try {
+                $clz = Phing::import($listenerClassname);
+            } catch (Exception $e) {
+                $msg = 'Unable to instantiate specified listener '
+                    . 'class ' . $listenerClassname . ' : '
+                    . $e->getMessage();
+
+                throw new ConfigurationException($msg);
+            }
+
+            $listener = new $clz();
+
+            if ($listener instanceof StreamRequiredBuildLogger) {
+                throw new ConfigurationException('Unable to add ' . $listenerClassname . ' as a listener, since it requires explicit error/output streams. (You can specify it as a -logger.)');
+            }
+            $project->addBuildListener($listener);
+        }
+    }
+
+    /**
+     * Creates the default build logger for sending build events to the log.
+     *
+     * @throws BuildException
+     *
+     * @return BuildLogger The created Logger
+     */
+    private function createLogger()
+    {
+        if ($this->silent) {
+            $logger = new SilentLogger();
+            self::$msgOutputLevel = Project::MSG_WARN;
+        } elseif (null !== $this->loggerClassname) {
+            self::import($this->loggerClassname);
+            // get class name part
+            $classname = self::import($this->loggerClassname);
+            $logger = new $classname();
+            if (!($logger instanceof BuildLogger)) {
+                throw new BuildException($classname . ' does not implement the BuildLogger interface.');
+            }
+        } else {
+            $logger = new DefaultLogger();
+        }
+        $logger->setMessageOutputLevel(self::$msgOutputLevel);
+        $logger->setOutputStream(self::$out);
+        $logger->setErrorStream(self::$err);
+        $logger->setEmacsMode($this->emacsMode);
+
+        return $logger;
+    }
+
+    /**
+     * Creates the InputHandler and adds it to the project.
+     *
+     * @param Project $project the project instance
+     *
+     * @throws ConfigurationException
+     */
+    private function addInputHandler(Project $project): void
+    {
+        if (null === $this->inputHandlerClassname) {
+            $handler = new ConsoleInputHandler(STDIN, new ConsoleOutput());
+        } else {
+            try {
+                $clz = Phing::import($this->inputHandlerClassname);
+                $handler = new $clz();
+                if (null !== $project && method_exists($handler, 'setProject')) {
+                    $handler->setProject($project);
+                }
+            } catch (Exception $e) {
+                $msg = 'Unable to instantiate specified input handler '
+                    . 'class ' . $this->inputHandlerClassname . ' : '
+                    . $e->getMessage();
+
+                throw new ConfigurationException($msg);
+            }
+        }
+        $project->setInputHandler($handler);
+    }
+
+    /**
+     * @param string $version
+     *
+     * @throws BuildException
+     * @throws ConfigurationException
+     */
+    private function comparePhingVersion($version): void
+    {
+        $current = strtolower(self::getPhingVersion());
+        $current = trim(str_replace('phing', '', $current));
+
+        // make sure that version checks are not applied to trunk
+        if ('dev' === $current) {
+            return;
+        }
+
+        if (-1 == version_compare($current, $version)) {
+            throw new BuildException(
+                sprintf('Incompatible Phing version (%s). Version "%s" required.', $current, $version)
+            );
+        }
+    }
+
+    /**
+     * Returns a formatted list of target names with an optional description.
+     *
+     * @param string   $title   Title for this list
+     * @param Target[] $targets Targets in this list
+     * @param int      $padding Padding for name column
+     */
+    private function generateTargetList(string $title, array $targets, int $padding): string
+    {
+        usort($targets, function (Target $a, Target $b) {
+            return $a->getName() <=> $b->getName();
+        });
+
+        $header = <<<HEADER
+            {$title}
+            -------------------------------------------------------------------------------
+
+            HEADER;
+
+        $getDetails = function (Target $target) use ($padding): string {
+            $details = [];
+            if (!empty($target->getDescription())) {
+                $details[] = $target->getDescription();
+            }
+            if (!empty($target->getDependencies())) {
+                $details[] = ' - depends on: ' . implode(', ', $target->getDependencies());
+            }
+            if (!empty($target->getIf())) {
+                $details[] = ' - if property: ' . $target->getIf();
+            }
+            if (!empty($target->getUnless())) {
+                $details[] = ' - unless property: ' . $target->getUnless();
+            }
+            $detailsToString = function (?string $name, ?string $detail) use ($padding): string {
+                return sprintf(" %-{$padding}s  %s", $name, $detail);
+            };
+
+            return implode(PHP_EOL, array_map($detailsToString, [$target->getName()], $details));
+        };
+
+        return $header . implode(PHP_EOL, array_map($getDetails, $targets)) . PHP_EOL;
+    }
+
+    /**
      * Set System constants which can be retrieved by calling Phing::getProperty($propName).
      */
     private static function setSystemConstants(): void
@@ -1641,21 +1653,6 @@ class Phing
         self::setProperty('host.os.release', $sysInfo['release'] ?? 'unknown');
         self::setProperty('host.os.version', $sysInfo['version'] ?? 'unknown');
         unset($sysInfo);
-    }
-
-    /**
-     * @param $propName
-     * @param $propValue
-     *
-     * @return string
-     */
-    public static function setProperty($propName, $propValue)
-    {
-        $propName = (string) $propName;
-        $oldValue = self::getProperty($propName);
-        self::$properties[$propName] = $propValue;
-
-        return $oldValue;
     }
 
     /**

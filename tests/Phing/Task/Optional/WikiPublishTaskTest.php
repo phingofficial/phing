@@ -29,6 +29,9 @@ use PHPUnit\Framework\MockObject\MockObject;
  * WikiPublish task test.
  *
  * @author  Piotr Lewandowski <piotr@cassis.pl>
+ *
+ * @internal
+ * @coversNothing
  */
 class WikiPublishTaskTest extends BuildFileTest
 {

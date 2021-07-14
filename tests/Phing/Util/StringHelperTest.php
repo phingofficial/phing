@@ -8,6 +8,7 @@ use stdClass;
 
 /**
  * @internal
+ * @coversNothing
  */
 class StringHelperTest extends TestCase
 {
@@ -16,6 +17,7 @@ class StringHelperTest extends TestCase
      * @covers       \Phing\Util\StringHelper::booleanValue
      *
      * @param mixed $candidate
+     * @param mixed $expected
      */
     public function testBooleanValue($candidate, $expected)
     {
@@ -76,6 +78,7 @@ class StringHelperTest extends TestCase
     /**
      * @dataProvider isBooleanProvider
      * @covers       \Phing\Util\StringHelper::isBoolean
+     *
      * @param string $candidate
      * @param bool   $expected
      */
@@ -139,6 +142,10 @@ class StringHelperTest extends TestCase
     /**
      * @dataProvider startsWithProvider
      * @covers       \Phing\Util\StringHelper::startsWith
+     *
+     * @param mixed $needle
+     * @param mixed $haystack
+     * @param mixed $expected
      */
     public function testStartsWith($needle, $haystack, $expected)
     {
@@ -169,13 +176,16 @@ class StringHelperTest extends TestCase
     /**
      * @dataProvider endsWithProvider
      * @covers       \Phing\Util\StringHelper::endsWith
+     *
+     * @param mixed $needle
+     * @param mixed $haystack
+     * @param mixed $expected
      */
     public function testEndsWith($needle = 'o', $haystack = 'foo', $expected = true)
     {
         $result = StringHelper::endsWith($needle, $haystack);
         $this->assertSame($expected, $result);
     }
-
 
     public function endsWithProvider()
     {
@@ -209,6 +219,11 @@ class StringHelperTest extends TestCase
     /**
      * @covers       \Phing\Util\StringHelper::substring
      * @dataProvider substringProvider
+     *
+     * @param mixed $string
+     * @param mixed $start
+     * @param mixed $end
+     * @param mixed $expected
      */
     public function testSubstring($string, $start, $end, $expected)
     {
@@ -235,6 +250,11 @@ class StringHelperTest extends TestCase
     /**
      * @covers       \Phing\Util\StringHelper::substring
      * @dataProvider substringErrorProvider
+     *
+     * @param mixed $string
+     * @param mixed $start
+     * @param mixed $end
+     * @param mixed $message
      */
     public function testSubstringError($string, $start, $end, $message)
     {
@@ -257,6 +277,9 @@ class StringHelperTest extends TestCase
     /**
      * @covers       \Phing\Util\StringHelper::isSlotVar
      * @dataProvider isSlotVarProvider
+     *
+     * @param mixed $value
+     * @param mixed $expected
      */
     public function testIsSlotVar($value, $expected)
     {
@@ -290,6 +313,9 @@ class StringHelperTest extends TestCase
     /**
      * @covers \Phing\Util\StringHelper::slotVar
      * @dataProvider slotVarProvider
+     *
+     * @param mixed $var
+     * @param mixed $expected
      */
     public function testSlotVar($var, $expected)
     {

@@ -24,6 +24,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Tests the Mkdir Task.
+ *
+ * @internal
+ * @coversNothing
  */
 class MkdirTaskTest extends BuildFileTest
 {
@@ -157,10 +160,6 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileAclContains(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', 'default:user:root:rwx');
     }
 
-    /**
-     * @param string $filename
-     * @param int $mode
-     */
     private function assertFileModeIs(string $filename, int $mode): void
     {
         $stat = stat($filename);
@@ -172,10 +171,6 @@ class MkdirTaskTest extends BuildFileTest
         );
     }
 
-    /**
-     * @param string $filename
-     * @param string $expectedAclEntry
-     */
     private function assertFileAclContains(string $filename, string $expectedAclEntry): void
     {
         $output = shell_exec('getfacl --omit-header --absolute-names ' . escapeshellarg($filename));

@@ -32,6 +32,9 @@ use Throwable;
  * Testcase for the Phing task/condition.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class PhingTaskTest extends BuildFileTest
 {
@@ -209,7 +212,7 @@ class PhingTaskTest extends BuildFileTest
 
     protected function reference(string $target, array $keys, array $expect, $value): void
     {
-        $rc = new class ($keys, $expect, $value) implements BuildListener {
+        $rc = new class($keys, $expect, $value) implements BuildListener {
             private $keys;
             private $expectSame;
             private $value;
@@ -307,7 +310,7 @@ class PhingTaskTest extends BuildFileTest
 
     private function baseDirs(string $target, array $dirs): void
     {
-        $bc = new class ($dirs) implements BuildListener {
+        $bc = new class($dirs) implements BuildListener {
             private $expectedBasedirs;
             private $calls = 0;
             private $error;

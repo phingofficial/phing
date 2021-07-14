@@ -28,6 +28,9 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
+ *
+ * @internal
+ * @coversNothing
  */
 class IniFileParserTest extends TestCase
 {
@@ -42,11 +45,12 @@ class IniFileParserTest extends TestCase
 
     /**
      * @dataProvider provideIniFiles
-     * @covers       IniFileParser::inVal
-     * @covers       IniFileParser::parseFile
+     * @covers       \IniFileParser::inVal
+     * @covers       \IniFileParser::parseFile
      *
      * @param mixed $data
      * @param mixed $expected
+     *
      * @throws IOException
      * @throws IOException
      */
@@ -60,7 +64,7 @@ class IniFileParserTest extends TestCase
     }
 
     /**
-     * @covers IniFileParser::parseFile
+     * @covers \IniFileParser::parseFile
      */
     public function testParseFileCouldntOpenFile(): void
     {
@@ -71,9 +75,6 @@ class IniFileParserTest extends TestCase
         $this->parser->parseFile($phingFile);
     }
 
-    /**
-     * @return array
-     */
     public function provideIniFiles(): array
     {
         return [

@@ -25,6 +25,9 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/360
  * - &amp;amp; transfers into & in new created task.
+ *
+ * @internal
+ * @coversNothing
  */
 class HtmlEntitiesTest extends BuildFileTest
 {

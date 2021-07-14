@@ -27,6 +27,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Alexey Borzov <avb@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class PDODelimitersTest extends BuildFileTest
 {
@@ -44,13 +47,15 @@ class PDODelimitersTest extends BuildFileTest
 
         $this->mockTask = $this->getMockBuilder(PDOSQLExecTask::class)
             ->onlyMethods(['getConnection', 'execSQL'])
-            ->getMock();
+            ->getMock()
+        ;
         $this->mockTask->setProject($this->project);
         // prevents calling beginTransaction() on obviously missing PDO instance
         $this->mockTask->setAutocommit(true);
         $this->mockTask->expects($this->atLeastOnce())
             ->method('execSQL')
-            ->willReturnCallback([$this, 'storeQuery']);
+            ->willReturnCallback([$this, 'storeQuery'])
+        ;
 
         $targets = $this->project->getTargets();
         $targets['test']->addTask($this->mockTask);

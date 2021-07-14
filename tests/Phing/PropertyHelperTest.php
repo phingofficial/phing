@@ -24,6 +24,10 @@ use Phing\Project;
 use Phing\PropertyHelper;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PropertyHelperTest extends TestCase
 {
     public function testUndefinedPropertyShouldNotBeReplaced(): void

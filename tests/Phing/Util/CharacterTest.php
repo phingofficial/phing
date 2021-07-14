@@ -27,6 +27,9 @@ use PHPUnit\Framework\TestCase;
  * Unit test for Character.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class CharacterTest extends TestCase
 {

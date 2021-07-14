@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
+ *
+ * @internal
+ * @coversNothing
  */
 class PropertyTaskTest extends BuildFileTest
 {

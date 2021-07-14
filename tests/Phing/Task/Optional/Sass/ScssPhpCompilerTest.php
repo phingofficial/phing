@@ -27,6 +27,10 @@ use Phing\Io\FileSystem;
 use Phing\Task\Ext\ScssPhpCompiler;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class ScssPhpCompilerTest extends TestCase
 {
     private const SASS_TEST_BASE = PHING_TEST_BASE . '/etc/tasks/ext/sass/';

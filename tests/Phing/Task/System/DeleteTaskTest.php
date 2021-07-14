@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Delete Task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class DeleteTaskTest extends BuildFileTest
 {
@@ -43,9 +46,6 @@ class DeleteTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    /**
-     *
-     */
     public function testCopyDanglingSymlink(): void
     {
         $this->executeTarget('testDeleteDanglingSymlink');

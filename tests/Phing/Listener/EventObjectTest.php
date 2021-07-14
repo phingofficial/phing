@@ -29,6 +29,9 @@ use stdClass;
  * Unit test for EventObject.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class EventObjectTest extends TestCase
 {

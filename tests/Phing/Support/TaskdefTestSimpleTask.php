@@ -26,9 +26,6 @@ class TaskdefTestSimpleTask extends Task
 {
     private $echo;
 
-    /**
-     * @return TestEcho
-     */
     public function createEcho(): TestEcho
     {
         $this->echo = new TestEcho();

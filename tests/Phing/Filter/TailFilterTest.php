@@ -24,6 +24,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class TailFilterTest extends BuildFileTest
 {

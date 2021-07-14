@@ -74,8 +74,6 @@ class TaskdefTask extends Task
 
     /**
      * Sets the name that will be used in XML buildfile.
-     *
-     * @param string $name
      */
     public function setName(string $name): void
     {
@@ -84,8 +82,6 @@ class TaskdefTask extends Task
 
     /**
      * Sets the class name to use.
-     *
-     * @param string $class
      */
     public function setClassname(string $class): void
     {

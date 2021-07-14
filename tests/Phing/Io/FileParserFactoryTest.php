@@ -29,6 +29,9 @@ use PHPUnit\Framework\TestCase;
  * Unit test for FileParserFactory.
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
+ *
+ * @internal
+ * @coversNothing
  */
 class FileParserFactoryTest extends TestCase
 {
@@ -54,7 +57,7 @@ class FileParserFactoryTest extends TestCase
     }
 
     /**
-     * @covers       FileParserFactory::createParser
+     * @covers       \FileParserFactory::createParser
      * @dataProvider parserTypeProvider
      *
      * @param mixed $parserName
@@ -65,9 +68,6 @@ class FileParserFactoryTest extends TestCase
         $this->assertInstanceOf($expectedType, $this->objectToTest->createParser($parserName));
     }
 
-    /**
-     * @return array
-     */
     public function parserTypeProvider(): array
     {
         return [

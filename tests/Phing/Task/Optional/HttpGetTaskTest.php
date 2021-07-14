@@ -26,6 +26,9 @@ use Phing\Exception\BuildException;
 
 /**
  * @author Alexey Borzov <avb@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class HttpGetTaskTest extends BaseHttpTaskTest
 {
@@ -62,7 +65,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
                 new Response(
                     200,
                     [
-                        'Content-Disposition' => 'attachment; filename="disposition.txt"'
+                        'Content-Disposition' => 'attachment; filename="disposition.txt"',
                     ],
                     'This file is named according to Content-Disposition header'
                 ),

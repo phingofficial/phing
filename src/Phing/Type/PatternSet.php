@@ -134,7 +134,7 @@ class PatternSet extends DataType
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param string|null $includes the string containing the include patterns
+     * @param null|string $includes the string containing the include patterns
      *
      * @throws BuildException
      */
@@ -157,7 +157,7 @@ class PatternSet extends DataType
      * Sets the set of exclude patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param string|null $excludes the string containing the exclude patterns
+     * @param null|string $excludes the string containing the exclude patterns
      *
      * @throws BuildException
      */
@@ -209,8 +209,6 @@ class PatternSet extends DataType
     /**
      * Adds the patterns of the other instance to this set.
      *
-     * @param PatternSet $other
-     * @param Project $p
      * @throws IOException
      */
     public function append(PatternSet $other, Project $p): void
@@ -237,9 +235,9 @@ class PatternSet extends DataType
     /**
      * Returns the filtered include patterns.
      *
-     * @param Project $p
-     * @return array
      * @throws IOException
+     *
+     * @return array
      */
     public function getIncludePatterns(Project $p): ?array
     {
@@ -261,9 +259,9 @@ class PatternSet extends DataType
     /**
      * Returns the filtered exclude patterns.
      *
-     * @param Project $p
-     * @return array
      * @throws IOException
+     *
+     * @return array
      */
     public function getExcludePatterns(Project $p): ?array
     {
@@ -297,7 +295,6 @@ class PatternSet extends DataType
      * Performs the check for circular references and returns the
      * referenced PatternSet.
      *
-     * @param Project $p
      * @return Reference
      */
     public function getRef(Project $p)
@@ -325,9 +322,6 @@ class PatternSet extends DataType
      * Reads path matching patterns from a file and adds them to the
      * includes or excludes list.
      *
-     * @param File $patternfile
-     * @param array $patternlist
-     * @param Project $p
      * @throws IOException
      */
     private function readPatterns(File $patternfile, array &$patternlist, Project $p): void
@@ -363,8 +357,6 @@ class PatternSet extends DataType
     /**
      * Convert a array of PatternSetNameEntry elements into an array of Strings.
      *
-     * @param array $list
-     * @param Project $p
      * @return array
      */
     private function makeArray(array $list, Project $p): ?array
@@ -387,7 +379,6 @@ class PatternSet extends DataType
     /**
      * Read includesfile or excludesfile if not already done so.
      *
-     * @param Project $p
      * @throws IOException
      */
     private function readFiles(Project $p): void

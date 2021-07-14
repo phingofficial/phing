@@ -122,7 +122,6 @@ class AppendTask extends Task
 
     /**
      * The more conventional naming for method to set destination file.
-     * @param File $f
      */
     public function setDestFile(File $f): void
     {
@@ -166,7 +165,6 @@ class AppendTask extends Task
 
     /**
      * Sets specific file to append.
-     * @param File $f
      */
     public function setFile(File $f): void
     {
@@ -183,8 +181,6 @@ class AppendTask extends Task
 
     /**
      * Sets text to append.  (cannot be used in conjunction w/ files or filesets).
-     *
-     * @param string $txt
      */
     public function setText(string $txt): void
     {
@@ -193,8 +189,6 @@ class AppendTask extends Task
 
     /**
      * Sets text to append. Supports CDATA.
-     *
-     * @param string $txt
      */
     public function addText(string $txt): void
     {
@@ -447,8 +441,6 @@ class AppendTask extends Task
     }
 
     /**
-     * @param Writer $writer
-     * @param File $f
      * @throws IOException
      */
     private function appendFile(Writer $writer, File $f): void

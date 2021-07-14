@@ -30,6 +30,9 @@ use ReflectionException;
  * Unit test for reStructuredText rendering task.
  *
  * @author     Christian Weiske <cweiske@cweiske.de>
+ *
+ * @internal
+ * @coversNothing
  */
 class RSTTaskTest extends BuildFileTest
 {

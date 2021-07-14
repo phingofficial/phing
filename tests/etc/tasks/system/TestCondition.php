@@ -4,7 +4,7 @@ use Phing\Task\System\Condition\Condition;
 
 class TestCondition implements Condition
 {
-    private $foo = null;
+    private $foo;
 
     public function setFoo($value)
     {
@@ -13,6 +13,6 @@ class TestCondition implements Condition
 
     public function evaluate()
     {
-        return ($this->foo == "bar");
+        return 'bar' == $this->foo;
     }
 }

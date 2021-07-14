@@ -311,7 +311,7 @@ class XmlLogger implements BuildLogger
      * the priority and text of the message.
      *
      * @param BuildEvent $event An event with any relevant extra information.
-     *              Will not be <code>null</code>.
+     *                          Will not be <code>null</code>.
      */
     public function messageLogged(BuildEvent $event)
     {

@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/745
  * - MkdirTask mode param mistake.
+ *
+ * @internal
+ * @coversNothing
  */
 class MkdirTaskModeTest extends BuildFileTest
 {

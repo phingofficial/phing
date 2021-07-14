@@ -30,6 +30,10 @@ use Phing\Project;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class DefaultLoggerTest extends TestCase
 {
     /**
@@ -77,7 +81,7 @@ class DefaultLoggerTest extends TestCase
     public function buildFinished(): void
     {
         $event = new BuildEvent(new Project());
-        $logger = new class () extends DefaultLogger {
+        $logger = new class() extends DefaultLogger {
             public function printMessage($message, ?OutputStream $stream = null, $priority = null)
             {
                 echo $message;

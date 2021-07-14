@@ -79,25 +79,16 @@ class Location
         return $buf;
     }
 
-    /**
-     * @return null|string
-     */
     public function getFileName(): ?string
     {
         return $this->fileName;
     }
 
-    /**
-     * @return null|int
-     */
     public function getLineNumber(): ?int
     {
         return $this->lineNumber;
     }
 
-    /**
-     * @return null|int
-     */
     public function getColumnNumber(): ?int
     {
         return $this->columnNumber;

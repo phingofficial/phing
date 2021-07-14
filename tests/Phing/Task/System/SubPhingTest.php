@@ -29,6 +29,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the SubPhing Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class SubPhingTest extends BuildFileTest
 {
@@ -91,7 +94,7 @@ class SubPhingTest extends BuildFileTest
 
     private function baseDirs(string $target, array $dirs): void
     {
-        $bc = new class ($dirs) implements BuildListener {
+        $bc = new class($dirs) implements BuildListener {
             private $expectedBasedirs;
             private $calls = 0;
             private $error;

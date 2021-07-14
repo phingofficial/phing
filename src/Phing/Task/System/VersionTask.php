@@ -102,7 +102,6 @@ class VersionTask extends Task
 
     /**
      * Set Property for File containing versioninformation.
-     * @param File $file
      */
     public function setFile(File $file): void
     {
@@ -111,17 +110,12 @@ class VersionTask extends Task
 
     /**
      * Set name of property to be set.
-     *
-     * @param string $property
      */
     public function setProperty(string $property): void
     {
         $this->property = $property;
     }
 
-    /**
-     * @param bool $isPropFile
-     */
     public function setPropFile(bool $isPropFile): void
     {
         $this->propFile = $isPropFile;
@@ -204,8 +198,6 @@ class VersionTask extends Task
      * Returns new version number corresponding to Release type.
      *
      * @param string $oldVersion
-     *
-     * @return string
      */
     private function getVersion($oldVersion): string
     {
