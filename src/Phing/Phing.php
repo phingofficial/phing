@@ -20,11 +20,7 @@
 
 namespace Phing;
 
-use function array_filter;
-use function array_map;
-use function array_reduce;
 use Exception;
-use function implode;
 use Phing\Exception\BuildException;
 use Phing\Exception\ConfigurationException;
 use Phing\Exception\ExitStatusException;
@@ -48,14 +44,20 @@ use Phing\Util\Diagnostics;
 use Phing\Util\Properties;
 use Phing\Util\SizeHelper;
 use Phing\Util\StringHelper;
-use const PHP_EOL;
 use SebastianBergmann\Version;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Throwable;
+
+use function array_filter;
+use function array_map;
+use function array_reduce;
+use function implode;
 use function sprintf;
 use function strlen;
 use function strval;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Throwable;
 use function trim;
+
+use const PHP_EOL;
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from

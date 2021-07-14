@@ -11,6 +11,12 @@ return $config->setRules([
         '@PHP80Migration' => true,
         '@PhpCsFixer' => true,
         'concat_space' => ['spacing'=>'one'],
+        'ordered_imports' => [
+            'imports_order' => [
+                'class', 'function', 'const',
+            ],
+            'sort_algorithm' => 'alpha',
+        ]
     ])
     ->setFinder($finder)
 ;

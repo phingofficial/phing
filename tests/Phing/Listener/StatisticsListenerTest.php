@@ -37,7 +37,7 @@ class StatisticsListenerTest extends TestCase
     public function buildFinished(): void
     {
         $event = new BuildEvent(new Project());
-        $logger = new class() extends StatisticsListener {
+        $logger = new class () extends StatisticsListener {
         };
         $msg = '/' . PHP_EOL . '                           Project Statistics' . PHP_EOL . PHP_EOL .
             'name    count    average                 total                   %      ' . PHP_EOL .

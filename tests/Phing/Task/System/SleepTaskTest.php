@@ -94,7 +94,7 @@ class SleepTaskTest extends BuildFileTest
 
     private function timer(): DefaultClock
     {
-        return new class() extends DefaultClock {
+        return new class () extends DefaultClock {
             public function time(): float
             {
                 return $this->etime - $this->stime;

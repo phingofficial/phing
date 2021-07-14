@@ -20,8 +20,6 @@
 
 namespace Phing\Util;
 
-use const FILTER_NULL_ON_FAILURE;
-use const FILTER_VALIDATE_BOOLEAN;
 use function filter_var;
 use function is_bool;
 use function is_string;
@@ -31,6 +29,9 @@ use function strpos;
 use function strrev;
 use function trigger_error;
 use function trim;
+
+use const FILTER_NULL_ON_FAILURE;
+use const FILTER_VALIDATE_BOOLEAN;
 
 /**
  * String helper utility class.

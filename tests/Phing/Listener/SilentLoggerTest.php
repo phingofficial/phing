@@ -51,7 +51,7 @@ class SilentLoggerTest extends TestCase
     {
         $event = new BuildEvent(new Project());
         $event->setException(new Exception('test'));
-        $logger = new class() extends SilentLogger {
+        $logger = new class () extends SilentLogger {
             public function printMessage($message, ?OutputStream $stream = null, $priority = null)
             {
                 echo $message;

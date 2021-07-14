@@ -38,7 +38,7 @@ class TimestampedLoggerTest extends TestCase
     public function buildFinished(): void
     {
         $event = new BuildEvent(new Project());
-        $logger = new class() extends TimestampedLogger {
+        $logger = new class () extends TimestampedLogger {
             public function printMessage($message, ?OutputStream $stream = null, $priority = null)
             {
                 echo $message;

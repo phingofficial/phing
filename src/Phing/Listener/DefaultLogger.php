@@ -20,9 +20,6 @@
 
 namespace Phing\Listener;
 
-use function end;
-use function fmod;
-use function intdiv;
 use Phing\Exception\BuildException;
 use Phing\Io\IOException;
 use Phing\Io\OutputStream;
@@ -32,6 +29,10 @@ use Phing\Util\DefaultClock;
 use Phing\Util\ProjectTimer;
 use Phing\Util\ProjectTimerMap;
 use Phing\Util\StringHelper;
+
+use function end;
+use function fmod;
+use function intdiv;
 use function vsprintf;
 
 /**
