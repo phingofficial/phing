@@ -21,8 +21,10 @@
 namespace Vendor\Package;
 
 /**
- * Just an empty class for import tests
+ * Just an empty class for import tests.
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  */
-class FullSeparatedClass {}
+class FullSeparatedClass
+{
+}

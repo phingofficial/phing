@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Condition Task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class ConditionTaskTest extends BuildFileTest
 {

@@ -20,13 +20,15 @@
 
 namespace Phing\Test\Task\System;
 
-use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
 /**
  * Tests the Switch Task.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class SwitchTaskTest extends BuildFileTest
 {

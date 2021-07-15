@@ -29,6 +29,9 @@ use PHPUnit\Framework\TestCase;
  * Unit test for UnixFileSystem.
  *
  * @author Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class UnixFileSystemTest extends TestCase
 {

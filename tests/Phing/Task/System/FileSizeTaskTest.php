@@ -11,6 +11,9 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Jawira Portugal <dev@tugal.be>
  * @license LGPL
  * @license https://github.com/phingofficial/phing/blob/master/LICENSE
+ *
+ * @internal
+ * @coversNothing
  */
 class FileSizeTaskTest extends BuildFileTest
 {

@@ -25,6 +25,10 @@ use Phing\Exception\ConfigurationException;
 use Phing\Test\Support\BuildFileTest;
 use Phing\Test\Support\TaskdefTestSimpleTask;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class TaskdefTaskTest extends BuildFileTest
 {
     public function setUp(): void

@@ -27,6 +27,9 @@ use PHPUnit\Framework\TestCase;
  * Unit test for DefaultClock.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class DefaultClockTest extends TestCase
 {

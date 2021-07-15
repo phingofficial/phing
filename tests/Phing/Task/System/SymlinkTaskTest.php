@@ -27,6 +27,9 @@ use Phing\Test\Support\BuildFileTest;
  *
  * @author  Michiel Rook <mrook@php.net>
  * @requires OS Linux
+ *
+ * @internal
+ * @coversNothing
  */
 class SymlinkTaskTest extends BuildFileTest
 {

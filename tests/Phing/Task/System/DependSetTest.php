@@ -27,6 +27,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the DependSet Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class DependSetTest extends BuildFileTest
 {

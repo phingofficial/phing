@@ -25,6 +25,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class AutoloaderTaskTest extends BuildFileTest
 {

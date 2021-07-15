@@ -52,7 +52,6 @@ class XmlLintTask extends Task
 
     /**
      * XML Schema Description file to validate against.
-     * @param File $schema
      */
     public function setSchema(File $schema): void
     {
@@ -61,8 +60,6 @@ class XmlLintTask extends Task
 
     /**
      * Use RNG instead of DTD schema validation.
-     *
-     * @param bool $bool
      */
     public function setUseRNG(bool $bool): void
     {
@@ -71,7 +68,6 @@ class XmlLintTask extends Task
 
     /**
      * Sets the haltonfailure attribute.
-     * @param bool $haltonfailure
      */
     public function setHaltonfailure(bool $haltonfailure): void
     {
@@ -190,7 +186,7 @@ class XmlLintTask extends Task
         $errors = libxml_get_errors();
         foreach ($errors as $error) {
             [$severity, $message] = $this->libxmlGetError($error);
-            $this->log($message, $severity === 'error' ? Project::MSG_ERR : Project::MSG_WARN);
+            $this->log($message, 'error' === $severity ? Project::MSG_ERR : Project::MSG_WARN);
         }
         libxml_clear_errors();
     }
@@ -199,25 +195,31 @@ class XmlLintTask extends Task
     {
         $return = '';
         $severity = '';
+
         switch ($error->level) {
             case LIBXML_ERR_WARNING:
-                $return .= "Warning $error->code: ";
+                $return .= "Warning {$error->code}: ";
                 $severity = 'warn';
+
                 break;
+
             case LIBXML_ERR_ERROR:
-                $return .= "Error $error->code: ";
+                $return .= "Error {$error->code}: ";
                 $severity = 'error';
+
                 break;
+
             case LIBXML_ERR_FATAL:
-                $return .= "Fatal Error $error->code: ";
+                $return .= "Fatal Error {$error->code}: ";
                 $severity = 'error';
+
                 break;
         }
         $return .= trim($error->message);
         if ($error->file) {
-            $return .=    " in $error->file";
+            $return .= " in {$error->file}";
         }
-        $return .= " on line $error->line";
+        $return .= " on line {$error->line}";
 
         return [$severity, $return];
     }

@@ -24,6 +24,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Unit tests for PHPUnit task.
+ *
+ * @internal
+ * @coversNothing
  */
 class PHPUnitTaskTest extends BuildFileTest
 {

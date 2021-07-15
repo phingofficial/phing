@@ -27,6 +27,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Truncate Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class TruncateTaskTest extends BuildFileTest
 {

@@ -25,6 +25,10 @@ use Phing\Listener\StatisticsListener;
 use Phing\Project;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class StatisticsListenerTest extends TestCase
 {
     /**

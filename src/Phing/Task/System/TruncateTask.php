@@ -122,10 +122,6 @@ class TruncateTask extends Task
         }
     }
 
-    /**
-     * @param File $f
-     * @return bool
-     */
     private function shouldProcess(File $f): bool
     {
         if ($f->isFile()) {

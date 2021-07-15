@@ -19,6 +19,9 @@
 
 /**
  * @group shouldBeExcluded
+ *
+ * @internal
+ * @coversNothing
  */
 class ExcludedTest extends \PHPUnit\Framework\TestCase
 {

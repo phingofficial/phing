@@ -24,6 +24,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * Unit tests for PHPMD task.
+ *
+ * @internal
+ * @coversNothing
  */
 class PHPMDTaskTest extends BuildFileTest
 {

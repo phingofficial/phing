@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Class DifferentSelectorTest.
  *
  * Test cases for different selectors.
+ *
+ * @internal
+ * @coversNothing
  */
 class ContainsRegexpSelectorTest extends BuildFileTest
 {

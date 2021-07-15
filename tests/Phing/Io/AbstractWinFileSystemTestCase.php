@@ -51,9 +51,6 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
 
     /**
      * @dataProvider normaliseDataProvider
-     *
-     * @param string $expected
-     * @param string $path
      */
     public function testNormalise(string $expected, string $path): void
     {
@@ -79,9 +76,6 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
 
     /**
      * @dataProvider prefixLengthDataPRovider
-     *
-     * @param int $expected
-     * @param string $pathname
      */
     public function testPrefixLength(int $expected, string $pathname): void
     {
@@ -106,10 +100,6 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
 
     /**
      * @dataProvider resolveDataProvider
-     *
-     * @param string $expected
-     * @param string $parent
-     * @param string $child
      */
     public function testResolve(string $expected, string $parent, string $child): void
     {
@@ -132,10 +122,6 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
 
     /**
      * @dataProvider resolveFileDataProvider
-     *
-     * @param string $expected
-     * @param string $path
-     * @param string $prefix
      */
     public function testResolveFile(string $expected, string $path, string $prefix): void
     {
@@ -192,9 +178,6 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
 
     /**
      * @dataProvider fromURIPathDataProvider
-     *
-     * @param string $expected
-     * @param string $path
      */
     public function testFromURIPath(string $expected, string $path): void
     {
@@ -216,10 +199,6 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
 
     /**
      * @dataProvider isAbsoluteDataProvider
-     *
-     * @param bool $expected
-     * @param string $path
-     * @param int $prefix
      */
     public function testIsAbsolute(bool $expected, string $path, int $prefix): void
     {

@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests for PHPLOCTask.
  *
  * @author Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class PHPLOCTaskTest extends BuildFileTest
 {

@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the ElseIf Task.
  *
  * @author  Paul Edenburg <pauledenburg@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class ElseIfTaskTest extends BuildFileTest
 {
@@ -38,7 +41,6 @@ class ElseIfTaskTest extends BuildFileTest
 
     /**
      * Test the 'elseif' conditional of the if-task.
-     *
      */
     public function testAddThen(): void
     {
@@ -52,7 +54,6 @@ class ElseIfTaskTest extends BuildFileTest
     /**
      * Test that evaluating a correct elseif condition gives the
      * expected result.
-     *
      */
     public function testEvaluate(): void
     {
@@ -66,7 +67,6 @@ class ElseIfTaskTest extends BuildFileTest
     /**
      * test that a BuildException is thrown when we've got two
      * conditions inside an elseif-task.
-     *
      */
     public function testMultipleConditions(): void
     {
@@ -81,7 +81,6 @@ class ElseIfTaskTest extends BuildFileTest
     /**
      * test that a BuildException is thrown when we've got
      * no conditions inside an elseif-task.
-     *
      */
     public function testNoConditions(): void
     {

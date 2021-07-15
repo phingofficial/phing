@@ -19,8 +19,10 @@
  */
 
 /**
- * Just an empty class for import tests
+ * Just an empty class for import tests.
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  */
-class Vendor_Package_SeparatedClass {}
+class Vendor_Package_SeparatedClass
+{
+}

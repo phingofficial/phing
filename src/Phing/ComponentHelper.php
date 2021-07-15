@@ -59,17 +59,12 @@ class ComponentHelper
 
     /**
      * ComponentHelper constructor.
-     * @param Project $project
      */
     public function __construct(Project $project)
     {
         $this->project = $project;
     }
 
-    /**
-     * @param Project $project
-     * @return ComponentHelper
-     */
     public static function getComponentHelper(Project $project): ComponentHelper
     {
         /** @var ComponentHelper $componentHelper */
@@ -118,8 +113,6 @@ class ComponentHelper
 
     /**
      * Returns the task definitions.
-     *
-     * @return array
      */
     public function getTaskDefinitions(): array
     {
@@ -153,8 +146,6 @@ class ComponentHelper
 
     /**
      * Returns the data type definitions.
-     *
-     * @return array
      */
     public function getDataTypeDefinitions(): array
     {
@@ -213,10 +204,9 @@ class ComponentHelper
     /**
      * Creates a new condition and returns the reference to it.
      *
-     * @param string $conditionType
+     * @throws BuildException
      *
      * @return Condition
-     * @throws BuildException
      */
     public function createCondition(string $conditionType): ?Condition
     {
@@ -253,8 +243,9 @@ class ComponentHelper
      *
      * @param string $typeName Type name
      *
-     * @return object A datatype object
      * @throws BuildException Exception
+     *
+     * @return object A datatype object
      */
     public function createDataType(string $typeName)
     {
@@ -305,7 +296,7 @@ class ComponentHelper
     /**
      * @param object|string $c
      * @param $brief
-     * @return string
+     *
      * @throws \ReflectionException
      */
     private static function getUnmappedElementName($c, $brief): string

@@ -29,6 +29,9 @@ use PHPUnit\Framework\TestCase;
  * Class SelectorUtilsTest.
  *
  * Test cases for SelectorUtils
+ *
+ * @internal
+ * @coversNothing
  */
 class SelectorUtilsTest extends TestCase
 {

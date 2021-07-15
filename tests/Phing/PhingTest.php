@@ -34,6 +34,9 @@ use PHPUnit\Framework\TestCase;
  * // TODO implement all methods
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
+ *
+ * @internal
+ * @coversNothing
  */
 class PhingTest extends TestCase
 {

@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the PropertyRegexTask Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class VariableTest extends BuildFileTest
 {

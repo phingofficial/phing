@@ -28,6 +28,9 @@ use Phing\Test\Support\TypedefTestType;
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ *
+ * @internal
+ * @coversNothing
  */
 class TypedefTaskTest extends BuildFileTest
 {

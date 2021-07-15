@@ -63,8 +63,6 @@ class AdhocTask extends Task
 
     /**
      * Set the script.
-     *
-     * @param string $script
      */
     public function addText(string $script): void
     {
@@ -73,8 +71,6 @@ class AdhocTask extends Task
 
     /**
      * Get array of names of newly defined classes.
-     *
-     * @return array
      */
     protected function getNewClasses(): array
     {

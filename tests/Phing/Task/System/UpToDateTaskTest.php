@@ -24,6 +24,9 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class UpToDateTaskTest extends BuildFileTest
 {

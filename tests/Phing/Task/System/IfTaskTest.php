@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the If Task.
  *
  * @author  Paul Edenburg <pauledenburg@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class IfTaskTest extends BuildFileTest
 {
@@ -38,7 +41,6 @@ class IfTaskTest extends BuildFileTest
 
     /**
      * Test the 'elseif' conditional of the if-task.
-     *
      */
     public function testAddElseIf(): void
     {
@@ -51,7 +53,6 @@ class IfTaskTest extends BuildFileTest
 
     /**
      * Test the 'then' conditional of the if-task.
-     *
      */
     public function testAddThen(): void
     {
@@ -64,7 +65,6 @@ class IfTaskTest extends BuildFileTest
 
     /**
      * Test the 'else' conditional of the if-task.
-     *
      */
     public function testAddElse(): void
     {
@@ -78,7 +78,6 @@ class IfTaskTest extends BuildFileTest
     /**
      * test that a buildexception is thrown when we've got two
      * <then> statements in an if-task.
-     *
      */
     public function testAddDoubleThen(): void
     {
@@ -92,7 +91,6 @@ class IfTaskTest extends BuildFileTest
     /**
      * test that a BuildException is thrown when we've got two
      * <else> statements in an if-task.
-     *
      */
     public function testAddDoubleElse(): void
     {
@@ -106,7 +104,6 @@ class IfTaskTest extends BuildFileTest
     /**
      * test that a BuildException is thrown when we've got two
      * <else> statements in an if-task.
-     *
      */
     public function testMultipleConditions(): void
     {

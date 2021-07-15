@@ -28,6 +28,9 @@ use PHPUnit\Framework\TestCase;
  * Unit tests for DirSet -- including Selectors.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class DirSetTest extends TestCase
 {

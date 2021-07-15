@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Fail Task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class FailTaskTest extends BuildFileTest
 {

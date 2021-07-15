@@ -35,6 +35,9 @@ use ReflectionProperty;
  * Tests the Apply Task.
  *
  * @author  Utsav Handa <handautsav at hotmail dot com>
+ *
+ * @internal
+ * @coversNothing
  */
 class ApplyTaskTest extends BuildFileTest
 {
@@ -65,81 +68,6 @@ class ApplyTaskTest extends BuildFileTest
     public function testPropertySetOs(): void
     {
         $this->assertAttributeIsSetTo('os', 'linux');
-    }
-
-    /**
-     * @param string $property
-     * @param mixed $value
-     * @param null $propertyName
-     * @throws ReflectionException
-     */
-    protected function assertAttributeIsSetTo(string $property, $value, $propertyName = null): void
-    {
-        $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), ApplyTask::class);
-
-        $propertyName = $propertyName ?? $property;
-        $rprop = new ReflectionProperty(ApplyTask::class, $propertyName);
-        $rprop->setAccessible(true);
-        $this->assertEquals($value, $rprop->getValue($task));
-    }
-
-    /**
-     * @param string $target
-     * @param string $task
-     *
-     * @return Task
-     * @throws Exception
-     */
-    protected function getConfiguredTask(string $target, string $task): Task
-    {
-        $target = $this->getTargetByName($target);
-        $task = $this->getTaskFromTarget($target, $task);
-        $task->maybeConfigure();
-
-        if ($task instanceof UnknownElement) {
-            return $task->getRuntimeConfigurableWrapper()->getProxy();
-        }
-
-        return $task;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Target
-     * @throws Exception
-     */
-    protected function getTargetByName(string $name): Target
-    {
-        foreach ($this->project->getTargets() as $target) {
-            if ($target->getName() == $name) {
-                return $target;
-            }
-        }
-
-        throw new Exception(sprintf('Target "%s" not found', $name));
-    }
-
-    /**
-     * @param $target
-     * @param string $taskName
-     * @param int $pos
-     *
-     * @return Task
-     * @throws Exception
-     */
-    protected function getTaskFromTarget($target, string $taskName, $pos = 0): Task
-    {
-        $rchildren = new ReflectionProperty(get_class($target), 'children');
-        $rchildren->setAccessible(true);
-        $n = -1;
-        foreach ($rchildren->getValue($target) as $child) {
-            if ($child instanceof Task && ++$n == $pos) {
-                return $child;
-            }
-        }
-
-        throw new Exception(sprintf('%s #%d not found in task', $taskName, $pos));
     }
 
     /**
@@ -308,8 +236,6 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the dir changing on an existent directory.
-     *
-     *
      */
     public function testChangeToDir(): void
     {
@@ -319,8 +245,6 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the failonerror/checkreturn value for 'true'.
-     *
-     *
      */
     public function testCheckreturnTrue(): void
     {
@@ -330,8 +254,6 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the failonerror/checkreturn value for 'false'.
-     *
-     *
      */
     public function testCheckreturnFalse(): void
     {
@@ -398,8 +320,6 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the error file functionality.
-     *
-     *
      */
     public function testError(): void
     {
@@ -424,8 +344,6 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the execution with the background process spawning.
-     *
-     *
      */
     public function testSpawn(): void
     {
@@ -468,8 +386,6 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the relative source filenames functionality.
-     *
-     *
      */
     public function testRelativeSourceFilenames(): void
     {
@@ -481,8 +397,6 @@ class ApplyTaskTest extends BuildFileTest
 
     /**
      * Tests the source filename addition functionality.
-     *
-     *
      */
     public function testSourceFilename(): void
     {
@@ -536,5 +450,71 @@ class ApplyTaskTest extends BuildFileTest
             $messages[] = $log['message'];
         }
         $this->assertContains('Applied echo to 4 files and 0 directories.', $messages);
+    }
+
+    /**
+     * @param mixed $value
+     * @param null  $propertyName
+     *
+     * @throws ReflectionException
+     */
+    protected function assertAttributeIsSetTo(string $property, $value, $propertyName = null): void
+    {
+        $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), ApplyTask::class);
+
+        $propertyName = $propertyName ?? $property;
+        $rprop = new ReflectionProperty(ApplyTask::class, $propertyName);
+        $rprop->setAccessible(true);
+        $this->assertEquals($value, $rprop->getValue($task));
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function getConfiguredTask(string $target, string $task): Task
+    {
+        $target = $this->getTargetByName($target);
+        $task = $this->getTaskFromTarget($target, $task);
+        $task->maybeConfigure();
+
+        if ($task instanceof UnknownElement) {
+            return $task->getRuntimeConfigurableWrapper()->getProxy();
+        }
+
+        return $task;
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function getTargetByName(string $name): Target
+    {
+        foreach ($this->project->getTargets() as $target) {
+            if ($target->getName() == $name) {
+                return $target;
+            }
+        }
+
+        throw new Exception(sprintf('Target "%s" not found', $name));
+    }
+
+    /**
+     * @param $target
+     * @param int $pos
+     *
+     * @throws Exception
+     */
+    protected function getTaskFromTarget($target, string $taskName, $pos = 0): Task
+    {
+        $rchildren = new ReflectionProperty(get_class($target), 'children');
+        $rchildren->setAccessible(true);
+        $n = -1;
+        foreach ($rchildren->getValue($target) as $child) {
+            if ($child instanceof Task && ++$n == $pos) {
+                return $child;
+            }
+        }
+
+        throw new Exception(sprintf('%s #%d not found in task', $taskName, $pos));
     }
 }

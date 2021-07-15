@@ -1,4 +1,5 @@
 <?php
 
-class Phing_Autoload_Stub {
+class Phing_Autoload_Stub
+{
 }

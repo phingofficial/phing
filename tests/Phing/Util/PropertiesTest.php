@@ -28,6 +28,9 @@ use PHPUnit\Framework\TestCase;
  * Unit test for Properties class.
  *
  * @author Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class PropertiesTest extends TestCase
 {

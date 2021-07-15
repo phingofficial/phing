@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class Test
 {
     /**
@@ -7,7 +11,6 @@ class Test
      */
     public function testing($a = 0)
     {
-        echo "Hello World";
+        echo 'Hello World';
     }
 }
-
