@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the BindTargets Task.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class BindTargetsTest extends BuildFileTest
 {

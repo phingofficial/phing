@@ -27,6 +27,10 @@ use Phing\Input\YesNoInputRequest;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\NullOutput;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class ConsoleInputHandlerTest extends TestCase
 {
     public function testDefaultValue(): void

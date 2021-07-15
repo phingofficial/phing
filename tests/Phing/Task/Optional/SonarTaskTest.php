@@ -28,6 +28,9 @@ use Phing\Test\Support\BuildFileTest;
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
  *
  * @requires OSFAMILY Windows|Linux
+ *
+ * @internal
+ * @coversNothing
  */
 class SonarTaskTest extends BuildFileTest
 {
@@ -70,8 +73,6 @@ class SonarTaskTest extends BuildFileTest
 
     /**
      * the return code of the exec command is always 0 under windows.
-     *
-     *
      */
     public function testExecutableFileIsNotExecutableThrowsException(): void
     {

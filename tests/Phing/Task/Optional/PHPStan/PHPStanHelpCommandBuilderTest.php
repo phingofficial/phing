@@ -26,6 +26,10 @@ use Phing\Task\Ext\Phpstan\CommandBuilder\PHPStanHelpCommandBuilder;
 use Phing\Task\Ext\Phpstan\PHPStanTask;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PHPStanHelpCommandBuilderTest extends TestCase
 {
     /** @var PHPStanHelpCommandBuilder */

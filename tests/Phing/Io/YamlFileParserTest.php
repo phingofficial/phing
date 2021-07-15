@@ -31,6 +31,9 @@ use PHPUnit\Framework\TestCase;
  * Unit test for YamlFileParser.
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
+ *
+ * @internal
+ * @coversNothing
  */
 class YamlFileParserTest extends TestCase
 {
@@ -71,7 +74,7 @@ class YamlFileParserTest extends TestCase
     }
 
     /**
-     * @covers IniFileParser::parseFile
+     * @covers \IniFileParser::parseFile
      */
     public function testParseFileFileNotReadable(): void
     {
@@ -86,7 +89,7 @@ class YamlFileParserTest extends TestCase
     }
 
     /**
-     * @covers IniFileParser::parseFile
+     * @covers \IniFileParser::parseFile
      */
     public function testParseFileFileIncorrectYaml(): void
     {
@@ -101,7 +104,7 @@ class YamlFileParserTest extends TestCase
      * The YamlFileParser has to provide a flattened array which then is
      * compatible to the actual behaviour of properties.
      *
-     * @covers IniFileParser::parseFile
+     * @covers \IniFileParser::parseFile
      */
     public function testParseFileFile(): void
     {

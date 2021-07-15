@@ -23,11 +23,19 @@ namespace Phing\Test\Parser;
 use Phing\Parser\Location;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class LocationTest extends TestCase
 {
     /**
      * @test
      * @dataProvider locations
+     *
+     * @param mixed $fileName
+     * @param mixed $lineNumber
+     * @param mixed $columnNumber
      */
     public function location($fileName, $lineNumber, $columnNumber): void
     {
@@ -39,7 +47,7 @@ class LocationTest extends TestCase
     {
         return [
             'normal' => ['test.php', 10, 20],
-            'negative' => ['test.php', -10, -20]
+            'negative' => ['test.php', -10, -20],
         ];
     }
 }

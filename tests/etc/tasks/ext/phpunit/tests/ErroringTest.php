@@ -18,20 +18,22 @@
  */
 
 /**
- * Test class to demonstrate
+ * Test class to demonstrate.
  *
  * @author Michiel Rook
+ *
+ * @internal
+ * @coversNothing
  */
 class ErroringTest extends \PHPUnit\Framework\TestCase
 {
     public function testError()
     {
-        throw new Exception("Error");
+        throw new Exception('Error');
     }
-    
+
     public function testFailure()
     {
         $this->fail('Fail');
     }
 }
-

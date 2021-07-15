@@ -22,7 +22,6 @@ namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
-use Phing\Io\FileUtils;
 use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Task;
@@ -55,7 +54,6 @@ class TouchTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
-     * @param File $file
      */
     public function setFile(File $file): void
     {
@@ -69,8 +67,6 @@ class TouchTask extends Task
      * in will be divided by 1000.
      *
      * Optional, default=now
-     *
-     * @param int $millis
      */
     public function setMillis(int $millis): void
     {
@@ -198,6 +194,7 @@ class TouchTask extends Task
 
     /**
      * Does the actual work.
+     *
      * @throws IOException
      * @throws \Exception
      */
@@ -243,7 +240,6 @@ class TouchTask extends Task
 
     /**
      * @param $file
-     * @return array
      */
     private function getMappedFileNames($file): array
     {
@@ -262,7 +258,6 @@ class TouchTask extends Task
     }
 
     /**
-     * @param File $file
      * @throws \Exception
      */
     private function touchFile(File $file): void

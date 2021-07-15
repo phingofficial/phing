@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Copy Task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class CopyTaskTest extends BuildFileTest
 {
@@ -43,9 +46,6 @@ class CopyTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    /**
-     *
-     */
     public function testCopyDanglingSymlink(): void
     {
         $this->executeTarget('testCopyDanglingSymlink');
@@ -56,8 +56,6 @@ class CopyTaskTest extends BuildFileTest
      * Test for {@link http://www.phing.info/trac/ticket/981}
      * FileUtil::copyFile(): preserveLastModified causes
      * empty symlink target file.
-     *
-     *
      */
     public function testCopySymlinkPreserveLastModifiedShouldCopyTarget(): void
     {
@@ -88,8 +86,6 @@ class CopyTaskTest extends BuildFileTest
     /**
      * Regression test for ticket {@link https://github.com/phingofficial/phing/issues/562}
      * - Error overwriting symlinks on copy or move.
-     *
-     *
      */
     public function testOverwriteExistingSymlink(): void
     {

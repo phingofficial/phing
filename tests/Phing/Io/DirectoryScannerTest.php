@@ -33,6 +33,9 @@ use Phing\Test\Support\BuildFileTest;
  * @see     http://svn.apache.org/viewvc/ant/core/trunk/src/tests/junit/org/apache/tools/ant/DirectoryScannerTest.java
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class DirectoryScannerTest extends BuildFileTest
 {

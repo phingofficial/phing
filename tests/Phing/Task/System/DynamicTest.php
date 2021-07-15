@@ -20,13 +20,15 @@
 
 namespace Phing\Test\Task\System;
 
-use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
 /**
  * Tests dynamics.
  *
  * @author  Siad Ardroumli
+ *
+ * @internal
+ * @coversNothing
  */
 class DynamicTest extends BuildFileTest
 {

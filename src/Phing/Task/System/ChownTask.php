@@ -82,7 +82,6 @@ class ChownTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
-     * @param File $file
      */
     public function setFile(File $file): void
     {
@@ -91,7 +90,6 @@ class ChownTask extends Task
 
     /**
      * Sets the user.
-     * @param string $user
      */
     public function setUser(string $user): void
     {
@@ -100,7 +98,6 @@ class ChownTask extends Task
 
     /**
      * Sets the group.
-     * @param string $group
      */
     public function setGroup(string $group): void
     {

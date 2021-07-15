@@ -38,6 +38,9 @@ use ReflectionProperty;
  * Tests the Exec Task.
  *
  * @author  Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class ExecTaskTest extends BuildFileTest
 {

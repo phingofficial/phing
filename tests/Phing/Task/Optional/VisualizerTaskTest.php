@@ -22,6 +22,10 @@ namespace Phing\Test\Task\Optional;
 
 use Phing\Test\Support\BuildFileTest;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class VisualizerTaskTest extends BuildFileTest
 {
     public function setUp(): void

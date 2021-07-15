@@ -4,7 +4,6 @@
      * The Hello World class!
      *
      * @author Michiel Rook
-     * @package hello.world
      */
     class HelloWorld
     {
@@ -13,13 +12,12 @@
             if ($silent) {
                 return;
             }
+
             return 'foo';
         }
 
-        function sayHello()
+        public function sayHello()
         {
-            return "Hello World!";
+            return 'Hello World!';
         }
     }
-
-

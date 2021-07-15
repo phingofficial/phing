@@ -26,6 +26,10 @@ use Phing\Type\PatternSet;
 use Phing\Type\Reference;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PatternSetTest extends TestCase
 {
     private $patternset;

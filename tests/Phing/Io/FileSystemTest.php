@@ -31,6 +31,9 @@ use ReflectionClass;
 
 /**
  * Unit test for FileSystem.
+ *
+ * @internal
+ * @coversNothing
  */
 class FileSystemTest extends TestCase
 {
@@ -63,6 +66,7 @@ class FileSystemTest extends TestCase
      *
      * @param mixed $expectedFileSystemClass
      * @param mixed $fsTypeKey
+     *
      * @throws IOException
      */
     public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey): void

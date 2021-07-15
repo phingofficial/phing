@@ -32,6 +32,9 @@ use ReflectionProperty;
  * Test class for the ComposerTask.
  *
  * @author  Nuno Costa <nuno@francodacosta.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class ComposerTaskTest extends TestCase
 {
@@ -59,8 +62,8 @@ class ComposerTaskTest extends TestCase
     }
 
     /**
-     * @covers ComposerTask::getCommand
-     * @covers ComposerTask::setCommand
+     * @covers \ComposerTask::getCommand
+     * @covers \ComposerTask::setCommand
      */
     public function testSetGetCommand(): void
     {
@@ -70,8 +73,8 @@ class ComposerTaskTest extends TestCase
     }
 
     /**
-     * @covers ComposerTask::getPhp
-     * @covers ComposerTask::setPhp
+     * @covers \ComposerTask::getPhp
+     * @covers \ComposerTask::setPhp
      */
     public function testSetGetPhp(): void
     {
@@ -81,7 +84,7 @@ class ComposerTaskTest extends TestCase
     }
 
     /**
-     * @covers ComposerTask::setComposer
+     * @covers \ComposerTask::setComposer
      */
     public function testSetComposer(): void
     {
@@ -96,7 +99,7 @@ class ComposerTaskTest extends TestCase
     }
 
     /**
-     * @covers ComposerTask::getComposer
+     * @covers \ComposerTask::getComposer
      */
     public function testGetComposerNotOnPath(): void
     {
@@ -119,7 +122,7 @@ class ComposerTaskTest extends TestCase
     }
 
     /**
-     * @covers ComposerTask::getComposer
+     * @covers \ComposerTask::getComposer
      */
     public function testGetComposerFromPath(): void
     {
@@ -142,7 +145,7 @@ class ComposerTaskTest extends TestCase
     }
 
     /**
-     * @covers ComposerTask::createArg
+     * @covers \ComposerTask::createArg
      */
     public function testCreateArg(): void
     {

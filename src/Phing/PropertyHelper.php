@@ -37,7 +37,7 @@ class PropertyHelper
     private $project;
 
     /**
-     * @var PropertyHelper|null
+     * @var null|PropertyHelper
      */
     private $next;
 
@@ -81,7 +81,7 @@ class PropertyHelper
     /**
      * Get the next property helper in the chain.
      *
-     * @return PropertyHelper|null the next property helper
+     * @return null|PropertyHelper the next property helper
      */
     public function getNext(): ?PropertyHelper
     {
@@ -154,7 +154,7 @@ class PropertyHelper
      * @param string $name name of the sought property
      * @param bool   $user true if this is a user property
      *
-     * @return string|null the property, if returned by a hook, or null if none
+     * @return null|string the property, if returned by a hook, or null if none
      */
     public function getPropertyHook($ns, $name, $user): ?string
     {
@@ -317,8 +317,8 @@ class PropertyHelper
      * no other effect.
      *
      * @param string $ns    the namespace for the property (currently not used)
-     * @param string $name  The name of property to set.
-     * @param string $value The new value of the property.
+     * @param string $name  the name of property to set
+     * @param string $value the new value of the property
      */
     public function setNewProperty($ns, string $name, string $value): void
     {
@@ -345,8 +345,8 @@ class PropertyHelper
      * set/unset property calls. Any previous value is overwritten.
      *
      * @param string $ns    the namespace for the property (currently not used)
-     * @param string $name  The name of property to set.
-     * @param string $value The new value of the property.
+     * @param string $name  the name of property to set
+     * @param string $value the new value of the property
      */
     public function setUserProperty($ns, string $name, string $value): void
     {
@@ -371,8 +371,8 @@ class PropertyHelper
      * command line.
      *
      * @param string $ns    the namespace for the property (currently not used)
-     * @param string $name  The name of property to set.
-     * @param string $value The new value of the property.
+     * @param string $name  the name of property to set
+     * @param string $value the new value of the property
      */
     public function setInheritedProperty($ns, string $name, string $value): void
     {
@@ -402,13 +402,13 @@ class PropertyHelper
      * Returns the value of a property, if it is set.  You can override
      * this method in order to plug your own storage.
      *
-     * @param string $ns the namespace for the property (currently not used)
-     * @param string|null $name The name of the property.
-     *                     May be <code>null</code>, in which case
-     *                     the return value is also <code>null</code>.
+     * @param string      $ns   the namespace for the property (currently not used)
+     * @param null|string $name The name of the property.
+     *                          May be <code>null</code>, in which case
+     *                          the return value is also <code>null</code>.
      *
      * @return mixed the property value, or <code>null</code> for no match
-     *                or if a <code>null</code> name is provided
+     *               or if a <code>null</code> name is provided
      */
     public function getProperty($ns, ?string $name)
     {
@@ -438,13 +438,13 @@ class PropertyHelper
     /**
      * Returns the value of a user property, if it is set.
      *
-     * @param string $ns   the namespace for the property (currently not used)
-     * @param string|null $name The name of the property.
-     *                     May be <code>null</code>, in which case
-     *                     the return value is also <code>null</code>.
+     * @param string      $ns   the namespace for the property (currently not used)
+     * @param null|string $name The name of the property.
+     *                          May be <code>null</code>, in which case
+     *                          the return value is also <code>null</code>.
      *
-     * @return string|null the property value, or <code>null</code> for no match
-     *                or if a <code>null</code> name is provided
+     * @return null|string the property value, or <code>null</code> for no match
+     *                     or if a <code>null</code> name is provided
      */
     public function getUserProperty($ns, ?string $name): ?string
     {
@@ -517,7 +517,7 @@ class PropertyHelper
      * <p>To copy all "user" properties, you will also have to call
      * {@link #copyInheritedProperties copyInheritedProperties}.</p>
      *
-     * @param Project $other the project to copy the properties to.
+     * @param Project $other the project to copy the properties to
      */
     public function copyUserProperties(Project $other): void
     {
@@ -537,9 +537,9 @@ class PropertyHelper
      *
      * It can be overridden with a more efficient or customized version.
      *
-     * @param string $value        Text to parse.
-     * @param array  $fragments    List to add text fragments to.
-     * @param array  $propertyRefs List to add property names to.
+     * @param string $value        text to parse
+     * @param array  $fragments    list to add text fragments to
+     * @param array  $propertyRefs list to add property names to
      *
      * @throws BuildException if the string contains an opening
      *                        <code>${</code> without a closing

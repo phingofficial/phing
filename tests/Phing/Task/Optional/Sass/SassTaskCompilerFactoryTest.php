@@ -28,6 +28,10 @@ use Phing\Task\Ext\SassTask;
 use Phing\Task\Ext\SassTaskCompilerFactory;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class SassTaskCompilerFactoryTest extends TestCase
 {
     public function testItFailsWhenNoCompilerIsSet(): void

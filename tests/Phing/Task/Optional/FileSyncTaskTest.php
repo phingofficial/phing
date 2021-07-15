@@ -26,6 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the FileSync Task.
  *
  * @author  Anton <i.splinter@i.ua>
+ *
+ * @internal
+ * @coversNothing
  */
 class FileSyncTaskTest extends BuildFileTest
 {

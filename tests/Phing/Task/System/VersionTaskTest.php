@@ -27,6 +27,9 @@ use ReflectionObject;
 
 /**
  * @author Michiel Rook <mrook@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class VersionTaskTest extends BuildFileTest
 {
@@ -97,6 +100,7 @@ class VersionTaskTest extends BuildFileTest
      * @param mixed $releaseType
      * @param mixed $version
      * @param mixed $expectedVersion
+     *
      * @throws ReflectionException
      * @throws ReflectionException
      */

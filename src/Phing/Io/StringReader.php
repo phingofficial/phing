@@ -93,8 +93,12 @@ class StringReader extends Reader
     {
     }
 
+    /**
+     * @return bool
+     */
     public function ready()
     {
+        return true;
     }
 
     /**

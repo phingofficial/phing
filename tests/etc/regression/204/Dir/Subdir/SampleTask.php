@@ -4,10 +4,8 @@ use Phing\Task;
 
 class Dir_Subdir_SampleTask extends Task
 {
-    function main()
+    public function main()
     {
-        $this->log("SampleTask executed!");
+        $this->log('SampleTask executed!');
     }
 }
-
-

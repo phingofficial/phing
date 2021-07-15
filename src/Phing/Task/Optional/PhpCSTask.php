@@ -22,6 +22,7 @@ namespace Phing\Task\Optional;
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Project;
 use Phing\Task;
 use Phing\Task\System\Element\LogLevelAware;
 use Phing\Task\System\ExecTask;
@@ -31,7 +32,7 @@ use Phing\Type\Element\FileSetAware;
 /**
  * A PHP code sniffer task. Checking the style of one or more PHP source files.
  *
- * @author  Siad Ardroumli <siad.ardroumli@gmail.com>Ex
+ * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
 class PhpCSTask extends Task
 {
@@ -44,6 +45,8 @@ class PhpCSTask extends Task
      * @var array
      */
     protected $files = [];
+
+    protected $formatters = [];
 
     /**
      * A php source code filename or directory.
@@ -63,6 +66,15 @@ class PhpCSTask extends Task
 
     /** @var bool */
     private $checkreturn = false;
+
+    /** @var string */
+    private $standard = '';
+
+    /** @var string */
+    private $outfile = '';
+
+    /** @var string */
+    private $format = '';
 
     /** @var string */
     private $bin = 'phpcs';
@@ -99,9 +111,42 @@ class PhpCSTask extends Task
         $this->bin = $bin;
     }
 
+    public function setFormat(string $format): void
+    {
+        $this->format = $format;
+        $this->project->log("Format set to {$format}", Project::MSG_VERBOSE);
+    }
+
+    /**
+     * Create object for nested formatter element.
+     *
+     * @return CodeSnifferFormatterElement
+     */
+    public function createFormatter()
+    {
+        $num = array_push(
+            $this->formatters,
+            new PhpCSTaskFormatterElement()
+        );
+
+        return $this->formatters[$num - 1];
+    }
+
+    public function setStandard(string $standard): void
+    {
+        $this->standard = $standard;
+        $this->project->log("Standard set to {$standard}", Project::MSG_VERBOSE);
+    }
+
     public function setFile(File $file): void
     {
         $this->file = $file;
+    }
+
+    public function setOutfile(string $outfile): void
+    {
+        $this->outfile = $outfile;
+        $this->project->log("Outfile set to {$outfile}", Project::MSG_VERBOSE);
     }
 
     public function main()
@@ -127,6 +172,25 @@ class PhpCSTask extends Task
 
         if ($this->ignoreAnnotations) {
             $toExecute->createArgument()->setValue('--ignore-annotations');
+        }
+        if ('' !== $this->format) {
+            $toExecute->createArgument()->setValue(' --report=' . $this->format);
+        }
+        if ('' !== $this->standard) {
+            $toExecute->createArgument()->setValue(' --standard=' . $this->standard);
+        }
+        if ('' !== $this->outfile) {
+            $toExecute->createArgument()->setValue(' --report-file=' . $this->outfile);
+        }
+
+        foreach ($this->formatters as $formatter) {
+            $formatterReportFile = ($formatter->getUseFile() ? $formatter->getOutFile() : null);
+            $formatterType = $formatter->getType();
+            $this->project->log(
+                "Generate report of type \"{$formatterType}\" with report written to {$formatterReportFile}",
+                Project::MSG_VERBOSE
+            );
+            $toExecute->createArgument()->setValue(' --report-' . $formatterType . '=' . $formatterReportFile);
         }
 
         if (null !== $this->file) {

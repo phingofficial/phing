@@ -1,1 +1,3 @@
-<?php echo "This file contains something."
+<?php
+
+echo 'This file contains something.';

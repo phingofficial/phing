@@ -27,6 +27,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests for PhpCSTask.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class PhpCSTaskTest extends BuildFileTest
 {
@@ -54,5 +57,24 @@ class PhpCSTaskTest extends BuildFileTest
     {
         $this->expectNotToPerformAssertions();
         $this->executeTarget(__FUNCTION__);
+    }
+
+    public function testFileSetInPhpCs1OutfileSet(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('Outfile set to /dev/null');
+    }
+
+    public function testFileSetInPhpCs1FormatSet(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('Format set to checkstyle');
+    }
+
+    public function testMultipleReportFormattersSet(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('Generate report of type "checkstyle" with report written to /tmp/null1');
+        $this->assertInLogs('Generate report of type "summary" with report written to /tmp/null2');
     }
 }

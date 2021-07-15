@@ -28,6 +28,9 @@ use Phing\Util\DefaultClock;
  * Tests the SleepTask.
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class SleepTaskTest extends BuildFileTest
 {

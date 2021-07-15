@@ -289,12 +289,12 @@ class Project
     /**
      * Returns the value of a property, if it is set.
      *
-     * @param string|null $name The name of the property.
-     *                     May be <code>null</code>, in which case
-     *                     the return value is also <code>null</code>.
+     * @param null|string $name The name of the property.
+     *                          May be <code>null</code>, in which case
+     *                          the return value is also <code>null</code>.
      *
      * @return mixed the property value, or <code>null</code> for no match
-     *                or if a <code>null</code> name is provided
+     *               or if a <code>null</code> name is provided
      */
     public function getProperty(?string $name)
     {
@@ -861,6 +861,7 @@ class Project
      * @return <code>true</code> if the given string is <code>"on"</code>,
      *                           <code>"true"</code> or <code>"yes"</code>, or
      *                           <code>false</code> otherwise
+     *
      * @deprecated Use \Phing\Util\StringHelper::booleanValue instead
      */
     public static function toBoolean($s)

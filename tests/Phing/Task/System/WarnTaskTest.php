@@ -27,6 +27,9 @@ use Phing\Test\Support\BuildFileTest;
  * Tests the Warn Task.
  *
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ *
+ * @internal
+ * @coversNothing
  */
 class WarnTaskTest extends BuildFileTest
 {

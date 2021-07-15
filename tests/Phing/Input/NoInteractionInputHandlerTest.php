@@ -28,6 +28,10 @@ use Phing\Input\NoInteractionInputHandler;
 use Phing\Input\YesNoInputRequest;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class NoInteractionInputHandlerTest extends TestCase
 {
     public function testDefaultValue(): void

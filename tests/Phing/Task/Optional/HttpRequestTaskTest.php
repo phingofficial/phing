@@ -25,6 +25,9 @@ use Phing\Exception\BuildException;
 
 /**
  * @author Alexey Borzov <avb@php.net>
+ *
+ * @internal
+ * @coversNothing
  */
 class HttpRequestTaskTest extends BaseHttpTaskTest
 {

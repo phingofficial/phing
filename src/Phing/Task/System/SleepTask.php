@@ -73,9 +73,6 @@ class SleepTask extends Task
         $this->failOnError = $var;
     }
 
-    /**
-     * @return bool
-     */
     public function getFailOnError(): bool
     {
         return $this->failOnError;

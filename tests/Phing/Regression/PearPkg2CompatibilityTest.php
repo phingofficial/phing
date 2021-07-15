@@ -29,6 +29,9 @@ use Phing\Test\Support\BuildFileTest;
  *
  * TODO: skip when user doesn't have pear installed (you cannot check for the class name, because
  *       it is included via composer)
+ *
+ * @internal
+ * @coversNothing
  */
 class PearPkg2CompatibilityTest extends BuildFileTest
 {
