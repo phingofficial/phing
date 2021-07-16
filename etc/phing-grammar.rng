@@ -152,6 +152,7 @@
                 <ref name="mail"/>
                 <ref name="manifest"/>
                 <ref name="notifysend"/>
+                <ref name="open"/>
                 <ref name="packageaspath"/>
                 <ref name="parallel"/>
                 <ref name="patch"/>
@@ -7082,6 +7083,15 @@
                 <zeroOrMore>
                     <ref name="header"/>
                 </zeroOrMore>
+            </interleave>
+        </element>
+    </define>
+
+    <!--OpenTask-->
+    <define name="open">
+        <element name="open">
+            <interleave>
+                <attribute name="path"/>
             </interleave>
         </element>
     </define>
