@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="OpenTaskTest" default="testOpenXml">
+
+    <target name="testOpenXml" description="Open this buildfile">
+        <open path="OpenTaskTest.xml"/>
+    </target>
+
+    <target name="testPathNotSet" description="Error because path is required">
+        <open/>
+    </target>
+
+    <target name="testInvalidPath" description="Error because path does not exists">
+        <open path="/foo/bar/baz"/>
+    </target>
+
+    <target name="testInvalidProtocol" description="Error because protocol is invalid">
+        <open path="invalid://foo.bar"/>
+    </target>
+
+</project>

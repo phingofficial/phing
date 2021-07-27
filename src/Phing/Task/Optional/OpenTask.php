@@ -6,6 +6,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\{FileSystem, IOException, UnixFileSystem, WindowsFileSystem};
 use Phing\{Project, Task};
 use Phing\Task\System\ExecTask;
+use Throwable;
 
 /**
  * Opens a file or URL in the user's preferred application.
@@ -58,9 +59,12 @@ class OpenTask extends Task
         if (empty($this->path)) {
             throw new BuildException('Path is required');
         }
-
-        $executable = $this->retrieveExecutable();
-        $this->openPath($executable, $this->path);
+        try {
+            $executable = $this->retrieveExecutable();
+            $this->openPath($executable, $this->path);
+        } catch (Throwable $th) {
+            throw new BuildException("Error while opening $this->path");
+        }
     }
 
     /**
@@ -68,7 +72,7 @@ class OpenTask extends Task
      */
     public function retrieveExecutable(): string
     {
-        $executables = ($this->fileSystem instanceof UnixFileSystem) ? ['xdg-open', 'gnome-open', 'open'] : ['start'];
+        $executables = ($this->fileSystem instanceof UnixFileSystem) ? ['xdg-open', 'wslview', 'open'] : ['start'];
         $which       = null;
 
         foreach ($executables as $executable) {
@@ -95,11 +99,11 @@ class OpenTask extends Task
     protected function openPath(string $executable, string $path): void
     {
         $this->log("Opening $path");
-        $this->execTask->setExecutable($executable);
-        $this->execTask->createArg()->setValue($path);
-        $this->execTask->setSpawn(true);
-        $this->execTask->setLocation($this->getLocation());
         $this->execTask->setProject($this->getProject());
+        $this->execTask->setLocation($this->getLocation());
+        $this->execTask->setExecutable($executable);
+        $this->execTask->setCheckreturn(true);
+        $this->execTask->createArg()->setValue($path);
         $this->execTask->main();
     }
 }
