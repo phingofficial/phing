@@ -43,7 +43,7 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup
      * @param object $task The task we're working with, so we can pass it on to the ErrorTracker
      * @internal param string $configDir Directory in which to look for configuration files.
      */
-    public function __construct($configdir = null, $task)
+    public function __construct($configdir, $task)
     {
         global $_phpDocumentor_cvsphpfile_exts, $_phpDocumentor_setting, $_phpDocumentor_phpfile_exts;
 
