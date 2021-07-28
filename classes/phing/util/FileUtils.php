@@ -98,9 +98,9 @@ class FileUtils
     public function copyFile(
         PhingFile $sourceFile,
         PhingFile $destFile,
-        $overwrite = false,
-        $preserveLastModified = true,
-        &$filterChains = null,
+        $overwrite,
+        $preserveLastModified,
+        &$filterChains,
         Project $project,
         $mode = 0755,
         $preservePermissions = true
