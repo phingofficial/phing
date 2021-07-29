@@ -20,11 +20,12 @@
 
 namespace Phing\Test\Task\Optional;
 
+use Phing\Project;
 use Phing\Test\Support\BuildFileTest;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \Phing\Task\Optional\OpenTask
  * @author Jawira Portugal <dev@tugal.be>
  */
 class OpenTaskTest extends BuildFileTest
@@ -37,23 +38,24 @@ class OpenTaskTest extends BuildFileTest
     public function testOpenXml(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('Opening OpenTaskTest.xml');
+        $this->assertInLogs('Opening OpenTaskTest.xml', Project::MSG_INFO);
     }
 
     public function testPathNotSet(): void
     {
-        $this->expectBuildException(__FUNCTION__, 'Path is required');
+        $this->expectBuildException(__FUNCTION__, 'Error while opening');
+        $this->assertInLogs('"path" is required', Project::MSG_ERR);
     }
 
     public function testInvalidPath(): void
     {
         $this->expectBuildException(__FUNCTION__, 'Error while opening /foo/bar/baz');
-        $this->assertInLogs('Opening /foo/bar/baz');
+        $this->assertInLogs('Opening /foo/bar/baz', Project::MSG_INFO);
     }
 
     public function testInvalidProtocol(): void
     {
         $this->expectBuildException(__FUNCTION__, 'Error while opening invalid://foo.bar');
-        $this->assertInLogs('Opening invalid://foo.bar');
+        $this->assertInLogs('Opening invalid://foo.bar', Project::MSG_INFO);
     }
 }

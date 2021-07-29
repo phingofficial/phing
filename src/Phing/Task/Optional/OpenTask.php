@@ -2,8 +2,9 @@
 
 namespace Phing\Task\Optional;
 
+use Exception;
 use Phing\Exception\BuildException;
-use Phing\Io\{FileSystem, IOException, UnixFileSystem, WindowsFileSystem};
+use Phing\Io\{FileSystem, UnixFileSystem, WindowsFileSystem};
 use Phing\{Project, Task};
 use Phing\Task\System\ExecTask;
 use Throwable;
@@ -16,7 +17,7 @@ use Throwable;
 class OpenTask extends Task
 {
     /**
-     * @var string Can be a file, dir or URL
+     * @var string Can be a file, directory or URL
      */
     protected $path;
 
@@ -32,8 +33,6 @@ class OpenTask extends Task
 
     /**
      * Path to be opened later
-     *
-     * @param string $path
      */
     public function setPath(string $path): void
     {
@@ -42,11 +41,10 @@ class OpenTask extends Task
 
     /**
      * Initialize dependencies
-     *
-     * @throws IOException
      */
     public function init(): void
     {
+        $this->path       = '';
         $this->fileSystem = FileSystem::getFileSystem();
         $this->execTask   = new ExecTask();
     }
@@ -56,21 +54,23 @@ class OpenTask extends Task
      */
     public function main(): void
     {
-        if (empty($this->path)) {
-            throw new BuildException('Path is required');
-        }
         try {
-            $executable = $this->retrieveExecutable();
+            $this->log("Path: $this->path", Project::MSG_VERBOSE);
+            if (empty($this->path)) {
+                throw new Exception('"path" is required');
+            }
+            $executable = $this->retrieveOpenerTool();
             $this->openPath($executable, $this->path);
         } catch (Throwable $th) {
+            $this->log($th->getMessage(), Project::MSG_ERR);
             throw new BuildException("Error while opening $this->path");
         }
     }
 
     /**
-     * Retrieves right executable to call according to current OS
+     * Retrieves right opener tool to call according to current OS
      */
-    public function retrieveExecutable(): string
+    public function retrieveOpenerTool(): string
     {
         $executables = ($this->fileSystem instanceof UnixFileSystem) ? ['xdg-open', 'wslview', 'open'] : ['start'];
         $which       = null;
@@ -78,13 +78,13 @@ class OpenTask extends Task
         foreach ($executables as $executable) {
             $which = $this->fileSystem->which($executable, null);
             if ($which) {
-                $this->log("Executable was found: $which", Project::MSG_VERBOSE);
+                $this->log("Opener tool found: $which", Project::MSG_VERBOSE);
                 break;
             }
         }
 
         if (empty($which)) {
-            new BuildException('Cannot retrieve opening executable');
+            throw new Exception('Cannot retrieve opener tool');
         }
 
         return $which;
@@ -92,9 +92,6 @@ class OpenTask extends Task
 
     /**
      * Run executable with path as argument
-     *
-     * @param string $executable
-     * @param string $path
      */
     protected function openPath(string $executable, string $path): void
     {
