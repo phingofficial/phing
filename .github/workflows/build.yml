@@ -44,8 +44,8 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
           BROWSER: true
         run : |
-          apt update -y
-          apt install -y xdg-utils
+          sudo apt update -y
+          sudo apt install -y xdg-utils
 
   test:
     needs:
