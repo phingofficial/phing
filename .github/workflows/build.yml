@@ -39,6 +39,14 @@ jobs:
       - name: Static analysis (level 1)
         run: vendor/bin/phpstan --ansi --no-progress --no-interaction
 
+      - name: 'OpenTask: install xdg-open'
+        env:
+          DEBIAN_FRONTEND: noninteractive
+          BROWSER: true
+        run : |
+          apt update -y
+          apt install -y xdg-utils
+
   test:
     needs:
       - pre_job
