@@ -87,6 +87,7 @@ jobs:
           git config --global user.name "Phing Github Action"
           echo "=== RUN TESTS ==="
           ../bin/phing -Dtests.codecoverage=false -listener "Phing\\Listener\\StatisticsListener"
+        # Used by OpenTaskTest.php
         env:
           BROWSER: true
 

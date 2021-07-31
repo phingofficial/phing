@@ -52,10 +52,4 @@ class OpenTaskTest extends BuildFileTest
         $this->expectBuildException(__FUNCTION__, 'Error while opening /foo/bar/baz');
         $this->assertInLogs('Opening /foo/bar/baz', Project::MSG_INFO);
     }
-
-    public function testInvalidProtocol(): void
-    {
-        $this->expectBuildException(__FUNCTION__, 'Error while opening invalid://foo.bar');
-        $this->assertInLogs('Opening invalid://foo.bar', Project::MSG_INFO);
-    }
 }

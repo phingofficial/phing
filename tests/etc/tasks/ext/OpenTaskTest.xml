@@ -14,8 +14,4 @@
         <open path="/foo/bar/baz"/>
     </target>
 
-    <target name="testInvalidProtocol" description="Error because protocol is invalid">
-        <open path="invalid://foo.bar"/>
-    </target>
-
 </project>
