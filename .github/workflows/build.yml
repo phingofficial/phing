@@ -42,7 +42,6 @@ jobs:
       - name: 'OpenTask: install xdg-open'
         env:
           DEBIAN_FRONTEND: noninteractive
-          BROWSER: true
         run : |
           sudo apt update -y
           sudo apt install -y xdg-utils
@@ -88,6 +87,8 @@ jobs:
           git config --global user.name "Phing Github Action"
           echo "=== RUN TESTS ==="
           ../bin/phing -Dtests.codecoverage=false -listener "Phing\\Listener\\StatisticsListener"
+        env:
+          BROWSER: true
 
   build_phar:
     runs-on: ubuntu-latest
@@ -164,6 +165,8 @@ jobs:
           git config --global user.name "Phing Github Action"
           echo "=== RUN TESTS ==="
           ../bin/phing -debug -Dtests.codecoverage=true -listener "Phing\\Listener\\StatisticsListener"
+        env:
+          BROWSER: true
 
       - name: Transfer coverage
         if: github.repository_owner == 'phingofficial'
