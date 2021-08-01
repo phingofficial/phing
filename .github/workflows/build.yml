@@ -39,7 +39,7 @@ jobs:
       - name: Static analysis (level 1)
         run: vendor/bin/phpstan --ansi --no-progress --no-interaction
 
-      - name: 'OpenTask: install xdg-open'
+      - name: 'Install xdg-open (required by OpenTaskTest.php)'
         env:
           DEBIAN_FRONTEND: noninteractive
         run : |
@@ -87,9 +87,10 @@ jobs:
           git config --global user.name "Phing Github Action"
           echo "=== RUN TESTS ==="
           ../bin/phing -Dtests.codecoverage=false -listener "Phing\\Listener\\StatisticsListener"
-        # Used by OpenTaskTest.php
         env:
-          BROWSER: true
+          # Required by xdg-open (OpenTaskTest.php)
+          # 'true' command will behave as a fake browser, always returning 0.
+          BROWSER: /usr/bin/true
 
   build_phar:
     runs-on: ubuntu-latest
@@ -167,7 +168,9 @@ jobs:
           echo "=== RUN TESTS ==="
           ../bin/phing -debug -Dtests.codecoverage=true -listener "Phing\\Listener\\StatisticsListener"
         env:
-          BROWSER: true
+          # Required by xdg-open (OpenTaskTest.php)
+          # 'true' command will behave as a fake browser, always returning 0.
+          BROWSER: /usr/bin/true
 
       - name: Transfer coverage
         if: github.repository_owner == 'phingofficial'
