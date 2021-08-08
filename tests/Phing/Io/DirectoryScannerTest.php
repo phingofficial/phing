@@ -35,7 +35,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Michiel Rook <mrook@php.net>
  *
  * @internal
- * @coversNothing
  */
 class DirectoryScannerTest extends BuildFileTest
 {

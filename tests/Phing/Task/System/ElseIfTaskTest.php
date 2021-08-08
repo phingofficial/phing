@@ -28,7 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Paul Edenburg <pauledenburg@gmail.com>
  *
  * @internal
- * @coversNothing
  */
 class ElseIfTaskTest extends BuildFileTest
 {

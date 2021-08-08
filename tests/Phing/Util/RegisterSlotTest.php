@@ -29,7 +29,6 @@ use PHPUnit\Framework\TestCase;
  * @author Michiel Rook <mrook@php.net>
  *
  * @internal
- * @coversNothing
  */
 class RegisterSlotTest extends TestCase
 {

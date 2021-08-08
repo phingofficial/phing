@@ -11,7 +11,6 @@ use Phing\Type\FileSet;
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  *
  * @internal
- * @coversNothing
  */
 class AugmentTest extends BuildFileTest
 {

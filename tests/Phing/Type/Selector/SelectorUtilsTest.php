@@ -31,7 +31,6 @@ use PHPUnit\Framework\TestCase;
  * Test cases for SelectorUtils
  *
  * @internal
- * @coversNothing
  */
 class SelectorUtilsTest extends TestCase
 {

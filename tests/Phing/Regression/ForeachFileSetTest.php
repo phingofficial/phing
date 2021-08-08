@@ -28,7 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * - foreach on a fileset.
  *
  * @internal
- * @coversNothing
  */
 class ForeachFileSetTest extends BuildFileTest
 {

@@ -29,7 +29,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author Alexey Borzov <avb@php.net>
  *
  * @internal
- * @coversNothing
  */
 class PDODelimitersTest extends BuildFileTest
 {

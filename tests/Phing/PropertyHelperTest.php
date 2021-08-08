@@ -26,7 +26,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversNothing
  */
 class PropertyHelperTest extends TestCase
 {

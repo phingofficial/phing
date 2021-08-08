@@ -25,7 +25,6 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  *
  * @internal
- * @coversNothing
  */
 class RuntimeConfigurableTest extends TestCase
 {

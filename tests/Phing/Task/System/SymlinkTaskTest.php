@@ -29,7 +29,6 @@ use Phing\Test\Support\BuildFileTest;
  * @requires OS Linux
  *
  * @internal
- * @coversNothing
  */
 class SymlinkTaskTest extends BuildFileTest
 {

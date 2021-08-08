@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * - Same line comments in property files are included in the property value.
  *
  * @internal
- * @coversNothing
  */
 class PropertyCommentsTest extends BuildFileTest
 {

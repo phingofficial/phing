@@ -29,7 +29,6 @@ use PHPUnit\Framework\TestCase;
  * Test cases for phing/util/regexp/PregEngine
  *
  * @internal
- * @coversNothing
  */
 class PregEngineTest extends TestCase
 {

@@ -26,7 +26,6 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  *
  * @internal
- * @coversNothing
  */
 class EnvironmentTest extends TestCase
 {

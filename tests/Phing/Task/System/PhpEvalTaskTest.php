@@ -10,7 +10,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author Mahmoud Al-Husseiny <mahmoud@alhusseiny.io>
  *
  * @internal
- * @coversNothing
  */
 class PhpEvalTaskTest extends BuildFileTest
 {

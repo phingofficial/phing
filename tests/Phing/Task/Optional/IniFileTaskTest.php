@@ -26,7 +26,6 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @internal
- * @coversNothing
  */
 class IniFileTaskTest extends BuildFileTest
 {

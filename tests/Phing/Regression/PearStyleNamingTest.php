@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * - PHPUnit task fails with formatter type 'xml'.
  *
  * @internal
- * @coversNothing
  */
 class PearStyleNamingTest extends BuildFileTest
 {

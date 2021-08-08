@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * - AdhocTaskdefTask fails when creating a task that extends from an existing task.
  *
  * @internal
- * @coversNothing
  */
 class AdhocTaskdefTaskTest extends BuildFileTest
 {

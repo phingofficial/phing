@@ -13,7 +13,6 @@ use Phing\Test\Support\BuildFileTest;
  * @license https://github.com/phingofficial/phing/blob/master/LICENSE
  *
  * @internal
- * @coversNothing
  */
 class FileSizeTaskTest extends BuildFileTest
 {

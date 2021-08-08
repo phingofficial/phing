@@ -23,7 +23,6 @@ use Phing\Test\Support\BuildFileTest;
  * <http://phing.info>.
  *
  * @internal
- * @coversNothing
  */
 class HgRevertTaskTest extends BuildFileTest
 {

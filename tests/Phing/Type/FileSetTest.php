@@ -28,7 +28,6 @@ use Phing\Type\FileSet;
  * @author Hans Lellelid <hans@xmpl.org>
  *
  * @internal
- * @coversNothing
  */
 class FileSetTest extends AbstractFileSetTest
 {

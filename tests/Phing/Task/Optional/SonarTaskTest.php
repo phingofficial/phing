@@ -30,7 +30,6 @@ use Phing\Test\Support\BuildFileTest;
  * @requires OSFAMILY Windows|Linux
  *
  * @internal
- * @coversNothing
  */
 class SonarTaskTest extends BuildFileTest
 {

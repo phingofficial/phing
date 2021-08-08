@@ -26,7 +26,6 @@ use Phing\Test\Support\BuildFileTest;
  * @requires OSFAMILY Linux
  *
  * @internal
- * @coversNothing
  */
 class GitDescribeTaskTest extends BuildFileTest
 {

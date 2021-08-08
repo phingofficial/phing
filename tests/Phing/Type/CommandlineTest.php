@@ -32,7 +32,6 @@ use PHPUnit\Framework\TestCase;
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  *
  * @internal
- * @coversNothing
  */
 class CommandlineTest extends TestCase
 {

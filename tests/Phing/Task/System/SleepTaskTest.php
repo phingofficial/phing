@@ -30,7 +30,6 @@ use Phing\Util\DefaultClock;
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  *
  * @internal
- * @coversNothing
  */
 class SleepTaskTest extends BuildFileTest
 {
