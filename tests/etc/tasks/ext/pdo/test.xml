@@ -18,7 +18,7 @@
                     test_id INTEGER PRIMARY KEY,
                     test_fileld TEXT
                 )]]></transaction>
-            <formatter type="xml" formatoutput="true" outfile="result.xml"/>
+            <formatter type="xml" encoding="UTF-8" showheaders="true" formatoutput="false" outfile="result.xml"/>
         </pdosqlexec>
     </target>
     <target name="testWritePlainResutFile">
@@ -29,7 +29,7 @@
                     test_id INTEGER PRIMARY KEY,
                     test_fileld TEXT
                 )]]></transaction>
-            <formatter type="plain" formatoutput="true" outfile="result.txt"/>
+            <formatter type="plain" encoding="UTF-8" showheaders="true" formatoutput="true" outfile="result.txt"/>
         </pdosqlexec>
     </target>
 </project>
