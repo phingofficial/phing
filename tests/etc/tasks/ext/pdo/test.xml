@@ -37,4 +37,14 @@
             <transaction>THIS IS NO SQL</transaction>
         </pdosqlexec>
     </target>
+    <target name="testFileList">
+        <pdosqlexec url="sqlite:test.db">
+            <filelist dir="." files="table.sql"/>
+        </pdosqlexec>
+    </target>
+    <target name="testFileSet">
+        <pdosqlexec url="sqlite:test.db">
+            <fileset dir="." includes="table.sql"/>
+        </pdosqlexec>
+    </target>
 </project>

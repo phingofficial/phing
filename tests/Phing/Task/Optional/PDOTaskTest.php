@@ -58,4 +58,14 @@ class PDOTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('sql.error', 'true');
     }
+
+    public function testFileList(): void
+    {
+        $this->expectLogContaining(__FUNCTION__, '2 of 2 SQL statements executed successfully');
+    }
+
+    public function testFileSet(): void
+    {
+        $this->expectLogContaining(__FUNCTION__, '2 of 2 SQL statements executed successfully');
+    }
 }
