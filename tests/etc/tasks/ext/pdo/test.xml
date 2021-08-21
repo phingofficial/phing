@@ -16,19 +16,14 @@
             <transaction><![CDATA[
                 CREATE TABLE xxxxx (
                     test_id INTEGER PRIMARY KEY,
-                    test_fileld TEXT
+                    test_field TEXT
                 )]]></transaction>
             <formatter type="xml" encoding="UTF-8" showheaders="true" formatoutput="false" outfile="result.xml"/>
         </pdosqlexec>
     </target>
     <target name="testWritePlainResutFile">
-        <pdosqlexec url="sqlite:test.db" caching="true">
-            <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
-            <transaction><![CDATA[
-                CREATE TABLE xxxxx (
-                    test_id INTEGER PRIMARY KEY,
-                    test_fileld TEXT
-                )]]></transaction>
+        <pdosqlexec url="sqlite:test.db" caching="true" userid="" password="">
+            <transaction src="table.sql"/>
             <formatter type="plain" encoding="UTF-8" showheaders="true" formatoutput="true" outfile="result.txt"/>
         </pdosqlexec>
     </target>
