@@ -40,4 +40,11 @@ class PDOTaskTest extends BuildFileTest
         $this->assertFileExists('result.xml');
         @unlink('result.xml');
     }
+
+    public function testWritePlainResutFile(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists('result.txt');
+        @unlink('result.txt');
+    }
 }

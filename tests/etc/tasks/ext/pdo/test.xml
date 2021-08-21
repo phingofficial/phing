@@ -21,4 +21,15 @@
             <formatter type="xml" formatoutput="true" outfile="result.xml"/>
         </pdosqlexec>
     </target>
+    <target name="testWritePlainResutFile">
+        <pdosqlexec url="sqlite:test.db" caching="true">
+            <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
+            <transaction><![CDATA[
+                CREATE TABLE xxxxx (
+                    test_id INTEGER PRIMARY KEY,
+                    test_fileld TEXT
+                )]]></transaction>
+            <formatter type="plain" formatoutput="true" outfile="result.txt"/>
+        </pdosqlexec>
+    </target>
 </project>
