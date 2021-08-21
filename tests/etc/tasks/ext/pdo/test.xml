@@ -32,4 +32,9 @@
             <transaction>THIS IS NO SQL</transaction>
         </pdosqlexec>
     </target>
+    <target name="testErrorProp">
+        <pdosqlexec url="sqlite:test.db" onerror="continue" errorproperty="sql.error">
+            <transaction>THIS IS NO SQL</transaction>
+        </pdosqlexec>
+    </target>
 </project>

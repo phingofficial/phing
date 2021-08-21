@@ -52,4 +52,10 @@ class PDOTaskTest extends BuildFileTest
     {
         $this->expectLogContaining(__FUNCTION__, 'Failed to execute:  THIS IS NO SQL');
     }
+
+    public function testErrorProp(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('sql.error', 'true');
+    }
 }
