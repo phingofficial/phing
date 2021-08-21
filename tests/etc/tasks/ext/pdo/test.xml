@@ -27,4 +27,9 @@
             <formatter type="plain" encoding="UTF-8" showheaders="true" formatoutput="true" outfile="result.txt"/>
         </pdosqlexec>
     </target>
+    <target name="testContinue">
+        <pdosqlexec url="sqlite:test.db" onerror="continue">
+            <transaction>THIS IS NO SQL</transaction>
+        </pdosqlexec>
+    </target>
 </project>

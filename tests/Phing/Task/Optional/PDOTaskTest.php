@@ -47,4 +47,9 @@ class PDOTaskTest extends BuildFileTest
         $this->assertFileExists('result.txt');
         @unlink('result.txt');
     }
+
+    public function testContinue(): void
+    {
+        $this->expectLogContaining(__FUNCTION__, 'Failed to execute:  THIS IS NO SQL');
+    }
 }
