@@ -100,6 +100,7 @@
         "pear/mail_mime": "^1.10",
         "pear/net_growl": "dev-master",
         "pear/pear-core-minimal": "^1.10.10",
+        "pear/versioncontrol_git": "dev-master",
         "phpunit/phpunit": "^9.4",
         "scssphp/scssphp": "~1.0",
         "squizlabs/php_codesniffer": "^3.5",
@@ -139,6 +140,6 @@
         "jawira/plantuml-encoding": "Required by VisualizerTask",
         "monolog/monolog": "Required by the MonologListener"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

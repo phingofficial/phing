@@ -113,7 +113,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
      * NB: we don't need ungetc() at the start of the line, so this case is
      * not handled.
      */
-    public function ungetc()
+    public function ungetc(): void
     {
         --$this->inputIndex;
     }
@@ -121,7 +121,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
     /**
      * @return null|string
      */
-    public function nextQuery()
+    public function nextQuery(): ?string
     {
         $sql = '';
         $delimiter = $this->parent->getDelimiter();
@@ -132,7 +132,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                 case self::STATE_NORMAL:
                     switch ($ch) {
                         case '-':
-                            if ('-' == $this->getc()) {
+                            if ('-' === $this->getc()) {
                                 $this->state = self::STATE_COMMENT_LINEEND;
                             } else {
                                 $this->ungetc();
@@ -214,7 +214,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                 case self::STATE_COMMENT_MULTILINE:
                     switch ($ch) {
                         case '/':
-                            if ('*' != $this->getc()) {
+                            if ('*' !== $this->getc()) {
                                 $this->ungetc();
                             } else {
                                 ++$this->commentDepth;
@@ -223,7 +223,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                             break;
 
                         case '*':
-                            if ('/' != $this->getc()) {
+                            if ('/' !== $this->getc()) {
                                 $this->ungetc();
                             } else {
                                 --$this->commentDepth;
@@ -262,7 +262,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
 
                 // no break
                 case self::STATE_DOLLAR_QUOTED:
-                    if ('$' == $ch && false !== ($tag = $this->checkDollarQuote())) {
+                    if ('$' === $ch && false !== ($tag = $this->checkDollarQuote())) {
                         if ($tag == $this->quotingTag) {
                             $this->state = self::STATE_NORMAL;
                         }

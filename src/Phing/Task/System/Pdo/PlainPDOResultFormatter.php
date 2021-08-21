@@ -116,12 +116,12 @@ class PlainPDOResultFormatter extends PDOResultFormatter
             $this->out->write(PHP_EOL);
 
             $line = '';
-            $colsprinted = true;
+            $this->colsprinted = true;
         } // if show headers
 
         $first = true;
         foreach ($row as $columnValue) {
-            if (null != $columnValue) {
+            if (null !== $columnValue) {
                 $columnValue = trim($columnValue);
             }
 

@@ -18,45 +18,19 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\System\Pdo;
+namespace Phing\Test\Task\Optional;
 
-use Phing\Io\BufferedReader;
-use Phing\Io\Reader;
+use Phing\Test\Support\BuildFileTest;
 
-/**
- * Base class for classes that split SQL source into separate queries.
- *
- * @author  Alexey Borzov <avb@php.net>
- */
-abstract class PDOQuerySplitter
+class PDOTaskTest extends BuildFileTest
 {
-    /**
-     * Task that uses the splitter.
-     *
-     * @var PDOSQLExecTask
-     */
-    protected $parent;
-
-    /**
-     * Reader with SQL source.
-     *
-     * @var BufferedReader
-     */
-    protected $sqlReader;
-
-    /**
-     * Constructor, sets the parent task and reader with SQL source.
-     */
-    public function __construct(PDOSQLExecTask $parent, Reader $reader)
+    public function setUp(): void
     {
-        $this->parent = $parent;
-        $this->sqlReader = new BufferedReader($reader);
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pdo/test.xml');
     }
 
-    /**
-     * Returns next query from SQL source, null if no more queries left.
-     *
-     * @return null|string
-     */
-    abstract public function nextQuery(): ?string;
+    public function testPDOTask(): void
+    {
+        $this->expectLogContaining(__FUNCTION__, '2 of 2 SQL statements executed successfully');
+    }
 }
