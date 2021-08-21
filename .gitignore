@@ -18,3 +18,4 @@ tests/etc/tasks/system/defaultexcludestestinput/
 tests/etc/types/selectors/tmp/
 tests/reports/
 tests/tmp/
+tests/etc/tasks/ext/pdo/test.db

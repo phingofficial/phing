@@ -1,13 +1,24 @@
 <?xml version="1.0" ?>
 <project name="PDOTaskTest" default="testPDOTask">
     <target name="testPDOTask">
-        <pdosqlexec url="sqlite:test.db">
+        <pdosqlexec url="sqlite:test.db" caching="true">
             <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
             <transaction><![CDATA[
                 CREATE TABLE xxxxx (
                     test_id INTEGER PRIMARY KEY,
                     test_fileld TEXT
                 )]]></transaction>
+        </pdosqlexec>
+    </target>
+    <target name="testWriteXMLResutFile">
+        <pdosqlexec url="sqlite:test.db" caching="true">
+            <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
+            <transaction><![CDATA[
+                CREATE TABLE xxxxx (
+                    test_id INTEGER PRIMARY KEY,
+                    test_fileld TEXT
+                )]]></transaction>
+            <formatter type="xml" formatoutput="true" outfile="result.xml"/>
         </pdosqlexec>
     </target>
 </project>

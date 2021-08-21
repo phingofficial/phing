@@ -33,4 +33,11 @@ class PDOTaskTest extends BuildFileTest
     {
         $this->expectLogContaining(__FUNCTION__, '2 of 2 SQL statements executed successfully');
     }
+
+    public function testWriteXMLResutFile(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists('result.xml');
+        @unlink('result.xml');
+    }
 }
