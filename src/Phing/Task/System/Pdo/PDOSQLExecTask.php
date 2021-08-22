@@ -437,7 +437,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 $this->goodSql . ' of ' . $this->totalSql .
                 ' SQL statements executed successfully'
             );
-            $this->setRowCountProp($this->goodSql);
+            $this->setStatementCountProp($this->goodSql);
         } catch (Exception $e) {
             throw new BuildException($e);
         } finally {
@@ -643,9 +643,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
         $this->setProperty($this->errorProperty, 'true');
     }
 
-    final protected function setRowCountProp(int $rowCount): void
+    final protected function setStatementCountProp(int $statementCount): void
     {
-        $this->setProperty($this->statementCountProperty, (string)$rowCount);
+        $this->setProperty($this->statementCountProperty, (string) $statementCount);
     }
 
     /**
