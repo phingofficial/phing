@@ -28,7 +28,6 @@ use Phing\Type\Selector\ModifiedSelector;
  * Class ModifiedSelectorTest.
  *
  * @internal
- * @coversNothing
  */
 class ModifiedSelectorTest extends BuildFileTest
 {

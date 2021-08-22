@@ -41,12 +41,12 @@ class BufferedReader extends Reader
     private $in;
 
     /**
-     * @param InputStreamReader $reader   The reader (e.g. FileReader).
+     * @param Reader $reader   The reader (e.g. FileReader).
      * @param int               $buffsize The size of the buffer we should use for reading files.
      *                                    A large buffer ensures that most files (all scripts?)
      *                                    are parsed in 1 buffer.
      */
-    public function __construct(InputStreamReader $reader, $buffsize = 65536)
+    public function __construct(Reader $reader, $buffsize = 65536)
     {
         $this->in = $reader;
         $this->bufferSize = $buffsize;

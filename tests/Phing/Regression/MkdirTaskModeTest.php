@@ -28,7 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * - MkdirTask mode param mistake.
  *
  * @internal
- * @coversNothing
  */
 class MkdirTaskModeTest extends BuildFileTest
 {

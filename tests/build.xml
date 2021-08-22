@@ -57,6 +57,7 @@
                 <coverage-setup database="reports/coverage.db">
                     <fileset dir="${phing.home.dir.resolved}">
                         <include name="src/Phing/**/*.php"/>
+                        <include name="vendor/phing/task-*/**/*.php"/>
                         <exclude name="**/phpcs/*.php"/>
                     </fileset>
                 </coverage-setup>

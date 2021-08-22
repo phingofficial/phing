@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * @requires OSFAMILY Linux
  *
  * @internal
- * @coversNothing
  */
 class GitLogTaskTest extends BuildFileTest
 {

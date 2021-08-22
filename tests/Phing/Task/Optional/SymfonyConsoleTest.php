@@ -30,7 +30,6 @@ use PHPUnit\Framework\TestCase;
  * @author  Nuno Costa <nuno@francodacosta.com>
  *
  * @internal
- * @coversNothing
  */
 class SymfonyConsoleTest extends TestCase
 {

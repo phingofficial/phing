@@ -33,7 +33,6 @@ use ReflectionClass;
  * Unit test for FileSystem.
  *
  * @internal
- * @coversNothing
  */
 class FileSystemTest extends TestCase
 {

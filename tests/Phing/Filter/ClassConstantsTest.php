@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Siad A6rdroumli <siad.ardroumli@gmail.com>
  *
  * @internal
- * @coversNothing
  */
 class ClassConstantsTest extends BuildFileTest
 {

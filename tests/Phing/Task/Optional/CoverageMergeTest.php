@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * @requires extension xdebug
  *
  * @internal
- * @coversNothing
  */
 class CoverageMergeTest extends BuildFileTest
 {

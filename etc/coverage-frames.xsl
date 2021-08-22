@@ -7,19 +7,19 @@
 <xsl:decimal-format decimal-separator="." grouping-separator="," />
 <!--
     Copyright  2001-2004 The Apache Software Foundation
-   
+
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-   
+
          http://www.apache.org/licenses/LICENSE-2.0
-   
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
-   
+
 -->
 
 <!--
@@ -218,10 +218,10 @@ TD.uncovered {
     color: #df0000;
 }
 PRE.srcLine {
-  BACKGROUND: #ffffff; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; 
+  BACKGROUND: #ffffff; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px;
 }
     PRE.srcLineUncovered {
-  BACKGROUND: #F0C8C8; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; 
+  BACKGROUND: #F0C8C8; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px;
 }
     PRE.srcLineCovered {
       BACKGROUND: #8AE234; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px;
@@ -258,7 +258,7 @@ td.srcLine {
       background: #C8C8F0;
 }
 TD.srcLineClassStart {
-   WIDTH: 100%; BORDER-TOP:#dcdcdc 1px solid; FONT-WEIGHT: bold;    
+   WIDTH: 100%; BORDER-TOP:#dcdcdc 1px solid; FONT-WEIGHT: bold;
 }
 .srcLine , .srcLine ol, .srcLine ol li {margin: 0;}
 .srcLine .de1, .srcLine .de2 {font-family: 'Courier New', Courier, monospace; font-weight: normal;}
@@ -379,7 +379,7 @@ TD.srcLineClassStart {
         <head>
             <title>Coverage Results Overview</title>
             <xsl:if test="$output.sorttable = 1">
-                <script language="JavaScript" src="http://www.phing.info/support/sorttable.js"/>
+                <script language="JavaScript" src="https://www.phing.info/support/sorttable.js"/>
             </xsl:if>
             <xsl:call-template name="create.stylesheet.link"/>
         </head>
@@ -410,7 +410,7 @@ TD.srcLineClassStart {
             </tr>
             <tr><td colspan="4"><br/></td></tr>
         </table>
-        
+
         <table class="log sortable" cellpadding="5" cellspacing="0" width="100%">
             <tr>
                 <th width="100%">Packages</th>
@@ -634,7 +634,7 @@ TD.srcLineClassStart {
         <head>
             <title>Coverage Results for <xsl:value-of select="@name"/></title>
             <xsl:if test="$output.sorttable = 1">
-                <script language="JavaScript" src="http://www.phing.info/support/sorttable.js"/>
+                <script language="JavaScript" src="https://www.phing.info/support/sorttable.js"/>
             </xsl:if>
             <xsl:call-template name="create.stylesheet.link">
                 <xsl:with-param name="package.name" select="@name"/>
@@ -651,7 +651,7 @@ TD.srcLineClassStart {
                     <td class="small">LOC: <xsl:value-of select="count(class/sourcefile/sourceline) + count(subpackage/class/sourcefile/sourceline)"/></td>
                     <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
                 </tr>
-            </table>        
+            </table>
             <br/>
 
             <table class="log" cellpadding="5" cellspacing="0" width="100%">
@@ -810,7 +810,7 @@ TD.srcLineClassStart {
                     <td class="small">LOC: <xsl:value-of select="count(sourcefile/sourceline)"/></td>
                     <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
                 </tr>
-            </table>        
+            </table>
 
             <!-- legend -->
             <table class="log" cellpadding="5" cellspacing="0" width="100%">
@@ -855,14 +855,14 @@ TD.srcLineClassStart {
   <table border="0" cellpadding="0" cellspacing="0" width="100%">
   <tr>
     <td class="bannercell" rowspan="2">
-      <a href="http://www.phing.info/">
-      <img src="http://www.phing.info/images/phing.gif" alt="http://www.phing.info/" align="left" border="0"/>
+      <a href="https://www.phing.info/">
+      <img src="https://www.phing.info/img/logo.gif" alt="https://www.phing.info/" align="left" border="0"/>
       </a>
     </td>
         <td style="text-align:right"><h2>Source Code Coverage</h2></td>
         </tr>
         <tr>
-        <td style="text-align:right">Designed for use with <a href='http://www.phpunit.de'>PHPUnit</a>, <a href='http://www.xdebug.org/'>Xdebug</a> and <a href='http://www.phing.info/'>Phing</a>.</td>
+        <td style="text-align:right">Designed for use with <a href='https://www.phpunit.de'>PHPUnit</a>, <a href='https://www.xdebug.org/'>Xdebug</a> and <a href='https://www.phing.info/'>Phing</a>.</td>
         </tr>
   </table>
     <hr size="1"/>

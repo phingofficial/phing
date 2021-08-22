@@ -4909,6 +4909,12 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="errorproperty"/>
+                </optional>
+                <optional>
+                    <attribute name="statementcountproperty"/>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <ref name="fileset"/>

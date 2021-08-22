@@ -30,7 +30,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversNothing
  */
 class SassTaskCompilerFactoryTest extends TestCase
 {

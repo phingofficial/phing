@@ -58,7 +58,6 @@ use Phing\Test\Support\BuildFileTest;
  * @see       https://github.com/llaville/phing-GrowlNotifyTask
  *
  * @internal
- * @coversNothing
  */
 class GrowlNotifyTaskErrorTest extends BuildFileTest
 {

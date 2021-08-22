@@ -32,7 +32,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversNothing
  */
 class PHPStanCommandBuilderFactoryTest extends TestCase
 {

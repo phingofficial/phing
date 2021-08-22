@@ -28,7 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * Test cases for isReadable/isWritable selectors.
  *
  * @internal
- * @coversNothing
  */
 class ReadWriteTest extends BuildFileTest
 {

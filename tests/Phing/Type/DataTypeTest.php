@@ -28,7 +28,6 @@ use PHPUnit\Framework\TestCase;
  * Unit test for DataType.
  *
  * @internal
- * @coversNothing
  */
 class DataTypeTest extends TestCase
 {

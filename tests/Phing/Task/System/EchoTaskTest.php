@@ -28,7 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Christian Weiske <cweiske@cweiske.de>
  *
  * @internal
- * @coversNothing
  */
 class EchoTaskTest extends BuildFileTest
 {

@@ -30,7 +30,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Michiel Rook <mrook@php.net>
  *
  * @internal
- * @coversNothing
  */
 class TouchTaskTest extends BuildFileTest
 {

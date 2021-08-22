@@ -18,55 +18,65 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Test\Task\System\Condition;
+namespace Phing\Test\Task\Optional;
 
 use Phing\Test\Support\BuildFileTest;
 
-/**
- * Testcase for the PhingVersion task/condition.
- *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
- *
- * @internal
- */
-class PhingVersionTest extends BuildFileTest
+class PDOTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(
-            PHING_TEST_BASE . '/etc/tasks/system/PhingVersionTest.xml'
-        );
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pdo/test.xml');
     }
 
-    public function testPhingVersion(): void
+    public function tearDown(): void
     {
-        $this->executeTarget(__FUNCTION__);
-        $expectedVersion = $this->getProject()->getProperty('version1');
-        $this->assertPropertyEquals('version1', $expectedVersion);
+        @unlink('test.db');
     }
 
-    public function testPhingVersionAtLeastPos(): void
+    public function testPDOTask(): void
     {
-        $this->executeTarget(__FUNCTION__);
-        $expectedVersion = $this->getProject()->getProperty('version2');
-        $this->assertPropertyEquals('version2', $expectedVersion);
+        $this->expectLogContaining(__FUNCTION__, '2 of 2 SQL statements executed successfully');
     }
 
-    public function testPhingVersionAtLeastNeg(): void
+    public function testWriteXMLResutFile(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyUnset('version3');
+        $this->assertFileExists('result.xml');
+        @unlink('result.xml');
     }
 
-    public function testPhingVersionIsNotExact(): void
+    public function testWritePlainResutFile(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertyUnset('version4');
+        $this->assertFileExists('result.txt');
+        @unlink('result.txt');
     }
 
-    public function testPhingVersionAsCondition(): void
+    public function testContinue(): void
+    {
+        $this->expectLogContaining(__FUNCTION__, 'Failed to execute:  THIS IS NO SQL');
+    }
+
+    public function testErrorProp(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertPropertySet('isTrue');
+        $this->assertPropertyEquals('sql.error', 'true');
+    }
+
+    public function testFileList(): void
+    {
+        $this->expectLogContaining(__FUNCTION__, '2 of 2 SQL statements executed successfully');
+    }
+
+    public function testFileSet(): void
+    {
+        $this->expectLogContaining(__FUNCTION__, '2 of 2 SQL statements executed successfully');
+    }
+
+    public function testStatementCountProp(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('statement.count', 2);
     }
 }

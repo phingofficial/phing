@@ -58,5 +58,5 @@ abstract class PDOQuerySplitter
      *
      * @return null|string
      */
-    abstract public function nextQuery();
+    abstract public function nextQuery(): ?string;
 }

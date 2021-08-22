@@ -27,7 +27,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversNothing
  */
 class SassTaskUnitTest extends TestCase
 {

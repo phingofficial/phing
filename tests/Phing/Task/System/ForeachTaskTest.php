@@ -30,7 +30,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Laurent Laville <pear@laurent-laville.org>
  *
  * @internal
- * @coversNothing
  */
 class ForeachTaskTest extends BuildFileTest
 {

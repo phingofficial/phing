@@ -28,7 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * Test cases for different selectors.
  *
  * @internal
- * @coversNothing
  */
 class DifferentSelectorTest extends BuildFileTest
 {

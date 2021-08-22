@@ -27,7 +27,6 @@ use PHPUnit\Framework\TestCase;
  * Tests for the <socket> condition.
  *
  * @internal
- * @coversNothing
  */
 class SocketConditionTest extends TestCase
 {

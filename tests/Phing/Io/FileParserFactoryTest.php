@@ -31,7 +31,6 @@ use PHPUnit\Framework\TestCase;
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  *
  * @internal
- * @coversNothing
  */
 class FileParserFactoryTest extends TestCase
 {

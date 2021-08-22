@@ -24,7 +24,6 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  *
  * @internal
- * @coversNothing
  */
 class ParameterTest extends TestCase
 {

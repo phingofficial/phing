@@ -29,7 +29,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversNothing
  */
 class SassCompilerTest extends TestCase
 {

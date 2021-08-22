@@ -25,7 +25,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversNothing
  */
 class LocationTest extends TestCase
 {

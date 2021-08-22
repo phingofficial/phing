@@ -24,7 +24,6 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @internal
- * @coversNothing
  */
 class TaskdefForCopyTest extends BuildFileTest
 {

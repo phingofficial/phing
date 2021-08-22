@@ -29,7 +29,6 @@ use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * @internal
- * @coversNothing
  */
 class ConsoleInputHandlerTest extends TestCase
 {

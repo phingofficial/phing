@@ -32,7 +32,6 @@ use Throwable;
 
 /**
  * @internal
- * @coversNothing
  */
 class DefaultLoggerTest extends TestCase
 {

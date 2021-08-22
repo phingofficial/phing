@@ -24,7 +24,6 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  *
  * @internal
- * @coversNothing
  */
 class VersionCompareConditionTest extends TestCase
 {

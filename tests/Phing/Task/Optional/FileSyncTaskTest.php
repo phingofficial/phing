@@ -28,7 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Anton <i.splinter@i.ua>
  *
  * @internal
- * @coversNothing
  */
 class FileSyncTaskTest extends BuildFileTest
 {

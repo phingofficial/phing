@@ -30,7 +30,6 @@ use PHPUnit\Framework\TestCase;
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  *
  * @internal
- * @coversNothing
  */
 class DirSetTest extends TestCase
 {

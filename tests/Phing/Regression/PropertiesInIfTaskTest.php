@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * - Properties within then/else blocks are not expanded.
  *
  * @internal
- * @coversNothing
  */
 class PropertiesInIfTaskTest extends BuildFileTest
 {

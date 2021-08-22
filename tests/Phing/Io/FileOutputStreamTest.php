@@ -32,7 +32,6 @@ use PHPUnit\Framework\TestCase;
  * @author Hans Lellelid <hans@xmpl.org>
  *
  * @internal
- * @coversNothing
  */
 class FileOutputStreamTest extends TestCase
 {

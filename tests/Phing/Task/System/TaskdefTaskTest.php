@@ -27,7 +27,6 @@ use Phing\Test\Support\TaskdefTestSimpleTask;
 
 /**
  * @internal
- * @coversNothing
  */
 class TaskdefTaskTest extends BuildFileTest
 {

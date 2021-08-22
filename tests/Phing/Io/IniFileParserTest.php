@@ -30,7 +30,6 @@ use PHPUnit\Framework\TestCase;
  * @author Fabian Grutschus <fabian.grutschus@unister.de>
  *
  * @internal
- * @coversNothing
  */
 class IniFileParserTest extends TestCase
 {
