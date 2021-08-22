@@ -52,6 +52,9 @@ class PDODelimitersTest extends BuildFileTest
         // prevents calling beginTransaction() on obviously missing PDO instance
         $this->mockTask->setAutocommit(true);
         $this->mockTask->expects($this->atLeastOnce())
+            ->method('getConnection')
+            ->willReturn($this->getMockBuilder(\PDO::class)->disableOriginalConstructor()->getMock());
+        $this->mockTask->expects($this->atLeastOnce())
             ->method('execSQL')
             ->willReturnCallback([$this, 'storeQuery'])
         ;

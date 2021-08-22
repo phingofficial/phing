@@ -27,9 +27,7 @@ use PDOStatement;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Io\IOException;
-use Phing\Io\LogWriter;
 use Phing\Io\Reader;
-use Phing\Io\Writer;
 use Phing\Project;
 use Phing\Task\System\Condition\Condition;
 use Phing\Type\FileList;
@@ -168,10 +166,21 @@ class PDOSQLExecTask extends PDOTask implements Condition
     private $fetchMode;
 
     /**
+     * The name of the property to set in the event of an error
+     */
+    private $errorProperty;
+
+    /**
+     * The name of the property that receives the number of rows
+     * returned
+     */
+    private $statementCountProperty;
+
+    /**
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file.
      */
-    public function setSrc(File $srcFile)
+    public function setSrc(File $srcFile): void
     {
         $this->srcFile = $srcFile;
     }
@@ -182,7 +191,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @param string $sql
      */
-    public function addText($sql)
+    public function addText($sql): void
     {
         $this->sqlCommand .= $sql;
     }
@@ -190,7 +199,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Adds a set of files (nested fileset attribute).
      */
-    public function addFileset(FileSet $set)
+    public function addFileset(FileSet $set): void
     {
         $this->filesets[] = $set;
     }
@@ -198,7 +207,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Adds a set of files (nested filelist attribute).
      */
-    public function addFilelist(FileList $list)
+    public function addFilelist(FileList $list): void
     {
         $this->filelists[] = $list;
     }
@@ -208,7 +217,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @return PDOSQLExecFormatterElement
      */
-    public function createFormatter()
+    public function createFormatter(): PDOSQLExecFormatterElement
     {
         $fe = new PDOSQLExecFormatterElement($this);
         $this->formatters[] = $fe;
@@ -225,16 +234,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
         $this->transactions[] = $t;
 
         return $t;
-    }
-
-    /**
-     * Set the file encoding to use on the SQL files read in.
-     *
-     * @param string $encoding the encoding to use on the files
-     */
-    public function setEncoding($encoding)
-    {
-        $this->encoding = $encoding;
     }
 
     /**
@@ -296,6 +295,26 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 throw new BuildException('Invalid PDO fetch mode specified: ' . $mode, $this->getLocation());
             }
         }
+    }
+
+    /**
+     * Property to set to "true" if a statement throws an error.
+     *
+     * @param string $errorProperty the name of the property to set in the
+     * event of an error.
+     */
+    public function setErrorProperty(string $errorProperty): void
+    {
+        $this->errorProperty = $errorProperty;
+    }
+
+    /**
+     * Sets a given property to the number of statements processed.
+     * @param string $statementCountProperty String
+     */
+    public function setStatementCountProperty(string $statementCountProperty): void
+    {
+        $this->statementCountProperty = $statementCountProperty;
     }
 
     /**
@@ -388,12 +407,12 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 try {
                     // Process all transactions
                     for ($i = 0, $size = count($this->transactions); $i < $size; ++$i) {
-                        if (!$this->isAutocommit()) {
+                        if (!$this->isAutocommit() || $this->conn->inTransaction()) {
                             $this->log('Beginning transaction', Project::MSG_VERBOSE);
                             $this->conn->beginTransaction();
                         }
                         $this->transactions[$i]->runTransaction();
-                        if (!$this->isAutocommit()) {
+                        if (!$this->isAutocommit() || $this->conn->inTransaction()) {
                             $this->log('Committing transaction', Project::MSG_VERBOSE);
                             $this->conn->commit();
                         }
@@ -401,28 +420,14 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 } catch (Exception $e) {
                     $this->closeConnection();
 
-                    throw $e;
+                    throw new BuildException($e);
                 }
-            } catch (IOException $e) {
-                if (!$this->isAutocommit() && null !== $this->conn && 'abort' === $this->onError) {
-                    try {
-                        $this->conn->rollback();
-                    } catch (PDOException $ex) {
-                    }
+            } catch (IOException | PDOException $e) {
+                $this->closeQuietly();
+                $this->setErrorProp();
+                if ('abort' === $this->onError) {
+                    throw new BuildException($e->getMessage(), $this->getLocation());
                 }
-                $this->closeConnection();
-
-                throw new BuildException($e->getMessage(), $this->getLocation());
-            } catch (PDOException $e) {
-                if (!$this->isAutocommit() && null !== $this->conn && 'abort' === $this->onError) {
-                    try {
-                        $this->conn->rollback();
-                    } catch (PDOException $ex) {
-                    }
-                }
-                $this->closeConnection();
-
-                throw new BuildException($e->getMessage(), $this->getLocation());
             }
 
             // Close the formatters.
@@ -432,8 +437,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 $this->goodSql . ' of ' . $this->totalSql .
                 ' SQL statements executed successfully'
             );
+            $this->setStatementCountProp($this->goodSql);
         } catch (Exception $e) {
-            throw $e;
+            throw new BuildException($e);
         } finally {
             $this->transactions = $savedTransaction;
             $this->sqlCommand = $savedSqlCommand;
@@ -446,11 +452,11 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @throws BuildException
      */
-    public function runStatements(Reader $reader)
+    public function runStatements(Reader $reader): void
     {
-        if (self::DELIM_NONE == $this->delimiterType) {
+        if (self::DELIM_NONE === $this->delimiterType) {
             $splitter = new DummyPDOQuerySplitter($this, $reader);
-        } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos((string) $this->getUrl(), 'pgsql:')) {
+        } elseif (self::DELIM_NORMAL === $this->delimiterType && 0 === strpos((string) $this->getUrl(), 'pgsql:')) {
             $splitter = new PgsqlPDOQuerySplitter($this, $reader);
         } else {
             $splitter = new DefaultPDOQuerySplitter($this, $reader, $this->delimiterType);
@@ -462,7 +468,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 $this->execSQL($query);
             }
         } catch (PDOException $e) {
-            throw $e;
+            throw new BuildException($e);
         }
     }
 
@@ -508,7 +514,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @return bool whether specified SQL looks like a SELECT query
      */
-    protected function isSelectSql($sql)
+    protected function isSelectSql($sql): bool
     {
         $sql = trim($sql);
 
@@ -521,12 +527,11 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * @param string $sql
      *
      * @throws BuildException
-     * @throws Exception
      */
-    protected function execSQL($sql)
+    protected function execSQL($sql): void
     {
         // Check and ignore empty statements
-        if ('' == trim($sql)) {
+        if (empty(trim($sql))) {
             return;
         }
 
@@ -534,7 +539,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
             ++$this->totalSql;
 
             $this->statement = $this->conn->query($sql);
-            $this->log($this->statement->rowCount() . ' rows affected', Project::MSG_VERBOSE);
 
             // only call processResults() for statements that return actual data (such as 'select')
             if ($this->statement->columnCount() > 0) {
@@ -547,7 +551,11 @@ class PDOSQLExecTask extends PDOTask implements Condition
             ++$this->goodSql;
         } catch (PDOException $e) {
             $this->log('Failed to execute: ' . $sql, Project::MSG_ERR);
-            if ('continue' != $this->onError) {
+            $this->setErrorProp();
+            if ('abort' !== $this->onError) {
+                $this->log((string)$e, Project::MSG_ERR);
+            }
+            if ('continue' !== $this->onError) {
                 throw new BuildException('Failed to execute SQL', $e);
             }
             $this->log($e->getMessage(), Project::MSG_ERR);
@@ -558,9 +566,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * Returns configured PDOResultFormatter objects
      * (which were created from PDOSQLExecFormatterElement objects).
      *
-     * @return array PDOResultFormatter[]
+     * @return PDOResultFormatter[]
      */
-    protected function getConfiguredFormatters()
+    protected function getConfiguredFormatters(): array
     {
         $formatters = [];
         foreach ($this->formatters as $fe) {
@@ -573,7 +581,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Initialize the formatters.
      */
-    protected function initFormatters()
+    protected function initFormatters(): void
     {
         $formatters = $this->getConfiguredFormatters();
         foreach ($formatters as $formatter) {
@@ -584,7 +592,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     /**
      * Run cleanup and close formatters.
      */
-    protected function closeFormatters()
+    protected function closeFormatters(): void
     {
         $formatters = $this->getConfiguredFormatters();
         foreach ($formatters as $formatter) {
@@ -597,7 +605,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      *
      * @throws PDOException
      */
-    protected function processResults()
+    protected function processResults(): void
     {
         $this->log('Processing new result set.', Project::MSG_VERBOSE);
 
@@ -610,12 +618,12 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 }
             }
         } catch (Exception $x) {
-            $this->log('Error processing reults: ' . $x->getMessage(), Project::MSG_ERR);
+            $this->log('Error processing results: ' . $x->getMessage(), Project::MSG_ERR);
             foreach ($formatters as $formatter) {
                 $formatter->close();
             }
 
-            throw $x;
+            throw new BuildException($x);
         }
     }
 
@@ -630,13 +638,39 @@ class PDOSQLExecTask extends PDOTask implements Condition
         }
     }
 
-    /**
-     * Gets a default output writer for this task.
-     *
-     * @return Writer
-     */
-    private function getDefaultOutput()
+    final protected function setErrorProp(): void
     {
-        return new LogWriter($this);
+        $this->setProperty($this->errorProperty, 'true');
+    }
+
+    final protected function setStatementCountProp(int $statementCount): void
+    {
+        $this->setProperty($this->statementCountProperty, (string) $statementCount);
+    }
+
+    /**
+     * @param string|null $name
+     * @param string $value
+     */
+    private function setProperty(?string $name, string $value): void
+    {
+        if ($name !== null) {
+            $this->getProject()->setNewProperty($name, $value);
+        }
+    }
+
+    /**
+     * Closes an unused connection after an error and doesn't rethrow
+     * a possible PDOException
+     */
+    private function closeQuietly(): void
+    {
+        if (!$this->isAutocommit() && null !== $this->conn && 'abort' === $this->onError) {
+            try {
+                $this->conn->rollback();
+            } catch (PDOException $ex) {
+            }
+        }
+        $this->closeConnection();
     }
 }

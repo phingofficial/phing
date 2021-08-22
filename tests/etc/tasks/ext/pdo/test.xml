@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<project name="PDOTaskTest" default="testPDOTask">
+    <target name="testPDOTask">
+        <pdosqlexec url="sqlite:test.db" caching="true">
+            <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
+            <transaction><![CDATA[
+                CREATE TABLE xxxxx (
+                    test_id INTEGER PRIMARY KEY,
+                    test_field TEXT
+                )]]></transaction>
+        </pdosqlexec>
+    </target>
+    <target name="testWriteXMLResutFile">
+        <pdosqlexec url="sqlite:test.db" caching="true">
+            <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
+            <transaction><![CDATA[
+                CREATE TABLE xxxxx (
+                    test_id INTEGER PRIMARY KEY,
+                    test_field TEXT
+                )]]></transaction>
+            <formatter type="xml" encoding="UTF-8" showheaders="true" formatoutput="false" outfile="result.xml"/>
+        </pdosqlexec>
+    </target>
+    <target name="testWritePlainResutFile">
+        <pdosqlexec url="sqlite:test.db" caching="true" userid="" password="">
+            <transaction src="table.sql"/>
+            <formatter type="plain"
+                       encoding="UTF-8"
+                       append="false"
+                       coldelim="|"
+                       rowdelim=";"
+                       showheaders="false"
+                       formatoutput="true"
+                       outfile="result.txt"
+            >
+                <param name="someClassAttrib" value="some-value"/>
+            </formatter>
+        </pdosqlexec>
+    </target>
+    <target name="testContinue">
+        <pdosqlexec url="sqlite:test.db" onerror="continue">
+            <transaction>THIS IS NO SQL</transaction>
+        </pdosqlexec>
+    </target>
+    <target name="testErrorProp">
+        <pdosqlexec url="sqlite:test.db" onerror="continue" errorproperty="sql.error">
+            <transaction>THIS IS NO SQL</transaction>
+        </pdosqlexec>
+    </target>
+    <target name="testFileList">
+        <pdosqlexec url="sqlite:test.db">
+            <filelist dir="." files="table.sql"/>
+        </pdosqlexec>
+    </target>
+    <target name="testFileSet">
+        <pdosqlexec url="sqlite:test.db">
+            <fileset dir="." includes="table.sql"/>
+        </pdosqlexec>
+    </target>
+    <target name="testStatementCountProp">
+        <pdosqlexec url="sqlite:test.db" statementcountproperty="statement.count">
+            <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
+            <transaction><![CDATA[
+                CREATE TABLE xxxxx (
+                    test_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    test_field TEXT
+                )]]></transaction>
+        </pdosqlexec>
+    </target>
+</project>
