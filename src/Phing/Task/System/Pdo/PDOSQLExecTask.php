@@ -407,12 +407,12 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 try {
                     // Process all transactions
                     for ($i = 0, $size = count($this->transactions); $i < $size; ++$i) {
-                        if (!$this->isAutocommit()) {
+                        if (!$this->isAutocommit() || $this->conn->inTransaction()) {
                             $this->log('Beginning transaction', Project::MSG_VERBOSE);
                             $this->conn->beginTransaction();
                         }
                         $this->transactions[$i]->runTransaction();
-                        if (!$this->isAutocommit()) {
+                        if (!$this->isAutocommit() || $this->conn->inTransaction()) {
                             $this->log('Committing transaction', Project::MSG_VERBOSE);
                             $this->conn->commit();
                         }
