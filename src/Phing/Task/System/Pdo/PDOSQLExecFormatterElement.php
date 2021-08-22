@@ -127,7 +127,7 @@ class PDOSQLExecFormatterElement
     /**
      * @var Parameter[]
      */
-    private $parameters;
+    private $parameters = [];
 
     /**
      * @var bool
@@ -147,7 +147,7 @@ class PDOSQLExecFormatterElement
      *
      * @return Parameter
      */
-    public function createParam()
+    public function createParam(): Parameter
     {
         $num = array_push($this->parameters, new Parameter());
 
@@ -159,7 +159,7 @@ class PDOSQLExecFormatterElement
      *
      * @throws BuildException
      */
-    public function prepare(Location $location)
+    public function prepare(Location $location): void
     {
         if (!$this->formatter) {
             throw new BuildException('No formatter specified (use type or classname attribute)', $location);
@@ -203,7 +203,7 @@ class PDOSQLExecFormatterElement
      *
      * @throws BuildException
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
         if ('xml' === $this->type) {
@@ -220,7 +220,7 @@ class PDOSQLExecFormatterElement
      *
      * @param string $className
      */
-    public function setClassName($className): void
+    public function setClassName(string $className): void
     {
         $classNameNoDot = Phing::import($className);
         $this->formatter = new $classNameNoDot();
@@ -231,9 +231,9 @@ class PDOSQLExecFormatterElement
      *
      * @param bool $useFile
      */
-    public function setUseFile($useFile): void
+    public function setUseFile(bool $useFile): void
     {
-        $this->useFile = (bool) $useFile;
+        $this->useFile = $useFile;
     }
 
     /**
@@ -249,9 +249,9 @@ class PDOSQLExecFormatterElement
     /**
      * Sets the output file for the formatter results.
      *
-     * @internal param PhingFile $outFile
+     * @param File $outfile
      */
-    public function setOutfile(File $outfile)
+    public function setOutfile(File $outfile): void
     {
         $this->outfile = $outfile;
     }
@@ -272,7 +272,7 @@ class PDOSQLExecFormatterElement
      *
      * @param bool $append
      */
-    public function setAppend($append): void
+    public function setAppend(bool $append): void
     {
         $this->append = (bool) $append;
     }

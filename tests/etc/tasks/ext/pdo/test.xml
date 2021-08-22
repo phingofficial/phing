@@ -24,7 +24,17 @@
     <target name="testWritePlainResutFile">
         <pdosqlexec url="sqlite:test.db" caching="true" userid="" password="">
             <transaction src="table.sql"/>
-            <formatter type="plain" encoding="UTF-8" append="false" coldelim="|" rowdelim=";" showheaders="true" formatoutput="true" outfile="result.txt"/>
+            <formatter type="plain"
+                       encoding="UTF-8"
+                       append="false"
+                       coldelim="|"
+                       rowdelim=";"
+                       showheaders="false"
+                       formatoutput="true"
+                       outfile="result.txt"
+            >
+                <param name="someClassAttrib" value="some-value"/>
+            </formatter>
         </pdosqlexec>
     </target>
     <target name="testContinue">
