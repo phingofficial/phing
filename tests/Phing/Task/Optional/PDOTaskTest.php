@@ -29,6 +29,11 @@ class PDOTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pdo/test.xml');
     }
 
+    public function tearDown(): void
+    {
+        @unlink('test.db');
+    }
+
     public function testPDOTask(): void
     {
         $this->expectLogContaining(__FUNCTION__, '2 of 2 SQL statements executed successfully');
@@ -67,5 +72,11 @@ class PDOTaskTest extends BuildFileTest
     public function testFileSet(): void
     {
         $this->expectLogContaining(__FUNCTION__, '2 of 2 SQL statements executed successfully');
+    }
+
+    public function testStatementCountProp(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('statement.count', 2);
     }
 }

@@ -174,7 +174,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * The name of the property that receives the number of rows
      * returned
      */
-    private $rowCountProperty;
+    private $statementCountProperty;
 
     /**
      * Set the name of the SQL file to be run.
@@ -309,13 +309,12 @@ class PDOSQLExecTask extends PDOTask implements Condition
     }
 
     /**
-     * Sets a given property to the number of rows in the first
-     * statement that returned a row count.
-     * @param string $rowCountProperty String
+     * Sets a given property to the number of statements processed.
+     * @param string $statementCountProperty String
      */
-    public function setRowCountProperty(string $rowCountProperty): void
+    public function setStatementCountProperty(string $statementCountProperty): void
     {
-        $this->rowCountProperty = $rowCountProperty;
+        $this->statementCountProperty = $statementCountProperty;
     }
 
     /**
@@ -438,6 +437,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 $this->goodSql . ' of ' . $this->totalSql .
                 ' SQL statements executed successfully'
             );
+            $this->setRowCountProp($this->goodSql);
         } catch (Exception $e) {
             throw new BuildException($e);
         } finally {
@@ -539,9 +539,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
             ++$this->totalSql;
 
             $this->statement = $this->conn->query($sql);
-            $updateCountTotal = $this->statement->rowCount();
-            $this->log($this->statement->rowCount() . ' rows affected', Project::MSG_VERBOSE);
-            $this->setRowCountProp($updateCountTotal);
 
             // only call processResults() for statements that return actual data (such as 'select')
             if ($this->statement->columnCount() > 0) {
@@ -648,7 +645,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
 
     final protected function setRowCountProp(int $rowCount): void
     {
-        $this->setProperty($this->rowCountProperty, (string)$rowCount);
+        $this->setProperty($this->statementCountProperty, (string)$rowCount);
     }
 
     /**

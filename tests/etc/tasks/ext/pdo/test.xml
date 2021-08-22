@@ -6,7 +6,7 @@
             <transaction><![CDATA[
                 CREATE TABLE xxxxx (
                     test_id INTEGER PRIMARY KEY,
-                    test_fileld TEXT
+                    test_field TEXT
                 )]]></transaction>
         </pdosqlexec>
     </target>
@@ -45,6 +45,16 @@
     <target name="testFileSet">
         <pdosqlexec url="sqlite:test.db">
             <fileset dir="." includes="table.sql"/>
+        </pdosqlexec>
+    </target>
+    <target name="testStatementCountProp">
+        <pdosqlexec url="sqlite:test.db" statementcountproperty="statement.count">
+            <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
+            <transaction><![CDATA[
+                CREATE TABLE xxxxx (
+                    test_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    test_field TEXT
+                )]]></transaction>
         </pdosqlexec>
     </target>
 </project>
