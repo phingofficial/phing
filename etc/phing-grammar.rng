@@ -4898,6 +4898,11 @@
                     <attribute name="onerror"/>
                 </optional>
                 <optional>
+                    <attribute name="failonconnectionerror" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
                     <attribute name="delimiter"/>
                 </optional>
                 <optional>
