@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <project name="PDOTaskTest" default="testPDOTask">
     <target name="testPDOTask">
-        <pdosqlexec url="sqlite:test.db" caching="true">
+        <pdosqlexec url="sqlite:test.db">
             <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
             <transaction><![CDATA[
                 CREATE TABLE xxxxx (
@@ -11,7 +11,7 @@
         </pdosqlexec>
     </target>
     <target name="testWriteXMLResutFile">
-        <pdosqlexec url="sqlite:test.db" caching="true">
+        <pdosqlexec url="sqlite:test.db">
             <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
             <transaction><![CDATA[
                 CREATE TABLE xxxxx (
@@ -22,7 +22,7 @@
         </pdosqlexec>
     </target>
     <target name="testWritePlainResutFile">
-        <pdosqlexec url="sqlite:test.db" caching="true" userid="" password="">
+        <pdosqlexec url="sqlite:test.db" userid="" password="">
             <transaction src="table.sql"/>
             <formatter type="plain"
                        encoding="UTF-8"
@@ -88,5 +88,13 @@
                        outfile="result.txt"
             />
         </pdosqlexec>
+    </target>
+    <target name="testDoNotFailOnConnectionError">
+        <pdosqlexec url="test:test" failOnConnectionError="false">
+            <transaction><![CDATA[
+                SELECT * from xxxxx
+            ]]></transaction>
+        </pdosqlexec>
+        <echo message="foo"/>
     </target>
 </project>

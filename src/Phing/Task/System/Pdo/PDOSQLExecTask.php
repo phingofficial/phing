@@ -421,7 +421,11 @@ class PDOSQLExecTask extends PDOTask implements Condition
                 $t->setSrc($this->srcFile);
             }
             $t->addText($this->sqlCommand);
+
             $this->conn = $this->getConnection();
+            if ($this->conn === null) {
+                return;
+            }
 
             try {
                 $this->statement = null;

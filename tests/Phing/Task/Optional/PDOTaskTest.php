@@ -87,4 +87,9 @@ class PDOTaskTest extends BuildFileTest
         $this->assertStringContainsString('# 3 statement(s) successful executed.', file_get_contents('result.txt'));
         @unlink('result.txt');
     }
+
+    public function testDoNotFailOnConnectionError(): void
+    {
+        $this->expectLogContaining(__FUNCTION__, 'foo');
+    }
 }
