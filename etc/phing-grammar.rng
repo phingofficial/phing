@@ -4909,6 +4909,16 @@
                     </attribute>
                 </optional>
                 <optional>
+                    <attribute name="expandproperties" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="keepformat" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
                     <attribute name="errorproperty"/>
                 </optional>
                 <optional>
@@ -4955,6 +4965,11 @@
                 </optional>
                 <optional>
                     <attribute name="showheaders">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="showtrailers">
                         <data type="boolean"/>
                     </attribute>
                 </optional>

@@ -76,6 +76,13 @@ class PDOSQLExecFormatterElement
     private $showheaders = true;
 
     /**
+     * Print trailer.
+     *
+     * @var bool
+     */
+    private $showtrailers = true;
+
+    /**
      * Whether to format XML output.
      *
      * @var bool
@@ -173,6 +180,10 @@ class PDOSQLExecFormatterElement
         if ($this->formatter instanceof PlainPDOResultFormatter) {
             // set any options that apply to the plain formatter
             $this->formatter->setShowheaders($this->showheaders);
+            if ($this->showtrailers) {
+                $this->formatter->setStatementCounter($this->parentTask->getGoodSQL());
+                $this->formatter->setShowtrailers($this->showtrailers);
+            }
             $this->formatter->setRowdelim($this->rowdelimiter);
             $this->formatter->setColdelim($this->coldelimiter);
         } elseif ($this->formatter instanceof XMLPDOResultFormatter) {
@@ -274,7 +285,7 @@ class PDOSQLExecFormatterElement
      */
     public function setAppend(bool $append): void
     {
-        $this->append = (bool) $append;
+        $this->append = $append;
     }
 
     /**
@@ -296,6 +307,11 @@ class PDOSQLExecFormatterElement
     public function setShowheaders($showheaders): void
     {
         $this->showheaders = (bool) $showheaders;
+    }
+
+    public function setShowtrailers($showtrailers): void
+    {
+        $this->showtrailers = (bool) $showtrailers;
     }
 
     /**
