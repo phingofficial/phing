@@ -79,4 +79,12 @@ class PDOTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('statement.count', 2);
     }
+
+    public function testOptionalAttributes(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists('result.txt');
+        $this->assertStringContainsString('# 3 statement(s) successful executed.', file_get_contents('result.txt'));
+        @unlink('result.txt');
+    }
 }

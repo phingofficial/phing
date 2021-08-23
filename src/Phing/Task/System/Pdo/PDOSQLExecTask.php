@@ -177,6 +177,16 @@ class PDOSQLExecTask extends PDOTask implements Condition
     private $statementCountProperty;
 
     /**
+     * @var bool
+     */
+    private $keepformat = false;
+
+    /**
+     * @var bool
+     */
+    private $expandProperties = true;
+
+    /**
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file.
      */
@@ -297,6 +307,11 @@ class PDOSQLExecTask extends PDOTask implements Condition
         }
     }
 
+    public function getGoodSQL()
+    {
+        return $this->goodSql;
+    }
+
     /**
      * Property to set to "true" if a statement throws an error.
      *
@@ -315,6 +330,16 @@ class PDOSQLExecTask extends PDOTask implements Condition
     public function setStatementCountProperty(string $statementCountProperty): void
     {
         $this->statementCountProperty = $statementCountProperty;
+    }
+
+    public function setKeepformat(bool $keepformat): void
+    {
+        $this->keepformat = $keepformat;
+    }
+
+    public function setExpandProperties(bool $expandProps): void
+    {
+        $this->expandProperties = $expandProps;
     }
 
     /**
@@ -462,6 +487,9 @@ class PDOSQLExecTask extends PDOTask implements Condition
             $splitter = new DefaultPDOQuerySplitter($this, $reader, $this->delimiterType);
         }
 
+        $splitter->setExpandProperties($this->expandProperties);
+        $splitter->setKeepformat($this->keepformat);
+
         try {
             while (null !== ($query = $splitter->nextQuery())) {
                 $this->log('SQL: ' . $query, Project::MSG_VERBOSE);
@@ -553,7 +581,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
             $this->log('Failed to execute: ' . $sql, Project::MSG_ERR);
             $this->setErrorProp();
             if ('abort' !== $this->onError) {
-                $this->log((string)$e, Project::MSG_ERR);
+                $this->log((string) $e, Project::MSG_ERR);
             }
             if ('continue' !== $this->onError) {
                 throw new BuildException('Failed to execute SQL', $e);
@@ -572,7 +600,11 @@ class PDOSQLExecTask extends PDOTask implements Condition
     {
         $formatters = [];
         foreach ($this->formatters as $fe) {
-            $formatters[] = $fe->getFormatter();
+            $formatter = $fe->getFormatter();
+            if ($formatter instanceof PlainPDOResultFormatter) {
+                $formatter->setStatementCounter($this->goodSql);
+            }
+            $formatters[] = $formatter;
         }
 
         return $formatters;
@@ -665,7 +697,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
      */
     private function closeQuietly(): void
     {
-        if (!$this->isAutocommit() && null !== $this->conn && 'abort' === $this->onError) {
+        if (null !== $this->conn && 'abort' === $this->onError && !$this->isAutocommit()) {
             try {
                 $this->conn->rollback();
             } catch (PDOException $ex) {

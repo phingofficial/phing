@@ -67,4 +67,26 @@
                 )]]></transaction>
         </pdosqlexec>
     </target>
+    <target name="testOptionalAttributes">
+        <pdosqlexec url="sqlite:test.db">
+            <transaction>DROP TABLE IF EXISTS xxxxx</transaction>
+            <transaction><![CDATA[
+                CREATE TABLE xxxxx (
+                    test_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    test_field TEXT
+                )]]></transaction>
+            <transaction><![CDATA[
+                INSERT INTO xxxxx (test_field)
+                VALUES('test field 1')
+                ]]></transaction>
+            <transaction><![CDATA[
+                SELECT * from xxxxx
+                ]]></transaction>
+            <formatter type="plain"
+                       showheaders="true"
+                       showtrailers="true"
+                       outfile="result.txt"
+            />
+        </pdosqlexec>
+    </target>
 </project>
