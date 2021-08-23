@@ -311,7 +311,7 @@ class PDOSQLExecTask extends PDOTask implements Condition
     {
         return $this->goodSql;
     }
-    
+
     /**
      * Property to set to "true" if a statement throws an error.
      *
