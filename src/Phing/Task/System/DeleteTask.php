@@ -265,7 +265,6 @@ class DeleteTask extends Task
                 }
             }
         }
-        $this->log('Deleting directory ' . $d->getAbsolutePath(), $this->verbosity);
 
         try {
             $d->delete();
