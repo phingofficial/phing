@@ -48,16 +48,8 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown(): void
-    {
-    }
-
-    /**
-     * @covers \SymfonyConsoleTask::getCommand
-     * @covers \SymfonyConsoleTask::setCommand
+     * @covers SymfonyConsoleTask::getCommand
+     * @covers SymfonyConsoleTask::setCommand
      */
     public function testSetGetCommand(): void
     {
@@ -67,8 +59,8 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getConsole
-     * @covers \SymfonyConsoleTask::setConsole
+     * @covers SymfonyConsoleTask::getConsole
+     * @covers SymfonyConsoleTask::setConsole
      */
     public function testSetGetConsole(): void
     {
@@ -78,8 +70,8 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getDebug
-     * @covers \SymfonyConsoleTask::setDebug
+     * @covers SymfonyConsoleTask::getDebug
+     * @covers SymfonyConsoleTask::setDebug
      */
     public function testSetGetDebug(): void
     {
@@ -89,8 +81,8 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getSilent
-     * @covers \SymfonyConsoleTask::setSilent
+     * @covers SymfonyConsoleTask::getSilent
+     * @covers SymfonyConsoleTask::setSilent
      */
     public function testSetGetSilent(): void
     {
@@ -100,7 +92,7 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::createArg
+     * @covers SymfonyConsoleTask::createArg
      */
     public function testCreateArg(): void
     {
@@ -110,7 +102,7 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getArgs
+     * @covers SymfonyConsoleTask::getArgs
      */
     public function testGetArgs(): void
     {
@@ -122,9 +114,7 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getCmdString
-     *
-     * @todo Implement testMain().
+     * @covers SymfonyConsoleTask::getCmdString
      */
     public function testGetCmdString(): void
     {
@@ -142,7 +132,7 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getCmdString
+     * @covers SymfonyConsoleTask::getCmdString
      */
     public function testNoDebugGetCmdString(): void
     {
@@ -161,7 +151,7 @@ class SymfonyConsoleTest extends TestCase
     }
 
     /**
-     * @covers \SymfonyConsoleTask::getCmdString
+     * @covers SymfonyConsoleTask::getCmdString
      */
     public function testNoDebugOnlyOnce(): void
     {
