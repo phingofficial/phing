@@ -30,8 +30,8 @@ use Phing\Io\IOException;
 use Phing\Io\Reader;
 use Phing\Project;
 use Phing\Task\System\Condition\Condition;
-use Phing\Type\FileList;
-use Phing\Type\FileSet;
+use Phing\Type\Element\FileListAware;
+use Phing\Type\Element\FileSetAware;
 
 /**
  * Executes a series of SQL statements on a database using PDO.
@@ -64,6 +64,9 @@ use Phing\Type\FileSet;
  */
 class PDOSQLExecTask extends PDOTask implements Condition
 {
+    use FileListAware;
+    use FileSetAware;
+
     public const DELIM_ROW = 'row';
     public const DELIM_NORMAL = 'normal';
     public const DELIM_NONE = 'none';
@@ -87,20 +90,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
      * @var PDO
      */
     private $conn;
-
-    /**
-     * Files to load.
-     *
-     * @var FileSet[]
-     */
-    private $filesets = [];
-
-    /**
-     * Files to load.
-     *
-     * @var FileList[]
-     */
-    private $filelists = [];
 
     /**
      * Formatter elements.
@@ -204,22 +193,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
     public function addText($sql): void
     {
         $this->sqlCommand .= $sql;
-    }
-
-    /**
-     * Adds a set of files (nested fileset attribute).
-     */
-    public function addFileset(FileSet $set): void
-    {
-        $this->filesets[] = $set;
-    }
-
-    /**
-     * Adds a set of files (nested filelist attribute).
-     */
-    public function addFilelist(FileList $list): void
-    {
-        $this->filelists[] = $list;
     }
 
     /**
