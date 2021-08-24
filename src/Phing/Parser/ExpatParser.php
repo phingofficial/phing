@@ -81,7 +81,6 @@ class ExpatParser extends AbstractSAXParser
             $this->file = new SplFileObject($filename);
         }
         $this->parser = xml_parser_create();
-        $this->buffer = 4096;
         $this->location = new Location();
         xml_set_object($this->parser, $this);
         xml_set_element_handler($this->parser, [$this, 'startElement'], [$this, 'endElement']);

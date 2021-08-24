@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="stopwatch test" default="testStopwatch">
+
+    <target name="testStopwatch">
+        <stopwatch name="test" category="test-cat" action="start"/>
+        <sleep milliseconds="10"/>
+        <stopwatch name="test" category="test-cat" action="lap"/>
+        <sleep milliseconds="10"/>
+        <stopwatch name="test" category="test-cat" action="stop"/>
+    </target>
+
+    <target name="testStopwatchFails">
+        <stopwatch name="test" action="foo"/>
+    </target>
+
+</project>
