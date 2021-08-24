@@ -10,4 +10,8 @@
         <stopwatch name="test" category="test-cat" action="stop"/>
     </target>
 
+    <target name="testStopwatchFails">
+        <stopwatch name="test" action="foo"/>
+    </target>
+
 </project>

@@ -46,4 +46,9 @@ class StopwatchTaskTest extends BuildFileTest
     {
         $this->expectLogContaining(__FUNCTION__, 'Category:   test-cat');
     }
+
+    public function testStopwatchFails()
+    {
+        $this->expectBuildExceptionContaining(__FUNCTION__, 'method does not exists', 'Method foo does not exist');
+    }
 }
