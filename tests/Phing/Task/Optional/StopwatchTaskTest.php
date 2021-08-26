@@ -21,7 +21,6 @@
 namespace Phing\Test\Task\Optional;
 
 use Phing\Test\Support\BuildFileTest;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Test for StopwatchTask
@@ -42,13 +41,13 @@ class StopwatchTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/StopwatchTaskTest.xml');
     }
 
-    public function testStopwatch()
+    public function testStopwatch(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'Category:   test-cat');
     }
 
-    public function testStopwatchFails()
+    public function testStopwatchFails(): void
     {
-        $this->expectBuildExceptionContaining(__FUNCTION__, 'method does not exists', 'Method foo does not exist');
+        $this->expectBuildExceptionContaining(__FUNCTION__, 'method does not exists', 'does not exist');
     }
 }
