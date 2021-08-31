@@ -6,6 +6,7 @@
 /README.xml     export-ignore
 /resources      export-ignore
 /docs           export-ignore
+/guide          export-ignore
 
 # Configure diff output for .php and .phar files.
 *.php           diff=php
