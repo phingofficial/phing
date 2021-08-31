@@ -2,6 +2,23 @@ P     H     I     N     G
 =========================
 
 
+Sep. XX, 2021 - Phing 3.0.0 rc3
+-------------------------------
+
+The following issues and pull requests were closed in this release:
+
+* [stopwatch] Added test and cleanup. [\#1635](https://github.com/phingofficial/phing/pull/1635)
+* [pdosqlexec] Using traits [\#1634](https://github.com/phingofficial/phing/pull/1634)
+* [pdosqlexec] Added failOnConnectionError / Removed obsolete caching attribute [\#1632](https://github.com/phingofficial/phing/pull/1632)
+* [pdosqlexec] Added more attributes. [\#1631](https://github.com/phingofficial/phing/pull/1631)
+* [delete] Removed duplicated log entry [\#1630](https://github.com/phingofficial/phing/pull/1630)
+* [mkdir] Fixed PHP 8 compat [\#1629](https://github.com/phingofficial/phing/pull/1629)
+* [pdosqlexec] Fixed PHP 8 compat, Code Cleanup and tests [\#1628](https://github.com/phingofficial/phing/pull/1628)
+* Error with MkdirTask [\#1619](https://github.com/phingofficial/phing/issues/1619)
+* Remove the default value before the required parameter. [\#1618](https://github.com/phingofficial/phing/pull/1618)
+* Add support for formatter nested tag to the phpcs task [\#1614](https://github.com/phingofficial/phing/pull/1614)
+* bump version phing/task-svn in composer.lock [\#1613](https://github.com/phingofficial/phing/issues/1613)
+
 Aug. 31, 2021 - Phing 2.17.0
 ----------------------------
 
