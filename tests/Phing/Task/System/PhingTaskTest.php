@@ -34,7 +34,6 @@ use Throwable;
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  *
  * @internal
- * @coversNothing
  */
 class PhingTaskTest extends BuildFileTest
 {

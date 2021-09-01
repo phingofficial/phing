@@ -35,17 +35,23 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
      *
      * @return null|string
      */
-    public function nextQuery()
+    public function nextQuery(): ?string
     {
         $sql = null;
 
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
             $project = $this->parent->getOwningTarget()->getProject();
-            $line = $project->replaceProperties(trim($line));
+            if (!$this->keepformat) {
+                $line = trim($line);
+            }
+            if ($this->expandProperties) {
+                $line = $project->replaceProperties($line);
+            }
 
             if (
-                ($line != $delimiter)
+                !$this->keepformat
+                && ($line !== $delimiter)
                 && (StringHelper::startsWith('//', $line)
                     || StringHelper::startsWith('--', $line)
                     || StringHelper::startsWith('#', $line))
@@ -55,8 +61,15 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
 
             $sql .= ' ' . $line . "\n";
 
+            // SQL defines "--" as a comment to EOL
+            // and in Oracle it may contain a hint
+            // so we cannot just remove it, instead we must end it
+            if (!$this->keepformat && strpos($line, '--') !== false) {
+                $sql .= "\n";
+            }
+
             /*
-             * fix issue with PDO and wrong formated multistatements
+             * fix issue with PDO and wrong formatted multi statements
              *
              * @issue 1108
              */

@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * - If task with "equals" directly in "project" tag does not work.
  *
  * @internal
- * @coversNothing
  */
 class ConditionInProjectTagTest extends BuildFileTest
 {

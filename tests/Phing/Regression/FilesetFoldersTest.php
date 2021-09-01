@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * - fileset not selecting folders.
  *
  * @internal
- * @coversNothing
  */
 class FilesetFoldersTest extends BuildFileTest
 {

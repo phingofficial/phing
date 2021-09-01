@@ -29,7 +29,6 @@ use ReflectionObject;
  * @author Michiel Rook <mrook@php.net>
  *
  * @internal
- * @coversNothing
  */
 class VersionTaskTest extends BuildFileTest
 {

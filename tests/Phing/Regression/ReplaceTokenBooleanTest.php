@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * - ReplaceToken boolean problems.
  *
  * @internal
- * @coversNothing
  */
 class ReplaceTokenBooleanTest extends BuildFileTest
 {

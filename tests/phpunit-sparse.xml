@@ -8,9 +8,7 @@
          processIsolation="false"
          stopOnFailure="true"
          stopOnError="true"
-         syntaxCheck="false"
-         verbose="false"
-         strict="false">
+         verbose="false">
     <php>
         <ini name="error_reporting" value="-1"/>
         <ini name="display_errors" value="On"/>
@@ -22,7 +20,6 @@
               pathCoverage="false"
               ignoreDeprecatedCodeUnits="true" >
         <include>
-            <directory suffix=".php">../classes/phing</directory>
             <directory suffix=".php">../src/Phing</directory>
         </include>
         <exclude>

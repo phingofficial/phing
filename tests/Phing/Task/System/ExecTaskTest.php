@@ -40,7 +40,6 @@ use ReflectionProperty;
  * @author  Michiel Rook <mrook@php.net>
  *
  * @internal
- * @coversNothing
  */
 class ExecTaskTest extends BuildFileTest
 {

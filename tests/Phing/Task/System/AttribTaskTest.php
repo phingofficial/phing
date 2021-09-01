@@ -30,7 +30,6 @@ use Phing\Test\Support\BuildFileTest;
  * @requires OSFAMILY Windows
  *
  * @internal
- * @coversNothing
  */
 class AttribTaskTest extends BuildFileTest
 {

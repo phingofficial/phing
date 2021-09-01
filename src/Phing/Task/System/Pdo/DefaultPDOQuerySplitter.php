@@ -67,7 +67,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
      *
      * @return null|string
      */
-    public function nextQuery()
+    public function nextQuery(): ?string
     {
         $sql = '';
         $hasQuery = false;
@@ -75,10 +75,16 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
             $project = $this->parent->getOwningTarget()->getProject();
-            $line = $project->replaceProperties(trim($line));
+            if (!$this->keepformat) {
+                $line = trim($line);
+            }
+            if ($this->expandProperties) {
+                $line = $project->replaceProperties($line);
+            }
 
             if (
-                ($line != $delimiter)
+                !$this->keepformat
+                && ($line !== $delimiter)
                 && (StringHelper::startsWith('//', $line)
                     || StringHelper::startsWith('--', $line)
                     || StringHelper::startsWith('#', $line))
@@ -88,7 +94,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
 
             if (
                 strlen($line) > 4
-                && 'REM ' === strtoupper(substr($line, 0, 4))
+                && stripos($line, 'REM ') === 0
             ) {
                 continue;
             }
@@ -110,13 +116,13 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
             // SQL defines "--" as a comment to EOL
             // and in Oracle it may contain a hint
             // so we cannot just remove it, instead we must end it
-            if (false !== strpos((string) $line, '--')) {
+            if (!$this->keepformat && false !== strpos((string) $line, '--')) {
                 $sql .= "\n";
             }
 
             // DELIM_ROW doesn't need this (as far as i can tell)
-            if (PDOSQLExecTask::DELIM_NORMAL == $this->delimiterType) {
-                $reg = "#((?:\"(?:\\\\.|[^\"])*\"?)+|'(?:\\\\.|[^'])*'?|" . preg_quote($delimiter) . ')#';
+            if (PDOSQLExecTask::DELIM_NORMAL === $this->delimiterType) {
+                $reg = "#((?:\"(?:\\\\.|[^\"])*\"?)+|'(?:\\\\.|[^'])*'?|" . preg_quote($delimiter, null) . ')#';
 
                 $sqlParts = preg_split($reg, $sql, 0, PREG_SPLIT_DELIM_CAPTURE);
                 $this->sqlBacklog = '';
@@ -133,13 +139,13 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
                 }
             }
 
-            if ($hasQuery || (PDOSQLExecTask::DELIM_ROW == $this->delimiterType && $line == $delimiter)) {
+            if ($hasQuery || (PDOSQLExecTask::DELIM_ROW === $this->delimiterType && $line === $delimiter)) {
                 // this assumes there is always a delimter on the end of the SQL statement.
                 return StringHelper::substring(
                     $sql,
                     0,
                     strlen($sql) - strlen($delimiter)
-                    - (PDOSQLExecTask::DELIM_ROW == $this->delimiterType ? 2 : 1)
+                    - (PDOSQLExecTask::DELIM_ROW === $this->delimiterType ? 2 : 1)
                 );
             }
         }

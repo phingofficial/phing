@@ -45,6 +45,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      * @var bool
      */
     private $showheaders = true;
+    private $showtrailers = false;
 
     /**
      * Column delimiter.
@@ -61,6 +62,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      * @var string
      */
     private $rowdelimiter = PHP_EOL;
+    private $statementcounter = 0;
 
     /**
      * Set the showheaders attribute.
@@ -70,6 +72,21 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     public function setShowheaders($v)
     {
         $this->showheaders = StringHelper::booleanValue($v);
+    }
+
+    /**
+     * Set the showtrailers attribute.
+     *
+     * @param bool $v
+     */
+    public function setShowtrailers($v)
+    {
+        $this->showtrailers = StringHelper::booleanValue($v);
+    }
+
+    public function setStatementCounter($count)
+    {
+        $this->statementcounter = $count;
     }
 
     /**
@@ -101,6 +118,10 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     {
         $line = '';
 
+        if ($this->showtrailers) {
+            $this->out->write('# ' . $this->statementcounter . ' statement(s) successful executed.' . PHP_EOL);
+        }
+
         if (!$this->colsprinted && $this->showheaders) {
             $first = true;
             foreach ($row as $fieldName => $ignore) {
@@ -116,12 +137,12 @@ class PlainPDOResultFormatter extends PDOResultFormatter
             $this->out->write(PHP_EOL);
 
             $line = '';
-            $colsprinted = true;
+            $this->colsprinted = true;
         } // if show headers
 
         $first = true;
         foreach ($row as $columnValue) {
-            if (null != $columnValue) {
+            if (null !== $columnValue) {
                 $columnValue = trim($columnValue);
             }
 

@@ -29,7 +29,6 @@ use ZipArchive;
  * @author  Michiel Rook <mrook@php.net>
  *
  * @internal
- * @coversNothing
  */
 class ZipUnzipTaskTest extends BuildFileTest
 {

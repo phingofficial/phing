@@ -1,39 +1,24 @@
 <?xml version="1.0"?>
-<phpunit
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../vendor/phpunit/phpunit/phpunit.xsd"
-    beStrictAboutChangesToGlobalState="true"
-    beStrictAboutOutputDuringTests="true"
-    beStrictAboutTodoAnnotatedTests="true"
-    failOnWarning="true"
-    failOnRisky="true"
-    bootstrap="./bootstrap.php"
-    convertNoticesToExceptions="false"
-    verbose="true"
-    resolveDependencies="true">
-
-    <php>
-        <ini name="error_reporting" value="-1"/>
-        <ini name="display_errors" value="On"/>
-        <ini name="memory_limit" value="-1"/>
-        <ini name="date.timezone" value="UTC"/>
-    </php>
-    <testsuites>
-        <testsuite name="AllTests">
-            <directory>classes/phing/</directory>
-            <directory>Phing</directory>
-        </testsuite>
-    </testsuites>
-    <groups>
-        <exclude>
-            <group>disable</group>
-        </exclude>
-    </groups>
-
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../classes/phing/</directory>
-            <directory suffix=".php">../src/Phing/</directory>
-        </whitelist>
-    </filter>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" beStrictAboutChangesToGlobalState="true" beStrictAboutOutputDuringTests="true" beStrictAboutTodoAnnotatedTests="true" failOnWarning="true" failOnRisky="true" bootstrap="./bootstrap.php" convertNoticesToExceptions="false" verbose="true" resolveDependencies="true">
+  <coverage includeUncoveredFiles="true" processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">../src/Phing/</directory>
+    </include>
+  </coverage>
+  <php>
+    <ini name="error_reporting" value="-1"/>
+    <ini name="display_errors" value="On"/>
+    <ini name="memory_limit" value="-1"/>
+    <ini name="date.timezone" value="UTC"/>
+  </php>
+  <testsuites>
+    <testsuite name="AllTests">
+      <directory>Phing</directory>
+    </testsuite>
+  </testsuites>
+  <groups>
+    <exclude>
+      <group>disable</group>
+    </exclude>
+  </groups>
 </phpunit>

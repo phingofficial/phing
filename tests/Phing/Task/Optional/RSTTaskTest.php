@@ -32,7 +32,6 @@ use ReflectionException;
  * @author     Christian Weiske <cweiske@cweiske.de>
  *
  * @internal
- * @coversNothing
  */
 class RSTTaskTest extends BuildFileTest
 {

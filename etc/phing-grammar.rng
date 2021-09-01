@@ -152,6 +152,7 @@
                 <ref name="mail"/>
                 <ref name="manifest"/>
                 <ref name="notifysend"/>
+                <ref name="open"/>
                 <ref name="packageaspath"/>
                 <ref name="parallel"/>
                 <ref name="patch"/>
@@ -4898,6 +4899,11 @@
                     <attribute name="onerror"/>
                 </optional>
                 <optional>
+                    <attribute name="failonconnectionerror" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
                     <attribute name="delimiter"/>
                 </optional>
                 <optional>
@@ -4907,6 +4913,22 @@
                     <attribute name="autocommit">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
+                    <attribute name="expandproperties" a:defaultValue="true">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="keepformat" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="errorproperty"/>
+                </optional>
+                <optional>
+                    <attribute name="statementcountproperty"/>
                 </optional>
             </interleave>
             <zeroOrMore>
@@ -4949,6 +4971,11 @@
                 </optional>
                 <optional>
                     <attribute name="showheaders">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="showtrailers">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
@@ -7082,6 +7109,15 @@
                 <zeroOrMore>
                     <ref name="header"/>
                 </zeroOrMore>
+            </interleave>
+        </element>
+    </define>
+
+    <!--OpenTask-->
+    <define name="open">
+        <element name="open">
+            <interleave>
+                <attribute name="path"/>
             </interleave>
         </element>
     </define>

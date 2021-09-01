@@ -38,8 +38,6 @@ use Phing\Task;
  */
 abstract class PDOTask extends Task
 {
-    private $caching = true;
-
     /**
      * Autocommit flag. Default value is false.
      */
@@ -59,6 +57,7 @@ abstract class PDOTask extends Task
      * Password.
      */
     private $password;
+    private $failOnConnectionError = true;
 
     /**
      * Initialize the PDOTask
@@ -74,23 +73,11 @@ abstract class PDOTask extends Task
     }
 
     /**
-     * Caching loaders / driver. This is to avoid
-     * getting an OutOfMemoryError when calling this task
-     * multiple times in a row; default: true.
-     *
-     * @param bool $caching
-     */
-    public function setCaching($caching)
-    {
-        $this->caching = $caching;
-    }
-
-    /**
      * Sets the database connection URL; required.
      *
      * @param string $url The url to set
      */
-    public function setUrl($url)
+    public function setUrl($url): void
     {
         $this->url = $url;
     }
@@ -100,7 +87,7 @@ abstract class PDOTask extends Task
      *
      * @param string $password The password to set
      */
-    public function setPassword($password)
+    public function setPassword($password): void
     {
         $this->password = $password;
     }
@@ -111,17 +98,17 @@ abstract class PDOTask extends Task
      *
      * @param bool $autocommit The autocommit to set
      */
-    public function setAutocommit($autocommit)
+    public function setAutocommit($autocommit): void
     {
         $this->autocommit = $autocommit;
     }
 
     /**
-     * @return bool
+     * @param bool $b
      */
-    public function isCaching()
+    public function setFailOnConnectionError(bool $b): void
     {
-        return $this->caching;
+        $this->failOnConnectionError = $b;
     }
 
     /**
@@ -181,9 +168,9 @@ abstract class PDOTask extends Task
      * @throws BuildException if the UserId/Password/Url is not set or there is no suitable driver
      *                        or the driver fails to load
      *
-     * @return PDO the newly created connection
+     * @return PDO|null the newly created connection
      */
-    protected function getConnection()
+    protected function getConnection(): ?PDO
     {
         if (null === $this->url) {
             throw new BuildException('Url attribute must be set!', $this->getLocation());
@@ -192,22 +179,26 @@ abstract class PDOTask extends Task
         try {
             $this->log('Connecting to ' . $this->getUrl(), Project::MSG_VERBOSE);
 
-            $user = null;
-            $pass = null;
-
-            if ($this->userId) {
-                $user = $this->getUserId();
+            $conn = null;
+            try {
+                $conn = new PDO(
+                    $this->getUrl(),
+                    $this->getUserId(),
+                    $this->getPassword(),
+                    [
+                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                    ]
+                );
+            } catch (PDOException $e) {
+                if ($this->failOnConnectionError) {
+                    throw $e;
+                }
             }
-
-            if ($this->password) {
-                $pass = $this->getPassword();
-            }
-
-            $conn = new PDO($this->getUrl(), $user, $pass);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             try {
-                $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, $this->autocommit);
+                if ($conn instanceof PDO) {
+                    $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, $this->autocommit);
+                }
             } catch (PDOException $pe) {
                 $this->log(
                     'Unable to enable auto-commit for this database: ' . $pe->getMessage(),

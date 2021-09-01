@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @internal
- * @coversNothing
  */
 class SassTaskAcceptanceTest extends BuildFileTest
 {

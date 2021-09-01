@@ -395,12 +395,20 @@ abstract class FileSystem
     public function createDirectory(&$f, $mode = null)
     {
         if (null === $mode) {
-            $return = @mkdir($f->getAbsolutePath());
+            try {
+                $return = @mkdir($f->getAbsolutePath());
+            } catch (\Throwable $t) {
+                $return = false;
+            }
         } else {
             // If the $mode is specified, mkdir() is called with the $mode
             // argument so that the new directory does not temporarily have
             // higher permissions than it should before chmod() is called.
-            $return = @mkdir($f->getAbsolutePath(), $mode);
+            try {
+                $return = @mkdir($f->getAbsolutePath(), $mode);
+            } catch (\Throwable $t) {
+                $return = false;
+            }
             if ($return) {
                 chmod($f->getAbsolutePath(), $mode);
             }

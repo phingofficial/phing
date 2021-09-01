@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
  * <http://phing.info>.
  *
  * @internal
- * @coversNothing
  */
 class PhingFileTest extends TestCase
 {

@@ -51,7 +51,7 @@ class StopwatchTask extends DispatchTask
      *
      * @var Stopwatch
      */
-    private static $timer = null;
+    private static $timer;
 
     /**
      * Initialize Task.
@@ -68,7 +68,7 @@ class StopwatchTask extends DispatchTask
     /**
      * Start timer.
      */
-    public function start()
+    public function start(): void
     {
         $timer = $this->getStopwatchInstance();
         $timer->start($this->name, $this->category);
@@ -77,31 +77,32 @@ class StopwatchTask extends DispatchTask
     /**
      * Stop timer.
      */
-    public function stop()
+    public function stop(): void
     {
         $timer = $this->getStopwatchInstance();
         $event = $timer->stop($this->name);
 
         foreach ($event->getPeriods() as $period) {
             $this->log(
-                'Starttime: ' . $period->getStartTime() . ' - Endtime: ' . $period->getEndTime() . ' - Duration: ' . $period->getDuration() . ' - Memory: ' . $period->getMemory(),
+                'Starttime: ' . $period->getStartTime() . ' - Endtime: ' . $period->getEndTime() .
+                    ' - Duration: ' . $period->getDuration() . ' - Memory: ' . $period->getMemory(),
                 Project::MSG_INFO
             );
         }
 
-        $this->log('Name:       ' . $this->name, Project::MSG_INFO);
-        $this->log('Category:   ' . $event->getCategory(), Project::MSG_INFO);
-        $this->log('Origin:     ' . $event->getOrigin(), Project::MSG_INFO);
-        $this->log('Start time: ' . $event->getStartTime(), Project::MSG_INFO);
-        $this->log('End time:   ' . $event->getEndTime(), Project::MSG_INFO);
-        $this->log('Duration:   ' . $event->getDuration(), Project::MSG_INFO);
-        $this->log('Memory:     ' . $event->getMemory(), Project::MSG_INFO);
+        $this->log('Name:       ' . $this->name);
+        $this->log('Category:   ' . $event->getCategory());
+        $this->log('Origin:     ' . $event->getOrigin());
+        $this->log('Start time: ' . $event->getStartTime());
+        $this->log('End time:   ' . $event->getEndTime());
+        $this->log('Duration:   ' . $event->getDuration());
+        $this->log('Memory:     ' . $event->getMemory());
     }
 
     /**
      * Measure lap time.
      */
-    public function lap()
+    public function lap(): void
     {
         $timer = $this->getStopwatchInstance();
         $timer->lap($this->name);
@@ -112,7 +113,7 @@ class StopwatchTask extends DispatchTask
      *
      * @param string $name the name of the stopwatch timer
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -122,7 +123,7 @@ class StopwatchTask extends DispatchTask
      *
      * @param string $category
      */
-    public function setCategory($category)
+    public function setCategory(string $category): void
     {
         $this->category = $category;
     }
@@ -160,7 +161,7 @@ class StopwatchTask extends DispatchTask
      *
      * @return Stopwatch
      */
-    private function getStopwatchInstance()
+    private function getStopwatchInstance(): Stopwatch
     {
         if (null === self::$timer) {
             self::$timer = new Stopwatch();

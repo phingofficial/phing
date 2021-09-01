@@ -36,7 +36,6 @@ use Phing\Test\Support\BuildFileTest;
  * @see       http://www.phing.info/
  *
  * @internal
- * @coversNothing
  */
 class RSTTaskMultipleMappersTest extends BuildFileTest
 {

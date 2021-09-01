@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * - &amp;amp; transfers into & in new created task.
  *
  * @internal
- * @coversNothing
  */
 class HtmlEntitiesTest extends BuildFileTest
 {

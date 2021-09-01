@@ -44,6 +44,9 @@ abstract class PDOQuerySplitter
      */
     protected $sqlReader;
 
+    protected $keepformat = false;
+    protected $expandProperties = true;
+
     /**
      * Constructor, sets the parent task and reader with SQL source.
      */
@@ -53,10 +56,20 @@ abstract class PDOQuerySplitter
         $this->sqlReader = new BufferedReader($reader);
     }
 
+    public function setKeepformat(bool $keepformat): void
+    {
+        $this->keepformat = $keepformat;
+    }
+
+    public function setExpandProperties(bool $expandProps): void
+    {
+        $this->expandProperties = $expandProps;
+    }
+
     /**
      * Returns next query from SQL source, null if no more queries left.
      *
      * @return null|string
      */
-    abstract public function nextQuery();
+    abstract public function nextQuery(): ?string;
 }

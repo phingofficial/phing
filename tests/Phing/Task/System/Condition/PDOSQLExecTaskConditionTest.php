@@ -11,7 +11,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Jawira Portugal <dev@tugal.be>
  *
  * @internal
- * @coversNothing
  */
 class PDOSQLExecTaskConditionTest extends BuildFileTest
 {

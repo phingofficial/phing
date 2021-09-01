@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * - Allow properties to be recursively named.
  *
  * @internal
- * @coversNothing
  */
 class RecursivePropertyTest extends BuildFileTest
 {

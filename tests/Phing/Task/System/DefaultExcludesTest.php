@@ -29,7 +29,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  Siad Ardroumli
  *
  * @internal
- * @coversNothing
  */
 class DefaultExcludesTest extends BuildFileTest
 {

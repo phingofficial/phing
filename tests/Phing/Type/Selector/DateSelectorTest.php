@@ -28,7 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * Test cases for SelectorUtils
  *
  * @internal
- * @coversNothing
  */
 class DateSelectorTest extends BuildFileTest
 {

@@ -34,7 +34,6 @@ use ReflectionProperty;
  * @author  Nuno Costa <nuno@francodacosta.com>
  *
  * @internal
- * @coversNothing
  */
 class ComposerTaskTest extends TestCase
 {

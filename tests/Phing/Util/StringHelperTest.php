@@ -8,7 +8,6 @@ use stdClass;
 
 /**
  * @internal
- * @coversNothing
  */
 class StringHelperTest extends TestCase
 {

@@ -31,7 +31,6 @@ use Phing\Test\Support\BuildFileTest;
  *       it is included via composer)
  *
  * @internal
- * @coversNothing
  */
 class PearPkg2CompatibilityTest extends BuildFileTest
 {

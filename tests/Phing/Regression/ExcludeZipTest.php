@@ -27,7 +27,6 @@ use Phing\Test\Support\BuildFileTest;
  * - Excluded files may be included in Zip/Tar tasks.
  *
  * @internal
- * @coversNothing
  */
 class ExcludeZipTest extends BuildFileTest
 {

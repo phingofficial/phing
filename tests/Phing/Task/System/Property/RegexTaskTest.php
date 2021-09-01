@@ -28,7 +28,6 @@ use Phing\Test\Support\BuildFileTest;
  * @author  SiadArdroumli <siad.ardroumli@gmail.com>
  *
  * @internal
- * @coversNothing
  */
 class RegexTaskTest extends BuildFileTest
 {

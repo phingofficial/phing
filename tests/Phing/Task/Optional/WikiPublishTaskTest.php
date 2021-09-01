@@ -31,7 +31,6 @@ use PHPUnit\Framework\MockObject\MockObject;
  * @author  Piotr Lewandowski <piotr@cassis.pl>
  *
  * @internal
- * @coversNothing
  */
 class WikiPublishTaskTest extends BuildFileTest
 {

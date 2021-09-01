@@ -29,7 +29,6 @@ use Phing\Type\Path;
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  *
  * @internal
- * @coversNothing
  */
 class PathConvertTest extends BuildFileTest
 {

@@ -31,7 +31,6 @@ use Phing\Test\Support\BuildFileTest;
  *       are throwing errors.
  *
  * @internal
- * @coversNothing
  */
 class AvailableTaskTest extends BuildFileTest
 {
