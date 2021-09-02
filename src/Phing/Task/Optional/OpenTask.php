@@ -99,7 +99,8 @@ class OpenTask extends Task
         $this->execTask->setProject($this->getProject());
         $this->execTask->setLocation($this->getLocation());
         $this->execTask->setExecutable($executable);
-        $this->execTask->setCheckreturn(true);
+        $this->execTask->setSpawn(true);
+        $this->execTask->setPassthru(false);
         $this->execTask->createArg()->setValue($path);
         $this->execTask->main();
     }
