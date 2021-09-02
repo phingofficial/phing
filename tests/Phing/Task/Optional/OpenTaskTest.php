@@ -49,7 +49,7 @@ class OpenTaskTest extends BuildFileTest
 
     public function testInvalidPath(): void
     {
-        $this->expectBuildException(__FUNCTION__, 'Error while opening /foo/bar/baz');
+        $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Opening /foo/bar/baz', Project::MSG_INFO);
     }
 }
