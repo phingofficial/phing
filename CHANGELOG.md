@@ -16,6 +16,7 @@ The following issues and pull requests were closed in this release:
 * [pdosqlexec] Fixed PHP 8 compat, Code Cleanup and tests [\#1628](https://github.com/phingofficial/phing/pull/1628)
 * Error with MkdirTask [\#1619](https://github.com/phingofficial/phing/issues/1619)
 * Remove the default value before the required parameter. [\#1618](https://github.com/phingofficial/phing/pull/1618)
+* Add OpenTask [\#1617](https://github.com/phingofficial/phing/pull/1617)
 * Add support for formatter nested tag to the phpcs task [\#1614](https://github.com/phingofficial/phing/pull/1614)
 * bump version phing/task-svn in composer.lock [\#1613](https://github.com/phingofficial/phing/issues/1613)
 
