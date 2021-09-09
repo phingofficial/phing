@@ -2,8 +2,8 @@ P     H     I     N     G
 =========================
 
 
-Sep. XX, 2021 - Phing 3.0.0 rc3
--------------------------------
+Sep. 9, 2021 - Phing 3.0.0 rc3
+------------------------------
 
 The following issues and pull requests were closed in this release:
 
