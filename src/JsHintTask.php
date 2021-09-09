@@ -23,6 +23,7 @@ use Phing\Task;
 use Phing\Type\Element\FileSetAware;
 use Phing\Exception\BuildException;
 use Phing\Io\File as PhingFile;
+use Phing\Project;
 /**
  * JsHintTask
  *
@@ -167,6 +168,9 @@ class JsHintTask extends Task
         $this->executable = $path;
     }
 
+    /**
+     * @throws BuildException
+     */
     public function main()
     {
         if (!isset($this->file) && count($this->filesets) === 0) {
@@ -207,11 +211,44 @@ class JsHintTask extends Task
                 implode(' ', $fileList)
             );
         }
+        $this->log('Execute: ' . PHP_EOL . $command, Project::MSG_VERBOSE);
         $output = [];
         exec($command, $output);
         $output = implode(PHP_EOL, $output);
-        $xml = simplexml_load_string($output);
 
+        if ($this->checkstyleReportPath) {
+            file_put_contents($this->checkstyleReportPath, $output);
+            $this->log('');
+            $this->log('Checkstyle report saved to ' . $this->checkstyleReportPath);
+        }
+
+        libxml_clear_errors();
+        libxml_use_internal_errors(true);
+        $xml = simplexml_load_string($output);
+        if (false === $xml) {
+            $errors = libxml_get_errors();
+            if (!empty($errors)) {
+                foreach ($errors as $error) {
+                    $msg = $xml[$error->line - 1] . "\n";
+                    $msg .= str_repeat('-', $error->column) . "^\n";
+
+                    switch ($error->level) {
+                        case LIBXML_ERR_WARNING:
+                            $msg .= 'Warning ' . $error->code . ': ';
+                            break;
+                        case LIBXML_ERR_ERROR:
+                            $msg .= 'Error ' . $error->code . ': ';
+                            break;
+                        case LIBXML_ERR_FATAL:
+                            $msg .= 'Fatal error ' . $error->code . ': ';
+                            break;
+                    }
+                    $msg .= trim($error->message) . PHP_EOL . '  Line: ' . $error->line . PHP_EOL . '  Column: ' . $error->column;
+                    $this->log($msg, Project::MSG_VERBOSE);
+                }
+                throw new BuildException('Unable to parse output of JSHint, use checkstyleReportPath="/path/to/report.xml" to debug');
+            }
+        }
         $projectBasedir = $this->_getProjectBasedir();
         $errorsCount = 0;
         $warningsCount = 0;
@@ -257,11 +294,6 @@ class JsHintTask extends Task
         $this->log('');
         $this->log($message);
 
-        if ($this->checkstyleReportPath) {
-            file_put_contents($this->checkstyleReportPath, $output);
-            $this->log('');
-            $this->log('Checkstyle report saved to ' . $this->checkstyleReportPath);
-        }
     }
 
     /**
@@ -274,7 +306,7 @@ class JsHintTask extends Task
     }
 
     /**
-     * Checks, wheter the JSHint can be executed
+     * Checks, whether the JSHint can be executed
      *
      * @throws BuildException
      */
