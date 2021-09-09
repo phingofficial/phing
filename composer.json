@@ -12,7 +12,9 @@
     }
   ],
   "require": {
-    "php": ">= 7.1"
+    "php": ">= 7.1",
+    "ext-libxml": "*",
+    "ext-simplexml": "*"
   },
   "require-dev": {
     "phing/phing": "3.0.x-dev"
