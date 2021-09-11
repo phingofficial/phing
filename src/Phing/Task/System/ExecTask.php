@@ -172,6 +172,11 @@ class ExecTask extends Task
             return null;
         }
 
+        // Suggest task instead of executable
+        if ($hint = $this->findHint($this->executable)) {
+            $this->log($hint, Project::MSG_VERBOSE);
+        }
+
         try {
             $this->commandline->setExecutable($this->resolveExecutable($this->executable, $this->searchPath));
         } catch (IOException | \InvalidArgumentException $e) {
@@ -739,4 +744,93 @@ class ExecTask extends Task
 
         throw new InvalidArgumentException('$value should be of type array or string.');
     }
+
+    /**
+     * Give a Task as an alternative to executable
+     */
+    public function findHint(string $executable): ?string
+    {
+        switch ($executable) {
+            case '/usr/bin/mkdir':
+            case 'mkdir':
+                $hint = 'Consider using MkdirTask https://www.phing.info/guide/chunkhtml/MkdirTask.html';
+                break;
+            case '/usr/bin/touch':
+            case 'touch':
+                $hint = 'Consider using TouchTask https://www.phing.info/guide/chunkhtml/TouchTask.html';
+                break;
+            case '/usr/bin/truncate':
+            case 'truncate':
+                $hint = 'Consider using TruncateTask https://www.phing.info/guide/chunkhtml/TruncateTask.html';
+                break;
+            case '/usr/bin/xsltproc':
+            case 'xsltproc':
+                $hint = 'Consider using XsltTask https://www.phing.info/guide/chunkhtml/XsltTask.html';
+                break;
+            case '/usr/bin/chmod':
+            case 'chmod':
+                $hint = 'Consider using ChmodTask https://www.phing.info/guide/chunkhtml/ChmodTask.html';
+                break;
+            case '/usr/bin/chown':
+            case 'chown':
+                $hint = 'Consider using ChownTask https://www.phing.info/guide/chunkhtml/ChownTask.html';
+                break;
+            case '/usr/bin/mv':
+            case 'mv':
+                $hint = 'Consider using MoveTask https://www.phing.info/guide/chunkhtml/MoveTask.html';
+                break;
+            case 'sed':
+                $hint = 'Consider using ReplaceTokens filter https://www.phing.info/guide/chunkhtml/ReplaceTokens.html';
+                break;
+            case '/usr/bin/rmdir':
+            case 'rmdir':
+            case '/usr/bin/rm':
+            case 'rm':
+            case '/usr/bin/unlink':
+            case 'unlink':
+                $hint = 'Consider using DeleteTask https://www.phing.info/guide/chunkhtml/DeleteTask.html';
+                break;
+            case '/usr/bin/sleep':
+            case 'sleep':
+                $hint = 'Consider using SleepTask https://www.phing.info/guide/chunkhtml/SleepTask.html';
+                break;
+            case '/usr/local/bin':
+            case 'ln':
+                $hint = 'Consider using SymlinkTask https://www.phing.info/guide/chunkhtml/SymlinkTask.html';
+                break;
+            case '/usr/bin/wget':
+            case 'wget':
+                $hint = 'Consider using HttpGetTask https://www.phing.info/guide/chunkhtml/HttpGetTask.html';
+                break;
+            case '/usr/bin/curl':
+            case 'curl':
+                $hint = 'Consider using HttpRequestTask https://www.phing.info/guide/chunkhtml/HttpRequestTask.html';
+                break;
+            case '/usr/bin/xdg-open':
+            case 'xdg-open':
+            case 'wslview':
+            case 'open':
+            case 'start':
+                $hint = 'Consider using OpenTask https://www.phing.info/guide/chunkhtml/OpenTask.html';
+                break;
+            case '/usr/bin/zip':
+            case 'zip':
+                $hint = 'Consider using ZipTask https://www.phing.info/guide/chunkhtml/ZipTask.html';
+                break;
+            case '/usr/bin/unzip':
+            case 'unzip':
+                $hint = 'Consider using UnzipTask https://www.phing.info/guide/chunkhtml/UnzipTask.html';
+                break;
+            case '/usr/bin/tar':
+            case 'tar':
+                $hint = 'Consider using TarTask https://www.phing.info/guide/chunkhtml/TarTask.html';
+                break;
+            default:
+                $hint = null;
+                break;
+        }
+
+        return $hint;
+    }
+
 }
