@@ -16,7 +16,7 @@
     "pdepend/pdepend": "^2.9",
     "phploc/phploc": "^7.0",
     "phpmd/phpmd": "^2.10",
-    "phpstan/phpstan": "^0.12.87",
+    "phpstan/phpstan": "^0.12.87 || ^1.0",
     "sebastian/phpcpd": "^6.0"
   },
   "require-dev": {
