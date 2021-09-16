@@ -65,3 +65,8 @@ that you might stumble across when upgrading from Phing 2 to 3.
   * ZendServerDevelopmentTools
 * The signature from `\Phing\Listener\DefaultLogger::formatTime` has been changed. Therefore, if you have written a
   logger that overrides this method, you will need to update its signature accordingly.
+* The way how Phing handles file sizes has been normalized, this is explained in documentation.
+    * FileSizeTask: `unit` attribute can be an IEC or SI suffix.
+    * HasFreeSpace condition: `needed` attribute can include an IEC or SI suffix.
+    * Size selector: `units` attribute has been removed, `value` attribute can include an IEC or SI suffix.
+    * TruncateTask: `length` attribute can include an IEC or SI suffix.
