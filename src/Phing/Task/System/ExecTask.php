@@ -172,8 +172,9 @@ class ExecTask extends Task
             return null;
         }
 
-        // Suggest task instead of executable
-        if ($hint = $this->findHint(strval($this->executable))) {
+        // Suggest Task instead of executable
+        if ($this->executable) {
+            $hint = $this->findHint($this->executable);
             $this->log($hint, Project::MSG_VERBOSE);
         }
 
