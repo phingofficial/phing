@@ -826,6 +826,10 @@ class ExecTask extends Task
             case 'tar':
                 $hint = 'Consider using TarTask https://www.phing.info/guide/chunkhtml/TarTask.html';
                 break;
+            case '/usr/bin/echo':
+            case 'echo':
+                $hint = 'Consider using EchoTask https://www.phing.info/guide/chunkhtml/EchoTask.html';
+                break;
             default:
                 $hint = null;
                 break;
