@@ -245,4 +245,10 @@
             <arg value="print getEnv('HELLO') . ' ' . getEnv('WORLD');"/>
         </exec>
     </target>
+
+    <target name="testSuggestion">
+        <exec executable="curl">
+            <arg value="--version"/>
+        </exec>
+    </target>
 </project>
