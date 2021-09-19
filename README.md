@@ -100,10 +100,6 @@ Developing and maintaining Phing has cost many hours over the years. If you want
 
 Thank you!
 
-## Contributing
-
-We love contributions!
-
 ### Help us spot & fix bugs
 
 We greatly appreciate it when users report issues or come up with feature requests. However, there are a few guidelines you should observe before submitting a new issue:
@@ -144,3 +140,13 @@ Then, perform the following steps (on a clone/fork of Phing):
 Proud to use:
 
 [![PhpStorm Logo](http://www.jetbrains.com/phpstorm/documentation/phpstorm_banners/phpstorm1/phpstorm468x60_violet.gif "Proud to use")](http://www.jetbrains.com/phpstorm)
+
+## Contributing
+
+We love contributions!
+
+Thanks to all the people who already contributed!
+
+<a href="https://github.com/phingofficial/phing/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=phingofficial/phing" />
+</a>
