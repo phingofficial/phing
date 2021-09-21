@@ -13,7 +13,8 @@ that you might stumble across when upgrading from Phing 2 to 3.
   a specific logger or listener when running Phing (such as `phing.listener.DefaultLogger`),
   you will need to adjust this (to `Phing\Listener\DefaultLogger`, for example).
   The documentation has been modified to reflect this.
-* Support for dot-path classnames (i.e., `foo.bar.FooBar`) has been removed.
+* Support for dot-path classnames (i.e., `foo.bar.FooBar`) has been removed. The
+  associated `PackageAsPath` task was also removed.
 * Omitting the `basedir` property in the root `project` tag now means "." instead
   of the current working directory. This effectively reverts the change made in 
   http://www.phing.info/trac/ticket/309 ([dfdb0bc](https://github.com/phingofficial/phing/commit/dfdb0bc8095db18284de364b421d320be3c1b6fb))
