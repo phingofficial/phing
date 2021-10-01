@@ -21,6 +21,11 @@ namespace Phing\Task\Ext;
 
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
+use Phing\Type\FileSet;
+use Phing\Project;
+use Phing\Exception\BuildException;
+
+use JShrink\Minifier;
 
 /**
  * Task to minify javascript files.
@@ -47,7 +52,7 @@ class JsMinTask extends Task
     /**
      * Define if the target should use or not a suffix -min
      *
-     * @var boolean
+     * @var string
      */
     protected $suffix = '-min';
 
@@ -89,50 +94,33 @@ class JsMinTask extends Task
     }
 
     /**
-     * The init method: Do init steps.
-     */
-    public function init()
-    {
-        return true;
-    }
-
-    /**
      * The main entry point method.
      */
     public function main()
     {
-        // if composer autoloader is not yet loaded, load it here
-        @include_once 'vendor/autoload.php';
-        if (!class_exists('\\JShrink\\Minifier')) {
-            throw new \BuildException(
-                'JsMinTask depends on JShrink being installed and on include_path.',
-                $this->getLocation()
-            );
-        }
-
         if (empty($this->targetDir)) {
-            throw new \BuildException('Attribute "targetDir" is required');
+            throw new BuildException('Attribute "targetDir" is required');
         }
 
         foreach ($this->filesets as $fs) {
             try {
                 $this->processFileSet($fs);
-            } catch (\BuildException $be) {
+            } catch (BuildException $be) {
                 // directory doesn't exist or is not readable
                 if ($this->failonerror) {
                     throw $be;
                 }
 
-                $this->log($be->getMessage(), \Project::MSG_WARN);
+                $this->log($be->getMessage(), Project::MSG_WARN);
             }
         }
     }
 
     /**
-     * @param \FileSet $fs
-     * @throws \BuildException
+     * @param FileSet $fs
+     * @throws BuildException
      */
-    protected function processFileSet(\FileSet $fs)
+    protected function processFileSet(FileSet $fs)
     {
         $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
         $fullPath = realpath($fs->getDir($this->project));
@@ -144,17 +132,19 @@ class JsMinTask extends Task
                         '',
                         str_replace('.js', $this->suffix . '.js', $file)
                     );
-                if (file_exists(dirname($target)) === false) {
-                    mkdir(dirname($target), 0777 - umask(), true);
+                if (!is_dir(dirname($target))) {
+                    if (!mkdir($concurrentDirectory = dirname($target), 0777 - umask(), true) && !is_dir($concurrentDirectory)) {
+                        throw new BuildException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+                    }
                 }
 
                 $contents = file_get_contents($fullPath . '/' . $file);
 
-                $minified = \JShrink\Minifier::minify($contents);
+                $minified = Minifier::minify($contents);
 
                 file_put_contents($target, $minified);
-            } catch (\Exception $jsme) {
-                $this->log("Could not minify file $file: " . $jsme->getMessage(), \Project::MSG_ERR);
+            } catch (Exception $jsme) {
+                $this->log("Could not minify file $file: " . $jsme->getMessage(), Project::MSG_ERR);
             }
         }
     }
