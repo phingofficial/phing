@@ -71,3 +71,4 @@ that you might stumble across when upgrading from Phing 2 to 3.
     * HasFreeSpace condition: `needed` attribute can include an IEC or SI suffix.
     * Size selector: `units` attribute has been removed, `value` attribute can include an IEC or SI suffix.
     * TruncateTask: `length` attribute can include an IEC or SI suffix.
+* The way how Phing handles boolean values has been normalized. Therefore `t` is not a valid `true` value any longer. For a list of effected components follow https://github.com/phingofficial/phing/search?p=1&q=booleanValue
