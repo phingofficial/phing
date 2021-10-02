@@ -72,3 +72,9 @@ that you might stumble across when upgrading from Phing 2 to 3.
     * Size selector: `units` attribute has been removed, `value` attribute can include an IEC or SI suffix.
     * TruncateTask: `length` attribute can include an IEC or SI suffix.
 * The way how Phing handles boolean values has been normalized. Therefore `t` is not a valid `true` value any longer. For a list of effected components follow https://github.com/phingofficial/phing/search?p=1&q=booleanValue
+* Obsolete `ExportPropertiesTask` was removed in favor of the `EchoPropertiesTask`
+    ```xml
+    <exportproperties targetfile="output.props" />
+    <-- is the same as -->
+    <echoproperties destfile="output.props" regex="/^((?!host\.)(?!os\.)(?!env\.)(?!phing\.)(?!php\.)(?!line\.)(?!user\.)[\s\S])*$/"/>
+    ```
