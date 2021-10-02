@@ -78,3 +78,4 @@ that you might stumble across when upgrading from Phing 2 to 3.
     <-- is the same as -->
     <echoproperties destfile="output.props" regex="/^((?!host\.)(?!os\.)(?!env\.)(?!phing\.)(?!php\.)(?!line\.)(?!user\.)[\s\S])*$/"/>
     ```
+* `FileHashTask` creates now a file by default
