@@ -404,4 +404,11 @@ class ExecTaskTest extends BuildFileTest
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));
     }
+
+    public function testSuggestion()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $hint = 'Consider using HttpRequestTask https://www.phing.info/guide/chunkhtml/HttpRequestTask.html';
+        $this->assertInLogs($hint, Project::MSG_VERBOSE, 'ExecTask is not displaying suggestion');
+    }
 }
