@@ -950,12 +950,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/VersionControl_Git.git",
-                "reference": "2fcd233ea65c40f7651d5b3ecab97205b3c482ff"
+                "reference": "9bf347bfa0f1f049da7bc907cb4f09c2eaf706cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/VersionControl_Git/zipball/2fcd233ea65c40f7651d5b3ecab97205b3c482ff",
-                "reference": "2fcd233ea65c40f7651d5b3ecab97205b3c482ff",
+                "url": "https://api.github.com/repos/pear/VersionControl_Git/zipball/9bf347bfa0f1f049da7bc907cb4f09c2eaf706cd",
+                "reference": "9bf347bfa0f1f049da7bc907cb4f09c2eaf706cd",
                 "shasum": ""
             },
             "require": {
@@ -992,7 +992,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=VersionControl_Git",
                 "source": "https://github.com/pear/VersionControl_Git"
             },
-            "time": "2021-09-29T13:25:29+00:00"
+            "time": "2021-11-08T12:11:16+00:00"
         },
         {
             "name": "pear/versioncontrol_svn",
