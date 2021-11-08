@@ -318,7 +318,7 @@ class Target implements TaskContainer
      * Set the if-condition from the XML tag, if any. The property name given
      * as parameter must be present so the if condition evaluates to true.
      *
-     * @param string $property The property name that has to be present
+     * @param string|null $property The property name that has to be present
      */
     public function setIf($property)
     {
@@ -335,7 +335,7 @@ class Target implements TaskContainer
      * given as parameter must be present so the unless condition evaluates
      * to true.
      *
-     * @param string $property The property name that has to be present
+     * @param string|null $property The property name that has to be present
      */
     public function setUnless($property)
     {

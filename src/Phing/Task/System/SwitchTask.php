@@ -152,7 +152,7 @@ class SwitchTask extends Task
         foreach ($this->cases as $case) {
             $cValue = $case->getValue();
 
-            if (empty($case)) {
+            if (empty($cValue)) {
                 throw new BuildException('Value is required for case.');
             }
 

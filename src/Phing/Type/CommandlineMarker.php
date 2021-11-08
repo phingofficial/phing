@@ -69,7 +69,7 @@ class CommandlineMarker
     /**
      * Set the prefix to be placed in front of the inserted argument.
      *
-     * @param string $prefix fixed prefix string
+     * @param string|null $prefix fixed prefix string
      */
     public function setPrefix($prefix)
     {
@@ -87,7 +87,7 @@ class CommandlineMarker
     /**
      * Set the suffix to be placed at the end of the inserted argument.
      *
-     * @param string $suffix fixed suffix string
+     * @param string|null $suffix fixed suffix string
      */
     public function setSuffix($suffix)
     {
