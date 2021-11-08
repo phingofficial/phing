@@ -950,20 +950,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/VersionControl_Git.git",
-                "reference": "6308acdf0ef5c57d1545e6a720fbddf755813753"
+                "reference": "2fcd233ea65c40f7651d5b3ecab97205b3c482ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/VersionControl_Git/zipball/6308acdf0ef5c57d1545e6a720fbddf755813753",
-                "reference": "6308acdf0ef5c57d1545e6a720fbddf755813753",
+                "url": "https://api.github.com/repos/pear/VersionControl_Git/zipball/2fcd233ea65c40f7651d5b3ecab97205b3c482ff",
+                "reference": "2fcd233ea65c40f7651d5b3ecab97205b3c482ff",
                 "shasum": ""
             },
             "require": {
                 "pear/pear-core-minimal": "^1.9",
-                "pear/pear_exception": "~1.0.0"
+                "pear/pear_exception": "~1.0.0",
+                "php": "^7.3 || ^7.4 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5"
+                "phpunit/phpunit": "^9.5"
             },
             "default-branch": true,
             "type": "library",
@@ -991,7 +992,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=VersionControl_Git",
                 "source": "https://github.com/pear/VersionControl_Git"
             },
-            "time": "2018-01-29T21:14:27+00:00"
+            "time": "2021-09-29T13:25:29+00:00"
         },
         {
             "name": "pear/versioncontrol_svn",
