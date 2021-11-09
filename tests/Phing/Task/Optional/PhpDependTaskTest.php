@@ -28,6 +28,7 @@ use Phing\Test\Support\BuildFileTest;
  * @author Michiel Rook <mrook@php.net>
  *
  * @internal
+ * @requires PHP < 8.1
  */
 class PhpDependTaskTest extends BuildFileTest
 {
