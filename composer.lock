@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "431e6af14a4489b7fc0f152f322236c6",
+    "content-hash": "0f0e27f952f489e4c07fdd8a9cfefb62",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -8267,10 +8267,10 @@
         "phing/task-visualizer": 20,
         "phing/task-zendcodeanalyser": 20,
         "phing/task-zendserverdevelopmenttools": 20,
-        "roave/security-advisories": 20,
         "mikey179/vfsstream": 20,
         "pear/net_growl": 20,
-        "pear/versioncontrol_git": 20
+        "pear/versioncontrol_git": 20,
+        "roave/security-advisories": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
