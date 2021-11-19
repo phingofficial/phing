@@ -19,6 +19,9 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+use Phing\Io\FileSystem;
+use Phing\Io\IOException;
 use Phing\Task;
 
 /**
@@ -160,27 +163,28 @@ class IoncubeLicenseTask extends Task
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
+     * @throws IOException
      */
     public function main()
     {
         $arguments = $this->constructArguments();
 
-        $makelicense = new \PhingFile($this->ioncubePath, 'make_license');
+        $makelicense = FileSystem::getFileSystem()->resolve($this->ioncubePath, 'make_license');
 
         $this->log("Running ionCube make_license...");
 
-        exec($makelicense->__toString() . " " . $arguments . " 2>&1", $output, $return);
+        exec($makelicense . " " . $arguments . " 2>&1", $output, $return);
 
         if ($return != 0) {
-            throw new \BuildException("Could not execute ionCube make_license: " . implode(' ', $output));
+            throw new BuildException("Could not execute ionCube make_license: " . implode(' ', $output));
         }
     }
 
     /**
      * Constructs an argument string for the ionCube make_license
      */
-    private function constructArguments()
+    private function constructArguments(): string
     {
         $arguments = "";
 

@@ -19,6 +19,9 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+use Phing\Io\FileSystem;
+use Phing\Io\IOException;
 use Phing\Task;
 
 /**
@@ -601,31 +604,33 @@ class IoncubeEncoderTask extends Task
     /**
      * The main entry point
      *
-     * @throws \BuildException
+     * @throws BuildException
+     * @throws IOException
      */
     public function main()
     {
         $arguments = $this->constructArguments();
-
-        $encoder = new \PhingFile($this->ioncubePath, $this->encoderName . $this->phpVersion);
+        $encoder = FileSystem::getFileSystem()->resolve($this->ioncubePath, $this->encoderName . $this->phpVersion);
 
         $this->log("Running ionCube Encoder...");
 
         if ($this->showCommandLine) {
-            $this->log("Command line: " . $encoder->__toString() . ' ' . $arguments);
+            $this->log("Command line: " . $encoder . ' ' . $arguments);
         }
 
-        exec($encoder->__toString() . ' ' . $arguments . " 2>&1", $output, $return);
+        exec($encoder . ' ' . $arguments . " 2>&1", $output, $return);
 
         if ($return != 0) {
-            throw new \BuildException("Could not execute ionCube Encoder: " . implode(' ', $output));
+            throw new BuildException("Could not execute ionCube Encoder: " . implode(' ', $output));
         }
     }
 
     /**
      * Constructs an argument string for the ionCube encoder
+     *
+     * @throws BuildException
      */
-    private function constructArguments()
+    private function constructArguments(): string
     {
         $arguments = '';
 
@@ -666,7 +671,7 @@ class IoncubeEncoderTask extends Task
                     $arguments .= "--" . $this->targetOption . "-target ";
                     break;
                 default:
-                    throw new \BuildException("Unknown target option '" . $this->targetOption . "'");
+                    throw new BuildException("Unknown target option '" . $this->targetOption . "'");
             }
         }
 
