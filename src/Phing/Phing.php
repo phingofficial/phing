@@ -546,37 +546,37 @@ class Phing
      */
     public static function printUsage()
     {
-        $msg = '';
-        $msg .= 'phing [options] [target [target2 [target3] ...]]' . PHP_EOL;
-        $msg .= 'Options: ' . PHP_EOL;
-        $msg .= '  -h -help               print this message' . PHP_EOL;
-        $msg .= '  -l -list               list available targets in this project' . PHP_EOL;
-        $msg .= '  -i -init [file]        generates an initial buildfile' . PHP_EOL;
-        $msg .= '  -v -version            print the version information and exit' . PHP_EOL;
-        $msg .= '  -q -quiet              be extra quiet' . PHP_EOL;
-        $msg .= '  -S -silent             print nothing but task outputs and build failures' . PHP_EOL;
-        $msg .= '  -verbose               be extra verbose' . PHP_EOL;
-        $msg .= '  -debug                 print debugging information' . PHP_EOL;
-        $msg .= '  -emacs, -e             produce logging information without adornments' . PHP_EOL;
-        $msg .= '  -diagnostics           print diagnostics information' . PHP_EOL;
-        $msg .= '  -strict                runs build in strict mode, considering a warning as error' . PHP_EOL;
-        $msg .= '  -no-strict             runs build normally (overrides buildfile attribute)' . PHP_EOL;
-        $msg .= '  -longtargets           show target descriptions during build' . PHP_EOL;
-        $msg .= '  -logfile <file>        use given file for log' . PHP_EOL;
-        $msg .= '  -logger <classname>    the class which is to perform logging' . PHP_EOL;
-        $msg .= '  -listener <classname>  add an instance of class as a project listener' . PHP_EOL;
-        $msg .= '  -f -buildfile <file>   use given buildfile' . PHP_EOL;
-        $msg .= '  -D<property>=<value>   use value for given property' . PHP_EOL;
-        $msg .= '  -keep-going, -k        execute all targets that do not depend' . PHP_EOL;
-        $msg .= '                         on failed target(s)' . PHP_EOL;
-        $msg .= '  -propertyfile <file>   load all properties from file' . PHP_EOL;
-        $msg .= '  -propertyfileoverride  values in property file override existing values' . PHP_EOL;
-        $msg .= '  -find <file>           search for buildfile towards the root of the' . PHP_EOL;
-        $msg .= '                         filesystem and use it' . PHP_EOL;
-        $msg .= '  -inputhandler <file>   the class to use to handle user input' . PHP_EOL;
-        //$msg .= "  -recursive <file>      search for buildfile downwards and use it" . PHP_EOL;
-        $msg .= PHP_EOL;
-        $msg .= 'Report bugs to https://github.com/phingofficial/phing/issues' . PHP_EOL;
+        $msg = <<<'TEXT'
+            phing [options] [target [target2 [target3] ...]]
+            Options:
+              -h -help                 print this message
+              -l -list                 list available targets in this project
+              -i -init [file]          generates an initial buildfile
+              -v -version              print the version information and exit
+              -q -quiet                be extra quiet
+              -S -silent               print nothing but task outputs and build failures
+                 -verbose              be extra verbose
+                 -debug                print debugging information
+              -e -emacs                produce logging information without adornments
+                 -diagnostics          print diagnostics information
+                 -strict               runs build in strict mode, considering a warning as error
+                 -no-strict            runs build normally (overrides buildfile attribute)
+                 -longtargets          show target descriptions during build
+                 -logfile <file>       use given file for log
+                 -logger <classname>   the class which is to perform logging
+                 -listener <classname> add an instance of class as a project listener
+              -f -buildfile <file>     use given buildfile
+                 -D<property>=<value>  use value for given property
+              -k -keep-going           execute all targets that do not depend on failed target(s)
+                 -propertyfile <file>  load all properties from file
+                 -propertyfileoverride values in property file override existing values
+                 -find <file>          search for buildfile towards the root of the filesystem and use it
+                 -inputhandler <file>  the class to use to handle user input
+
+            Report bugs to https://github.com/phingofficial/phing/issues
+
+            TEXT;
+
         self::$err->write($msg);
     }
 
