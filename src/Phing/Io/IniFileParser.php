@@ -63,28 +63,9 @@ class IniFileParser implements FileParserInterface
             }
             $property = trim(substr((string) $line, 0, $pos));
             $value = trim(substr((string) $line, $pos + 1));
-            $properties[$property] = $this->inVal($value);
+            $properties[$property] = $value;
         } // for each line
 
         return $properties;
-    }
-
-    /**
-     * Process values when being read in from properties file.
-     * does things like convert "true" => true.
-     *
-     * @param string $val trimmed value
-     *
-     * @return mixed The new property value (may be boolean, etc.)
-     */
-    protected function inVal($val)
-    {
-        if ('true' === $val) {
-            $val = true;
-        } elseif ('false' === $val) {
-            $val = false;
-        }
-
-        return $val;
     }
 }

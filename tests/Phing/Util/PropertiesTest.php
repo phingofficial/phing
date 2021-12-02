@@ -59,8 +59,8 @@ class PropertiesTest extends TestCase
         );
         $this->assertEquals('Testline1', $this->props->getProperty('testline1'));
         $this->assertEquals('Testline2', $this->props->getProperty('testline2'));
-        $this->assertEquals(true, $this->props->getProperty('testline3'));
-        $this->assertEquals(false, $this->props->getProperty('testline4'));
+        $this->assertEquals('true', $this->props->getProperty('testline3'));
+        $this->assertEquals('false', $this->props->getProperty('testline4'));
     }
 
     public function testEmpty(): void

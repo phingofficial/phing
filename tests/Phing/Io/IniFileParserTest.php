@@ -126,13 +126,13 @@ class IniFileParserTest extends TestCase
             [
                 'data' => 'property = true',
                 'expected' => [
-                    'property' => true,
+                    'property' => 'true',
                 ],
             ],
             [
                 'data' => 'property = false',
                 'expected' => [
-                    'property' => false,
+                    'property' => 'false',
                 ],
             ],
             [
