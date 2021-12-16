@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="HasFreeSpaceConditionTest" default="testPartitionNotSet">
+
+    <if>
+        <os family="windows"/>
+        <then>
+            <property name="my.partition" value="C:"/>
+        </then>
+        <else>
+            <property name="my.partition" value="/"/>
+        </else>
+    </if>
+
+    <target name="testPartitionNotSet">
+        <if>
+            <hasfreespace/>
+        </if>
+    </target>
+
+    <target name="testNeededNotSet">
+        <if>
+            <hasfreespace partition="${my.partition}"/>
+        </if>
+    </target>
+
+    <target name="testInvalidPartition">
+        <if>
+            <hasfreespace partition="foo" needed="1M"/>
+        </if>
+    </target>
+
+    <target name="testEnoughSpace">
+        <if>
+            <hasfreespace partition="${my.partition}" needed="1M"/>
+            <then>
+                <echo>HasFreeSpaceConditionTest: Enough space in disk.</echo>
+            </then>
+        </if>
+    </target>
+
+    <target name="testNotEnoughSpace">
+        <if>
+            <not>
+                <hasfreespace partition="${my.partition}" needed="900TiB"/>
+            </not>
+            <then>
+                <echo>HasFreeSpaceConditionTest: Not enough space in disk.</echo>
+            </then>
+        </if>
+    </target>
+
+</project>

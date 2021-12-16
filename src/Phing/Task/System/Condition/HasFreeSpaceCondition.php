@@ -22,6 +22,7 @@ namespace Phing\Task\System\Condition;
 
 use Phing\Exception\BuildException;
 use Phing\Util\SizeHelper;
+use Throwable;
 
 /**
  * Condition returns true if selected partition has the requested space, false otherwise.
@@ -44,14 +45,16 @@ class HasFreeSpaceCondition implements Condition
      * {@inheritdoc}
      *
      * @throws BuildException
-     *
-     * @return bool
      */
-    public function evaluate()
+    public function evaluate(): bool
     {
         $this->validate();
 
-        $free = disk_free_space($this->partition);
+        try {
+            $free = disk_free_space($this->partition);
+        } catch (Throwable $throwable) {
+            throw new BuildException('Error while retrieving free space.');
+        }
 
         return $free >= SizeHelper::fromHumanToBytes($this->needed);
     }
@@ -59,7 +62,7 @@ class HasFreeSpaceCondition implements Condition
     /**
      * Set the partition/device to check.
      */
-    public function setPartition(string $partition)
+    public function setPartition(string $partition): void
     {
         $this->partition = $partition;
     }
@@ -67,7 +70,7 @@ class HasFreeSpaceCondition implements Condition
     /**
      * Set the amount of free space required.
      */
-    public function setNeeded(string $needed)
+    public function setNeeded(string $needed): void
     {
         $this->needed = $needed;
     }
@@ -75,7 +78,7 @@ class HasFreeSpaceCondition implements Condition
     /**
      * @throws BuildException
      */
-    private function validate()
+    private function validate(): void
     {
         if (null == $this->partition) {
             throw new BuildException('Please set the partition attribute.');
