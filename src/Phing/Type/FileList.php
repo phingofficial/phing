@@ -29,6 +29,7 @@ use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
 use Phing\Project;
+use ReturnTypeWillChange;
 
 /**
  * FileList represents an explicitly named list of files. FileLists
@@ -85,6 +86,7 @@ class FileList extends DataType implements IteratorAggregate
         }
     }
 
+    #[ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->getFiles($this->getProject()));
