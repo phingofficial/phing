@@ -23,7 +23,7 @@ class HasFreeSpaceConditionTest extends BuildFileTest
 
     public function testInvalidPartition()
     {
-        $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Error while retrieving free space.');
+        $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'disk_free_space(): No such file or directory');
     }
 
     public function testEnoughSpace()

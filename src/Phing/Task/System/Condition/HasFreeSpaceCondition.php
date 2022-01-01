@@ -22,6 +22,7 @@ namespace Phing\Task\System\Condition;
 
 use Phing\Exception\BuildException;
 use Phing\Util\SizeHelper;
+use Throwable;
 
 /**
  * Condition returns true if selected partition has the requested space, false otherwise.
@@ -49,7 +50,11 @@ class HasFreeSpaceCondition implements Condition
     {
         $this->validate();
 
-        $free = disk_free_space($this->partition);
+        try {
+            $free = disk_free_space($this->partition);
+        } catch (Throwable $throwable) {
+            throw new BuildException($throwable->getMessage());
+        }
 
         if (false === $free) {
             throw new BuildException('Error while retrieving free space.');
