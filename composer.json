@@ -43,7 +43,7 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^7.3 || ^7.4 || ^8.0",
+        "php": "^7.3 || ^7.4 || ^8.0.2",
         "ext-dom": "*",
         "ext-xml": "*",
         "ext-json": "*",
@@ -75,8 +75,8 @@
         "phing/task-zendcodeanalyser": "dev-master",
         "phing/task-zendserverdevelopmenttools": "dev-master",
         "sebastian/version": "^3.0",
-        "symfony/console": "^5.0",
-        "symfony/yaml": "^5.0"
+        "symfony/console": "^6.0",
+        "symfony/yaml": "^6.0"
     },
     "require-dev": {
         "ext-curl": "*",
@@ -88,7 +88,7 @@
         "ext-sockets": "*",
         "ext-xsl": "*",
         "ext-zip": "*",
-        "friendsofphp/php-cs-fixer": "^3.0",
+        "friendsofphp/php-cs-fixer": "^3.4",
         "guzzlehttp/guzzle": "^7.1",
         "jawira/plantuml-encoding": "^1.0",
         "mikey179/vfsstream": "2.0.x-dev",
@@ -104,9 +104,9 @@
         "roave/security-advisories": "dev-master",
         "scssphp/scssphp": "~1.0",
         "squizlabs/php_codesniffer": "^3.5",
-        "symfony/config": "^5.2",
-        "symfony/dependency-injection": "^5.2",
-        "symfony/stopwatch": "^5.2"
+        "symfony/config": "^6.0",
+        "symfony/dependency-injection": "^6.0",
+        "symfony/stopwatch": "^6.0"
     },
     "autoload": {
         "psr-4": {
