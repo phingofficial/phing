@@ -463,6 +463,10 @@ class PropertyTask extends Task
             // multiple passes.
 
             $value = $props->getProperty($name);
+            if (is_bool($value)) {
+                continue; // It's a boolean value, no need to resolve
+            }
+            
             $resolved = false;
             $resolveStack = array();
 
