@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.209.2",
+            "version": "3.209.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "77c14dd84704d2db6c5c4d6a8c1226337e4e6783"
+                "reference": "fc4ac03c6ec4acea81c01e8b785c8606943d1fd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/77c14dd84704d2db6c5c4d6a8c1226337e4e6783",
-                "reference": "77c14dd84704d2db6c5c4d6a8c1226337e4e6783",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fc4ac03c6ec4acea81c01e8b785c8606943d1fd6",
+                "reference": "fc4ac03c6ec4acea81c01e8b785c8606943d1fd6",
                 "shasum": ""
             },
             "require": {
@@ -143,9 +143,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.6"
             },
-            "time": "2022-01-10T19:14:32+00:00"
+            "time": "2022-01-14T19:29:33+00:00"
         },
         {
             "name": "composer/pcre",
@@ -1113,12 +1113,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/VersionControl_Git.git",
-                "reference": "d4c3f795f32a32de53b098f1be720b4493f8ea1f"
+                "reference": "417059e9286d0c85b0a148fe295217c2bf26ef10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/VersionControl_Git/zipball/d4c3f795f32a32de53b098f1be720b4493f8ea1f",
-                "reference": "d4c3f795f32a32de53b098f1be720b4493f8ea1f",
+                "url": "https://api.github.com/repos/pear/VersionControl_Git/zipball/417059e9286d0c85b0a148fe295217c2bf26ef10",
+                "reference": "417059e9286d0c85b0a148fe295217c2bf26ef10",
                 "shasum": ""
             },
             "require": {
@@ -1155,7 +1155,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=VersionControl_Git",
                 "source": "https://github.com/pear/VersionControl_Git"
             },
-            "time": "2021-11-08T12:21:23+00:00"
+            "time": "2022-01-14T08:03:15+00:00"
         },
         {
             "name": "pear/versioncontrol_svn",
@@ -1999,20 +1999,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-jsmin.git",
-                "reference": "437d87992f3a80e18260336340aa4b48955bbbf7"
+                "reference": "9252bfe554e383420e44aad75cff3c2bff40075f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-jsmin/zipball/437d87992f3a80e18260336340aa4b48955bbbf7",
-                "reference": "437d87992f3a80e18260336340aa4b48955bbbf7",
+                "url": "https://api.github.com/repos/phingofficial/task-jsmin/zipball/9252bfe554e383420e44aad75cff3c2bff40075f",
+                "reference": "9252bfe554e383420e44aad75cff3c2bff40075f",
                 "shasum": ""
             },
             "require": {
-                "php": ">= 7.1"
+                "php": ">= 7.1",
+                "tedivm/jshrink": "^1.3"
             },
             "require-dev": {
-                "phing/phing": "3.0.x-dev",
-                "tedivm/jshrink": "^1.3"
+                "phing/phing": "3.0.x-dev"
             },
             "default-branch": true,
             "type": "phing-extension",
@@ -2041,7 +2041,7 @@
                 "issues": "https://github.com/phingofficial/task-jsmin/issues",
                 "source": "https://github.com/phingofficial/task-jsmin/tree/master"
             },
-            "time": "2021-01-25T14:57:14+00:00"
+            "time": "2022-01-14T08:03:11+00:00"
         },
         {
             "name": "phing/task-liquibase",
@@ -2771,16 +2771,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.3.3",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "151a51f6149855785fbd883e79768c0abc96b75f"
+                "reference": "72b04d97b5e6e60a081f17c416fef35bd521120b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/151a51f6149855785fbd883e79768c0abc96b75f",
-                "reference": "151a51f6149855785fbd883e79768c0abc96b75f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/72b04d97b5e6e60a081f17c416fef35bd521120b",
+                "reference": "72b04d97b5e6e60a081f17c416fef35bd521120b",
                 "shasum": ""
             },
             "require": {
@@ -2796,7 +2796,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -2811,7 +2811,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.3.3"
+                "source": "https://github.com/phpstan/phpstan/tree/1.4.0"
             },
             "funding": [
                 {
@@ -2831,7 +2831,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-07T09:49:03+00:00"
+            "time": "2022-01-14T15:58:47+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -4688,6 +4688,62 @@
                 }
             ],
             "time": "2021-12-16T21:58:21+00:00"
+        },
+        {
+            "name": "tedivm/jshrink",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tedious/JShrink.git",
+                "reference": "0513ba1407b1f235518a939455855e6952a48bbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tedious/JShrink/zipball/0513ba1407b1f235518a939455855e6952a48bbc",
+                "reference": "0513ba1407b1f235518a939455855e6952a48bbc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6|^7.0|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.8",
+                "php-coveralls/php-coveralls": "^1.1.0",
+                "phpunit/phpunit": "^6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JShrink": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Hafner",
+                    "email": "tedivm@tedivm.com"
+                }
+            ],
+            "description": "Javascript Minifier built in PHP",
+            "homepage": "http://github.com/tedious/JShrink",
+            "keywords": [
+                "javascript",
+                "minifier"
+            ],
+            "support": {
+                "issues": "https://github.com/tedious/JShrink/issues",
+                "source": "https://github.com/tedious/JShrink/tree/v1.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/tedivm/jshrink",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-11-30T18:10:21+00:00"
         }
     ],
     "packages-dev": [
@@ -4915,32 +4971,28 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042"
+                "reference": "9c50f840f257bbb941e6f4a0e94ccf5db5c3f76c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/e864bbf5904cb8f5bb334f99209b48018522f042",
-                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/9c50f840f257bbb941e6f4a0e94ccf5db5c3f76c",
+                "reference": "9c50f840f257bbb941e6f4a0e94ccf5db5c3f76c",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2 || ^8.0"
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^6.0",
-                "phpstan/phpstan": "^0.11.8",
-                "phpunit/phpunit": "^8.2"
+                "doctrine/coding-standard": "^9.0",
+                "phpstan/phpstan": "1.3",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+                "vimeo/psalm": "^4.11"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.2.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
@@ -4975,7 +5027,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/lexer/issues",
-                "source": "https://github.com/doctrine/lexer/tree/1.2.1"
+                "source": "https://github.com/doctrine/lexer/tree/1.2.2"
             },
             "funding": [
                 {
@@ -4991,7 +5043,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-05-25T17:44:05+00:00"
+            "time": "2022-01-12T08:27:12+00:00"
         },
         {
             "name": "friendsofphp/php-cs-fixer",
@@ -5258,6 +5310,9 @@
             },
             "require": {
                 "php": "^7.1 || ^8.0"
+            },
+            "replace": {
+                "myclabs/deep-copy": "self.version"
             },
             "require-dev": {
                 "doctrine/collections": "^1.0",
@@ -6321,12 +6376,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "11696ae4d8970456cbd1919c17e6bb2ddb63553a"
+                "reference": "3665408e3d73c238711b8d522e7145ec18116cd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/11696ae4d8970456cbd1919c17e6bb2ddb63553a",
-                "reference": "11696ae4d8970456cbd1919c17e6bb2ddb63553a",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/3665408e3d73c238711b8d522e7145ec18116cd4",
+                "reference": "3665408e3d73c238711b8d522e7145ec18116cd4",
                 "shasum": ""
             },
             "conflict": {
@@ -6389,7 +6444,7 @@
                 "doctrine/mongodb-odm": ">=1,<1.0.2",
                 "doctrine/mongodb-odm-bundle": ">=2,<3.0.1",
                 "doctrine/orm": ">=2,<2.4.8|>=2.5,<2.5.1|>=2.8.3,<2.8.4",
-                "dolibarr/dolibarr": "<14|>= 3.3.beta1, < 13.0.2",
+                "dolibarr/dolibarr": "<=14.0.4|>= 3.3.beta1, < 13.0.2",
                 "dompdf/dompdf": ">=0.6,<0.6.2",
                 "drupal/core": ">=7,<7.80|>=8,<8.9.16|>=9,<9.1.12|>=9.2,<9.2.4",
                 "drupal/drupal": ">=7,<7.80|>=8,<8.9.16|>=9,<9.1.12|>=9.2,<9.2.4",
@@ -6523,7 +6578,7 @@
                 "openmage/magento-lts": "<19.4.15|>=20,<20.0.13",
                 "orchid/platform": ">=9,<9.4.4",
                 "oro/crm": ">=1.7,<1.7.4|>=3.1,<4.1.17|>=4.2,<4.2.7",
-                "oro/platform": ">=1.7,<1.7.4|>=3.1,<3.1.21|>=4.1,<4.1.14|>=4.2,<4.2.8",
+                "oro/platform": ">=1.7,<1.7.4|>=3.1,<3.1.29|>=4.1,<4.1.17|>=4.2,<4.2.8",
                 "padraic/humbug_get_contents": "<1.1.2",
                 "pagarme/pagarme-php": ">=0,<3",
                 "pagekit/pagekit": "<=1.0.18",
@@ -6546,7 +6601,7 @@
                 "phpwhois/phpwhois": "<=4.2.5",
                 "phpxmlrpc/extras": "<0.6.1",
                 "pimcore/pimcore": "<10.2.7",
-                "pocketmine/pocketmine-mp": "<4.0.5",
+                "pocketmine/pocketmine-mp": "<4.0.6",
                 "pressbooks/pressbooks": "<5.18",
                 "prestashop/autoupgrade": ">=4,<4.10.1",
                 "prestashop/contactform": ">1.0.1,<4.3",
@@ -6594,7 +6649,7 @@
                 "simplesamlphp/simplesamlphp-module-infocard": "<1.0.1",
                 "simplito/elliptic-php": "<1.0.6",
                 "slim/slim": "<2.6",
-                "smarty/smarty": "<3.1.39",
+                "smarty/smarty": "<3.1.43|>=4,<4.0.3",
                 "snipe/snipe-it": "<5.3.5",
                 "socalnick/scn-social-auth": "<1.15.2",
                 "socialiteproviders/steam": "<1.1",
@@ -6754,7 +6809,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-08T00:53:14+00:00"
+            "time": "2022-01-13T23:16:03+00:00"
         },
         {
             "name": "scssphp/scssphp",
@@ -8326,5 +8381,5 @@
     "platform-overrides": {
         "php": "7.3.15"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }
