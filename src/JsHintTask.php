@@ -224,7 +224,7 @@ class JsHintTask extends Task
 
         libxml_clear_errors();
         libxml_use_internal_errors(true);
-        $xml = simplexml_load_string($output);
+        $xml = simplexml_load_string($output, 'SimpleXMLElement', LIBXML_PARSEHUGE);
         if (false === $xml) {
             $errors = libxml_get_errors();
             if (!empty($errors)) {
