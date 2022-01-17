@@ -304,7 +304,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public static function formatTime($micros)
     {
-        $seconds = $micros;
+        $seconds = (int)$micros;
         $minutes = (int)floor($seconds / 60);
         if ($minutes >= 1) {
             return sprintf(
