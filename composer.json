@@ -40,7 +40,10 @@
             "php": "7.3.15"
         },
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phing/phing-composer-configurator": true
+        }
     },
     "require": {
         "php": "^7.3 || ^7.4 || ^8.0",
