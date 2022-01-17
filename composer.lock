@@ -1948,12 +1948,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-jshint.git",
-                "reference": "782d405071320561e3ca6c18d4db1facbf4cd1e3"
+                "reference": "c87f0513a4689bc7bab83f2fc4b3d83396c6466b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-jshint/zipball/782d405071320561e3ca6c18d4db1facbf4cd1e3",
-                "reference": "782d405071320561e3ca6c18d4db1facbf4cd1e3",
+                "url": "https://api.github.com/repos/phingofficial/task-jshint/zipball/c87f0513a4689bc7bab83f2fc4b3d83396c6466b",
+                "reference": "c87f0513a4689bc7bab83f2fc4b3d83396c6466b",
                 "shasum": ""
             },
             "require": {
@@ -1991,7 +1991,7 @@
                 "issues": "https://github.com/phingofficial/task-jshint/issues",
                 "source": "https://github.com/phingofficial/task-jshint/tree/master"
             },
-            "time": "2021-09-09T12:17:05+00:00"
+            "time": "2022-01-15T14:29:01+00:00"
         },
         {
             "name": "phing/task-jsmin",
@@ -5311,9 +5311,6 @@
             "require": {
                 "php": "^7.1 || ^8.0"
             },
-            "replace": {
-                "myclabs/deep-copy": "self.version"
-            },
             "require-dev": {
                 "doctrine/collections": "^1.0",
                 "doctrine/common": "^2.6",
@@ -6376,12 +6373,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "3665408e3d73c238711b8d522e7145ec18116cd4"
+                "reference": "38da7ef14348ff26d7c415c4ed18b82db07fe199"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/3665408e3d73c238711b8d522e7145ec18116cd4",
-                "reference": "3665408e3d73c238711b8d522e7145ec18116cd4",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/38da7ef14348ff26d7c415c4ed18b82db07fe199",
+                "reference": "38da7ef14348ff26d7c415c4ed18b82db07fe199",
                 "shasum": ""
             },
             "conflict": {
@@ -6570,7 +6567,7 @@
                 "october/cms": "= 1.1.1|= 1.0.471|= 1.0.469|>=1.0.319,<1.0.469",
                 "october/october": ">=1.0.319,<1.0.466|>=2.1,<2.1.12",
                 "october/rain": "<1.0.472|>=1.1,<1.1.2",
-                "october/system": "<1.0.472|>=1.1.1,<1.1.5|>=2.1,<2.1.12",
+                "october/system": "<1.0.473|>=1.1,<1.1.6|>=2.1,<2.1.12",
                 "onelogin/php-saml": "<2.10.4",
                 "oneup/uploader-bundle": "<1.9.3|>=2,<2.1.5",
                 "opencart/opencart": "<=3.0.3.2",
@@ -6809,7 +6806,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-13T23:16:03+00:00"
+            "time": "2022-01-14T21:13:43+00:00"
         },
         {
             "name": "scssphp/scssphp",
@@ -8381,5 +8378,5 @@
     "platform-overrides": {
         "php": "7.3.15"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
