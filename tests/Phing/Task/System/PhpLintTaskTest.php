@@ -52,7 +52,7 @@ class PhpLintTaskTest extends BuildFileTest
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world; ?>");
 
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('syntax error, unexpected');
+        $this->assertInLogs('syntax error');
     }
 
     /**
