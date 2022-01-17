@@ -304,7 +304,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public static function formatTime($micros)
     {
-        $seconds = (int)$micros;
+        $seconds = $micros;
         $minutes = (int)floor($seconds / 60);
         if ($minutes >= 1) {
             return sprintf(
@@ -315,7 +315,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
                 ($seconds % 60 === 1 ? "" : "s")
             );
         } else {
-            return sprintf("%0.4f second%s", $seconds, ($seconds % 60 === 1 ? "" : "s"));
+            return sprintf("%0.4f second%s", $seconds, (intval($seconds) % 60 === 1 ? "" : "s"));
         }
     }
 
