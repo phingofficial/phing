@@ -71,12 +71,14 @@ that you might stumble across when upgrading from Phing 2 to 3.
     * HasFreeSpace condition: `needed` attribute can include an IEC or SI suffix.
     * Size selector: `units` attribute has been removed, `value` attribute can include an IEC or SI suffix.
     * TruncateTask: `length` attribute can include an IEC or SI suffix.
-* The way how Phing handles boolean values inside tasks has been normalized. Therefore `t` is not a valid `true` value any longer.
-  For a list of effected components follow https://github.com/phingofficial/phing/search?p=1&q=booleanValue
-* Boolean values (such as `true` and `false`) are no longer parsed when loading property files. Instead, the literal string value
-  will be kept as property value.
-* Property expansion (such as through the `ExpandProperties` filter) also no longer handles boolean values as anything other
-  than literal string values.
+* The way Phing handles and parses boolean values has changed significantly! In general, strings such as `true`, `false`, `TRUE`, `FALSE`, etc. 
+  are no longer parsed into their PHP native equivalent. Specifically:
+  * The way how boolean values are handled inside tasks has been normalized. Therefore `t` is not a valid `true` value any longer.
+    For a list of effected components follow https://github.com/phingofficial/phing/search?p=1&q=booleanValue
+  * Boolean values (such as `true` and `false`) are no longer parsed when loading property files. Instead, the literal string value
+    will be kept as property value.
+  * Property expansion (such as through the `ExpandProperties` filter) also no longer handles boolean values as anything other
+    than literal string values.
 * Obsolete `ExportPropertiesTask` was removed in favor of the `EchoPropertiesTask`
     ```xml
     <exportproperties targetfile="output.props" />
