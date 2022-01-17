@@ -3,6 +3,7 @@
     xmlns:exsl="http://exslt.org/common"
     xmlns:str="http://exslt.org/strings"
     xmlns:date="http://exslt.org/dates-and-times"
+    xmlns:php="http://php.net/xsl"
     extension-element-prefixes="exsl str date">
 <xsl:output method="html" indent="yes" encoding="US-ASCII"/>
 <xsl:decimal-format decimal-separator="." grouping-separator=","/>
