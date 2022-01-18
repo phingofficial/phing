@@ -87,3 +87,11 @@ that you might stumble across when upgrading from Phing 2 to 3.
     ```
 * `FileHashTask` creates now a file by default
 * Deprecated `scpsend` alias for the `ScpTask` was removed
+* Deprecated `command` attribute for the `ExecTask` was removed, in favor of the `executable` attribute and `arg` nested elements:
+    ```xml
+    <exec command="echo foo"/>
+    <!-- should become -->
+    <exec executable="/bin/echo">
+        <arg value="foo"/>
+    </exec>
+    ```
