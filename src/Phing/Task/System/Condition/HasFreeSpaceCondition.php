@@ -53,6 +53,7 @@ class HasFreeSpaceCondition implements Condition
         try {
             $free = disk_free_space($this->partition);
         } catch (Throwable $throwable) {
+            // Only when "display errors" is enabled.
             throw new BuildException($throwable->getMessage());
         }
 
