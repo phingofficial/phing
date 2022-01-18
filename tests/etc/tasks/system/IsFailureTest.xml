@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="IsFailureTest" default="main">
     <target name="testFailureAfterNonExistingCommand">
-        <exec command="iwggfchwbwejhdeuu" returnProperty="return.code"/>
+        <exec executable="iwggfchwbwejhdeuu" returnProperty="return.code"/>
         <if>
             <isfailure code="${return.code}"/>
             <then>
