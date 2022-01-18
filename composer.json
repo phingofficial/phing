@@ -40,7 +40,10 @@
             "php": "7.3.15"
         },
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phing/phing-composer-configurator": true
+        }
     },
     "require": {
         "php": "^7.3 || ^7.4 || ^8.0",
@@ -75,7 +78,7 @@
         "phing/task-zendcodeanalyser": "dev-master",
         "phing/task-zendserverdevelopmenttools": "dev-master",
         "sebastian/version": "^3.0",
-        "symfony/console": "^5.0",
+        "symfony/console": "^5.0|^6.0",
         "symfony/yaml": "^5.0"
     },
     "require-dev": {

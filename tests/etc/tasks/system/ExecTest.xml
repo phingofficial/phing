@@ -13,124 +13,168 @@
     </if>
 
     <target name="testPropertySetCommandline">
-        <exec command="echo 'foo'"/>
+        <exec executable="echo">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetDir">
-        <exec command="echo 'foo'" dir="."/>
+        <exec executable="echo" dir=".">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetOs">
-        <exec command="echo 'foo'" os="linux"/>
+        <exec executable="echo" os="linux">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetEscape">
-        <exec command="echo 'foo'" escape="true"/>
+        <exec executable="echo" escape="true">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetPassthru">
-        <exec command="echo 'foo'" passthru="true"/>
+        <exec executable="echo" passthru="true">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetLogoutput">
-        <exec command="echo 'foo'" logoutput="true"/>
+        <exec executable="echo" logoutput="true">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetSpawn">
-        <exec command="echo 'foo'" spawn="true"/>
+        <exec executable="echo" spawn="true">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetReturnProperty">
-        <exec command="echo 'foo'" returnProperty="retval"/>
+        <exec executable="echo" returnProperty="retval">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetOutputProperty">
-        <exec command="echo 'foo'" outputProperty="outval"/>
+        <exec executable="echo" outputProperty="outval">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetCheckreturn">
-        <exec command="echo 'foo'" checkreturn="true"/>
+        <exec executable="echo" checkreturn="true">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetOutput">
-        <exec command="echo 'foo'" output="outputfilename"/>
+        <exec executable="echo" output="outputfilename">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetError">
-        <exec command="echo 'foo'" error="errorfilename"/>
+        <exec executable="echo" error="errorfilename">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetLevelError">
-        <exec command="echo 'foo'" level="error"/>
+        <exec executable="echo" level="error">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetLevelWarning">
-        <exec command="echo 'foo'" level="warning"/>
+        <exec executable="echo" level="warning">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetLevelInfo">
-        <exec command="echo 'foo'" level="info"/>
+        <exec executable="echo" level="info">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetLevelVerbose">
-        <exec command="echo 'foo'" level="verbose"/>
+        <exec executable="echo" level="verbose">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetLevelDebug">
-        <exec command="echo 'foo'" level="debug"/>
+        <exec executable="echo" level="debug">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testPropertySetLevelUnknown">
-        <exec command="echo 'foo'" level="unknown"/>
+        <exec executable="echo" level="unknown">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testDoNotExecuteOnWrongOs">
-        <exec command="echo 'this should not be executed'" os="unknownos"/>
+        <exec executable="echo" os="unknownos">
+            <arg value="this should not be executed"/>
+        </exec>
     </target>
 
     <target name="testDoNotExecuteOnWrongOsFamily">
-        <exec command="echo 'this should not be executed'" osfamily="unknownos"/>
+        <exec executable="echo" osfamily="unknownos">
+            <arg value="this should not be executed"/>
+        </exec>
     </target>
 
     <target name="testExecuteOnCorrectOs">
-        <exec command="echo 'this should be executed'"
-              os="WINNT WIN32 Linux Darwin BSD" />
+        <exec executable="echo" os="WINNT WIN32 Linux Darwin BSD">
+            <arg value="this should be executed"/>
+        </exec>
     </target>
 
     <target name="testExecuteOnCorrectOsFamily">
 
-            <if>
-                <os family="Unix"/>
+        <if>
+            <os family="Unix"/>
+            <then>
+                <property name="current" value="unix"/>
+            </then>
+            <elseif>
+                <os family="windows"/>
                 <then>
-                    <property name="current" value="unix"/>
+                    <property name="current" value="windows"/>
                 </then>
-                <elseif>
-                    <os family="windows"/>
-                    <then>
-                        <property name="current" value="windows"/>
-                    </then>
-                </elseif>
-                <elseif>
-                    <os family="mac"/>
-                    <then>
-                        <property name="current" value="mac"/>
-                    </then>
-                </elseif>
-            </if>
+            </elseif>
+            <elseif>
+                <os family="mac"/>
+                <then>
+                    <property name="current" value="mac"/>
+                </then>
+            </elseif>
+        </if>
 
-        <exec command="echo 'this should be executed'"
-              osfamily="${current}" />
+        <exec executable="echo" osfamily="${current}">
+            <arg value="this should be executed"/>
+        </exec>
     </target>
 
     <target name="testFailOnNonExistingDir">
-        <exec command="echo 'foo'" dir="/this/dir/does/not/exist"/>
+        <exec executable="echo" dir="/this/dir/does/not/exist">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testChangeToDir">
-     <!-- this file is in phing/tests/etc/tasks/system/,
-          and that we're on unix with "ls" available -->
-     <exec command="ls"
-           dir="../../../Phing/Task/System/"/>
+        <!-- this file is in phing/tests/etc/tasks/system/,
+             and that we're on unix with "ls" available -->
+        <exec executable="ls"
+              dir="../../../Phing/Task/System/"/>
     </target>
 
     <target name="testCheckreturnTrue">
@@ -142,7 +186,9 @@
     </target>
 
     <target name="testOutputProperty">
-        <exec command="echo foo" outputProperty="execOutputProp"/>
+        <exec executable="echo" outputProperty="execOutputProp">
+            <arg value="foo"/>
+        </exec>
         <echo>The output property's value is: "${execOutputProp}"</echo>
     </target>
 
@@ -154,23 +200,34 @@
     <target name="testEscape">
         <!-- two spaces between foo and | are changed into one by echo
         since it sees three parameters only, not the spaces -->
-        <exec command="echo foo  |  cat" escape="true"/>
+        <exec executable="echo" escape="true">
+            <arg value="foo | cat"/>
+        </exec>
     </target>
 
     <target name="testPassthru">
-        <exec command="echo foo" passthru="true"/>
+        <exec executable="echo" passthru="true">
+            <arg value="foo"/>
+        </exec>
     </target>
 
     <target name="testOutput">
-        <exec command="echo outfoo" output="${execTmpFile}"/>
+        <exec executable="echo" output="${execTmpFile}">
+            <arg value="outfoo"/>
+        </exec>
     </target>
 
     <target name="testError">
-        <exec command="php ./ExecTest-stderr.php errfoo" error="${execTmpFile}"/>
+        <exec executable="php" error="${execTmpFile}">
+            <arg value="./ExecTest-stderr.php"/>
+            <arg value="errfoo"/>
+        </exec>
     </target>
 
     <target name="testSpawn">
-        <exec command="sleep 5" spawn="true"/>
+        <exec executable="sleep" spawn="true">
+            <arg value="5"/>
+        </exec>
     </target>
 
 
@@ -192,7 +249,7 @@
             <then>
                 <exec executable="cmd" outputProperty="outval">
                     <arg value="/C"/>
-                    <arg line ="echo abc$b3!SB"/>
+                    <arg line="echo abc$b3!SB"/>
                 </exec>
             </then>
             <else>
@@ -224,7 +281,7 @@
                 <exec executable="cmd" outputProperty="hello">
                     <env key="HELLO" value="world"/>
                     <arg value="/C"/>
-                    <arg line ="echo %HELLO%"/>
+                    <arg line="echo %HELLO%"/>
                 </exec>
             </then>
             <else>
