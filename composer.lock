@@ -2204,12 +2204,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-phpunit.git",
-                "reference": "8c5e2fdd45cf3517d6e8250f685813a5e2208025"
+                "reference": "30e828eb78400b6df1b022467f0c644f77c4ef67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-phpunit/zipball/8c5e2fdd45cf3517d6e8250f685813a5e2208025",
-                "reference": "8c5e2fdd45cf3517d6e8250f685813a5e2208025",
+                "url": "https://api.github.com/repos/phingofficial/task-phpunit/zipball/30e828eb78400b6df1b022467f0c644f77c4ef67",
+                "reference": "30e828eb78400b6df1b022467f0c644f77c4ef67",
                 "shasum": ""
             },
             "require": {
@@ -2247,7 +2247,7 @@
                 "issues": "https://github.com/phingofficial/task-phpunit/issues",
                 "source": "https://github.com/phingofficial/task-phpunit/tree/main"
             },
-            "time": "2021-03-21T20:36:42+00:00"
+            "time": "2022-01-18T15:24:52+00:00"
         },
         {
             "name": "phing/task-sass",
