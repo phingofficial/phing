@@ -1,6 +1,5 @@
 <?php
 
-    require_once "PHPUnit/Framework/TestCase.php";
     require_once "HelloWorld.php";
 
     /**
@@ -9,7 +8,7 @@
     * @author Michiel Rook
     * @package hello.world
     */
-    class HelloWorldTest extends PHPUnit_Framework_TestCase
+    class HelloWorldTest extends \PHPUnit\Framework\TestCase
     {
         public function testSayHello()
         {
