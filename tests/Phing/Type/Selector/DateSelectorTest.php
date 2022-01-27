@@ -187,7 +187,7 @@ class DateSelectorTest extends BuildFileTest
             $this->assertFileExists($this->outputDir . basename($file), $offset . ' file missing from output directory');
         }
 
-        foreach ($outOfWindowFiles as $file) {
+        foreach ($outOfWindowFiles as $offset => $file) {
             $this->assertFileDoesNotExist($this->outputDir . basename($file), $offset . ' file unexpected in output directory');
         }
     }

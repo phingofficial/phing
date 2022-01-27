@@ -99,7 +99,7 @@ class DateSelector extends BaseExtendSelector
      */
     public function setMillis($millis)
     {
-        $this->setSeconds((int) $millis / 1000);
+        $this->setSeconds((float) $millis / 1000);
     }
 
     /**

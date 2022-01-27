@@ -58,7 +58,7 @@ class SizeHelper
     /**
      * Convert from bytes to any other valid unit.
      */
-    public static function fromBytesTo(int $bytes, string $unit): float
+    public static function fromBytesTo(float $bytes, string $unit): float
     {
         $multiple = self::findUnitMultiple($unit);
 
@@ -95,7 +95,7 @@ class SizeHelper
     /**
      * Finds the value in bytes of a single "unit".
      */
-    protected static function findUnitMultiple(string $unit): int
+    protected static function findUnitMultiple(string $unit): float
     {
         foreach (self::IEC as $exponent => $choices) {
             if (in_array(strtolower($unit), array_map('strtolower', $choices))) {

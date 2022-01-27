@@ -115,7 +115,7 @@ class SizeHelperTest extends TestCase
     /**
      * @dataProvider fromBytesToProvider
      */
-    public function testFromBytesTo(int $bytes, string $unit, float $expected): void
+    public function testFromBytesTo(float $bytes, string $unit, float $expected): void
     {
         $converted = SizeHelper::fromBytesTo($bytes, $unit);
         $this->assertSame($expected, $converted);
