@@ -47,4 +47,25 @@ class DirSetTest extends TestCase
         $this->dirset->setDir(__DIR__);
         $this->assertInstanceOf('ArrayIterator', $this->dirset->getIterator());
     }
+
+    public function testOnlyDirs(): void
+    {
+        $this->dirset->setProject(new Project());
+        $this->dirset->setDir(PHING_TEST_BASE);
+
+        $ds = $this->dirset->getDirectoryScanner($this->dirset->getProject());
+        $expectedDirs = $ds->getIncludedDirectories();
+        
+        $this->assertNotNull($expectedDirs, "There were no directories found.");
+        $this->assertNotEmpty($expectedDirs, "There were no directories found.");
+        foreach($expectedDirs as $expectedDir){
+            $absPath = realpath($expectedDir);
+            $this->assertNotFalse($absPath, "Unable to determine realpath for $expectedDir");
+            $this->assertTrue(is_dir($absPath), "$absPath was not a directory.");
+        }
+
+        $expectedDirStr = implode(';', $expectedDirs);
+        $acutalDirStr = $this->dirset . "";
+        $this->assertEquals($expectedDirStr, $acutalDirStr, "DirSet should only use directories.");
+    }
 }
