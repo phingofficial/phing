@@ -55,10 +55,10 @@ class DirSetTest extends TestCase
 
         $ds = $this->dirset->getDirectoryScanner($this->dirset->getProject());
         $expectedDirs = $ds->getIncludedDirectories();
-        
+
         $this->assertNotNull($expectedDirs, "There were no directories found.");
         $this->assertNotEmpty($expectedDirs, "There were no directories found.");
-        foreach($expectedDirs as $expectedDir){
+        foreach ($expectedDirs as $expectedDir) {
             $absPath = realpath($expectedDir);
             $this->assertNotFalse($absPath, "Unable to determine realpath for $expectedDir");
             $this->assertTrue(is_dir($absPath), "$absPath was not a directory.");
