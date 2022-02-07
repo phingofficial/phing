@@ -56,7 +56,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutExistingBranch');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
-        $this->assertLogLineContaining('git-branch output: Branch co-branch set up to track remote branch master from origin');
+        $this->assertLogLineContaining('git-branch output: Branch co-branch set up to track');
         // @todo - actually make sure that Ebihara updates code to return (not
         // echo output from $command->execute()
         //$this->assertInLogs("Switched to branch 'test'");
@@ -95,7 +95,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('checkoutMerge');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
-        $this->assertLogLineContaining('git-branch output: Branch co-branch set up to track remote branch master from origin');
+        $this->assertLogLineContaining('git-branch output: Branch co-branch set up to track');
         $this->assertInLogs('git-branch output: Deleted branch master');
     }
 
@@ -105,7 +105,7 @@ class GitCheckoutTaskTest extends BuildFileTest
         $this->executeTarget('checkoutCreateBranch');
         $this->assertInLogs('git-checkout: checkout "' . $repository . '" repository');
         $this->assertLogLineContaining(
-            'git-checkout output: Branch co-create-branch set up to track remote branch master from origin'
+            'git-checkout output: Branch co-create-branch set up to track'
         );
         $this->assertInLogs('git-branch output: Deleted branch co-create-branch');
     }
