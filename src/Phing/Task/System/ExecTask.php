@@ -217,23 +217,6 @@ class ExecTask extends Task
     }
 
     /**
-     * The command to use.
-     *
-     * @param string $command String or string-compatible (e.g. w/ __toString()).
-     *
-     * @throws BuildException
-     */
-    public function setCommand($command): void
-    {
-        $this->log(
-            "The command attribute is deprecated.\nPlease use the executable attribute and nested arg elements.",
-            Project::MSG_WARN
-        );
-        $this->commandline = new Commandline($command);
-        $this->executable = $this->commandline->getExecutable();
-    }
-
-    /**
      * The executable to use.
      *
      * @param bool|string $value String or string-compatible (e.g. w/ __toString()).

@@ -26,6 +26,11 @@ namespace Phing\Type;
  */
 class DirSet extends AbstractFileSet
 {
+    public function __toString()
+    {
+        return implode(";", $this->getFiles());
+    }
+
     /**
      * @param array $options
      *

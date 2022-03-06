@@ -118,7 +118,7 @@ abstract class BuildFileTest extends TestCase
     ): void {
         $found = false;
         foreach ($this->logBuffer as $log) {
-            if (false !== strpos($log['message'], $expected)) {
+            if (false !== stripos($log['message'], $expected)) {
                 $this->assertEquals(1, 1); // increase number of positive assertions
                 if (null === $priority) {
                     return;
@@ -361,7 +361,7 @@ abstract class BuildFileTest extends TestCase
             $found = false;
             while ($ex) {
                 $msg = $ex->getMessage();
-                if (false !== strpos($ex->getMessage(), $contains)) {
+                if (false !== stripos($ex->getMessage(), $contains)) {
                     $found = true;
                 }
                 $ex = $ex->getPrevious();

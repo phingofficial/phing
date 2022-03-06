@@ -266,7 +266,9 @@ class PatchTask extends Task
         }
 
         $exe = new ExecTask();
-        $exe->setCommand(implode(' ', $toExecute->getCommandline()));
+        foreach ($toExecute->getArguments() as $part) {
+            $exe->createArg()->setValue($part);
+        }
         $exe->setLevel('info');
         $exe->setExecutable($toExecute->getExecutable());
 

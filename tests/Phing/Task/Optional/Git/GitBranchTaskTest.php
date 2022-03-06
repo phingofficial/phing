@@ -54,9 +54,7 @@ class GitBranchTaskTest extends BuildFileTest
     public function testAllParamsSet(): void
     {
         $this->executeTarget('allParamsSet');
-        $this->assertLogLineContaining(
-            'git-branch output: Branch all-params-set set up to track remote branch master from origin'
-        );
+        $this->assertLogLineContaining('git-branch output: Branch all-params-set set up to track');
     }
 
     public function testNoRepositorySpecified(): void
@@ -83,7 +81,7 @@ class GitBranchTaskTest extends BuildFileTest
 
         $this->executeTarget('trackParamSet');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertLogLineContaining('git-branch output: Branch track-param-set set up to track local branch master');
+        $this->assertLogLineContaining('git-branch output: Branch track-param-set set up to track');
     }
 
     public function testNoTrackParameter(): void
@@ -105,7 +103,7 @@ class GitBranchTaskTest extends BuildFileTest
             $this->executeTarget('setUpstreamToParamSet');
         }
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertLogLineContaining('Branch set-upstream-param-set set up to track local branch master'); // no output actually
+        $this->assertLogLineContaining('Branch set-upstream-param-set set up to track'); // no output actually
     }
 
     public function testForceParameter(): void
@@ -123,8 +121,8 @@ class GitBranchTaskTest extends BuildFileTest
 
         $this->executeTarget('deleteBranch');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertLogLineContaining('Branch delete-branch-1 set up to track local branch master');
-        $this->assertLogLineContaining('Branch delete-branch-2 set up to track local branch master');
+        $this->assertLogLineContaining('Branch delete-branch-1 set up to track');
+        $this->assertLogLineContaining('Branch delete-branch-2 set up to track');
         $this->assertInLogs('Deleted branch delete-branch-1');
         $this->assertInLogs('Deleted branch delete-branch-2');
     }
