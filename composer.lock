@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "91cee0e0a844caaa250050c9fe2e3136",
+    "content-hash": "bfc7fc156d78991bf903cc24681a3a1a",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -2471,12 +2471,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phingofficial/task-visualizer.git",
-                "reference": "3abb57a4860770a8b7a57e7f9485da637dc6b15a"
+                "reference": "edfda629d801b0adbef207cc41f69ab3c3e65ca4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phingofficial/task-visualizer/zipball/3abb57a4860770a8b7a57e7f9485da637dc6b15a",
-                "reference": "3abb57a4860770a8b7a57e7f9485da637dc6b15a",
+                "url": "https://api.github.com/repos/phingofficial/task-visualizer/zipball/edfda629d801b0adbef207cc41f69ab3c3e65ca4",
+                "reference": "edfda629d801b0adbef207cc41f69ab3c3e65ca4",
                 "shasum": ""
             },
             "require": {
@@ -2518,12 +2518,12 @@
                     "email": "dev@tugal.be"
                 }
             ],
-            "description": "VisualizerTask creates diagrams using buildfiles, these diagrams represents calls and depends among targets.",
+            "description": "VisualizerTask creates buildfile maps, these diagrams display calls and depends among targets.",
             "support": {
                 "issues": "https://github.com/phingofficial/task-visualizer/issues",
-                "source": "https://github.com/phingofficial/task-visualizer/tree/v1.2.0"
+                "source": "https://github.com/phingofficial/task-visualizer/tree/v1.3.1"
             },
-            "time": "2021-08-31T22:07:42+00:00"
+            "time": "2022-05-27T22:37:09+00:00"
         },
         {
             "name": "phing/task-zendcodeanalyser",
@@ -8388,7 +8388,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3 || ^7.4 || ^8.0",
+        "php": "^7.3 || ^7.4 || ^8.0 || ^8.1",
         "ext-dom": "*",
         "ext-xml": "*",
         "ext-json": "*"
@@ -8407,5 +8407,5 @@
     "platform-overrides": {
         "php": "7.3.15"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
