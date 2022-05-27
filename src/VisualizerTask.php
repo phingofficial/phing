@@ -324,16 +324,16 @@ class VisualizerTask extends HttpTask
             $destination .= DIRECTORY_SEPARATOR . $buildfileInfo['filename'] . '.' . $format;
         }
 
-        // Adding right extension if necessary
-        if (!StringHelper::endsWith(".$format", $destination)) {
-            $destination .= ".$format";
-        }
-
         // Parent directory must exist
         if (!is_dir(dirname($destination))) {
             $exceptionMessage = "Directory '$destination' is invalid";
             $this->log($exceptionMessage, Project::MSG_ERR);
             throw new BuildException(sprintf($exceptionMessage, $destination));
+        }
+
+        // Adding right extension if necessary
+        if (!StringHelper::endsWith(".$format", $destination)) {
+            $destination .= ".$format";
         }
 
         return $destination;
