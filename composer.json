@@ -1,8 +1,8 @@
 {
   "name": "phing/task-visualizer",
-  "type": "phing-extension",
-  "description": "VisualizerTask creates diagrams using buildfiles, these diagrams represents calls and depends among targets.",
+  "description": "VisualizerTask creates buildfile maps, these diagrams display calls and depends among targets.",
   "license": "LGPL-3.0-only",
+  "type": "phing-extension",
   "authors": [
     {
       "name": "Siad Ardroumli",
@@ -26,16 +26,22 @@
     "phpstan/phpstan": "^0.12",
     "psr/http-message": "^1.0"
   },
-  "extra": {
-    "phing-custom-taskdefs": {
-      "visualizer": "Phing\\Task\\Ext\\VisualizerTask"
-    }
-  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Phing\\Task\\Ext\\": "src/"
     }
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+  "config": {
+    "allow-plugins": {
+      "phing/phing-composer-configurator": true,
+      "ergebnis/composer-normalize": true
+    }
+  },
+  "extra": {
+    "phing-custom-taskdefs": {
+      "visualizer": "Phing\\Task\\Ext\\VisualizerTask"
+    }
+  }
 }

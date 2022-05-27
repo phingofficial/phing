@@ -27,6 +27,7 @@ use Phing\Io\FileReader;
 use Phing\Io\FileWriter;
 use Phing\Io\File;
 use Phing\Project;
+use Phing\Util\StringHelper;
 use Psr\Http\Message\ResponseInterface;
 use SimpleXMLElement;
 use XSLTProcessor;
@@ -113,9 +114,9 @@ class VisualizerTask extends HttpTask
             $this->log($exceptionMessage, Project::MSG_ERR);
             throw new BuildException($exceptionMessage);
         }
-        $this->setFormat(VisualizerTask::FORMAT_PNG);
-        $this->setServer(VisualizerTask::SERVER);
-        $this->setDirection(VisualizerTask::ARROWS_VERTICAL);
+        $this->setFormat(self::FORMAT_PNG);
+        $this->setServer(self::SERVER);
+        $this->setDirection(self::ARROWS_VERTICAL);
         $this->setShowTitle(true);
         $this->setShowDescription(false);
         $this->setFooter('');
@@ -140,6 +141,7 @@ class VisualizerTask extends HttpTask
      * Retrieves loaded buildfiles and generates a PlantUML diagram
      *
      * @return string
+     * @throws \Phing\Io\IOException
      */
     protected function generatePumlDiagram(): string
     {
@@ -158,6 +160,7 @@ class VisualizerTask extends HttpTask
      * @param \Phing\Io\File[] $buildFiles
      *
      * @return string
+     * @throws \Phing\Io\IOException
      */
     protected function generatePuml(array $buildFiles): string
     {
@@ -167,17 +170,17 @@ class VisualizerTask extends HttpTask
             throw new BuildException($exceptionMessage);
         }
 
-        $puml = $this->transformToPuml($firstBuildFile, VisualizerTask::XSL_HEADER);
+        $puml = $this->transformToPuml($firstBuildFile, self::XSL_HEADER);
 
         $puml = array_reduce($buildFiles, function (string $carry, File $buildFile) {
-            return $carry . $this->transformToPuml($buildFile, VisualizerTask::XSL_CALLS);
+            return $carry . $this->transformToPuml($buildFile, self::XSL_CALLS);
         }, $puml);
 
         $puml = array_reduce($buildFiles, function (string $carry, File $buildFile) {
-            return $carry . $this->transformToPuml($buildFile, VisualizerTask::XSL_TARGETS);
+            return $carry . $this->transformToPuml($buildFile, self::XSL_TARGETS);
         }, $puml);
 
-        $puml .= $this->transformToPuml($firstBuildFile, VisualizerTask::XSL_FOOTER);
+        $puml .= $this->transformToPuml($firstBuildFile, self::XSL_FOOTER);
 
         return $puml;
     }
@@ -263,10 +266,10 @@ class VisualizerTask extends HttpTask
     public function setFormat(string $format): VisualizerTask
     {
         switch ($format) {
-            case VisualizerTask::FORMAT_PUML:
-            case VisualizerTask::FORMAT_PNG:
-            case VisualizerTask::FORMAT_EPS:
-            case VisualizerTask::FORMAT_SVG:
+            case self::FORMAT_PUML:
+            case self::FORMAT_PNG:
+            case self::FORMAT_EPS:
+            case self::FORMAT_SVG:
                 $this->format = $format;
                 break;
             default:
@@ -301,9 +304,9 @@ class VisualizerTask extends HttpTask
     /**
      * Figure diagram's file path
      *
-     * @param string      $buildfilePath Path to main buildfile
-     * @param string      $format        Extension to use
-     * @param null|string $destination   Desired destination provided by user
+     * @param string      $buildfilePath Path to main buildfile, this is used as fallback dir.
+     * @param string      $format        Extension to use.
+     * @param null|string $destination   Desired destination provided by user.
      *
      * @return string
      */
@@ -321,7 +324,12 @@ class VisualizerTask extends HttpTask
             $destination .= DIRECTORY_SEPARATOR . $buildfileInfo['filename'] . '.' . $format;
         }
 
-        // Check if path is available
+        // Adding right extension if necessary
+        if (!StringHelper::endsWith(".$format", $destination)) {
+            $destination .= ".$format";
+        }
+
+        // Parent directory must exist
         if (!is_dir(dirname($destination))) {
             $exceptionMessage = "Directory '$destination' is invalid";
             $this->log($exceptionMessage, Project::MSG_ERR);
@@ -342,7 +350,7 @@ class VisualizerTask extends HttpTask
      */
     protected function generateImage(string $pumlDiagram, string $format): string
     {
-        if ($format === VisualizerTask::FORMAT_PUML) {
+        if ($format === self::FORMAT_PUML) {
             $this->log('Bypassing, no need to call server', Project::MSG_DEBUG);
 
             return $pumlDiagram;
@@ -360,6 +368,7 @@ class VisualizerTask extends HttpTask
      *
      * @param string $pumlDiagram
      * @param string $format
+     * @throws \Jawira\PlantUmlClient\ClientException
      */
     protected function prepareImageUrl(string $pumlDiagram, string $format): void
     {
@@ -466,7 +475,7 @@ class VisualizerTask extends HttpTask
         $this->log("Response status: $status", Project::MSG_DEBUG);
         $this->log("Response reason: $reasonPhrase", Project::MSG_DEBUG);
 
-        if ($status !== VisualizerTask::STATUS_OK) {
+        if ($status !== self::STATUS_OK) {
             $exceptionMessage = "Request unsuccessful. Response from server: $status $reasonPhrase";
             $this->log($exceptionMessage, Project::MSG_ERR);
             throw new BuildException($exceptionMessage);
@@ -484,7 +493,7 @@ class VisualizerTask extends HttpTask
     protected function saveToFile(string $content, File $destination): void
     {
         $path = $destination->getPath();
-        $this->log("Writing: $path", Project::MSG_INFO);
+        $this->log("Writing: $path");
 
         (new FileWriter($destination))->write($content);
     }
