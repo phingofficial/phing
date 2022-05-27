@@ -398,6 +398,7 @@ class PhingTask extends Task
     private function processFile(): void
     {
         $buildFailed = false;
+        $buildFailedCause = null;
         $savedDir = $this->dir;
         $savedPhingFile = $this->phingFile;
         $savedTarget = $this->newTarget;
@@ -506,7 +507,8 @@ class PhingTask extends Task
             $this->newProject->executeTarget($this->newTarget);
         } catch (Exception $e) {
             $buildFailed = true;
-            $this->log($e->getMessage(), Project::MSG_ERR);
+            $buildFailedCause = $e;
+            $this->log('[' . get_class($e) . '] ' . $e->getMessage(), Project::MSG_ERR);
             if (Phing::getMsgOutputLevel() <= Project::MSG_DEBUG) {
                 $lines = explode("\n", $e->getTraceAsString());
                 foreach ($lines as $line) {
@@ -536,7 +538,7 @@ class PhingTask extends Task
             }
 
             if ($this->haltOnFailure && $buildFailed) {
-                throw new BuildException('Execution of the target buildfile failed. Aborting.');
+                throw new BuildException('Execution of the target buildfile failed. Aborting.', $buildFailedCause);
             }
         }
     }
