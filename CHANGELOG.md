@@ -2,6 +2,11 @@ P     H     I     N     G
 =========================
 
 
+Jul. 8, 2022 - Phing 2.17.4
+---------------------------
+
+This patch release fixes some PHP 8.1 compatibility issues.
+
 May. 4, 2022 - Phing 2.17.3
 ---------------------------
 
