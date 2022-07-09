@@ -137,7 +137,7 @@ class TargetHandler extends AbstractHandler
                     break;
 
                 case 'hidden':
-                    $isHidden = ('true' === $value || '1' === $value);
+                    $isHidden = StringHelper::booleanValue($value);
 
                     break;
 
