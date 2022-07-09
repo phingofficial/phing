@@ -27,6 +27,9 @@ use Phing\Test\Support\BuildFileTest;
  */
 class VisualizerTaskTest extends BuildFileTest
 {
+    /**
+     * @throws \Phing\Io\IOException
+     */
     public function setUp(): void
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.xml');
@@ -66,6 +69,17 @@ class VisualizerTaskTest extends BuildFileTest
         $this->assertFileExists(PHING_TEST_BASE . '/tmp/my-diagram.puml');
         $this->assertInLogs('my-diagram.puml');
         $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/tmp/my-diagram.puml', 1200);
+    }
+
+    /**
+     * Testing file extension is the same as the one declared with `format`.
+     */
+    public function testDestinationFileExtension(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(PHING_TEST_BASE . '/tmp/my-diagram.png.puml');
+        $this->assertInLogs('my-diagram.png.puml');
+        $this->assertFileSizeAtLeast(PHING_TEST_BASE . '/tmp/my-diagram.png.puml', 1200);
     }
 
     /**

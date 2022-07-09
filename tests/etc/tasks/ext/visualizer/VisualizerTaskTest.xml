@@ -16,6 +16,10 @@
         <visualizer format="puml" destination="../../../../tmp/my-diagram.puml"/>
     </target>
 
+    <target name="testDestinationFileExtension">
+        <visualizer format="puml" destination="../../../../tmp/my-diagram.png"/>
+    </target>
+
     <target name="testDestinationDirectory">
         <visualizer format="puml" destination="../../../../tmp/"/>
     </target>
