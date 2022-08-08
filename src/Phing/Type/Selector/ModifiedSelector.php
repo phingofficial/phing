@@ -253,11 +253,11 @@ class ModifiedSelector extends BaseExtendSelector implements BuildListener
         } elseif ('comparator' === $key) {
             $this->setComparator($value);
         } elseif ('update' === $key) {
-            $this->setUpdate('true' === strtolower($value));
+            $this->setUpdate(StringHelper::booleanValue($value));
         } elseif ('delayupdate' === $key) {
-            $this->setDelayUpdate('true' === strtolower($value));
+            $this->setDelayUpdate(StringHelper::booleanValue($value));
         } elseif ('seldirs' === $key) {
-            $this->setSeldirs('true' === strtolower($value));
+            $this->setSeldirs(StringHelper::booleanValue($value));
         } elseif (StringHelper::startsWith(self::CACHE_PREFIX, $key)) {
             $name = StringHelper::substring($key, strlen(self::CACHE_PREFIX));
             $this->tryToSetAParameter($this->cache, $name, $value);

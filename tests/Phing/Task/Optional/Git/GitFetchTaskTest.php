@@ -24,7 +24,6 @@ use Phing\Test\Support\BuildFileTest;
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @requires OSFAMILY Linux
  *
  * @internal
  */
@@ -64,7 +63,7 @@ class GitFetchTaskTest extends BuildFileTest
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('fetchAllRemotes');
         $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
-        $this->assertInLogs('git-fetch output: Fetching origin');
+        $this->assertInLogs('git-fetch output: ');
     }
 
     public function testNoRepositorySpecified(): void
