@@ -21,93 +21,70 @@
 namespace Phing\Task\System;
 
 use Phing\Exception\BuildException;
+use Phing\Project;
 
 class TstampCustomFormat
 {
-    private $propertyName = '';
-    private $pattern = '';
-    private $locale = '';
-    private $timezone = '';
+    /** @var string */
+    public $propertyName = '';
+    /** @var string */
+    public $pattern = '';
+    /** @var null|string */
+    public $locale = null;
+    /** @var null|string */
+    public $timezone = null;
 
     /**
      * The property to receive the date/time string in the given pattern.
-     *
-     * @param string $propertyName the name of the property
      */
-    public function setProperty($propertyName)
+    public function setProperty(string $propertyName): void
     {
         $this->propertyName = $propertyName;
     }
 
     /**
-     * The date/time pattern to be used. The values are as
-     * defined by the PHP strftime() function.
+     * The ICU pattern to be used.
      *
-     * @param string $pattern
+     * @see https://unicode-org.github.io/icu/userguide/format_parse/datetime/#date-field-symbol-table
      */
-    public function setPattern($pattern)
+    public function setPattern(string $pattern): void
     {
         $this->pattern = $pattern;
     }
 
     /**
      * The locale used to create date/time string.
-     *
-     * @param string $locale
      */
-    public function setLocale($locale)
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
     }
 
     /**
-     * @param string $timezone
+     * The timezone used to create date/time string.
      */
-    public function setTimezone($timezone)
+    public function setTimezone(string $timezone): void
     {
         $this->timezone = $timezone;
     }
 
     /**
-     * validate parameter and execute the format.
+     * Validate parameter.
      *
-     * @param TstampTask $tstamp   reference to task
-     * @param mixed      $d
-     * @param mixed      $location
-     *
-     * @throws BuildException
+     * @param TstampTask $tstampTask Reference to parent task
      */
-    public function execute(TstampTask $tstamp, $d, $location)
+    public function validate(TstampTask $tstampTask): void
     {
         if (empty($this->propertyName)) {
-            throw new BuildException('property attribute must be provided', $location);
+            throw new BuildException('property attribute must be provided', $tstampTask->getLocation());
         }
 
         if (empty($this->pattern)) {
-            throw new BuildException('pattern attribute must be provided', $location);
+            throw new BuildException('pattern attribute must be provided', $tstampTask->getLocation());
         }
 
-        $oldlocale = '';
-        if (!empty($this->locale)) {
-            $oldlocale = setlocale(LC_ALL, 0);
-            setlocale(LC_ALL, $this->locale);
-        }
-
-        $savedTimezone = date_default_timezone_get();
-        if (!empty($this->timezone)) {
-            date_default_timezone_set($this->timezone);
-        }
-
-        $value = strftime($this->pattern, $d);
-        $tstamp->prefixProperty($this->propertyName, $value);
-
-        if (!empty($this->locale)) {
-            // reset locale
-            setlocale(LC_ALL, $oldlocale);
-        }
-
-        if (!empty($this->timezone)) {
-            date_default_timezone_set($savedTimezone);
+        if (false !== strpos($this->pattern, '%')) {
+            $tstampTask->log('pattern attribute must use ICU format https://www.phing.info/guide/chunkhtml/TstampTask.html', Project::MSG_WARN);
         }
     }
 }

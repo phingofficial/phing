@@ -2579,17 +2579,18 @@
                 <optional>
                     <attribute name="prefix"/>
                 </optional>
-                <optional>
+                <zeroOrMore>
                     <element name="format">
                         <interleave>
                             <attribute name="property"/>
                             <attribute name="pattern"/>
                             <optional>
                                 <attribute name="locale"/>
+                                <attribute name="timezone"/>
                             </optional>
                         </interleave>
                     </element>
-                </optional>
+                </zeroOrMore>
             </interleave>
         </element>
     </define>
