@@ -70,7 +70,7 @@ class JsonValidateTask extends Task
             throw new \Phing\Exception\BuildException($msg);
         }
 
-        $decoded = json_decode(file_get_contents($this->getFile()));
+        $decoded = json_decode(file_get_contents($this->getFile()), null, 512, JSON_THROW_ON_ERROR);
         if (null === $decoded) {
             $msg = 'JsonValidate: decoding ' . $this->getFile() . ' failed.';
             $this->log($msg, Project::MSG_ERR);

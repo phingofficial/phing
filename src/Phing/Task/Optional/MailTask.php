@@ -182,7 +182,7 @@ class MailTask extends Task
         @include_once 'Mail.php';
         @include_once 'Mail/mime.php';
 
-        if (!class_exists('Mail_mime')) {
+        if (!class_exists(\Mail_mime::class)) {
             throw new BuildException('Need the pear/mail and pear/mail_mime packages installed');
         }
 

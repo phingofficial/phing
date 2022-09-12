@@ -33,6 +33,7 @@ class ChainedMapper extends ContainerMapper
      */
     public function main($sourceFileName)
     {
+        $results = [];
         $results[] = $sourceFileName;
         $mapper = null;
 

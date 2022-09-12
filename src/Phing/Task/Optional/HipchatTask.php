@@ -197,7 +197,7 @@ class HipchatTask extends Task
 
     private function executeApiCall($url, $data)
     {
-        $postData = json_encode($data);
+        $postData = json_encode($data, JSON_THROW_ON_ERROR);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -208,7 +208,7 @@ class HipchatTask extends Task
         curl_setopt($ch, CURLOPT_POST, 1);
         $response = curl_exec($ch);
         if ('' !== $response) {
-            $result = json_decode($response, 1);
+            $result = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
             return $result['error']['message'] . ' (' . $result['error']['code'] . ')';
         }

@@ -52,7 +52,7 @@ class MailLogger extends DefaultLogger
     {
         parent::__construct();
 
-        if (!class_exists('Mail')) {
+        if (!class_exists(\Mail::class)) {
             throw new BuildException('Need the pear/mail_mime package installed to send logs');
         }
 

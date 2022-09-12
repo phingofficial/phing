@@ -59,7 +59,7 @@ class ParallelTask extends SequentialTask
 
     public function main()
     {
-        if (!class_exists('MehrAlsNix\Parallel\Worker')) {
+        if (!class_exists(\MehrAlsNix\Parallel\Worker::class)) {
             throw new BuildException(
                 'ParallelTask depends on DocBlox being installed and on include_path.',
                 $this->getLocation()

@@ -216,7 +216,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function read($len = null)
     {
-        if (!class_exists('XSLTProcessor')) {
+        if (!class_exists(\XSLTProcessor::class)) {
             throw new BuildException('Could not find the XSLTProcessor class. Make sure PHP has been compiled/configured to support XSLT.');
         }
 

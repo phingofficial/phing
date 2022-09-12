@@ -357,6 +357,7 @@ class FileSyncTask extends Task
      */
     public function getErrorMessage($code)
     {
+        $error = [];
         $error[0] = 'Success';
         $error[1] = 'Syntax or usage error';
         $error[2] = 'Protocol incompatibility';

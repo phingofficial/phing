@@ -41,7 +41,7 @@ class YamlFileParser implements FileParserInterface
         }
 
         try {
-            if (!class_exists('\Symfony\Component\Yaml\Parser')) {
+            if (!class_exists(\Symfony\Component\Yaml\Parser::class)) {
                 throw new BuildException(
                     get_class($this)
                     . ' depends on \Symfony\Component\Yaml\Parser '

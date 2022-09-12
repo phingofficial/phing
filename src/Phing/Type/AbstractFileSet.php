@@ -107,6 +107,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
 
     public function __toString()
     {
+        $stk = [];
         try {
             if ($this->isReference()) {
                 return (string) $this->getRef($this->getProject());
@@ -437,6 +438,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function hasSelectors()
     {
+        $stk = [];
         if ($this->isReference() && null !== $this->getProject()) {
             return $this->getRef($this->getProject())->hasSelectors();
         }
@@ -453,6 +455,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     public function hasPatterns()
     {
+        $stk = [];
         if ($this->isReference() && null !== $this->getProject()) {
             return $this->getRef($this->getProject())->hasPatterns();
         }
@@ -567,6 +570,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      */
     protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p = null)
     {
+        $stk = [];
         if (null === $p) {
             $p = $this->getProject();
         }

@@ -67,7 +67,7 @@ abstract class PDOTask extends Task
      */
     public function init()
     {
-        if (!class_exists('PDO')) {
+        if (!class_exists(\PDO::class)) {
             throw new Exception('PDOTask depends on PDO feature being included in PHP.');
         }
     }

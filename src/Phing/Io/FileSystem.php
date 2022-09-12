@@ -869,14 +869,7 @@ abstract class FileSystem
 
             throw new Exception($msg);
         }
-
-        // Worked. Log and return compare.
-        // Compare mtimes.
-        if ($mtime1 == $mtime2) {
-            return 0;
-        }
-
-        return ($mtime1 < $mtime2) ? -1 : 1; // end compare
+        return $mtime1 <=> $mtime2;
     }
 
     /**
