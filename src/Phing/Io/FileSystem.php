@@ -890,7 +890,7 @@ abstract class FileSystem
             iterator_to_array(
                 new FilesystemIterator(
                     $f->getAbsolutePath(),
-                    FilesystemIterator::KEY_AS_FILENAME
+                    FilesystemIterator::KEY_AS_FILENAME | FilesystemIterator::SKIP_DOTS
                 )
             )
         ));
