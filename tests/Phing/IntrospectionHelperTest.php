@@ -107,6 +107,22 @@ class IntrospectionHelperTest extends TestCase
         $this->assertEquals($fs, $ih->createElement($this->p, new IHProjectComponent(), 'FileSet'));
     }
 
+    /**
+     * @requires PHP >= 8
+     * @return void
+     */
+    public function testUnionTypeOnSetterDoesNotCrashIH(): void
+    {
+        $clz = eval('return new class {
+            public function setSomeAttribute(bool | string $attribute) {
+
+            }
+        };');
+
+        $ih = IntrospectionHelper::getHelper(get_class($clz));
+        $this->assertContains('someattribute', $ih->getAttributes());
+    }
+
     /*
     public function testGetNestedElements()
     {
