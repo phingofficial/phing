@@ -162,6 +162,11 @@ class Phing
     private $emacsMode = false;
 
     /**
+     * @var string
+     */
+    private $searchForThis;
+
+    /**
      * Entry point allowing for more options from other front ends.
      *
      * This method encapsulates the complete build lifecycle.
