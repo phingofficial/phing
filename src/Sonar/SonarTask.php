@@ -274,7 +274,7 @@ class SonarTask extends Task
 
         $isOk = false;
         foreach ($output as $line) {
-            if (preg_match('/SonarQube Scanner \d+\\.\d+/', $line) === 1) {
+            if (preg_match('/Sonar(Qube )?Scanner \d+\\.\d+/', $line) === 1) {
                 $isOk = true;
                 break;
             }
@@ -398,7 +398,7 @@ class SonarTask extends Task
         ];
         $intersection = array_intersect($requiredProperties, array_keys($this->properties));
         if (count($intersection) < count($requiredProperties)) {
-            $message = 'SonarQube Scanner misses some parameters. The following properties are mandatory: ' . implode(
+            $message = 'Missing some parameters. The following properties are mandatory: ' . implode(
                 ', ',
                 $requiredProperties
             ) . '.';
