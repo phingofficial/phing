@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v2
         name: Checkout repository
 
-      - uses: ramsey/composer-install@v1
+      - uses: ramsey/composer-install@v2
         with:
           dependency-versions: 'locked'
 
@@ -74,7 +74,7 @@ jobs:
           extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl
           ini-values: phar.readonly=off
 
-      - uses: ramsey/composer-install@v1
+      - uses: ramsey/composer-install@v2
         with:
           dependency-versions: ${{ matrix.dependencies }}
           composer-options: ${{ matrix.composer-options }}
