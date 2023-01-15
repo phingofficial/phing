@@ -67,7 +67,7 @@ class HgRevertTaskTest extends BuildFileTest
         $this->expectBuildExceptionContaining(
             'revertAllWithRevisionSet',
             'revertAllWithRevisionSet',
-            "abort: unknown revision 'deadbeef0a0b'!"
+            "abort: unknown revision 'deadbeef0a0b'"
         );
         $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
     }

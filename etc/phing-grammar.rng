@@ -69,7 +69,9 @@
                 <ref name="coretasks"/>
                 <ref name="optionaltasks"/>
                 <ref name="coretypes"/>
-                <ref name="selector"/>
+                <zeroOrMore>
+                    <ref name="selector"/>
+                </zeroOrMore>
             </interleave>
 
         </element>
@@ -318,7 +320,9 @@
                 <ref name="coretasks"/>
                 <ref name="coretypes"/>
                 <ref name="optionaltasks"/>
-                <ref name="selector"/>
+                <zeroOrMore>
+                    <ref name="selector"/>
+                </zeroOrMore>
             </interleave>
         </element>
     </define>

@@ -206,8 +206,7 @@ class IntrospectionHelper
                         );
                     }
 
-                    /** @var ReflectionType $hint */
-                    $classname = (($hint = $params[0]->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
+                    $classname = $this->getClassnameFromParameter($params[0]);
 
                     if (null === $classname) {
                         throw new BuildException(
@@ -235,8 +234,7 @@ class IntrospectionHelper
                         );
                     }
 
-                    /** @var ReflectionType $hint */
-                    $classname = (($hint = $params[0]->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
+                    $classname = $this->getClassnameFromParameter($params[0]);
 
                     // we don't use the classname here, but we need to make sure it exists before
                     // we later try to instantiate a non-existent class
@@ -451,8 +449,7 @@ class IntrospectionHelper
                 // exist and that method is using class hints
                 $params = $method->getParameters();
 
-                /** @var ReflectionType $hint */
-                $classname = (($hint = $params[0]->getType()) && !$hint->isBuiltin()) ? $hint->getName() : null;
+                $classname = $this->getClassnameFromParameter($params[0]);
 
                 // create a new instance of the object and add it via $addMethod
                 $clazz = new ReflectionClass($classname);
@@ -653,5 +650,19 @@ class IntrospectionHelper
         if (Project::MSG_DEBUG === Phing::getMsgOutputLevel()) {
             echo '[IntrospectionHelper] ' . $msg . "\n";
         }
+    }
+
+    /**
+     * @param \ReflectionParameter $parameter
+     * @return mixed|null
+     */
+    private function getClassnameFromParameter(\ReflectionParameter $parameter)
+    {
+        /** @var ReflectionType $reflectionType */
+        $reflectionType = $parameter->getType();
+        if ($reflectionType instanceof \ReflectionNamedType) {
+            return !$reflectionType->isBuiltin() ? $reflectionType->getName() : null;
+        }
+        return null;
     }
 }
