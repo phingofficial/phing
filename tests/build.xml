@@ -33,6 +33,7 @@
     <php expression="ini_set('error_reporting', -1);"/>
     <php expression="ini_set('memory_limit', -1);"/>
     <php expression="ini_set('date.timezone', 'UTC');"/>
+    <php expression="ini_set('intl.default_locale', 'en_US');"/>
 
     <target name="configure">
         <echo>-------------------------------------------------</echo>

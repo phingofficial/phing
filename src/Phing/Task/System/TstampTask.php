@@ -22,6 +22,7 @@ namespace Phing\Task\System;
 
 use DateTime;
 use Exception;
+use IntlDateFormatter;
 use Phing\Exception\BuildException;
 use Phing\Task;
 
@@ -37,17 +38,16 @@ use Phing\Task;
  */
 class TstampTask extends Task
 {
+    /** @var \Phing\Task\System\TstampCustomFormat[] */
     private $customFormats = [];
 
+    /** @var string */
     private $prefix = '';
 
     /**
-     * Set a prefix for the properties. If the prefix does not end with a "."
-     * one is automatically added.
-     *
-     * @param string $prefix the prefix to use
+     * Set a prefix for the properties.
      */
-    public function setPrefix($prefix)
+    public function setPrefix(string $prefix): void
     {
         $this->prefix = $prefix;
 
@@ -57,79 +57,76 @@ class TstampTask extends Task
     }
 
     /**
-     * Adds a custom format.
-     *
-     * @param TstampCustomFormat $cf custom format
+     * @param TstampCustomFormat $format object representing `<format/>` tag
      */
-    public function addFormat(TstampCustomFormat $cf)
+    public function addFormat(TstampCustomFormat $format): void
     {
-        $this->customFormats[] = $cf;
+        $this->customFormats[] = $format;
+    }
+
+    public function init(): void
+    {
+        // Testing class instead of extension to allow polyfills
+        if (!class_exists(IntlDateFormatter::class)) {
+            throw new BuildException('TstampTask requires Intl extension');
+        }
     }
 
     /**
-     * Create the timestamps. Custom ones are done before
-     * the standard ones.
-     *
-     * @throws BuildException
+     * Create the timestamps. Custom ones are done before the standard ones.
      */
-    public function main()
+    public function main(): void
     {
-        $d = $this->getNow();
+        $unixTime = $this->getUnixTime();
 
-        foreach ($this->customFormats as $cf) {
-            $cf->execute($this, $d, $this->getLocation());
+        foreach ($this->customFormats as $format) {
+            $format->validate($this);
+            $this->createProperty($format->propertyName, $unixTime, $format->pattern, $format->locale, $format->timezone);
         }
 
-        $dstamp = strftime('%Y%m%d', $d);
-        $this->prefixProperty('DSTAMP', $dstamp);
-
-        $tstamp = strftime('%H%M', $d);
-        $this->prefixProperty('TSTAMP', $tstamp);
-
-        $today = strftime('%B %d %Y', $d);
-        $this->prefixProperty('TODAY', $today);
+        $this->createProperty('DSTAMP', $unixTime, 'yyyyMMdd');
+        $this->createProperty('TSTAMP', $unixTime, 'HHmm');
+        $this->createProperty('TODAY', $unixTime);
     }
 
     /**
-     * helper that encapsulates prefix logic and property setting
-     * policy (i.e. we use setNewProperty instead of setProperty).
-     *
-     * @param string $name
-     * @param string $value
+     * @param string      $propertyName  name of the property to be created
+     * @param int         $unixTimestamp unix timestamp to be converted
+     * @param null|string $pattern       ICU pattern, when null locale-dependent date pattern is used
+     * @param null|string $locale        locale to use with timestamp, when null PHP default locale is used
+     * @param null|string $timezone      timezone to use with timestamp, when null PHP default timezone is used
      */
-    public function prefixProperty($name, $value)
+    protected function createProperty(string $propertyName, int $unixTimestamp, ?string $pattern = null, ?string $locale = null, ?string $timezone = null): void
     {
-        $this->getProject()->setNewProperty($this->prefix . $name, $value);
+        $formatter = new IntlDateFormatter($locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, $timezone, IntlDateFormatter::GREGORIAN, $pattern);
+        $value = $formatter->format($unixTimestamp);
+        $this->getProject()->setNewProperty($this->prefix . $propertyName, $value);
     }
 
-    protected function getNow(): int
+    protected function getUnixTime(): int
     {
+        // phing.tstamp.now.iso
         $property = $this->getProject()->getProperty('phing.tstamp.now.iso');
-
         if (null !== $property && '' !== $property) {
             try {
                 $dateTime = new DateTime($property);
+
+                return $dateTime->getTimestamp();
             } catch (Exception $e) {
                 $this->log('magic property phing.tstamp.now.iso ignored as ' . $property . ' is not a valid number');
-                $dateTime = new DateTime();
             }
-
-            return $dateTime->getTimestamp();
         }
 
+        // phing.tstamp.now
         $property = $this->getProject()->getProperty('phing.tstamp.now');
-
-        $dateTime = (new DateTime())->getTimestamp();
-
         if (null !== $property && '' !== $property) {
             $dateTime = DateTime::createFromFormat('U', $property);
-            if (false === $dateTime) {
-                $this->log('magic property phing.tstamp.now ignored as ' . $property . ' is not a valid number');
-            } else {
-                $dateTime = $dateTime->getTimestamp();
+            if ($dateTime instanceof DateTime) {
+                return $dateTime->getTimestamp();
             }
+            $this->log('magic property phing.tstamp.now ignored as ' . $property . ' is not a valid number');
         }
 
-        return $dateTime;
+        return time();
     }
 }
