@@ -20,11 +20,17 @@
 
 namespace Phing\Test\Task\System;
 
+use Phing\Project;
 use Phing\Task\System\TstampTask;
 use Phing\Test\Support\BuildFileTest;
 
 /**
  * Tests the Tstamp Task.
+ *
+ * - Timezone is always UTC in tests
+ * - Locale is always en_US in tests
+ *
+ * @see tests/build.xml:35
  *
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  *
@@ -75,5 +81,32 @@ class TstampTaskTest extends BuildFileTest
         $this->tstamp->main();
         $prop = $this->project->getProperty('prefix.DSTAMP');
         $this->assertNotNull($prop);
+    }
+
+    public function testWarningOnOldSyntax(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('pattern attribute must use ICU format https://www.phing.info/guide/chunkhtml/TstampTask.html', Project::MSG_WARN);
+    }
+
+    public function testNegativeMagicProperty(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('DSTAMP', '19691230');
+        $this->assertPropertyEquals('TSTAMP', '2013');
+        $this->assertPropertyEquals('TODAY', 'December 30, 1969');
+    }
+
+    public function testTimezone(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('caracas', '05:54');
+        $this->assertPropertyEquals('TSTAMP', '0954'); // UTC in tests
+    }
+
+    public function testLocale(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('español', 'viernes');
     }
 }

@@ -31,7 +31,7 @@
     <target name="testMagicPropertyIsoCustomFormat">
         <property name="phing.tstamp.now.iso" value="1972-04-17T08:07:00Z"/>
         <tstamp>
-            <format property="tstamp.test" pattern="%Y-%m-%d" />
+            <format property="tstamp.test" pattern="yyyy-MM-dd"/>
         </tstamp>
     </target>
 
@@ -40,4 +40,30 @@
         <property name="phing.tstamp.now.iso" value="1972-04-17T08:07:22Z"/>
         <tstamp/>
     </target>
+
+    <target name="testWarningOnOldSyntax">
+        <tstamp>
+            <format property="demo" pattern="%Y-%m-%d"/>
+        </tstamp>
+    </target>
+
+    <target name="testNegativeMagicProperty">
+        <property name="phing.tstamp.now" value="-100000"/>
+        <tstamp/>
+    </target>
+
+    <target name="testTimezone">
+        <property name="phing.tstamp.now" value="1660298086"/>
+        <tstamp>
+            <format property="caracas" pattern="HH:mm" timezone="America/Caracas"/>
+        </tstamp>
+    </target>
+
+    <target name="testLocale">
+        <property name="phing.tstamp.now" value="1660298086"/>
+        <tstamp>
+            <format property="español" pattern="EEEE" locale="es_ES"/>
+        </tstamp>
+    </target>
+
 </project>

@@ -3,7 +3,7 @@
     <property name="tmp.dir" value="tmp"/>
 
     <tstamp>
-        <format property="formattedTimestamp" pattern="%m/%d/%Y %I:%M %p" /> <!-- MM/DD/YYYY HH:MM AM or PM /> -->
+        <format property="formattedTimestamp" pattern="MM/dd/yyyy hh:mm a" /> <!-- MM/DD/YYYY HH:MM AM or PM /> -->
     </tstamp>
 
     <selector id="map.selector">
