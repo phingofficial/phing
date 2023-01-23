@@ -1,0 +1,44 @@
+{
+  "name": "phing/task-git",
+  "description": "Git related phing tasks.",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "license": "LGPL-3.0-only",
+  "type": "phing-extension",
+  "authors": [
+    {
+      "name": "Siad Ardroumli",
+      "email": "siad.ardroumli@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">= 7.1",
+    "pear/versioncontrol_git": "dev-master"
+  },
+  "require-dev": {
+    "phing/phing": "3.0.x-dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Phing\\Task\\Ext\\": "src/"
+    }
+  },
+  "extra": {
+    "phing-custom-taskdefs": {
+      "gitarchive": "Phing\\Task\\Ext\\GitArchiveTask",
+      "gitinit": "Phing\\Task\\Ext\\GitInitTask",
+      "gitclone": "Phing\\Task\\Ext\\GitCloneTask",
+      "gitgc": "Phing\\Task\\Ext\\GitGcTask",
+      "gitbranch": "Phing\\Task\\Ext\\GitBranchTask",
+      "gitfetch": "Phing\\Task\\Ext\\GitFetchTask",
+      "gitmerge": "Phing\\Task\\Ext\\GitMergeTask",
+      "gitcheckout": "Phing\\Task\\Ext\\GitCheckoutTask",
+      "gitpull": "Phing\\Task\\Ext\\GitPullTask",
+      "gitpush": "Phing\\Task\\Ext\\GitPushTask",
+      "gitlog": "Phing\\Task\\Ext\\GitLogTask",
+      "gittag": "Phing\\Task\\Ext\\GitTagTask",
+      "gitcommit": "Phing\\Task\\Ext\\GitCommitTask",
+      "gitdescribe": "Phing\\Task\\Ext\\GitDescribeTask"
+    }
+  }
+}
