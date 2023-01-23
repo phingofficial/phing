@@ -57,7 +57,7 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ ubuntu-latest, macos-latest, windows-latest ]
-        php: [ '7.3', '7.4', '8.0', '8.1', '8.2' ]
+        php: [ '7.4', '8.0', '8.1', '8.2' ]
         dependencies: [ 'lowest', 'locked' ]
         experimental: [ false ]
 
@@ -71,7 +71,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl
+          extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl,zip
           ini-values: phar.readonly=off
 
       - uses: ramsey/composer-install@v2
