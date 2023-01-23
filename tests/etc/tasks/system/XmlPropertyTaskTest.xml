@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="XmlPropertyTaskTest" default="testXmlPropertyFile" basedir=".">
+
+    <target name="testXmlPropertyFile" description="Loading properties with XmlPropertyTask">
+        <xmlproperty file="../properties.xml"/>
+        <echo>Username: ${config.username}</echo>
+        <echo>Temp dir: ${config.temp-dir}</echo>
+    </target>
+
+</project>
