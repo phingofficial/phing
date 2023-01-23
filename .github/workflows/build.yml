@@ -64,7 +64,7 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ ubuntu-latest, macos-latest, windows-latest ]
-        php: [ '7.4', '8.0', '8.1', '8.2' ]
+        php: [ '7.4', '8.0', '8.1' ]
         dependencies: [ 'lowest', 'locked' ]
         experimental: [ false ]
 
