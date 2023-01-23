@@ -15,7 +15,7 @@ build:
   environment:
     timezone: UTC
     php:
-      version: '8.2'
+      version: '8.1'
   nodes:
     analysis:
       tests:
