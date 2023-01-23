@@ -26,8 +26,15 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         name: Checkout repository
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          tools: composer:v2
 
       - uses: ramsey/composer-install@v2
         with:
@@ -57,21 +64,22 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ ubuntu-latest, macos-latest, windows-latest ]
-        php: [ '7.3', '7.4', '8.0', '8.1' ]
+        php: [ '7.4', '8.0', '8.1' ]
         dependencies: [ 'lowest', 'locked' ]
         experimental: [ false ]
 
     name: PHP ${{ matrix.php }} on ${{ matrix.operating-system }} with ${{ matrix.dependencies }} dependencies
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         name: Checkout repository
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl
+          coverage: none
+          extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl,zip
           ini-values: phar.readonly=off
 
       - uses: ramsey/composer-install@v2
@@ -99,13 +107,14 @@ jobs:
       - test
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         name: Checkout repository
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
+          coverage: none
           ini-values: phar.readonly=Off
           tools: composer:v2
 
@@ -114,7 +123,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -137,12 +146,13 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
+          coverage: xdebug
           ini-values: xdebug.mode=coverage
 
       - name: Get composer cache directory
@@ -150,7 +160,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -172,10 +182,16 @@ jobs:
           # 'true' command will behave as a fake browser, always returning 0.
           BROWSER: /usr/bin/true
 
-      - name: Transfer coverage
+      - name: Upload to Codecov
+        if: github.repository_owner == 'phingofficial'
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./tests/reports/clover-coverage.xml
+          verbose: true
+
+      - name: Upload to Scrutinizer
         if: github.repository_owner == 'phingofficial'
         run: |
-          bash <(curl -s https://codecov.io/bash) -f ./tests/reports/clover-coverage.xml
           wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./tests/reports/clover-coverage.xml
 
   notify:

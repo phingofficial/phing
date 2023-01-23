@@ -2,6 +2,41 @@ P     H     I     N     G
 =========================
 
 
+Jan. 20, 2023 - Phing 3.0.0 rc4
+-------------------------------
+
+The following issues and pull requests were closed in this release:
+
+* XML\RNG Validation Wierdness [\#1688](https://github.com/phingofficial/phing/issues/1688)
+* Uncaught Error: Call to undefined method ReflectionUnionType::isBuiltin() [\#1686](https://github.com/phingofficial/phing/issues/1686)
+* FilesystemIterator bug in PHP 8.2 [\#1685](https://github.com/phingofficial/phing/pull/1685)
+* TstampTask with ICU syntax [\#1683](https://github.com/phingofficial/phing/pull/1683)
+* TstampTask impacted by deprecation [\#1682](https://github.com/phingofficial/phing/issues/1682)
+* Fix wrong boolean handling [\#1680](https://github.com/phingofficial/phing/pull/1680)
+* Update to 'symfony/yaml ^6' [\#1679](https://github.com/phingofficial/phing/issues/1679)
+* Update VisualizerTask tests [\#1676](https://github.com/phingofficial/phing/pull/1676)
+* Add support for PHP 8.1 [\#1674](https://github.com/phingofficial/phing/pull/1674)
+* fixing DirSet toString returning files [\#1670](https://github.com/phingofficial/phing/pull/1670)
+* DirSet toString returns files [\#1669](https://github.com/phingofficial/phing/issues/1669)
+* Remove deprecated `command` attribute from ExecTask [\#1662](https://github.com/phingofficial/phing/issues/1662)
+* Symfony console 6 support [\#1659](https://github.com/phingofficial/phing/pull/1659)
+* Enable symfony 6 support [\#1658](https://github.com/phingofficial/phing/pull/1658)
+* Missing php namespace in phpunit-noframes.xsl for phing-3.0.0-RC3.phar release [\#1656](https://github.com/phingofficial/phing/issues/1656)
+* Type hasfreespace condition [\#1653](https://github.com/phingofficial/phing/pull/1653)
+* PHP 8.1 compatibility [\#1652](https://github.com/phingofficial/phing/pull/1652)
+* Update PHP requirement in Phar manifest [\#1650](https://github.com/phingofficial/phing/pull/1650)
+* Align usage [\#1648](https://github.com/phingofficial/phing/pull/1648)
+* Upgrading filesize [\#1644](https://github.com/phingofficial/phing/pull/1644)
+* Add ExecTask suggestions [\#1643](https://github.com/phingofficial/phing/pull/1643)
+* Fix PHP 8.1 tests and confirm compatibility [\#1642](https://github.com/phingofficial/phing/issues/1642)
+* Finalize UPGRADING.md document [\#1640](https://github.com/phingofficial/phing/issues/1640)
+* bump version phing/task-jshint in composer.lock  [\#1639](https://github.com/phingofficial/phing/issues/1639)
+* Suggestions for ExecTask [\#1638](https://github.com/phingofficial/phing/issues/1638)
+* Fix open task test [\#1637](https://github.com/phingofficial/phing/pull/1637)
+* Spawn open task [\#1636](https://github.com/phingofficial/phing/pull/1636)
+* Add tests for StringHelper [\#1603](https://github.com/phingofficial/phing/pull/1603)
+* Fix XmlLintTask error handler [\#1599](https://github.com/phingofficial/phing/pull/1599)
+
 Sep. 9, 2021 - Phing 3.0.0 rc3
 ------------------------------
 
