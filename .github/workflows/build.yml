@@ -182,11 +182,6 @@ jobs:
           # 'true' command will behave as a fake browser, always returning 0.
           BROWSER: /usr/bin/true
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: clov-coverage
-          path: tests/reports/clover-coverage.xml
-
       - name: Upload to Codecov
         if: github.repository_owner == 'phingofficial'
         uses: codecov/codecov-action@v3
