@@ -143,6 +143,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
+          coverage: xdebug
           ini-values: xdebug.mode=coverage
 
       - name: Get composer cache directory
@@ -177,10 +178,16 @@ jobs:
           name: clov-coverage
           path: tests/reports/clover-coverage.xml
 
-      - name: Transfer coverage
+      - name: Upload to Codecov
+        if: github.repository_owner == 'phingofficial'
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./tests/reports/clover-coverage.xml
+          verbose: true
+
+      - name: Upload to Scrutinizer
         if: github.repository_owner == 'phingofficial'
         run: |
-          bash <(curl -s https://codecov.io/bash) -f ./tests/reports/clover-coverage.xml
           wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./tests/reports/clover-coverage.xml
 
   notify:
