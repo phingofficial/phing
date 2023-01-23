@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @license Copyright 2011-2014 BitPay Inc., MIT License
+ * @see https://github.com/bitpay/magento2-plugin/blob/master/LICENSE
+ */
+ -->
+<project name="bitpay/magento2-plugin" default="build">
+    <!--
+        Default properties
+    -->
+    <property file="${project.basedir}/build/build.properties" />
+
+    <!--
+        Default build for running a build locally
+    -->
+    <target name="build" depends="prepare"
+        description="Runs a full build">
+        <phingcall target="lint" />
+        <phingcall target="magento:install" />
+        <phingcall target="phpunit" />
+        <phingcall target="phpcs" />
+        <phingcall target="phpmd" />
+        <phingcall target="phploc" />
+        <phingcall target="pdepend" />
+        <phingcall target="build-api-docs" />
+    </target>
+
+    <!--
+        Build API and other documentation
+    -->
+    <target name="build-api-docs"
+        description="Generates API docs for the project">
+        <delete dir="${phpdoc.target}" verbose="true" />
+        <exec executable="${project.bindir}/phpdoc" passthru="true">
+            <arg value="--directory=${phpdoc.directory}" />
+            <arg value="--target=${phpdoc.target}" />
+            <arg line="--ignore=${phpdoc.ignore}" />
+        </exec>
+    </target>
+
+    <!--
+        Used to run a build on Travis CI
+    -->
+    <target name="build-travis" hidden="true"
+        description="Runs a build that is specific to the Travis CI environment">
+        <phingcall target="build" />
+    </target>
+
+    <!--
+        Generates documentation that can be uploaded to a web site and is meant
+        to be used elsewhere by the project.
+    -->
+    <target name="build-docs"
+        description="Generates documentation">
+        <fail message="Needs to be configured" />
+    </target>
+
+    <!--
+        Generates a distribution file that can then be used for uploading to
+        various plugin specific sites for users to download.
+    -->
+    <target name="build-dist"
+        description="Builds a distribution file">
+        <fail message="Needs to be configured" />
+    </target>
+
+    <!--
+        Cleans up and makes sure that the build is
+        clean
+    -->
+    <target name="clean" hidden="true">
+        <delete dir="build/docs" verbose="true" />
+        <delete dir="build/logs" verbose="true" />
+    </target>
+
+    <!--
+        Prepares the project for a build
+    -->
+    <target name="prepare" depends="clean" hidden="true">
+        <mkdir dir="build/cache" />
+        <mkdir dir="build/logs" />
+    </target>
+
+    <!--
+        Lint check all php files, this task should be updated for each
+        project so it only lint checks files specific for that project
+    -->
+    <target name="lint"
+        description="Check the syntax of PHP files">
+        <phplint cachefile="${project.basedir}/build/cache/phplint.cache">
+            <fileset dir="${project.basedir}/">
+                <include name="**/*.php"/>
+                <exclude name="**/build/**"/>
+                <exclude name="**/bin/**"/>
+                <exclude name="**/vendor/**"/>
+            </fileset>
+        </phplint>
+    </target>
+
+    <!--
+        phpunit - Runs phpunit with the phpunit.xml.dist file
+        http://phpunit.de/
+    -->
+    <target name="phpunit"
+        description="Runs unit tests">
+        <exec executable="${project.basedir}/bin/n98-magerun" passthru="true" dir="${project.basedir}/build/magento">
+            <arg value="cache:clean" />
+        </exec>
+        <exec executable="${project.basedir}/bin/n98-magerun" passthru="true" dir="${project.basedir}/build/magento">
+            <arg value="cache:flush" />
+        </exec>
+        <exec executable="${project.basedir}/bin/n98-magerun" passthru="true" dir="${project.basedir}/build/magento">
+            <arg value="cache:disable" />
+        </exec>
+        <exec executable="${project.bindir}/phpunit" passthru="true">
+            <arg value="-c" />
+            <arg path="${phpunit.configuration}" />
+        </exec>
+    </target>
+
+    <!--
+        PHP Mess Detector
+        http://phpmd.org
+    -->
+    <target name="phpmd"
+        description="Runs PHP Mess Detector">
+        <delete file="${phpmd.report.file}" />
+        <exec executable="${project.bindir}/phpmd" passthru="true">
+            <arg path="${phpmd.source}" />
+            <arg value="${phpmd.report.format}" />
+            <arg value="${phpmd.ruleset}" />
+            <arg line="--reportfile ${phpmd.report.file}" />
+            <arg line="--exclude ${phpmd.exclude}" />
+        </exec>
+    </target>
+
+    <!--
+        PHP Lines of Code - Generates a CSV and XML log of how many lines
+        the project is.
+        https://github.com/sebastianbergmann/phploc
+    -->
+    <target name="phploc"
+        description="Calculates the size of the code base">
+        <delete file="${phploc.log.csv}" />
+        <delete file="${phploc.log.xml}" />
+        <exec executable="${project.basedir}/bin/phploc" passthru="true">
+            <arg line="--exclude=${phploc.exclude}" />
+            <arg value="--log-csv=${phploc.log.csv}" />
+            <arg value="--log-xml=${phploc.log.xml}" />
+            <arg path="${phploc.source}" />
+        </exec>
+    </target>
+
+    <!--
+        PHP Depend
+        http://pdepend.org/
+    -->
+    <target name="pdepend"
+        description="Generates some code metrics and pretty pictures">
+        <delete file="${pdepend.jdepend.xml}" />
+        <delete file="${pdepend.summary.xml}" />
+        <exec executable="${project.bindir}/pdepend" passthru="true">
+            <arg value="--jdepend-chart=${pdepend.jdepend.chart}" />
+            <arg value="--jdepend-xml=${pdepend.jdepend.xml}" />
+            <arg value="--overview-pyramid=${pdepend.overview.pyramid}" />
+            <arg value="--summary-xml=${pdepend.summary.xml}" />
+            <arg value="--ignore=${pdepend.ignore}" />
+            <arg path="${pdepend.source}" />
+        </exec>
+    </target>
+
+    <!--
+        PHP Code Sniffer - Makes sure the code meets standards, this
+        needs to be updated for each project
+        https://github.com/squizlabs/PHP_CodeSniffer
+    -->
+    <target name="phpcs"
+        description="Runs PHP Code Sniffer to make sure your code doesn't smell">
+        <delete file="${phpcs.report.xml}" />
+        <exec executable="${project.bindir}/phpcs" passthru="true">
+            <arg value="-p" /> <!-- Show progress of run -->
+            <arg value="--report-xml=${phpcs.report.xml}" />
+            <arg line="--standard=${phpcs.standard}" />
+            <arg line="--ignore=${phpcs.ignore}" />
+            <arg path="${phpcs.source}" />
+        </exec>
+    </target>
+
+    <!--
+        This target will copy over the magerun config and will install magento
+        in the build directory. It will then symlink the plugin so that tests
+        can be ran.
+    -->
+    <target name="magento:install">
+        <delete dir="build/magento" includeemptydirs="true" />
+        <mkdir dir="build/magento/app/etc/" />
+        <copy file="build/n98-magerun.yaml" tofile="build/magento/app/etc/n98-magerun.yaml" />
+        <phingcall target="plugin:symlink" />
+        <exec executable="${project.basedir}/bin/n98-magerun" passthru="true">
+            <arg value="install" />
+            <arg value="-n" />
+            <arg value="-vvv" />
+            <arg value="--magentoVersion=${magento.version}" />
+            <arg value="--installationFolder=build/magento" />
+            <arg value="--dbHost=${db.host}" />
+            <arg value="--dbUser=${db.user}" />
+            <arg value="--dbPass=${db.pass}" />
+            <arg value="--dbName=${db.name}" />
+            <arg value="--installSampleData=no" />
+            <arg value="--useDefaultConfigParams=yes" />
+            <arg value="--baseUrl=${magento.baseurl}" />
+        </exec>
+        <exec executable="${project.basedir}/bin/n98-magerun" passthru="true" dir="${project.basedir}/build/magento">
+            <arg value="config:set" />
+            <arg value="dev/template/allow_symlink" />
+            <arg value="1" />
+        </exec>
+        <exec executable="${project.basedir}/bin/n98-magerun" passthru="true" dir="${project.basedir}/build/magento">
+            <arg value="config:set" />
+            <arg value="dev/log/active" />
+            <arg value="1" />
+        </exec>
+        <phingcall target="plugin:enable" />
+    </target>
+
+    <target name="plugin:enable" hidden="true">
+        <exec executable="${project.basedir}/bin/n98-magerun" passthru="true" dir="${project.basedir}/build/magento">
+            <arg value="config:set" />
+            <arg value="payment/Bitcoins/api_key" />
+            <arg value="GArM63Kab9ahw2muesTWptJneXFoxUZoFXrAKWs5c" />
+        </exec>
+        <exec executable="${project.basedir}/bin/n98-magerun" passthru="true" dir="${project.basedir}/build/magento">
+            <arg value="cache:clean" />
+        </exec>
+        <exec executable="${project.basedir}/bin/n98-magerun" passthru="true" dir="${project.basedir}/build/magento">
+            <arg value="cache:flush" />
+        </exec>
+    </target>
+
+    <!--
+        This will create symlinks so the module can be tested inside a magento
+        environment. This should closely follow the `modman` file.
+    -->
+    <target name="plugin:symlink" hidden="true">
+        <mkdir dir="${project.basedir}/build/magento/app/code/community/Bitpay" />
+        <mkdir dir="${project.basedir}/build/magento/app/design/frontend/base/default/layout" />
+        <mkdir dir="${project.basedir}/build/magento/app/design/frontend/base/default/template" />
+        <mkdir dir="${project.basedir}/build/magento/app/etc/modules" />
+        <mkdir dir="${project.basedir}/build/magento/lib" />
+        <mkdir dir="${project.basedir}/build/magento/shell" />
+        <symlink
+            target="${project.basedir}/app/code/community/Bitpay/Bitcoins"
+            link="${project.basedir}/build/magento/app/code/community/Bitpay/Bitcoins"
+            overwrite="true" />
+        <symlink
+            target="${project.basedir}/app/design/frontend/base/default/layout/bitcoins.xml"
+            link="${project.basedir}/build/magento/app/design/frontend/base/default/layout/bitcoins.xml"
+            overwrite="true" />
+        <symlink
+            target="${project.basedir}/app/design/frontend/base/default/template/bitcoins"
+            link="${project.basedir}/build/magento/app/design/frontend/base/default/template/bitcoins"
+            overwrite="true" />
+        <symlink
+            target="${project.basedir}/app/etc/modules/Bitpay_Bitcoins.xml"
+            link="${project.basedir}/build/magento/app/etc/modules/Bitpay_Bitcoins.xml"
+            overwrite="true" />
+        <symlink
+            target="${project.basedir}/lib/bitpay"
+            link="${project.basedir}/build/magento/lib/bitpay"
+            overwrite="true" />
+        <symlink
+            target="${project.basedir}/shell/bitpay.php"
+            link="${project.basedir}/build/magento/shell/bitpay.php"
+            overwrite="true" />
+    </target>
+</project>
