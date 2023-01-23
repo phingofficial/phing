@@ -13,6 +13,7 @@ checks:
 
 build:
   environment:
+    timezone: UTC
     php:
       version: '7.3'
   nodes:
