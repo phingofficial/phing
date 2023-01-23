@@ -6,6 +6,11 @@ We're forever indebted to the folks turning their (free) time into valuable Phin
 If you've done work on Phing and you are not listed here, please feel free to add yourself.
 
 
+Sponsors
+--------
+  - Zaahid Bateson
+
+
 Phing 3.x Development
 ---------------------
 
