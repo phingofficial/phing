@@ -91,7 +91,7 @@ class XmlFileParser implements FileParserInterface
 
             $prefix = implode('.', $path);
 
-            if (count($prefix) > 0) {
+            if (strlen($prefix) > 0) {
                 $prefix .= '.';
             }
 
