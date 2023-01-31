@@ -14,7 +14,7 @@
     }
   ],
   "require": {
-    "php": "^7.3 || ^7.4 || ^8.0",
+    "php": ">= 7.1",
     "jawira/plantuml-client": "^1.0"
   },
   "require-dev": {
@@ -22,8 +22,8 @@
     "ext-xsl": "*",
     "ergebnis/composer-normalize": "^2.13",
     "guzzlehttp/guzzle": "^7.2",
-    "phing/phing": "dev-main",
-    "phpstan/phpstan": "^0.12",
+    "phing/phing": "3.0.x-dev",
+    "phpstan/phpstan": "^0.12.87 || ^1.0",
     "psr/http-message": "^1.0"
   },
   "minimum-stability": "dev",
