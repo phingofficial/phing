@@ -79,7 +79,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl,zip
+          extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl,zip,fileinfo
           ini-values: phar.readonly=off
 
       - uses: ramsey/composer-install@v2
