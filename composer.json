@@ -102,7 +102,7 @@
         "pear/mail_mime": "^1.10",
         "pear/net_ftp": "dev-master",
         "pear/net_growl": "dev-master",
-        "pear/pear-core-minimal": "~1.10.9",
+        "pear/pear-core-minimal": "~1.10.10",
         "pear/pear_exception": "^v1.0.2",
         "phpdocumentor/phpdocumentor": "^3.1",
         "phpunit/phpunit": "^9.3",
