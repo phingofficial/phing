@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -105,7 +106,7 @@ class Ssh2MethodConnectionParam
     {
         return array_filter(
             get_object_vars($this),
-            [$this, '_filterParam']
+            [$this, 'filterParam']
         );
     }
 
@@ -113,7 +114,7 @@ class Ssh2MethodConnectionParam
      * @param $var
      * @return bool
      */
-    protected function _filterParam($var)
+    protected function filterParam($var)
     {
         return null !== $var;
     }

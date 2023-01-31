@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,7 +32,6 @@ namespace Phing\Task\Ext;
  */
 class LiquibaseTask extends AbstractLiquibaseTask
 {
-
     /**
      * What liquibase command you wish to run.
      */

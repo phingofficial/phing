@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,11 +32,13 @@ use Phing\Util\StringHelper;
 use Psr\Http\Message\ResponseInterface;
 use SimpleXMLElement;
 use XSLTProcessor;
+
 use function array_reduce;
 use function filter_var;
 use function reset;
 use function simplexml_load_string;
 use function strval;
+
 use const FILTER_VALIDATE_URL;
 
 /**

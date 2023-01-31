@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +25,6 @@ use Phing\Type\Element\FileSetAware;
 use Phing\Type\FileSet;
 use Phing\Project;
 use Phing\Exception\BuildException;
-
 use JShrink\Minifier;
 
 /**
@@ -128,10 +128,10 @@ class JsMinTask extends Task
             $this->log('Minifying file ' . $file);
             try {
                 $target = $this->targetDir . '/' . str_replace(
-                        $fullPath,
-                        '',
-                        str_replace('.js', $this->suffix . '.js', $file)
-                    );
+                    $fullPath,
+                    '',
+                    str_replace('.js', $this->suffix . '.js', $file)
+                );
                 if (!is_dir(dirname($target))) {
                     if (!mkdir($concurrentDirectory = dirname($target), 0777 - umask(), true) && !is_dir($concurrentDirectory)) {
                         throw new BuildException(sprintf('Directory "%s" was not created', $concurrentDirectory));

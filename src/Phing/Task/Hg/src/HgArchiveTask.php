@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Utilise Mercurial from within Phing.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -171,14 +172,14 @@ class Ssh2MethodParam extends DataType
             'server_to_client' => null !== $server_to_client ? $server_to_client->toArray() : null
         ];
 
-        return array_filter($array, [$this, '_filterParam']);
+        return array_filter($array, [$this, 'filterParam']);
     }
 
     /**
      * @param $var
      * @return boolean
      */
-    protected function _filterParam($var)
+    protected function filterParam($var)
     {
         if (is_array($var)) {
             return !empty($var);

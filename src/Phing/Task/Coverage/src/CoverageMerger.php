@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -86,7 +87,7 @@ class CoverageMerger
      * @return Properties
      * @throws BuildException
      */
-    protected static function _getDatabase($project)
+    protected static function getDatabase($project)
     {
         $coverageDatabase = $project->getProperty('coverage.database');
 
@@ -110,7 +111,7 @@ class CoverageMerger
     public static function getWhiteList($project)
     {
         $whitelist = [];
-        $props = self::_getDatabase($project);
+        $props = self::getDatabase($project);
 
         foreach ($props->getProperties() as $property) {
             $data = unserialize($property);
@@ -128,7 +129,7 @@ class CoverageMerger
      */
     public static function merge($project, $codeCoverageInformation)
     {
-        $props = self::_getDatabase($project);
+        $props = self::getDatabase($project);
 
         $coverageTotal = $codeCoverageInformation;
         if (!is_array($coverageTotal)) {

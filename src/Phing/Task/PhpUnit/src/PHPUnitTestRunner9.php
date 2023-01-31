@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -150,7 +151,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
 
                 if (method_exists($filter, 'includeFiles')) {
                     $filter->includeFiles($whitelist);
-                } else if (method_exists($filter, 'addFilesToWhiteList')) {
+                } elseif (method_exists($filter, 'addFilesToWhiteList')) {
                     $filter->addFilesToWhiteList($whitelist);
                 }
             }

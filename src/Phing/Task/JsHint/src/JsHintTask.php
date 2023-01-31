@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,6 +25,7 @@ use Phing\Type\Element\FileSetAware;
 use Phing\Exception\BuildException;
 use Phing\Io\File as PhingFile;
 use Phing\Project;
+
 /**
  * JsHintTask
  *
@@ -249,7 +251,7 @@ class JsHintTask extends Task
                 throw new BuildException('Unable to parse output of JSHint, use checkstyleReportPath="/path/to/report.xml" to debug');
             }
         }
-        $projectBasedir = $this->_getProjectBasedir();
+        $projectBasedir = $this->getProjectBasedir();
         $errorsCount = 0;
         $warningsCount = 0;
         $fileError = $this->xmlAttributes['fileError'];
@@ -293,14 +295,13 @@ class JsHintTask extends Task
 
         $this->log('');
         $this->log($message);
-
     }
 
     /**
      * @return string Path to the project basedir
      * @throws BuildException
      */
-    private function _getProjectBasedir()
+    private function getProjectBasedir()
     {
         return $this->getProject()->getBasedir()->getAbsolutePath() . DIRECTORY_SEPARATOR;
     }

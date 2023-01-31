@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -293,7 +294,7 @@ class FtpDeployTask extends Task
                 }
 
                 // Read directory informations, if file exists, else create the directory
-                if (!$this->_directoryInformations($ftp, $remoteFileInformations, $dirname)) {
+                if (!$this->directoryInformations($ftp, $remoteFileInformations, $dirname)) {
                     $this->log('Will create directory ' . $dirname, $this->logLevel);
                     $ret = $ftp->mkdir($dirname, true);
                     if (@\PEAR::isError($ret)) {
@@ -356,7 +357,7 @@ class FtpDeployTask extends Task
      * @param $directory
      * @return bool
      */
-    private function _directoryInformations(\Net_FTP $ftp, &$remoteFileInformations, $directory)
+    private function directoryInformations(\Net_FTP $ftp, &$remoteFileInformations, $directory)
     {
         $content = $ftp->ls($directory);
         if (@\PEAR::isError($content)) {

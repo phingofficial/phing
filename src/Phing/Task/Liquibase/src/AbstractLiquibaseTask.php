@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +31,6 @@ use Phing\Task;
  */
 abstract class AbstractLiquibaseTask extends Task
 {
-
     /**
      * Used for liquibase -Dname=value properties.
      */
