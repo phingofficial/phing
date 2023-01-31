@@ -20,6 +20,8 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+use Phing\Project;
 use Phing\Task;
 
 /**
@@ -367,19 +369,19 @@ class ApiGenTask extends Task
     /**
      * Runs ApiGen.
      *
-     * @throws \BuildException If something is wrong.
+     * @throws BuildException If something is wrong.
      * @see    Task::main()
      */
     public function main()
     {
         if ('apigen' !== $this->executable && !is_file($this->executable)) {
-            throw new \BuildException(sprintf('Executable %s not found', $this->executable), $this->getLocation());
+            throw new BuildException(sprintf('Executable %s not found', $this->executable), $this->getLocation());
         }
 
         if (!empty($this->options['config'])) {
             // Config check
             if (!is_file($this->options['config'])) {
-                throw new \BuildException(
+                throw new BuildException(
                     sprintf(
                         'Config file %s doesn\'t exist',
                         $this->options['config']
@@ -390,11 +392,11 @@ class ApiGenTask extends Task
         } else {
             // Source check
             if (empty($this->options['source'])) {
-                throw new \BuildException('Source is not set', $this->getLocation());
+                throw new BuildException('Source is not set', $this->getLocation());
             }
             // Destination check
             if (empty($this->options['destination'])) {
-                throw new \BuildException('Destination is not set', $this->getLocation());
+                throw new BuildException('Destination is not set', $this->getLocation());
             }
         }
 
@@ -402,7 +404,7 @@ class ApiGenTask extends Task
         if (!empty($this->options['source'])) {
             foreach ($this->options['source'] as $source) {
                 if (!file_exists($source)) {
-                    throw new \BuildException(sprintf('Source %s doesn\'t exist', $source), $this->getLocation());
+                    throw new BuildException(sprintf('Source %s doesn\'t exist', $source), $this->getLocation());
                 }
             }
         }
@@ -414,7 +416,7 @@ class ApiGenTask extends Task
             $return
         );
 
-        $logType = 0 === $return ? \Project::MSG_INFO : \Project::MSG_ERR;
+        $logType = 0 === $return ? Project::MSG_INFO : Project::MSG_ERR;
         foreach ($output as $line) {
             $this->log($line, $logType);
         }

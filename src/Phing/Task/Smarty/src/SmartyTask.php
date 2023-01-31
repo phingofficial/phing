@@ -20,7 +20,16 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+use Phing\Io\BufferedReader;
+use Phing\Io\File;
+use Phing\Io\FileReader;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
+use Phing\Project;
 use Phing\Task;
+use Phing\Util\Properties;
+use Phing\Util\StringHelper;
 
 /**
  * A phing task for generating output by using Smarty.
@@ -177,7 +186,7 @@ class SmartyTask extends Task
         }
 
         if (!class_exists('Smarty')) {
-            throw new \BuildException("To use SmartyTask, you must have the path to Smarty.class.php on your include_path or your \$PHP_CLASSPATH environment variable.");
+            throw new BuildException("To use SmartyTask, you must have the path to Smarty.class.php on your include_path or your \$PHP_CLASSPATH environment variable.");
         }
     }
 
@@ -250,25 +259,25 @@ class SmartyTask extends Task
      * [REQUIRED] Set the output directory. It will be
      * created if it doesn't exist.
      *
-     * @param  \PhingFile $outputDirectory
+     * @param  IOException $outputDirectory
      * @return void
      * @throws \Exception
      */
-    public function setOutputDirectory(\PhingFile $outputDirectory)
+    public function setOutputDirectory(IOException $outputDirectory)
     {
         try {
             if (!$outputDirectory->exists()) {
                 $this->log(
                     "Output directory does not exist, creating: " . $outputDirectory->getPath(),
-                    \Project::MSG_VERBOSE
+                    Project::MSG_VERBOSE
                 );
                 if (!$outputDirectory->mkdirs()) {
-                    throw new \IOException("Unable to create Ouptut directory: " . $outputDirectory->getAbsolutePath());
+                    throw new IOException("Unable to create Ouptut directory: " . $outputDirectory->getAbsolutePath());
                 }
             }
             $this->outputDirectory = $outputDirectory->getCanonicalPath();
-        } catch (\IOException $ioe) {
-            throw new \BuildException($ioe->getMessage());
+        } catch (IOException $ioe) {
+            throw new BuildException($ioe->getMessage());
         }
     }
 
@@ -415,13 +424,13 @@ class SmartyTask extends Task
      * generating process starts.
      *
      * @param  string $file
-     * @throws \BuildException
+     * @throws BuildException
      * @return void
      */
     public function setContextProperties($file)
     {
         $sources = explode(",", $file);
-        $this->contextProperties = new \Properties();
+        $this->contextProperties = new Properties();
 
         // Always try to get the context properties resource
         // from a file first. Templates may be taken from a JAR
@@ -430,7 +439,7 @@ class SmartyTask extends Task
         // to get the context properties resource from the
         // classpath.
         for ($i = 0, $sourcesLength = count($sources); $i < $sourcesLength; $i++) {
-            $source = new \Properties();
+            $source = new Properties();
 
             try {
                 // resolve relative path from basedir and leave
@@ -439,7 +448,7 @@ class SmartyTask extends Task
                 $this->log("Using contextProperties file: " . $fullPath->__toString());
                 $source->load($fullPath);
             } catch (\Exception $e) {
-                throw new \BuildException(
+                throw new BuildException(
                     "Context properties file " . $sources[$i] .
                     " could not be found in the file system!"
                 );
@@ -488,7 +497,7 @@ class SmartyTask extends Task
     /**
      * Execute the input script with Smarty
      *
-     * @throws \BuildException
+     * @throws BuildException
      *                        BuildExceptions are thrown when required attributes are missing.
      *                        Exceptions thrown by Smarty are rethrown as BuildExceptions.
      */
@@ -497,22 +506,22 @@ class SmartyTask extends Task
 
         // Make sure the template path is set.
         if (empty($this->templatePath)) {
-            throw new \BuildException("The template path needs to be defined!");
+            throw new BuildException("The template path needs to be defined!");
         }
 
         // Make sure the control template is set.
         if ($this->controlTemplate === null) {
-            throw new \BuildException("The control template needs to be defined!");
+            throw new BuildException("The control template needs to be defined!");
         }
 
         // Make sure the output directory is set.
         if ($this->outputDirectory === null) {
-            throw new \BuildException("The output directory needs to be defined!");
+            throw new BuildException("The output directory needs to be defined!");
         }
 
         // Make sure there is an output file.
         if ($this->outputFile === null) {
-            throw new \BuildException("The output file needs to be defined!");
+            throw new BuildException("The output file needs to be defined!");
         }
 
         // Setup Smarty runtime.
@@ -556,20 +565,20 @@ class SmartyTask extends Task
             $this->context->template_dir = $this->templatePath;
         }
 
-        $smartyCompilePath = new \PhingFile($this->context->compile_dir);
+        $smartyCompilePath = new IOException($this->context->compile_dir);
         if (!$smartyCompilePath->exists()) {
             $this->log(
                 "Compile directory does not exist, creating: " . $smartyCompilePath->getPath(),
-                \Project::MSG_VERBOSE
+                Project::MSG_VERBOSE
             );
             if (!$smartyCompilePath->mkdirs()) {
-                throw new \BuildException("Smarty needs a place to compile templates; specify a 'compilePath' or create " . $this->context->compile_dir);
+                throw new BuildException("Smarty needs a place to compile templates; specify a 'compilePath' or create " . $this->context->compile_dir);
             }
         }
 
         // Make sure the output directory exists, if it doesn't
         // then create it.
-        $file = new \PhingFile($this->outputDirectory);
+        $file = new IOException($this->outputDirectory);
         if (!$file->exists()) {
             $this->log("Output directory does not exist, creating: " . $file->getAbsolutePath());
             $file->mkdirs();
@@ -578,7 +587,7 @@ class SmartyTask extends Task
         $path = $this->outputDirectory . DIRECTORY_SEPARATOR . $this->outputFile;
         $this->log("Generating to file " . $path);
 
-        $writer = new \FileWriter($path);
+        $writer = new FileWriter($path);
 
         // The generator and the output path should
         // be placed in the init context here and
@@ -600,7 +609,7 @@ class SmartyTask extends Task
                 // for properties ending in file.contents:
                 // in that case we dump the contents of the file
                 // as the "value" for the Property.
-                if (\StringHelper::endsWith("file.contents", $property)) {
+                if (StringHelper::endsWith("file.contents", $property)) {
                     // pull in contents of file specified
 
                     $property = substr($property, 0, strpos($property, "file.contents") - 1);
@@ -608,10 +617,10 @@ class SmartyTask extends Task
                     // reset value, and then
                     // read in the contents of the file into that var
                     $value = "";
-                    $f = new \PhingFile($this->project->resolveFile($value)->getCanonicalPath());
+                    $f = new File($this->project->resolveFile($value)->getCanonicalPath());
                     if ($f->exists()) {
                         try {
-                            $br = new \BufferedReader(new \FileReader($f));
+                            $br = new BufferedReader(new FileReader($f));
                             $value = $br->read();
                         } catch (\Exception $e) {
                             throw $e;
@@ -619,8 +628,8 @@ class SmartyTask extends Task
                     }
                 } // if ends with file.contents
 
-                if (\StringHelper::isBoolean($value)) {
-                    $value = \StringHelper::booleanValue($value);
+                if (StringHelper::isBoolean($value)) {
+                    $value = StringHelper::booleanValue($value);
                 }
 
                 $c->assign($property, $value);
@@ -631,9 +640,9 @@ class SmartyTask extends Task
             //$c->display($this->controlTemplate);
             $writer->write($c->fetch($this->controlTemplate));
             $writer->close();
-        } catch (\IOException $ioe) {
+        } catch (IOException $ioe) {
             $writer->close();
-            throw new \BuildException("Cannot write parsed template.");
+            throw new BuildException("Cannot write parsed template.");
         }
 
         $this->cleanup();

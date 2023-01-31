@@ -20,6 +20,8 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Rollbacks the database changes.
  *
@@ -49,7 +51,7 @@ class LiquibaseRollbackTask extends AbstractLiquibaseTask
         parent::checkParams();
 
         if (null === $this->rollbackTag) {
-            throw new \BuildException('Please specify the tag to rollback to!');
+            throw new BuildException('Please specify the tag to rollback to!');
         }
     }
 

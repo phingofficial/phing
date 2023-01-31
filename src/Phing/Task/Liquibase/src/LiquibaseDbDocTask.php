@@ -20,6 +20,8 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Task to create a javadoc-like documentation based on current database and
  * changelog.
@@ -51,7 +53,7 @@ class LiquibaseDbDocTask extends AbstractLiquibaseTask
 
         if ((null === $this->outputDir) or !is_dir($this->outputDir)) {
             if (!mkdir($this->outputDir, 0777, true)) {
-                throw new \BuildException(
+                throw new BuildException(
                     sprintf(
                         'The directory "%s" does not exist and could not be created!',
                         $this->outputDir
@@ -61,7 +63,7 @@ class LiquibaseDbDocTask extends AbstractLiquibaseTask
         }
 
         if (!is_writable($this->outputDir)) {
-            throw new \BuildException(
+            throw new BuildException(
                 sprintf(
                     'The directory "%s" is not writable!',
                     $this->outputDir

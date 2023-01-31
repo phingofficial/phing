@@ -403,16 +403,7 @@ class PHPUnitTask extends Task
         }
 
         $config = (new Loader())->load($configuration->getAbsolutePath());
-
-        if (empty($config)) {
-            return [];
-        }
-
         $phpunit = $config->phpunit();
-
-        if (empty($phpunit)) {
-            return [];
-        }
 
         if ($phpunit->hasBootstrap()) {
             $this->setBootstrap($phpunit->bootstrap());

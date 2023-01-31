@@ -20,8 +20,15 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileSystem;
+use Phing\Phing;
+use Phing\Project;
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
+use phpDocumentor\Bootstrap;
+use phpDocumentor\Fileset\Collection;
 
 /**
  * PhpDocumentor2 Task (http://www.phpdoc.org)
@@ -38,7 +45,7 @@ class PhpDocumentor2Task extends Task
     /**
      * Destination/target directory
      *
-     * @var \PhingFile
+     * @var File
      */
     private $destDir = null;
 
@@ -85,9 +92,9 @@ class PhpDocumentor2Task extends Task
     /**
      * Sets destination/target directory
      *
-     * @param \PhingFile $destDir
+     * @param File $destDir
      */
-    public function setDestDir(\PhingFile $destDir)
+    public function setDestDir(File $destDir)
     {
         $this->destDir = $destDir;
     }
@@ -95,9 +102,9 @@ class PhpDocumentor2Task extends Task
     /**
      * Convenience setter (@see setDestDir)
      *
-     * @param \PhingFile $output
+     * @param File $output
      */
-    public function setOutput(\PhingFile $output)
+    public function setOutput(File $output)
     {
         $this->destDir = $output;
     }
@@ -151,19 +158,19 @@ class PhpDocumentor2Task extends Task
             include_once 'phar://' . $this->pharLocation . '/vendor/autoload.php';
 
             if (!class_exists('phpDocumentor\\Bootstrap')) {
-                throw new \BuildException(
+                throw new BuildException(
                     $this->pharLocation . ' does not look like a phpDocumentor 2 .phar'
                 );
             }
         } elseif (class_exists('Composer\\Autoload\\ClassLoader', false)) {
             if (!class_exists('phpDocumentor\\Bootstrap')) {
-                throw new \BuildException('You need to install phpDocumentor 2 or add your include path to your composer installation.');
+                throw new BuildException('You need to install phpDocumentor 2 or add your include path to your composer installation.');
             }
         } else {
             $phpDocumentorPath = $this->findPhpDocumentorPath();
 
             if (empty($phpDocumentorPath)) {
-                throw new \BuildException("Please make sure phpDocumentor 2 is installed and on the include_path.");
+                throw new BuildException("Please make sure phpDocumentor 2 is installed and on the include_path.");
             }
 
             set_include_path($phpDocumentorPath . PATH_SEPARATOR . get_include_path());
@@ -171,7 +178,8 @@ class PhpDocumentor2Task extends Task
             include_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';
         }
 
-        $this->app = \phpDocumentor\Bootstrap::createInstance()->initialize();
+        /** @phpstan-ignore-next-line */
+        $this->app = Bootstrap::createInstance()->initialize();
 
         $this->phpDocumentorPath = $phpDocumentorPath;
     }
@@ -200,13 +208,14 @@ class PhpDocumentor2Task extends Task
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $file) {
-                $paths[] = $dir . \FileSystem::getFileSystem()->getSeparator() . $file;
+                $paths[] = $dir . FileSystem::getFileSystem()->getSeparator() . $file;
             }
         }
 
-        $this->project->log("Will parse " . count($paths) . " file(s)", \Project::MSG_VERBOSE);
+        $this->project->log("Will parse " . count($paths) . " file(s)", Project::MSG_VERBOSE);
 
-        $files = new \phpDocumentor\Fileset\Collection();
+        /** @phpstan-ignore-next-line */
+        $files = new Collection();
         $files->addFiles($paths);
 
         $mapper = new \phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper($this->app['descriptor.cache']);
@@ -258,7 +267,7 @@ class PhpDocumentor2Task extends Task
         $phpDocumentorPath = null;
         $directories = ['phpDocumentor', 'phpdocumentor'];
         foreach ($directories as $directory) {
-            foreach (\Phing::explodeIncludePath() as $path) {
+            foreach (Phing::explodeIncludePath() as $path) {
                 $testPhpDocumentorPath = $path . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . 'src';
                 if (file_exists($testPhpDocumentorPath)) {
                     $phpDocumentorPath = $testPhpDocumentorPath;
@@ -277,11 +286,11 @@ class PhpDocumentor2Task extends Task
     public function main()
     {
         if (empty($this->destDir)) {
-            throw new \BuildException("You must supply the 'destdir' attribute", $this->getLocation());
+            throw new BuildException("You must supply the 'destdir' attribute", $this->getLocation());
         }
 
         if (empty($this->filesets)) {
-            throw new \BuildException("You have not specified any files to include (<fileset>)", $this->getLocation());
+            throw new BuildException("You have not specified any files to include (<fileset>)", $this->getLocation());
         }
 
         $this->initializePhpDocumentor();
@@ -291,7 +300,7 @@ class PhpDocumentor2Task extends Task
 
         $this->parseFiles();
 
-        $this->project->log("Transforming...", \Project::MSG_VERBOSE);
+        $this->project->log("Transforming...", Project::MSG_VERBOSE);
 
         $this->transformFiles();
     }

@@ -20,6 +20,8 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Task to create the diff between two databases. Will output the changes needed
  * to convert the reference database to the database.
@@ -75,15 +77,15 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
         parent::checkParams();
 
         if (null === $this->referenceUsername) {
-            throw new \BuildException('Please provide a username for the reference database acccess!');
+            throw new BuildException('Please provide a username for the reference database acccess!');
         }
 
         if (null === $this->referencePassword) {
-            throw new \BuildException('Please provide a password for the reference database acccess!');
+            throw new BuildException('Please provide a password for the reference database acccess!');
         }
 
         if (null === $this->referenceUrl) {
-            throw new \BuildException('Please provide a url for the reference database acccess!');
+            throw new BuildException('Please provide a url for the reference database acccess!');
         }
     }
 

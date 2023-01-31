@@ -20,6 +20,8 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Task to tag the current database state. In case you tag the database multiple
  * times without applying a new changelog before, the tags will overwrite each
@@ -52,7 +54,7 @@ class LiquibaseTagTask extends AbstractLiquibaseTask
         parent::checkParams();
 
         if (null === $this->tag) {
-            throw new \BuildException('Please specify the tag!');
+            throw new BuildException('Please specify the tag!');
         }
     }
 

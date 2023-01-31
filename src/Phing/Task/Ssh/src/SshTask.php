@@ -387,9 +387,7 @@ class SshTask extends Task
         }
 
         fclose($stream);
-        if (isset($stderr_stream)) {
-            fclose($stderr_stream);
-        }
+        fclose($stderr_stream);
 
         if ($this->failonerror && !empty($result_error)) {
             throw new BuildException("SSH Task failed: " . $result_error);

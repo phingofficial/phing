@@ -241,14 +241,12 @@ class CoverageReportTask extends Task
 
             $source = file_get_contents($filename);
 
+            /** @phpstan-ignore-next-line */
             $geshi = new \GeSHi($source, 'php', $this->geshilanguagespath);
-
+            /** @phpstan-ignore-next-line */
             $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-
             $geshi->enable_strict_mode(true);
-
             $geshi->enable_classes(true);
-
             $geshi->set_url_for_keyword_group(3, '');
 
             $html = $geshi->parse_code();

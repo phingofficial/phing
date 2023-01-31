@@ -20,6 +20,8 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Task for running liquibase commands that doesn't have their own
  * commands yet.
@@ -50,7 +52,7 @@ class LiquibaseTask extends AbstractLiquibaseTask
         parent::checkParams();
 
         if (null === $this->command) {
-            throw new \BuildException('Please provide a liquibase command.');
+            throw new BuildException('Please provide a liquibase command.');
         }
     }
 

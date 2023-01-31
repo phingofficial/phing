@@ -20,7 +20,10 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+use Phing\Project;
 use Phing\Type\DataType;
+use Phing\Util\StringHelper;
 
 /**
  * @author Stephan Hochdoerfer <S.Hochdoerfer@bitExpert.de>
@@ -49,11 +52,11 @@ class LiquibaseParameter extends DataType
     }
 
     /**
-     * @param \Project $p
+     * @param Project $p
      * @return string
-     * @throws \BuildException
+     * @throws BuildException
      */
-    public function getCommandline(\Project $p)
+    public function getCommandline(Project $p)
     {
         if ($this->isReference()) {
             return $this->getRef($p)->getCommandline($p);
@@ -63,13 +66,13 @@ class LiquibaseParameter extends DataType
     }
 
     /**
-     * @param \Project $p
+     * @param Project $p
      * @return mixed
-     * @throws \BuildException
+     * @throws BuildException
      */
-    public function getRef(\Project $p)
+    public function getRef(Project $p)
     {
-        $dataTypeName = \StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
+        $dataTypeName = StringHelper::substring(__CLASS__, strrpos(__CLASS__, '\\') + 1);
         return $this->getCheckedRef(__CLASS__, $dataTypeName);
     }
 }

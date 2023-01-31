@@ -20,6 +20,7 @@
 
 namespace Phing\Task\Ext;
 
+use Exception;
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
 use Phing\Type\FileSet;

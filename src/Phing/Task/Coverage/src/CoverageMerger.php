@@ -146,6 +146,8 @@ class CoverageMerger
                         continue;
                     }
 
+                    $count = 0;
+
                     if (is_array($_data)) {
                         $count = count($_data);
                         if ($count == 0) {

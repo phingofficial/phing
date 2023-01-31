@@ -20,6 +20,8 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
+
 /**
  * Class ZendServerDeploymentToolTask
  *
@@ -148,19 +150,19 @@ class ZsdtPackTask extends ZsdtBaseTask
      *
      * @return void
      *
-     * @throws \BuildException
+     * @throws BuildException
      */
     protected function validate()
     {
         if ($this->descriptor === null || $this->scripts === null || $this->package === null) {
-            throw new \BuildException(
+            throw new BuildException(
                 'The deployment tool needs at least the project descriptor, '
                 . 'the scripts folder and package folder to be set.'
             );
         }
 
         if ($this->lint !== false && $this->phpbin === null) {
-            throw new \BuildException('You set the lint option but not the path to the php executable.');
+            throw new BuildException('You set the lint option but not the path to the php executable.');
         }
 
         parent::validate();

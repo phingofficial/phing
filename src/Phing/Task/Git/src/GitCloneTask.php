@@ -82,7 +82,7 @@ class GitCloneTask extends GitBaseTask
         }
 
         $files = @scandir($this->getTargetPath());
-        if (isset($files) && is_array($files) && (count($files) > 2)) {
+        if (is_array($files) && (count($files) > 2)) {
             throw new BuildException(
                 sprintf(
                     '"%s" target directory is not empty',

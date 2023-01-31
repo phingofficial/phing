@@ -82,8 +82,6 @@ class HgLogTask extends HgBaseTask
      * Template/log format.
      *
      * @param string $format Log format
-     *
-     * @return string
      */
     public function setFormat($format)
     {

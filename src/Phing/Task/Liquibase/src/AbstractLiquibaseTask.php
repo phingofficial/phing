@@ -20,7 +20,9 @@
 
 namespace Phing\Task\Ext;
 
+use Phing\Exception\BuildException;
 use Phing\Task;
+use Phing\Util\StringHelper;
 
 /**
  * Abstract Liquibase task. Base class for all Liquibase Phing tasks.
@@ -147,7 +149,7 @@ abstract class AbstractLiquibaseTask extends Task
      */
     public function setDisplay($display)
     {
-        $this->display = \StringHelper::booleanValue($display);
+        $this->display = StringHelper::booleanValue($display);
     }
 
     /**
@@ -157,7 +159,7 @@ abstract class AbstractLiquibaseTask extends Task
      */
     public function setCheckreturn($checkreturn)
     {
-        $this->checkreturn = \StringHelper::booleanValue($checkreturn);
+        $this->checkreturn = StringHelper::booleanValue($checkreturn);
     }
 
     /**
@@ -168,7 +170,7 @@ abstract class AbstractLiquibaseTask extends Task
      */
     public function setPassthru($passthru)
     {
-        $this->passthru = \StringHelper::booleanValue($passthru);
+        $this->passthru = StringHelper::booleanValue($passthru);
     }
 
     /**
@@ -212,13 +214,13 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Ensure that correct parameters were passed in.
      *
-     * @throws \BuildException
+     * @throws BuildException
      * @return void
      */
     protected function checkParams()
     {
         if ((null === $this->jar) or !file_exists($this->jar)) {
-            throw new \BuildException(
+            throw new BuildException(
                 sprintf(
                     'Specify the name of the LiquiBase.jar. "%s" does not exist!',
                     $this->jar
@@ -229,19 +231,19 @@ abstract class AbstractLiquibaseTask extends Task
         $this->checkChangeLogFile();
 
         if (null === $this->classpathref) {
-            throw new \BuildException('Please provide a classpath!');
+            throw new BuildException('Please provide a classpath!');
         }
 
         if (null === $this->username) {
-            throw new \BuildException('Please provide a username for database acccess!');
+            throw new BuildException('Please provide a username for database acccess!');
         }
 
         if (null === $this->password) {
-            throw new \BuildException('Please provide a password for database acccess!');
+            throw new BuildException('Please provide a password for database acccess!');
         }
 
         if (null === $this->url) {
-            throw new \BuildException('Please provide a url for database acccess!');
+            throw new BuildException('Please provide a url for database acccess!');
         }
     }
 
@@ -250,7 +252,7 @@ abstract class AbstractLiquibaseTask extends Task
      *
      * @param  $lbcommand
      * @param  string $lbparams the command to execute
-     * @throws \BuildException
+     * @throws BuildException
      * @return string the output of the executed command
      */
     protected function execute($lbcommand, $lbparams = '')
@@ -295,7 +297,7 @@ abstract class AbstractLiquibaseTask extends Task
             }
 
             if ($this->checkreturn && $return != 0) {
-                throw new \BuildException("Liquibase exited with code $return");
+                throw new BuildException("Liquibase exited with code $return");
             }
         }
 
@@ -305,7 +307,7 @@ abstract class AbstractLiquibaseTask extends Task
     protected function checkChangeLogFile()
     {
         if (null === $this->changeLogFile) {
-            throw new \BuildException('Specify the name of the changelog file.');
+            throw new BuildException('Specify the name of the changelog file.');
         }
 
         foreach (explode(":", $this->classpathref) as $path) {
@@ -315,7 +317,7 @@ abstract class AbstractLiquibaseTask extends Task
         }
 
         if (!file_exists($this->changeLogFile)) {
-            throw new \BuildException(
+            throw new BuildException(
                 sprintf(
                     'The changelog file "%s" does not exist!',
                     $this->changeLogFile

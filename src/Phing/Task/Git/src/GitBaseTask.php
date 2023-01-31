@@ -114,7 +114,7 @@ abstract class GitBaseTask extends Task
 
     /**
      * @param bool $reset
-     * @param null $repository
+     * @param string|null $repository
      * @return null|\VersionControl_Git
      * @throws BuildException
      */
