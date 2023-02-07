@@ -27,7 +27,6 @@
  * @since 2.4.0
  * @internal
  */
-#[\ReturnTypeWillChange]
 class IterableFileSet
     extends FileSet
     implements IteratorAggregate

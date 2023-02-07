@@ -36,7 +36,6 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @version   $Id$
  * @package   phing.tasks.system.condition
  */
-#[\ReturnTypeWillChange]
 abstract class ConditionBase extends ProjectComponent
     implements IteratorAggregate, CustomChildCreator
 {
