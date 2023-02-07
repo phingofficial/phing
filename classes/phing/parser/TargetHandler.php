@@ -49,6 +49,12 @@ class TargetHandler extends AbstractHandler
     private $configurator;
 
     /**
+     * @var PhingXMLContext
+     */
+    private $context;
+
+
+    /**
      * Constructs a new TargetHandler
      *
      * @param AbstractSAXParser $parser

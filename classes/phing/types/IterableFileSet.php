@@ -27,6 +27,7 @@
  * @since 2.4.0
  * @internal
  */
+#[\ReturnTypeWillChange]
 class IterableFileSet
     extends FileSet
     implements IteratorAggregate
@@ -34,6 +35,7 @@ class IterableFileSet
     /**
      * @return Iterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->getFiles());

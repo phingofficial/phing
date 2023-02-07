@@ -70,6 +70,12 @@ class ElementHandler extends AbstractHandler
     private $target;
 
     /**
+     * The phing project configurator object
+     * @var ProjectConfigurator
+     */
+    private $configurator;
+
+    /**
      *  Constructs a new NestedElement handler and sets up everything.
      *
      * @param  object  the ExpatParser object

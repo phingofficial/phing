@@ -36,6 +36,7 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @version   $Id$
  * @package   phing.tasks.system.condition
  */
+#[\ReturnTypeWillChange]
 abstract class ConditionBase extends ProjectComponent
     implements IteratorAggregate, CustomChildCreator
 {
@@ -82,6 +83,7 @@ abstract class ConditionBase extends ProjectComponent
     /**
      * Required for IteratorAggregate
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ConditionEnumeration($this);
@@ -361,11 +363,13 @@ class ConditionEnumeration implements Iterator
     /**
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return $this->outer->countConditions() > $this->num;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         $o = $this->outer->conditions[$this->num];
@@ -376,6 +380,7 @@ class ConditionEnumeration implements Iterator
         return $o;
     }
 
+    #[\ReturnTypeWillChange]
     public function next()
     {
         $this->num++;
@@ -384,11 +389,13 @@ class ConditionEnumeration implements Iterator
     /**
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->num;
     }
 
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         $this->num = 0;
