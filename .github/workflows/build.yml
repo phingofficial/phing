@@ -46,11 +46,6 @@ jobs:
       - name: Static analysis (level 1)
         run: vendor/bin/phpstan --ansi --no-progress --no-interaction
 
-      - name: 'Qodana Scan'
-        uses: JetBrains/qodana-action@main
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-
       - name: 'Install xdg-open (required by OpenTaskTest.php)'
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -58,10 +53,23 @@ jobs:
           sudo apt update -y
           sudo apt install -y xdg-utils
 
+  qodana_scan:
+    needs:
+      - pre_job
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout repository
+
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@main
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+
   test:
     needs:
       - pre_job
-      - static_code_analysis
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ${{ matrix.operating-system }}
     continue-on-error: ${{ matrix.experimental }}
@@ -109,6 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - pre_job
+      - static_code_analysis
       - test
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     steps:
@@ -204,6 +213,7 @@ jobs:
     if: github.repository_owner == 'phingofficial'
     needs:
       - static_code_analysis
+      - qodana_scan
       - test
       - build_phar
       - coverage
