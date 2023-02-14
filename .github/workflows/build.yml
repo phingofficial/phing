@@ -46,6 +46,11 @@ jobs:
       - name: Static analysis (level 1)
         run: vendor/bin/phpstan --ansi --no-progress --no-interaction
 
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@main
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+
       - name: 'Install xdg-open (required by OpenTaskTest.php)'
         env:
           DEBIAN_FRONTEND: noninteractive
