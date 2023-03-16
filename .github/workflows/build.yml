@@ -208,6 +208,23 @@ jobs:
         run: |
           wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./tests/reports/clover-coverage.xml
 
+  build_docker_image:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'phingofficial'
+    needs:
+      - test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build & upload image
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          name: phing/phing
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "3.0-nightly"
+
   notify:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'phingofficial'
@@ -216,6 +233,7 @@ jobs:
       - qodana_scan
       - test
       - build_phar
+      - build_docker_image
       - coverage
     steps:
       - name: Notify Slack
