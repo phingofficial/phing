@@ -1,12 +1,11 @@
-FROM composer:1.9 AS composer
+FROM composer:2.0 AS composer
 
 ADD composer.* ./
 ADD src/ src
 
-RUN composer global require hirak/prestissimo --no-plugins --no-scripts
-RUN composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction
+RUN composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction --ignore-platform-reqs
 
-FROM php:7.4-cli-alpine AS phing
+FROM php:8.2-cli-alpine AS phing
 MAINTAINER Phing <info@phing.info>
 
 WORKDIR /app
