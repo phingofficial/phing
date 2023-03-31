@@ -20,19 +20,19 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\Archive\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "tar": "Phing\\Task\\Ext\\TarTask",
-      "untar": "Phing\\Task\\Ext\\UntarTask",
-      "zip": "Phing\\Task\\Ext\\ZipTask",
-      "unzip": "Phing\\Task\\Ext\\UnzipTask"
+      "tar": "Phing\\Task\\Ext\\Archive\\TarTask",
+      "untar": "Phing\\Task\\Ext\\Archive\\UntarTask",
+      "zip": "Phing\\Task\\Ext\\Archive\\ZipTask",
+      "unzip": "Phing\\Task\\Ext\\Archive\\UnzipTask"
     },
     "phing-custom-typedefs": {
-      "tarfileset": "Phing\\Task\\Ext\\TarFileSet",
-      "zipfileset": "Phing\\Task\\Ext\\ZipFileSet"
+      "tarfileset": "Phing\\Task\\Ext\\Archive\\TarFileSet",
+      "zipfileset": "Phing\\Task\\Ext\\Archive\\ZipFileSet"
     }
   }
 }

@@ -19,12 +19,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\PhkPackage\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "phkpackage": "Phing\\Task\\Ext\\PhkPackageTask"
+      "phkpackage": "Phing\\Task\\Ext\\PhkPackage\\PhkPackageTask"
     }
   }
 }

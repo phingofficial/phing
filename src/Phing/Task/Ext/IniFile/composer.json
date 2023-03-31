@@ -19,12 +19,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\IniFile\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "inifile": "Phing\\Task\\Ext\\IniFileTask"
+      "inifile": "Phing\\Task\\Ext\\IniFile\\IniFileTask"
     }
   }
 }

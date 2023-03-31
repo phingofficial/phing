@@ -20,12 +20,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\Smarty\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "smarty": "Phing\\Task\\Ext\\SmartyTask"
+      "smarty": "Phing\\Task\\Ext\\Smarty\\SmartyTask"
     }
   }
 }

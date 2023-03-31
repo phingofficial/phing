@@ -30,7 +30,7 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\Visualizer\\": ""
     }
   },
   "config": {
@@ -41,7 +41,7 @@
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "visualizer": "Phing\\Task\\Ext\\VisualizerTask"
+      "visualizer": "Phing\\Task\\Ext\\Visualizer\\VisualizerTask"
     }
   }
 }

@@ -20,12 +20,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\JsMin\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "jsmin": "Phing\\Task\\Ext\\JsMinTask"
+      "jsmin": "Phing\\Task\\Ext\\JsMin\\JsMinTask"
     }
   }
 }

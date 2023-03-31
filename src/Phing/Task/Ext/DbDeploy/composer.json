@@ -19,12 +19,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\DbDeploy\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "dbdeploy": "Phing\\Task\\Ext\\DbDeployTask"
+      "dbdeploy": "Phing\\Task\\Ext\\DbDeploy\\DbDeployTask"
     }
   }
 }

@@ -20,12 +20,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\Sass\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "sass": "Phing\\Task\\Ext\\SassTask"
+      "sass": "Phing\\Task\\Ext\\Sass\SassTask"
     }
   }
 }

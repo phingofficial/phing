@@ -20,13 +20,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\Http\\\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "http-request": "Phing\\Task\\Ext\\HttpRequestTask",
-      "httpget": "Phing\\Task\\Ext\\HttpGetTask"
+      "http-request": "Phing\\Task\\Ext\\Http\\HttpRequestTask",
+      "httpget": "Phing\\Task\\Ext\\Http\\HttpGetTask"
     }
   }
 }

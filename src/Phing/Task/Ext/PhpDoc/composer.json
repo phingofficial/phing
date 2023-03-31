@@ -20,13 +20,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\PhpDoc\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "phpdoc": "Phing\\Task\\Ext\\PhpDocumentor2Task",
-      "phpdoc2": "Phing\\Task\\Ext\\PhpDocumentor2Task"
+      "phpdoc": "Phing\\Task\\Ext\\PhpDoc\\PhpDocumentor2Task",
+      "phpdoc2": "Phing\\Task\\Ext\\PhpDoc\\PhpDocumentor2Task"
     }
   }
 }

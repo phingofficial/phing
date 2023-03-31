@@ -21,12 +21,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\FtpDeploy\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "ftpdeploy": "Phing\\Task\\Ext\\FtpDeployTask"
+      "ftpdeploy": "Phing\\Task\\Ext\\FtpDeploy\\FtpDeployTask"
     }
   }
 }

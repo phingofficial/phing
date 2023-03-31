@@ -20,13 +20,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\": "src/"
+      "Phing\\Task\\Ext\\PhpUnit\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "phpunit": "Phing\\Task\\Ext\\PHPUnitTask",
-      "phpunitreport": "Phing\\Task\\Ext\\PHPUnitReportTask"
+      "phpunit": "Phing\\Task\\Ext\\PhpUnit\\PHPUnitTask",
+      "phpunitreport": "Phing\\Task\\Ext\\PhpUnit\\PHPUnitReportTask"
     }
   }
 }
