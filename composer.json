@@ -145,39 +145,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Phing\\": "src/Phing",
-            "Phing\\Task\\Ext\\": [
-                "src/Phing/Task/Analyzer/src/",
-                "src/Phing/Task/ApiGen/src/",
-                "src/Phing/Task/Archive/src/",
-                "src/Phing/Task/Aws/src/",
-                "src/Phing/Task/DbDeploy/src/",
-                "src/Phing/Task/FtpDeploy/src/",
-                "src/Phing/Task/Git/src/",
-                "src/Phing/Task/Hg/src/",
-                "src/Phing/Task/Http/src/",
-                "src/Phing/Task/IniFile/src/",
-                "src/Phing/Task/Ioncube/src/",
-                "src/Phing/Task/JsHint/src/",
-                "src/Phing/Task/JsMin/src/",
-                "src/Phing/Task/Liquibase/src/",
-                "src/Phing/Task/PhkPackage/src/",
-                "src/Phing/Task/PhpDoc/src/",
-                "src/Phing/Task/PhpUnit/src/",
-                "src/Phing/Task/Sass/src/",
-                "src/Phing/Task/Smarty/src/",
-                "src/Phing/Task/Ssh/src/",
-                "src/Phing/Task/Visualizer/src/",
-                "src/Phing/Task/ZendCodeAnalyser/src/",
-                "src/Phing/Task/ZendServerDeploymentTool/src/"
-            ],
-            "Phing\\Task\\Ext\\Coverage\\": "src/Phing/Task/Coverage/src/",
-            "Phing\\Tasks\\Ext\\": "src/Phing/Task/Svn/src/"
+            "Phing\\": "src/Phing"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Phing\\Test\\": "tests/Phing"
+            "Phing\\Test\\": "tests/Phing/Test"
         }
     },
     "bin": [

@@ -174,7 +174,7 @@
         <!-- this file is in phing/tests/etc/tasks/system/,
              and that we're on unix with "ls" available -->
         <exec executable="ls"
-              dir="../../../Phing/Task/System/"/>
+              dir="../../../../tests/Phing/Test/Task/System/"/>
     </target>
 
     <target name="testCheckreturnTrue">
