@@ -25,7 +25,7 @@ use Phing\Type\Element\ClasspathAware;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Util\Properties;
-use Phing\Task\Ext\PHPUnitUtil;
+use Phing\Task\Ext\PhpUnit\PHPUnitUtil;
 
 /**
  * Transforms information in a code coverage database to XML

@@ -21,7 +21,6 @@
 namespace Phing\Test\Task\Ext\Svn;
 
 use Phing\Test\Support\BuildFileTest;
-use const Phing\Test\Task\Optional\Svn\DIRECTORY_SEPARATOR;
 
 /**
  * @author Michiel Rook <mrook@php.net>

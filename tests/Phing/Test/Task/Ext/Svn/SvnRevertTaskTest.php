@@ -20,9 +20,6 @@
 
 namespace Phing\Test\Task\Ext\Svn;
 
-use const Phing\Test\Task\Optional\Svn\__FUNCTION__;
-use const Phing\Test\Task\Optional\Svn\DIRECTORY_SEPARATOR;
-
 /**
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  *

@@ -27,7 +27,7 @@ use Phing\Io\File;
 use Phing\Type\Excludes;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
-use Phing\Task\Ext\PHPUnitUtil;
+use Phing\Task\Ext\PhpUnit\PHPUnitUtil;
 
 /**
  * Stops the build if any of the specified coverage threshold was not reached

@@ -20,7 +20,7 @@
 
 namespace Phing\Test\Task\Ext\Git;
 
-use Phing\Task\Ext\GitBaseTask;
+use Phing\Task\Ext\Git\GitBaseTask;
 use Phing\Test\Support\BuildFileTest;
 
 /**

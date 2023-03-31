@@ -20,7 +20,6 @@
 
 namespace Phing\Test\Task\Ext\Svn;
 
-
 /**
  * @author Michiel Rook <mrook@php.net>
  *
