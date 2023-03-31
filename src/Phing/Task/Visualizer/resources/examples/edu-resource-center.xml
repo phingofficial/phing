@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="App.EduResourceCenter" default="codesniffer" description="教育资源集中展示系统">
+    <property name="project.version"  value="0.1.0" />
+    <property name="project.profile" value="development" />
+
+    <!--
+        Target: profile 
+        Description: 设置项目profile，默认值为development，在执行phing时可以指定profile值。
+        profile包含三个类型值：development、test、production.
+        Example: phing target -Dprofile=production
+    -->
+    <target name="profile">
+        <echo msg="Project profile : ${profile}" />
+        <if>
+            <isset property="profile" />
+            <then>
+                <property name="project.profile" value="${profile}" override="true" />
+            </then>
+        </if>
+        <echo message="Project profile : ${project.profile}" />
+    </target>
+
+    <!--
+        Target: prepare 
+        Description: 准备构建产生文件存放目录，所有需要打包发布的文件复制到此目录下。
+    -->
+    <target name="prepare" depends="profile">
+        <echo msg="Making directory build" />
+        <svnlastrevision workingcopy="${phing.dir}" propertyname="svn.lastrevision"/>
+        <!--<delete dir="build" />-->
+        <delete dir="build/dist" />
+        <delete dir="build/reports" />
+        <mkdir dir="build" />
+        <mkdir dir="build/dist" />
+        <mkdir dir="build/reports" />
+    </target>
+
+    <!--
+        Target: config 
+        Description: 通过http方式从superdiamond中获取系统配置参数信息。
+        development profile 获取配置存放在Application/Common/Conf/user-config.php文件中（ThinkPHP 3.2）
+        test & production profile 获取配置存放在build/user-config.php文件中，在执行build target时，
+        复制build/user-config.php文件中build/Application/Common/Conf/user-config.php位置
+    -->
+    <target name="config" depends="profile">
+        <if>
+            <equals arg1="development" arg2="${project.profile}" trim="true" />
+            <then>
+                <httpget url="http://172.16.81.73:8001/superdiamond/preview/App.EduSNS/${project.profile}?format=php"
+                         dir="Application/Common/Conf" filename="user-config.php" />
+            </then>
+            <else>
+                <httpget url="http://172.16.81.73:8001/superdiamond/preview/App.EduSNS/${project.profile}?format=php"
+                         dir="build" filename="user-config.php" />
+            </else>
+        </if>
+    </target>
+
+    <!--
+        Target: build 
+        Description: 复制需要打包的文件到build目录。
+    -->
+    <target name="build" depends="prepare">
+        <echo msg="Copying files to build directory..." />
+
+        <copy file="index.php" tofile="build/index.php" />
+        <copy todir="build/Application">
+            <fileset  dir="Application"/>
+        </copy>
+        <copy todir="build/Public">
+            <fileset  dir="Public"/>
+        </copy>
+        <copy todir="build/ThinkPHP">
+            <fileset  dir="ThinkPHP"/>
+        </copy>
+        <copy todir="build/vendor">
+            <fileset  dir="vendor">
+                <exclude name="**/tests/**" />
+                <exclude name="**/Tests/**" />
+                <exclude name="**/doc/**" />
+                <exclude name="phpunit/**" />
+            </fileset>
+        </copy>
+
+        <if>
+            <not>
+                <equals arg1="development" arg2="${project.profile}" trim="true" />
+            </not>
+            <then>
+                <move file="build/user-config.php" todir="Application/Common/Conf" />
+            </then>
+        </if>
+    </target>
+
+    <!--
+        Target: prepare 
+        Description: 使用jsmin压缩js文件，并复制到build目录中。
+    -->
+    <target name="jsmin">
+        <jsmin targetDir="build/Public" failOnError="true" suffix="">
+            <fileset dir="Public">
+                <include name="**/*.js"/>
+                <exclude name="_static/**" />
+            </fileset>
+        </jsmin>
+    </target>
+
+    <!--
+        Target: composer 
+        Description: composer更新依赖包，如果首次执行composer install，以后执行composer update。
+    -->
+    <target name="composer">
+        <condition property="checkComposerLockIsExists">
+            <and>
+                <available file="composer.lock" />
+            </and>
+        </condition>
+        <if>
+            <equals arg1="${checkComposerLockIsExists}" arg2="yes" />
+            <then>
+                <echo message="执行composer update" />
+                <exec command="composer update" logoutput="true" />
+            </then>
+            <else>
+                <echo message="执行composer instll" />
+                <exec command="composer install"/>
+            </else>
+        </if>
+    </target>
+
+    <!--
+        Target: codesniffer 
+        Description: 检查代码格式是否符合IflyPSR2规范。
+    -->
+    <target name="codesniffer">
+        <echo msg="Executing codesniffer..." />
+        <phpcodesniffer
+                haltonerror="true"
+                showWarnings="false"
+                noSubdirectories="true"
+                standard="IflyPSR2"
+                verbosity="1"
+                tabWidth="4"
+                >
+            <formatter outfile="build/reports/codesniffer.txt"  type="full" />
+            <fileset dir="${project.basedir}">
+                <include name="Application/**/*.php"/>
+            </fileset>
+        </phpcodesniffer>
+    </target>
+
+    <!--
+        Target: phpmd 
+        Description: 执行代码质量检查
+    -->
+    <target name="phpmd">
+        <phpmd file="Application">
+            <formatter type="html" outfile="build/reports/phpmd.html"/>
+        </phpmd>
+    </target>
+
+    <!--
+        Target: check 
+        Description: 同时执行codesniffer 和 phpmd target
+    -->
+    <target name="check" depends="prepare" description="检查代码">
+        <phingcall target="phpmd" />
+        <phingcall target="codesniffer" />
+    </target>
+
+    <!--
+        Target: check 
+        Description: 代码发布压缩打包，打包以后的文件名格式：
+        ${phing.project.name}-${project.version}-build${svn.lastrevision}.tar.gz
+    -->
+    <target name="dist" depends="prepare, config, build, jsmin">
+        <echo msg="Creating archive..." />
+
+        <tar destfile="build/dist/${phing.project.name}-${project.version}-build${svn.lastrevision}.tar.gz" compression="gzip">
+            <fileset dir="build">
+                <include name="*" />
+                <exclude name="reports" />
+                <exclude name="dist" />
+            </fileset>
+        </tar>
+
+        <filehash
+                file="build/dist/${phing.project.name}-${project.version}-build${svn.lastrevision}.tar.gz"
+                hashtype="1"
+                propertyname="hash" />
+        <echo msg="SHA1 Digest = ${hash}" />
+    </target>
+
+</project>

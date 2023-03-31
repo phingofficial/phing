@@ -1,0 +1,41 @@
+{
+  "name": "phing/task-hg",
+  "description": "Mercurial related phing tasks.",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "license": "LGPL-3.0-only",
+  "type": "phing-extension",
+  "authors": [
+    {
+      "name": "Siad Ardroumli",
+      "email": "siad.ardroumli@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">= 7.1",
+    "siad007/versioncontrol_hg": "^1.0"
+  },
+  "require-dev": {
+    "phing/phing": "3.0.x-dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Phing\\Task\\Ext\\": "src/"
+    }
+  },
+  "extra": {
+    "phing-custom-taskdefs": {
+      "hgadd": "Phing\\Task\\Ext\\HgAddTask",
+      "hgarchive": "Phing\\Task\\Ext\\HgArchiveTask",
+      "hgclone": "Phing\\Task\\Ext\\HgCloneTask",
+      "hgcommit": "Phing\\Task\\Ext\\HgCommitTask",
+      "hginit": "Phing\\Task\\Ext\\HgInitTask",
+      "hglog": "Phing\\Task\\Ext\\HgLogTask",
+      "hgpull": "Phing\\Task\\Ext\\HgPullTask",
+      "hgpush": "Phing\\Task\\Ext\\HgPushTask",
+      "hgrevert": "Phing\\Task\\Ext\\HgRevertTask",
+      "hgtag": "Phing\\Task\\Ext\\HgTagTask",
+      "hgupdate": "Phing\\Task\\Ext\\HgUpdateTask"
+    }
+  }
+}

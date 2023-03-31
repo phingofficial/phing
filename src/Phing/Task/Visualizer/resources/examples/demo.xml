@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="My Phing's buildfile" default="test">
+
+    <target name="test" depends="test:phpunit, test:composer">
+        <phingcall target="test:notify"/>
+    </target>
+
+    <target name="test:composer">
+        <exec command="composer validate --strict --no-check-lock" passthru="true"/>
+    </target>
+
+    <target name="test:phpunit">
+        <exec executable="${phpunit}"/>
+        <phingcall target="test:clean"/>
+    </target>
+
+    <target name="test:notify">
+        <notifysend msg="Everything is OK!"/>
+    </target>
+
+    <target name="test:clean">
+        <delete dir="${dir.output}" verbose="true"/>
+    </target>
+
+    <target name="diagnostics">
+        <diagnostics/>
+    </target>
+
+</project>

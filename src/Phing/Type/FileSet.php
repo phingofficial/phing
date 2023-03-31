@@ -51,6 +51,6 @@ class FileSet extends AbstractFileSet
             $files[$index] = realpath($baseDirectory . '/' . $file);
         }
 
-        return $files;
+        return array_filter($files);
     }
 }

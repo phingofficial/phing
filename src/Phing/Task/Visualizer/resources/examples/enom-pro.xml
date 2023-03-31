@@ -1,0 +1,454 @@
+<?xml version="1.0"?>
+<project name="ENOM PRO!" default="local" basedir=".">
+	<property name="name" value="eNom PRO"/>
+	<!-- Remember to pad the License header version # when the number of digits changes
+	Or, just make the next major version # 3.0.00
+	-->
+	<property name="version" value="3.0.05"/>
+	<property name="build_temp_dir" value="${project.basedir}/build"/>
+	<property name="build_dir" value="${build_temp_dir}"/>
+	<target name="debug">
+		<echo>${build_dir}</echo>
+	</target>
+	<property name="src_dir" value="src/"/>
+	<property name="version_xml" value="enom_pro_version.xml"/>
+	<property name="beta_version_xml" value="enom_pro_version_beta.xml"/>
+	<property name="bin_dir" value="vendor/bin" description="Composer Bin Dir"/>
+	<property name="deploy" value="/Users/robertgregor/Sites/whmcs"/>
+	<property name="deploy2" value="/Users/robertgregor/Sites/whmcs2"/>
+	<!-- Location to save the encoded version -->
+	<property name="encoded" value="${build_dir}/encoded"/>
+	<property name="encoded_prep" value="${build_dir}/encoded_prep"/>
+	<property name="yui.jarfile" value="vendor/nervo/yuicompressor/yuicompressor.jar"/>
+	<property name="threads" value="4"/>
+	<!--suppress PhingDomInspection -->
+	<!--<taskdef name="sync" classname="phing.tasks.ext.FileSyncTask"/>-->
+	<!-- FILESETS -->
+	<fileset dir="${project.basedir}/${src_dir}" id="open_files">
+		<include name="**/.php"/>
+		<include name="**/.xml"/>
+		<include name="**/.css"/>
+		<include name="**/.js"/>
+		<include name="**/.tpl"/>
+		<include name="**/images/**"/>
+		<include name="README.txt"/>
+		<include name="EULA.txt"/>
+		<exclude name="*.svn"/>
+		<exclude name="*.git"/>
+		<exclude name="*.cache"/>
+		<exclude name=".project"/>
+		<exclude name=".buildpath"/>
+		<exclude name=".settings/*"/>
+	</fileset>
+	<fileset dir="${encoded}" id="encoded">
+		<exclude name="${version_xml}"/>
+		<include name="**/**"/>
+	</fileset>
+	<target name="clean" description="Cleans up the build directory">
+		<delete dir="${build_temp_dir}"/>
+		<mkdir dir="${build_temp_dir}"/>
+		<mkdir dir="${encoded}"/>
+		<mkdir dir="${encoded_prep}"/>
+	</target>
+	<target name="clean-ci" depends="clean">
+		<mkdir dir="${build_temp_dir}/api"/>
+		<mkdir dir="${build_temp_dir}/code-browser"/>
+		<mkdir dir="${build_temp_dir}/coverage"/>
+		<mkdir dir="${build_temp_dir}/logs"/>
+		<mkdir dir="${build_temp_dir}/pdepend"/>
+	</target>
+	<target name="templates.five">
+		<phingcall target="templates.symlink">
+			<property name="template_dir" value="five"/>
+		</phingcall>
+	</target>
+	<target name="templates.six">
+		<phingcall target="templates.symlink">
+			<property name="template_dir" value="six"/>
+		</phingcall>
+	</target>
+	<target name="templates.symlink" description="Deletes deployment required templates, and symlinks them to dev">
+		<property name="target" value="${deploy}/templates/${template_dir}/"/>
+		<delete file="${target}clientareadomaindetails.tpl" failonerror="false"/>
+		<delete file="${target}clientareadomains.tpl" failonerror="false"/>
+		<delete file="${target}domainchecker.tpl" failonerror="false"/>
+		<delete file="${target}enom_srv.tpl" failonerror="false"/>
+		<symlink target="${project.basedir}/src/templates/${template_dir}/clientareadomaindetails.tpl" link="${target}clientareadomaindetails.tpl" overwrite="true"/>
+		<symlink target="${project.basedir}/src/templates/${template_dir}/clientareadomains.tpl" link="${target}clientareadomains.tpl" overwrite="true"/>
+		<symlink target="${project.basedir}/src/templates/${template_dir}/domainchecker.tpl" link="${target}domainchecker.tpl" overwrite="true"/>
+		<symlink target="${project.basedir}/src/templates/${template_dir}/enom_srv.tpl" link="${target}enom_srv.tpl" overwrite="true"/>
+	</target>
+	<target name="run_parallel_tasks">
+		<parallel threadCount="${threads}">
+			<phingcall target="tasks_to_try"/>
+		</parallel>
+	</target>
+	<target name="run_serial_tasks">
+		<phingcall target="tasks_to_try"/>
+	</target>
+	<target name="tasks_to_try">
+		<phingcall target="pdepend"/>
+		<phingcall target="phpmd"/>
+		<phingcall target="phpcpd"/>
+		<phingcall target="phpcs"/>
+		<phingcall target="phpdoc"/>
+		<phingcall target="phploc"/>
+	</target>
+	<target name="try_ParallelTasks"
+					description="Run the pdepend, phpmd, phpcpd, phpcs, phpdoc and phploc tasks.
+					Checks for parallel support in PHP. Also requires `yum install php-process` to enable POSIX functions.">
+		<exec command="php -m | grep pcntl" outputProperty="pcntl_enabled"/>
+		<if>
+			<equals arg1="${pcntl_enabled}" arg2="pcntl"/>
+			<then>
+				<echo
+						message="PCNTL Enabled. Running Taks in parallel with ${threads} threads."/>
+				<phingcall target="run_parallel_tasks"/>
+			</then>
+			<else>
+				<echo message="PCNTL is not enabled. Running task serially."/>
+				<phingcall target="run_serial_tasks"/>
+			</else>
+		</if>
+	</target>
+
+	<target name="phpunit"
+					description="Run unit tests using PHPUnit and generates junit.xml and clover.xml">
+		<echo msg="Running unit tests"/>
+		<exec logoutput="true"
+					command="${bin_dir}/phpunit --configuration=phpunit.dist.xml --coverage-html ${build_temp_dir}/coverage --coverage-clover ${build_temp_dir}/logs/clover.xml --log-junit ${build_temp_dir}/logs/junit.xml"/>
+	</target>
+
+	<target name="pdepend"
+					description="Generate jdepend.xml and software metrics charts using PHP_Depend">
+		<exec logoutput="true"
+					command="${bin_dir}/pdepend --jdepend-xml=${build_temp_dir}/logs/jdepend.xml --jdepend-chart=${build_temp_dir}/pdepend/dependencies.svg --overview-pyramid=${build_temp_dir}/pdepend/overview-pyramid.svg ${src_dir}"/>
+	</target>
+
+	<target name="phpmd" description="Generate pmd.xml using PHPMD">
+		<exec logoutput="true" spawn="true" checkreturn="true"
+					command="${bin_dir}/phpmd ${src_dir} xml codesize,design,naming,unusedcode --exclude=ExitExpression --reportfile ${build_temp_dir}/logs/pmd.xml"/>
+		<echo>done phpmd</echo>
+	</target>
+
+	<target name="phpcpd" description="Generate pmd-cpd.xml using PHPCPD">
+		<exec logoutput="true"
+					command="${bin_dir}/phpcpd --log-pmd ${build_temp_dir}/logs/pmd-cpd.xml ${src_dir}"/>
+	</target>
+
+	<target name="phploc" description="Generate phploc.csv">
+		<exec logoutput="true"
+					command="${bin_dir}/phploc --log-csv ${build_temp_dir}/logs/phploc.csv ${src_dir}"/>
+	</target>
+
+	<target name="phpcs"
+					description="Generate checkstyle.xml using PHP_CodeSniffer">
+		<exec logoutput="true"
+					command="${bin_dir}/phpcs --report=checkstyle --report-file=${build_temp_dir}/logs/checkstyle.xml --standard=PSR2 ${src_dir}"/>
+		<echo>done phpcs</echo>
+	</target>
+
+	<target name="phpdoc"
+					description="Generate API documentation using phpdocumentor">
+		<exec logoutput="true"
+					command="${bin_dir}/phpdoc -d ${src_dir} -t ${build_temp_dir}/api"/>
+	</target>
+
+	<target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+		<exec logoutput="true"
+					command="${bin_dir}/phpcb --log ${build_temp_dir}/logs --source ${src_dir} --output ${build_temp_dir}/code-browser"/>
+	</target>
+
+	<target name="ci" depends="clean-ci,phpunit,try_ParallelTasks,phpcb"/>
+	<target name="replace">
+		<!--<delete dir="${build_temp_dir}"/>-->
+		<!--<mkdir dir="build/encoded_prep/"/>-->
+		<!--suppress PhingDomInspection -->
+		<filesync
+				sourceDir="src/"
+				destinationDir="build/encoded_prep/"
+				itemizeChanges="true"
+				verbose="true"
+				excludeFile="rsync_excludes.txt"
+				checksum="true"/>
+		<!-- delete files that need to be replaced -->
+		<echo>Minifying admin.css</echo>
+		<exec
+				command="java -jar ${yui.jarfile} -v -o ${encoded_prep}/modules/addons/enom_pro/css/admin.min.css ${src_dir}modules/addons/enom_pro/css/admin.css"
+				checkreturn="true" passthru="true"/>
+		<property name="jquery.minify.cmd"
+							value="java -jar ${yui.jarfile} -v -o ${encoded_prep}/modules/addons/enom_pro/js/jquery.admin.min.js ${src_dir}modules/addons/enom_pro/js/jquery.admin.js"/>
+		<echo>minify jquery.admin.js
+			cmd$: ${jquery.minify.cmd}
+		</echo>
+		<exec
+				command="${jquery.minify.cmd}"
+				checkreturn="true" passthru="true"/>
+		<echo>delete old minify files</echo>
+		<!--<delete-->
+				<!--file="${encoded_prep}/modules/addons/enom_pro/includes/class.enom_pro_license.php"/>-->
+		<!--<delete-->
+				<!--file="${encoded_prep}/modules/addons/enom_pro/enom_pro_compatible.php"/>-->
+		<!--<delete file="${encoded_prep}/modules/addons/enom_pro/hooks.php"/>-->
+		<tstamp>
+			<format property="YEAR" pattern="%Y"/>
+		</tstamp>
+		<copy todir="${encoded_prep}" overwrite="true">
+			<filterchain>
+				<replacetokens>
+					<token key="VERSION" value="${version}"/>
+					<token key="NAME" value="${name}"/>
+					<token key="YEAR" value="${YEAR}"/>
+				</replacetokens>
+			</filterchain>
+			<fileset refid="open_files"/>
+		</copy>
+
+	</target>
+
+	<target name="encode" hidden="true" depends="replace">
+		<ioncubeencoder
+				optimize="max"
+				ioncubepath="/Users/robertgregor/ioncube/"
+				nodoccomments="true"
+				targetoption="replace"
+				showcommandline="false"
+				fromdir="${encoded_prep}"
+				todir="${encoded}"
+				copy="index.php enom_pro.php hooks.php"
+				ignore="*.DS_Store *.cache enom_pro_version*.xml"
+				>
+			<comment>*************************************************************************</comment>
+			<comment>* enom PRO Addon for WHMCS *</comment>
+			<comment>* Version ${version}</comment>
+			<comment>* Copyright (c) 2001-${YEAR} Orion IP Ventures, LLC. All Rights Reserved *</comment>
+			<comment>*************************************************************************</comment>
+			<comment>* Licenses Resold and Supported by Circle Tree, LLC *</comment>
+			<comment>* For More Information on Becoming an Orion IP Authorized Reseller *</comment>
+			<comment>* Visit Our Website: http://www.OrionIPVentures.com/ *</comment>
+			<comment>*************************************************************************</comment>
+			<comment>* The use of this software means that you accept the terms and *</comment>
+			<comment>* conditions of the license, and agree to be bound by the terms set *</comment>
+			<comment>* forth in the End User License Agreement (EULA). Each purchased *</comment>
+			<comment>* license entitles you, the named account holder, to one installation. *</comment>
+			<comment>* You may not use the license for anyone other than the named person *</comment>
+			<comment>* on the account, you may transfer the license after it has been *</comment>
+			<comment>* approved by Orion IP Ventures, LLC. We may at any time terminate *</comment>
+			<comment>* your license to use our software if you do not abide by the terms *</comment>
+			<comment>* set out in the EULA. In this event, licensee agrees to return *</comment>
+			<comment>* licensor or destroy all copies of software upon termination of the *</comment>
+			<comment>* license. *</comment>
+			<comment>*************************************************************************</comment>
+			<comment>* You may not alter, merge, modify, adapt or translate the Software, *</comment>
+			<comment>* or decompile, reverse engineer, disassemble, defeat licensing *</comment>
+			<comment>* mechanisms, or otherwise reduce the Software to a human-perceivable *</comment>
+			<comment>* form *</comment>
+			<comment>*************************************************************************</comment>
+			<comment>* Please see included EULA.txt for the full End User License Agreement. *</comment>
+			<comment>*************************************************************************</comment>
+		</ioncubeencoder>
+	</target>
+	<!-- =================================
+			target: local
+		 ================================= -->
+	<target name="local" depends="replace" description="Dev Build">
+		<echo msg="Copying encoded files to local WHMCS install"/>
+		<!--
+		<copy todir="${deploy}">
+			<fileset refid="encoded"/>
+		</copy>
+		-->
+	</target>
+	<target name="bootstrap" description="Rebuilds Bootstrap">
+		<echo message="ReBuilding bootstrap theme"/>
+		<exec checkreturn="true" command="git rev-parse --abbrev-ref HEAD"
+					dir="../bootstrap/" outputProperty="branch"/>
+		<if>
+			<equals arg1="${branch}" arg2="eNom-pro"/>
+			<then>
+				<echo message="~/git/bootstrap is on correct branch"/>
+				<phingcall target="do-bootstrap-build"/>
+			</then>
+			<else>
+				<echo message="wrong branch ${branch} \n git checkout eNom-pro"/>
+			</else>
+		</if>
+		<phingcall target="local"/>
+	</target>
+	<target name="do-bootstrap-build">
+		<exec command="grunt dist-js dist-css" dir="../bootstrap/" logoutput="true"/>
+		<phingcall target="bootstrap-copy"/>
+	</target>
+	<target name="bootstrap-copy">
+		<property name="bs-dir" value="../bootstrap/dist/"/>
+		<property name="bs-copy-dir"
+							value="${project.basedir}/src/modules/addons/enom_pro/"/>
+		<property name="bs-css-file" value="${bs-copy-dir}css/bootstrap.min.css"/>
+		<delete file="${bs-css-file}" failonerror="false"/>
+		<property name="bs-js-file" value="${bs-copy-dir}js/bootstrap.min.js"/>
+		<delete file="${bs-js-file}" failonerror="false"/>
+		<echo>Concatenating bootstrap files into bootstrap.min.css</echo>
+		<append destFile="${bs-css-file}">
+			<filelist dir="${bs-dir}css/" files="bootstrap.min.css bootstrap-theme.min.css"/>
+		</append>
+		<echo>Copying bootstrap.min.js</echo>
+		<copy file="${bs-dir}js/bootstrap.min.js"
+					tofile="${bs-copy-dir}js/bootstrap.min.js"
+					overwrite="true"/>
+		<copy file="${bs-dir}css/bootstrap.min.css.map"
+					tofile="${bs-copy-dir}css/bootstrap.min.css.map"
+					overwrite="true"/>
+		<copy file="${bs-dir}css/bootstrap-theme.min.css.map"
+					tofile="${bs-copy-dir}css/bootstrap-theme.min.css.map"
+					overwrite="true"/>
+	</target>
+	<!-- Replaces version.xml -->
+	<target name="replace-version">
+		<copy todir="${encoded_prep}">
+			<filterchain>
+				<replacetokens>
+					<token key="VERSION" value="${version}"/>
+					<token key="NAME" value="${name}"/>
+				</replacetokens>
+			</filterchain>
+			<fileset dir="${project.basedir}">
+				<include name="${version_xml}"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="release" depends="zip,replace-version" description="GO TIME - Public Release!">
+		<echo msg="Deploying XML to myCircleTree.com"/>
+		<ftpdeploy
+				host="mycircletree.com"
+				port="21"
+				username="${ftp.username.versions}"
+				password="${ftp.password.versions}"
+				passive="false"
+				level="debug"
+				mode="ascii">
+			<fileset dir="${encoded_prep}">
+				<include name="${version_xml}"/>
+			</fileset>
+		</ftpdeploy>
+		<echo msg="Deploying zipfiles to myCircleTree.com"/>
+		<ftpdeploy
+				host="mycircletree.com"
+				port="21"
+				username="${ftp.username}"
+				password="${ftp.password}"
+				passive="false"
+				level="debug"
+				mode="binary">
+			<fileset dir=".">
+				<include name="enom_pro.zip"/>
+				<include name="enom_pro_open.zip"/>
+			</fileset>
+		</ftpdeploy>
+
+		<phingcall target="git-push"/>
+		<phingcall target="beta"/>
+
+	</target>
+	<target name="zip" depends="encode" description="Zip new Release">
+		<echo msg="Creating Zip files from encoded &amp; encoded_prep"/>
+		<delete file="enom_pro.zip"/>
+		<delete file="enom_pro_open.zip"/>
+		<zip destfile="enom_pro.zip" basedir="${encoded}"/>
+		<zip destfile="enom_pro_open.zip" basedir="${encoded_prep}"/>
+	</target>
+
+	<target name="git-push">
+		<echo>Pushing to remote GIT branch</echo>
+		<exec command="git push github master" logoutput="true"/>
+	</target>
+	<!-- BETA Release Prepares ZIP File-->
+
+
+	<target name="zip-beta" description="Zip new Beta Release">
+		<exec command="git rev-parse --short=12 HEAD" outputProperty="git_version"/>
+		<echo>Parsed Git Hash: ${git_version}</echo>
+		<phingcall target="encode">
+			<property name="version" value="${git_version}"/>
+		</phingcall>
+		<echo msg="Creating Zip files from encoded &amp; encoded_prep"/>
+		<delete file="enom_pro_BETA.zipread"/>
+		<zip destfile="enom_pro_BETA.zip" basedir="${encoded}"/>
+		<phingcall target="replace-version">
+			<property name="version" value="${git_version}"/>
+		</phingcall>
+		<move file="${encoded_prep}/${version_xml}" tofile="${encoded_prep}/${beta_version_xml}" haltonerror="true"/>
+	</target>
+
+	<target name="beta-version">
+		<ftpdeploy
+				host="mycircletree.com"
+				port="21"
+				username="${ftp.username.versions}"
+				password="${ftp.password.versions}"
+				passive="false"
+				mode="ascii">
+			<fileset dir="${encoded_prep}">
+				<include name="${beta_version_xml}"/>
+			</fileset>
+		</ftpdeploy>
+
+	</target>
+	<!-- BETA Release - Public Target -->
+	<target name="beta" depends="zip-beta" description="Builds &amp; Deploys HEAD revision to beta testers">
+		<phingcall target="beta-version"/>
+		<echo msg="Deploying BETA to myCircleTree.com"/>
+		<ftpdeploy
+				host="mycircletree.com"
+				port="21"
+				username="${ftp.username}"
+				password="${ftp.password}"
+				passive="false"
+				level="debug"
+				mode="binary">
+			<fileset dir=".">
+				<include name="enom_pro_BETA.zip"/>
+			</fileset>
+		</ftpdeploy>
+		<phingcall target="git-push"/>
+		<phingcall target="beta-log"/>
+	</target>
+
+	<target name="verify">
+		<ssh username="root" host="myc.mycircletree.com" property="md5_enc"
+				 command="md5sum /home/mycircle/downloads/enom_pro.zip"/>
+		<echo>${md5_enc}</echo>
+		<ssh username="root" host="myc.mycircletree.com" property="md5_open"
+				 command="md5sum /home/mycircle/downloads/enom_pro_open.zip"/>
+		<echo>${md5_open}</echo>
+	</target>
+
+	<target name="beta-log" description="Writes beta log json &amp; deploys to remote">
+		<property name="beta_log_filename" value="enom_pro_beta_log.json"/>
+		<delete file="${build_dir}/${beta_log_filename}" quiet="true"/>
+		<echo>Writing updated beta log</echo>
+		<exec command="./gitjson log -n 15 --json=hds" output="${build_dir}/${beta_log_filename}"/>
+		<echo>Deploying to remote...</echo>
+		<ftpdeploy
+				host="mycircletree.com"
+				port="21"
+				username="${ftp.username.versions}"
+				password="${ftp.password.versions}"
+				passive="false"
+				level="debug"
+				mode="ascii">
+			<fileset dir="${build_dir}">
+				<include name="${beta_log_filename}"/>
+			</fileset>
+		</ftpdeploy>
+		<echo>Done. Pushed hash: ${git_version}</echo>
+	</target>
+	<target name="install" description="Installs to real test dev environment" depends="zip">
+		<sync sourcedir="build/encoded/"
+					destinationdir="${deploy2}"
+
+					itemizechanges="true"
+					verbose="true"
+					checksum="true"/>
+	</target>
+</project>
