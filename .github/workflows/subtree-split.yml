@@ -96,7 +96,8 @@ jobs:
             split_repository: 'task-zendserverdeploymenttool'
 
     steps:
-      -   uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       # no tag
       -
