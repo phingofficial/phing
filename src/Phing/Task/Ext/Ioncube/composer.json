@@ -19,13 +19,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\IonCube\\": ""
+      "Phing\\Task\\Ext\\Ioncube\\": ""
     }
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "ioncubeencoder": "Phing\\Task\\Ext\\IonCube\\IoncubeEncoderTask",
-      "ioncubelicense": "Phing\\Task\\Ext\\IonCube\\IoncubeLicenseTask"
+      "ioncubeencoder": "Phing\\Task\\Ext\\Ioncube\\IoncubeEncoderTask",
+      "ioncubelicense": "Phing\\Task\\Ext\\Ioncube\\IoncubeLicenseTask"
     }
   }
 }

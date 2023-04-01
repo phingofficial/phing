@@ -18,7 +18,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Ext\IonCube;
+namespace Phing\Task\Ext\Ioncube;
 
 use Phing\Exception\BuildException;
 use Phing\Io\FileSystem;
