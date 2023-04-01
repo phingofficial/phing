@@ -8,7 +8,7 @@ on:
       - '*'
 
 env:
-  GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   packages_split:
@@ -108,9 +108,8 @@ jobs:
           repository_organization: 'phingofficial'
           repository_name: '${{ matrix.package.split_repository }}'
 
-          # ↓ the user signed under the split commit
-          user_name: "kaizen-ci"
-          user_email: "info@kaizen-ci.org"
+          user_name: "phing-ci"
+          user_email: "info@phing.info"
 
       # with tag
       -
@@ -124,6 +123,5 @@ jobs:
           repository_organization: 'phingofficial'
           repository_name: '${{ matrix.package.split_repository }}'
 
-          # ↓ the user signed under the split commit
-          user_name: "kaizen-ci"
-          user_email: "info@kaizen-ci.org"
+          user_name: "phing-ci"
+          user_email: "info@phing.info"
