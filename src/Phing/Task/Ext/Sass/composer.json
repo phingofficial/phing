@@ -25,7 +25,7 @@
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "sass": "Phing\\Task\\Ext\\Sass\SassTask"
+      "sass": "Phing\\Task\\Ext\\Sass\\SassTask"
     }
   }
 }
