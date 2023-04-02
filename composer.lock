@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6745f2cfbb8635a6dc3d525a5083f7d1",
+    "content-hash": "9dd86fe9e29545dab8f5962c4639842c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.263.0",
+            "version": "3.263.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a0a528cb8e22dd0113f97ad0df527a6db32fe061"
+                "reference": "1f1ca8866e54aabdcde2aba177196ec2f12ee8a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a0a528cb8e22dd0113f97ad0df527a6db32fe061",
-                "reference": "a0a528cb8e22dd0113f97ad0df527a6db32fe061",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1f1ca8866e54aabdcde2aba177196ec2f12ee8a2",
+                "reference": "1f1ca8866e54aabdcde2aba177196ec2f12ee8a2",
                 "shasum": ""
             },
             "require": {
@@ -150,9 +150,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.263.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.263.1"
             },
-            "time": "2023-03-30T18:22:31+00:00"
+            "time": "2023-03-31T18:21:25+00:00"
         },
         {
             "name": "composer/pcre",
@@ -1469,16 +1469,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.9",
+            "version": "1.10.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "9b13dafe3d66693d20fe5729c3dde1d31bb64703"
+                "reference": "f1e22c9b17a879987f8743d81533250a5fff47f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9b13dafe3d66693d20fe5729c3dde1d31bb64703",
-                "reference": "9b13dafe3d66693d20fe5729c3dde1d31bb64703",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f1e22c9b17a879987f8743d81533250a5fff47f9",
+                "reference": "f1e22c9b17a879987f8743d81533250a5fff47f9",
                 "shasum": ""
             },
             "require": {
@@ -1527,7 +1527,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-30T08:58:01+00:00"
+            "time": "2023-04-01T17:06:15+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -6725,12 +6725,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "945aadf4c174c61973464b4000f4d7529aeb84a0"
+                "reference": "859e034a7425f6fd0c30c58198f831ac6c7e6bfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/945aadf4c174c61973464b4000f4d7529aeb84a0",
-                "reference": "945aadf4c174c61973464b4000f4d7529aeb84a0",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/859e034a7425f6fd0c30c58198f831ac6c7e6bfb",
+                "reference": "859e034a7425f6fd0c30c58198f831ac6c7e6bfb",
                 "shasum": ""
             },
             "conflict": {
@@ -7076,6 +7076,7 @@
                 "rainlab/debugbar-plugin": "<3.1",
                 "rankmath/seo-by-rank-math": "<=1.0.95",
                 "react/http": ">=0.7,<1.7",
+                "really-simple-plugins/complianz-gdpr": "<6.4.2",
                 "remdex/livehelperchat": "<3.99",
                 "rmccue/requests": ">=1.6,<1.8",
                 "robrichards/xmlseclibs": "<3.0.4",
@@ -7185,7 +7186,7 @@
                 "thelia/thelia": ">=2.1-beta.1,<2.1.3",
                 "theonedemon/phpwhois": "<=4.2.5",
                 "thinkcmf/thinkcmf": "<=5.1.7",
-                "thorsten/phpmyfaq": "<3.1.11",
+                "thorsten/phpmyfaq": "<3.1.12",
                 "tinymce/tinymce": "<5.10.7|>=6,<6.3.1",
                 "tinymighty/wiki-seo": "<1.2.2",
                 "titon/framework": ">=0,<9.9.99",
@@ -7312,7 +7313,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-30T21:04:19+00:00"
+            "time": "2023-03-31T23:04:35+00:00"
         },
         {
             "name": "scssphp/scssphp",
@@ -9995,16 +9996,16 @@
         },
         {
             "name": "symplify/monorepo-builder",
-            "version": "11.1.30.72",
+            "version": "11.2.2.72",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/monorepo-builder.git",
-                "reference": "792eeeab57c14f917636678c48155f6b5aad0e1f"
+                "reference": "680ce13f48fa9e213db934b89fecd841cd031aaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/792eeeab57c14f917636678c48155f6b5aad0e1f",
-                "reference": "792eeeab57c14f917636678c48155f6b5aad0e1f",
+                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/680ce13f48fa9e213db934b89fecd841cd031aaa",
+                "reference": "680ce13f48fa9e213db934b89fecd841cd031aaa",
                 "shasum": ""
             },
             "require": {
@@ -10031,7 +10032,7 @@
             "description": "Prefixed version of Not only Composer tools to build a Monorepo.",
             "support": {
                 "issues": "https://github.com/symplify/monorepo-builder/issues",
-                "source": "https://github.com/symplify/monorepo-builder/tree/11.1.30.72"
+                "source": "https://github.com/symplify/monorepo-builder/tree/11.2.2.72"
             },
             "funding": [
                 {
@@ -10043,7 +10044,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-10T09:56:51+00:00"
+            "time": "2023-01-28T15:09:50+00:00"
         },
         {
             "name": "theseer/tokenizer",
