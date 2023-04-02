@@ -25,20 +25,20 @@
   },
   "extra": {
     "phing-custom-taskdefs": {
-      "svnlastrevision": "Phing\\Task\\Ext\\SvnLastRevisionTask",
-      "svncheckout": "Phing\\Task\\Ext\\SvnCheckoutTask",
-      "svnexport": "Phing\\Task\\Ext\\SvnExportTask",
-      "svnupdate": "Phing\\Task\\Ext\\SvnUpdateTask",
-      "svnswitch": "Phing\\Task\\Ext\\SvnSwitchTask",
-      "svncopy": "Phing\\Task\\Ext\\SvnCopyTask",
-      "svncommit": "Phing\\Task\\Ext\\SvnCommitTask",
-      "svnlist": "Phing\\Task\\Ext\\SvnListTask",
-      "svnlog": "Phing\\Task\\Ext\\SvnLogTask",
-      "svninfo": "Phing\\Task\\Ext\\SvnInfoTask",
-      "svnproplist": "Phing\\Task\\Ext\\SvnProplistTask",
-      "svnpropget": "Phing\\Task\\Ext\\SvnPropgetTask",
-      "svnpropset": "Phing\\Task\\Ext\\SvnPropsetTask",
-      "svnrevert": "Phing\\Task\\Ext\\SvnRevertTask"
+      "svnlastrevision": "Phing\\Task\\Ext\\Svn\\SvnLastRevisionTask",
+      "svncheckout": "Phing\\Task\\Ext\\Svn\\SvnCheckoutTask",
+      "svnexport": "Phing\\Task\\Ext\\Svn\\SvnExportTask",
+      "svnupdate": "Phing\\Task\\Ext\\Svn\\SvnUpdateTask",
+      "svnswitch": "Phing\\Task\\Ext\\Svn\\SvnSwitchTask",
+      "svncopy": "Phing\\Task\\Ext\\Svn\\SvnCopyTask",
+      "svncommit": "Phing\\Task\\Ext\\Svn\\SvnCommitTask",
+      "svnlist": "Phing\\Task\\Ext\\Svn\\SvnListTask",
+      "svnlog": "Phing\\Task\\Ext\\Svn\\SvnLogTask",
+      "svninfo": "Phing\\Task\\Ext\\Svn\\SvnInfoTask",
+      "svnproplist": "Phing\\Task\\Ext\\Svn\\SvnProplistTask",
+      "svnpropget": "Phing\\Task\\Ext\\Svn\\SvnPropgetTask",
+      "svnpropset": "Phing\\Task\\Ext\\Svn\\SvnPropsetTask",
+      "svnrevert": "Phing\\Task\\Ext\\Svn\\SvnRevertTask"
     }
   }
 }
