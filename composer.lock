@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6745f2cfbb8635a6dc3d525a5083f7d1",
+    "content-hash": "9dd86fe9e29545dab8f5962c4639842c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -9995,16 +9995,16 @@
         },
         {
             "name": "symplify/monorepo-builder",
-            "version": "11.1.30.72",
+            "version": "11.2.2.72",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/monorepo-builder.git",
-                "reference": "792eeeab57c14f917636678c48155f6b5aad0e1f"
+                "reference": "680ce13f48fa9e213db934b89fecd841cd031aaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/792eeeab57c14f917636678c48155f6b5aad0e1f",
-                "reference": "792eeeab57c14f917636678c48155f6b5aad0e1f",
+                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/680ce13f48fa9e213db934b89fecd841cd031aaa",
+                "reference": "680ce13f48fa9e213db934b89fecd841cd031aaa",
                 "shasum": ""
             },
             "require": {
@@ -10031,7 +10031,7 @@
             "description": "Prefixed version of Not only Composer tools to build a Monorepo.",
             "support": {
                 "issues": "https://github.com/symplify/monorepo-builder/issues",
-                "source": "https://github.com/symplify/monorepo-builder/tree/11.1.30.72"
+                "source": "https://github.com/symplify/monorepo-builder/tree/11.2.2.72"
             },
             "funding": [
                 {
@@ -10043,7 +10043,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-10T09:56:51+00:00"
+            "time": "2023-01-28T15:09:50+00:00"
         },
         {
             "name": "theseer/tokenizer",

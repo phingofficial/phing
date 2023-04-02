@@ -114,7 +114,7 @@
         "symfony/config": "^5.2|^6.0",
         "symfony/dependency-injection": "^5.2|^6.0",
         "symfony/stopwatch": "^5.2|^6.0",
-        "symplify/monorepo-builder": "11.1.30.72"
+        "symplify/monorepo-builder": "11.2.2.72"
     },
     "replace": {
         "phing/task-analyzers": "self.version",
