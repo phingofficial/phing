@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Phing\\Task\\Ext\\Http\\\\": ""
+      "Phing\\Task\\Ext\\Http\\": ""
     }
   },
   "extra": {
