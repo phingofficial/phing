@@ -210,7 +210,7 @@ jobs:
 
   build_docker_image:
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'phingofficial'
+    if: ${{ github.repository_owner == 'phingofficial' && github.event_name != 'pull_request' }}
     needs:
       - test
     steps:
@@ -227,7 +227,7 @@ jobs:
 
   notify:
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'phingofficial'
+    if: ${{ github.repository_owner == 'phingofficial' }}
     needs:
       - static_code_analysis
       - qodana_scan
