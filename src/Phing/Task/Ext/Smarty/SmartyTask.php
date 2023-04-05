@@ -259,11 +259,11 @@ class SmartyTask extends Task
      * [REQUIRED] Set the output directory. It will be
      * created if it doesn't exist.
      *
-     * @param  \PhingFile $outputDirectory
+     * @param  File $outputDirectory
      * @return void
      * @throws \Exception
      */
-    public function setOutputDirectory(\PhingFile $outputDirectory)
+    public function setOutputDirectory(File $outputDirectory)
     {
         try {
             if (!$outputDirectory->exists()) {
