@@ -64,7 +64,7 @@
         "ext-libxml": "*",
         "ext-simplexml": "*",
         "ext-xml": "*",
-        "sebastian/version": "^3.0",
+        "sebastian/version": "^3.0|^4.0",
         "symfony/console": "^5.0|^6.0",
         "symfony/yaml": "^5.0|^6.0"
     },
