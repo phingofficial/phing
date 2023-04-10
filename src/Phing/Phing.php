@@ -52,6 +52,7 @@ use function array_filter;
 use function array_map;
 use function array_reduce;
 use function implode;
+use function method_exists;
 use function sprintf;
 use function strlen;
 use function strval;
@@ -615,7 +616,7 @@ class Phing
 
         $version = new Version($phingVersion, $basePath);
 
-        return 'Phing ' . $version->getVersion();
+        return 'Phing ' . (method_exists($version, 'asString') ? $version->asString() : $version->getVersion());
     }
 
     /**
