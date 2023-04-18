@@ -216,7 +216,22 @@ class PHPMDTask extends Task
     protected function loadDependencies()
     {
         if (!empty($this->pharLocation)) {
+            // nasty but necessary: reorder the autoloaders so the one in the PHAR gets priority
+            $autoloadFunctions = spl_autoload_functions();
+            $composerAutoloader = null;
+            if (get_class($autoloadFunctions[0][0]) === 'Composer\Autoload\ClassLoader') {
+                $composerAutoloader = $autoloadFunctions[0];
+                spl_autoload_unregister($composerAutoloader);
+            }
+
+            $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
+            ob_start();
             include_once 'phar://' . $this->pharLocation . '/vendor/autoload.php';
+            ob_end_clean();
+
+            if ($composerAutoloader !== null) {
+                spl_autoload_register($composerAutoloader);
+            }
         }
 
         $className = '\PHPMD\PHPMD';
