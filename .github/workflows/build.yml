@@ -53,10 +53,23 @@ jobs:
           sudo apt update -y
           sudo apt install -y xdg-utils
 
+  qodana_scan:
+    needs:
+      - pre_job
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout repository
+
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@main
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+
   test:
     needs:
       - pre_job
-      - static_code_analysis
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ${{ matrix.operating-system }}
     continue-on-error: ${{ matrix.experimental }}
@@ -79,7 +92,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl,zip
+          extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl,zip,fileinfo
           ini-values: phar.readonly=off
 
       - uses: ramsey/composer-install@v2
@@ -104,6 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - pre_job
+      - static_code_analysis
       - test
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     steps:
@@ -194,13 +208,32 @@ jobs:
         run: |
           wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./tests/reports/clover-coverage.xml
 
+  build_docker_image:
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'phingofficial' && github.event_name != 'pull_request' }}
+    needs:
+      - test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build & upload image
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          name: phing/phing
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "3.0-nightly"
+
   notify:
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'phingofficial'
+    if: ${{ github.repository_owner == 'phingofficial' }}
     needs:
       - static_code_analysis
+      - qodana_scan
       - test
       - build_phar
+      - build_docker_image
       - coverage
     steps:
       - name: Notify Slack

@@ -6,7 +6,11 @@ Phing 3 is a significant update with some breaking changes compared to Phing 2.
 This document aims to summarize all those  breaking changes and noteworthy things
 that you might stumble across when upgrading from Phing 2 to 3.
 
-* Phing now requires at least PHP 7.3.
+The list below is not exhaustive. We've tried to list all significant/breaking changes,
+but there's a chance we missed something. If that's the case,
+let us know!
+
+* Phing now requires at least PHP 7.4.
 * All Phing code is now namespaced. This means that existing references to classes
   that existed in earlier Phing versions will no longer work. For example, the
   class `PhingFile` has been moved to `Phing\Io\File`. If you are used to providing
@@ -45,13 +49,18 @@ that you might stumble across when upgrading from Phing 2 to 3.
 * [PHPUnitTask] Support for PHPUnit 9.
 * [PhpCodeSnifferTask] was removed in favor of [PhpCSTask].
 * The Zend Guard tasks were removed (Zend Guard is no longer supported).
-* A number of tasks (or group of tasks) were moved to their own repositories, but are automatically
-  pulled in / installed when you install Phing:
+* A number of tasks (or group of tasks) are also published to read-only repositories, but are
+  installed when you install the main repository:
+  * Amazon
+  * Analyzer (contains Sonar, PDepend, PHPStan, etc.)
   * ApiGen
+  * Archive (contains Tar, Zip, etc.)
   * Code coverage
+  * DbDeploy
   * FtpDeploy
   * Git
   * Hg
+  * Http
   * IniFile
   * Ioncube
   * JsHint
@@ -59,8 +68,10 @@ that you might stumble across when upgrading from Phing 2 to 3.
   * Liquibase
   * PhkPackage
   * PhpDoc
+  * Sass
   * Smarty
   * SSH
+  * Svn
   * Visualizer
   * ZendCodeAnalyser
   * ZendServerDevelopmentTools
@@ -95,3 +106,4 @@ that you might stumble across when upgrading from Phing 2 to 3.
         <arg value="foo"/>
     </exec>
     ```
+* The `tstamp` task now supports ICU syntax 

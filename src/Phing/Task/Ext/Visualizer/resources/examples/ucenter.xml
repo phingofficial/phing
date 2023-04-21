@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="ucenter" default="deploy">
+
+    <!-- Target: config 设置变量，控制部署到不同环境-->
+    <target name="config">
+        <property name="svn_user" value="leric" />
+        <property name="svn_pass" value="" />
+        <input propertyname="deploy_env">Deploy to Env(prod|test):</input>
+        <if>
+            <equals arg1="${deploy_env}" arg2="prod" />
+            <then>
+                <property name="project_home" value="/opt/www/ucenter" />
+                <property name="web_servers" value="www.ucenter.com,www2.ucenter.com" />
+                <property name="web_server_user" value="leric" />
+                <property name="web_server_pass" value="leric" />
+            </then>
+        </if>
+        <if>
+            <equals arg1="${deploy_env}" arg2="test" />
+            <then>
+                <property name="project_home" value="/opt/www/ucenter" />
+                <property name="web_servers" value="127.0.0.1" />
+                <property name="web_server_user" value="root" />
+                <property name="web_server_pass" value="123456" />
+            </then>
+        </if>
+    </target>
+
+    <!-- Target: build  Checkout from svn, and make tar.gz -->
+    <target name="build" depends="config">
+        <echo msg="Export code from svn..." />
+        <input propertyname="export_revision">Revision to export from svn:</input>
+        <svnupdate
+           svnpath="svn"
+           revision="${export_revision}"
+           username="${svn_user}" password="${svn_pass}"
+           nocache="true"
+           todir="./"/>
+
+        <echo msg="Creating archive..." />
+        <delete file="./dist.tar.gz" />
+        <tar destfile="./dist.tar.gz" compression="gzip" prefix="rev_${export_revision}">
+            <fileset dir="./" defaultexcludes="true">
+                <include name="**" />
+                <exclude name="**/.svn" />
+            </fileset>
+        </tar>
+    </target>
+
+    <!-- Target: deploy   Upload tar.gz, switch to uploaded revision  -->
+    <target name="deploy" depends="config,build">
+        <foreach list="${web_servers}" param="web_server" target="deploy_one" />
+    </target>
+    <target name="deploy_one">
+        <scp username="${web_server_user}" password="${web_server_pass}"
+                host="${web_server}" todir="${project_home}/revs"
+                file="./dist.tar.gz" />
+
+        <ssh username="${web_server_user}" password="${web_server_pass}"
+                 host="${web_server}"
+                 command="cd ${project_home}/revs; tar zxf dist.tar.gz; rm dist.tar.gz;" />
+
+        <ssh username="${web_server_user}" password="${web_server_pass}"
+                 host="${web_server}"
+                 command="rm -f ${project_home}/current; ln -s ${project_home}/revs/rev_${export_revision} ${project_home}/current" />
+    </target>
+    
+    <!-- Target: switch    Switch current revision  -->
+    <target name="switch" depends="config">
+        <foreach list="${web_servers}" param="web_server" target="switch_one" />
+    </target>
+    <target name="switch_one">
+        <ssh username="${web_server_user}" password="${web_server_pass}"
+             host="${web_server}"
+             command="ls -al ${project_home}/revs" />
+        <input propertyname="revision">Revision to set as active:</input>
+        <ssh username="${web_server_user}" password="${web_server_pass}"
+             host="${web_server}"
+             command="rm -f ${project_home}/current; ln -s ${project_home}/revs/rev_${revision} ${project_home}/current" /> 
+    </target>
+    
+    
+    <!-- Target: update_deps  Update server setting by execute scripts（database, crontab, restart service, etc.）  -->
+    <target name="update_deps" depends="config">
+        <foreach list="${web_servers}" param="web_server" target="update_deps_one" />
+    </target>
+    <target name="update_deps_one">
+        <ssh username="${web_server_user}" password="${web_server_pass}"
+             host="${web_server}"
+             command="cd ${project_home}/current; sudo cp crontab /etc/cron.d/ucenter" />
+        <ssh username="${web_server_user}" password="${web_server_pass}"
+             host="${web_server}"
+             command="cd ${project_home}/current; php app/scripts/migration.php" />
+		<input propertyname="confirm_sql">Confirm database migration sql script(yes|no):</input>
+        <if>
+            <equals arg1="${confirm_sql}" arg2="yes" />
+            <then>
+				<ssh username="${web_server_user}" password="${web_server_pass}"
+					 host="${web_server}"
+					 command="cd ${project_home}/current; php app/scripts/migration.php execute" />
+            </then>
+        </if>
+    </target>
+</project>

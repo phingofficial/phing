@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="VisualizerTask" description="Create buildfile map" default="help">
+
+    <target name="setup" depends="composer:install"
+            description="Prepare project for development"/>
+    <target name="qa" description="Check code quality"
+            depends="composer:normalize,composer:validate,phpstan:analyse"/>
+
+    <target name="help" description="Create buildfile diagram">
+        <uptodate property="uptodate.build.xml" srcfile="build.xml" targetfile="build.png"/>
+        <runtarget target="map"/>
+        <open path="build.png"/>
+    </target>
+
+    <target name="map" unless="uptodate.build.xml">
+        <visualizer format="puml" showTitle="true" showDescription="true"
+                    footer="Visit https://www.phing.info/"/>
+        <visualizer format="png" showTitle="true" showDescription="true"
+                    footer="Visit https://www.phing.info/"/>
+    </target>
+
+    <target name="composer:normalize" description="Normalize composer.json">
+        <composer command="normalize">
+            <arg value="--no-interaction"/>
+            <arg value="--ansi"/>
+        </composer>
+    </target>
+
+    <target name="composer:install" description="Install Composer dependencies">
+        <composer command="install">
+            <arg value="--prefer-dist"/>
+            <arg value="--no-interaction"/>
+            <arg value="--no-progress"/>
+            <arg value="--ansi"/>
+        </composer>
+    </target>
+
+    <target name="composer:validate" description="Validate composer.json syntax">
+        <composer command="validate">
+            <arg value="--no-interaction"/>
+            <arg value="--ansi"/>
+        </composer>
+    </target>
+
+    <target name="phpstan:analyse" description="Static code analysis">
+        <exec executable="vendor/bin/phpstan" passthru="true" checkreturn="true">
+            <arg line="--level=max --no-progress --ansi --no-interaction"/>
+            <arg value="analyse"/>
+            <arg path="src"/>
+        </exec>
+    </target>
+
+    <target name="guide:preview" description="Generate doc (dev only)">
+        <!-- http://tutoriels.meddeb.net/docbook-installation-utilisation-de-base/ -->
+        <!-- apt install xsltproc docbook-xsl -->
+        <!-- I use this Target to have a documentation preview -->
+        <exec executable="xsltproc" passthru="true" checkreturn="true">
+            <arg value="--output"/>
+            <arg value="guide/VisualizerTask.html"/>
+            <arg value="--xinclude"/>
+            <arg file="/usr/share/xml/docbook/stylesheet/nwalsh/xhtml/docbook.xsl"/>
+            <arg file="guide/VisualizerTask.xml"/>
+        </exec>
+        <open path="guide/VisualizerTask.html"/>
+    </target>
+
+</project>

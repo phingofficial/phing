@@ -1,0 +1,8 @@
+/.idea/
+/vendor/
+/composer.lock
+/custom.task.properties
+/custom.type.properties
+/docs/guide.html
+/build.puml
+/guide/VisualizerTask.html
