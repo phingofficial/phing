@@ -167,12 +167,10 @@
                 <ref name="phkpackage"/>
                 <ref name="phpcodesniffer"/>
                 <ref name="phpcs"/>
-                <ref name="phpcpd"/>
                 <ref name="phpdepend"/>
                 <ref name="phpdoc"/>
                 <ref name="phpdoc2"/>
                 <ref name="phplint"/>
-                <ref name="phploc"/>
                 <ref name="phpmd"/>
                 <ref name="phpstan"/>
                 <ref name="phpunit"/>
@@ -5415,41 +5413,6 @@
 
     <!--
         =========================================
-        PHPLocTask
-        =========================================
-    -->
-    <define name="phploc">
-        <element name="phploc">
-            <interleave>
-                <optional>
-                    <attribute name="reportType"/>
-                </optional>
-                <optional>
-                    <attribute name="reportName"/>
-                </optional>
-                <optional>
-                    <attribute name="reportDirectory"/>
-                </optional>
-                <optional>
-                    <attribute name="countTests">
-                      <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="file"/>
-                </optional>
-                <optional>
-                    <attribute name="suffixes"/>
-                </optional>
-            </interleave>
-            <zeroOrMore>
-                <ref name="formatter"/>
-            </zeroOrMore>
-        </element>
-    </define>
-
-    <!--
-        =========================================
         PHPMDTask
         =========================================
     -->
@@ -5487,45 +5450,6 @@
                         <data type="string"/>
                     </attribute>
                 </optional>
-            </interleave>
-        </element>
-    </define>
-
-    <define name="phpcpd">
-        <element name="phpcpd">
-            <interleave>
-                <choice>
-                    <attribute name="file"/>
-                    <oneOrMore>
-                        <ref name="fileset"/>
-                    </oneOrMore>
-                </choice>
-                <optional>
-                    <attribute name="minTokens"/>
-                    <attribute name="minLines"/>
-                    <attribute name="format"/>
-                    <attribute name="fuzzy">
-                        <data type="boolean"/>
-                    </attribute>
-                    <attribute name="pharLocation"/>
-                </optional>
-                <zeroOrMore>
-                    <ref name="phpcpd-formatter"/>
-                </zeroOrMore>
-            </interleave>
-        </element>
-    </define>
-
-    <define name="phpcpd-formatter">
-        <element name="formatter">
-            <interleave>
-                <attribute name="type"/>
-                <optional>
-                    <attribute name="useFile">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <attribute name="outFile"/>
             </interleave>
         </element>
     </define>
