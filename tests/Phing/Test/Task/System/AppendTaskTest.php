@@ -170,4 +170,11 @@ class AppendTaskTest extends BuildFileTest
             file_get_contents($this->getProject()->getProperty('basedir') . 'concat.linecr')
         );
     }
+
+    public function testSkipSanitize(): void
+    {
+        $this->executeTarget('testskipsanitize');
+        $contents = file_get_contents($this->getProject()->getProperty('basedir') . $this->tempFile);
+        $this->assertEquals("\n foo", $contents);
+    }
 }

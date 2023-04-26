@@ -236,6 +236,7 @@
                 <ref name="blockfor"/>
                 <ref name="chmod"/>
                 <ref name="chown"/>
+                <ref name="concat"/>
                 <ref name="condition"/>
                 <ref name="copy"/>
                 <ref name="delete"/>
@@ -1106,6 +1107,9 @@
                 <attribute name="fixlastline"/>
             </optional>
             <optional>
+                <attribute name="skipsanitize"/>
+            </optional>
+            <optional>
                 <attribute name="eol"/>
             </optional>
             <optional>
@@ -1410,6 +1414,59 @@
                     </choice>
                 </zeroOrMore>
             </choice>
+        </element>
+    </define>
+
+    <define name="concat">
+        <element name="concat">
+            <optional>
+                <attribute name="destFile"/>
+            </optional>
+            <optional>
+                <attribute name="append"/>
+            </optional>
+            <optional>
+                <attribute name="overwrite"/>
+            </optional>
+            <optional>
+                <attribute name="fixlastline"/>
+            </optional>
+            <optional>
+                <attribute name="skipsanitize"/>
+            </optional>
+            <optional>
+                <attribute name="eol"/>
+            </optional>
+            <optional>
+                <attribute name="text"/>
+            </optional>
+            <optional>
+                <choice>
+                    <attribute name="file"/>
+                    <oneOrMore>
+                        <interleave>
+                            <optional>
+                                <ref name="fileset"/>
+                            </optional>
+                            <optional>
+                                <ref name="filelist"/>
+                            </optional>
+                        </interleave>
+                    </oneOrMore>
+                </choice>
+            </optional>
+            <optional>
+                <ref name="filterchain"/>
+            </optional>
+            <optional>
+                <ref name="append-header"/>
+            </optional>
+            <optional>
+                <ref name="append-footer"/>
+            </optional>
+            <optional>
+                <ref name="path"/>
+            </optional>
         </element>
     </define>
 

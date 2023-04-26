@@ -107,6 +107,8 @@ class AppendTask extends Task
 
     private $eolString;
 
+    private $skipSanitize = false;
+
     public function setFiltering(bool $filtering): void
     {
         $this->filtering = $filtering;
@@ -215,6 +217,11 @@ class AppendTask extends Task
     public function setFixLastLine(bool $fixLastLine): void
     {
         $this->fixLastLine = $fixLastLine;
+    }
+
+    public function setSkipSanitize(bool $skipSanitize): void
+    {
+        $this->skipSanitize = $skipSanitize;
     }
 
     /**
@@ -332,7 +339,9 @@ class AppendTask extends Task
 
     private function validate(): void
     {
-        $this->sanitizeText();
+        if (!$this->skipSanitize) {
+            $this->sanitizeText();
+        }
 
         if (null === $this->file && null === $this->text && 0 === count($this->filesets) && 0 === count($this->filelists)) {
             throw new BuildException('You must specify a file, use a filelist/fileset, or specify a text value.');
