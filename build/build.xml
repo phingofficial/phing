@@ -122,7 +122,7 @@
         depends="setproperties">
 
         <tstamp>
-            <format property="builddate" pattern="%Y%m%d" />
+            <format property="builddate" pattern="yyyyMMdd" />
         </tstamp>
         <pharpackage
             compression="gzip"
