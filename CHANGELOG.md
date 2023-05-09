@@ -2,7 +2,7 @@ P     H     I     N     G
 =========================
 
 
-May XYZ, 2023 - Phing 3.0.0 rc5
+May 9, 2023 - Phing 3.0.0 rc5
 -----------------------------
 
 The following issues and pull requests were closed in this release:
