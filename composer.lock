@@ -7257,16 +7257,16 @@
         },
         {
             "name": "tedivm/jshrink",
-            "version": "v1.6.6",
+            "version": "v1.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tedious/JShrink.git",
-                "reference": "e72133d6e220d79295346954292536b0980eef80"
+                "reference": "35a83e0ab661d6130da5930c0c4eafcc663b8cec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tedious/JShrink/zipball/e72133d6e220d79295346954292536b0980eef80",
-                "reference": "e72133d6e220d79295346954292536b0980eef80",
+                "url": "https://api.github.com/repos/tedious/JShrink/zipball/35a83e0ab661d6130da5930c0c4eafcc663b8cec",
+                "reference": "35a83e0ab661d6130da5930c0c4eafcc663b8cec",
                 "shasum": ""
             },
             "require": {
@@ -7301,7 +7301,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tedious/JShrink/issues",
-                "source": "https://github.com/tedious/JShrink/tree/v1.6.6"
+                "source": "https://github.com/tedious/JShrink/tree/v1.6.8"
             },
             "funding": [
                 {
@@ -7313,7 +7313,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-18T22:30:38+00:00"
+            "time": "2023-06-20T13:32:15+00:00"
         },
         {
             "name": "theseer/tokenizer",
