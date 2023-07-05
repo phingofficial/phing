@@ -266,14 +266,6 @@
         </exec>
     </target>
 
-    <target name="testNestedEnv">
-        <property environment="env"/>
-        <exec executable="phploc" outputProperty="envtest" resolveexecutable="true" searchpath="true">
-            <env key="Path" path="${env.Path};${project.basedir}\..\..\..\..\vendor\bin"/>
-            <arg value="-v"/>
-        </exec>
-    </target>
-
     <target name="testEnvVar">
         <if>
             <os family="windows"/>

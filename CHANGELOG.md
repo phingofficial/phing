@@ -2,6 +2,20 @@ P     H     I     N     G
 =========================
 
 
+May 9, 2023 - Phing 3.0.0 rc5
+-----------------------------
+
+The following issues and pull requests were closed in this release:
+
+* Remove phpcpd and phploc tasks [\#1708](https://github.com/phingofficial/phing/issues/1708)
+* Add all task-related require-dev dependencies to suggest section in composer.json [\#1704](https://github.com/phingofficial/phing/issues/1704)
+* `phploc/phploc` dependency in `require` blocks upgrade to PHPUnit 10+ [\#1703](https://github.com/phingofficial/phing/issues/1703)
+* Migrate to monorepo [\#1693](https://github.com/phingofficial/phing/issues/1693)
+* Regression in XmlPropertyTask RC3 -> RC4 [\#1692](https://github.com/phingofficial/phing/issues/1692)
+* Fix XmlPropertyTask [\#1691](https://github.com/phingofficial/phing/pull/1691)
+* Document sanitizing of text in Append task [\#1673](https://github.com/phingofficial/phing/issues/1673)
+* Roll-out `pharLocation` "hack" to other tasks [\#1663](https://github.com/phingofficial/phing/issues/1663)
+
 Jan. 20, 2023 - Phing 3.0.0 rc4
 -------------------------------
 

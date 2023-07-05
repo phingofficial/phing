@@ -333,12 +333,6 @@ class ExecTaskTest extends BuildFileTest
         $this->assertNotInLogs($this->windows ? 'echo " foo|bar " 2>&1' : 'echo \' foo|bar \' 2>&1');
     }
 
-    public function testNestedEnv(): void
-    {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertStringStartsWith('phploc', $this->getProject()->getProperty('envtest'));
-    }
-
     public function testEnvVar(): void
     {
         $this->expectPropertySet(__FUNCTION__, 'hello', 'world');

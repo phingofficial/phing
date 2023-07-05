@@ -107,3 +107,4 @@ let us know!
     </exec>
     ```
 * The `tstamp` task now supports ICU syntax 
+* The `phpcpd` and `phploc` tasks are removed, because their upstream projects have been abandoned

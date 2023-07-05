@@ -129,4 +129,10 @@
     </concat>
   </target>
 
+  <target name="testskipsanitize">
+    <concat destFile="${tmp.file}" text="${line.separator}" skipsanitize="true"/>
+    <concat destFile="${tmp.file}" text=" " skipsanitize="true"/>
+    <concat destFile="${tmp.file}" text="foo"/>
+  </target>
+
 </project>
