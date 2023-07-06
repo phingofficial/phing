@@ -28,6 +28,7 @@ use Phing\Project;
 use Phing\Task;
 use Phing\Type\Element\FileSetAware;
 use phpDocumentor\Bootstrap;
+use phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper;
 use phpDocumentor\Fileset\Collection;
 
 /**
@@ -218,7 +219,8 @@ class PhpDocumentor2Task extends Task
         $files = new Collection();
         $files->addFiles($paths);
 
-        $mapper = new \phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper($this->app['descriptor.cache']);
+        /** @phpstan-ignore-next-line */
+        $mapper = new ProjectDescriptorMapper($this->app['descriptor.cache']);
         $mapper->garbageCollect($files);
         $mapper->populate($projectDescriptor);
 
