@@ -18,7 +18,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Test\Regression;
+namespace Phing\Test\Filter;
 
 use Phing\Test\Support\BuildFileTest;
 
@@ -28,16 +28,27 @@ use Phing\Test\Support\BuildFileTest;
  *
  * @internal
  */
-class ReplaceTokenBooleanTest extends BuildFileTest
+class ReplaceTokensTest extends BuildFileTest
 {
     public function setUp(): void
     {
-        $this->configureProject(PHING_TEST_BASE . '/etc/regression/376/build.xml');
+        $this->configureProject(PHING_TEST_BASE . '/etc/filters/replacetokens.xml');
     }
 
-    public function testCustomTask(): void
+    public function tearDown(): void
     {
-        $this->executeTarget('main');
+        $this->executeTarget('cleanup');
+    }
+
+    public function testLiteralBooleans(): void
+    {
+        $this->executeTarget('testLiteralBooleans');
         $this->assertInLogs('Replaced "@TOKEN_KEY_TRUE@" with "true"');
+    }
+
+    public function testLiteralsThatShouldNotBeConvertedToBooleans(): void
+    {
+        $this->executeTarget('testLiteralsThatShouldNotBeConvertedToBooleans');
+        $this->assertInLogs('Replaced "@TOKEN_KEY_TRUE@" with "1"');
     }
 }

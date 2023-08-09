@@ -54,18 +54,9 @@ class Token
      *
      * @param string $value The value for this token. Must not be <code>null</code>.
      */
-    public function setValue($value)
+    public function setValue(string $value)
     {
-        // special case for bool values
-        if (is_bool($value)) {
-            if ($value) {
-                $this->value = 'true';
-            } else {
-                $this->value = 'false';
-            }
-        } else {
-            $this->value = (string) $value;
-        }
+        $this->value = $value;
     }
 
     /**
