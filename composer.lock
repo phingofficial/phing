@@ -7251,16 +7251,16 @@
         },
         {
             "name": "symplify/monorepo-builder",
-            "version": "11.2.4.72",
+            "version": "11.2.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/monorepo-builder.git",
-                "reference": "5644b6d1efa90235c46ae2225ba909b225cc0ea4"
+                "reference": "98354c0260029984c47f2b8c8e3a8c90bd5e21fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/5644b6d1efa90235c46ae2225ba909b225cc0ea4",
-                "reference": "5644b6d1efa90235c46ae2225ba909b225cc0ea4",
+                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/98354c0260029984c47f2b8c8e3a8c90bd5e21fd",
+                "reference": "98354c0260029984c47f2b8c8e3a8c90bd5e21fd",
                 "shasum": ""
             },
             "require": {
@@ -7287,7 +7287,7 @@
             "description": "Prefixed version of Not only Composer tools to build a Monorepo.",
             "support": {
                 "issues": "https://github.com/symplify/monorepo-builder/issues",
-                "source": "https://github.com/symplify/monorepo-builder/tree/11.2.4.72"
+                "source": "https://github.com/symplify/monorepo-builder/tree/11.2.17"
             },
             "funding": [
                 {
@@ -7299,7 +7299,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-07T07:49:33+00:00"
+            "time": "2023-08-18T07:53:00+00:00"
         },
         {
             "name": "tedivm/jshrink",
