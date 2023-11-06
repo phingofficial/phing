@@ -128,7 +128,7 @@ class PHPMDTask extends Task
      *
      * @param string $ruleSetFileNames Comma-separated string of rule-set filenames or identifier.
      */
-    public function setRulesets($ruleSetFileNames)
+    public function setRulesets(string $ruleSetFileNames)
     {
         $this->rulesets = $ruleSetFileNames;
     }
@@ -286,6 +286,17 @@ class PHPMDTask extends Task
     }
 
     /**
+     * @return \PHPMD\RuleSet[]
+     */
+    protected function getRuleSets(): array
+    {
+        $ruleSetFactory = new RuleSetFactory();
+        $ruleSetFactory->setMinimumPriority($this->minimumPriority);
+        $rulesets = $ruleSetFactory->createRuleSets($this->rulesets);
+        return $rulesets;
+    }
+
+    /**
      * Executes PHPMD against PhingFile or a FileSet
      *
      * @throws BuildException - if the phpmd classes can't be loaded.
@@ -327,9 +338,7 @@ class PHPMDTask extends Task
             $this->cache = null; // cache not compatible to old version
         }
 
-        // Create a rule set factory
-        $ruleSetFactory = new RuleSetFactory();
-        $ruleSetFactory->setMinimumPriority($this->minimumPriority);
+        $rulesets = $this->getRuleSets();
 
         /**
          * @var PHPMD $phpmd
@@ -346,7 +355,7 @@ class PHPMDTask extends Task
             $this->log('Processing files...');
 
             $report = new Report();
-            $phpmd->processFiles($inputPath, $this->rulesets, $reportRenderers, $ruleSetFactory, $report);
+            $phpmd->processFiles($inputPath, $this->ignorePatterns, $reportRenderers, $rulesets, $report);
 
             if ($this->cache) {
                 $this->cache->commit();
