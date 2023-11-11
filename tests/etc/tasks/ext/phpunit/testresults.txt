@@ -1,2 +1,0 @@
-Testsuite: HelloWorldTest
-Tests run: 1, Risky: 0, Warnings: 0, Failures: 0, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed: 0.00016 s
