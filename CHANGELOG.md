@@ -2,6 +2,13 @@ P     H     I     N     G
 =========================
 
 
+Nov 11, 2023 - Phing 3.0.0 rc6
+------------------------------
+
+The following issues and pull requests were closed in this release:
+
+* Replacetokens treating values as boolean [\#1719](https://github.com/phingofficial/phing/issues/1719)
+
 May 9, 2023 - Phing 3.0.0 rc5
 -----------------------------
 
