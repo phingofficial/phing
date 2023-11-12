@@ -108,6 +108,8 @@
 		<composer command="install" composer="composer" php="">
 			<arg value="--working-dir=${build.full.dir}"/>
 			<arg value="-o"/>
+			<arg value="--no-plugins"/>
+			<arg value="--no-scripts"/>
 			<arg value="--prefer-dist"/>
 		</composer>
     </target>
