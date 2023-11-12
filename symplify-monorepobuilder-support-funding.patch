@@ -1,0 +1,78 @@
+--- a/packages/ComposerJsonManipulator/ComposerJsonFactory.php
++++ b/packages/ComposerJsonManipulator/ComposerJsonFactory.php
+@@ -125,4 +125,10 @@ final class ComposerJsonFactory
+            $composerJson->setProvide($jsonArray[ComposerJsonSection::PROVIDE]);
+        }
++        if (isset($jsonArray[ComposerJsonSection::FUNDING])) {
++            $composerJson->setFunding($jsonArray[ComposerJsonSection::FUNDING]);
++        }
++        if (isset($jsonArray[ComposerJsonSection::SUPPORT])) {
++            $composerJson->setSupport($jsonArray[ComposerJsonSection::SUPPORT]);
++        }
+        $orderedKeys = \array_keys($jsonArray);
+        $composerJson->setOrderedKeys($orderedKeys);
+--- a/packages/ComposerJsonManipulator/ValueObject/ComposerJson.php
++++ b/packages/ComposerJsonManipulator/ValueObject/ComposerJson.php
+@@ -68,2 +68,10 @@ final class ComposerJson
+     private $extra = [];
++    /**
++     * @var mixed[]
++     */
++    private $funding = [];
++    /**
++     * @var mixed[]
++     */
++    private $support = [];
+    private $requireDev = [];
+@@ -300,7 +306,35 @@
+     public function setExtra(array $extra) : void
+     {
+         $this->extra = $extra;
++    }
++    /**
++     * @return mixed[]
++     */
++    public function getFunding(): array
++    {
++        return $this->funding;
++    }
++    /**
++     * @param mixed[] $funding
++     */
++    public function setFunding(array $funding): void
++    {
++        $this->funding = $funding;
+     }
++    /**
++     * @return mixed[]
++     */
++    public function getSupport(): array
++    {
++        return $this->support;
++    }
++    /**
++     * @param mixed[] $support
++     */
++    public function setSupport(array $support): void
++    {
++        $this->support = $support;
++    }
+     public function getName() : ?string
+     {
+         return $this->name;
+@@ -348,7 +382,7 @@
+      */
+     public function getJsonArray() : array
+     {
+-        $array = \array_filter([\Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::NAME => $this->name, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::DESCRIPTION => $this->description, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::KEYWORDS => $this->keywords, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::HOMEPAGE => $this->homepage, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::LICENSE => $this->license, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTHORS => $this->authors, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::TYPE => $this->type, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE => $this->require, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV => $this->requireDev, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD => $this->autoload, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV => $this->autoloadDev, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPOSITORIES => $this->repositories, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::EXTRA => $this->extra, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::BIN => $this->bin, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS => $this->scripts, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS_DESCRIPTIONS => $this->scriptsDescriptions, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SUGGEST => $this->suggest, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG => $this->config, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPLACE => $this->replace, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICT => $this->conflicts, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PROVIDE => $this->provide, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::VERSION => $this->version]);
++        $array = \array_filter([\Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::NAME => $this->name, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::DESCRIPTION => $this->description, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::KEYWORDS => $this->keywords, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::HOMEPAGE => $this->homepage, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::LICENSE => $this->license, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTHORS => $this->authors, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::TYPE => $this->type, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE => $this->require, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV => $this->requireDev, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD => $this->autoload, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV => $this->autoloadDev, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPOSITORIES => $this->repositories, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::EXTRA => $this->extra, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::BIN => $this->bin, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS => $this->scripts, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS_DESCRIPTIONS => $this->scriptsDescriptions, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SUGGEST => $this->suggest, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG => $this->config, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPLACE => $this->replace, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICT => $this->conflicts, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PROVIDE => $this->provide, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::VERSION => $this->version, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::FUNDING => $this->funding, \Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SUPPORT => $this->support]);
+         if ($this->minimumStability !== null) {
+             $array[\Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY] = $this->minimumStability;
+             $this->moveValueToBack(\Symplify\MonorepoBuilder\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY);
+--- a/packages/ComposerJsonManipulator/ValueObject/ComposerJsonSection.php
++++ b/packages/ComposerJsonManipulator/ValueObject/ComposerJsonSection.php
+@@ -107,2 +107,4 @@ final class ComposerJsonSection
+     public const VERSION = 'version';
++    public const FUNDING = 'funding';
++    public const SUPPORT = 'support';
+ }
