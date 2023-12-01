@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "305ea0011b1dfa1d64dfe47c70da7013",
+    "content-hash": "7e86eda0b257a035484cd3adbe76b555",
     "packages": [
         {
             "name": "psr/container",
@@ -7102,16 +7102,16 @@
         },
         {
             "name": "symplify/monorepo-builder",
-            "version": "11.2.19",
+            "version": "11.2.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/monorepo-builder.git",
-                "reference": "4069de89595f188b9931454ba6753662e66a10d3"
+                "reference": "444efe08701776cb1a03b9f3600e715697519aa6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/4069de89595f188b9931454ba6753662e66a10d3",
-                "reference": "4069de89595f188b9931454ba6753662e66a10d3",
+                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/444efe08701776cb1a03b9f3600e715697519aa6",
+                "reference": "444efe08701776cb1a03b9f3600e715697519aa6",
                 "shasum": ""
             },
             "require": {
@@ -7138,7 +7138,7 @@
             "description": "Prefixed version of Not only Composer tools to build a Monorepo.",
             "support": {
                 "issues": "https://github.com/symplify/monorepo-builder/issues",
-                "source": "https://github.com/symplify/monorepo-builder/tree/11.2.19"
+                "source": "https://github.com/symplify/monorepo-builder/tree/11.2.20"
             },
             "funding": [
                 {
@@ -7150,7 +7150,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-10-20T06:31:52+00:00"
+            "time": "2023-11-17T08:30:16+00:00"
         },
         {
             "name": "tedivm/jshrink",
