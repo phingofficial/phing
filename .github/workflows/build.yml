@@ -53,20 +53,6 @@ jobs:
           sudo apt update -y
           sudo apt install -y xdg-utils
 
-  qodana_scan:
-    needs:
-      - pre_job
-    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        name: Checkout repository
-
-      - name: 'Qodana Scan'
-        uses: JetBrains/qodana-action@main
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-
   test:
     needs:
       - pre_job
@@ -230,7 +216,6 @@ jobs:
     if: ${{ github.repository_owner == 'phingofficial' }}
     needs:
       - static_code_analysis
-      - qodana_scan
       - test
       - build_phar
       - build_docker_image
