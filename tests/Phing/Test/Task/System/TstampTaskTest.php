@@ -110,6 +110,9 @@ class TstampTaskTest extends BuildFileTest
         $this->assertPropertyEquals('español', 'viernes');
     }
 
+    /**
+     * @requires PHP >= 8.1
+     */
     public function testIllegalLocaleShouldNotFail(): void
     {
         $this->executeTarget(__FUNCTION__);
