@@ -564,6 +564,18 @@ class PropertyTask extends Task
                         throw new BuildException('Property ' . $propertyName . ' was circularly defined.');
                     }
 
+                    if ($props->containsKey($propertyName)) {
+                        $fragment = $props->getProperty($propertyName);
+                        if (false !== strpos($fragment, '${')) {
+                            $resolveStack[] = $propertyName;
+                            $resolved = false; // parse again (could have been replaced w/ another var)
+                        }
+
+                        $sb .= $fragment;
+
+                        continue;
+                    }
+
                     $fragment = $this->getProject()->getProperty($propertyName);
                     if (null !== $fragment) {
                         $sb .= $fragment;
@@ -571,16 +583,7 @@ class PropertyTask extends Task
                         continue;
                     }
 
-                    if ($props->containsKey($propertyName)) {
-                        $fragment = $props->getProperty($propertyName);
-                        if (false !== strpos($fragment, '${')) {
-                            $resolveStack[] = $propertyName;
-                            $resolved = false; // parse again (could have been replaced w/ another var)
-                        }
-                    } else {
-                        $fragment = '${' . $propertyName . '}';
-                    }
-
+                    $fragment = '${' . $propertyName . '}';
                     $sb .= $fragment;
                 }
 

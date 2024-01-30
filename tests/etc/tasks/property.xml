@@ -16,10 +16,20 @@
     <property file="property2.properties"/>
   </target>
 
-  <target name="test4">
-    <property name="http.port" value="999" />
+  <target name="testPropertyInFileShouldShadowExistingPropertyWithSameName">
+    <property name="http.port" value="999"/>
     <property file="property3.properties"/>
     <echo message="http.url is ${http.url}"/>
+  </target>
+
+  <target name="testOverrideExistingPropertyWithNewProperty">
+    <property name="http.port" value="999"/>
+    <property name="http.port" value="80" override="true" />
+  </target>
+
+  <target name="testOverrideExistingPropertyWithNewPropertyFromFile">
+    <property name="http.port" value="999" />
+    <property file="property3.properties" override="true"/>
   </target>
 
   <target name="prefix.success">
