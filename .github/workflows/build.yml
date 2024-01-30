@@ -222,7 +222,7 @@ jobs:
       - coverage
     steps:
       - name: Notify Slack
-        uses: 8398a7/action-slack@v3.8.0
+        uses: 8398a7/action-slack@v3.16.2
         continue-on-error: true
         with:
           status: custom
