@@ -109,4 +109,10 @@ class TstampTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertyEquals('español', 'viernes');
     }
+
+    public function testIllegalLocaleShouldNotFail(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('tstamp.test', '');
+    }
 }

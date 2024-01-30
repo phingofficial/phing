@@ -44,4 +44,10 @@ class XmlPropertyTaskTest extends BuildFileTest
         $this->assertPropertyEquals('config.username', 'optimus');
         $this->assertPropertyEquals('config.temp-dir', 'downloads');
     }
+
+    public function testOptionalMissingFileShouldNotFail(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertNotInLogs("null given");
+    }
 }
