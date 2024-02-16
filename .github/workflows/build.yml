@@ -184,7 +184,7 @@ jobs:
 
       - name: Upload to Codecov
         if: github.repository_owner == 'phingofficial'
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: ./tests/reports/clover-coverage.xml
           verbose: true
