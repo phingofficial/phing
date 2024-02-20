@@ -89,7 +89,7 @@
         "pdepend/pdepend": "^2.9",
         "pear/archive_tar": "^1.4",
         "pear/console_getopt": "^v1.4.3",
-        "pear/mail": "^1.4",
+        "pear/mail": "^2.0",
         "pear/mail_mime": "^1.10",
         "pear/net_ftp": "dev-master",
         "pear/net_growl": "dev-master",
