@@ -5645,6 +5645,11 @@
                     <attribute name="executable"/>
                 </optional>
                 <optional>
+                    <attribute name="passthru" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
                     <attribute name="checkReturn">
                         <data type="boolean"/>
                     </attribute>
