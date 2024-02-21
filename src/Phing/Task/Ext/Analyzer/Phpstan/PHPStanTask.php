@@ -386,6 +386,8 @@ class PHPStanTask extends Task
         $toExecute = $this->cmd;
 
         $exe = new ExecTask();
+        $exe->setTaskType($this->getTaskType());
+        $exe->setTaskName($this->getTaskName());
         $exe->setExecutable($toExecute->getExecutable());
         $exe->createArg()->setLine(implode(' ', $toExecute->getArguments()));
         $exe->setCheckreturn($this->checkreturn);
