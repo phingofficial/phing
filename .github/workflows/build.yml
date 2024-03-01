@@ -36,7 +36,7 @@ jobs:
           coverage: none
           tools: composer:v2
 
-      - uses: ramsey/composer-install@v2
+      - uses: ramsey/composer-install@v3
         with:
           dependency-versions: 'locked'
 
@@ -81,7 +81,7 @@ jobs:
           extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl,zip,fileinfo
           ini-values: phar.readonly=off
 
-      - uses: ramsey/composer-install@v2
+      - uses: ramsey/composer-install@v3
         with:
           dependency-versions: ${{ matrix.dependencies }}
           composer-options: ${{ matrix.composer-options }}
