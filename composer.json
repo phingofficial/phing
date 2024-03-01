@@ -105,7 +105,7 @@
         "roave/security-advisories": "dev-master",
         "scssphp/scssphp": "~1.11.0",
         "siad007/versioncontrol_hg": "^1.0",
-        "smarty/smarty": "^3.1",
+        "smarty/smarty": "^4.4",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/config": "^5.2|^6.0",
         "symfony/dependency-injection": "^5.2|^6.0",
