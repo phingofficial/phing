@@ -90,6 +90,18 @@ let us know!
     will be kept as property value.
   * Property expansion (such as through the `ExpandProperties` filter) also no longer handles boolean values as anything other
     than literal string values.
+* The order of property loading and expansion in property files has changed. When a property exists, but is shadowed / masked by a property of the same name
+  (while loading a property file), the value inside the property file takes precedence:
+    ```xml
+    <property name="http.port" value="8080"/>
+    <property file="foo.properties"/>
+    ```
+  (with `foo.properties` containing the following):
+    ```properties
+    http.port = 80
+    http.url = https://localhost:${http.port}
+    ```
+  In this case `http.url` expands to `https://localhost:80`,  _not_ `https://localhost:8080`.
 * Obsolete `ExportPropertiesTask` was removed in favor of the `EchoPropertiesTask`
     ```xml
     <exportproperties targetfile="output.props" />

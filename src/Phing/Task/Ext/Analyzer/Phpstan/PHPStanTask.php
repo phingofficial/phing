@@ -100,6 +100,11 @@ class PHPStanTask extends Task
     /**
      * @var bool
      */
+    private $passthru = false;
+
+    /**
+     * @var bool
+     */
     private $debug;
 
     /**
@@ -223,6 +228,11 @@ class PHPStanTask extends Task
         return $this->checkreturn;
     }
 
+    public function isPassthru(): ?bool
+    {
+        return $this->passthru;
+    }
+
     public function isDebug(): ?bool
     {
         return $this->debug;
@@ -333,6 +343,11 @@ class PHPStanTask extends Task
         $this->checkreturn = $checkreturn;
     }
 
+    public function setPassthru(bool $passthru)
+    {
+        $this->passthru = $passthru;
+    }
+
     public function setDebug(bool $debug): void
     {
         $this->debug = $debug;
@@ -386,9 +401,12 @@ class PHPStanTask extends Task
         $toExecute = $this->cmd;
 
         $exe = new ExecTask();
+        $exe->setTaskType($this->getTaskType());
+        $exe->setTaskName($this->getTaskName());
         $exe->setExecutable($toExecute->getExecutable());
         $exe->createArg()->setLine(implode(' ', $toExecute->getArguments()));
         $exe->setCheckreturn($this->checkreturn);
+        $exe->setPassthru($this->passthru);
         $exe->setLocation($this->getLocation());
         $exe->setProject($this->getProject());
         $exe->setLevel('info');

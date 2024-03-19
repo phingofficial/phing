@@ -66,4 +66,10 @@
         </tstamp>
     </target>
 
+    <target name="testIllegalLocaleShouldNotFail">
+        <tstamp>
+            <format property="tstamp.test" pattern="EEEE" locale="some_foo_bar"/>
+        </tstamp>
+    </target>
+
 </project>

@@ -311,7 +311,7 @@ class ExecTask extends Task
      *
      * @param bool $passthru If passthru shall be used
      */
-    public function setPassthru($passthru): void
+    public function setPassthru(bool $passthru): void
     {
         $this->passthru = $passthru;
     }

@@ -54,8 +54,7 @@
         "allow-plugins": {
             "phing/phing-composer-configurator": true,
             "ergebnis/composer-normalize": true,
-            "symfony/flex": true,
-            "cweagans/composer-patches": true
+            "symfony/flex": true
         }
     },
     "require": {
@@ -79,7 +78,6 @@
         "ext-xsl": "*",
         "ext-zip": "*",
         "aws/aws-sdk-php": "^3.181",
-        "cweagans/composer-patches": "^1.7",
         "ergebnis/composer-normalize": "^2.13",
         "friendsofphp/php-cs-fixer": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
@@ -246,15 +244,6 @@
             "sshconfig": "Phing\\Task\\Ext\\Ssh\\Ssh2MethodParam",
             "tarfileset": "Phing\\Task\\Ext\\Archive\\TarFileSet",
             "zipfileset": "Phing\\Task\\Ext\\Archive\\ZipFileSet"
-        },
-        "enable-patching": true,
-        "patchLevel": {
-            "symplify/monorepo-builder": "-p1"
-        },
-        "patches": {
-            "symplify/monorepo-builder": [
-                "symplify-monorepobuilder-support-funding.patch"
-            ]
         }
     },
     "suggest": {

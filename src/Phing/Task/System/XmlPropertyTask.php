@@ -103,7 +103,9 @@ class XmlPropertyTask extends PropertyTask
         }
 
         $props = $this->loadFile($this->file);
-        $this->addProperties($props);
+        if ($props) {
+            $this->addProperties($props);
+        }
     }
 
     /**

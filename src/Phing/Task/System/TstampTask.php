@@ -21,9 +21,11 @@
 namespace Phing\Task\System;
 
 use DateTime;
+use Error;
 use Exception;
 use IntlDateFormatter;
 use Phing\Exception\BuildException;
+use Phing\Project;
 use Phing\Task;
 
 /**
@@ -99,7 +101,12 @@ class TstampTask extends Task
     protected function createProperty(string $propertyName, int $unixTimestamp, ?string $pattern = null, ?string $locale = null, ?string $timezone = null): void
     {
         $formatter = new IntlDateFormatter($locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, $timezone, IntlDateFormatter::GREGORIAN, $pattern);
-        $value = $formatter->format($unixTimestamp);
+        try {
+            $value = $formatter->format($unixTimestamp);
+        } catch (Error $e) {
+            $value = "";
+            $this->log("Unable to format date (locale $locale) [{$e->getMessage()}]", Project::MSG_WARN);
+        }
         $this->getProject()->setNewProperty($this->prefix . $propertyName, $value);
     }
 

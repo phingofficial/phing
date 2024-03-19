@@ -26,7 +26,7 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         name: Checkout repository
 
       - name: Setup PHP
@@ -63,14 +63,14 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ ubuntu-latest, macos-latest, windows-latest ]
-        php: [ '7.4', '8.0', '8.1' ]
+        php: [ '7.4', '8.0', '8.1', '8.2', '8.3' ]
         dependencies: [ 'lowest', 'locked' ]
         experimental: [ false ]
 
     name: PHP ${{ matrix.php }} on ${{ matrix.operating-system }} with ${{ matrix.dependencies }} dependencies
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         name: Checkout repository
 
       - name: Setup PHP
@@ -107,7 +107,7 @@ jobs:
       - test
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         name: Checkout repository
 
       - name: Setup PHP
@@ -123,7 +123,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -146,7 +146,7 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -160,7 +160,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -184,7 +184,7 @@ jobs:
 
       - name: Upload to Codecov
         if: github.repository_owner == 'phingofficial'
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: ./tests/reports/clover-coverage.xml
           verbose: true
@@ -201,7 +201,7 @@ jobs:
       - test
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build & upload image
         uses: elgohr/Publish-Docker-Github-Action@v5
@@ -222,7 +222,7 @@ jobs:
       - coverage
     steps:
       - name: Notify Slack
-        uses: 8398a7/action-slack@v3.8.0
+        uses: 8398a7/action-slack@v3
         continue-on-error: true
         with:
           status: custom
