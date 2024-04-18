@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d236215a01286eb1d82008f4e5fba668",
+    "content-hash": "d73cd5a8de122290940c73dd47bc2eec",
     "packages": [
         {
             "name": "psr/container",
@@ -3068,16 +3068,16 @@
         },
         {
             "name": "pear/mail",
-            "version": "v1.6.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/Mail.git",
-                "reference": "4fda3292ac6bf226d8841cfd8ee3cf4e28395c01"
+                "reference": "eb053f8b74f4f3178105fcf001626e63068c0dbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/Mail/zipball/4fda3292ac6bf226d8841cfd8ee3cf4e28395c01",
-                "reference": "4fda3292ac6bf226d8841cfd8ee3cf4e28395c01",
+                "url": "https://api.github.com/repos/pear/Mail/zipball/eb053f8b74f4f3178105fcf001626e63068c0dbc",
+                "reference": "eb053f8b74f4f3178105fcf001626e63068c0dbc",
                 "shasum": ""
             },
             "require": {
@@ -3131,7 +3131,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Mail",
                 "source": "https://github.com/pear/Mail"
             },
-            "time": "2023-11-01T21:31:59+00:00"
+            "time": "2024-01-15T21:56:23+00:00"
         },
         {
             "name": "pear/mail_mime",
@@ -4438,16 +4438,16 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.1",
+            "version": "2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
+                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
-                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/402d35bcb92c70c026d1a6a9883f06b2ead23d71",
+                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71",
                 "shasum": ""
             },
             "require": {
@@ -4456,7 +4456,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -4471,7 +4471,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for HTTP messages",
@@ -4485,9 +4485,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/1.1"
+                "source": "https://github.com/php-fig/http-message/tree/2.0"
             },
-            "time": "2023-04-04T09:50:52+00:00"
+            "time": "2023-04-04T09:54:51+00:00"
         },
         {
             "name": "psr/log",
@@ -5333,16 +5333,16 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "v1.11.1",
+            "version": "v1.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "ace2503684bab0dcc817d7614c8a54b865122414"
+                "reference": "394ed1e960138710a60d035c1a85d43d0bf0faeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/ace2503684bab0dcc817d7614c8a54b865122414",
-                "reference": "ace2503684bab0dcc817d7614c8a54b865122414",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/394ed1e960138710a60d035c1a85d43d0bf0faeb",
+                "reference": "394ed1e960138710a60d035c1a85d43d0bf0faeb",
                 "shasum": ""
             },
             "require": {
@@ -5407,9 +5407,9 @@
             ],
             "support": {
                 "issues": "https://github.com/scssphp/scssphp/issues",
-                "source": "https://github.com/scssphp/scssphp/tree/v1.11.1"
+                "source": "https://github.com/scssphp/scssphp/tree/v1.12.1"
             },
-            "time": "2023-09-24T13:38:17+00:00"
+            "time": "2024-01-13T12:36:40+00:00"
         },
         {
             "name": "sebastian/cli-parser",
