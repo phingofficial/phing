@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="smarty-test" default="invalid">
+    <target name="invalid">
+        <fail>This file should only be run via a testcase.</fail>
+    </target>
+
+    <property name="tmp.dir" value="tmp"/>
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}"/>
+
+    <target name="setup">
+        <mkdir dir="${tmp.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="testRenderSimpleTemplate">
+        <smarty controlTemplate="test.tpl" compilePath="${tmp.dir.resolved}" outputDirectory="${tmp.dir.resolved}" outputFile="test.txt" templatePath=".">
+        </smarty>
+    </target>
+
+</project>

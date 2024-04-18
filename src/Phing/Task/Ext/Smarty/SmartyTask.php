@@ -30,6 +30,7 @@ use Phing\Project;
 use Phing\Task;
 use Phing\Util\Properties;
 use Phing\Util\StringHelper;
+use Smarty\Smarty;
 
 /**
  * A phing task for generating output by using Smarty.
@@ -127,7 +128,7 @@ class SmartyTask extends Task
      * So initial context values can be set with
      * properties file.
      *
-     * @var array
+     * @var Properties
      */
     protected $contextProperties;
 
@@ -178,14 +179,7 @@ class SmartyTask extends Task
 
     public function init()
     {
-        // This check returns true for smarty 3 and false otherwise.
-        if (stream_resolve_include_path('SmartyBC.class.php')) {
-            include_once 'SmartyBC.class.php';
-        } else {
-            include_once 'Smarty.class.php';
-        }
-
-        if (!class_exists('Smarty')) {
+        if (!class_exists('Smarty\\Smarty')) {
             throw new BuildException("To use SmartyTask, you must have the path to Smarty.class.php on your include_path or your \$PHP_CLASSPATH environment variable.");
         }
     }
@@ -469,7 +463,7 @@ class SmartyTask extends Task
      * fed into the initial context be the
      * generating process starts.
      *
-     * @return \Properties
+     * @return Properties
      */
     public function getContextProperties()
     {
@@ -483,13 +477,13 @@ class SmartyTask extends Task
     /**
      * Creates a Smarty object.
      *
-     * @return \Smarty    initialized (cleared) Smarty context.
+     * @return Smarty    initialized (cleared) Smarty context.
      * @throws \Exception the execute method will catch
      *                   and rethrow as a <code>BuildException</code>
      */
     public function initControlContext()
     {
-        $this->context->clear_all_assign();
+        $this->context->clearAllAssign();
 
         return $this->context;
     }
@@ -526,59 +520,49 @@ class SmartyTask extends Task
 
         // Setup Smarty runtime.
 
-        // Smarty uses one object to store properties and to store
-        // the context for the template (unlike Smarty).  We setup this object, calling it
-        // $this->context, and then initControlContext simply zeros out
-        // any assigned variables.
-        //
-        // Use the smarty backwards compatibility layer if existent.
-        if (class_exists('SmartyBC')) {
-            $this->context = new \SmartyBC();
-        } else {
-            $this->context = new \Smarty();
-        }
+        $this->context = new Smarty();
 
         if ($this->compilePath !== null) {
             $this->log("Using compilePath: " . $this->compilePath);
-            $this->context->compile_dir = $this->compilePath;
+            $this->context->setCompileDir($this->compilePath);
         }
 
         if ($this->configPath !== null) {
             $this->log("Using configPath: " . $this->configPath);
-            $this->context->config_dir = $this->configPath;
+            $this->context->setConfigDir($this->configPath);
         }
 
         if ($this->forceCompile !== null) {
-            $this->context->force_compile = $this->forceCompile;
+            $this->context->setForceCompile($this->forceCompile);
         }
 
         if ($this->leftDelimiter !== null) {
-            $this->context->left_delimiter = $this->leftDelimiter;
+            $this->context->setLeftDelimiter($this->leftDelimiter);
         }
 
         if ($this->rightDelimiter !== null) {
-            $this->context->right_delimiter = $this->rightDelimiter;
+            $this->context->setRightDelimiter($this->rightDelimiter);
         }
 
         if ($this->templatePath !== null) {
             $this->log("Using templatePath: " . $this->templatePath);
-            $this->context->template_dir = $this->templatePath;
+            $this->context->setTemplateDir($this->templatePath);
         }
 
-        $smartyCompilePath = new IOException($this->context->compile_dir);
+        $smartyCompilePath = new File($this->context->getCompileDir());
         if (!$smartyCompilePath->exists()) {
             $this->log(
                 "Compile directory does not exist, creating: " . $smartyCompilePath->getPath(),
                 Project::MSG_VERBOSE
             );
             if (!$smartyCompilePath->mkdirs()) {
-                throw new BuildException("Smarty needs a place to compile templates; specify a 'compilePath' or create " . $this->context->compile_dir);
+                throw new BuildException("Smarty needs a place to compile templates; specify a 'compilePath' or create " . $this->context->getCompileDir());
             }
         }
 
         // Make sure the output directory exists, if it doesn't
         // then create it.
-        $file = new IOException($this->outputDirectory);
+        $file = new File($this->outputDirectory);
         if (!$file->exists()) {
             $this->log("Output directory does not exist, creating: " . $file->getAbsolutePath());
             $file->mkdirs();
@@ -658,11 +642,11 @@ class SmartyTask extends Task
      * <p><code>$generator</code> is not put into the context in this
      * method.</p>
      *
-     * @param    \Smarty $context context to populate, as retrieved from
+     * @param    Smarty $context context to populate, as retrieved from
      * {@link #initControlContext()}.
      * @return   void
      */
-    protected function populateInitialContext(\Smarty $context)
+    protected function populateInitialContext(Smarty $context)
     {
     }
 
