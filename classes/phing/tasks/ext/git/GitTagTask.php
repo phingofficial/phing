@@ -204,7 +204,7 @@ class GitTagTask extends GitBaseTask
         }
 
         if (null !== $this->outputProperty) {
-            $this->project->setProperty($this->outputProperty, $output);
+            $this->project->setProperty($this->outputProperty, trim($output));
         }
 
         $this->log(
