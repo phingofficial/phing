@@ -123,8 +123,13 @@ class FileSystemTest extends TestCase
     protected function resetFileSystem(): void
     {
         $refClass = new ReflectionClass(FileSystem::class);
-        $refProperty = $refClass->getProperty('fs');
-        $refProperty->setAccessible(true);
-        $refProperty->setValue(null);
+
+        if (version_compare(PHP_VERSION, '8.3.0', '>=')) {
+            $refClass->setStaticPropertyValue('fs', null);
+        } else {
+            $refProperty = $refClass->getProperty('fs');
+            $refProperty->setAccessible(true);
+            $refProperty->setValue(null);
+        }
     }
 }
