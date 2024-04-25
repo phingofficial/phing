@@ -2,6 +2,19 @@ P     H     I     N     G
 =========================
 
 
+XXX, 2024 - Phing 3.0.0
+-----------------------
+
+Finally, the first stable release of Phing 3.0 is here!
+
+Please refer to the [upgrade guide](UPGRADING.md) to read all about (backwards incompatible) changes from Phing 2.0 to Phing 3.0.
+
+The following issues and pull requests were closed in this release:
+
+* Property File Loading Order and Variable Reference Issue [\#1784](https://github.com/phingofficial/phing/issues/1784)
+* Found unconstructed IntlDateFormatter [\#1783](https://github.com/phingofficial/phing/issues/1783)
+* Add a passthru attribute to PHPStanTask so it can print errors [\#1767](https://github.com/phingofficial/phing/issues/1767)
+
 Nov 11, 2023 - Phing 3.0.0 rc6
 ------------------------------
 
