@@ -59,6 +59,7 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ${{ matrix.operating-system }}
     continue-on-error: ${{ matrix.experimental }}
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
