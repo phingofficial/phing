@@ -137,7 +137,7 @@ class GitTagTaskTest extends BuildFileTest
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag \'marked\'');
         $this->assertInLogs('git-tag command: LC_ALL=C && git tag -l \'marked\'');
         $this->assertInLogs('git-tag output: marked');
-        $this->assertPropertyEquals('gitLogOutput', 'marked' . "\n");
+        $this->assertPropertyEquals('gitLogOutput', 'marked');
     }
 
     public function testTagWithCommitSet(): void
