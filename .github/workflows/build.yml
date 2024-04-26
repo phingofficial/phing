@@ -59,6 +59,7 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ${{ matrix.operating-system }}
     continue-on-error: ${{ matrix.experimental }}
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -187,6 +188,7 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           files: ./tests/reports/clover-coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
 
       - name: Upload to Scrutinizer
