@@ -65,7 +65,7 @@
         "ext-simplexml": "*",
         "ext-xml": "*",
         "sebastian/version": "^3.0|^4.0",
-        "symfony/console": "^5.0|^6.0",
+        "symfony/console": "^5.3.10|^6.0",
         "symfony/yaml": "^5.0|^6.0"
     },
     "require-dev": {
