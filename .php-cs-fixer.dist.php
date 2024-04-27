@@ -1,8 +1,8 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->in('src/Phing')
-    ->in('tests/Phing')
+    ->in(__DIR__ . '/src/Phing')
+    ->in(__DIR__ . '/tests/Phing')
 ;
 
 $config = new PhpCsFixer\Config();
