@@ -306,6 +306,12 @@ class ZipTask extends MatchingTask
                 if ($f->isDirectory()) {
                     if ($pathInZip != '.') {
                         $zip->addEmptyDir($pathInZip);
+                        $filePerms = fileperms($f->getPath());
+                        if (false !== $filePerms) { // filePerms supported
+                            $dirAttrs = $filePerms << 16;
+                            $dirAttrName = $pathInZip . '/';
+                            $zip->setExternalAttributesName($dirAttrName, \ZipArchive::OPSYS_UNIX, $dirAttrs);
+                        }
                     }
                 } else {
                     $zip->addFile($f->getAbsolutePath(), $pathInZip);
