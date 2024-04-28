@@ -59,6 +59,8 @@ class ZipTask extends MatchingTask
 
     private $ignoreLinks = false;
 
+    private $saveFileAttributes = false;
+
     /**
      * File path prefix in zip archive
      *
@@ -72,6 +74,38 @@ class ZipTask extends MatchingTask
      * @var string $comment
      */
     private $comment = '';
+
+    /**
+     * Propagates the directory's mTime and permissions in the Zip archive if supported.
+     *
+     * @param \ZipArchive $zip       The Zip archive
+     * @param File        $f         The File handle to the directory
+     * @param string      $pathInZip The path of the directory in the Zip archive
+     *
+     * @throws IOException
+     */
+    private static function fixDirAttributes($zip, $f, $pathInZip)
+    {
+        $indexInZip = $zip->locateName('/' === mb_substr($pathInZip, -1) ? $pathInZip : $pathInZip . '/');
+        if (false !== $indexInZip) {
+            $zip->setMtimeIndex($indexInZip, $f->lastModified());
+            $filePerms = fileperms($f->getPath());
+            if (false !== $filePerms) { // filePerms supported
+                $zip->setExternalAttributesIndex($indexInZip, \ZipArchive::OPSYS_DEFAULT, $filePerms << 16);
+            }
+        }
+    }
+    /**
+     * Removes all external attributes from the Zip archive.
+     *
+     * @param \ZipArchive $zip The Zip archive
+     */
+    private static function clearExternalAttributes($zip)
+    {
+        for ($i = 0, $count = $zip->count(); $i < $count; ++$i) {
+            $zip->setExternalAttributesIndex($i, \ZipArchive::OPSYS_DOS, null);
+        }
+    }
 
     /**
      * Add a new fileset.
@@ -148,6 +182,17 @@ class ZipTask extends MatchingTask
     public function setIgnoreLinks($bool)
     {
         $this->ignoreLinks = (bool) $bool;
+    }
+
+    /**
+     * Set the save file attributes flag.
+     *
+     * @param  bool $bool Flag if file attributes should be saved
+     * @return void
+     */
+    public function setSaveFileAttributes($bool)
+    {
+        $this->saveFileAttributes = (bool) $bool;
     }
 
     /**
@@ -236,6 +281,10 @@ class ZipTask extends MatchingTask
 
             $this->addFilesetsToArchive($zip);
 
+            if (!$this->saveFileAttributes) {
+                self::clearExternalAttributes($zip);
+            }
+
             $zip->close();
         } catch (IOException $ioe) {
             $msg = "Problem creating ZIP: " . $ioe->getMessage();
@@ -306,12 +355,7 @@ class ZipTask extends MatchingTask
                 if ($f->isDirectory()) {
                     if ($pathInZip != '.') {
                         $zip->addEmptyDir($pathInZip);
-                        $filePerms = fileperms($f->getPath());
-                        if (false !== $filePerms) { // filePerms supported
-                            $dirAttrs = $filePerms << 16;
-                            $dirAttrName = $pathInZip . '/';
-                            $zip->setExternalAttributesName($dirAttrName, \ZipArchive::OPSYS_UNIX, $dirAttrs);
-                        }
+                        static::fixDirAttributes($zip, $f, $pathInZip);
                     }
                 } else {
                     $zip->addFile($f->getAbsolutePath(), $pathInZip);
