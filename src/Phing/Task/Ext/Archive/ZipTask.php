@@ -88,7 +88,9 @@ class ZipTask extends MatchingTask
     {
         $indexInZip = $zip->locateName('/' === mb_substr($pathInZip, -1) ? $pathInZip : $pathInZip . '/');
         if (false !== $indexInZip) {
-            $zip->setMtimeIndex($indexInZip, $f->lastModified());
+            if (method_exists($zip, 'setMtimeIndex')) { // PHP >= 8.0.0, PECL zip >= 1.16.0
+                $zip->setMtimeIndex($indexInZip, $f->lastModified());
+            }
             $filePerms = fileperms($f->getPath());
             if (false !== $filePerms) { // filePerms supported
                 $zip->setExternalAttributesIndex($indexInZip, \ZipArchive::OPSYS_DEFAULT, $filePerms << 16);
@@ -103,7 +105,7 @@ class ZipTask extends MatchingTask
     private static function clearExternalAttributes($zip)
     {
         for ($i = 0, $count = $zip->count(); $i < $count; ++$i) {
-            $zip->setExternalAttributesIndex($i, \ZipArchive::OPSYS_DOS, null);
+            $zip->setExternalAttributesIndex($i, \ZipArchive::OPSYS_DOS, 0);
         }
     }
 
