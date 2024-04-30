@@ -74,35 +74,16 @@ class ZipTask extends MatchingTask
      * @var string $comment
      */
     private $comment = '';
+    private string $mtimeDummy;
 
-    /**
-     * Propagates the directory's mTime and permissions in the Zip archive if supported.
-     *
-     * @param \ZipArchive $zip       The Zip archive
-     * @param File        $f         The File handle to the directory
-     * @param string      $pathInZip The path of the directory in the Zip archive
-     *
-     * @throws IOException
-     */
-    private static function fixDirAttributes($zip, $f, $pathInZip)
-    {
-        $indexInZip = $zip->locateName('/' === mb_substr($pathInZip, -1) ? $pathInZip : $pathInZip . '/');
-        if (false !== $indexInZip) {
-            if (method_exists($zip, 'setMtimeIndex')) { // PHP >= 8.0.0, PECL zip >= 1.16.0
-                $zip->setMtimeIndex($indexInZip, $f->lastModified());
-            }
-            $filePerms = fileperms($f->getPath());
-            if (false !== $filePerms) { // filePerms supported
-                $zip->setExternalAttributesIndex($indexInZip, \ZipArchive::OPSYS_DEFAULT, $filePerms << 16);
-            }
-        }
-    }
     /**
      * Removes all external attributes from the Zip archive.
      *
      * @param \ZipArchive $zip The Zip archive
+     *
+     * @return void
      */
-    private static function clearExternalAttributes($zip)
+    private static function clearExternalAttributes(\ZipArchive $zip)
     {
         for ($i = 0, $count = $zip->count(); $i < $count; ++$i) {
             $zip->setExternalAttributesIndex($i, \ZipArchive::OPSYS_DOS, 0);
@@ -267,6 +248,10 @@ class ZipTask extends MatchingTask
 
             $this->log("Building zip: " . $this->zipFile->__toString(), Project::MSG_INFO);
 
+            if (false === $this->mtimeDummy = tempnam(sys_get_temp_dir(), 'mtimeDummy')) {
+                throw new Exception('Could not create temp file');
+            }
+
             $zip = new ZipArchive();
             $res = $zip->open($this->zipFile->getAbsolutePath(), ZipArchive::CREATE);
 
@@ -288,6 +273,7 @@ class ZipTask extends MatchingTask
             }
 
             $zip->close();
+            unlink($this->mtimeDummy);
         } catch (IOException $ioe) {
             $msg = "Problem creating ZIP: " . $ioe->getMessage();
             throw new BuildException($msg, $ioe, $this->getLocation());
@@ -356,14 +342,29 @@ class ZipTask extends MatchingTask
 
                 if ($f->isDirectory()) {
                     if ($pathInZip != '.') {
-                        $zip->addEmptyDir($pathInZip);
-                        static::fixDirAttributes($zip, $f, $pathInZip);
+                        $this->addDirToZip($zip, $f->getAbsolutePath(), $pathInZip . '/');
                     }
                 } else {
                     $zip->addFile($f->getAbsolutePath(), $pathInZip);
                 }
                 $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
             }
+        }
+    }
+
+    /**
+     * @param \ZipArchive $zip
+     * @param string      $dirPath
+     * @param string      $entryName
+     *
+     * @return void
+     */
+    private function addDirToZip(\ZipArchive $zip, string $dirPath, string $entryName)
+    {
+        touch($this->mtimeDummy, filemtime($dirPath)); // Save directory's mtime to dummmy
+        $zip->addFile($this->mtimeDummy, $entryName); // Add empty dummy as a directory
+        if (false !== $filePerms = fileperms($dirPath)) { // filePerms supported
+            $zip->setExternalAttributesName($entryName, \ZipArchive::OPSYS_UNIX, $filePerms << 16);
         }
     }
 }
