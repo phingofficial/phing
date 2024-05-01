@@ -2,8 +2,8 @@ P     H     I     N     G
 =========================
 
 
-XXX, 2024 - Phing 3.0.0
------------------------
+May 1, 2024 - Phing 3.0.0
+-------------------------
 
 Finally, the first stable release of Phing 3.0 is here!
 
@@ -11,6 +11,8 @@ Please refer to the [upgrade guide](UPGRADING.md) to read all about (backwards i
 
 The following issues and pull requests were closed in this release:
 
+* Fix(php-cs-fixer.dist.php): Use absolute paths from __DIR__ [\#1819](https://github.com/phingofficial/phing/pull/1819)
+* gitdescribe outputProperty spurious EOL character captured in property [\#1814](https://github.com/phingofficial/phing/issues/1814)
 * Property File Loading Order and Variable Reference Issue [\#1784](https://github.com/phingofficial/phing/issues/1784)
 * Found unconstructed IntlDateFormatter [\#1783](https://github.com/phingofficial/phing/issues/1783)
 * Add a passthru attribute to PHPStanTask so it can print errors [\#1767](https://github.com/phingofficial/phing/issues/1767)
