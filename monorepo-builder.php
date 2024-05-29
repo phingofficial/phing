@@ -16,7 +16,6 @@ return static function (MBConfig $mbConfig): void {
     $mbConfig->disableDefaultWorkers();
     $mbConfig->defaultBranch("main");
     $mbConfig->workers([
-        UpdateReplaceReleaseWorker::class,
         SetCurrentMutualDependenciesReleaseWorker::class,
         TagVersionReleaseWorker::class,
         PushTagReleaseWorker::class,

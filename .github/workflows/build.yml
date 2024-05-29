@@ -36,7 +36,7 @@ jobs:
           coverage: none
           tools: composer:v2
 
-      - uses: ramsey/composer-install@v2
+      - uses: ramsey/composer-install@v3
         with:
           dependency-versions: 'locked'
 
@@ -59,6 +59,7 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ${{ matrix.operating-system }}
     continue-on-error: ${{ matrix.experimental }}
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -81,7 +82,7 @@ jobs:
           extensions: pdo_sqlite,pdo_mysql,sockets,xsl,openssl,zip,fileinfo
           ini-values: phar.readonly=off
 
-      - uses: ramsey/composer-install@v2
+      - uses: ramsey/composer-install@v3
         with:
           dependency-versions: ${{ matrix.dependencies }}
           composer-options: ${{ matrix.composer-options }}
@@ -187,6 +188,7 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           files: ./tests/reports/clover-coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
 
       - name: Upload to Scrutinizer
