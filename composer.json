@@ -9,6 +9,7 @@
         "php",
         "build-tool",
         "build-automation",
+        "dev",
         "ant",
         "make"
     ],
