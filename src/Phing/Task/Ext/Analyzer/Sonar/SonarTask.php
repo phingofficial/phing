@@ -275,7 +275,7 @@ class SonarTask extends Task
 
         $isOk = false;
         foreach ($output as $line) {
-            if (preg_match('/Sonar(Qube )?Scanner \d+\\.\d+/', $line) === 1) {
+            if (preg_match('/Sonar(Qube )?Scanner CLI \d+\\.\d+/', $line) === 1) {
                 $isOk = true;
                 break;
             }
