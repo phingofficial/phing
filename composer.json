@@ -248,10 +248,10 @@
         }
     },
     "suggest": {
-        "ext-gettext": "*",
-        "ext-posix": "*",
-        "ext-sockets": "*",
-        "ext-tidy": "*",
+        "ext-gettext": "Used for gettext translation filter",
+        "ext-posix": "Used for Posix selector and ACLs",
+        "ext-sockets": "Used for the Socket condition",
+        "ext-tidy": "Used for the Tidy filter",
         "aws/aws-sdk-php": "Used for Amazon tasks",
         "guzzlehttp/guzzle": "Used for Http tasks",
         "jawira/plantuml-encoding": "Required by VisualizerTask",
