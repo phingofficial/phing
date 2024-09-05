@@ -81,7 +81,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      * @var bool
      */
     protected $expandSymbolicLinks = false;
-    private $errorOnMissingDir = false;
+    private $errorOnMissingDir = true;
     private $directoryScanner;
 
     /**
@@ -355,6 +355,17 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
+     * Sets whether to fail the build if the base directory does not exist
+     *
+     * @param bool $errorOnMissingDir
+     * @return void
+     */
+    public function setErrorOnMissingDir(bool $errorOnMissingDir)
+    {
+        $this->errorOnMissingDir = $errorOnMissingDir;
+    }
+
+    /**
      * returns a reference to the dirscanner object belonging to this fileset.
      *
      * @param Project $p
@@ -382,7 +393,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
             throw new BuildException('Directory ' . $this->dir->getAbsolutePath() . ' not found.');
         }
         if (!$this->dir->isLink() || !$this->expandSymbolicLinks) {
-            if (!$this->dir->isDirectory()) {
+            if (!$this->dir->isDirectory() && $this->errorOnMissingDir) {
                 throw new BuildException($this->dir->getAbsolutePath() . ' is not a directory.');
             }
         }

@@ -299,6 +299,31 @@ abstract class AbstractFileSetTest extends TestCase
         }
     }
 
+    final public function testDoNotFailBuildOnMissingDir()
+    {
+        /** @var FileSet $f */
+        $f = $this->getInstance();
+
+        $f->setErrorOnMissingDir(false);
+        $f->setProject($this->getProject());
+        $f->setDir($this->getProject()->resolveFile('not_exists'));
+        $ds = $f->getDirectoryScanner();
+        $this->assertEmpty($ds->getIncludedFiles());
+    }
+
+    final public function testFailBuildOnMissingDir()
+    {
+        /** @var FileSet $f */
+        $f = $this->getInstance();
+
+        $f->setErrorOnMissingDir(true);
+        $f->setProject($this->getProject());
+        $f->setDir($this->getProject()->resolveFile('not_exists'));
+
+        $this->expectException(BuildException::class);
+        $ds = $f->getDirectoryScanner();
+    }
+
     abstract protected function getInstance();
 
     final protected function getProject(): Project
