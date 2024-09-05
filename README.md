@@ -139,7 +139,7 @@ Then, perform the following steps (on a clone/fork of Phing):
 
 Proud to use:
 
-[![PhpStorm Logo](http://www.jetbrains.com/phpstorm/documentation/phpstorm_banners/phpstorm1/phpstorm468x60_violet.gif "Proud to use")](http://www.jetbrains.com/phpstorm)
+[![PhpStorm Logo](https://resources.jetbrains.com/storage/products/company/brand/logos/PhpStorm.svg "Proud to use")](https://www.jetbrains.com/phpstorm)
 
 ## Contributing
 
