@@ -181,6 +181,7 @@ class TarTask extends MatchingTask
      * <li>  none - no compression
      * <li>  gzip - Gzip compression
      * <li>  bzip2 - Bzip2 compression
+     * <li>  lzma2 - Lzma2 compression
      * </ul>
      *
      * @param string $mode
