@@ -11,4 +11,10 @@
              match="OldProperty=(.*)"
              replace="NewProperty=\1"/>
     </target>
+    <target name="testFailOnError">
+        <replaceregexp file="nofile"
+             match="OldProperty=(.*)"
+             replace="NewProperty=\1"
+             failonerror="true"/>
+    </target>
 </project>
