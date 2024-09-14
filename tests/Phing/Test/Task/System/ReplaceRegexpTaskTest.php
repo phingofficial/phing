@@ -50,4 +50,13 @@ class ReplaceRegexpTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertStringEqualsFile('test.properties', 'NewProperty=12345');
     }
+
+    public function testFailOnError(): void
+    {
+        $this->expectSpecificBuildException(
+            __FUNCTION__,
+            'failonerror has to fail',
+            "Error reading file: 'filesetwillmostlikelyneversupportthisattribute'"
+        );
+    }
 }
