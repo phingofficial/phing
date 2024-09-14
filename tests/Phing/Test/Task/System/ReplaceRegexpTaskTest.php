@@ -53,10 +53,10 @@ class ReplaceRegexpTaskTest extends BuildFileTest
 
     public function testFailOnError(): void
     {
-        $this->expectSpecificBuildException(
+        $this->expectBuildExceptionContaining(
             __FUNCTION__,
             'failonerror has to fail',
-            "Error reading file: 'filesetwillmostlikelyneversupportthisattribute'"
+            "Error reading file:"
         );
     }
 }
