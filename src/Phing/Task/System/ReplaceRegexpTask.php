@@ -70,7 +70,8 @@ class ReplaceRegexpTask extends Task
     /**
      * If false, note errors but continue.
      */
-    public void setFailOnError($failonerror) {
+    public function setFailOnError($failonerror)
+    {
         $this->failonerror = $failonerror;
     }
 
