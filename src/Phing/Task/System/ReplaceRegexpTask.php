@@ -120,6 +120,7 @@ class ReplaceRegexpTask extends Task
      */
     public function setFlags($flags)
     {
+        $this->regexp->setModifiers($flags);
     }
 
     /**

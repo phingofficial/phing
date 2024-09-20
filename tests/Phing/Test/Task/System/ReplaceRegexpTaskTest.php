@@ -59,4 +59,10 @@ class ReplaceRegexpTaskTest extends BuildFileTest
             "Error reading file:"
         );
     }
+
+    public function testFlags(): void
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertStringEqualsFile('test.properties', 'NewProperty=12345');
+    }
 }
