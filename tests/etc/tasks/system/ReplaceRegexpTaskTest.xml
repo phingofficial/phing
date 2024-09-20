@@ -17,4 +17,10 @@
              replace="NewProperty=\1"
              failonerror="true"/>
     </target>
+    <target name="testFlags">
+        <replaceregexp file="test.properties"
+             match="oLDpROPERTY=(.*)"
+             replace="NewProperty=\1"
+             flags="i"/>
+    </target>
 </project>
