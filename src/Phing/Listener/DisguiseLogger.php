@@ -33,17 +33,29 @@ class DisguiseLogger extends DefaultLogger
         parent::messageLogged($event);
     }
 
-    public function buildStarted(BuildEvent $event) {}
+    public function buildStarted(BuildEvent $event)
+    {
+    }
 
-    public function buildFinished(BuildEvent $event) {}
+    public function buildFinished(BuildEvent $event)
+    {
+    }
 
-    public function targetStarted(BuildEvent $event) {}
+    public function targetStarted(BuildEvent $event)
+    {
+    }
 
-    public function targetFinished(BuildEvent $event) {}
+    public function targetFinished(BuildEvent $event)
+    {
+    }
 
-    public function taskStarted(BuildEvent $event) {}
+    public function taskStarted(BuildEvent $event)
+    {
+    }
 
-    public function taskFinished(BuildEvent $event) {}
+    public function taskFinished(BuildEvent $event)
+    {
+    }
 
     protected function maskUriPassword(BuildEvent $event): void
     {
