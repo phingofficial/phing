@@ -28,4 +28,64 @@ class DisguiseLoggerTest extends TestCase
         $event->setMessage('https://foo:bar@example.com', $event->getPriority());
         $this->assertNull($this->logger->messageLogged($event));
     }
+
+    /**
+     * @test
+     */
+    public function buildStarted()
+    {
+        $event = new BuildEvent(new Project());
+        $event->setMessage('https://foo:bar@example.com', $event->getPriority());
+        $this->assertNull($this->logger->buildStarted($event));
+    }
+
+    /**
+     * @test
+     */
+    public function buildFinished()
+    {
+        $event = new BuildEvent(new Project());
+        $event->setMessage('https://foo:bar@example.com', $event->getPriority());
+        $this->assertNull($this->logger->buildFinished($event));
+    }
+
+    /**
+     * @test
+     */
+    public function targetStarted()
+    {
+        $event = new BuildEvent(new Project());
+        $event->setMessage('https://foo:bar@example.com', $event->getPriority());
+        $this->assertNull($this->logger->targetStarted($event));
+    }
+
+    /**
+     * @test
+     */
+    public function targetFinished()
+    {
+        $event = new BuildEvent(new Project());
+        $event->setMessage('https://foo:bar@example.com', $event->getPriority());
+        $this->assertNull($this->logger->targetFinished($event));
+    }
+
+    /**
+     * @test
+     */
+    public function taskStarted()
+    {
+        $event = new BuildEvent(new Project());
+        $event->setMessage('https://foo:bar@example.com', $event->getPriority());
+        $this->assertNull($this->logger->taskStarted($event));
+    }
+
+    /**
+     * @test
+     */
+    public function taskFinished()
+    {
+        $event = new BuildEvent(new Project());
+        $event->setMessage('https://foo:bar@example.com', $event->getPriority());
+        $this->assertNull($this->logger->taskFinished($event));
+    }
 }
