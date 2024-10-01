@@ -1049,16 +1049,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.322.7",
+            "version": "3.322.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "ea3563a7f10fa562796f712fa306c1dca41a45d7"
+                "reference": "fb5099160e49b676277ae787ff721628e5e4dd5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ea3563a7f10fa562796f712fa306c1dca41a45d7",
-                "reference": "ea3563a7f10fa562796f712fa306c1dca41a45d7",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fb5099160e49b676277ae787ff721628e5e4dd5a",
+                "reference": "fb5099160e49b676277ae787ff721628e5e4dd5a",
                 "shasum": ""
             },
             "require": {
@@ -1141,9 +1141,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.322.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.322.8"
             },
-            "time": "2024-09-27T18:34:08+00:00"
+            "time": "2024-09-30T19:09:25+00:00"
         },
         {
             "name": "clue/ndjson-react",
