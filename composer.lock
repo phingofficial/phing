@@ -1049,16 +1049,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.322.7",
+            "version": "3.322.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "ea3563a7f10fa562796f712fa306c1dca41a45d7"
+                "reference": "0bd7513a7dd9b5330cb92575da99d9057f79b39c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ea3563a7f10fa562796f712fa306c1dca41a45d7",
-                "reference": "ea3563a7f10fa562796f712fa306c1dca41a45d7",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0bd7513a7dd9b5330cb92575da99d9057f79b39c",
+                "reference": "0bd7513a7dd9b5330cb92575da99d9057f79b39c",
                 "shasum": ""
             },
             "require": {
@@ -1141,9 +1141,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.322.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.322.9"
             },
-            "time": "2024-09-27T18:34:08+00:00"
+            "time": "2024-10-01T18:23:10+00:00"
         },
         {
             "name": "clue/ndjson-react",
@@ -1507,16 +1507,16 @@
         },
         {
             "name": "ergebnis/composer-normalize",
-            "version": "2.43.0",
+            "version": "2.44.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/composer-normalize.git",
-                "reference": "4b46330c84bb8f43fac79f5c5a05162fc7c80d75"
+                "reference": "bd0c446426bb837ae0cc9f97948167e658bd11d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/4b46330c84bb8f43fac79f5c5a05162fc7c80d75",
-                "reference": "4b46330c84bb8f43fac79f5c5a05162fc7c80d75",
+                "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/bd0c446426bb837ae0cc9f97948167e658bd11d2",
+                "reference": "bd0c446426bb837ae0cc9f97948167e658bd11d2",
                 "shasum": ""
             },
             "require": {
@@ -1527,20 +1527,20 @@
                 "ext-json": "*",
                 "justinrainbow/json-schema": "^5.2.12",
                 "localheinz/diff": "^1.1.1",
-                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
+                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
             },
             "require-dev": {
                 "composer/composer": "^2.7.7",
-                "ergebnis/license": "^2.4.0",
-                "ergebnis/php-cs-fixer-config": "^6.30.1",
-                "ergebnis/phpunit-slow-test-detector": "^2.14.0",
+                "ergebnis/license": "^2.5.0",
+                "ergebnis/php-cs-fixer-config": "^6.37.0",
+                "ergebnis/phpunit-slow-test-detector": "^2.16.0",
                 "fakerphp/faker": "^1.23.1",
                 "infection/infection": "~0.26.6",
-                "phpunit/phpunit": "^9.6.19",
+                "phpunit/phpunit": "^9.6.20",
                 "psalm/plugin-phpunit": "~0.19.0",
-                "rector/rector": "^1.1.0",
-                "symfony/filesystem": "^5.4.40",
-                "vimeo/psalm": "^5.24.0"
+                "rector/rector": "^1.2.5",
+                "symfony/filesystem": "^5.4.41",
+                "vimeo/psalm": "^5.26.1"
             },
             "type": "composer-plugin",
             "extra": {
@@ -1580,7 +1580,7 @@
                 "security": "https://github.com/ergebnis/composer-normalize/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/composer-normalize"
             },
-            "time": "2024-06-16T13:22:18+00:00"
+            "time": "2024-09-30T21:56:22+00:00"
         },
         {
             "name": "ergebnis/json",
@@ -3019,16 +3019,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.2.0",
+            "version": "v5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb"
+                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
-                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/3abf7425cd284141dc5d8d14a9ee444de3345d1a",
+                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a",
                 "shasum": ""
             },
             "require": {
@@ -3071,9 +3071,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.2.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.0"
             },
-            "time": "2024-09-15T16:40:33+00:00"
+            "time": "2024-09-29T13:56:26+00:00"
         },
         {
             "name": "pdepend/pdepend",
@@ -5312,12 +5312,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "e575df03927277be35e76086cdf41d54f4340767"
+                "reference": "6f63660a573ec1e6d48d54ff7c44dfb1e303f30d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e575df03927277be35e76086cdf41d54f4340767",
-                "reference": "e575df03927277be35e76086cdf41d54f4340767",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6f63660a573ec1e6d48d54ff7c44dfb1e303f30d",
+                "reference": "6f63660a573ec1e6d48d54ff7c44dfb1e303f30d",
                 "shasum": ""
             },
             "conflict": {
@@ -5500,6 +5500,8 @@
                 "feehi/cms": "<=2.1.1",
                 "feehi/feehicms": "<=2.1.1",
                 "fenom/fenom": "<=2.12.1",
+                "filament/infolists": ">=3,<3.2.115",
+                "filament/tables": ">=3,<3.2.115",
                 "filegator/filegator": "<7.8",
                 "filp/whoops": "<2.1.13",
                 "fineuploader/php-traditional-server": "<=1.2.2",
@@ -5657,7 +5659,7 @@
                 "magneto/core": "<1.9.4.4-dev",
                 "maikuolan/phpmussel": ">=1,<1.6",
                 "mainwp/mainwp": "<=4.4.3.3",
-                "mantisbt/mantisbt": "<2.26.2",
+                "mantisbt/mantisbt": "<=2.26.3",
                 "marcwillmann/turn": "<0.3.3",
                 "matyhtf/framework": "<3.0.6",
                 "mautic/core": "<4.4.13|>=5,<5.1.1",
@@ -5891,6 +5893,7 @@
                 "spoonity/tcpdf": "<6.2.22",
                 "squizlabs/php_codesniffer": ">=1,<2.8.1|>=3,<3.0.1",
                 "ssddanbrown/bookstack": "<24.05.1",
+                "starcitizentools/citizen-skin": ">=2.6.3,<2.31",
                 "statamic/cms": "<4.46|>=5.3,<5.6.2",
                 "stormpath/sdk": "<9.9.99",
                 "studio-42/elfinder": "<=2.1.64",
@@ -6128,7 +6131,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-26T18:06:24+00:00"
+            "time": "2024-09-30T18:06:02+00:00"
         },
         {
             "name": "scssphp/scssphp",
