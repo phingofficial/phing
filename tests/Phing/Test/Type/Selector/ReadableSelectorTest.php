@@ -23,18 +23,18 @@ namespace Phing\Test\Type\Selector;
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Class ReadWriteTest.
+ * Class ReadableSelectorTest.
  *
- * Test cases for isReadable/isWritable selectors.
+ * Test cases for isReadable selectors.
  *
  * @internal
  */
-class ReadWriteTest extends BuildFileTest
+class ReadableSelectorTest extends BuildFileTest
 {
     public function setUp(): void
     {
         $this->configureProject(
-            PHING_TEST_BASE . '/etc/types/selectors/ReadWriteTest.xml'
+            PHING_TEST_BASE . '/etc/types/selectors/ReadableSelectorTest.xml'
         );
         $this->executeTarget('setup');
     }
@@ -47,27 +47,6 @@ class ReadWriteTest extends BuildFileTest
     public function testReadable(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $project = $this->getProject();
-        $output = $project->getProperty('output');
-        $file = $project->getProperty('file');
-        $this->assertTrue(is_readable(sprintf('%s/%s', $output, $file)));
-    }
-
-    public function testWritable(): void
-    {
-        $this->executeTarget(__FUNCTION__);
-        $project = $this->getProject();
-        $output = $project->getProperty('output');
-        $file = $project->getProperty('file');
-        $this->assertTrue(is_writable(sprintf('%s/%s', $output, $file)));
-    }
-
-    public function testUnwritable(): void
-    {
-        $this->executeTarget(__FUNCTION__);
-        $project = $this->getProject();
-        $output = $project->getProperty('output');
-        $file = $project->getProperty('file');
-        $this->assertFalse(is_writable(sprintf('%s/%s', $output, $file)));
+        $this->assertPropertySet('selected');
     }
 }

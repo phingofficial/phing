@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test" basedir="." default="main">
+
+  <property name="tmp.dir" value="tmp/selector"/>
+  <property name="output" value="${tmp.dir}/testoutput"/>
+
+  <property name="file" value="testfile"/>
+
+  <condition property="unix">
+    <os family="unix"/>
+  </condition>
+
+  <condition property="windows">
+    <os family="windows"/>
+  </condition>
+
+  <target name="setup">
+    <mkdir dir="${output}"/>
+  </target>
+
+  <target name="unix-clean" unless="windows">
+    <chmod file="${output}/${file}" mode="777"/>
+    <delete file="${output}"/>
+  </target>
+
+  <target name="win-clean" unless="unix">
+    <attrib file="${output}/${file}" readonly="false"/>
+    <delete file="${output}"/>
+  </target>
+
+  <target name="clean" depends="unix-clean,win-clean"/>
+
+  <target name="createTestdir">
+    <mkdir dir="${output}"/>
+    <touch file="${output}/${file}"/>
+  </target>
+
+  <target name="testReadable" depends="createTestdir">
+    <condition property="selected">
+      <isfileselected file="${output}/${file}">
+        <readable/>
+      </isfileselected>
+    </condition>
+  </target>
+
+  <target name="main">
+    <echo msg="This test build file is not executable."/>
+  </target>
+</project>
