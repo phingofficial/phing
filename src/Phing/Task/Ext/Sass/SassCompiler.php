@@ -49,18 +49,11 @@ class SassCompiler implements SassTaskCompiler
      */
     public function compile(string $inputFilePath, string $outputFilePath, bool $failOnError): void
     {
-        try {
-            $output = $this->executeCommand($inputFilePath, $outputFilePath);
-            if ($failOnError && $output[0] !== 0) {
-                throw new BuildException(
-                    "Result returned as not 0. Result: {$output[0]}",
-                    Project::MSG_INFO
-                );
-            }
-        } catch (Exception $e) {
-            if ($failOnError) {
-                throw new BuildException($e);
-            }
+        list($return, $output) = $this->executeCommand($inputFilePath, $outputFilePath);
+        if ($failOnError && $return !== 0) {
+            throw new BuildException(
+                "Sass exited with return code {$return} and message '{$output[0]}'"
+            );
         }
     }
 
