@@ -438,12 +438,12 @@ class Path extends DataType
      * Overrides the version of DataType to recurse on all DataType
      * child elements that may have been added.
      *
-     * @param array   $stk
-     * @param Project $p
+     * @param array        $stk
+     * @param Project|null $p
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, Project $p = null)
+    public function dieOnCircularReference(&$stk, ?Project $p = null)
     {
         if ($this->checked) {
             return;

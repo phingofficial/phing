@@ -175,11 +175,11 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     }
 
     /**
-     * @param Project $p
+     * @param Project|null $p
      *
      * @throws BuildException
      */
-    public function getDir(Project $p = null)
+    public function getDir(?Project $p = null)
     {
         if (null === $p) {
             $p = $this->getProject();
@@ -368,13 +368,13 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * returns a reference to the dirscanner object belonging to this fileset.
      *
-     * @param Project $p
+     * @param Project|null $p
      *
      * @throws BuildException
      *
      * @return DirectoryScanner
      */
-    public function getDirectoryScanner(Project $p = null)
+    public function getDirectoryScanner(?Project $p = null)
     {
         if (null === $p) {
             $p = $this->getProject();
@@ -406,7 +406,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
         return $ds;
     }
 
-    public function dieOnCircularReference(&$stk, Project $p = null)
+    public function dieOnCircularReference(&$stk, ?Project $p = null)
     {
         if ($this->checked) {
             return;
@@ -572,11 +572,11 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
     /**
      * feed dirscanner with infos defined by this fileset.
      *
-     * @param Project $p
+     * @param Project|null $p
      *
      * @throws BuildException
      */
-    protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p = null)
+    protected function setupDirectoryScanner(DirectoryScanner $ds, ?Project $p = null)
     {
         if (null === $p) {
             $p = $this->getProject();

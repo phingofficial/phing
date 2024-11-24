@@ -137,7 +137,7 @@ class ComponentHelper
         }
     }
 
-    public static function getElementName(Project $p = null, $o = null, $brief = false)
+    public static function getElementName(?Project $p = null, $o = null, $brief = false)
     {
         return null === $p
             ? self::getUnmappedElementName($o, $brief)

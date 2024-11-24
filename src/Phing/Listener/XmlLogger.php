@@ -139,7 +139,7 @@ class XmlLogger implements BuildLogger
     /**
      *  Constructs a new BuildListener that logs build events to an XML file.
      */
-    public function __construct(Clock $clock = null)
+    public function __construct(?Clock $clock = null)
     {
         if (null === $clock) {
             $this->clock = new DefaultClock();

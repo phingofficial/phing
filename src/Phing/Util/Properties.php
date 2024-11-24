@@ -52,10 +52,10 @@ class Properties
     /**
      * Constructor.
      *
-     * @param array               $properties
-     * @param FileParserInterface $fileParser
+     * @param array                    $properties
+     * @param FileParserInterface|null $fileParser
      */
-    public function __construct($properties = null, FileParserInterface $fileParser = null)
+    public function __construct($properties = null, ?FileParserInterface $fileParser = null)
     {
         $this->fileParser = null == $fileParser ? new IniFileParser() : $fileParser;
 
@@ -103,12 +103,12 @@ class Properties
     /**
      * Stores current properties to specified file.
      *
-     * @param File   $file   file to create/overwrite with properties
-     * @param string $header header text that will be placed (within comments) at the top of properties file
+     * @param File|null $file   file to create/overwrite with properties
+     * @param string    $header header text that will be placed (within comments) at the top of properties file
      *
      * @throws IOException - on error writing properties file
      */
-    public function store(File $file = null, $header = null)
+    public function store(?File $file = null, $header = null)
     {
         if (null == $file) {
             $file = $this->file;

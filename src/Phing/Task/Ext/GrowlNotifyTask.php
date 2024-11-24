@@ -79,9 +79,9 @@ class GrowlNotifyTask extends Task
     /**
      * Initializes task with default options.
      *
-     * @param Net_Growl $growl (optional) mock instance
+     * @param Net_Growl|null $growl (optional) mock instance
      */
-    public function __construct(Net_Growl $growl = null)
+    public function __construct(?Net_Growl $growl = null)
     {
         parent::__construct();
         $this->growl = $growl;

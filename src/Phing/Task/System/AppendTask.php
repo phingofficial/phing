@@ -371,11 +371,11 @@ class AppendTask extends Task
     /**
      * Append an array of files in a directory.
      *
-     * @param Writer $writer the FileWriter that is appending to target file
-     * @param array  $files  array of files to delete; can be of zero length
-     * @param File   $dir    directory to work from
+     * @param Writer    $writer the FileWriter that is appending to target file
+     * @param array     $files  array of files to delete; can be of zero length
+     * @param File|null $dir    directory to work from
      */
-    private function appendFiles(Writer $writer, $files, File $dir = null): void
+    private function appendFiles(Writer $writer, $files, ?File $dir = null): void
     {
         if (!empty($files)) {
             $this->log(

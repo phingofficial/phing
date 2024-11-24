@@ -78,9 +78,9 @@ class ConcatFilter extends BaseParamFilterReader implements ChainableReader
     private $appendReader;
 
     /**
-     * @param Reader $in
+     * @param Reader|null $in
      */
-    public function __construct(Reader $in = null)
+    public function __construct(?Reader $in = null)
     {
         parent::__construct($in);
     }
