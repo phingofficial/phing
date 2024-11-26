@@ -1,22 +1,20 @@
 {
     "name": "phing/task-smarty",
     "description": "A task for generating output by using Smarty.",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "license": "LGPL-3.0-only",
-    "type": "phing-extension",
     "authors": [
         {
             "name": "Siad Ardroumli",
             "email": "siad.ardroumli@gmail.com"
         }
     ],
+    "type": "phing-extension",
     "require": {
         "php": ">= 7.4"
     },
     "require-dev": {
         "phing/phing": "3.0.x-dev",
-        "smarty/smarty": "^3.1"
+        "smarty/smarty": "^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -27,5 +25,7 @@
         "phing-custom-taskdefs": {
             "smarty": "Phing\\Task\\Ext\\Smarty\\SmartyTask"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
