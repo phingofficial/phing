@@ -7191,16 +7191,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v5.4.1",
+            "version": "v5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "cd58df7a2603b7d925e5db5c9d50f10987695fd3"
+                "reference": "642a97adcc2bf6c1b2458d6afeeb36ae001c1c2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/cd58df7a2603b7d925e5db5c9d50f10987695fd3",
-                "reference": "cd58df7a2603b7d925e5db5c9d50f10987695fd3",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/642a97adcc2bf6c1b2458d6afeeb36ae001c1c2f",
+                "reference": "642a97adcc2bf6c1b2458d6afeeb36ae001c1c2f",
                 "shasum": ""
             },
             "require": {
@@ -7255,9 +7255,9 @@
             "support": {
                 "forum": "https://github.com/smarty-php/smarty/discussions",
                 "issues": "https://github.com/smarty-php/smarty/issues",
-                "source": "https://github.com/smarty-php/smarty/tree/v5.4.1"
+                "source": "https://github.com/smarty-php/smarty/tree/v5.4.2"
             },
-            "time": "2024-08-29T23:10:45+00:00"
+            "time": "2024-11-20T21:18:16+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
