@@ -198,7 +198,7 @@ jobs:
 
   build_docker_image:
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'phingofficial' && github.event_name != 'pull_request' }}
+    if: ${{ github.actor != 'dependabot[bot]' && github.repository_owner == 'phingofficial' && github.event_name != 'pull_request' }}
     needs:
       - test
     steps:
