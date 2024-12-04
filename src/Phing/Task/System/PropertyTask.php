@@ -113,9 +113,9 @@ class PropertyTask extends Task
     private $required = false;
 
     /**
-     * @param FileParserFactoryInterface $fileParserFactory
+     * @param FileParserFactoryInterface|null $fileParserFactory
      */
-    public function __construct(FileParserFactoryInterface $fileParserFactory = null)
+    public function __construct(?FileParserFactoryInterface $fileParserFactory = null)
     {
         parent::__construct();
         $this->fileParserFactory = $fileParserFactory ?? new FileParserFactory();

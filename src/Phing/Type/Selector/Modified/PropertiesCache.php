@@ -50,9 +50,9 @@ class PropertiesCache implements Cache
     /**
      * Constructor.
      *
-     * @param File $cachefile set the cachefile
+     * @param File|null $cachefile set the cachefile
      */
-    public function __construct(File $cachefile = null)
+    public function __construct(?File $cachefile = null)
     {
         $this->cache = new Properties();
         $this->cachefile = $cachefile;

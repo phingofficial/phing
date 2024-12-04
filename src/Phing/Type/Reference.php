@@ -89,7 +89,7 @@ class Reference
      *
      * @return object
      */
-    public function getReferencedObject(Project $fallback = null)
+    public function getReferencedObject(?Project $fallback = null)
     {
         $project = $fallback ?? $this->project;
 

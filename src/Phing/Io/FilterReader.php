@@ -31,9 +31,9 @@ class FilterReader extends Reader
     protected $in;
 
     /**
-     * @param Reader $in
+     * @param Reader|null $in
      */
-    public function __construct(Reader $in = null)
+    public function __construct(?Reader $in = null)
     {
         $this->in = $in;
     }

@@ -457,7 +457,7 @@ class ApplyTaskTest extends BuildFileTest
      *
      * @throws ReflectionException
      */
-    protected function assertAttributeIsSetTo(string $property, $value, string $propertyName = null): void
+    protected function assertAttributeIsSetTo(string $property, $value, ?string $propertyName = null): void
     {
         $task = $this->getConfiguredTask('testPropertySet' . ucfirst($property), ApplyTask::class);
 

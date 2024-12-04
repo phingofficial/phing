@@ -87,11 +87,11 @@ class Phing
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <project name="" description="" default="">
-            
+
             <target name="" description="">
-                
+
             </target>
-            
+
         </project>
         XML;
     public const PHING_HOME = 'phing.home';
@@ -248,17 +248,17 @@ class Phing
      *
      * This method encapsulates the complete build lifecycle.
      *
-     * @param array $args                     the commandline args passed to phing shell script
-     * @param array $additionalUserProperties Any additional properties to be passed to Phing (alternative front-end might implement this).
-     *                                        These additional properties will be available using the getDefinedProperty() method and will
-     *                                        be added to the project's "user" properties
+     * @param array      $args                     the commandline args passed to phing shell script
+     * @param array|null $additionalUserProperties Any additional properties to be passed to Phing (alternative front-end might implement this).
+     *                                             These additional properties will be available using the getDefinedProperty() method and will
+     *                                             be added to the project's "user" properties
      *
      * @throws Exception - if there is an error during build
      *
      * @see    runBuild()
      * @see    execute()
      */
-    public static function start($args, array $additionalUserProperties = null)
+    public static function start($args, ?array $additionalUserProperties = null)
     {
         try {
             $m = new self();
