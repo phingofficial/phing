@@ -5956,6 +5956,9 @@
                     <attribute name="replace"/>
                     <attribute name="flags"/>
                     <attribute name="byLine"/>
+                    <attribute name="failonerror" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
                 </optional>
             </interleave>
         </element>

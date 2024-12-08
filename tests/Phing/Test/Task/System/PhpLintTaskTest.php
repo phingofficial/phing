@@ -55,22 +55,6 @@ class PhpLintTaskTest extends BuildFileTest
         $this->assertInLogs('syntax error');
     }
 
-    /**
-     * Regression test for ticket http://www.phing.info/trac/ticket/590.
-     *
-     * @requires PHP < 7.0
-     */
-    public function testDeprecated(): void
-    {
-        file_put_contents(
-            PHING_TEST_BASE . '/tmp/phplint_file.php',
-            '<?php class TestClass {}; $t = & new TestClass();'
-        );
-
-        $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('Assigning the return value of new by reference is deprecated in');
-    }
-
     public function testHaltOnFailure(): void
     {
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world; ?>");

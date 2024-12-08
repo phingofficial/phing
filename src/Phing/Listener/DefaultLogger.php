@@ -108,7 +108,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Construct a new default logger.
      */
-    public function __construct(Clock $clock = null)
+    public function __construct(?Clock $clock = null)
     {
         $this->projectTimerMap = new ProjectTimerMap();
         if (null === $clock) {

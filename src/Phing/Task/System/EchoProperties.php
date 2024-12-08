@@ -381,13 +381,13 @@ class EchoProperties extends Task
     }
 
     /**
-     * @param Exception $exception
-     * @param string    $message
-     * @param int       $level
+     * @param Exception|null $exception
+     * @param string         $message
+     * @param int            $level
      *
      * @throws BuildException
      */
-    private function failOnErrorAction(Exception $exception = null, $message = '', $level = Project::MSG_INFO)
+    private function failOnErrorAction(?Exception $exception = null, $message = '', $level = Project::MSG_INFO)
     {
         if ($this->failonerror) {
             throw new BuildException(

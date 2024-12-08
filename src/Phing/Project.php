@@ -838,11 +838,11 @@ class Project
     /**
      * Helper function.
      *
-     * @param File $rootDir
+     * @param File|null $rootDir
      *
      * @throws IOException
      */
-    public function resolveFile(string $fileName, File $rootDir = null): File
+    public function resolveFile(string $fileName, ?File $rootDir = null): File
     {
         if (null === $rootDir) {
             return $this->fileUtils->resolveFile($this->basedir, $fileName);
@@ -999,7 +999,7 @@ class Project
      * @param int    $level
      * @param mixed  $obj
      */
-    public function logObject($obj, $msg, $level, Exception $t = null)
+    public function logObject($obj, $msg, $level, ?Exception $t = null)
     {
         $this->fireMessageLogged($obj, $msg, $level, $t);
 
@@ -1128,14 +1128,14 @@ class Project
     }
 
     /**
-     * @param string    $message
-     * @param int       $priority
-     * @param Exception $t
-     * @param mixed     $object
+     * @param string         $message
+     * @param int            $priority
+     * @param Exception|null $t
+     * @param mixed          $object
      *
      * @throws Exception
      */
-    public function fireMessageLogged($object, $message, $priority, Exception $t = null)
+    public function fireMessageLogged($object, $message, $priority, ?Exception $t = null)
     {
         $event = new BuildEvent($object);
         if (null !== $t) {

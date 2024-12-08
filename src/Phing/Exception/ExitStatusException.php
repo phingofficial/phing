@@ -39,9 +39,9 @@ class ExitStatusException extends BuildException
      *
      * @param null|int|string $arg1
      * @param int             $arg2
-     * @param Location        $arg3
+     * @param Location|null   $arg3
      */
-    public function __construct($arg1 = null, $arg2 = 0, Location $arg3 = null)
+    public function __construct($arg1 = null, $arg2 = 0, ?Location $arg3 = null)
     {
         $methodArgsNum = func_num_args();
         if (1 === $methodArgsNum) {

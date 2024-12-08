@@ -18,24 +18,23 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Test\Task\System;
+namespace Phing\Test\Type\Selector;
 
 use Phing\Test\Support\BuildFileTest;
 
 /**
- * Test ReplaceRegexpTask.
+ * Class ReadableSelectorTest.
  *
- * @author Siad Ardroumli <siad.ardroumli@gmail.com>
+ * Test cases for isReadable selectors.
  *
  * @internal
  */
-class ReplaceRegexpTaskTest extends BuildFileTest
+class WritableSelectorTest extends BuildFileTest
 {
     public function setUp(): void
     {
         $this->configureProject(
-            PHING_TEST_BASE
-            . '/etc/tasks/system/ReplaceRegexpTaskTest.xml'
+            PHING_TEST_BASE . '/etc/types/selectors/WritableSelectorTest.xml'
         );
         $this->executeTarget('setup');
     }
@@ -45,24 +44,18 @@ class ReplaceRegexpTaskTest extends BuildFileTest
         $this->executeTarget('clean');
     }
 
-    public function testReplaceRegexp(): void
+    public function testWritable(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertStringEqualsFile('test.properties', 'NewProperty=12345');
+        $this->assertPropertySet('selected');
     }
 
-    public function testFailOnError(): void
-    {
-        $this->expectBuildExceptionContaining(
-            __FUNCTION__,
-            'failonerror has to fail',
-            "Error reading file:"
-        );
-    }
-
-    public function testFlags(): void
+    public function testUnwritable(): void
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertStringEqualsFile('test.properties', 'NewProperty=12345');
+        $project = $this->getProject();
+        $output = $project->getProperty('output');
+        $file = $project->getProperty('file');
+        $this->assertIsNotWritable(sprintf('%s/%s', $output, $file));
     }
 }

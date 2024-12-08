@@ -12,6 +12,9 @@ checks:
     duplication: false
 
 build:
+  dependencies:
+    override:
+      - COMPOSER_PROCESS_TIMEOUT=2000 composer install --no-interaction
   environment:
     timezone: UTC
     php:

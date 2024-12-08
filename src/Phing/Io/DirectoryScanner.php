@@ -480,11 +480,12 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     public function scan()
     {
+        $this->clearResults();
+        $exception = null;
+
         if (empty($this->basedir)) {
             return false;
         }
-
-        $exception = null;
 
         if (!@file_exists($this->basedir)) {
             if ($this->errorOnMissingDir) {
@@ -510,15 +511,6 @@ class DirectoryScanner implements FileScanner, SelectorScanner
         if (null === $this->excludes) {
             $this->excludes = [];
         }
-
-        $this->filesIncluded = [];
-        $this->filesNotIncluded = [];
-        $this->filesExcluded = [];
-        $this->dirsIncluded = [];
-        $this->dirsNotIncluded = [];
-        $this->dirsExcluded = [];
-        $this->dirsDeselected = [];
-        $this->filesDeselected = [];
 
         if ($this->isIncluded('')) {
             if (!$this->isExcluded('')) {
@@ -965,5 +957,20 @@ class DirectoryScanner implements FileScanner, SelectorScanner
                 }
             }
         }
+    }
+
+    /**
+     * @return void
+     */
+    private function clearResults(): void
+    {
+        $this->filesIncluded = [];
+        $this->filesNotIncluded = [];
+        $this->filesExcluded = [];
+        $this->dirsIncluded = [];
+        $this->dirsNotIncluded = [];
+        $this->dirsExcluded = [];
+        $this->dirsDeselected = [];
+        $this->filesDeselected = [];
     }
 }

@@ -469,6 +469,8 @@ class ExecTask extends Task
      */
     protected function buildCommand()
     {
+        $this->realCommand = '';
+
         if (null !== $this->error) {
             $this->realCommand .= ' 2> ' . escapeshellarg($this->error->getPath());
             $this->log(
