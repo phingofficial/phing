@@ -462,7 +462,7 @@ class FileUtils
     public function createTempFile(
         $prefix,
         $suffix,
-        File $parentDir = null,
+        ?File $parentDir = null,
         $deleteOnExit = false,
         $createFile = false
     ): File {
