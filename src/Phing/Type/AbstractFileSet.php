@@ -316,7 +316,7 @@ abstract class AbstractFileSet extends DataType implements SelectorContainer, It
      *
      * @throws BuildException
      */
-    public function setExcludesfile($excl)
+    public function setExcludesfile(File $excl)
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
