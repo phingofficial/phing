@@ -412,7 +412,7 @@ class PropertyTask extends Task
             $prefix .= '.';
         }
         $this->log("Loading Environment {$prefix}", Project::MSG_VERBOSE);
-        foreach ($_ENV as $key => $value) {
+        foreach (getenv() as $key => $value) {
             $props->setProperty($prefix . '.' . $key, $value);
         }
         $this->addProperties($props);
