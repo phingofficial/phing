@@ -2663,26 +2663,24 @@
         },
         {
             "name": "jawira/plantuml-encoding",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jawira/plantuml-encoding.git",
-                "reference": "cec097dfc062e7e13655d9594eacce5f9df639ad"
+                "reference": "fe8bce2d7ff5bb5cccf374349999cef7d6246a32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jawira/plantuml-encoding/zipball/cec097dfc062e7e13655d9594eacce5f9df639ad",
-                "reference": "cec097dfc062e7e13655d9594eacce5f9df639ad",
+                "url": "https://api.github.com/repos/jawira/plantuml-encoding/zipball/fe8bce2d7ff5bb5cccf374349999cef7d6246a32",
+                "reference": "fe8bce2d7ff5bb5cccf374349999cef7d6246a32",
                 "shasum": ""
             },
             "require": {
                 "ext-zlib": "*",
-                "php": ">=7.0"
+                "php": ">=7.4"
             },
             "require-dev": {
-                "jawira/skeleton": "^2.14",
-                "phpstan/phpstan": "^1.0",
-                "vimeo/psalm": "^4.0"
+                "phpstan/phpstan": "^2"
             },
             "type": "library",
             "autoload": {
@@ -2710,9 +2708,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jawira/plantuml-encoding/issues",
-                "source": "https://github.com/jawira/plantuml-encoding/tree/v1.1.0"
+                "source": "https://github.com/jawira/plantuml-encoding/tree/v1.1.1"
             },
-            "time": "2022-05-31T18:58:21+00:00"
+            "time": "2024-12-22T17:49:30+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
