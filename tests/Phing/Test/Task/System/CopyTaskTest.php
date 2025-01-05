@@ -35,7 +35,7 @@ class CopyTaskTest extends BuildFileTest
     {
         $this->configureProject(
             PHING_TEST_BASE
-            . '/etc/tasks/system/CopyTaskTest.xml'
+            . '/etc/tasks/system/CopyTask/CopyTaskTest.xml'
         );
         $this->executeTarget('setup');
     }
@@ -90,11 +90,26 @@ class CopyTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Copying 1 file to');
-        $this->assertEquals('tmp/target-a', readlink(PHING_TEST_BASE . '/etc/tasks/system/tmp/link-b'));
+        $this->assertEquals('tmp/target-a', readlink(PHING_TEST_BASE . '/etc/tasks/system/CopyTask/tmp/link-b'));
     }
 
     public function testGranularity(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'Test omitted, Test is up to date');
+    }
+
+    public function testFilesetFiles(): void
+    {
+        $destinationDir = PHING_TEST_BASE . '/etc/tasks/system/CopyTask/tmp/destination';
+        $this->assertDirectoryDoesNotExist($destinationDir);
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists("$destinationDir/Foo/Foo.php");
+        $this->assertFileExists("$destinationDir/Bar/Bar.php");
+        $this->assertFileExists("$destinationDir/Baz/Baz.php");
+        $this->assertFileExists("$destinationDir/Qux/Qux.php");
+        $this->assertFileDoesNotExist("$destinationDir/Foo/FooTest.php");
+        $this->assertFileDoesNotExist("$destinationDir/Bar/BarTest.php");
+        $this->assertFileDoesNotExist("$destinationDir/Baz/BazTest.php");
+        $this->assertFileDoesNotExist("$destinationDir/Qux/QuxTest.php");
     }
 }
