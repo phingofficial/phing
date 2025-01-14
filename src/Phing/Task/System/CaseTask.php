@@ -30,9 +30,9 @@ class CaseTask extends SequentialTask
     private $value;
 
     /**
-     * @param mixed $value
+     * @param string $value
      */
-    public function setValue($value): void
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
