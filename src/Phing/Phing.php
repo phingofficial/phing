@@ -614,7 +614,7 @@ class Phing
             if (null === $versionPath) {
                 throw new ConfigurationException('No VERSION.TXT file found; try setting phing.home environment variable.');
             }
-    
+
             try { // try to read file
                 $file = new File($versionPath);
                 $reader = new FileReader($file);
@@ -622,9 +622,9 @@ class Phing
             } catch (IOException $iox) {
                 throw new ConfigurationException("Can't read version information file");
             }
-    
+
             $basePath = dirname(__DIR__, 2);
-    
+
             $version = new Version($phingVersion, $basePath);
             self::$phingShortVersion = (method_exists($version, 'asString') ? $version->asString() : $version->getVersion());
 
