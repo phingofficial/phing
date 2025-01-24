@@ -113,6 +113,14 @@ class Phing
      */
     private static $importPaths;
     /**
+     * Cache of the Phing version information when it has been loaded.
+     */
+    private static $phingVersion;
+    /**
+     * Cache of the short Phing version information when it has been loaded.
+     */
+    private static $phingShortVersion;
+    /**
      * System-wide static properties (moved from System).
      */
     private static $properties = [];
@@ -590,33 +598,56 @@ class Phing
     }
 
     /**
-     * Gets the current Phing version based on VERSION.TXT file.
+     * Gets the current Phing version based on VERSION.TXT file. Once the information
+     * has been loaded once, it's cached and returned from the cache on future
+     * calls.
      *
      * @throws ConfigurationException
      */
     public static function getPhingVersion(): string
     {
-        $versionPath = self::getResourcePath('phing/etc/VERSION.TXT');
-        if (null === $versionPath) {
-            $versionPath = self::getResourcePath('etc/VERSION.TXT');
+        if (self::$phingVersion === null) {
+            $versionPath = self::getResourcePath('phing/etc/VERSION.TXT');
+            if (null === $versionPath) {
+                $versionPath = self::getResourcePath('etc/VERSION.TXT');
+            }
+            if (null === $versionPath) {
+                throw new ConfigurationException('No VERSION.TXT file found; try setting phing.home environment variable.');
+            }
+
+            try { // try to read file
+                $file = new File($versionPath);
+                $reader = new FileReader($file);
+                $phingVersion = trim($reader->read());
+            } catch (IOException $iox) {
+                throw new ConfigurationException("Can't read version information file");
+            }
+
+            $basePath = dirname(__DIR__, 2);
+
+            $version = new Version($phingVersion, $basePath);
+            self::$phingShortVersion = (method_exists($version, 'asString') ? $version->asString() : $version->getVersion());
+
+            self::$phingVersion = 'Phing ' . self::$phingShortVersion;
         }
-        if (null === $versionPath) {
-            throw new ConfigurationException('No VERSION.TXT file found; try setting phing.home environment variable.');
+        return self::$phingVersion;
+    }
+
+    /**
+     * Returns the short Phing version information, if available. Once the information
+     * has been loaded once, it's cached and returned from the cache on future
+     * calls.
+     *
+     * @return the short Phing version information as a string
+     *
+     * @throws ConfigurationException
+     */
+    public static function getPhingShortVersion(): string
+    {
+        if (self::$phingShortVersion === null) {
+            self::getPhingVersion();
         }
-
-        try { // try to read file
-            $file = new File($versionPath);
-            $reader = new FileReader($file);
-            $phingVersion = trim($reader->read());
-        } catch (IOException $iox) {
-            throw new ConfigurationException("Can't read version information file");
-        }
-
-        $basePath = dirname(__DIR__, 2);
-
-        $version = new Version($phingVersion, $basePath);
-
-        return 'Phing ' . (method_exists($version, 'asString') ? $version->asString() : $version->getVersion());
+        return self::$phingShortVersion;
     }
 
     /**
@@ -1530,8 +1561,7 @@ class Phing
      */
     private function comparePhingVersion($version): void
     {
-        $current = strtolower(self::getPhingVersion());
-        $current = trim(str_replace('phing', '', $current));
+        $current = self::getPhingShortVersion();
 
         // make sure that version checks are not applied to trunk
         if ('dev' === $current) {
