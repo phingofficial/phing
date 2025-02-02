@@ -80,5 +80,22 @@
 		<copy file="${tmp.dir}/copysrcs/Test" todir="${tmp.dir}/copydest" granularity="999999999" overwrite="false"/>
 	</target>
 
+    <target name="testFilesetFiles" description="test fileset include and excludes files">
+        <touch mkdirs="true" file="${tmp.dir}/source/Foo/Foo.php"/>
+        <touch mkdirs="true" file="${tmp.dir}/source/Foo/FooTest.php"/>
+        <touch mkdirs="true" file="${tmp.dir}/source/Bar/Bar.php"/>
+        <touch mkdirs="true" file="${tmp.dir}/source/Bar/BarTest.php"/>
+        <touch mkdirs="true" file="${tmp.dir}/source/Baz/Baz.php"/>
+        <touch mkdirs="true" file="${tmp.dir}/source/Baz/BazTest.php"/>
+        <touch mkdirs="true" file="${tmp.dir}/source/Qux/Qux.php"/>
+        <touch mkdirs="true" file="${tmp.dir}/source/Qux/QuxTest.php"/>
+        <mkdir dir="${tmp.dir}/destination"/>
+        <copy haltonerror="true" todir="${tmp.dir}/destination">
+            <fileset dir="${tmp.dir}/source"
+                     includesfile="includes.txt"
+                     excludesfile="excludes.txt"/>
+        </copy>
+    </target>
+
 	<target name="main"/>
 </project>
