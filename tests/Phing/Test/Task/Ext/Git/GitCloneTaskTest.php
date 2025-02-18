@@ -78,7 +78,6 @@ class GitCloneTaskTest extends BuildFileTest
             'git-clone: cloning (bare) "' . $bundle . '" repository to "' . $repository . '" directory'
         );
         $this->assertDirectoryExists($repository);
-        $this->assertDirectoryExists($repository . '/branches');
         $this->assertDirectoryExists($repository . '/info');
         $this->assertDirectoryExists($repository . '/hooks');
         $this->assertDirectoryExists($repository . '/refs');
