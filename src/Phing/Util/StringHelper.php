@@ -28,6 +28,7 @@ use function strlen;
 use function strpos;
 use function strrev;
 use function trim;
+
 use const FILTER_NULL_ON_FAILURE;
 use const FILTER_VALIDATE_BOOLEAN;
 
