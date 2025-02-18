@@ -20,7 +20,6 @@
 
 namespace Phing\Util;
 
-use http\Exception\RuntimeException;
 use function filter_var;
 use function is_bool;
 use function is_string;
@@ -28,9 +27,7 @@ use function preg_match;
 use function strlen;
 use function strpos;
 use function strrev;
-use function trigger_error;
 use function trim;
-
 use const FILTER_NULL_ON_FAILURE;
 use const FILTER_VALIDATE_BOOLEAN;
 
