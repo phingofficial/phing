@@ -20,6 +20,7 @@
 
 namespace Phing\Util;
 
+use http\Exception\RuntimeException;
 use function filter_var;
 use function is_bool;
 use function is_string;
@@ -148,10 +149,10 @@ class StringHelper
         $len = strlen($string);
         $endpos = (int) ((-1 === $endpos) ? $len - 1 : $endpos);
         if ($startpos > $len - 1 || $startpos < 0) {
-            trigger_error("substring(), Startindex out of bounds must be 0<n<{$len}", E_USER_ERROR);
+            throw new \RuntimeException("substring(), Startindex out of bounds must be 0<n<{$len}");
         }
         if ($endpos > $len - 1 || $endpos < $startpos) {
-            trigger_error("substring(), Endindex out of bounds must be {$startpos}<n<" . ($len - 1), E_USER_ERROR);
+            throw new \RuntimeException("substring(), Endindex out of bounds must be {$startpos}<n<" . ($len - 1));
         }
         if ($startpos === $endpos) {
             return (string) $string[$startpos];
