@@ -100,7 +100,7 @@
         "pear/versioncontrol_svn": "^0.7.0",
         "phing/phing-composer-configurator": "dev-master",
         "phpmd/phpmd": "^2.14",
-        "phpstan/phpstan": "^0.12.87 || ^1.0",
+        "phpstan/phpstan": "^2.1.6",
         "phpunit/phpunit": "^9.6",
         "psr/http-message": "^2.0",
         "roave/security-advisories": "dev-master",
