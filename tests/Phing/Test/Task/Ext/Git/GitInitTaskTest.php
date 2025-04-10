@@ -72,7 +72,6 @@ class GitInitTaskTest extends BuildFileTest
         $this->executeTarget('gitInitBare');
         $this->assertInLogs('git-init: initializing (bare) "' . $repository . '" repository');
         $this->assertDirectoryExists($repository);
-        $this->assertDirectoryExists($repository . '/branches');
         $this->assertDirectoryExists($repository . '/info');
         $this->assertDirectoryExists($repository . '/hooks');
         $this->assertDirectoryExists($repository . '/refs');

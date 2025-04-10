@@ -167,7 +167,7 @@ class PHPUnitTestRunner9 implements \PHPUnit\Runner\TestHook, \PHPUnit\Framework
 
         /* Set PHPUnit error handler */
         if ($this->useCustomErrorHandler) {
-            set_error_handler([$this, 'handleError'], E_ALL | E_STRICT);
+            set_error_handler([$this, 'handleError']);
         }
 
         $this->injectFilters($suite);

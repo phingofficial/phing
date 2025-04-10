@@ -100,8 +100,8 @@ class TstampTask extends Task
      */
     protected function createProperty(string $propertyName, int $unixTimestamp, ?string $pattern = null, ?string $locale = null, ?string $timezone = null): void
     {
-        $formatter = new IntlDateFormatter($locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, $timezone, IntlDateFormatter::GREGORIAN, $pattern);
         try {
+            $formatter = new IntlDateFormatter($locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE, $timezone, IntlDateFormatter::GREGORIAN, $pattern);
             $value = $formatter->format($unixTimestamp);
         } catch (Error $e) {
             $value = "";
