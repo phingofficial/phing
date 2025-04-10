@@ -52,7 +52,7 @@ class SassCompiler implements SassTaskCompiler
         list($return, $output) = $this->executeCommand($inputFilePath, $outputFilePath);
         if ($failOnError && $return !== 0) {
             throw new BuildException(
-                "Sass exited with return code {$return} and message '{$output[0]}'"
+                sprintf("Sass exited with return code %d and message '%s'", $return, reset($output))
             );
         }
     }

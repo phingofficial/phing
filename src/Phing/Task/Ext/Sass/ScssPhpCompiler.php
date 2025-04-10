@@ -26,6 +26,7 @@ use Exception;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\OutputStyle;
 
 class ScssPhpCompiler implements SassTaskCompiler
 {
@@ -34,18 +35,11 @@ class ScssPhpCompiler implements SassTaskCompiler
      */
     private $scssCompiler;
 
-    public function __construct(string $style, string $encoding, bool $lineNumbers, string $loadPath)
+    public function __construct(string $style, string $loadPath)
     {
         $this->scssCompiler = new Compiler();
         if ($style) {
-            $ucStyle = ucfirst(strtolower($style));
-            $this->scssCompiler->setFormatter('ScssPhp\\ScssPhp\\Formatter\\' . $ucStyle);
-        }
-        if ($encoding) {
-            $this->scssCompiler->setEncoding($encoding);
-        }
-        if ($lineNumbers) {
-            $this->scssCompiler->setLineNumberStyle(1);
+            $this->scssCompiler->setOutputStyle(OutputStyle::fromString(strtolower($style)));
         }
         if ($loadPath !== '') {
             $this->scssCompiler->setImportPaths(explode(PATH_SEPARATOR, $loadPath));
@@ -58,11 +52,10 @@ class ScssPhpCompiler implements SassTaskCompiler
             return;
         }
 
-        $input = file_get_contents($inputFilePath);
         try {
-            $out = $this->scssCompiler->compile($input);
+            $out = $this->scssCompiler->compileFile($inputFilePath);
             if ($out !== '') {
-                $success = file_put_contents($outputFilePath, $out);
+                $success = file_put_contents($outputFilePath, $out->getCss());
                 if (!$success && $failOnError) {
                     throw new BuildException(
                         "Cannot write to output file " . var_export($outputFilePath, true),
@@ -72,7 +65,7 @@ class ScssPhpCompiler implements SassTaskCompiler
             }
         } catch (Exception $ex) {
             if ($failOnError) {
-                throw new BuildException($ex->getMessage());
+                throw new BuildException($ex);
             }
         }
     }
