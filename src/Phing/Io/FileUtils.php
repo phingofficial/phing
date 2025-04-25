@@ -475,7 +475,7 @@ class FileUtils
                 // quick but efficient hack to create a unique filename ;-)
                 $result = null;
                 do {
-                    $result = new File($directory, $prefix . substr(md5(time()), 0, 8) . $suffix);
+                    $result = new File($directory, $prefix . substr(md5((string) microtime()), 0, 8) . $suffix);
                 } while (file_exists($result->getPath()));
 
                 $fs = FileSystem::getFileSystem();
@@ -486,7 +486,7 @@ class FileUtils
             }
         } else {
             do {
-                $result = new File($parent, $prefix . substr(md5((string) time()), 0, 8) . $suffix);
+                $result = new File($parent, $prefix . substr(md5((string) microtime()), 0, 8) . $suffix);
             } while ($result->exists());
         }
 

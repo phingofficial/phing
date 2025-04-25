@@ -46,4 +46,20 @@ class TempFileTest extends BuildFileTest
             $this->getProject()->getProperty('test.temp')
         );
     }
+
+    public function testUniqueFilenames()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $filenames = [
+            $this->getProject()->getProperty('file1'),
+            $this->getProject()->getProperty('file2'),
+            $this->getProject()->getProperty('file3'),
+            $this->getProject()->getProperty('file4'),
+            $this->getProject()->getProperty('file5'),
+            $this->getProject()->getProperty('file6'),
+            $this->getProject()->getProperty('file7'),
+            $this->getProject()->getProperty('file8'),
+        ];
+        $this->assertCount(8, array_unique($filenames));
+    }
 }
