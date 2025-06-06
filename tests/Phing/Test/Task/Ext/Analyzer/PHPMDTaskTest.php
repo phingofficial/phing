@@ -26,6 +26,8 @@ use Phing\Test\Support\BuildFileTest;
  * Unit tests for PHPMD task.
  *
  * @internal
+ * @requires PHP <= 8.3
+ * /
  */
 class PHPMDTaskTest extends BuildFileTest
 {
