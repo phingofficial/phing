@@ -38,7 +38,7 @@ class RSTTaskTest extends BuildFileTest
     public function setUp(): void
     {
         //needed for PEAR's System class
-        error_reporting(error_reporting() & ~E_STRICT & ~E_DEPRECATED);
+        error_reporting(error_reporting() & ~E_DEPRECATED);
 
         chdir(PHING_TEST_BASE . '/etc/tasks/ext/rst');
         $this->configureProject(

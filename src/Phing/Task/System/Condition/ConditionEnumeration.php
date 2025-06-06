@@ -47,12 +47,12 @@ class ConditionEnumeration implements Iterator
     /**
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->outer->countConditions() > $this->num;
     }
 
-    public function current()
+    public function current(): mixed
     {
         $o = $this->outer->conditions[$this->num];
         if ($o instanceof ProjectComponent) {
@@ -62,7 +62,7 @@ class ConditionEnumeration implements Iterator
         return $o;
     }
 
-    public function next()
+    public function next(): void
     {
         ++$this->num;
     }
@@ -70,12 +70,12 @@ class ConditionEnumeration implements Iterator
     /**
      * @return int
      */
-    public function key()
+    public function key(): int
     {
         return $this->num;
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->num = 0;
     }

@@ -19,4 +19,4 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
 Phing::setProperty('phing.home', realpath(__DIR__ . '/../'));
 Phing::startup();
 
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_STRICT);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);

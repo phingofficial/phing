@@ -43,7 +43,7 @@ class ScssPhpCompilerTest extends TestCase
             $this->markTestSkipped('ScssPhp not found');
         }
 
-        $this->compiler = new ScssPhpCompiler('compressed', 'UTF-8', false, '');
+        $this->compiler = new ScssPhpCompiler('compressed', '');
     }
 
     public function tearDown(): void
@@ -60,7 +60,7 @@ class ScssPhpCompilerTest extends TestCase
         $this->compiler->compile(
             self::SASS_TEST_BASE . 'test.scss',
             self::SASS_TEST_BASE . 'test.css',
-            false
+            true
         );
 
         $this->assertFileExists(self::SASS_TEST_BASE . 'test.css');

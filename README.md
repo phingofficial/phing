@@ -19,7 +19,7 @@
 
 ## Supported PHP versions
 
-  Phing 3.x is compatible with PHP 7.4 and higher.
+  Phing 3.x is compatible with PHP 8.1 and higher.
 
 ## Installation
 
@@ -32,7 +32,7 @@
 
          {
              "require-dev": {
-                 "phing/phing": "3.0.x-dev"
+                 "phing/phing": "3.1.x-dev"
              }
          }
 
