@@ -67,7 +67,9 @@
         "ext-xml": "*",
         "sebastian/version": "^3.0|^4.0|^5.0|^6.0",
         "symfony/console": "^6.4.22|^7.0",
-        "symfony/yaml": "^6.0|^7.0"
+        "symfony/filesystem": "^5.4.45",
+        "symfony/string": "^6.3.12",
+        "symfony/yaml": "^6.3.12"
     },
     "require-dev": {
         "ext-curl": "*",
