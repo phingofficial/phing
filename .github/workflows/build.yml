@@ -192,9 +192,10 @@ jobs:
           verbose: true
 
       - name: Upload to Scrutinizer
+        uses: sudo-bot/action-scrutinizer@latest
         if: github.repository_owner == 'phingofficial'
-        run: |
-          wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./tests/reports/clover-coverage.xml
+        with:
+          cli-args: "--format=php-clover ./tests/reports/clover-coverage.xml"
 
   build_docker_image:
     runs-on: ubuntu-latest
