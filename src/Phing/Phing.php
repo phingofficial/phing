@@ -1088,41 +1088,41 @@ class Phing
     public static function handlePhpError($level, $message, $file, $line)
     {
         // don't want to print suppressed errors
-        if (error_reporting() > 0) {
-            if (self::$phpErrorCapture) {
-                self::$capturedPhpErrors[] = [
-                    'message' => $message,
-                    'level' => $level,
-                    'line' => $line,
-                    'file' => $file,
-                ];
-            } else {
-                $message = '[PHP Error] ' . $message;
-                $message .= ' [line ' . $line . ' of ' . $file . ']';
+        if (!(error_reporting() & $level)) {
+            return true;
+        }
+        if (self::$phpErrorCapture) {
+            self::$capturedPhpErrors[] = [
+                'message' => $message,
+                'level' => $level,
+                'line' => $line,
+                'file' => $file,
+            ];
+        } else {
+            $message = '[PHP Error] ' . $message;
+            $message .= ' [line ' . $line . ' of ' . $file . ']';
 
-                switch ($level) {
-                    case E_USER_DEPRECATED:
-                    case E_DEPRECATED:
-                    case E_STRICT:
-                    case E_NOTICE:
-                    case E_USER_NOTICE:
-                        self::log($message, Project::MSG_VERBOSE);
+            switch ($level) {
+                case E_USER_DEPRECATED:
+                case E_DEPRECATED:
+                case E_NOTICE:
+                case E_USER_NOTICE:
+                    self::log($message, Project::MSG_VERBOSE);
 
-                        break;
+                    break;
 
-                    case E_WARNING:
-                    case E_USER_WARNING:
-                        self::log($message, Project::MSG_WARN);
+                case E_WARNING:
+                case E_USER_WARNING:
+                    self::log($message, Project::MSG_WARN);
 
-                        break;
+                    break;
 
-                    case E_ERROR:
-                    case E_USER_ERROR:
-                    default:
-                        self::log($message, Project::MSG_ERR);
-                } // switch
-            } // if phpErrorCapture
-        } // if not @
+                case E_ERROR:
+                case E_USER_ERROR:
+                default:
+                    self::log($message, Project::MSG_ERR);
+            } // switch
+        } // if phpErrorCapture
     }
 
     /**
