@@ -89,7 +89,7 @@
         "jawira/plantuml-encoding": "^1.0",
         "mehr-als-nix/parallel": "^v1.0",
         "mikey179/vfsstream": "2.0.x-dev",
-        "monolog/monolog": "^2.2",
+        "monolog/monolog": "^3.9",
         "pdepend/pdepend": "^2.9",
         "pear/archive_tar": "^1.4",
         "pear/console_getopt": "^v1.4.3",
