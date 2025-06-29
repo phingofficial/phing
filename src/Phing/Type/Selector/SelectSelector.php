@@ -55,7 +55,7 @@ class SelectSelector extends AndSelector
     /**
      * Gives the count of the number of selectors in this container.
      */
-    public function count()
+    public function count(): int
     {
         if ($this->isReference()) {
             return count($this->getRef());
