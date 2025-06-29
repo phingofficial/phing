@@ -51,6 +51,7 @@ use Throwable;
 use function array_filter;
 use function array_map;
 use function array_reduce;
+use function gmdate;
 use function implode;
 use function method_exists;
 use function sprintf;
@@ -58,6 +59,7 @@ use function strlen;
 use function strval;
 use function trim;
 
+use const DATE_RFC7231;
 use const PHP_EOL;
 
 /**
@@ -1665,7 +1667,7 @@ class Phing
         self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
         self::setProperty('application.startdir', getcwd());
-        self::setProperty('phing.startTime', gmdate('D, d M Y H:i:s', time()) . ' GMT');
+        self::setProperty('phing.startTime', gmdate(DATE_RFC7231));
 
         // try to detect machine dependent information
         $sysInfo = [];
