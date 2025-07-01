@@ -1038,16 +1038,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.344.1",
+            "version": "3.348.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7ff4b73f2d6550949be14b8822e100963e068705"
+                "reference": "6acc8e4f8b7468e604d6f0442284937398c2959a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7ff4b73f2d6550949be14b8822e100963e068705",
-                "reference": "7ff4b73f2d6550949be14b8822e100963e068705",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6acc8e4f8b7468e604d6f0442284937398c2959a",
+                "reference": "6acc8e4f8b7468e604d6f0442284937398c2959a",
                 "shasum": ""
             },
             "require": {
@@ -1129,9 +1129,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.344.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.348.2"
             },
-            "time": "2025-06-05T18:09:40+00:00"
+            "time": "2025-06-30T18:12:03+00:00"
         },
         {
             "name": "clue/ndjson-react",
@@ -8706,5 +8706,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
