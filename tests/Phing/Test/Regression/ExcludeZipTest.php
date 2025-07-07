@@ -26,9 +26,9 @@ use Phing\Test\Support\BuildFileTest;
  * Regression test for ticket http://www.phing.info/trac/ticket/137
  * - Excluded files may be included in Zip/Tar tasks.
  *
+ * @requires extension zip
  * @internal
  */
-#[\PHPUnit\Framework\Attributes\RequiresPhpExtension('zip')]
 class ExcludeZipTest extends BuildFileTest
 {
     public function setUp(): void

@@ -25,9 +25,9 @@ use Phing\Test\Support\BuildFileTest;
 /**
  * @author Michiel Rook <mrook@php.net>
  *
+ * @requires extension pdo_sqlite
  * @internal
  */
-#[\PHPUnit\Framework\Attributes\RequiresPhpExtension('pdo_sqlite')]
 class DbDeployTaskTest extends BuildFileTest
 {
     public function setUp(): void

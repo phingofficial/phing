@@ -28,9 +28,9 @@ use ZipArchive;
  *
  * @author  Michiel Rook <mrook@php.net>
  *
+ * @requires extension zip
  * @internal
  */
-#[\PHPUnit\Framework\Attributes\RequiresPhpExtension('zip')]
 class ZipUnzipTaskTest extends BuildFileTest
 {
     public function setUp(): void

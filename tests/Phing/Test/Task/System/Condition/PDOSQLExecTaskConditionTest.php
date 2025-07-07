@@ -10,9 +10,9 @@ use Phing\Test\Support\BuildFileTest;
  *
  * @author  Jawira Portugal <dev@tugal.be>
  *
+ * @requires extension pdo_mysql
  * @internal
  */
-#[\PHPUnit\Framework\Attributes\RequiresPhpExtension('pdo_mysql')]
 class PDOSQLExecTaskConditionTest extends BuildFileTest
 {
     public function setUp(): void
