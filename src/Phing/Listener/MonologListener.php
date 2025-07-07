@@ -23,6 +23,7 @@ namespace Phing\Listener;
 use Monolog\Logger;
 use Phing\Project;
 use Phing\Target;
+use Phing\Exception\BuildException;
 
 /**
  * Listener which sends events to Monolog.
@@ -46,6 +47,12 @@ class MonologListener implements BuildListener
      */
     public function __construct()
     {
+        if (!class_exists(Logger::class)) {
+            throw new BuildException(
+                "The Monolog tasks depend on the monolog/monolog package being installed."
+            );
+        }
+
         $this->log = new Logger(self::LOG_PHING);
     }
 

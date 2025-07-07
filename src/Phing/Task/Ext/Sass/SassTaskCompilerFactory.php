@@ -47,8 +47,6 @@ class SassTaskCompilerFactory
                 $this->assertScssPhpIsAvailable();
                 return new ScssPhpCompiler(
                     $sassTask->getStyle(),
-                    $sassTask->getEncoding(),
-                    $sassTask->getLineNumbers(),
                     $sassTask->getPath()
                 );
             }
@@ -58,8 +56,6 @@ class SassTaskCompilerFactory
             $this->assertScssPhpIsAvailable();
             return new ScssPhpCompiler(
                 $sassTask->getStyle(),
-                $sassTask->getEncoding(),
-                $sassTask->getLineNumbers(),
                 $sassTask->getPath()
             );
         }

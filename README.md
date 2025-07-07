@@ -19,7 +19,7 @@
 
 ## Supported PHP versions
 
-  Phing 3.x is compatible with PHP 7.4 and higher.
+  Phing 3.x is compatible with PHP 8.1 and higher.
 
 ## Installation
 
@@ -32,7 +32,7 @@
 
          {
              "require-dev": {
-                 "phing/phing": "3.0.x-dev"
+                 "phing/phing": "3.1.x-dev"
              }
          }
 
@@ -139,7 +139,7 @@ Then, perform the following steps (on a clone/fork of Phing):
 
 Proud to use:
 
-[![PhpStorm Logo](http://www.jetbrains.com/phpstorm/documentation/phpstorm_banners/phpstorm1/phpstorm468x60_violet.gif "Proud to use")](http://www.jetbrains.com/phpstorm)
+[![PhpStorm Logo](https://resources.jetbrains.com/storage/products/company/brand/logos/PhpStorm.svg "Proud to use")](https://www.jetbrains.com/phpstorm)
 
 ## Contributing
 

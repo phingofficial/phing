@@ -22,13 +22,14 @@ namespace Phing\Type;
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Phing;
+use Phing\Project;
 
 /**
  * "Inner" class used for nested xml command line definitions.
  */
 class CommandlineArgument
 {
-    public $escape = false;
     private $parts = [];
     private $outer;
 
@@ -39,10 +40,11 @@ class CommandlineArgument
 
     /**
      * @param bool $escape
+     * @deprecated
      */
     public function setEscape($escape)
     {
-        $this->escape = $escape;
+        Phing::log("'escape' attribute is no longer supported for 'arg'", Project::MSG_WARN);
     }
 
     /**

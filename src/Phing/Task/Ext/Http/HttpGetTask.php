@@ -203,7 +203,7 @@ class HttpGetTask extends HttpTask
      * @param int $msgLevel
      * @param Exception|null $t
      */
-    public function log($msg, $msgLevel = Project::MSG_INFO, Exception $t = null)
+    public function log($msg, $msgLevel = Project::MSG_INFO, ?Exception $t = null)
     {
         if (!$this->quiet || $msgLevel <= Project::MSG_ERR) {
             parent::log($msg, $msgLevel, $t);

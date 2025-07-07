@@ -179,7 +179,7 @@ abstract class AbstractSelectorContainer extends DataType implements SelectorCon
         $this->selectorsList[] = $selector;
     }
 
-    public function dieOnCircularReference(&$stk, Project $p = null)
+    public function dieOnCircularReference(&$stk, ?Project $p = null)
     {
         if ($this->checked) {
             return;

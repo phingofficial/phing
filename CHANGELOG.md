@@ -2,6 +2,24 @@ P     H     I     N     G
 =========================
 
 
+Dec. 4, 2024 - Phing 3.0.1
+--------------------------
+
+The following issues and pull requests were closed in this release:
+
+* Fixed failing dependabot workflow runs [\#1886](https://github.com/phingofficial/phing/pull/1886)
+* Fixes deprecated warnings in PHP 8.4 [\#1877](https://github.com/phingofficial/phing/pull/1877)
+* Introduce DisguiseLogger [\#1868](https://github.com/phingofficial/phing/pull/1868)
+* [ReplaceRegexpTask] Added `flags` attribute [\#1867](https://github.com/phingofficial/phing/pull/1867)
+* [ReplaceRegexpTask] Added failOnError support [\#1866](https://github.com/phingofficial/phing/pull/1866)
+* Allow new version of sebastian/version for phpunit 11 compatibility [\#1864](https://github.com/phingofficial/phing/pull/1864)
+* SassTask doesn't always show downstream errors (was SassCompiler ignores `style`) [\#1863](https://github.com/phingofficial/phing/issues/1863)
+* FileSet erroronmissingdir attribute does not work [\#1856](https://github.com/phingofficial/phing/issues/1856)
+* Update SonarTask.php [\#1855](https://github.com/phingofficial/phing/pull/1855)
+* Some phing tasks require the Intl extension but the dependency is not declared [\#1840](https://github.com/phingofficial/phing/issues/1840)
+* No new line between call with RetryTask [\#1830](https://github.com/phingofficial/phing/issues/1830)
+* Allow Symfony 7 [\#1829](https://github.com/phingofficial/phing/pull/1829)
+
 May 1, 2024 - Phing 3.0.0
 -------------------------
 

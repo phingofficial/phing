@@ -1,9 +1,5 @@
 <?php
 
-namespace Phing\Test\Task\Ext\Hg;
-
-use Phing\Test\Support\BuildFileTest;
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,46 +16,46 @@ use Phing\Test\Support\BuildFileTest;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ */
+
+namespace Phing\Test\Type\Selector;
+
+use Phing\Test\Support\BuildFileTest;
+
+/**
+ * Class ReadableSelectorTest.
+ *
+ * Test cases for isReadable selectors.
  *
  * @internal
  */
-class HgPullTaskTest extends BuildFileTest
+class WritableSelectorTest extends BuildFileTest
 {
-    use HgTaskTestSkip;
-
     public function setUp(): void
     {
-        $this->markTestAsSkippedWhenHgNotInstalled();
-
-        mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
-            PHING_TEST_BASE
-            . '/etc/tasks/ext/hg/HgPullTaskTest.xml'
+            PHING_TEST_BASE . '/etc/types/selectors/WritableSelectorTest.xml'
         );
+        $this->executeTarget('setup');
     }
 
     public function tearDown(): void
     {
-        $this->rmdir(PHING_TEST_BASE . '/tmp/hgtest');
+        $this->executeTarget('clean');
     }
 
-    public function testWrongRepositoryDirDoesntExist(): void
+    public function testWritable(): void
     {
-        $this->expectBuildExceptionContaining(
-            'wrongRepositoryDirDoesntExist',
-            'repository directory does not exist',
-            "Repository directory 'inconcievable-buttercup' does not exist."
-        );
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertySet('selected');
     }
 
-    public function testWrongRepository(): void
+    public function testUnwritable(): void
     {
-        $this->markTestAsSkippedWhenHgNotInstalled();
-
-        $this->expectBuildExceptionContaining(
-            'wrongRepository',
-            'wrong repository',
-            'abort'
-        );
+        $this->executeTarget(__FUNCTION__);
+        $project = $this->getProject();
+        $output = $project->getProperty('output');
+        $file = $project->getProperty('file');
+        $this->assertIsNotWritable(sprintf('%s/%s', $output, $file));
     }
 }

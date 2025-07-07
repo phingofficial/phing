@@ -113,9 +113,9 @@ class PropertyTask extends Task
     private $required = false;
 
     /**
-     * @param FileParserFactoryInterface $fileParserFactory
+     * @param FileParserFactoryInterface|null $fileParserFactory
      */
-    public function __construct(FileParserFactoryInterface $fileParserFactory = null)
+    public function __construct(?FileParserFactoryInterface $fileParserFactory = null)
     {
         parent::__construct();
         $this->fileParserFactory = $fileParserFactory ?? new FileParserFactory();
@@ -412,7 +412,7 @@ class PropertyTask extends Task
             $prefix .= '.';
         }
         $this->log("Loading Environment {$prefix}", Project::MSG_VERBOSE);
-        foreach ($_ENV as $key => $value) {
+        foreach (getenv() as $key => $value) {
             $props->setProperty($prefix . '.' . $key, $value);
         }
         $this->addProperties($props);

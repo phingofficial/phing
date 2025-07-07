@@ -130,7 +130,7 @@ class PhingTask extends Task
      */
     private $locals;
 
-    public function __construct(Task $owner = null)
+    public function __construct(?Task $owner = null)
     {
         if (null !== $owner) {
             $this->bindToOwner($owner);

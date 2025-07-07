@@ -241,14 +241,14 @@ class Commandline implements Countable
     /**
      * Crack a command line.
      *
-     * @param string $toProcess the command line to process
+     * @param string|null $toProcess the command line to process
      *
      * @throws BuildException
      *
      * @return string[] the command line broken into strings.
      *                  An empty or null toProcess parameter results in a zero sized array.
      */
-    public static function translateCommandline(string $toProcess = null): array
+    public static function translateCommandline(?string $toProcess = null): array
     {
         if (null === $toProcess || '' === $toProcess) {
             return [];
@@ -382,12 +382,12 @@ class Commandline implements Countable
      * verbose output before a call to
      * <code>Runtime.exec(String[])</code>.
      *
-     * @param array $args   arguments to use (default is to use current class args)
-     * @param int   $offset ignore entries before this index
+     * @param array|null $args   arguments to use (default is to use current class args)
+     * @param int        $offset ignore entries before this index
      *
      * @return string
      */
-    public function describeArguments(array $args = null, $offset = 0)
+    public function describeArguments(?array $args = null, $offset = 0)
     {
         if (null === $args) {
             $args = $this->getArguments();

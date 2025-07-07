@@ -35,16 +35,12 @@
     <touch file="${output}/${file}"/>
   </target>
 
-  <target name="testReadable" depends="createTestdir">
-    <fileset dir="${output}">
-      <readable/>
-    </fileset>
-  </target>
-
   <target name="testWritable" depends="createTestdir">
-    <fileset dir="${output}">
-      <writable/>
-    </fileset>
+    <condition property="selected">
+      <isfileselected file="${output}/${file}">
+        <writable/>
+      </isfileselected>
+    </condition>
   </target>
 
   <target name="makeFileUnwritable"

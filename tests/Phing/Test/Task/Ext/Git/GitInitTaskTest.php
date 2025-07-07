@@ -32,6 +32,9 @@ class GitInitTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
+        if (! class_exists('VersionControl_Git')) {
+            $this->markTestSkipped('The Git tasks depend on the pear/versioncontrol_git package being installed.');
+        }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
@@ -72,7 +75,6 @@ class GitInitTaskTest extends BuildFileTest
         $this->executeTarget('gitInitBare');
         $this->assertInLogs('git-init: initializing (bare) "' . $repository . '" repository');
         $this->assertDirectoryExists($repository);
-        $this->assertDirectoryExists($repository . '/branches');
         $this->assertDirectoryExists($repository . '/info');
         $this->assertDirectoryExists($repository . '/hooks');
         $this->assertDirectoryExists($repository . '/refs');

@@ -92,11 +92,11 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Creates a new filtered reader.
      *
-     * @param Reader $in
+     * @param Reader|null $in
      *                   A Reader object providing the underlying stream. Must not be
      *                   <code>null</code>.
      */
-    public function __construct(Reader $in = null)
+    public function __construct(?Reader $in = null)
     {
         parent::__construct($in);
     }

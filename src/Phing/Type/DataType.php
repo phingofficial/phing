@@ -120,12 +120,12 @@ class DataType extends ProjectComponent
      * The general contract of this method is that it shouldn't do
      * anything if checked is true and set it to true on exit.
      *
-     * @param array   $stk
-     * @param Project $p
+     * @param array        $stk
+     * @param Project|null $p
      *
      * @throws BuildException
      */
-    public function dieOnCircularReference(&$stk, Project $p = null)
+    public function dieOnCircularReference(&$stk, ?Project $p = null)
     {
         if ($this->checked || !$this->isReference()) {
             return;

@@ -50,10 +50,10 @@ abstract class BaseSelector extends DataType implements FileSelector
      * Allows all selectors to indicate a setup error. Note that only
      * the first error message is recorded.
      *
-     * @param string    $msg   the error message any BuildException should throw
-     * @param Exception $cause
+     * @param string         $msg   the error message any BuildException should throw
+     * @param Exception|null $cause
      */
-    public function setError($msg, Exception $cause = null)
+    public function setError($msg, ?Exception $cause = null)
     {
         if (null === $this->errmsg) {
             $this->errmsg = $msg;

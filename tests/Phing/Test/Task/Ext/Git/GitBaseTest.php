@@ -35,6 +35,9 @@ class GitBaseTest extends BuildFileTest
 
     public function setUp(): void
     {
+        if (! class_exists('VersionControl_Git')) {
+            $this->markTestSkipped('The Git tasks depend on the pear/versioncontrol_git package being installed.');
+        }
         $this->configureProject(
             PHING_TEST_BASE
             . '/etc/tasks/ext/git/GitBaseTest.xml'

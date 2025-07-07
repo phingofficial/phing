@@ -38,8 +38,9 @@ class PropertyTaskTest extends BuildFileTest
 
     public function test1(): void
     {
-        // should get no output at all
-        $this->expectOutputAndError('test1', '', '');
+        putenv('MESSAGE=foo bar baz');
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('testenv.MESSAGE', 'foo bar baz');
     }
 
     public function test2(): void

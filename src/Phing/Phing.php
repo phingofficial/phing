@@ -51,6 +51,7 @@ use Throwable;
 use function array_filter;
 use function array_map;
 use function array_reduce;
+use function gmdate;
 use function implode;
 use function method_exists;
 use function sprintf;
@@ -58,6 +59,7 @@ use function strlen;
 use function strval;
 use function trim;
 
+use const DATE_RFC7231;
 use const PHP_EOL;
 
 /**
@@ -87,11 +89,11 @@ class Phing
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <project name="" description="" default="">
-            
+
             <target name="" description="">
-                
+
             </target>
-            
+
         </project>
         XML;
     public const PHING_HOME = 'phing.home';
@@ -112,6 +114,14 @@ class Phing
      * Used by utility function getResourcePath().
      */
     private static $importPaths;
+    /**
+     * Cache of the Phing version information when it has been loaded.
+     */
+    private static $phingVersion;
+    /**
+     * Cache of the short Phing version information when it has been loaded.
+     */
+    private static $phingShortVersion;
     /**
      * System-wide static properties (moved from System).
      */
@@ -248,17 +258,17 @@ class Phing
      *
      * This method encapsulates the complete build lifecycle.
      *
-     * @param array $args                     the commandline args passed to phing shell script
-     * @param array $additionalUserProperties Any additional properties to be passed to Phing (alternative front-end might implement this).
-     *                                        These additional properties will be available using the getDefinedProperty() method and will
-     *                                        be added to the project's "user" properties
+     * @param array      $args                     the commandline args passed to phing shell script
+     * @param array|null $additionalUserProperties Any additional properties to be passed to Phing (alternative front-end might implement this).
+     *                                             These additional properties will be available using the getDefinedProperty() method and will
+     *                                             be added to the project's "user" properties
      *
      * @throws Exception - if there is an error during build
      *
      * @see    runBuild()
      * @see    execute()
      */
-    public static function start($args, array $additionalUserProperties = null)
+    public static function start($args, ?array $additionalUserProperties = null)
     {
         try {
             $m = new self();
@@ -590,33 +600,56 @@ class Phing
     }
 
     /**
-     * Gets the current Phing version based on VERSION.TXT file.
+     * Gets the current Phing version based on VERSION.TXT file. Once the information
+     * has been loaded once, it's cached and returned from the cache on future
+     * calls.
      *
      * @throws ConfigurationException
      */
     public static function getPhingVersion(): string
     {
-        $versionPath = self::getResourcePath('phing/etc/VERSION.TXT');
-        if (null === $versionPath) {
-            $versionPath = self::getResourcePath('etc/VERSION.TXT');
+        if (self::$phingVersion === null) {
+            $versionPath = self::getResourcePath('phing/etc/VERSION.TXT');
+            if (null === $versionPath) {
+                $versionPath = self::getResourcePath('etc/VERSION.TXT');
+            }
+            if (null === $versionPath) {
+                throw new ConfigurationException('No VERSION.TXT file found; try setting phing.home environment variable.');
+            }
+
+            try { // try to read file
+                $file = new File($versionPath);
+                $reader = new FileReader($file);
+                $phingVersion = trim($reader->read());
+            } catch (IOException $iox) {
+                throw new ConfigurationException("Can't read version information file");
+            }
+
+            $basePath = dirname(__DIR__, 2);
+
+            $version = new Version($phingVersion, $basePath);
+            self::$phingShortVersion = (method_exists($version, 'asString') ? $version->asString() : $version->getVersion());
+
+            self::$phingVersion = 'Phing ' . self::$phingShortVersion;
         }
-        if (null === $versionPath) {
-            throw new ConfigurationException('No VERSION.TXT file found; try setting phing.home environment variable.');
+        return self::$phingVersion;
+    }
+
+    /**
+     * Returns the short Phing version information, if available. Once the information
+     * has been loaded once, it's cached and returned from the cache on future
+     * calls.
+     *
+     * @return the short Phing version information as a string
+     *
+     * @throws ConfigurationException
+     */
+    public static function getPhingShortVersion(): string
+    {
+        if (self::$phingShortVersion === null) {
+            self::getPhingVersion();
         }
-
-        try { // try to read file
-            $file = new File($versionPath);
-            $reader = new FileReader($file);
-            $phingVersion = trim($reader->read());
-        } catch (IOException $iox) {
-            throw new ConfigurationException("Can't read version information file");
-        }
-
-        $basePath = dirname(__DIR__, 2);
-
-        $version = new Version($phingVersion, $basePath);
-
-        return 'Phing ' . (method_exists($version, 'asString') ? $version->asString() : $version->getVersion());
+        return self::$phingShortVersion;
     }
 
     /**
@@ -1057,41 +1090,41 @@ class Phing
     public static function handlePhpError($level, $message, $file, $line)
     {
         // don't want to print suppressed errors
-        if (error_reporting() > 0) {
-            if (self::$phpErrorCapture) {
-                self::$capturedPhpErrors[] = [
-                    'message' => $message,
-                    'level' => $level,
-                    'line' => $line,
-                    'file' => $file,
-                ];
-            } else {
-                $message = '[PHP Error] ' . $message;
-                $message .= ' [line ' . $line . ' of ' . $file . ']';
+        if (!(error_reporting() & $level)) {
+            return true;
+        }
+        if (self::$phpErrorCapture) {
+            self::$capturedPhpErrors[] = [
+                'message' => $message,
+                'level' => $level,
+                'line' => $line,
+                'file' => $file,
+            ];
+        } else {
+            $message = '[PHP Error] ' . $message;
+            $message .= ' [line ' . $line . ' of ' . $file . ']';
 
-                switch ($level) {
-                    case E_USER_DEPRECATED:
-                    case E_DEPRECATED:
-                    case E_STRICT:
-                    case E_NOTICE:
-                    case E_USER_NOTICE:
-                        self::log($message, Project::MSG_VERBOSE);
+            switch ($level) {
+                case E_USER_DEPRECATED:
+                case E_DEPRECATED:
+                case E_NOTICE:
+                case E_USER_NOTICE:
+                    self::log($message, Project::MSG_VERBOSE);
 
-                        break;
+                    break;
 
-                    case E_WARNING:
-                    case E_USER_WARNING:
-                        self::log($message, Project::MSG_WARN);
+                case E_WARNING:
+                case E_USER_WARNING:
+                    self::log($message, Project::MSG_WARN);
 
-                        break;
+                    break;
 
-                    case E_ERROR:
-                    case E_USER_ERROR:
-                    default:
-                        self::log($message, Project::MSG_ERR);
-                } // switch
-            } // if phpErrorCapture
-        } // if not @
+                case E_ERROR:
+                case E_USER_ERROR:
+                default:
+                    self::log($message, Project::MSG_ERR);
+            } // switch
+        } // if phpErrorCapture
     }
 
     /**
@@ -1530,8 +1563,7 @@ class Phing
      */
     private function comparePhingVersion($version): void
     {
-        $current = strtolower(self::getPhingVersion());
-        $current = trim(str_replace('phing', '', $current));
+        $current = self::getPhingShortVersion();
 
         // make sure that version checks are not applied to trunk
         if ('dev' === $current) {
@@ -1635,7 +1667,7 @@ class Phing
         self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
         self::setProperty('application.startdir', getcwd());
-        self::setProperty('phing.startTime', gmdate('D, d M Y H:i:s', time()) . ' GMT');
+        self::setProperty('phing.startTime', gmdate(DATE_RFC7231));
 
         // try to detect machine dependent information
         $sysInfo = [];

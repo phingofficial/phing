@@ -39,18 +39,7 @@ class CommandlineArgumentTest extends TestCase
         foreach ($arguments as $counter => $argument) {
             $parts = $argument->getParts();
             $this->assertEquals($exploded[$counter], $parts[0]);
-            $this->assertEquals(false, $argument->escape);
         }
-    }
-
-    public function testSetEscape(): void
-    {
-        $command = 'usblamp -s -r 5 red green blue off';
-        $commandline = new Commandline($command);
-        $argument = new CommandlineArgument($commandline);
-        $this->assertEquals(false, $argument->escape);
-        $argument->setEscape(true);
-        $this->assertEquals(true, $argument->escape);
     }
 
     public function testSetline(): void

@@ -93,7 +93,7 @@ abstract class Task extends ProjectComponent
      * @see   BuildEvent
      * @see   BuildListener
      */
-    public function log($msg, $level = Project::MSG_INFO, Exception $t = null)
+    public function log($msg, $level = Project::MSG_INFO, ?Exception $t = null)
     {
         if (null !== $this->getProject()) {
             $this->getProject()->logObject($this, $msg, $level, $t);

@@ -257,8 +257,8 @@ class StringHelperTest extends TestCase
      */
     public function testSubstringError($string, $start, $end, $message)
     {
-        $this->expectError();
-        $this->expectErrorMessage($message);
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage($message);
         StringHelper::substring($string, $start, $end);
     }
 

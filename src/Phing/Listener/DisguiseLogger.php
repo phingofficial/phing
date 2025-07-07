@@ -18,70 +18,54 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Io;
+namespace Phing\Listener;
+
+use Phing\Phing;
 
 /**
- * Wrapper class for readers, which can be used to apply filters.
+ * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class FilterReader extends Reader
+class DisguiseLogger extends DefaultLogger
 {
-    /**
-     * @var Reader
-     */
-    protected $in;
-
-    /**
-     * @param Reader|null $in
-     */
-    public function __construct(?Reader $in = null)
+    public function messageLogged(BuildEvent $event)
     {
-        $this->in = $in;
+        $this->maskUriPassword($event);
+        parent::messageLogged($event);
     }
 
-    public function setReader(Reader $in)
+    public function buildStarted(BuildEvent $event)
     {
-        $this->in = $in;
     }
 
-    /**
-     * @param int $n
-     */
-    public function skip($n)
+    public function buildFinished(BuildEvent $event)
     {
-        $this->in->skip($n);
     }
 
-    /**
-     * Read data from source.
-     * FIXME: Clean up this function signature, as it a) params aren't being used
-     * and b) it doesn't make much sense.
-     *
-     * @param int $len
-     *
-     * @throws IOException
-     *
-     * @return string
-     */
-    public function read($len = null)
+    public function targetStarted(BuildEvent $event)
     {
-        return $this->in->read($len);
     }
 
-    public function reset()
+    public function targetFinished(BuildEvent $event)
     {
-        $this->in->reset();
     }
 
-    public function close()
+    public function taskStarted(BuildEvent $event)
     {
-        return $this->in->close();
     }
 
-    /**
-     * @return string
-     */
-    public function getResource()
+    public function taskFinished(BuildEvent $event)
     {
-        return $this->in->getResource();
+    }
+
+    protected function maskUriPassword(BuildEvent $event): void
+    {
+        $event->setMessage(
+            preg_replace(
+                '!://(.*):(.*)@!',
+                '://$1:*****@',
+                $event->getMessage()
+            ),
+            $event->getPriority()
+        );
     }
 }

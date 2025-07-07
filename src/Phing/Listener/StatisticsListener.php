@@ -48,7 +48,7 @@ class StatisticsListener implements SubBuildListener
      */
     private $statisticsReport;
 
-    public function __construct(Clock $clock = null)
+    public function __construct(?Clock $clock = null)
     {
         $this->projectTimerMap = new ProjectTimerMap();
         $this->statisticsReport = new StatisticsReport();

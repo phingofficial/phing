@@ -65,6 +65,16 @@ class ReplaceRegexpTask extends Task
      */
     private $regexp;
 
+    private $failonerror = false;
+
+    /**
+     * If false, note errors but continue.
+     */
+    public function setFailOnError($failonerror)
+    {
+        $this->failonerror = $failonerror;
+    }
+
     /**
      * File to apply regexp on.
      */
@@ -110,6 +120,7 @@ class ReplaceRegexpTask extends Task
      */
     public function setFlags($flags)
     {
+        $this->regexp->setModifiers($flags);
     }
 
     /**
@@ -200,7 +211,10 @@ class ReplaceRegexpTask extends Task
                 if ($in) {
                     $in->close();
                 }
-                $this->log('Error reading file: ' . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error reading file: ' . $e->getMessage(), Project::MSG_ERR);
+                if ($this->failonerror) {
+                    throw new BuildException("Error reading file: '" . $file->getAbsolutePath() . "'", $e);
+                }
             }
 
             try {
@@ -213,7 +227,10 @@ class ReplaceRegexpTask extends Task
                 if ($out) {
                     $out->close();
                 }
-                $this->log('Error writing file back: ' . $e->getMessage(), Project::MSG_WARN);
+                $this->log('Error writing file back: ' . $e->getMessage(), Project::MSG_ERR);
+                if ($this->failonerror) {
+                    throw new BuildException("Error writing file back: '" . $file->getAbsolutePath() . "'", $e);
+                }
             }
         }
     }

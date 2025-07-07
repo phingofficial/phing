@@ -100,7 +100,7 @@ class Target implements TaskContainer
     private $project;
     private $location;
 
-    public function __construct(Target $other = null)
+    public function __construct(?Target $other = null)
     {
         if (null !== $other) {
             $this->name = $other->name;

@@ -93,9 +93,9 @@ class ElementHandler extends AbstractHandler
         AbstractSAXParser $parser,
         AbstractHandler $parentHandler,
         ProjectConfigurator $configurator,
-        UnknownElement $parent = null,
-        RuntimeConfigurable $parentWrapper = null,
-        Target $target = null
+        ?UnknownElement $parent = null,
+        ?RuntimeConfigurable $parentWrapper = null,
+        ?Target $target = null
     ) {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;

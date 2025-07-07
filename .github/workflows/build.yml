@@ -32,7 +32,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.3'
           coverage: none
           tools: composer:v2
 
@@ -64,7 +64,7 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ ubuntu-latest, macos-latest, windows-latest ]
-        php: [ '7.4', '8.0', '8.1', '8.2', '8.3' ]
+        php: [ '8.1', '8.2', '8.3', '8.4' ]
         dependencies: [ 'lowest', 'locked' ]
         experimental: [ false ]
 
@@ -114,7 +114,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.3'
           coverage: none
           ini-values: phar.readonly=Off
           tools: composer:v2
@@ -148,11 +148,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.3'
           coverage: xdebug
           ini-values: xdebug.mode=coverage
 
@@ -185,20 +187,21 @@ jobs:
 
       - name: Upload to Codecov
         if: github.repository_owner == 'phingofficial'
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           files: ./tests/reports/clover-coverage.xml
           token: ${{ secrets.CODECOV_TOKEN }}
-          verbose: true
+          verbose: false
 
       - name: Upload to Scrutinizer
+        uses: sudo-bot/action-scrutinizer@latest
         if: github.repository_owner == 'phingofficial'
-        run: |
-          wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./tests/reports/clover-coverage.xml
+        with:
+          cli-args: "--format=php-clover ./tests/reports/clover-coverage.xml"
 
   build_docker_image:
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'phingofficial' && github.event_name != 'pull_request' }}
+    if: ${{ github.actor != 'dependabot[bot]' && github.repository_owner == 'phingofficial' && github.event_name != 'pull_request' }}
     needs:
       - test
     steps:
