@@ -29,6 +29,8 @@ class HgCloneTaskTest extends BuildFileTest
 
     public function setUp(): void
     {
+        $this->markTestAsSkippedWhenHgNotInstalled();
+
         $this->configureProject(
             PHING_TEST_BASE
             . '/etc/tasks/ext/hg/HgCloneTaskTest.xml'

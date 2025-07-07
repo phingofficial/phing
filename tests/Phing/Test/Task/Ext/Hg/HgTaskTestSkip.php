@@ -26,6 +26,10 @@ trait HgTaskTestSkip
 {
     public function markTestAsSkippedWhenHgNotInstalled(): void
     {
+        if (! class_exists('\Siad007\VersionControl\HG\Factory')) {
+            $this->markTestSkipped('The Git tasks depend on the siad007/versioncontrol_hg package being installed.');
+        }
+
         exec('hg help > /dev/null 2>&1', $output, $code);
         if (0 != $code) {
             $this->markTestSkipped('This test require hg to be installed');

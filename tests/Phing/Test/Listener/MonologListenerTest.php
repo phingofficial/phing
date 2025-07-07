@@ -30,6 +30,13 @@ use PHPUnit\Framework\TestCase;
  */
 class MonologListenerTest extends TestCase
 {
+    public function setUp(): void
+    {
+        if (! class_exists('\Monolog\Logger')) {
+            $this->markTestSkipped('The Monolog tasks depend on the monolog/monolog package being installed.');
+        }
+    }
+
     /**
      * @test
      */

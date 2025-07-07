@@ -33,6 +33,9 @@ class GitArchiveTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
+        if (! class_exists('VersionControl_Git')) {
+            $this->markTestSkipped('The Git tasks depend on the pear/versioncontrol_git package being installed.');
+        }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 

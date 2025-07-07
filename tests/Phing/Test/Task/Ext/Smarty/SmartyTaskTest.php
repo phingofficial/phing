@@ -26,6 +26,9 @@ class SmartyTaskTest extends BuildFileTest
 {
     protected function setUp(): void
     {
+        if (!class_exists('\Smarty\Smarty')) {
+            $this->markTestSkipped('The Smarty tasks depend on the smarty/smarty package being installed.');
+        }
         $buildXmlFile = PHING_TEST_BASE . '/etc/tasks/ext/smarty/SmartyTaskTest.xml';
         $this->configureProject($buildXmlFile);
         $this->executeTarget('setup');

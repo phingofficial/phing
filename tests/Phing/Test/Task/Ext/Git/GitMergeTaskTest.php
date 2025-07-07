@@ -32,6 +32,9 @@ class GitMergeTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
+        if (! class_exists('VersionControl_Git')) {
+            $this->markTestSkipped('The Git tasks depend on the pear/versioncontrol_git package being installed.');
+        }
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
