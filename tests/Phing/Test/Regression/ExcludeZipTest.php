@@ -28,6 +28,7 @@ use Phing\Test\Support\BuildFileTest;
  *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\RequiresPhpExtension('zip')]
 class ExcludeZipTest extends BuildFileTest
 {
     public function setUp(): void

@@ -30,6 +30,7 @@ use ZipArchive;
  *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\RequiresPhpExtension('zip')]
 class ZipUnzipTaskTest extends BuildFileTest
 {
     public function setUp(): void

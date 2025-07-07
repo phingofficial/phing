@@ -123,6 +123,7 @@ class ComposerTaskTest extends TestCase
     /**
      * @covers \ComposerTask::getComposer
      */
+    #[\PHPUnit\Framework\Attributes\RequiresPhpExtension('pdo_mysql')]
     public function testGetComposerFromPath(): void
     {
         $composer = 'foo';
