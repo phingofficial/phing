@@ -100,4 +100,24 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->assertFileExists($filename);
         $this->assertStringEqualsFile($filename, 'TEST');
     }
+
+    public function testRetainOriginalPremissionsOfDirectory(): void
+    {
+        $filename = PHING_TEST_BASE . '/etc/tasks/ext/tmp/simple-test.zip';
+
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists($filename);
+
+        $archive = new ZipArchive();
+        $archive->open($filename);
+        $opsys = 0;
+        $attr = 0;
+        $archive->getExternalAttributesIndex(0, $opsys, $attr);
+
+        $this->assertNotEquals(
+            511,
+            ($attr >> 16) & 0777,
+            'directory should not be added with world-writable perms'
+        );
+    }
 }
