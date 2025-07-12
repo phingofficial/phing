@@ -4,4 +4,23 @@
         <tempfile property="test.temp" destdir="${php.tmpdir}" />
     </target>
 
+    <target name="testUniqueFilenames">
+        <tempfile property="file1"/>
+        <tempfile property="file2"/>
+        <tempfile property="file3"/>
+        <tempfile property="file4"/>
+        <tempfile property="file5"/>
+        <tempfile property="file6"/>
+        <tempfile property="file7"/>
+        <tempfile property="file8"/>
+        <echo>${file1}</echo>
+        <echo>${file2}</echo>
+        <echo>${file3}</echo>
+        <echo>${file4}</echo>
+        <echo>${file5}</echo>
+        <echo>${file6}</echo>
+        <echo>${file7}</echo>
+        <echo>${file8}</echo>
+    </target>
+
 </project>

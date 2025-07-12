@@ -7245,6 +7245,11 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <optional>
+                    <attribute name="savefileattributes" a:defaultValue="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
             </interleave>
             <zeroOrMore>
                 <ref name="fileset"/>

@@ -51,6 +51,7 @@ use Throwable;
 use function array_filter;
 use function array_map;
 use function array_reduce;
+use function gmdate;
 use function implode;
 use function method_exists;
 use function sprintf;
@@ -58,6 +59,7 @@ use function strlen;
 use function strval;
 use function trim;
 
+use const DATE_RFC7231;
 use const PHP_EOL;
 
 /**
@@ -1088,41 +1090,41 @@ class Phing
     public static function handlePhpError($level, $message, $file, $line)
     {
         // don't want to print suppressed errors
-        if (error_reporting() > 0) {
-            if (self::$phpErrorCapture) {
-                self::$capturedPhpErrors[] = [
-                    'message' => $message,
-                    'level' => $level,
-                    'line' => $line,
-                    'file' => $file,
-                ];
-            } else {
-                $message = '[PHP Error] ' . $message;
-                $message .= ' [line ' . $line . ' of ' . $file . ']';
+        if (!(error_reporting() & $level)) {
+            return true;
+        }
+        if (self::$phpErrorCapture) {
+            self::$capturedPhpErrors[] = [
+                'message' => $message,
+                'level' => $level,
+                'line' => $line,
+                'file' => $file,
+            ];
+        } else {
+            $message = '[PHP Error] ' . $message;
+            $message .= ' [line ' . $line . ' of ' . $file . ']';
 
-                switch ($level) {
-                    case E_USER_DEPRECATED:
-                    case E_DEPRECATED:
-                    case E_STRICT:
-                    case E_NOTICE:
-                    case E_USER_NOTICE:
-                        self::log($message, Project::MSG_VERBOSE);
+            switch ($level) {
+                case E_USER_DEPRECATED:
+                case E_DEPRECATED:
+                case E_NOTICE:
+                case E_USER_NOTICE:
+                    self::log($message, Project::MSG_VERBOSE);
 
-                        break;
+                    break;
 
-                    case E_WARNING:
-                    case E_USER_WARNING:
-                        self::log($message, Project::MSG_WARN);
+                case E_WARNING:
+                case E_USER_WARNING:
+                    self::log($message, Project::MSG_WARN);
 
-                        break;
+                    break;
 
-                    case E_ERROR:
-                    case E_USER_ERROR:
-                    default:
-                        self::log($message, Project::MSG_ERR);
-                } // switch
-            } // if phpErrorCapture
-        } // if not @
+                case E_ERROR:
+                case E_USER_ERROR:
+                default:
+                    self::log($message, Project::MSG_ERR);
+            } // switch
+        } // if phpErrorCapture
     }
 
     /**
@@ -1665,7 +1667,7 @@ class Phing
         self::setProperty(self::PHP_VERSION, PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
         self::setProperty('application.startdir', getcwd());
-        self::setProperty('phing.startTime', gmdate('D, d M Y H:i:s', time()) . ' GMT');
+        self::setProperty('phing.startTime', gmdate(DATE_RFC7231));
 
         // try to detect machine dependent information
         $sysInfo = [];

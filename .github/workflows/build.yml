@@ -148,6 +148,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -189,12 +191,13 @@ jobs:
         with:
           files: ./tests/reports/clover-coverage.xml
           token: ${{ secrets.CODECOV_TOKEN }}
-          verbose: true
+          verbose: false
 
       - name: Upload to Scrutinizer
+        uses: sudo-bot/action-scrutinizer@latest
         if: github.repository_owner == 'phingofficial'
-        run: |
-          wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./tests/reports/clover-coverage.xml
+        with:
+          cli-args: "--format=php-clover ./tests/reports/clover-coverage.xml"
 
   build_docker_image:
     runs-on: ubuntu-latest

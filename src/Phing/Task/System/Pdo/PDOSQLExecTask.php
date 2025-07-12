@@ -143,11 +143,6 @@ class PDOSQLExecTask extends PDOTask implements Condition
     private $onError = 'abort';
 
     /**
-     * Encoding to use when reading SQL statements from a file.
-     */
-    private $encoding;
-
-    /**
      * Fetch mode for PDO select queries.
      *
      * @var int

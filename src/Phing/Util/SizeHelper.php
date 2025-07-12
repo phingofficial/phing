@@ -99,12 +99,12 @@ class SizeHelper
     {
         foreach (self::IEC as $exponent => $choices) {
             if (in_array(strtolower($unit), array_map('strtolower', $choices))) {
-                return pow(self::KIBI, $exponent);
+                return (int) pow(self::KIBI, $exponent);
             }
         }
         foreach (self::SI as $exponent => $choices) {
             if (in_array(strtolower($unit), array_map('strtolower', $choices))) {
-                return pow(self::KILO, $exponent);
+                return (int) pow(self::KILO, $exponent);
             }
         }
 

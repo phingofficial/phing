@@ -32,6 +32,9 @@ class VisualizerTaskTest extends BuildFileTest
      */
     public function setUp(): void
     {
+        if (!class_exists('\GuzzleHttp\Client')) {
+            $this->markTestSkipped('The Visualizer tasks depend on the guzzlehttp/guzzle package being installed.');
+        }
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/visualizer/VisualizerTaskTest.xml');
     }
 
