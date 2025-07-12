@@ -14,6 +14,20 @@
             </default>
         </switch>
     </target>
+    <target name="testSwitchCaseNumbers">
+        <property name="foo" value="1"/>
+        <switch value="${foo}">
+            <case value="0">
+                <echo message="The value of property foo is 0" />
+            </case>
+            <case value="1">
+                <echo message="The value of property foo is 1" />
+            </case>
+            <default>
+                <echo message="The value of property foo is not sensible" />
+            </default>
+        </switch>
+    </target>
     <target name="testSwitchDefault">
         <property name="bar" value="test"/>
         <switch value="${bar}">

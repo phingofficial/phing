@@ -43,6 +43,11 @@ class SwitchTaskTest extends BuildFileTest
         $this->expectLogContaining(__FUNCTION__, 'The value of property foo is bar');
     }
 
+    public function testSwitchCaseNumbers(): void
+    {
+        $this->expectLogContaining(__FUNCTION__, 'The value of property foo is 1');
+    }
+
     public function testSwitchDefault(): void
     {
         $this->expectLogContaining(__FUNCTION__, 'The value of property bar is not sensible');

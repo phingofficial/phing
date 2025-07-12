@@ -97,11 +97,11 @@ class SwitchTask extends Task
     /*
      * Sets the value being switched on.
      *
-     * @param mixed $value
+     * @param string $value
      *
      * @return void
      */
-    public function setValue($value)
+    public function setValue(string $value)
     {
         $this->value = $value;
     }
@@ -152,7 +152,7 @@ class SwitchTask extends Task
         foreach ($this->cases as $case) {
             $cValue = $case->getValue();
 
-            if (empty($cValue)) {
+            if ($cValue === null || $cValue === '') {
                 throw new BuildException('Value is required for case.');
             }
 
