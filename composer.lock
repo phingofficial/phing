@@ -957,16 +957,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.349.2",
+            "version": "3.351.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "63cc727845f077d17cb94791deb327249e1626ce"
+                "reference": "b418b41ceee47103f364e709c5f3a58a4bcf0894"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/63cc727845f077d17cb94791deb327249e1626ce",
-                "reference": "63cc727845f077d17cb94791deb327249e1626ce",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b418b41ceee47103f364e709c5f3a58a4bcf0894",
+                "reference": "b418b41ceee47103f364e709c5f3a58a4bcf0894",
                 "shasum": ""
             },
             "require": {
@@ -1048,9 +1048,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.349.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.351.2"
             },
-            "time": "2025-07-03T18:08:27+00:00"
+            "time": "2025-07-18T18:06:44+00:00"
         },
         {
             "name": "clue/ndjson-react",
@@ -1970,16 +1970,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.80.0",
+            "version": "v3.84.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "e49ed46b8f7adcc451d4cd2ed34eaae33372bc60"
+                "reference": "38dad0767bf2a9b516b976852200ae722fe984ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/e49ed46b8f7adcc451d4cd2ed34eaae33372bc60",
-                "reference": "e49ed46b8f7adcc451d4cd2ed34eaae33372bc60",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/38dad0767bf2a9b516b976852200ae722fe984ca",
+                "reference": "38dad0767bf2a9b516b976852200ae722fe984ca",
                 "shasum": ""
             },
             "require": {
@@ -2063,7 +2063,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.80.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.84.0"
             },
             "funding": [
                 {
@@ -2071,7 +2071,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-06T21:00:51+00:00"
+            "time": "2025-07-15T18:21:57+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -4189,16 +4189,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.17",
+            "version": "2.1.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053"
+                "reference": "ee1f390b7a70cdf74a2b737e554f68afea885db7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/89b5ef665716fa2a52ecd2633f21007a6a349053",
-                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ee1f390b7a70cdf74a2b737e554f68afea885db7",
+                "reference": "ee1f390b7a70cdf74a2b737e554f68afea885db7",
                 "shasum": ""
             },
             "require": {
@@ -4243,7 +4243,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-21T20:55:28+00:00"
+            "time": "2025-07-17T17:22:31+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5511,12 +5511,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a76f62e135c8b583602bd99df737b5c20f4d7200"
+                "reference": "5e472fed1bcf8d3a967247576053a20ef3cfefc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a76f62e135c8b583602bd99df737b5c20f4d7200",
-                "reference": "a76f62e135c8b583602bd99df737b5c20f4d7200",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5e472fed1bcf8d3a967247576053a20ef3cfefc0",
+                "reference": "5e472fed1bcf8d3a967247576053a20ef3cfefc0",
                 "shasum": ""
             },
             "conflict": {
@@ -5587,6 +5587,7 @@
                 "bednee/cooluri": "<1.0.30",
                 "bigfork/silverstripe-form-capture": ">=3,<3.1.1",
                 "billz/raspap-webgui": "<3.3.6",
+                "binarytorch/larecipe": "<2.8.1",
                 "bk2k/bootstrap-package": ">=7.1,<7.1.2|>=8,<8.0.8|>=9,<9.0.4|>=9.1,<9.1.3|>=10,<10.0.10|>=11,<11.0.3",
                 "blueimp/jquery-file-upload": "==6.4.4",
                 "bmarshall511/wordpress_zero_spam": "<5.2.13",
@@ -5854,7 +5855,7 @@
                 "jackalope/jackalope-doctrine-dbal": "<1.7.4",
                 "jambagecom/div2007": "<0.10.2",
                 "james-heinrich/getid3": "<1.9.21",
-                "james-heinrich/phpthumb": "<1.7.12",
+                "james-heinrich/phpthumb": "<=1.7.23",
                 "jasig/phpcas": "<1.3.3",
                 "jbartels/wec-map": "<3.0.3",
                 "jcbrand/converse.js": "<3.3.3",
@@ -5915,7 +5916,7 @@
                 "lightsaml/lightsaml": "<1.3.5",
                 "limesurvey/limesurvey": "<6.5.12",
                 "livehelperchat/livehelperchat": "<=3.91",
-                "livewire/livewire": "<2.12.7|>=3.0.0.0-beta1,<3.5.2",
+                "livewire/livewire": "<2.12.7|>=3.0.0.0-beta1,<3.6.4",
                 "livewire/volt": "<1.7",
                 "lms/routes": "<2.1.1",
                 "localizationteam/l10nmgr": "<7.4|>=8,<8.7|>=9,<9.2",
@@ -5956,7 +5957,7 @@
                 "microsoft/microsoft-graph": ">=1.16,<1.109.1|>=2,<2.0.1",
                 "microsoft/microsoft-graph-beta": "<2.0.1",
                 "microsoft/microsoft-graph-core": "<2.0.2",
-                "microweber/microweber": "<=2.0.16",
+                "microweber/microweber": "<=2.0.19",
                 "mikehaertl/php-shellcommand": "<1.6.1",
                 "miniorange/miniorange-saml": "<1.4.3",
                 "mittwald/typo3_forum": "<1.2.1",
@@ -6317,6 +6318,7 @@
                 "ua-parser/uap-php": "<3.8",
                 "uasoft-indonesia/badaso": "<=2.9.7",
                 "unisharp/laravel-filemanager": "<2.9.1",
+                "universal-omega/dynamic-page-list3": "<3.6.4",
                 "unopim/unopim": "<0.1.5",
                 "userfrosting/userfrosting": ">=0.3.1,<4.6.3",
                 "usmanhalalit/pixie": "<1.0.3|>=2,<2.0.2",
@@ -6457,7 +6459,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-07-04T13:13:44+00:00"
+            "time": "2025-07-17T21:05:33+00:00"
         },
         {
             "name": "scssphp/scssphp",
@@ -8522,16 +8524,16 @@
         },
         {
             "name": "symplify/monorepo-builder",
-            "version": "11.2.22",
+            "version": "11.2.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/monorepo-builder.git",
-                "reference": "c913a8524ee276c8c21a09012c137f6913b5dcad"
+                "reference": "cd0faf050efe72b1348e8432e9b85620b476c678"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/c913a8524ee276c8c21a09012c137f6913b5dcad",
-                "reference": "c913a8524ee276c8c21a09012c137f6913b5dcad",
+                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/cd0faf050efe72b1348e8432e9b85620b476c678",
+                "reference": "cd0faf050efe72b1348e8432e9b85620b476c678",
                 "shasum": ""
             },
             "require": {
@@ -8558,7 +8560,7 @@
             "description": "Prefixed version of Not only Composer tools to build a Monorepo.",
             "support": {
                 "issues": "https://github.com/symplify/monorepo-builder/issues",
-                "source": "https://github.com/symplify/monorepo-builder/tree/11.2.22"
+                "source": "https://github.com/symplify/monorepo-builder/tree/11.2.23"
             },
             "funding": [
                 {
@@ -8570,7 +8572,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-23T03:19:18+00:00"
+            "time": "2025-07-11T02:50:53+00:00"
         },
         {
             "name": "tedivm/jshrink",
