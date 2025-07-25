@@ -2,7 +2,7 @@ P     H     I     N     G
 =========================
 
 
-Jul. XX, 2025 - Phing 3.1.0
+Jul. 25, 2025 - Phing 3.1.0
 ---------------------------
 
 NOTE: This version of Phing requires PHP 8.1 or later!
