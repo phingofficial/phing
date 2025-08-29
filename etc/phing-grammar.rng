@@ -2899,6 +2899,8 @@
           <attribute name="command">
             <data type="string"/>
           </attribute>
+        </optional>
+        <optional>
           <attribute name="php">
             <data type="string"/>
           </attribute>
