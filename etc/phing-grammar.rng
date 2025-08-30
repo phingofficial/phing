@@ -861,8 +861,11 @@
                         </choice>
                     </attribute>
                 </optional>
+                <optional>
+                    <ref name="selector"/>
+                </optional>
+                <ref name="selectors"/>
             </interleave>
-            <ref name="selector"/>
         </element>
     </define>
 
