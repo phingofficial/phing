@@ -1487,85 +1487,88 @@
         </element>
     </define>
 
+    <define name="copy-definition">
+        <choice>
+            <attribute name="file"/>
+            <oneOrMore>
+                <choice>
+                    <ref name="dirset"/>
+                    <ref name="fileset"/>
+                    <ref name="filelist"/>
+                </choice>
+            </oneOrMore>
+        </choice>
+        <choice>
+            <attribute name="tofile"/>
+            <attribute name="todir"/>
+        </choice>
+        <optional>
+            <attribute name="overwrite" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <choice>
+                <attribute name="tstamp" a:defaultValue="false">
+                    <data type="boolean"/>
+                </attribute>
+                <attribute name="preservelastmodified" a:defaultValue="false">
+                    <data type="boolean"/>
+                </attribute>
+            </choice>
+        </optional>
+        <optional>
+            <choice>
+                <attribute name="preservemode" a:defaultValue="true">
+                    <data type="boolean"/>
+                </attribute>
+                <attribute name="preservepermissions" a:defaultValue="true">
+                    <data type="boolean"/>
+                </attribute>
+            </choice>
+        </optional>
+        <optional>
+            <attribute name="includeemptydirs" a:defaultValue="true">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="mode">
+                <data type="int"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="haltonerror" a:defaultValue="true">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="flatten" a:defaultValue="false">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="verbose">
+                <data type="boolean"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="granularity" a:defaultValue="0">
+                <data type="int"/>
+            </attribute>
+        </optional>
+        <zeroOrMore>
+            <choice>
+                <ref name="mapper"/>
+                <ref name="filterchain"/>
+            </choice>
+        </zeroOrMore>
+    </define>
     <define name="copy">
         <element name="copy">
             <interleave>
-                <choice>
-                    <attribute name="file"/>
-                    <oneOrMore>
-                        <choice>
-                            <ref name="dirset"/>
-                            <ref name="fileset"/>
-                            <ref name="filelist"/>
-                        </choice>
-                    </oneOrMore>
-                </choice>
-                <choice>
-                    <attribute name="tofile"/>
-                    <attribute name="todir"/>
-                </choice>
-                <optional>
-                    <attribute name="overwrite" a:defaultValue="false">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <choice>
-                        <attribute name="tstamp" a:defaultValue="false">
-                            <data type="boolean"/>
-                        </attribute>
-                        <attribute name="preservelastmodified" a:defaultValue="false">
-                            <data type="boolean"/>
-                        </attribute>
-                    </choice>
-                </optional>
-                <optional>
-                    <choice>
-                        <attribute name="preservemode" a:defaultValue="true">
-                            <data type="boolean"/>
-                        </attribute>
-                        <attribute name="preservepermissions" a:defaultValue="true">
-                            <data type="boolean"/>
-                        </attribute>
-                    </choice>
-                </optional>
-                <optional>
-                    <attribute name="includeemptydirs" a:defaultValue="true">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="mode">
-                        <data type="int"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="haltonerror" a:defaultValue="true">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="flatten" a:defaultValue="false">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="verbose">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="granularity" a:defaultValue="0">
-                        <data type="int"/>
-                    </attribute>
-                </optional>
+                <ref name="copy-definition"/>
             </interleave>
-            <zeroOrMore>
-                <choice>
-                    <ref name="mapper"/>
-                    <ref name="filterchain"/>
-                </choice>
-            </zeroOrMore>
         </element>
     </define>
 
@@ -2698,63 +2701,14 @@
     <define name="xslt">
         <element name="xslt">
             <interleave>
+                <ref name="copy-definition"/>
                 <attribute name="style"/>
-                <choice>
-                    <attribute name="file"/>
-                    <oneOrMore>
-                        <choice>
-                            <ref name="fileset"/>
-                            <ref name="filelist"/>
-                        </choice>
-                    </oneOrMore>
-                </choice>
-                <choice>
-                    <attribute name="tofile"/>
-                    <attribute name="todir"/>
-                </choice>
-                <optional>
-                    <attribute name="overwrite">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="html" a:defaultValue="false">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
+                <zeroOrMore>
                     <choice>
-                        <attribute name="tstamp">
-                            <data type="boolean"/>
-                        </attribute>
-                        <attribute name="preservelastmodified">
-                            <data type="boolean"/>
-                        </attribute>
+                        <ref name="param"/>
                     </choice>
-                </optional>
-                <optional>
-                    <attribute name="includeemptydirs">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="mode">
-                        <data type="int"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="haltonerror">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
+                </zeroOrMore>
             </interleave>
-            <zeroOrMore>
-                <choice>
-                    <ref name="mapper"/>
-                    <ref name="filterchain"/>
-                    <ref name="param"/>
-                </choice>
-            </zeroOrMore>
         </element>
     </define>
 
