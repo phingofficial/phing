@@ -2424,7 +2424,7 @@
     </define>
 
     <define name="run">
-        <element name="run">
+        <element name="runtarget">
             <attribute name="target"/>
         </element>
     </define>
