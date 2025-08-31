@@ -1607,8 +1607,10 @@
                 </optional>
             </interleave>
             <zeroOrMore>
-                <ref name="dirset"/>
-                <ref name="fileset"/>
+                <choice>
+                    <ref name="dirset"/>
+                    <ref name="fileset"/>
+                </choice>
             </zeroOrMore>
         </element>
     </define>
