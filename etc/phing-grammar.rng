@@ -267,6 +267,7 @@
                 <ref name="resolvepath"/>
                 <ref name="relentless"/>
                 <ref name="retry"/>
+                <ref name="run"/>
                 <ref name="sleep"/>
                 <ref name="subphing"/>
                 <ref name="switch"/>
@@ -1735,7 +1736,7 @@
                             <data type="boolean" a:defaultValue="false"/>
                         </attribute>
                     </optional>
-                </optional>                
+                </optional>
             </interleave>
             <zeroOrMore>
                 <ref name="any_element" />
@@ -2422,6 +2423,12 @@
                 <ref name="coretasks"/>
                 <ref name="optionaltasks"/>
             </interleave>
+        </element>
+    </define>
+
+    <define name="run">
+        <element name="run">
+            <attribute name="target"/>
         </element>
     </define>
 
