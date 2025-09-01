@@ -1724,19 +1724,19 @@
 
     <define name="echoxml">
         <element name="echoxml">
-            <choice>
-                <interleave>
+            <interleave>
+                <optional>
+                    <attribute name="file"/>
                     <optional>
-                        <attribute name="file"/>
                         <attribute name="append" >
                             <data type="boolean" a:defaultValue="false"/>
                         </attribute>
                     </optional>
-                </interleave>
-                <zeroOrMore>
-                    <ref name="any_element" />
-                </zeroOrMore>
-            </choice>
+                </optional>                
+            </interleave>
+            <zeroOrMore>
+                <ref name="any_element" />
+            </zeroOrMore>
         </element>
     </define>
 
