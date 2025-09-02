@@ -2703,6 +2703,21 @@
             <interleave>
                 <ref name="copy-definition"/>
                 <attribute name="style"/>
+                <optional>
+                    <attribute name="resolvedocumentexternals" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="resolvestylesheetexternals" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="html" a:default-value="false">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
                 <zeroOrMore>
                     <choice>
                         <ref name="param"/>
