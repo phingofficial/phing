@@ -267,6 +267,7 @@
                 <ref name="resolvepath"/>
                 <ref name="relentless"/>
                 <ref name="retry"/>
+                <ref name="run"/>
                 <ref name="sleep"/>
                 <ref name="subphing"/>
                 <ref name="switch"/>
@@ -861,8 +862,11 @@
                         </choice>
                     </attribute>
                 </optional>
+                <optional>
+                    <ref name="selector"/>
+                </optional>
+                <ref name="selectors"/>
             </interleave>
-            <ref name="selector"/>
         </element>
     </define>
 
@@ -1603,8 +1607,10 @@
                 </optional>
             </interleave>
             <zeroOrMore>
-                <ref name="dirset"/>
-                <ref name="fileset"/>
+                <choice>
+                    <ref name="dirset"/>
+                    <ref name="fileset"/>
+                </choice>
             </zeroOrMore>
         </element>
     </define>
@@ -1735,7 +1741,7 @@
                             <data type="boolean" a:defaultValue="false"/>
                         </attribute>
                     </optional>
-                </optional>                
+                </optional>
             </interleave>
             <zeroOrMore>
                 <ref name="any_element" />
@@ -1873,7 +1879,11 @@
                         <attribute name="message"/>
                         <attribute name="msg"/>
                     </choice>
+                </optional>
+                <optional>
                     <attribute name="if"/>
+                </optional>
+                <optional>
                     <attribute name="unless"/>
                 </optional>
             </interleave>
@@ -2422,6 +2432,12 @@
                 <ref name="coretasks"/>
                 <ref name="optionaltasks"/>
             </interleave>
+        </element>
+    </define>
+
+    <define name="run">
+        <element name="runtarget">
+            <attribute name="target"/>
         </element>
     </define>
 
