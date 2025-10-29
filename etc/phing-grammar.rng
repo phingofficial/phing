@@ -1876,7 +1876,11 @@
                         <attribute name="message"/>
                         <attribute name="msg"/>
                     </choice>
+                </optional>
+                <optional>
                     <attribute name="if"/>
+                </optional>
+                <optional>
                     <attribute name="unless"/>
                 </optional>
             </interleave>
