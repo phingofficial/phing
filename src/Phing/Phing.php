@@ -214,7 +214,9 @@ class Phing
     private $emacsMode = false;
 
     /**
-     * @var string
+     * What to search for, passed as arguments.
+     *
+     * @var ?string
      */
     private $searchForThis;
     private $propertyFiles = [];
