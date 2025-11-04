@@ -38,6 +38,9 @@ class IniFileParserTest extends TestCase
 
     protected function setUp(): void
     {
+        if (! class_exists(vfsStream::class)) {
+            $this->markTestSkipped('This test depends on the mikey179/vfsstream package being installed.');
+        }
         $this->parser = new IniFileParser();
         $this->root = vfsStream::setUp();
     }

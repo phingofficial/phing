@@ -59,6 +59,21 @@ abstract class HgBaseTask extends Task
     protected $user = '';
 
     public static $factory = null;
+
+    /**
+     * Initialize Task.
+     * Check and include necessary libraries.
+     */
+    public function init()
+    {
+        if (!class_exists(Factory::class)) {
+            throw new BuildException(
+                "The Hg tasks depend on the siad007/versioncontrol_hg package being installed.",
+                $this->getLocation()
+            );
+        }
+    }
+
     /**
      * Set repository attribute
      *

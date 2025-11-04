@@ -32,6 +32,9 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
 {
     public function setUp(): void
     {
+        if (!class_exists('\GuzzleHttp\Client')) {
+            $this->markTestSkipped('The Http tasks depend on the guzzlehttp/guzzle package being installed.');
+        }
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/http/httprequest.xml');
     }
 

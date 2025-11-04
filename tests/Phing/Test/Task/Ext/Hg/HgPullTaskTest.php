@@ -29,6 +29,8 @@ class HgPullTaskTest extends BuildFileTest
 
     public function setUp(): void
     {
+        $this->markTestAsSkippedWhenHgNotInstalled();
+
         mkdir(PHING_TEST_BASE . '/tmp/hgtest');
         $this->configureProject(
             PHING_TEST_BASE

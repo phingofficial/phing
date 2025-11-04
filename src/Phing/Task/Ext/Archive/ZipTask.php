@@ -59,6 +59,8 @@ class ZipTask extends MatchingTask
 
     private $ignoreLinks = false;
 
+    private $saveFileAttributes = false;
+
     /**
      * File path prefix in zip archive
      *
@@ -72,6 +74,21 @@ class ZipTask extends MatchingTask
      * @var string $comment
      */
     private $comment = '';
+    private string $mtimeDummy;
+
+    /**
+     * Removes all external attributes from the Zip archive.
+     *
+     * @param \ZipArchive $zip The Zip archive
+     *
+     * @return void
+     */
+    private static function clearExternalAttributes(\ZipArchive $zip)
+    {
+        for ($i = 0, $count = $zip->count(); $i < $count; ++$i) {
+            $zip->setExternalAttributesIndex($i, \ZipArchive::OPSYS_DOS, 0);
+        }
+    }
 
     /**
      * Add a new fileset.
@@ -151,6 +168,17 @@ class ZipTask extends MatchingTask
     }
 
     /**
+     * Set the save file attributes flag.
+     *
+     * @param  bool $bool Flag if file attributes should be saved
+     * @return void
+     */
+    public function setSaveFileAttributes($bool)
+    {
+        $this->saveFileAttributes = (bool) $bool;
+    }
+
+    /**
      * Add a comment to the zip archive.
      *
      * @param string $text
@@ -220,6 +248,10 @@ class ZipTask extends MatchingTask
 
             $this->log("Building zip: " . $this->zipFile->__toString(), Project::MSG_INFO);
 
+            if (false === $this->mtimeDummy = tempnam(sys_get_temp_dir(), 'mtimeDummy')) {
+                throw new Exception('Could not create temp file');
+            }
+
             $zip = new ZipArchive();
             $res = $zip->open($this->zipFile->getAbsolutePath(), ZipArchive::CREATE);
 
@@ -236,7 +268,12 @@ class ZipTask extends MatchingTask
 
             $this->addFilesetsToArchive($zip);
 
+            if (!$this->saveFileAttributes) {
+                self::clearExternalAttributes($zip);
+            }
+
             $zip->close();
+            unlink($this->mtimeDummy);
         } catch (IOException $ioe) {
             $msg = "Problem creating ZIP: " . $ioe->getMessage();
             throw new BuildException($msg, $ioe, $this->getLocation());
@@ -305,13 +342,29 @@ class ZipTask extends MatchingTask
 
                 if ($f->isDirectory()) {
                     if ($pathInZip != '.') {
-                        $zip->addEmptyDir($pathInZip);
+                        $this->addDirToZip($zip, $f->getAbsolutePath(), $pathInZip . '/');
                     }
                 } else {
                     $zip->addFile($f->getAbsolutePath(), $pathInZip);
                 }
                 $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
             }
+        }
+    }
+
+    /**
+     * @param \ZipArchive $zip
+     * @param string      $dirPath
+     * @param string      $entryName
+     *
+     * @return void
+     */
+    private function addDirToZip(\ZipArchive $zip, string $dirPath, string $entryName)
+    {
+        touch($this->mtimeDummy, filemtime($dirPath)); // Save directory's mtime to dummmy
+        $zip->addFile($this->mtimeDummy, $entryName); // Add empty dummy as a directory
+        if (false !== $filePerms = fileperms($dirPath)) { // filePerms supported
+            $zip->setExternalAttributesName($entryName, \ZipArchive::OPSYS_UNIX, $filePerms << 16);
         }
     }
 }

@@ -41,6 +41,10 @@ class PDODelimitersTest extends BuildFileTest
      */
     public function setUp(): void
     {
+        if (! extension_loaded('pdo_sqlite')) {
+            $this->markTestSkipped('The PHP pdo sqlite (pdo_sqlite) is needed for this test.');
+        }
+
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pdo/empty.xml');
         $this->queries = [];
 

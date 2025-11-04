@@ -33,6 +33,9 @@ class PHPMDTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
+        if (!class_exists('\PHPMD\PHPMD')) {
+            $this->markTestSkipped('The PHPMD tasks depend on the phpmd/phpmd package being installed.');
+        }
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/phpmd/build.xml');
     }
 

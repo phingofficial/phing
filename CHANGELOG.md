@@ -2,6 +2,30 @@ P     H     I     N     G
 =========================
 
 
+Jul. 25, 2025 - Phing 3.1.0
+---------------------------
+
+NOTE: This version of Phing requires PHP 8.1 or later!
+
+The following issues and pull requests were closed in this release:
+
+* PDOSQLExecTask doesn't support the 'encoding' attribute [\#1932](https://github.com/phingofficial/phing/issues/1932)
+* Refactor creation of `phing.startTime` property [\#1928](https://github.com/phingofficial/phing/pull/1928)
+* Fix filename uniqueness when using TempfileTask [\#1917](https://github.com/phingofficial/phing/pull/1917)
+* Phing 3.* and PHPUnit 12.* impossible to use together [\#1914](https://github.com/phingofficial/phing/issues/1914)
+* Remove HipChatTask [\#1904](https://github.com/phingofficial/phing/pull/1904)
+* Cache Phing::phingVersion() and add cached Phing::phingShortVersion() method [\#1900](https://github.com/phingofficial/phing/pull/1900)
+* Added test case for numeric case values in SwitchTask [\#1899](https://github.com/phingofficial/phing/pull/1899)
+* Fix fileset excludefile [\#1892](https://github.com/phingofficial/phing/pull/1892)
+* v3 Upgrade: $excludesFile must be of type Phing\Io\File, string given [\#1890](https://github.com/phingofficial/phing/issues/1890)
+* Error on using switch statement "Value is required for case"  [\#1889](https://github.com/phingofficial/phing/issues/1889)
+* fixed some PHP8.4 deprecations [\#1888](https://github.com/phingofficial/phing/pull/1888)
+* Use getenv() function instead of $_ENV global variable. [\#1887](https://github.com/phingofficial/phing/pull/1887)
+* Regression: empty argument in ExecTask cannot be escaped [\#1839](https://github.com/phingofficial/phing/issues/1839)
+* Fix(Task/Ext/Archive/ZipTask): Preseves directories' permissions in zip [\#1820](https://github.com/phingofficial/phing/pull/1820)
+* ZipTask stores directories with 777 permission [\#1817](https://github.com/phingofficial/phing/issues/1817)
+* Error with MkdirTask [\#1619](https://github.com/phingofficial/phing/issues/1619)
+
 Dec. 4, 2024 - Phing 3.0.1
 --------------------------
 

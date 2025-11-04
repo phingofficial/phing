@@ -34,6 +34,9 @@ class PhpDependTaskTest extends BuildFileTest
 {
     public function setUp(): void
     {
+        if (!class_exists('\PDepend\TextUI\Runner')) {
+            $this->markTestSkipped('The PDepend tasks depend on the pdepend/pdepend package being installed.');
+        }
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/pdepend/build.xml');
     }
 

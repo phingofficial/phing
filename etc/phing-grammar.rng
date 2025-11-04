@@ -267,6 +267,7 @@
                 <ref name="resolvepath"/>
                 <ref name="relentless"/>
                 <ref name="retry"/>
+                <ref name="run"/>
                 <ref name="sleep"/>
                 <ref name="subphing"/>
                 <ref name="switch"/>
@@ -861,8 +862,11 @@
                         </choice>
                     </attribute>
                 </optional>
+                <optional>
+                    <ref name="selector"/>
+                </optional>
+                <ref name="selectors"/>
             </interleave>
-            <ref name="selector"/>
         </element>
     </define>
 
@@ -1600,8 +1604,10 @@
                 </optional>
             </interleave>
             <zeroOrMore>
-                <ref name="dirset"/>
-                <ref name="fileset"/>
+                <choice>
+                    <ref name="dirset"/>
+                    <ref name="fileset"/>
+                </choice>
             </zeroOrMore>
         </element>
     </define>
@@ -1724,19 +1730,19 @@
 
     <define name="echoxml">
         <element name="echoxml">
-            <choice>
-                <interleave>
+            <interleave>
+                <optional>
+                    <attribute name="file"/>
                     <optional>
-                        <attribute name="file"/>
                         <attribute name="append" >
                             <data type="boolean" a:defaultValue="false"/>
                         </attribute>
                     </optional>
-                </interleave>
-                <zeroOrMore>
-                    <ref name="any_element" />
-                </zeroOrMore>
-            </choice>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="any_element" />
+            </zeroOrMore>
         </element>
     </define>
 
@@ -1870,7 +1876,11 @@
                         <attribute name="message"/>
                         <attribute name="msg"/>
                     </choice>
+                </optional>
+                <optional>
                     <attribute name="if"/>
+                </optional>
+                <optional>
                     <attribute name="unless"/>
                 </optional>
             </interleave>
@@ -2422,6 +2432,12 @@
         </element>
     </define>
 
+    <define name="run">
+        <element name="runtarget">
+            <attribute name="target"/>
+        </element>
+    </define>
+
     <define name="sleep">
         <element name="switch">
             <interleave>
@@ -2899,6 +2915,8 @@
           <attribute name="command">
             <data type="string"/>
           </attribute>
+        </optional>
+        <optional>
           <attribute name="php">
             <data type="string"/>
           </attribute>
@@ -7242,6 +7260,11 @@
                 </optional>
                 <optional>
                     <attribute name="includeemptydirs">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="savefileattributes" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
                 </optional>
