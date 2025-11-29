@@ -47,6 +47,7 @@ use Phing\Util\StringHelper;
 use SebastianBergmann\Version;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Throwable;
+
 use function array_filter;
 use function array_map;
 use function array_reduce;
@@ -57,6 +58,7 @@ use function sprintf;
 use function strlen;
 use function strval;
 use function trim;
+
 use const PHP_EOL;
 
 /**
