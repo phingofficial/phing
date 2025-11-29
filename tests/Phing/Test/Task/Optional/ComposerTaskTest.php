@@ -92,7 +92,6 @@ class ComposerTaskTest extends TestCase
         $o->setComposer($composer);
 
         $prop = new ReflectionProperty(ComposerTask::class, 'composer');
-        $prop->setAccessible(true);
 
         $this->assertEquals($composer, $prop->getValue($o));
     }
@@ -108,7 +107,6 @@ class ComposerTaskTest extends TestCase
         $orgPath = getenv('PATH');
 
         $prop = new ReflectionProperty(ComposerTask::class, 'composer');
-        $prop->setAccessible(true);
         $prop->setValue($o, $composer);
 
         putenv('PATH=/foo/bar');
@@ -161,7 +159,6 @@ class ComposerTaskTest extends TestCase
         $o->createArg()->setValue('--dry-run');
         $composer = $o->getComposer();
         $method = new ReflectionMethod(ComposerTask::class, 'prepareCommandLine');
-        $method->setAccessible(true);
         $this->assertEquals('php ' . $composer . ' install --dry-run', (string) $method->invoke($o));
         $o->setCommand('update');
         $o->createArg()->setValue('--dev');
