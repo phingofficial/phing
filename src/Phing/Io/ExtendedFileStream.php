@@ -43,7 +43,7 @@ class ExtendedFileStream
         stream_wrapper_unregister('efile');
     }
 
-    // @codingStandardsIgnoreStart
+    // @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 
     /**
      * @param $path
@@ -144,7 +144,7 @@ class ExtendedFileStream
         return fstat($this->fp);
     }
 
-    // @codingStandardsIgnoreEnd
+    // @phpcs:enable
 
     /**
      * @param  $path
