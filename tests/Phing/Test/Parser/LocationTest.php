@@ -30,19 +30,21 @@ class LocationTest extends TestCase
 {
     /**
      * @test
-     * @dataProvider locations
+     * @dataProvider locationsProvider
      *
      * @param mixed $fileName
      * @param mixed $lineNumber
      * @param mixed $columnNumber
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('locationsProvider')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function location($fileName, $lineNumber, $columnNumber): void
     {
         $loc = new Location($fileName, $lineNumber, $columnNumber);
         $this->assertSame(sprintf('%s:%s:%s', $fileName, $lineNumber, $columnNumber), (string) $loc);
     }
 
-    public function locations(): array
+    public static function locationsProvider(): array
     {
         return [
             'normal' => ['test.php', 10, 20],

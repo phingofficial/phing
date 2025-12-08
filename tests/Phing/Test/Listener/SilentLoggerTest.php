@@ -35,6 +35,7 @@ class SilentLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function buildFinished(): void
     {
         $event = new BuildEvent(new Project());
@@ -46,6 +47,7 @@ class SilentLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function buildFinishedException(): void
     {
         $event = new BuildEvent(new Project());

@@ -33,6 +33,7 @@ class StatisticsListenerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function buildFinished(): void
     {
         $event = new BuildEvent(new Project());

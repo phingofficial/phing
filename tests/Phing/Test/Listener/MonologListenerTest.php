@@ -40,6 +40,7 @@ class MonologListenerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function buildStarted(): void
     {
         $listener = new MonologListener();

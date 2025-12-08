@@ -86,7 +86,7 @@ class PropertyTaskTest extends BuildFileTest
         $this->assertEquals('World', $this->project->getProperty('filterchain.test'));
     }
 
-    public function circularDefinitionTargets(): array
+    public static function circularDefinitionTargetsProvider(): array
     {
         return [
             ['test3'],
@@ -96,10 +96,11 @@ class PropertyTaskTest extends BuildFileTest
     }
 
     /**
-     * @dataProvider circularDefinitionTargets
+     * @dataProvider circularDefinitionTargetsProvider
      *
      * @param mixed $target
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('circularDefinitionTargetsProvider')]
     public function testCircularDefinitionDetection($target): void
     {
         $this->expectException(BuildException::class);

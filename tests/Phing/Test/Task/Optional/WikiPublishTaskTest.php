@@ -46,20 +46,30 @@ class WikiPublishTaskTest extends BuildFileTest
         $task->setContent('some content');
         $task->setMode('prepend');
 
-        $task->expects($this->exactly(4))
+        $callParams = [
+            ['action=login', ['lgname' => 'testUser', 'lgpassword' => 'testPassword']],
+            ['action=login', ['lgname' => 'testUser', 'lgpassword' => 'testPassword', 'lgtoken' => 'testLgToken']],
+            ['action=tokens&type=edit'],
+            ['action=edit&token=testEditToken%2B%2F', ['minor' => '', 'title' => 'some page', 'prependtext' => 'some content']]
+        ];
+        $returnResults = [
+            ['login' => ['result' => 'NeedToken', 'token' => 'testLgToken']],
+            ['login' => ['result' => 'Success']],
+            ['tokens' => ['edittoken' => 'testEditToken+/']],
+            ['edit' => ['result' => 'Success']]
+        ];
+
+        $task->expects($this->exactly(count($callParams)))
             ->method('callApi')
-            ->withConsecutive(
-                ['action=login', ['lgname' => 'testUser', 'lgpassword' => 'testPassword']],
-                ['action=login', ['lgname' => 'testUser', 'lgpassword' => 'testPassword', 'lgtoken' => 'testLgToken']],
-                ['action=tokens&type=edit'],
-                ['action=edit&token=testEditToken%2B%2F', ['minor' => '', 'title' => 'some page', 'prependtext' => 'some content']]
-            )
-            ->willReturnOnConsecutiveCalls(
-                ['login' => ['result' => 'NeedToken', 'token' => 'testLgToken']],
-                ['login' => ['result' => 'Success']],
-                ['tokens' => ['edittoken' => 'testEditToken+/']],
-                ['edit' => ['result' => 'Success']]
-            )
+            ->willReturnCallback(function (string $action, array|null $args) use ($callParams, $returnResults): array {
+                $index = array_find_key($callParams, function (array $value) use ($action, $args): bool {
+                   return $value[0] === $action && ($value[1] ?? null) === $args;
+                });
+                if (isset($callParams[$index])) {
+                    $this->assertSame($callParams[$index][1] ?? null, $args);
+                    return $returnResults[$index];
+                }
+            })
         ;
 
         $task->main();

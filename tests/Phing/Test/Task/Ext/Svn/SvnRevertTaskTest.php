@@ -38,6 +38,7 @@ class SvnRevertTaskTest extends AbstractSvnTaskTest
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function recursiveRevert(): void
     {
         $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
