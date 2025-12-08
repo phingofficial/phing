@@ -267,9 +267,6 @@ class StringHelperTest extends TestCase
         $this->expectExceptionMessage($message);
 
         StringHelper::substring($string, $start, $end);
-
-        $this->assertSame($message, $userError);
-        restore_error_handler();
     }
 
     public static function substringErrorProvider(): array
