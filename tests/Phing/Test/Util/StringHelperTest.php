@@ -18,6 +18,7 @@ class StringHelperTest extends TestCase
      * @param mixed $candidate
      * @param mixed $expected
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('booleanValueProvider')]
     public function testBooleanValue($candidate, $expected)
     {
         $result = StringHelper::booleanValue($candidate);
@@ -25,7 +26,7 @@ class StringHelperTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function booleanValueProvider(): array
+    public static function booleanValueProvider(): array
     {
         return [
             // True values
@@ -81,6 +82,7 @@ class StringHelperTest extends TestCase
      * @param string $candidate
      * @param bool   $expected
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('isBooleanProvider')]
     public function testIsBoolean($candidate, $expected)
     {
         $result = StringHelper::isBoolean($candidate);
@@ -88,7 +90,7 @@ class StringHelperTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function isBooleanProvider()
+    public static function isBooleanProvider(): array
     {
         return [
             // Boolean values
@@ -146,13 +148,14 @@ class StringHelperTest extends TestCase
      * @param mixed $haystack
      * @param mixed $expected
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('startsWithProvider')]
     public function testStartsWith($needle, $haystack, $expected)
     {
         $result = StringHelper::startsWith($needle, $haystack);
         $this->assertSame($expected, $result);
     }
 
-    public function startsWithProvider()
+    public static function startsWithProvider(): array
     {
         return [
             // True
@@ -180,13 +183,14 @@ class StringHelperTest extends TestCase
      * @param mixed $haystack
      * @param mixed $expected
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('endsWithProvider')]
     public function testEndsWith($needle = 'o', $haystack = 'foo', $expected = true)
     {
         $result = StringHelper::endsWith($needle, $haystack);
         $this->assertSame($expected, $result);
     }
 
-    public function endsWithProvider()
+    public static function endsWithProvider(): array
     {
         return [
             // True
@@ -224,13 +228,14 @@ class StringHelperTest extends TestCase
      * @param mixed $end
      * @param mixed $expected
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('substringProvider')]
     public function testSubstring($string, $start, $end, $expected)
     {
         $result = StringHelper::substring($string, $start, $end);
         $this->assertSame($expected, $result);
     }
 
-    public function substringProvider()
+    public static function substringProvider(): array
     {
         return [
             ['FooBarBaz', 0, 0, 'F'],
@@ -255,14 +260,19 @@ class StringHelperTest extends TestCase
      * @param mixed $end
      * @param mixed $message
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('substringErrorProvider')]
     public function testSubstringError($string, $start, $end, $message)
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage($message);
+
         StringHelper::substring($string, $start, $end);
+
+        $this->assertSame($message, $userError);
+        restore_error_handler();
     }
 
-    public function substringErrorProvider()
+    public static function substringErrorProvider(): array
     {
         return [
             ['FooBarBaz', -1, 1, 'substring(), Startindex out of bounds must be 0<n<9'],
@@ -280,13 +290,14 @@ class StringHelperTest extends TestCase
      * @param mixed $value
      * @param mixed $expected
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('isSlotVarProvider')]
     public function testIsSlotVar($value, $expected)
     {
         $result = StringHelper::isSlotVar($value);
         $this->assertSame($expected, $result);
     }
 
-    public function isSlotVarProvider()
+    public static function isSlotVarProvider(): array
     {
         return [
             // 1
@@ -316,13 +327,14 @@ class StringHelperTest extends TestCase
      * @param mixed $var
      * @param mixed $expected
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('slotVarProvider')]
     public function testSlotVar($var, $expected)
     {
         $result = StringHelper::slotVar($var);
         $this->assertSame($expected, $result);
     }
 
-    public function slotVarProvider()
+    public static function slotVarProvider(): array
     {
         return [
             ['%{slot.var}', 'slot.var'],

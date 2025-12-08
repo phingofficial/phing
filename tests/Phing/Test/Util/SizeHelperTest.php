@@ -34,13 +34,14 @@ class SizeHelperTest extends TestCase
      *
      * @param mixed $expectedBytes
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('fromHumanToBytesProvider')]
     public function testFromHumanToBytes(string $humanSize, $expectedBytes): void
     {
         $bytes = SizeHelper::fromHumanToBytes($humanSize);
         $this->assertSame($expectedBytes, $bytes);
     }
 
-    public function fromHumanToBytesProvider(): array
+    public static function fromHumanToBytesProvider(): array
     {
         return [
             ['1024', 1024.0],
@@ -89,6 +90,7 @@ class SizeHelperTest extends TestCase
     /**
      * @dataProvider invalidFromHumanToBytesProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidFromHumanToBytesProvider')]
     public function testInvalidFromHumanToBytes(string $human, string $message): void
     {
         $this->expectException(BuildException::class);
@@ -96,7 +98,7 @@ class SizeHelperTest extends TestCase
         SizeHelper::fromHumanToBytes($human);
     }
 
-    public function invalidFromHumanToBytesProvider(): array
+    public static function invalidFromHumanToBytesProvider(): array
     {
         return [
             ['', "Invalid size ''"],
@@ -115,13 +117,14 @@ class SizeHelperTest extends TestCase
     /**
      * @dataProvider fromBytesToProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('fromBytesToProvider')]
     public function testFromBytesTo(int $bytes, string $unit, float $expected): void
     {
         $converted = SizeHelper::fromBytesTo($bytes, $unit);
         $this->assertSame($expected, $converted);
     }
 
-    public function fromBytesToProvider(): array
+    public static function fromBytesToProvider(): array
     {
         return [
             [1024, 'B', 1024],
@@ -164,6 +167,7 @@ class SizeHelperTest extends TestCase
     /**
      * @dataProvider invalidFromBytesToProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidFromBytesToProvider')]
     public function testInvalidFromBytesTo(string $unit, string $message): void
     {
         $this->expectException(BuildException::class);
@@ -171,7 +175,7 @@ class SizeHelperTest extends TestCase
         SizeHelper::fromBytesTo(1024, $unit);
     }
 
-    public function invalidFromBytesToProvider(): array
+    public static function invalidFromBytesToProvider(): array
     {
         return [
             ['', "Invalid unit ''"],

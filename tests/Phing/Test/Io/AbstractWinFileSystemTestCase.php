@@ -52,6 +52,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
     /**
      * @dataProvider normaliseDataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('normaliseDataProvider')]
     public function testNormalise(string $expected, string $path): void
     {
         $normalisedPath = $this->fs->normalize($path);
@@ -59,7 +60,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
         $this->assertSame($expected, $normalisedPath);
     }
 
-    public function normaliseDataProvider(): array
+    public static function normaliseDataProvider(): array
     {
         return [
             'alreadyNormal' => ['C:\\My Files\\file.txt', 'C:\\My Files\\file.txt'],
@@ -75,8 +76,9 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
     }
 
     /**
-     * @dataProvider prefixLengthDataPRovider
+     * @dataProvider prefixLengthDataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('prefixLengthDataProvider')]
     public function testPrefixLength(int $expected, string $pathname): void
     {
         $length = $this->fs->prefixLength($pathname);
@@ -84,7 +86,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
         $this->assertSame($expected, $length);
     }
 
-    public function prefixLengthDataProvider(): array
+    public static function prefixLengthDataProvider(): array
     {
         return [
             'absoluteLocal' => [3, 'D:\\My Files\\file.txt'],
@@ -101,6 +103,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
     /**
      * @dataProvider resolveDataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('resolveDataProvider')]
     public function testResolve(string $expected, string $parent, string $child): void
     {
         $resolved = $this->fs->resolve($parent, $child);
@@ -108,7 +111,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
         $this->assertSame($expected, $resolved);
     }
 
-    public function resolveDataProvider(): array
+    public static function resolveDataProvider(): array
     {
         return [
             'emptyParent' => ['My Files\\file.txt', '', 'My Files\\file.txt'],
@@ -123,18 +126,19 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
     /**
      * @dataProvider resolveFileDataProvider
      */
-    public function testResolveFile(string $expected, string $path, string $prefix): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('resolveFileDataProvider')]
+    public function testResolveFile(string $expected, string $path, int $prefix): void
     {
         $file = $this->getMockBuilder(File::class)->disableOriginalConstructor()->getMock();
-        $file->expects($this->any())->method('getPath')->will($this->returnValue($path));
-        $file->expects($this->any())->method('getPrefixLength')->will($this->returnValue($prefix));
+        $file->expects($this->any())->method('getPath')->willReturnMap([[$path]]);
+        $file->expects($this->any())->method('getPrefixLength')->willReturnMap([[$prefix]]);
 
         $resolved = $this->fs->resolveFile($file);
 
         $this->assertSame($expected, $resolved);
     }
 
-    public function resolveFileDataProvider(): array
+    public static function resolveFileDataProvider(): array
     {
         $cwd = getcwd();
         $driveLetter = '';
@@ -163,8 +167,8 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
         $this->expectExceptionMessage('Unresolvable path: file.txt');
 
         $file = $this->getMockBuilder(File::class)->disableOriginalConstructor()->getMock();
-        $file->expects($this->any())->method('getPath')->will($this->returnValue('file.txt'));
-        $file->expects($this->any())->method('getPrefixLength')->will($this->returnValue(5));
+        $file->expects($this->any())->method('getPath')->willReturnMap([['file.txt']]);
+        $file->expects($this->any())->method('getPrefixLength')->willReturnMap([[5]]);
 
         $this->fs->resolveFile($file);
     }
@@ -179,6 +183,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
     /**
      * @dataProvider fromURIPathDataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('fromURIPathDataProvider')]
     public function testFromURIPath(string $expected, string $path): void
     {
         $resultPath = $this->fs->fromURIPath($path);
@@ -186,7 +191,7 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
         $this->assertSame($expected, $resultPath);
     }
 
-    public function fromURIPathDataProvider(): array
+    public static function fromURIPathDataProvider(): array
     {
         return [
             'singleLetter' => ['f', 'f'],
@@ -200,18 +205,19 @@ abstract class AbstractWinFileSystemTestCase extends TestCase
     /**
      * @dataProvider isAbsoluteDataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('isAbsoluteDataProvider')]
     public function testIsAbsolute(bool $expected, string $path, int $prefix): void
     {
         $file = $this->getMockBuilder(File::class)->disableOriginalConstructor()->getMock();
-        $file->expects($this->any())->method('getPath')->will($this->returnValue($path));
-        $file->expects($this->any())->method('getPrefixLength')->will($this->returnValue($prefix));
+        $file->expects($this->any())->method('getPath')->willReturnMap([[$path]]);
+        $file->expects($this->any())->method('getPrefixLength')->willReturnMap([[$prefix]]);
 
         $is = $this->fs->isAbsolute($file);
 
         $this->assertSame($expected, $is);
     }
 
-    public function isAbsoluteDataProvider(): array
+    public static function isAbsoluteDataProvider(): array
     {
         return [
             // Doesn't work for my current version of phpunit

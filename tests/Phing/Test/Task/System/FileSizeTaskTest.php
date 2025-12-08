@@ -51,6 +51,7 @@ class FileSizeTaskTest extends BuildFileTest
      * @param mixed $logInfo
      * @param mixed $expectedSize
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('unitAttributeProvider')]
     public function testUnitAttribute($dummySize, $filesizeUnit, $logVerbose, $logInfo, $expectedSize): void
     {
         $this->getProject()->setProperty('dummy.size', $dummySize);
@@ -61,7 +62,7 @@ class FileSizeTaskTest extends BuildFileTest
         $this->assertPropertyEquals('filesize', $expectedSize);
     }
 
-    public function unitAttributeProvider(): array
+    public static function unitAttributeProvider(): array
     {
         return [
             ['1K', 'b', '1024B', '1024B', 1024],

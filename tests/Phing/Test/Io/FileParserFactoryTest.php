@@ -62,12 +62,13 @@ class FileParserFactoryTest extends TestCase
      * @param mixed $parserName
      * @param mixed $expectedType
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('parserTypeProvider')]
     public function testCreateParser($parserName, $expectedType): void
     {
         $this->assertInstanceOf($expectedType, $this->objectToTest->createParser($parserName));
     }
 
-    public function parserTypeProvider(): array
+    public static function parserTypeProvider(): array
     {
         return [
             ['properties', IniFileParser::class],

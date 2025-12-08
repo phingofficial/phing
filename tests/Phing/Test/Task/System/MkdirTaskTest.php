@@ -54,6 +54,7 @@ class MkdirTaskTest extends BuildFileTest
      * @param mixed $umask
      * @param mixed $expectedDirMode
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('umaskIsHonouredWhenNotUsingModeArgumentDataProvider')]
     public function testUmaskIsHonouredWhenNotUsingModeArgument($umask, $expectedDirMode): void
     {
         if (0 !== $umask) {
@@ -65,7 +66,7 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a', $expectedDirMode);
     }
 
-    public function umaskIsHonouredWhenNotUsingModeArgumentDataProvider(): array
+    public static function umaskIsHonouredWhenNotUsingModeArgumentDataProvider(): array
     {
         return [
             [0000, 0777],
@@ -88,6 +89,7 @@ class MkdirTaskTest extends BuildFileTest
      * @param mixed $expectedModeA
      * @param mixed $expectedModeB
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('parentDirectoriesHaveDefaultPermissionsDataProvider')]
     public function testParentDirectoriesHaveDefaultPermissions($umask, $expectedModeA, $expectedModeB): void
     {
         if (0 !== $umask) {
@@ -100,18 +102,18 @@ class MkdirTaskTest extends BuildFileTest
         $this->assertFileModeIs(PHING_TEST_BASE . '/etc/tasks/system/tmp/a/b', $expectedModeB);
     }
 
-    public function parentDirectoriesHaveDefaultPermissionsDataProvider(): array
+    public static function parentDirectoriesHaveDefaultPermissionsDataProvider(): array
     {
         return [
             [
                 'umask' => 0000,
-                'expectedPermissionsOfA' => 0777,
-                'expectedPermissionsOfB' => 0555,
+                'expectedModeA' => 0777,
+                'expectedModeB' => 0555,
             ],
             [
                 'umask' => 0077,
-                'expectedPermissionsOfA' => 0700,
-                'expectedPermissionsOfB' => 0555,
+                'expectedModeA' => 0700,
+                'expectedModeB' => 0555,
             ],
         ];
     }

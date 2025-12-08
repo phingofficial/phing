@@ -46,7 +46,7 @@ class IniFileParserTest extends TestCase
     }
 
     /**
-     * @dataProvider provideIniFiles
+     * @dataProvider provideIniFilesProvider
      * @covers       \IniFileParser::inVal
      * @covers       \IniFileParser::parseFile
      *
@@ -56,6 +56,7 @@ class IniFileParserTest extends TestCase
      * @throws IOException
      * @throws IOException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideIniFilesProvider')]
     public function testParseFile($data, $expected): void
     {
         $file = $this->root->url() . '/test';
@@ -77,7 +78,7 @@ class IniFileParserTest extends TestCase
         $this->parser->parseFile($phingFile);
     }
 
-    public function provideIniFiles(): array
+    public static function provideIniFilesProvider(): array
     {
         return [
             [

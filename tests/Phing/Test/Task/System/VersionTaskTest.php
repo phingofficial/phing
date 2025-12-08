@@ -103,6 +103,7 @@ class VersionTaskTest extends BuildFileTest
      * @throws ReflectionException
      * @throws ReflectionException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('versionProvider')]
     public function testGetVersionMethod($releaseType, $version, $expectedVersion): void
     {
         $versionTask = new VersionTask();
@@ -116,7 +117,7 @@ class VersionTaskTest extends BuildFileTest
         $this->assertSame($expectedVersion, $newVersion);
     }
 
-    public function versionProvider(): array
+    public static function versionProvider(): array
     {
         return [
             [VersionTask::RELEASETYPE_MAJOR, null, '1.0.0'],

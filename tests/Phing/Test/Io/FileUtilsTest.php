@@ -51,6 +51,7 @@ class FileUtilsTest extends BuildFileTest
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function contentEquals(): void
     {
         $this->assertFalse($this->fu->contentEquals(new File(__FILE__), new File('does_not_exists')));
@@ -64,6 +65,7 @@ class FileUtilsTest extends BuildFileTest
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function copyFile(): void
     {
         $this->fu->copyFile(new File(__FILE__), new File('tmp/test.php'), $this->getProject());
