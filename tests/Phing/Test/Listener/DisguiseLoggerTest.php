@@ -22,6 +22,7 @@ class DisguiseLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function maskOutput()
     {
         $event = new BuildEvent(new Project());
@@ -32,6 +33,7 @@ class DisguiseLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function buildStarted()
     {
         $event = new BuildEvent(new Project());
@@ -42,6 +44,7 @@ class DisguiseLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function buildFinished()
     {
         $event = new BuildEvent(new Project());
@@ -52,6 +55,7 @@ class DisguiseLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function targetStarted()
     {
         $event = new BuildEvent(new Project());
@@ -62,6 +66,7 @@ class DisguiseLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function targetFinished()
     {
         $event = new BuildEvent(new Project());
@@ -72,6 +77,7 @@ class DisguiseLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function taskStarted()
     {
         $event = new BuildEvent(new Project());
@@ -82,6 +88,7 @@ class DisguiseLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function taskFinished()
     {
         $event = new BuildEvent(new Project());

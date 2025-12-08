@@ -68,6 +68,7 @@ class FileSystemTest extends TestCase
      *
      * @throws IOException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('fileSystemMappingsDataProvider')]
     public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey): void
     {
         $this->resetFileSystem();
@@ -79,7 +80,7 @@ class FileSystemTest extends TestCase
         $this->assertInstanceOf($expectedFileSystemClass, $system);
     }
 
-    public function fileSystemMappingsDataProvider(): array
+    public static function fileSystemMappingsDataProvider(): array
     {
         return [
             [UnixFileSystem::class, 'UNIX'],

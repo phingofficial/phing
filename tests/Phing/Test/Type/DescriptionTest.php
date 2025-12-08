@@ -28,18 +28,19 @@ class DescriptionTest extends BuildFileTest
     /**
      * Test that the aaddText method appends text to description w/o any spaces.
      *
-     * @dataProvider getFiles
+     * @dataProvider getFilesProvider
      *
      * @param mixed $fileName
      * @param mixed $outcome
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getFilesProvider')]
     public function test($fileName, $outcome): void
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/types/{$fileName}.xml");
         $this->assertEquals($outcome, $this->getProject()->getDescription());
     }
 
-    public function getFiles(): array
+    public static function getFilesProvider(): array
     {
         return [
             'Single' => ['description1', 'Test Project Description'],

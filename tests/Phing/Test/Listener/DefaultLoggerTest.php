@@ -38,6 +38,7 @@ class DefaultLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function throwableMessageOne(): void
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
@@ -47,6 +48,7 @@ class DefaultLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function throwableMessageTwo(): void
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
@@ -61,6 +63,7 @@ class DefaultLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function throwableMessageThree(): void
     {
         $be = new BuildException('oops', new Location('build.xml', 1, 0));
@@ -77,6 +80,7 @@ class DefaultLoggerTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function buildFinished(): void
     {
         $event = new BuildEvent(new Project());
@@ -101,13 +105,14 @@ class DefaultLoggerTest extends TestCase
      *
      * @param mixed $seconds
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('formatTimeProvider')]
     public function testFormatTime($seconds, string $expectedText): void
     {
         $formattedText = DefaultLogger::formatTime($seconds);
         $this->assertSame($formattedText, $expectedText);
     }
 
-    public function formatTimeProvider(): array
+    public static function formatTimeProvider(): array
     {
         return [
             [0.0005, '0.0005 seconds'],

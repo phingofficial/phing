@@ -26,6 +26,7 @@ use Phing\Exception\BuildException;
  * Extended file stream wrapper class which auto-creates directories.
  *
  * @author  Michiel Rook <mrook@php.net>
+ * @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
  */
 class ExtendedFileStream
 {
@@ -43,7 +44,7 @@ class ExtendedFileStream
         stream_wrapper_unregister('efile');
     }
 
-    // @codingStandardsIgnoreStart
+    // @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 
     /**
      * @param $path
@@ -144,7 +145,7 @@ class ExtendedFileStream
         return fstat($this->fp);
     }
 
-    // @codingStandardsIgnoreEnd
+    // @phpcs:enable
 
     /**
      * @param  $path

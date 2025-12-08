@@ -67,6 +67,7 @@ class TargetTest extends BuildFileTest
     /**
      * @dataProvider setDependsValidDataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('setDependsValidDataProvider')]
     public function testSetDependsValid(array $expectedDepends, string $depends): void
     {
         $this->target->setDepends($depends);
@@ -74,7 +75,7 @@ class TargetTest extends BuildFileTest
         $this->assertEquals($expectedDepends, $this->target->getDependencies());
     }
 
-    public function setDependsValidDataProvider(): array
+    public static function setDependsValidDataProvider(): array
     {
         return [
             [['target1'], 'target1'],
@@ -85,6 +86,7 @@ class TargetTest extends BuildFileTest
     /**
      * @dataProvider setDependsInvalidDataProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('setDependsInvalidDataProvider')]
     public function testSetDependsInvalid(string $depends): void
     {
         $this->expectException(BuildException::class);
@@ -93,7 +95,7 @@ class TargetTest extends BuildFileTest
         $this->target->setDepends($depends);
     }
 
-    public function setDependsInvalidDataProvider(): array
+    public static function setDependsInvalidDataProvider(): array
     {
         return [
             [''],

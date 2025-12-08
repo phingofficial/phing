@@ -46,16 +46,17 @@ class CharacterTest extends TestCase
     }
 
     /**
-     * @dataProvider getChars
+     * @dataProvider getCharsProvider
      *
      * @param mixed $elem
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getCharsProvider')]
     public function testIsChar($elem, bool $expected): void
     {
         $this->assertSame($this->char::isLetter($elem), $expected);
     }
 
-    public function getChars(): array
+    public static function getCharsProvider(): array
     {
         return [
             'more than 2' => ['as', false],

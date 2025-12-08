@@ -31,9 +31,37 @@ use PHPUnit\Framework\MockObject\MockObject;
  * @author  Piotr Lewandowski <piotr@cassis.pl>
  *
  * @internal
+ * @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
  */
 class WikiPublishTaskTest extends BuildFileTest
 {
+    /**
+     * Returns the KEY of the first element for which the $callback
+     *  returns TRUE. If no matching element is found the function
+     *  returns NULL.
+     *
+     * @param array $array The array that should be searched.
+     * @param callable $callback The callback function to call to check
+     *  each element. The first parameter contains the value ($value),
+     *  the second parameter contains the corresponding key ($key). If
+     *  this function returns TRUE, the key ($key) is returned
+     *  immediately and the callback will not be called for further
+     *  elements.
+     *
+     * @return mixed The key of the first element for which the
+     *  $callback returns TRUE. NULL, If no matching element is found.
+     */
+    private function array_find_key(array $array, callable $callback)
+    {
+        foreach ($array as $key => $value) {
+            if ($callback($value, $key)) {
+                return $key;
+            }
+        }
+
+        return null;
+    }
+
     public function testApiEdit(): void
     {
         $task = $this->getWikiPublishMock();
@@ -46,20 +74,31 @@ class WikiPublishTaskTest extends BuildFileTest
         $task->setContent('some content');
         $task->setMode('prepend');
 
-        $task->expects($this->exactly(4))
+        $callParams = [
+            ['action=login', ['lgname' => 'testUser', 'lgpassword' => 'testPassword']],
+            ['action=login', ['lgname' => 'testUser', 'lgpassword' => 'testPassword', 'lgtoken' => 'testLgToken']],
+            ['action=tokens&type=edit'],
+            ['action=edit&token=testEditToken%2B%2F', ['minor' => '', 'title' => 'some page', 'prependtext' => 'some content']]
+        ];
+        $returnResults = [
+            ['login' => ['result' => 'NeedToken', 'token' => 'testLgToken']],
+            ['login' => ['result' => 'Success']],
+            ['tokens' => ['edittoken' => 'testEditToken+/']],
+            ['edit' => ['result' => 'Success']]
+        ];
+
+        $task->expects($this->exactly(count($callParams)))
             ->method('callApi')
-            ->withConsecutive(
-                ['action=login', ['lgname' => 'testUser', 'lgpassword' => 'testPassword']],
-                ['action=login', ['lgname' => 'testUser', 'lgpassword' => 'testPassword', 'lgtoken' => 'testLgToken']],
-                ['action=tokens&type=edit'],
-                ['action=edit&token=testEditToken%2B%2F', ['minor' => '', 'title' => 'some page', 'prependtext' => 'some content']]
-            )
-            ->willReturnOnConsecutiveCalls(
-                ['login' => ['result' => 'NeedToken', 'token' => 'testLgToken']],
-                ['login' => ['result' => 'Success']],
-                ['tokens' => ['edittoken' => 'testEditToken+/']],
-                ['edit' => ['result' => 'Success']]
-            )
+            ->willReturnCallback(function (string $action, array|null $args) use ($callParams, $returnResults): array {
+                $index = $this->array_find_key($callParams, function (array $value) use ($action, $args): bool {
+                    return $value[0] === $action && ($value[1] ?? null) === $args;
+                });
+                if (isset($callParams[$index])) {
+                    $this->assertSame($callParams[$index][1] ?? null, $args);
+                    return $returnResults[$index];
+                }
+                return [];
+            })
         ;
 
         $task->main();

@@ -54,6 +54,7 @@ class PosixPermissionsSelectorTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function argumentRequired(): void
     {
         $this->expectException(BuildException::class);
@@ -65,6 +66,7 @@ class PosixPermissionsSelectorTest extends TestCase
     /**
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function isSelected(): void
     {
         $this->selector->setPermissions('rw-rw-r--');
@@ -85,6 +87,9 @@ class PosixPermissionsSelectorTest extends TestCase
      *
      * @param bool $throws
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('illegalArgumentProvider')]
+    #[\PHPUnit\Framework\Attributes\DataProvider('legalArgumentProvider')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function argument(string $permission, $throws = false): void
     {
         if ($throws) {
@@ -96,7 +101,7 @@ class PosixPermissionsSelectorTest extends TestCase
         $this->selector->setPermissions($permission);
     }
 
-    public function legalArgumentProvider(): array
+    public static function legalArgumentProvider(): array
     {
         return [
             'legal octal string' => ['750'],
@@ -104,7 +109,7 @@ class PosixPermissionsSelectorTest extends TestCase
         ];
     }
 
-    public function illegalArgumentProvider(): array
+    public static function illegalArgumentProvider(): array
     {
         return [
             ['855', true],
