@@ -97,6 +97,7 @@ class WikiPublishTaskTest extends BuildFileTest
                     $this->assertSame($callParams[$index][1] ?? null, $args);
                     return $returnResults[$index];
                 }
+                return [];
             })
         ;
 

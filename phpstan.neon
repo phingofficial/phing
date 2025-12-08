@@ -6,3 +6,6 @@ parameters:
     bootstrapFiles:
         - tests/bootstrap.php
         - vendor/pear/versioncontrol_svn/VersionControl/SVN.php
+    ignoreErrors:
+        -
+          identifier: attribute.notFound
