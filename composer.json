@@ -110,7 +110,7 @@
         "scssphp/scssphp": "^2.1",
         "siad007/versioncontrol_hg": "^1.0",
         "smarty/smarty": "^5.7",
-        "squizlabs/php_codesniffer": "^3.5",
+        "squizlabs/php_codesniffer": "^4.0",
         "symfony/config": "^5.2|^6.0",
         "symfony/dependency-injection": "^5.2|^6.0",
         "symfony/stopwatch": "^5.2|^6.0",
