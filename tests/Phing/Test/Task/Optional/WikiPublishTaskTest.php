@@ -24,6 +24,7 @@ use Phing\Exception\BuildException;
 use Phing\Task\Ext\WikiPublishTask;
 use Phing\Test\Support\BuildFileTest;
 use PHPUnit\Framework\MockObject\MockObject;
+use function array_find_key;
 
 /**
  * WikiPublish task test.
@@ -63,7 +64,7 @@ class WikiPublishTaskTest extends BuildFileTest
             ->method('callApi')
             ->willReturnCallback(function (string $action, array|null $args) use ($callParams, $returnResults): array {
                 $index = array_find_key($callParams, function (array $value) use ($action, $args): bool {
-                   return $value[0] === $action && ($value[1] ?? null) === $args;
+                    return $value[0] === $action && ($value[1] ?? null) === $args;
                 });
                 if (isset($callParams[$index])) {
                     $this->assertSame($callParams[$index][1] ?? null, $args);
