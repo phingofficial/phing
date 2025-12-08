@@ -105,6 +105,7 @@
         "phpmd/phpmd": "^2.14",
         "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^9.6.21",
+        "polyfills/array-find": "^1.0",
         "psr/http-message": "^2.0",
         "roave/security-advisories": "dev-master",
         "scssphp/scssphp": "^2.1",

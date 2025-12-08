@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ecedc2fc7464939707d89d73b1af3bb",
+    "content-hash": "651bbf19ae88919c2f51435b01caa2a8",
     "packages": [
         {
             "name": "psr/container",
@@ -4722,6 +4722,62 @@
                 }
             ],
             "time": "2025-09-24T06:29:11+00:00"
+        },
+        {
+            "name": "polyfills/array-find",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHP-Polyfills/array-find.git",
+                "reference": "13bcfeb06919c6d9277c16cec90ca885b197a348"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHP-Polyfills/array-find/zipball/13bcfeb06919c6d9277c16cec90ca885b197a348",
+                "reference": "13bcfeb06919c6d9277c16cec90ca885b197a348",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0"
+            },
+            "conflict": {
+                "php": "^8.4"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^5.3|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/array_find.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ayesh Karunaratne",
+                    "email": "ayesh@aye.sh"
+                }
+            ],
+            "description": "PHP: Provides a user-land polyfill for `array_find`, `array_find_key`, `array_any` and `array_all` functions added in PHP 8.4.",
+            "homepage": "https://php.watch/versions/8.4/array_find-array_find_key-array_any-array_all",
+            "keywords": [
+                "compat",
+                "compatibility",
+                "php84",
+                "phpwatch",
+                "polyfill",
+                "polyfills",
+                "shim"
+            ],
+            "support": {
+                "issues": "https://github.com/PHP-Polyfills/array-find/issues",
+                "source": "https://github.com/PHP-Polyfills/array-find/tree/v1.0.0"
+            },
+            "time": "2024-06-01T22:26:53+00:00"
         },
         {
             "name": "psr/event-dispatcher",
