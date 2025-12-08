@@ -2144,9 +2144,9 @@
                 <optional>
                     <attribute name="dir"/>
                 </optional>
-                <optional>
+                <zeroOrMore>
                     <ref name="property"/>
-                </optional>
+                </zeroOrMore>
                 <optional>
                     <attribute name="target"/>
                 </optional>
@@ -2163,10 +2163,10 @@
                         <data type="boolean"/>
                     </attribute>
                 </optional>
+                <zeroOrMore>
+                    <ref name="fileset"/>
+                </zeroOrMore>
             </interleave>
-            <zeroOrMore>
-                <ref name="fileset"/>
-            </zeroOrMore>
         </element>
     </define>
 
