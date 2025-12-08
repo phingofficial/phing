@@ -22,6 +22,7 @@ namespace Phing\Test\Task\Ext\Http;
 
 use GuzzleHttp\Psr7\Response;
 use Phing\Exception\BuildException;
+use Phing\Project;
 
 /**
  * @author Alexey Borzov <avb@php.net>
@@ -116,6 +117,45 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
 
         $this->assertEquals($options['proxy'], $this->traces[0]['options']['proxy']);
         $this->assertEquals($options['timeout'], $this->traces[0]['options']['timeout']);
+    }
+
+    public function testPayloadOrPostParameters(): void
+    {
+        $this->expectBuildException(__FUNCTION__, 'Cannot use <postparameter/> and <payload/> simultaneously.');
+        $this->assertInLogs('Cannot use <postparameter/> and <payload/> simultaneously.', Project::MSG_ERR);
+    }
+
+    public function testPayload(): void
+    {
+        $this->createRequestWithMockAdapter();
+        $this->executeTarget(__FUNCTION__);
+        /** @var \GuzzleHttp\Psr7\Stream $body */
+        $body = $this->traces[0]['request']->getBody();
+        $this->assertSame('{"email": "foo@example.com"}', $body->getContents());
+    }
+
+    public function testPayloadNoTrim(): void
+    {
+        $this->createRequestWithMockAdapter();
+        $this->executeTarget(__FUNCTION__);
+        /** @var \GuzzleHttp\Psr7\Stream $body */
+        $body = $this->traces[0]['request']->getBody();
+        $this->assertSame("\n                19de4dd8-d46b-11f0-a654-d778f66caf95\n            ", $body->getContents());
+    }
+
+    public function testResponseProperty(): void
+    {
+        $this->createRequestWithMockAdapter();
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('example.response', "The response containing a 'foo' string");
+        $this->assertInLogs("The response containing a 'foo' string");
+    }
+
+    public function testExistentProperty(): void
+    {
+        $this->createRequestWithMockAdapter();
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('existent.property', '2bf39066-d46e-11f0-8c1a-9795b4c58881');
     }
 
     protected function createRequestWithMockAdapter(): void
