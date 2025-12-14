@@ -28,6 +28,9 @@ use Phing\Task;
 use Phing\Type\Element\DirSetAware;
 use Phing\Type\Element\FileSetAware;
 
+use function intval;
+use function preg_match;
+
 /**
  * Task that changes the permissions on a file/directory.
  *
@@ -121,7 +124,7 @@ class ChmodTask extends Task
         }
 
         // check for mode to be in the correct format
-        if (!preg_match('/^([0-7]){3,4}$/', $this->mode)) {
+        if (1 !== preg_match('/^0?[0-7]{3}$/', $this->mode)) {
             throw new BuildException('You have specified an invalid mode.');
         }
     }
@@ -131,12 +134,8 @@ class ChmodTask extends Task
      */
     private function chmod()
     {
-        if (4 === strlen($this->mode)) {
-            $mode = octdec($this->mode);
-        } else {
-            // we need to prepend the 0 before converting
-            $mode = octdec('0' . $this->mode);
-        }
+        // Convert mode to decimal
+        $mode = intval($this->mode, 8);
 
         // counters for non-verbose output
         $total_files = 0;

@@ -20,6 +20,7 @@
 
 namespace Phing\Test\Task\System;
 
+use Phing\Exception\BuildException;
 use Phing\Test\Support\BuildFileTest;
 
 /**
@@ -71,5 +72,12 @@ class ChmodTaskTest extends BuildFileTest
         $mode = fileperms(PHING_TEST_BASE . '/etc/tasks/system/tmp/A');
 
         $this->assertEquals(octdec('0700'), $mode & 0777, 'chmodtest mode should have changed to 0400');
+    }
+
+    public function testInvalidMode(): void
+    {
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage('You have specified an invalid mode.');
+        $this->executeTarget(__FUNCTION__);
     }
 }
