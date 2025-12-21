@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ecedc2fc7464939707d89d73b1af3bb",
+    "content-hash": "30c6709ba53aadaf16bb8805b6929f17",
     "packages": [
         {
             "name": "psr/container",
@@ -3138,6 +3138,35 @@
                 }
             ],
             "time": "2025-03-24T10:02:05+00:00"
+        },
+        {
+            "name": "monorepo-php/monorepo",
+            "version": "12.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/monorepo-php/monorepo.git",
+                "reference": "8cf0670299bdc0394dcb38bbb1b6d3ccf6e0f7d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/monorepo-php/monorepo/zipball/8cf0670299bdc0394dcb38bbb1b6d3ccf6e0f7d7",
+                "reference": "8cf0670299bdc0394dcb38bbb1b6d3ccf6e0f7d7",
+                "shasum": ""
+            },
+            "bin": [
+                "monorepo-builder"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "monorepo-builder phar",
+            "support": {
+                "issues": "https://github.com/monorepo-php/monorepo/issues",
+                "source": "https://github.com/monorepo-php/monorepo/tree/12.4.4"
+            },
+            "time": "2025-12-12T01:39:00+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -8769,58 +8798,6 @@
             "time": "2025-09-11T09:57:09+00:00"
         },
         {
-            "name": "symplify/monorepo-builder",
-            "version": "11.2.23",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symplify/monorepo-builder.git",
-                "reference": "cd0faf050efe72b1348e8432e9b85620b476c678"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symplify/monorepo-builder/zipball/cd0faf050efe72b1348e8432e9b85620b476c678",
-                "reference": "cd0faf050efe72b1348e8432e9b85620b476c678",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "bin": [
-                "bin/monorepo-builder"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "10.3-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Prefixed version of Not only Composer tools to build a Monorepo.",
-            "support": {
-                "issues": "https://github.com/symplify/monorepo-builder/issues",
-                "source": "https://github.com/symplify/monorepo-builder/tree/11.2.23"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.me/rectorphp",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/tomasvotruba",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-07-11T02:50:53+00:00"
-        },
-        {
             "name": "tedivm/jshrink",
             "version": "v1.8.1",
             "source": {
@@ -8964,5 +8941,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
