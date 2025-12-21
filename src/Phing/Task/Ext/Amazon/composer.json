@@ -1,18 +1,16 @@
 {
     "name": "phing/task-aws",
     "description": "AWS related tasks.",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "license": "LGPL-3.0-only",
-    "type": "phing-extension",
     "authors": [
         {
             "name": "Siad Ardroumli",
             "email": "siad.ardroumli@gmail.com"
         }
     ],
+    "type": "phing-extension",
     "require": {
-        "php": ">= 7.4",
+        "php": ">= 8.1",
         "aws/aws-sdk-php": "^3.181"
     },
     "require-dev": {
@@ -28,5 +26,7 @@
             "s3get": "Phing\\Task\\Ext\\Amazon\\S3\\S3GetTask",
             "s3put": "Phing\\Task\\Ext\\Amazon\\S3\\S3PutTask"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
