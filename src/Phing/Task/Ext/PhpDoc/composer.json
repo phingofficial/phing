@@ -2,15 +2,15 @@
     "name": "phing/task-phpdoc",
     "description": "This task runs phpDocumentor 2, a API documentation tool. This project is the result of the merge of the phpDocumentor and DocBlox projects.",
     "license": "LGPL-3.0-only",
-    "type": "phing-extension",
     "authors": [
         {
             "name": "Siad Ardroumli",
             "email": "siad.ardroumli@gmail.com"
         }
     ],
+    "type": "phing-extension",
     "require": {
-        "php": ">= 7.4"
+        "php": ">= 8.1"
     },
     "require-dev": {
         "phing/phing": "3.0.x-dev",
