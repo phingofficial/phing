@@ -30,4 +30,8 @@
             </dirset>
         </chmod>
     </target>
+
+    <target name="testInvalidMode">
+        <chmod mode="1777" file="${tmp.dir}/chmodtest"/>
+    </target>
 </project>
