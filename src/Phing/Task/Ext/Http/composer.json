@@ -1,22 +1,20 @@
 {
     "name": "phing/task-http",
     "description": "HTTP related tasks.",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "license": "LGPL-3.0-only",
-    "type": "phing-extension",
     "authors": [
         {
             "name": "Siad Ardroumli",
             "email": "siad.ardroumli@gmail.com"
         }
     ],
+    "type": "phing-extension",
     "require": {
-        "php": ">= 7.4"
+        "php": ">= 8.1"
     },
     "require-dev": {
         "phing/phing": "3.0.x-dev",
-        "guzzlehttp/guzzle": "^7.2"
+        "guzzlehttp/guzzle": "^7.9"
     },
     "autoload": {
         "psr-4": {
@@ -28,5 +26,7 @@
             "http-request": "Phing\\Task\\Ext\\Http\\HttpRequestTask",
             "httpget": "Phing\\Task\\Ext\\Http\\HttpGetTask"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

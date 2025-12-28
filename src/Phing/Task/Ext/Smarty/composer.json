@@ -10,11 +10,11 @@
     ],
     "type": "phing-extension",
     "require": {
-        "php": ">= 7.4"
+        "php": ">= 8.1"
     },
     "require-dev": {
         "phing/phing": "3.0.x-dev",
-        "smarty/smarty": "^5.0"
+        "smarty/smarty": "^5.7"
     },
     "autoload": {
         "psr-4": {

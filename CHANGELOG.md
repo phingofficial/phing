@@ -2,6 +2,28 @@ P     H     I     N     G
 =========================
 
 
+Dec. 21, 2025 - Phing 3.1.1
+---------------------------
+
+The following issues and pull requests were closed in this release:
+
+* Removing unnecessary xdg-open  [\#1972](https://github.com/phingofficial/phing/pull/1972)
+* Fix option help message of `-inputhandler` [\#1970](https://github.com/phingofficial/phing/pull/1970)
+* Use PHP_CodeSniffer-specific annotations as needed [\#1968](https://github.com/phingofficial/phing/pull/1968)
+* Adopt PHP 8.5 [\#1964](https://github.com/phingofficial/phing/issues/1964)
+* Outdated Symfony version in V3.1.0 [\#1961](https://github.com/phingofficial/phing/issues/1961)
+* Fix deprecation warning for $searchForThis [\#1950](https://github.com/phingofficial/phing/pull/1950)
+* deprecation warning when shell-completion runs (PR with fix provided) [\#1949](https://github.com/phingofficial/phing/issues/1949)
+* Fix Grammar for fail element [\#1948](https://github.com/phingofficial/phing/pull/1948)
+* Fix Grammar for delete [\#1947](https://github.com/phingofficial/phing/pull/1947)
+* Fix Grammar for XsltTask - be a real child of CopyTask and fix missing verbose attribute [\#1946](https://github.com/phingofficial/phing/pull/1946)
+* Fix Grammar for runtarget: add missing element [\#1945](https://github.com/phingofficial/phing/pull/1945)
+* Fix Grammar for Fileset element: selector element made optional and selectors added [\#1944](https://github.com/phingofficial/phing/pull/1944)
+* Fix echoxml definition in phing-grammar.rng [\#1942](https://github.com/phingofficial/phing/pull/1942)
+* Fix Grammar: composerTask attributes are each optional [\#1941](https://github.com/phingofficial/phing/pull/1941)
+* phing-grammar.rng: Fix optional attributes in different tasks [\#1940](https://github.com/phingofficial/phing/pull/1940)
+* Allow Symfony 7 for required Symfony components [\#1939](https://github.com/phingofficial/phing/pull/1939)
+
 Jul. 25, 2025 - Phing 3.1.0
 ---------------------------
 
