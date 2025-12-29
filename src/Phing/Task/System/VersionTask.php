@@ -201,7 +201,7 @@ class VersionTask extends Task
      */
     private function getVersion($oldVersion): string
     {
-        preg_match('#^(?<PREFIX>v)?(?<MAJOR>\d+)?(?:\.(?<MINOR>\d+))?(?:\.(?<BUGFIX>\d+))?#', $oldVersion, $version);
+        preg_match('#^(?<PREFIX>v)?(?<MAJOR>\d+)?(?:\.(?<MINOR>\d+))?(?:\.(?<BUGFIX>\d+))?#', $oldVersion ?? '', $version);
 
         // Setting values if not captured
         $version['PREFIX'] = $version['PREFIX'] ?? '';
