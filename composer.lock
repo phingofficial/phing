@@ -992,16 +992,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.369.3",
+            "version": "3.369.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "11d11bd6b5b0fc2b8e1ee1b5b758360dc2671a33"
+                "reference": "7cb482768899d510e8bcb3e9ef685d2ed0afcbfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/11d11bd6b5b0fc2b8e1ee1b5b758360dc2671a33",
-                "reference": "11d11bd6b5b0fc2b8e1ee1b5b758360dc2671a33",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7cb482768899d510e8bcb3e9ef685d2ed0afcbfe",
+                "reference": "7cb482768899d510e8bcb3e9ef685d2ed0afcbfe",
                 "shasum": ""
             },
             "require": {
@@ -1083,9 +1083,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.369.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.369.5"
             },
-            "time": "2025-12-26T19:10:15+00:00"
+            "time": "2025-12-30T19:07:16+00:00"
         },
         {
             "name": "clue/ndjson-react",
@@ -8598,16 +8598,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v6.4.26",
+            "version": "v6.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "48bad913268c8cafabbf7034b39c8bb24fbc5ab8"
+                "reference": "8541b7308fca001320e90bca8a73a28aa5604a6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/48bad913268c8cafabbf7034b39c8bb24fbc5ab8",
-                "reference": "48bad913268c8cafabbf7034b39c8bb24fbc5ab8",
+                "url": "https://api.github.com/repos/symfony/process/zipball/8541b7308fca001320e90bca8a73a28aa5604a6e",
+                "reference": "8541b7308fca001320e90bca8a73a28aa5604a6e",
                 "shasum": ""
             },
             "require": {
@@ -8639,7 +8639,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v6.4.26"
+                "source": "https://github.com/symfony/process/tree/v6.4.31"
             },
             "funding": [
                 {
@@ -8659,7 +8659,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-09-11T09:57:09+00:00"
+            "time": "2025-12-15T19:26:35+00:00"
         },
         {
             "name": "symfony/stopwatch",
@@ -8952,5 +8952,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
