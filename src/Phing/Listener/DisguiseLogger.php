@@ -20,7 +20,7 @@
 
 namespace Phing\Listener;
 
-use Phing\Phing;
+use Phing\Util\Regexp;
 
 /**
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
@@ -30,6 +30,7 @@ class DisguiseLogger extends DefaultLogger
     public function messageLogged(BuildEvent $event)
     {
         $this->maskUriPassword($event);
+        $this->maskGitHubTokens($event);
         parent::messageLogged($event);
     }
 
@@ -67,5 +68,19 @@ class DisguiseLogger extends DefaultLogger
             ),
             $event->getPriority()
         );
+    }
+
+    /**
+     * Mask GitHub tokens.
+     *
+     * @see https://learn.microsoft.com/en-us/purview/sit-defn-github-personal-access-token#pattern
+     */
+    protected function maskGitHubTokens(BuildEvent $event): void
+    {
+        $regex = new Regexp();
+        $regex->setPattern('(ghp_|gho_|ghu_|ghs_|ghr_)\w{1,36}');
+        $regex->setReplace('$1*****');
+        $maskedMessage = $regex->replace($event->getMessage());
+        $event->setMessage($maskedMessage, $event->getPriority());
     }
 }
