@@ -1,12 +1,12 @@
-FROM composer:2.0 AS composer
+FROM composer:2 AS composer
 
 ADD composer.* ./
 ADD src/ src
 
 RUN composer install --optimize-autoloader --prefer-dist --no-progress --no-interaction --ignore-platform-reqs
 
-FROM php:8.2-cli-alpine AS phing
-MAINTAINER Phing <info@phing.info>
+FROM php:8.5-cli-alpine AS phing
+LABEL org.opencontainers.image.authors="Phing <info@phing.info>"
 
 RUN curl -sSLf \
         -o /usr/local/bin/install-php-extensions \

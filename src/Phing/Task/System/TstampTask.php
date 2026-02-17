@@ -22,6 +22,7 @@ namespace Phing\Task\System;
 
 use DateTime;
 use Error;
+use ValueError;
 use Exception;
 use IntlDateFormatter;
 use Phing\Exception\BuildException;
@@ -106,6 +107,9 @@ class TstampTask extends Task
         } catch (Error $e) {
             $value = "";
             $this->log("Unable to format date (locale $locale) [{$e->getMessage()}]", Project::MSG_WARN);
+        } catch (ValueError $e) {
+            $value = "";
+            $this->log("Unable to create a date formatter (locale $locale) [{$e->getMessage()}]", Project::MSG_WARN);
         }
         $this->getProject()->setNewProperty($this->prefix . $propertyName, $value);
     }
