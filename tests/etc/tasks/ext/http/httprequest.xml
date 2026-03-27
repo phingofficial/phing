@@ -43,4 +43,38 @@
         <property name="phing.http.timeout" value="20" />
         <http-request url="http://example.com/foo.bar" />
     </target>
+
+    <target name="testPayloadOrPostParameters">
+        <http-request url="http://example.com/post" method="POST">
+            <postparameter name="username" value="foo"/>
+            <payload>bar</payload>
+        </http-request>
+    </target>
+
+    <target name="testPayload">
+        <http-request url="http://example.com/post" method="POST">
+            <payload>
+                {"email": "foo@example.com"}
+            </payload>
+        </http-request>
+    </target>
+
+    <target name="testPayloadNoTrim">
+        <http-request url="http://example.com/post" method="POST">
+            <payload trim="false">
+                19de4dd8-d46b-11f0-a654-d778f66caf95
+            </payload>
+        </http-request>
+    </target>
+
+    <target name="testResponseProperty">
+        <http-request url="http://example.com/get" method="GET" responseProperty="example.response"/>
+        <echo>${example.response}</echo>
+    </target>
+
+    <target name="testExistentProperty">
+        <property name="existent.property" value="2bf39066-d46e-11f0-8c1a-9795b4c58881"/>
+        <http-request url="http://example.com/get" method="GET" responseProperty="existent.property"/>
+    </target>
+
 </project>

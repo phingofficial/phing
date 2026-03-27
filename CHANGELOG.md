@@ -2,6 +2,14 @@ P     H     I     N     G
 =========================
 
 
+Feb. 6, 2025 - Phing 3.1.2
+--------------------------
+
+The following issues and pull requests were closed in this release:
+
+* Allow Symfony 8 [\#1975](https://github.com/phingofficial/phing/issues/1975)
+* More strict ChmodTask [\#1971](https://github.com/phingofficial/phing/pull/1971)
+
 Dec. 21, 2025 - Phing 3.1.1
 ---------------------------
 

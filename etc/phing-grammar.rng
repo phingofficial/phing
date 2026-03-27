@@ -4037,6 +4037,17 @@
         </element>
     </define>
 
+    <define name="payload">
+        <element name="payload">
+            <optional>
+                <attribute name="trim">
+                    <data type="boolean"/>
+                </attribute>
+            </optional>
+            <text/>
+        </element>
+    </define>
+
     <define name="hgadd">
         <element name="hgadd">
             <interleave>
@@ -4187,6 +4198,9 @@
                     <attribute name="responsecoderegex"/>
                 </optional>
                 <optional>
+                    <attribute name="responseproperty"/>
+                </optional>
+                <optional>
                     <attribute name="authuser"/>
                 </optional>
                 <optional>
@@ -4215,6 +4229,9 @@
                 <zeroOrMore>
                     <ref name="postparameter"/>
                 </zeroOrMore>
+                <optional>
+                    <ref name="payload"/>
+                </optional>
             </interleave>
         </element>
     </define>

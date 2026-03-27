@@ -22,7 +22,9 @@ namespace Phing\Task\Ext\Http;
 
 use GuzzleHttp\Middleware;
 use Phing\Exception\BuildException;
+use Phing\Project;
 use Phing\Type\Parameter;
+use Phing\Type\Payload;
 use Phing\Util\Regexp;
 use Phing\Util\RegexpException;
 use Phing\Util\StringHelper;
@@ -75,6 +77,16 @@ class HttpRequestTask extends HttpTask
     private $regexp;
 
     /**
+     * The property where the http response is stored.
+     */
+    private string $responseProperty = '';
+
+    /**
+     * Payload to send as request body.
+     */
+    private ?Payload $payload = null;
+
+    /**
      * Sets the response regex
      *
      * @param string $regex
@@ -92,6 +104,14 @@ class HttpRequestTask extends HttpTask
     public function setResponseCodeRegex($regex)
     {
         $this->responseCodeRegex = $regex;
+    }
+
+    /**
+     * Set the name of the property where the HTTP response is stored.
+     */
+    public function setResponseProperty(string $property): void
+    {
+        $this->responseProperty = $property;
     }
 
     /**
@@ -127,6 +147,15 @@ class HttpRequestTask extends HttpTask
     }
 
     /**
+     * Creates the body of the current request.
+     */
+    public function createPayload(): Payload
+    {
+        $this->payload = new Payload();
+        return $this->payload;
+    }
+
+    /**
      * Load the necessary environment for running this task.
      *
      * @throws BuildException
@@ -146,7 +175,16 @@ class HttpRequestTask extends HttpTask
      */
     protected function request($options = [])
     {
-        if ($this->method === 'POST') {
+        $hasPostParameters = \count($this->postParameters) > 0;
+        $hasPayload = $this->payload instanceof Payload;
+
+        if ($hasPostParameters && $hasPayload) {
+            $message = 'Cannot use <postparameter/> and <payload/> simultaneously.';
+            $this->log($message, Project::MSG_ERR);
+            throw new BuildException($message);
+        }
+
+        if ($hasPostParameters && $this->method === 'POST') {
             $idx = ($this->isHeaderSet('content-type', 'application/json') ? 'json' : 'form_params');
             $options[$idx] = array_reduce(
                 $this->postParameters,
@@ -155,6 +193,12 @@ class HttpRequestTask extends HttpTask
                 },
                 []
             );
+        }
+
+        if ($hasPayload) {
+            // Guzzle: the "body" option cannot be used with "form_params", "multipart", or "json".
+            unset($options['form_params'], $options['multipart'], $options['json']);
+            $options['body'] = $this->payload->getText();
         }
 
         if ($this->verbose) {
@@ -204,6 +248,11 @@ class HttpRequestTask extends HttpTask
             }
 
             $this->log('The response status-code matched the provided regex.');
+        }
+
+        if ($this->responseProperty !== '') {
+            $this->getProject()->setNewProperty($this->responseProperty, $response->getBody());
+            $this->log("Saving response into '{$this->responseProperty}' property.");
         }
     }
 }
