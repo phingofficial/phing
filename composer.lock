@@ -3142,16 +3142,16 @@
         },
         {
             "name": "monorepo-php/monorepo",
-            "version": "12.5.1",
+            "version": "12.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/monorepo-php/monorepo.git",
-                "reference": "7ae8d3a9a20eab57d86ae876843c06e7cb644196"
+                "reference": "e16bfc4e1b7e127856a9c34dd5e79158b8c90251"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/monorepo-php/monorepo/zipball/7ae8d3a9a20eab57d86ae876843c06e7cb644196",
-                "reference": "7ae8d3a9a20eab57d86ae876843c06e7cb644196",
+                "url": "https://api.github.com/repos/monorepo-php/monorepo/zipball/e16bfc4e1b7e127856a9c34dd5e79158b8c90251",
+                "reference": "e16bfc4e1b7e127856a9c34dd5e79158b8c90251",
                 "shasum": ""
             },
             "bin": [
@@ -3165,9 +3165,9 @@
             "description": "monorepo-builder phar",
             "support": {
                 "issues": "https://github.com/monorepo-php/monorepo/issues",
-                "source": "https://github.com/monorepo-php/monorepo/tree/12.5.1"
+                "source": "https://github.com/monorepo-php/monorepo/tree/12.5.2"
             },
-            "time": "2026-02-13T08:24:10+00:00"
+            "time": "2026-03-26T02:44:51+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
