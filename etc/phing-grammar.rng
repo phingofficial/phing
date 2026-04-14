@@ -3269,25 +3269,45 @@
                 <attribute name="destinationDir"/>
                 <optional>
                     <attribute name="exclude"/>
+                </optional>
+                <optional>
                     <attribute name="excludeFile"/>
+                </optional>
+                <optional>
                     <attribute name="backupDir"/>
+                </optional>
+                <optional>
                     <attribute name="options"/>
+                </optional>
+                <optional>
                     <attribute name="verbose">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="dryRun">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="itemizeChanges">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="checksum">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="delete">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="identityFile"/>
+                </optional>
+                <optional>
                     <attribute name="port">
                         <data type="int"/>
                     </attribute>
