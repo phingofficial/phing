@@ -26,7 +26,7 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         name: Checkout repository
 
       - name: Setup PHP
@@ -64,7 +64,7 @@ jobs:
     name: PHP ${{ matrix.php }} on ${{ matrix.operating-system }} with ${{ matrix.dependencies }} dependencies
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         name: Checkout repository
 
       - name: Setup PHP
@@ -101,7 +101,7 @@ jobs:
       - test
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         name: Checkout repository
 
       - name: Setup PHP
@@ -140,7 +140,7 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 10
 
@@ -199,7 +199,7 @@ jobs:
       - test
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Build & upload image
         uses: elgohr/Publish-Docker-Github-Action@v5
