@@ -7920,16 +7920,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v5.8.0",
+            "version": "v5.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "78d259d3b971c59a0cd719c270cc5cbb740c36a7"
+                "reference": "94a27cbbc7820198d7adc17a2be8d457fb267753"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/78d259d3b971c59a0cd719c270cc5cbb740c36a7",
-                "reference": "78d259d3b971c59a0cd719c270cc5cbb740c36a7",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/94a27cbbc7820198d7adc17a2be8d457fb267753",
+                "reference": "94a27cbbc7820198d7adc17a2be8d457fb267753",
                 "shasum": ""
             },
             "require": {
@@ -7984,7 +7984,7 @@
             "support": {
                 "forum": "https://github.com/smarty-php/smarty/discussions",
                 "issues": "https://github.com/smarty-php/smarty/issues",
-                "source": "https://github.com/smarty-php/smarty/tree/v5.8.0"
+                "source": "https://github.com/smarty-php/smarty/tree/v5.8.4"
             },
             "funding": [
                 {
@@ -7992,7 +7992,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-15T14:27:15+00:00"
+            "time": "2026-06-29T10:46:32+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
