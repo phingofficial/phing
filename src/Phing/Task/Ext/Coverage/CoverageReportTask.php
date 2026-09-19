@@ -259,7 +259,7 @@ class CoverageReportTask extends Task
 
             $lines = array_filter($lines);
 
-            $lines = array_map([$this, 'stripDiv'], $lines);
+            $lines = array_map($this->stripDiv(...), $lines);
 
             return $lines;
         }

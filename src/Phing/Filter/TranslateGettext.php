@@ -175,12 +175,12 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
         $buffer = preg_replace_callback(
             '/(\W|^)_\("((\\\"|[^"])*)"\)/',
-            [$this, 'xlateStringCallback'],
+            $this->xlateStringCallback(...),
             $buffer
         );
         $buffer = preg_replace_callback(
             '/(\W|^)gettext\("((\\\"|[^"])*)"\)/',
-            [$this, 'xlateStringCallback'],
+            $this->xlateStringCallback(...),
             $buffer
         );
 

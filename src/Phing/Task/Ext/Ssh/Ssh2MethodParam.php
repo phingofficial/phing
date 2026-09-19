@@ -172,7 +172,7 @@ class Ssh2MethodParam extends DataType
             'server_to_client' => null !== $server_to_client ? $server_to_client->toArray() : null
         ];
 
-        return array_filter($array, [$this, 'filterParam']);
+        return array_filter($array, $this->filterParam(...));
     }
 
     /**
