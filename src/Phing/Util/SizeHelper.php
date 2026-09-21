@@ -98,12 +98,12 @@ class SizeHelper
     protected static function findUnitMultiple(string $unit): int
     {
         foreach (self::IEC as $exponent => $choices) {
-            if (in_array(strtolower($unit), array_map('strtolower', $choices))) {
+            if (in_array(strtolower($unit), array_map(strtolower(...), $choices))) {
                 return (int) pow(self::KIBI, $exponent);
             }
         }
         foreach (self::SI as $exponent => $choices) {
-            if (in_array(strtolower($unit), array_map('strtolower', $choices))) {
+            if (in_array(strtolower($unit), array_map(strtolower(...), $choices))) {
                 return (int) pow(self::KILO, $exponent);
             }
         }

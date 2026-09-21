@@ -68,7 +68,7 @@ class Table
 
     private function getHeaderLengths()
     {
-        return array_map('strlen', $this->header);
+        return array_map(strlen(...), $this->header);
     }
 
     private function max($column, $length)

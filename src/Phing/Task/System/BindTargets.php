@@ -56,7 +56,7 @@ class BindTargets extends Task
 
     public function setTargets(string $target)
     {
-        $this->targets = array_values(array_filter(array_map('trim', explode(',', $target))));
+        $this->targets = array_values(array_filter(array_map(trim(...), explode(',', $target))));
     }
 
     public function main()

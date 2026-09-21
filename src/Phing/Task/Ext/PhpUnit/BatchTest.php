@@ -163,7 +163,7 @@ class BatchTest
             $declaredClasses = array_merge($declaredClasses, $definedClasses);
         }
 
-        $elements = array_filter($declaredClasses, [$this, "filterTests"]);
+        $elements = array_filter($declaredClasses, $this->filterTests(...));
 
         return $elements;
     }
