@@ -192,7 +192,7 @@ class ContainsSelector extends BaseExtendSelector
                 if ($this->ignorewhitespace) {
                     $teststr = SelectorUtils::removeWhitespace($teststr);
                 }
-                if (false !== strpos($teststr, $userstr)) {
+                if (str_contains($teststr, $userstr)) {
                     return true;
                 }
                 $teststr = $in->readLine();

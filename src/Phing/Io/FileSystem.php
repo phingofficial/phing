@@ -764,7 +764,7 @@ abstract class FileSystem
                     // This ONLY serves the purpose of making the Logger
                     // output look nice:)
 
-                    if (0 === strpos(strrev($dir), DIRECTORY_SEPARATOR)) { // there is a /
+                    if (str_ends_with($dir, DIRECTORY_SEPARATOR)) { // there is a /
                         $next_entry = $dir . $entry;
                     } else { // no /
                         $next_entry = $dir . DIRECTORY_SEPARATOR . $entry;
