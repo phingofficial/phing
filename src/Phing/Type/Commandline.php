@@ -217,8 +217,8 @@ class Commandline implements Countable
             return escapeshellarg($argument);
         }
 
-        if (false !== strpos($argument, '"')) {
-            if (false !== strpos($argument, "'")) {
+        if (str_contains($argument, '"')) {
+            if (str_contains($argument, "'")) {
                 throw new BuildException("Can't handle single and double quotes in same argument");
             }
 
@@ -226,11 +226,11 @@ class Commandline implements Countable
         }
 
         if (
-            false !== strpos($argument, "'")
-            || false !== strpos($argument, ' ')
+            str_contains($argument, "'")
+            || str_contains($argument, ' ')
             // WIN9x uses a bat file for executing commands
             || (OsCondition::isFamily('win32')
-                && false !== strpos($argument, ';'))
+                && str_contains($argument, ';'))
         ) {
             return '"' . $argument . '"';
         }

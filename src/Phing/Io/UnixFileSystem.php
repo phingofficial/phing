@@ -129,11 +129,11 @@ class UnixFileSystem extends FileSystem
             $phar = Phar::running();
             $pharAlias = 'phar://' . Phing::PHAR_ALIAS;
 
-            if ($phar && 0 === strpos($pathname, $phar)) {
+            if ($phar && str_starts_with($pathname, $phar)) {
                 return strlen($phar);
             }
 
-            if ($phar && 0 === strpos($pathname, $pharAlias)) {
+            if ($phar && str_starts_with($pathname, $pharAlias)) {
                 return strlen($pharAlias);
             }
         }

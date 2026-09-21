@@ -42,7 +42,7 @@ class IniFileParser implements FileParserInterface
         // concatenate lines ending with backslash
         $linesCount = count($lines);
         for ($i = 0; $i < $linesCount; ++$i) {
-            if ('\\' === substr((string) $lines[$i], -1, 1)) {
+            if (str_ends_with((string) $lines[$i], '\\')) {
                 $lines[$i + 1] = substr((string) $lines[$i], 0, -1) . ltrim($lines[$i + 1]);
                 $lines[$i] = '';
             }

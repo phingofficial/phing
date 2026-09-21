@@ -83,7 +83,7 @@ class TstampCustomFormat
             throw new BuildException('pattern attribute must be provided', $tstampTask->getLocation());
         }
 
-        if (false !== strpos($this->pattern, '%')) {
+        if (str_contains($this->pattern, '%')) {
             $tstampTask->log('pattern attribute must use ICU format https://www.phing.info/guide/chunkhtml/TstampTask.html', Project::MSG_WARN);
         }
     }

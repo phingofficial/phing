@@ -149,7 +149,7 @@ class IntrospectionHelper
 
                 if ('addtext' === $name) {
                     $this->methodAddText = $method;
-                } elseif (0 === strpos($name, 'setlistening')) {
+                } elseif (str_starts_with($name, 'setlistening')) {
                     // Phing supports something unique called "RegisterSlots"
                     // These are dynamic values that use a basic slot system so that
                     // classes can register to listen to specific slots, and the value
@@ -165,9 +165,9 @@ class IntrospectionHelper
                     }
 
                     $this->slotListeners[$name] = $method;
-                } elseif (0 === strpos($name, 'set') && 1 === count($method->getParameters())) {
+                } elseif (str_starts_with($name, 'set') && 1 === count($method->getParameters())) {
                     $this->attributeSetters[$name] = $method;
-                } elseif (0 === strpos($name, 'create')) {
+                } elseif (str_starts_with($name, 'create')) {
                     if ($method->getNumberOfRequiredParameters() > 0) {
                         throw new BuildException(
                             $method->getDeclaringClass()->getName() . '::' . $method->getName() . '() may not take any parameters.'
@@ -188,7 +188,7 @@ class IntrospectionHelper
                     }
 
                     $this->nestedCreators[$name] = $method;
-                } elseif (0 === strpos($name, 'addconfigured')) {
+                } elseif (str_starts_with($name, 'addconfigured')) {
                     // *must* use class hints if using addConfigured ...
 
                     // 1 param only
@@ -217,7 +217,7 @@ class IntrospectionHelper
                     $this->nestedTypes[$name] = $classname;
 
                     $this->nestedStorers[$name] = $method;
-                } elseif (0 === strpos($name, 'add')) {
+                } elseif (str_starts_with($name, 'add')) {
                     // *must* use class hints if using add ...
 
                     // 1 param only
