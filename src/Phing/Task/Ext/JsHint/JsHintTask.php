@@ -196,7 +196,7 @@ class JsHintTask extends Task
 
         $this->checkJsHintIsInstalled();
 
-        $fileList = array_map('escapeshellarg', $fileList);
+        $fileList = array_map(escapeshellarg(...), $fileList);
         if ($this->config) {
             $command = sprintf(
                 '%s --config=%s --reporter=%s %s',

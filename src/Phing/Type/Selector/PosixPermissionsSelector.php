@@ -51,7 +51,7 @@ class PosixPermissionsSelector implements FileSelector
         $this->permissions = implode(
             '',
             array_map(
-                'array_sum',
+                array_sum(...),
                 array_chunk(
                     str_split(
                         strtr(
