@@ -920,6 +920,8 @@
                 </attribute>
                 <optional>
                     <attribute name="dir"/>
+                </optional>
+                <optional>
                     <attribute name="path"/>
                 </optional>
             </optional>
@@ -1153,38 +1155,68 @@
                 <attribute name="executable"/>
                 <optional>
                     <attribute name="dir"/>
+                </optional>
+                <optional>
                     <attribute name="output"/>
+                </optional>
+                <optional>
                     <attribute name="error"/>
+                </optional>
+                <optional>
                     <attribute name="os"/>
+                </optional>
+                <optional>
                     <attribute name="escape">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="passthru">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="spawn">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="returnProperty"/>
+                </optional>
+                <optional>
                     <attribute name="outputProperty"/>
+                </optional>
+                <optional>
                     <attribute name="checkReturn">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="append">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="parallel">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="addSourceFile">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="relative">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="forwardSlash">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="maxparallel">
                         <data type="integer"/>
                     </attribute>
@@ -1692,12 +1724,22 @@
             <interleave>
                 <optional>
                     <attribute name="srcFile"/>
+                </optional>
+                <optional>
                     <attribute name="destFile"/>
+                </optional>
+                <optional>
                     <attribute name="prefix"/>
+                </optional>
+                <optional>
                     <attribute name="regex"/>
+                </optional>
+                <optional>
                     <attribute name="failOnError">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="format"/>
                 </optional>
             </interleave>
@@ -2369,12 +2411,18 @@
                 <attribute name="name"/>
                 <optional>
                     <attribute name="action"/>
+                </optional>
+                <optional>
                     <attribute name="append">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="emacsMode">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="loglevel"/>
                 </optional>
             </interleave>
@@ -2537,11 +2585,19 @@
                 <attribute name="property"/>
                 <optional>
                     <attribute name="destDir"/>
+                </optional>
+                <optional>
                     <attribute name="prefix"/>
+                </optional>
+                <optional>
                     <attribute name="suffix"/>
+                </optional>
+                <optional>
                     <attribute name="deleteOnExit">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="createFile">
                         <data type="boolean"/>
                     </attribute>
@@ -2664,6 +2720,8 @@
                             <attribute name="pattern"/>
                             <optional>
                                 <attribute name="locale"/>
+                            </optional>
+                            <optional>
                                 <attribute name="timezone"/>
                             </optional>
                         </interleave>
@@ -3269,25 +3327,45 @@
                 <attribute name="destinationDir"/>
                 <optional>
                     <attribute name="exclude"/>
+                </optional>
+                <optional>
                     <attribute name="excludeFile"/>
+                </optional>
+                <optional>
                     <attribute name="backupDir"/>
+                </optional>
+                <optional>
                     <attribute name="options"/>
+                </optional>
+                <optional>
                     <attribute name="verbose">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="dryRun">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="itemizeChanges">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="checksum">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="delete">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="identityFile"/>
+                </optional>
+                <optional>
                     <attribute name="port">
                         <data type="int"/>
                     </attribute>
@@ -3999,6 +4077,8 @@
             <interleave>
                 <optional>
                     <attribute name="name"/>
+                </optional>
+                <optional>
                     <attribute name="sticky">
                         <data type="boolean"/>
                     </attribute>
@@ -4006,12 +4086,26 @@
                 <attribute name="message"/>
                 <optional>
                     <attribute name="title"/>
+                </optional>
+                <optional>
                     <attribute name="notification"/>
+                </optional>
+                <optional>
                     <attribute name="appIcon"/>
+                </optional>
+                <optional>
                     <attribute name="host"/>
+                </optional>
+                <optional>
                     <attribute name="password"/>
+                </optional>
+                <optional>
                     <attribute name="priority"/>
+                </optional>
+                <optional>
                     <attribute name="protocol"/>
+                </optional>
+                <optional>
                     <attribute name="icon"/>
                 </optional>
             </interleave>
@@ -4241,7 +4335,11 @@
             <interleave>
                 <optional>
                     <attribute name="dest"/>
+                </optional>
+                <optional>
                     <attribute name="haltOnError" a:defaultValue="false"/>
+                </optional>
+                <optional>
                     <attribute name="source"/>
                 </optional>
                 <optional>
@@ -4810,6 +4908,8 @@
             <interleave>
                 <optional>
                     <attribute name="salt"/>
+                </optional>
+                <optional>
                     <attribute name="checksum"/>
                 </optional>
                 <attribute name="file"/>
@@ -5887,13 +5987,21 @@
                 <attribute name="pattern"/>
                 <optional>
                     <attribute name="match"/>
+                </optional>
+                <optional>
                     <attribute name="replace"/>
+                </optional>
+                <optional>
                     <attribute name="caseSensitive">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="limit">
                         <data type="integer"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="defaultValue">
                         <data type="integer"/>
                     </attribute>
@@ -5914,10 +6022,16 @@
                 <attribute name="match"/>
                 <optional>
                     <attribute name="select"/>
+                </optional>
+                <optional>
                     <attribute name="casesensitive">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="delimiter"/>
+                </optional>
+                <optional>
                     <attribute name="distinct">
                         <data type="boolean"/>
                     </attribute>
@@ -5958,8 +6072,14 @@
                 </choice>
                 <optional>
                     <attribute name="replace"/>
+                </optional>
+                <optional>
                     <attribute name="flags"/>
+                </optional>
+                <optional>
                     <attribute name="byLine"/>
+                </optional>
+                <optional>
                     <attribute name="failonerror" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
@@ -6314,12 +6434,22 @@
                 <attribute name="outputFile"/>
                 <optional>
                     <attribute name="compilePath"/>
+                </optional>
+                <optional>
                     <attribute name="forceCompile">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="configPath"/>
+                </optional>
+                <optional>
                     <attribute name="leftDelimiter"/>
+                </optional>
+                <optional>
                     <attribute name="rightDelimiter"/>
+                </optional>
+                <optional>
                     <attribute name="contextProperties"/>
                 </optional>
             </interleave>
@@ -6905,9 +7035,13 @@
                 <attribute name="command"/>
                 <optional>
                     <attribute name="console"/>
+                </optional>
+                <optional>
                     <attribute name="debug">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="silent" a:defaultValue="false">
                         <data type="boolean"/>
                     </attribute>
@@ -7126,6 +7260,8 @@
                 <attribute name="apiUrl"/>
                 <optional>
                     <attribute name="apiUser"/>
+                </optional>
+                <optional>
                     <attribute name="apiPassword"/>
                 </optional>
                 <choice>
@@ -7134,6 +7270,8 @@
                 </choice>
                 <optional>
                     <attribute name="content"/>
+                </optional>
+                <optional>
                     <attribute name="mode"/>
                 </optional>
             </interleave>
@@ -7269,11 +7407,19 @@
                 <attribute name="descriptor"/>
                 <optional>
                     <attribute name="source"/>
+                </optional>
+                <optional>
                     <attribute name="output"/>
+                </optional>
+                <optional>
                     <attribute name="lint">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="phpBin"/>
+                </optional>
+                <optional>
                     <attribute name="schema"/>
                 </optional>
             </interleave>
