@@ -211,8 +211,9 @@ jobs:
 
   notify:
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'phingofficial' }}
+    if: ${{ always() && github.repository_owner == 'phingofficial' && needs.pre_job.outputs.should_skip != 'true' }}
     needs:
+      - pre_job
       - static_code_analysis
       - test
       - build_phar
@@ -230,9 +231,10 @@ jobs:
               username: 'action-slack',
               icon_emoji: ':octocat:',
               attachments: [{
-                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} succeeded in ${process.env.AS_TOOK}`,
+                color: process.env.BUILD_STATUS === 'success' ? 'good' : process.env.BUILD_STATUS === 'failure' ? 'danger' : 'warning',
+                text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR}: ${process.env.BUILD_STATUS} in ${process.env.AS_TOOK}`,
               }]
             }
         env:
+          BUILD_STATUS: ${{ contains(needs.*.result, 'failure') && 'failure' || contains(needs.*.result, 'cancelled') && 'cancelled' || 'success' }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_BUILDS }}
