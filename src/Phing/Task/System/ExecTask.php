@@ -634,7 +634,7 @@ class ExecTask extends Task
         //for the current os.name
         $myos = Phing::getProperty('os.name');
         $this->log('Current OS is ' . $myos, Project::MSG_VERBOSE);
-        if ((null !== $this->os) && (false === strpos($this->os, $myos))) {
+        if ((null !== $this->os) && (!str_contains($this->os, $myos))) {
             // this command will be executed only on the specified OS
             $this->log(
                 'This OS, ' . $myos

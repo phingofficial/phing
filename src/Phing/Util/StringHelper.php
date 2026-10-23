@@ -25,8 +25,6 @@ use function is_bool;
 use function is_string;
 use function preg_match;
 use function strlen;
-use function strpos;
-use function strrev;
 use function trim;
 
 use const FILTER_NULL_ON_FAILURE;
@@ -112,7 +110,7 @@ class StringHelper
             return true;
         }
 
-        return 0 === strpos((string) $string, $check);
+        return str_starts_with((string) $string, $check);
     }
 
     /**
@@ -129,7 +127,7 @@ class StringHelper
             return true;
         }
 
-        return 0 === strpos(strrev($string), strrev($check));
+        return str_ends_with($string, $check);
     }
 
     /**

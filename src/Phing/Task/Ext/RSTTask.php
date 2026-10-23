@@ -224,8 +224,8 @@ class RSTTask extends Task
     {
         if (
             '' != $destination
-            && '/' !== substr($destination, -1)
-            && '\\' !== substr($destination, -1)
+            && !str_ends_with($destination, '/')
+            && !str_ends_with($destination, '\\')
         ) {
             return $destination;
         }

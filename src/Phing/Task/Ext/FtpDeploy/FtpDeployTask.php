@@ -259,7 +259,7 @@ class FtpDeployTask extends Task
         }
 
         // append '/' to the end if necessary
-        $dir = substr($this->dir, -1) === '/' ? $this->dir : $this->dir . '/';
+        $dir = str_ends_with($this->dir, '/') ? $this->dir : $this->dir . '/';
 
         if ($this->clearFirst) {
             // TODO change to a loop through all files and directories within current directory
@@ -435,7 +435,7 @@ class FtpDeployTask extends Task
                 'group' => $rawInfo2[3],
                 'date' => $date,
                 'stamp' => $date,
-                'is_dir' => strpos($rawInfo2[0], 'd') === 0,
+                'is_dir' => str_starts_with($rawInfo2[0], 'd'),
                 'files_inside' => (int) $rawInfo2[1],
                 'size' => (int) $rawInfo2[4],
             ];

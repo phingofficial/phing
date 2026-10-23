@@ -175,11 +175,11 @@ class HgAddTask extends HgBaseTask
     public function ignoredByGlob($file)
     {
         $lfile = $file;
-        if (strpos($lfile, './') === 0) {
+        if (str_starts_with($lfile, './')) {
             $lfile = substr($lfile, 2);
         }
         foreach ($this->ignoreFile as $line) {
-            if (strpos($lfile, $line) === 0) {
+            if (str_starts_with($lfile, $line)) {
                 return true;
             }
         }
