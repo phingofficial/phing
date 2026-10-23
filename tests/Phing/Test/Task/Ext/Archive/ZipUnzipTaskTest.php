@@ -20,6 +20,9 @@
 
 namespace Phing\Test\Task\Ext\Archive;
 
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task\Ext\Archive\UnzipTask;
 use Phing\Test\Support\BuildFileTest;
 use ZipArchive;
 
@@ -119,5 +122,55 @@ class ZipUnzipTaskTest extends BuildFileTest
             ($attr >> 16) & 0777,
             'directory should not be added with world-writable perms'
         );
+    }
+
+    public function testInvalidArchiveFailsDuringContentListing(): void
+    {
+        $this->assertInvalidArchiveFails(false);
+    }
+
+    public function testInvalidArchiveFailsDuringForcedExtraction(): void
+    {
+        $this->assertInvalidArchiveFails(true);
+    }
+
+    public function testExtractionFailureThrowsBuildException(): void
+    {
+        $directory = PHING_TEST_BASE . '/etc/tasks/ext/tmp';
+        $filename = $directory . '/blocked.zip';
+        $archive = new ZipArchive();
+        $this->assertTrue($archive->open($filename, ZipArchive::CREATE));
+        $archive->addFromString('blocked/test.txt', 'TEST');
+        $archive->close();
+
+        // A file where the archive needs a directory prevents extraction on every platform.
+        file_put_contents($directory . '/blocked', 'not a directory');
+
+        $task = new UnzipTask();
+        $task->setProject($this->getProject());
+        $task->setFile(new File($filename));
+        $task->setToDir(new File($directory));
+        $task->setForceExtract(true);
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage("Unable to extract zipfile {$filename} to {$directory}.");
+        $task->main();
+    }
+
+    private function assertInvalidArchiveFails(bool $forceExtract): void
+    {
+        $directory = PHING_TEST_BASE . '/etc/tasks/ext/tmp';
+        $filename = $directory . '/invalid.zip';
+        file_put_contents($filename, 'not a zip archive');
+
+        $task = new UnzipTask();
+        $task->setProject($this->getProject());
+        $task->setFile(new File($filename));
+        $task->setToDir(new File($directory));
+        $task->setForceExtract($forceExtract);
+
+        $this->expectException(BuildException::class);
+        $this->expectExceptionMessage("Unable to open zipfile {$filename} (error code:");
+        $task->main();
     }
 }
