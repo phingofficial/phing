@@ -214,7 +214,7 @@ class PHPUnitReportTask extends Task
      */
     protected function fixDocument(\DOMDocument $document)
     {
-        $rootElement = $document->firstChild;
+        $rootElement = $document->documentElement;
 
         $xp = new \DOMXPath($document);
 
@@ -239,7 +239,7 @@ class PHPUnitReportTask extends Task
 
                 if ($children->length) {
                     $this->handleChildren($rootElement, $children);
-                    $rootElement->firstChild->removeChild($node);
+                    $node->parentNode->removeChild($node);
                 }
             }
         }
