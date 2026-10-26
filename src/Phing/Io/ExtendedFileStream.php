@@ -30,6 +30,13 @@ use Phing\Exception\BuildException;
  */
 class ExtendedFileStream
 {
+    /**
+     * Stream context assigned by PHP.
+     *
+     * @var resource|null
+     */
+    public $context;
+
     private $fp;
 
     public static function registerStream()
