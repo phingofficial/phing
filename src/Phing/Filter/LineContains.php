@@ -128,7 +128,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                         );
                         $matches = false;
                     } else {
-                        $matches = false !== strpos($this->line, $containsStr);
+                        $matches = str_contains($this->line, $containsStr);
                     }
                     if (!$matches) {
                         if ($this->matchAny) {

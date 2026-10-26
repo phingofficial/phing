@@ -90,7 +90,7 @@ class OsCondition implements Condition
             }
 
             if (self::FAMILY_MAC === $family) {
-                return false !== strpos($osName, self::FAMILY_MAC) || false !== strpos($osName, self::DARWIN);
+                return str_contains($osName, self::FAMILY_MAC) || str_contains($osName, self::DARWIN);
             }
 
             if (self::FAMILY_UNIX === $family) {

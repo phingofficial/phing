@@ -128,7 +128,7 @@ class RegexpMapper implements FileNameMapper
     public function main($sourceFileName)
     {
         if ($this->handleDirSep) {
-            if (false !== strpos('\\', $sourceFileName)) {
+            if (str_contains('\\', $sourceFileName)) {
                 $sourceFileName = str_replace('\\', '/', $sourceFileName);
             }
         }

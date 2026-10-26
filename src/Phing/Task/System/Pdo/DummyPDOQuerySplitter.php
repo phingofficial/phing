@@ -64,7 +64,7 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
             // SQL defines "--" as a comment to EOL
             // and in Oracle it may contain a hint
             // so we cannot just remove it, instead we must end it
-            if (!$this->keepformat && strpos($line, '--') !== false) {
+            if (!$this->keepformat && str_contains($line, '--')) {
                 $sql .= "\n";
             }
 

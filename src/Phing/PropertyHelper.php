@@ -215,7 +215,7 @@ class PropertyHelper
         $sb = $value;
         $iteration = 0;
         // loop to recursively replace tokens
-        while (false !== strpos($sb, '${')) {
+        while (str_contains($sb, '${')) {
             $sb = preg_replace_callback(
                 '/\$\{([^\$}]+)\}/',
                 function ($matches) use ($keys) {
@@ -422,7 +422,7 @@ class PropertyHelper
 
         $found = $this->properties[$name] ?? null;
         // check to see if there are unresolved property references
-        if (null !== $found && false !== strpos($found, '${')) {
+        if (null !== $found && str_contains($found, '${')) {
             // attempt to resolve properties
             $found = $this->replaceProperties($found, null);
             if (StringHelper::startsWith('${', $found) && StringHelper::endsWith('}', $found)) {

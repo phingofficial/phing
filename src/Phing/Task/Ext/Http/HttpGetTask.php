@@ -120,7 +120,7 @@ class HttpGetTask extends HttpTask
             $filename = $this->filename;
         } elseif (
             !empty($disposition)
-            && 0 == strpos($disposition[0], 'attachment')
+            && str_starts_with($disposition[0], 'attachment')
             && preg_match('/filename="([^"]+)"/', $disposition[0], $m)
         ) {
             $filename = basename($m[1]);

@@ -189,7 +189,7 @@ class File
             $basedir .= FileUtils::getSeparator();
         }
         $path = $this->getPath();
-        if (substr($path, 0, strlen($basedir)) != $basedir) {
+        if (!str_starts_with($path, $basedir)) {
             //path does not begin with basedir, we don't modify it
             return $path;
         }

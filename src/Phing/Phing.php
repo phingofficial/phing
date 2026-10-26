@@ -505,7 +505,7 @@ class Phing
                 } else {
                     $this->searchForThis = self::DEFAULT_BUILD_FILENAME;
                 }
-            } elseif ('-' == substr($arg, 0, 1)) {
+            } elseif (str_starts_with($arg, '-')) {
                 // we don't have any more args
                 self::printUsage();
                 self::$err->write(PHP_EOL);
@@ -685,7 +685,7 @@ class Phing
         }
 
         // Check for the phing home of phar archive
-        if (0 === strpos(self::$importPaths[0], 'phar://')) {
+        if (str_starts_with(self::$importPaths[0], 'phar://')) {
             $testPath = self::$importPaths[0] . '/../' . $path;
             if (file_exists($testPath)) {
                 return $testPath;
