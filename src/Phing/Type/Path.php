@@ -316,8 +316,8 @@ class Path extends DataType
                 $parts = $o->getParts();
                 if (null === $parts) {
                     throw new BuildException(
-                        'You must either set location or'
-                        . ' path on <pathelement>'
+                        'You must either set <dir> or'
+                        . ' <path> on <pathelement>'
                     );
                 }
                 foreach ($parts as $part) {
