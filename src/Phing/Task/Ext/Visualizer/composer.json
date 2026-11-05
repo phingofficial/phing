@@ -14,7 +14,7 @@
     ],
     "type": "phing-extension",
     "require": {
-        "php": ">= 8.1",
+        "php": ">= 8.2",
         "jawira/plantuml-client": "^1.0"
     },
     "require-dev": {

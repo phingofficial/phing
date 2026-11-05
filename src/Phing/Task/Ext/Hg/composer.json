@@ -10,7 +10,7 @@
     ],
     "type": "phing-extension",
     "require": {
-        "php": ">= 8.1",
+        "php": ">= 8.2",
         "siad007/versioncontrol_hg": "^1.0"
     },
     "require-dev": {

@@ -10,7 +10,7 @@
     ],
     "type": "phing-extension",
     "require": {
-        "php": ">= 8.1"
+        "php": ">= 8.2"
     },
     "require-dev": {
         "phing/phing": "3.0.x-dev"

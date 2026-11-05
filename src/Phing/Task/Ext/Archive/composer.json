@@ -10,7 +10,7 @@
     ],
     "type": "phing-extension",
     "require": {
-        "php": ">= 8.1",
+        "php": ">= 8.2",
         "pear/archive_tar": "^1.4"
     },
     "require-dev": {

@@ -10,7 +10,7 @@
     ],
     "type": "phing-extension",
     "require": {
-        "php": ">= 8.1",
+        "php": ">= 8.2",
         "pear/versioncontrol_svn": "^0.7.0"
     },
     "require-dev": {

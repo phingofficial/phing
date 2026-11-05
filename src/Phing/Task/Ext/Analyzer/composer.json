@@ -10,7 +10,7 @@
     ],
     "type": "phing-extension",
     "require": {
-        "php": ">= 8.1",
+        "php": ">= 8.2",
         "pdepend/pdepend": "^2.9",
         "phploc/phploc": "^7.0",
         "phpmd/phpmd": "^2.14",
