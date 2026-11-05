@@ -266,7 +266,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         // filter buffer
         return preg_replace_callback(
             '$' . preg_quote($this->beginToken) . '([\\w\\.\\-:\\/]+?)' . preg_quote($this->endToken) . '$',
-            [$this, 'replaceTokenCallback'],
+            $this->replaceTokenCallback(...),
             $buffer
         );
     }

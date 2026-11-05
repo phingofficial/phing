@@ -155,7 +155,7 @@ class RegexpMapper implements FileNameMapper
      */
     private function replaceReferences($source)
     {
-        return preg_replace_callback('/\\\([\d]+)/', [$this, 'replaceReferencesCallback'], $this->to);
+        return preg_replace_callback('/\\\([\d]+)/', $this->replaceReferencesCallback(...), $this->to);
     }
 
     /**

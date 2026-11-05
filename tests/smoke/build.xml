@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="distribution-smoke-test" default="verify" basedir=".">
+    <target name="prepare">
+        <mkdir dir="work"/>
+        <echo file="work/template.txt" message="Hello @name@!"/>
+        <copy file="work/template.txt" tofile="work/message.txt">
+            <filterchain>
+                <replacetokens>
+                    <token key="name" value="Phing"/>
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+
+    <target name="archive" depends="prepare">
+        <zip destfile="work/message.zip" basedir="work" includes="message.txt"/>
+        <delete file="work/message.txt"/>
+        <unzip file="work/message.zip" todir="work/extracted"/>
+    </target>
+
+    <target name="verify" depends="archive">
+        <loadfile property="message" file="work/extracted/message.txt"/>
+        <fail message="The packaged build did not preserve the filtered file content.">
+            <condition>
+                <not>
+                    <equals arg1="${message}" arg2="Hello Phing!"/>
+                </not>
+            </condition>
+        </fail>
+        <echo message="Distribution smoke test passed."/>
+    </target>
+</project>

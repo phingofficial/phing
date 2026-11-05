@@ -91,7 +91,7 @@ class XmlLintTask extends Task
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
-        set_error_handler([$this, 'errorHandler']);
+        set_error_handler($this->errorHandler(...));
         if ($this->file instanceof File) {
             $this->lint($this->file->getPath());
         } else { // process filesets

@@ -106,7 +106,7 @@ class Ssh2MethodConnectionParam
     {
         return array_filter(
             get_object_vars($this),
-            [$this, 'filterParam']
+            $this->filterParam(...)
         );
     }
 

@@ -462,7 +462,7 @@ class Target implements TaskContainer
         $list = [];
         if ('' !== $depends) {
             $list = explode(',', $depends);
-            array_walk($list, 'trim');
+            array_walk($list, trim(...));
             if (0 === count($list)) {
                 throw new BuildException('Syntax Error: '
                     . $attributeName

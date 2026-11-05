@@ -2,6 +2,10 @@ P     H     I     N     G
 =========================
 
 
+xxxx, 2026 - Phing 3.2.0
+------------------------
+NOTE: This version of Phing requires PHP 8.2 or later!
+
 Feb. 6, 2025 - Phing 3.1.2
 --------------------------
 

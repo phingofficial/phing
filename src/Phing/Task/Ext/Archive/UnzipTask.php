@@ -20,6 +20,7 @@
 
 namespace Phing\Task\Ext\Archive;
 
+use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Project;
 use ZipArchive;
@@ -49,20 +50,20 @@ class UnzipTask extends ExtractBaseTask
         $zip = new ZipArchive();
 
         $result = $zip->open($zipfile->getAbsolutePath());
-        if (!$result) {
-            $this->log("Unable to open zipfile " . $zipfile->__toString(), Project::MSG_ERR);
-
-            return false;
+        if ($result !== true) {
+            throw new BuildException("Unable to open zipfile {$zipfile} (error code: {$result}).");
         }
 
-        $result = $zip->extractTo($this->todir->getAbsolutePath());
-        if (!$result) {
-            $this->log("Unable to extract zipfile " . $zipfile->__toString(), Project::MSG_ERR);
+        try {
+            // Report extraction warnings as a build exception with the archive and destination.
+            if (!@$zip->extractTo($this->todir->getAbsolutePath())) {
+                throw new BuildException("Unable to extract zipfile {$zipfile} to {$this->todir}.");
+            }
 
-            return false;
+            return true;
+        } finally {
+            $zip->close();
         }
-
-        return true;
     }
 
     /**
@@ -74,15 +75,22 @@ class UnzipTask extends ExtractBaseTask
     protected function listArchiveContent(File $zipfile)
     {
         $zip = new ZipArchive();
-        $zip->open($zipfile->getAbsolutePath());
-
-        $content = [];
-        for ($i = 0; $i < $zip->numFiles; $i++) {
-            $content[] = [
-                'filename' => $zip->getNameIndex($i)
-            ];
+        $result = $zip->open($zipfile->getAbsolutePath());
+        if ($result !== true) {
+            throw new BuildException("Unable to open zipfile {$zipfile} (error code: {$result}).");
         }
 
-        return $content;
+        try {
+            $content = [];
+            for ($i = 0; $i < $zip->numFiles; $i++) {
+                $content[] = [
+                    'filename' => $zip->getNameIndex($i)
+                ];
+            }
+
+            return $content;
+        } finally {
+            $zip->close();
+        }
     }
 }
