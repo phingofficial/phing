@@ -19,7 +19,7 @@
 
 ## Supported PHP versions
 
-  Phing 3.x is compatible with PHP 8.1 or later.
+  Phing 3.2 requires PHP 8.2 or later.
 
 ## Installation
 

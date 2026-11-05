@@ -11,7 +11,7 @@ but there's a chance we missed something. If that's the case, let us know!
 
 General
 -------
-* Phing now requires at least PHP 7.4.
+* Phing 3.2 requires at least PHP 8.2.
 * All Phing code is now namespaced. This means that existing references to classes
   that existed in earlier Phing versions will no longer work. For example, the
   class `PhingFile` has been moved to `Phing\Io\File`. If you are used to providing
