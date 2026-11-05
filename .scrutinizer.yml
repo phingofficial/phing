@@ -12,6 +12,8 @@ checks:
     duplication: false
 
 build:
+  # PHP 8.4+ requires OpenSSL >= 1.1.1; use the Ubuntu 22.04 image.
+  image: default-jammy
   dependencies:
     override:
       - COMPOSER_PROCESS_TIMEOUT=2000 composer install --no-interaction
