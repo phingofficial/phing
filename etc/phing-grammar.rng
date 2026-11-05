@@ -918,12 +918,12 @@
                 <attribute name="id">
                     <data type="ID"/>
                 </attribute>
-                <optional>
-                    <attribute name="dir"/>
-                </optional>
-                <optional>
-                    <attribute name="path"/>
-                </optional>
+            </optional>
+            <optional>
+                <attribute name="dir"/>
+            </optional>
+            <optional>
+                <attribute name="path"/>
             </optional>
             <choice>
                 <text/>
@@ -1653,12 +1653,18 @@
                 <attribute name="default">
                     <data type="boolean" a:defaultValue="false"/>
                 </attribute>
+            </optional>
+            <optional>
                 <attribute name="add">
                     <data type="string"/>
                 </attribute>
+            </optional>
+            <optional>
                 <attribute name="remove">
                     <data type="string"/>
                 </attribute>
+            </optional>
+            <optional>
                 <attribute name="echo">
                     <data type="boolean" a:defaultValue="false"/>
                 </attribute>
@@ -4557,10 +4563,16 @@
                     <attribute name="haltOnError">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="haltOnWarning">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="reporter"/>
+                </optional>
+                <optional>
                     <attribute name="checkstyleReportPath"/>
                 </optional>
                 <optional>
@@ -4651,12 +4663,18 @@
                     <attribute name="display">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="passthru">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="checkreturn">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="outputProperty"/>
                 </optional>
                 <zeroOrMore>
@@ -4700,12 +4718,18 @@
                     <attribute name="display">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="passthru">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="checkreturn">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="outputProperty"/>
                 </optional>
                 <zeroOrMore>
@@ -4732,12 +4756,18 @@
                     <attribute name="display">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="passthru">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="checkreturn">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="outputProperty"/>
                 </optional>
                 <zeroOrMore>
@@ -4766,12 +4796,18 @@
                     <attribute name="display">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="passthru">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="checkreturn">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="outputProperty"/>
                 </optional>
                 <zeroOrMore>
@@ -4798,12 +4834,18 @@
                     <attribute name="display">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="passthru">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="checkreturn">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="outputProperty"/>
                 </optional>
                 <zeroOrMore>
@@ -4830,12 +4872,18 @@
                     <attribute name="display">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="passthru">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="checkreturn">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="outputProperty"/>
                 </optional>
                 <zeroOrMore>
@@ -4861,12 +4909,18 @@
                     <attribute name="display">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="passthru">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="checkreturn">
                         <data type="boolean"/>
                     </attribute>
+                </optional>
+                <optional>
                     <attribute name="outputProperty"/>
                 </optional>
                 <zeroOrMore>
