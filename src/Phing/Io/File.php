@@ -354,7 +354,10 @@ class File
             return true;
         }
 
-        if ($this->isDirectory()) {
+        // Existence checks must not require read access to the file. In
+        // particular, DeleteTask needs to be able to unlink files when the
+        // caller can write to the parent directory but cannot read the file.
+        if (@is_dir($this->path) && !@is_link($this->path)) {
             return true;
         }
 
@@ -374,11 +377,8 @@ class File
     public function isDirectory()
     {
         clearstatcache();
-        $fs = FileSystem::getFileSystem();
-        if (true !== $fs->checkAccess($this)) {
-            throw new IOException('No read access to ' . $this->path);
-        }
-
+        // File type checks use stat metadata and do not require read access
+        // to the file contents. DeleteTask relies on this before unlinking.
         return @is_dir($this->path) && !@is_link($this->path);
     }
 

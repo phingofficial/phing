@@ -73,4 +73,36 @@ class DeleteTaskTest extends BuildFileTest
         $this->assertDirectoryDoesNotExist($dir2);
         $this->assertDirectoryDoesNotExist($dir3);
     }
+
+    public function testDeleteUnreadableFile(): void
+    {
+        $file = PHING_TEST_BASE . '/etc/tasks/system/tmp/unreadable-file';
+        file_put_contents($file, 'unreadable');
+        chmod($file, 0000);
+
+        if (is_readable($file)) {
+            chmod($file, 0600);
+            $this->markTestSkipped('The current user can read files with mode 000.');
+        }
+
+        $this->executeTarget(__FUNCTION__);
+
+        $this->assertFileDoesNotExist($file);
+    }
+
+    public function testDeleteUnreadableFileFromFileset(): void
+    {
+        $file = PHING_TEST_BASE . '/etc/tasks/system/tmp/unreadable-fileset-file';
+        file_put_contents($file, 'unreadable');
+        chmod($file, 0000);
+
+        if (is_readable($file)) {
+            chmod($file, 0600);
+            $this->markTestSkipped('The current user can read files with mode 000.');
+        }
+
+        $this->executeTarget(__FUNCTION__);
+
+        $this->assertFileDoesNotExist($file);
+    }
 }

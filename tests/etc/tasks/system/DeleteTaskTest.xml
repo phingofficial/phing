@@ -38,6 +38,18 @@
         </delete>
     </target>
 
+    <target name="testDeleteUnreadableFile">
+        <delete file="${tmp.dir}/unreadable-file" failonerror="true"/>
+    </target>
+
+    <target name="testDeleteUnreadableFileFromFileset">
+        <delete failonerror="true">
+            <fileset dir="${tmp.dir}">
+                <include name="unreadable-fileset-file"/>
+            </fileset>
+        </delete>
+    </target>
+
     <target name="testDeleteNonExistingDirectory">
         <delete dir="${tmp.dir}/base/non-existing-dir" failonerror="true"/>
     </target>

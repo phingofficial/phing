@@ -839,7 +839,7 @@ class DirectoryScanner implements FileScanner, SelectorScanner
      */
     protected function isSelected($name, $file)
     {
-        if (null !== $this->selectorsList) {
+        if (!empty($this->selectorsList)) {
             $basedir = new File($this->basedir);
             $file = new File($file);
             if (!$file->canRead()) {
