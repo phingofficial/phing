@@ -496,7 +496,7 @@ class WindowsFileSystem extends FileSystem
      */
     private function isPharArchive($strPath)
     {
-        return 0 === strpos($strPath, 'phar://');
+        return str_starts_with($strPath, 'phar://');
     }
 
     /**

@@ -210,7 +210,7 @@ class GlobMapper implements FileNameMapper
             $name = strtolower($name);
         }
         if ($this->handleDirSep) {
-            if (false !== strpos('\\', $name)) {
+            if (str_contains('\\', $name)) {
                 $name = str_replace('\\', '/', $name);
             }
         }

@@ -72,7 +72,7 @@ class PhpLintTask extends Task
      */
     public function setInterpreter($sPhp)
     {
-        if (false !== strpos($sPhp, ' ')) {
+        if (str_contains($sPhp, ' ')) {
             $sPhp = escapeshellarg($sPhp);
         }
         $this->interpreter = $sPhp;
@@ -204,7 +204,7 @@ class PhpLintTask extends Task
             ? 'php'
             : $this->interpreter;
 
-        if (false !== strpos($command, 'hhvm')) {
+        if (str_contains($command, 'hhvm')) {
             $command .= ' --no-config -l';
         } else {
             if ($this->deprecatedAsError) {

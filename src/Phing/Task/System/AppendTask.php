@@ -280,7 +280,7 @@ class AppendTask extends Task
                             $this->appendFiles($writer, $files, $fs->getDir($this->project));
                         }
                     } catch (BuildException $be) {
-                        if (false === strpos($be->getMessage(), 'is the same as the output file')) {
+                        if (!str_contains($be->getMessage(), 'is the same as the output file')) {
                             $this->log($be->getMessage(), Project::MSG_WARN);
                         } else {
                             throw new BuildException($be->getMessage());

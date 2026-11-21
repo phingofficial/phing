@@ -249,9 +249,9 @@ class GrowlNotifyTask extends Task
         }
 
         // relative location
-        if (0 === strpos($icon, '..')) {
+        if (str_starts_with($icon, '..')) {
             $icon = realpath(__DIR__ . DIRECTORY_SEPARATOR . $icon);
-        } elseif (0 === strpos($icon, '.')) {
+        } elseif (str_starts_with($icon, '.')) {
             $icon = __DIR__ . substr($icon, 1);
         }
 
@@ -415,9 +415,9 @@ class GrowlNotifyTask extends Task
         }
 
         // relative location
-        if (0 === strpos($icon, '..')) {
+        if (str_starts_with($icon, '..')) {
             $icon = realpath(__DIR__ . DIRECTORY_SEPARATOR . $icon);
-        } elseif (0 === strpos($icon, '.')) {
+        } elseif (str_starts_with($icon, '.')) {
             $icon = __DIR__ . substr($icon, 1);
         }
 

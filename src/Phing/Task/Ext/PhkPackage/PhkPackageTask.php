@@ -249,7 +249,7 @@ class PhkPackageTask extends Task
             /*
              * Delete all '--- *' lines. Bluh!
              */
-            if (0 === strpos($line, '---')) {
+            if (str_starts_with($line, '---')) {
                 continue;
             }
 
