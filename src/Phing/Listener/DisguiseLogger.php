@@ -31,6 +31,8 @@ class DisguiseLogger extends DefaultLogger
     {
         $this->maskUriPassword($event);
         $this->maskGitHubTokens($event);
+        $this->maskBearerTokens($event);
+        $this->maskNamedSecrets($event);
         parent::messageLogged($event);
     }
 
@@ -82,5 +84,21 @@ class DisguiseLogger extends DefaultLogger
         $regex->setReplace('$1*****');
         $maskedMessage = $regex->replace($event->getMessage());
         $event->setMessage($maskedMessage, $event->getPriority());
+    }
+
+    protected function maskBearerTokens(BuildEvent $event): void
+    {
+        $event->setMessage(
+            preg_replace('/(\bAuthorization\s*:\s*Bearer\s+)\S+/i', '$1*****', $event->getMessage()),
+            $event->getPriority()
+        );
+    }
+
+    protected function maskNamedSecrets(BuildEvent $event): void
+    {
+        $event->setMessage(
+            preg_replace('/(\b(?:password|passwd|token|api[_-]?key)\s*[=:]\s*)(["\']?)[^\s,"\']+\2/i', '$1$2*****$2', $event->getMessage()),
+            $event->getPriority()
+        );
     }
 }
